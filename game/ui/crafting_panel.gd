@@ -181,7 +181,7 @@ func _draw() -> void:
 			draw_rect(rect, Color(0.16, 0.18, 0.25, 1.0))
 			draw_rect(rect, EDGE, false, 1.0)
 		var name := String(ItemCatalog.item(String(recipe["item"]))["name"])
-		_text(name, rect.position + Vector2(4, 10), 7, TEXT if can else DIM, HORIZONTAL_ALIGNMENT_LEFT, LIST_W - 8.0)
+		_text(name, rect.position + Vector2(4, 10), 7, TEXT if can else MUTED, HORIZONTAL_ALIGNMENT_LEFT, LIST_W - 8.0)
 	if _recipes.is_empty():
 		_text("Aqui aun no hay nada que fabricar.", Vector2(LIST_X, 74), 7, DIM)
 		return

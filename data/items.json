@@ -1,5 +1,5 @@
 {
-	"_doc": "Items, rarezas y botin. Esquema en combat/item_catalog.gd. Numeros provisionales (tier 1, rareza comun).",
+	"_doc": "Items, rarezas y botin. Esquema en combat/item_catalog.gd. Numeros provisionales (tier 1, rareza comun). 'look' (opcional): capa LPC que muestra el item: slot (main_hand/head/chest/legs/feet), piece y variants (la rareza elige la variante).",
 	"bag_size": 40,
 	"tier_scale": 0.3,
 	"rarities": [
@@ -121,7 +121,14 @@
 				"weapon_max": 5,
 				"strength": 2
 			},
-			"value": 20
+			"value": 20,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_arming",
+				"variants": [
+					"default"
+				]
+			}
 		},
 		{
 			"id": "hunting_knife",
@@ -135,7 +142,14 @@
 				"weapon_max": 4,
 				"agility": 2
 			},
-			"value": 20
+			"value": 20,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_dagger",
+				"variants": [
+					"default"
+				]
+			}
 		},
 		{
 			"id": "oak_staff",
@@ -149,7 +163,14 @@
 				"weapon_max": 4,
 				"intellect": 2
 			},
-			"value": 20
+			"value": 20,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_staff",
+				"variants": [
+					"default"
+				]
+			}
 		},
 		{
 			"id": "short_bow",
@@ -163,7 +184,14 @@
 				"weapon_max": 4,
 				"agility": 2
 			},
-			"value": 20
+			"value": 20,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_bow",
+				"variants": [
+					"default"
+				]
+			}
 		},
 		{
 			"id": "leather_cap",
@@ -173,7 +201,15 @@
 				"armor": 4,
 				"stamina": 1
 			},
-			"value": 12
+			"value": 12,
+			"look": {
+				"slot": "head",
+				"piece": "hood",
+				"variants": [
+					"brown",
+					"forest"
+				]
+			}
 		},
 		{
 			"id": "cloth_hood",
@@ -183,7 +219,15 @@
 				"armor": 2,
 				"intellect": 1.5
 			},
-			"value": 12
+			"value": 12,
+			"look": {
+				"slot": "head",
+				"piece": "hood",
+				"variants": [
+					"forest",
+					"brown"
+				]
+			}
 		},
 		{
 			"id": "leather_vest",
@@ -193,7 +237,15 @@
 				"armor": 8,
 				"stamina": 2
 			},
-			"value": 18
+			"value": 18,
+			"look": {
+				"slot": "chest",
+				"piece": "armour_leather",
+				"variants": [
+					"walnut_iron",
+					"black_iron"
+				]
+			}
 		},
 		{
 			"id": "padded_robe",
@@ -204,7 +256,15 @@
 				"intellect": 2,
 				"stamina": 1
 			},
-			"value": 18
+			"value": 18,
+			"look": {
+				"slot": "chest",
+				"piece": "shirt_longsleeve",
+				"variants": [
+					"tan",
+					"navy"
+				]
+			}
 		},
 		{
 			"id": "leather_pants",
@@ -214,7 +274,15 @@
 				"armor": 6,
 				"stamina": 1
 			},
-			"value": 14
+			"value": 14,
+			"look": {
+				"slot": "legs",
+				"piece": "pants",
+				"variants": [
+					"brown",
+					"charcoal"
+				]
+			}
 		},
 		{
 			"id": "cloth_trousers",
@@ -224,7 +292,15 @@
 				"armor": 3,
 				"intellect": 1.5
 			},
-			"value": 14
+			"value": 14,
+			"look": {
+				"slot": "legs",
+				"piece": "pants_dyed",
+				"variants": [
+					"walnut",
+					"navy"
+				]
+			}
 		},
 		{
 			"id": "worn_boots",
@@ -234,7 +310,15 @@
 				"armor": 3,
 				"agility": 1
 			},
-			"value": 10
+			"value": 10,
+			"look": {
+				"slot": "feet",
+				"piece": "boots_basic",
+				"variants": [
+					"leather",
+					"black"
+				]
+			}
 		},
 		{
 			"id": "traveler_shoes",
@@ -244,7 +328,14 @@
 				"armor": 2,
 				"stamina": 1.5
 			},
-			"value": 10
+			"value": 10,
+			"look": {
+				"slot": "feet",
+				"piece": "shoes_basic",
+				"variants": [
+					"leather"
+				]
+			}
 		},
 		{
 			"id": "copper_ring",

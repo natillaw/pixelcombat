@@ -29,6 +29,8 @@ var sprite: AnimatedSprite2D
 const FACING_HYSTERESIS := 1.15
 
 var _facing: String = "down"
+## Huella del aspecto mostrado (clase + equipo) para recomponer solo si cambia.
+var _look_key: String = ""
 var _current_skill: Dictionary = {}
 var _flash: float = 0.0
 var _dead_visual: bool = false
@@ -46,7 +48,8 @@ func setup(p_sim: PlayerSim, p_arena: Arena) -> void:
 func _build_sprite() -> void:
 	sprite = AnimatedSprite2D.new()
 	sprite.name = "LpcSprite"
-	sprite.sprite_frames = ClassLook.frames(sim.class_id)
+	_look_key = str(ClassLook.equipment(sim.class_id, sim.equipment).hash())
+	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment)
 	sprite.position = LpcComposer.FEET_OFFSET
 	sprite.centered = true
 	sprite.z_index = 1
@@ -72,6 +75,7 @@ func _connect_signals() -> void:
 	sim.xp_gained.connect(_on_xp_gained)
 	sim.leveled_up.connect(_on_leveled_up)
 	sim.class_changed.connect(_on_class_changed)
+	sim.inventory_changed.connect(_refresh_look)
 	sim.buff_changed.connect(_on_buff_changed)
 	sim.projectiles_launched.connect(_on_projectiles_launched)
 	sim.status_applied.connect(_on_status_applied)
@@ -307,8 +311,24 @@ func _on_attack_blocked(source_position: Vector2) -> void:
 
 
 ## Cambio de clase: nuevo aspecto LPC (otro equipo y otra arma).
+## El equipo cambio: recompone el sprite si cambia lo que se ve (conserva la animacion).
+func _refresh_look() -> void:
+	var worn_key := str(ClassLook.equipment(sim.class_id, sim.equipment).hash())
+	if worn_key == _look_key:
+		return
+	_look_key = worn_key
+	var animation := sprite.animation
+	var frame := sprite.frame
+	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment)
+	if sprite.sprite_frames.has_animation(animation):
+		sprite.animation = animation
+		sprite.frame = frame
+		sprite.play()
+
+
 func _on_class_changed(_new_class_id: String) -> void:
-	sprite.sprite_frames = ClassLook.frames(sim.class_id)
+	_look_key = str(ClassLook.equipment(sim.class_id, sim.equipment).hash())
+	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment)
 	sprite.play("combat_idle_%s" % _facing)
 	_current_skill = {}
 	if arena != null:

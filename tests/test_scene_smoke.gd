@@ -76,6 +76,10 @@ func _run() -> void:
 	await _frames(2)
 	_check(world.player.bag.size() == bag_before_craft + 1, "fabricar desde el panel anade el item")
 	crafting.close()
+	var actor_key: String = main.arena.player_actor._look_key
+	world.player.equip_from_bag(world.player.bag.size() - 1)
+	await _frames(3)
+	_check(main.arena.player_actor._look_key != actor_key and world.player.equipment.size() == 1, "equipar un item recompone el sprite del jugador")
 	_check(not crafting.is_open and not TickManager.is_paused(), "cerrar el taller reanuda el juego")
 	var inventory: InventoryPanel = main.get("inventory_panel")
 	inventory._toggle()

@@ -21,18 +21,24 @@ static func look(class_id: String) -> Dictionary:
 	}
 
 
-## Equipo visible: slot -> [pieza, variante].
-static func equipment(class_id) -> Dictionary:
+## Equipo visible: slot -> [pieza, variante]. Parte del atuendo de la clase y, por
+## encima, las piezas de los items equipados (`worn`: ranura -> item) que tengan capa
+## LPC; asi un item equipado sustituye a la pieza de la clase en su hueco.
+static func equipment(class_id: String, worn: Dictionary = {}) -> Dictionary:
 	var spec: Dictionary = ClassCatalog.class_def(class_id).get("look", {})
 	var out: Dictionary = {"_items": true}
-	var worn: Dictionary = spec.get("equipment", {})
-	for slot: String in worn:
-		out[slot] = worn[slot]
+	var defaults: Dictionary = spec.get("equipment", {})
+	for slot: String in defaults:
+		out[slot] = defaults[slot]
+	for item_slot: String in worn:
+		var layer := ItemCatalog.look_layer(worn[item_slot])
+		if not layer.is_empty():
+			out[String(layer[0])] = layer[1]
 	return out
 
 
-static func frames(class_id: String) -> SpriteFrames:
-	return LpcComposer.build_frames_for(look(class_id), "class." + class_id, equipment(class_id))
+static func frames(class_id: String, worn: Dictionary = {}) -> SpriteFrames:
+	return LpcComposer.build_frames_for(look(class_id), "class." + class_id, equipment(class_id, worn))
 
 
 static func portrait(class_id: String) -> Texture2D:

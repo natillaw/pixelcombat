@@ -30,6 +30,7 @@ func _run() -> void:
 	_test_sell_and_gold()
 	_test_floor_chest()
 	_test_save_roundtrip()
+	_test_visible_gear()
 	SaveGame.delete(SAVE_PATH)
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
@@ -453,6 +454,50 @@ func _test_save_roundtrip() -> void:
 	var fresh := _new_player()
 	fresh.import_state(data)
 	_check(fresh.bag.size() == player.bag.size(), "los items invalidos se descartan al cargar")
+
+
+func _test_visible_gear() -> void:
+	var index: Dictionary = LpcComposer.index()
+	var pieces: Dictionary = index.get("pieces", {})
+	var all_ok := true
+	var reason := ""
+	var with_look := 0
+	for base: Dictionary in ItemCatalog.items():
+		if not base.has("look"):
+			continue
+		with_look += 1
+		var look: Dictionary = base["look"]
+		if not pieces.has(String(look["piece"])):
+			all_ok = false
+			reason = "%s: pieza %s no existe" % [base["id"], look["piece"]]
+			continue
+		for variant: String in look["variants"]:
+			for body: String in ["male", "female"]:
+				var layers := LpcComposer.layers_from([[String(look["piece"]), variant]], body)
+				if layers.is_empty():
+					all_ok = false
+					reason = "%s: %s/%s sin capas (%s)" % [base["id"], look["piece"], variant, body]
+	_check(all_ok and with_look >= 12, "cada item con look usa piezas LPC y variantes que existen (%s)" % reason)
+	var without := ItemCatalog.items().filter(func(b: Dictionary) -> bool: return not b.has("look")).map(func(b: Dictionary) -> String: return String(b["slot"]))
+	_check(without.all(func(slot: String) -> bool: return slot == "ring"), "solo los anillos no se ven")
+	var vest := {"id": "leather_vest", "rarity": "common", "tier": 1, "stats": {"armor": 8.0}}
+	var epic_vest := {"id": "leather_vest", "rarity": "epic", "tier": 1, "stats": {"armor": 8.0}}
+	_check(ItemCatalog.look_layer(vest) == ["chest", ["armour_leather", "walnut_iron"]] and ItemCatalog.look_layer(epic_vest) == ["chest", ["armour_leather", "black_iron"]], "la rareza elige la variante del aspecto")
+	_check(ItemCatalog.look_layer({"id": "copper_ring", "rarity": "rare", "tier": 1, "stats": {}}).is_empty(), "un anillo no tiene capa visible")
+	var default_look: Dictionary = ClassLook.equipment("warrior")
+	_check(default_look["chest"] == ["armour_plate", "steel"], "sin equipo se ve el atuendo de la clase")
+	var worn := {"chest": vest, "weapon": {"id": "iron_sword", "rarity": "common", "tier": 1, "stats": {}}, "ring": {"id": "copper_ring", "rarity": "common", "tier": 1, "stats": {}}}
+	var dressed: Dictionary = ClassLook.equipment("warrior", worn)
+	_check(dressed["chest"] == ["armour_leather", "walnut_iron"] and dressed["main_hand"] == ["weapon_arming", "default"], "el item equipado sustituye a la pieza de la clase en su hueco")
+	_check(dressed["legs"] == default_look["legs"] and dressed["head"] == default_look["head"], "los huecos sin item conservan la pieza de la clase")
+	var plain_frames := ClassLook.frames("warrior")
+	var dressed_frames := ClassLook.frames("warrior", worn)
+	_check(plain_frames != dressed_frames and dressed_frames.has_animation("walk_down"), "el equipo recompone el sprite y conserva las animaciones")
+	_check(ClassLook.frames("warrior", worn) == dressed_frames, "el sprite con el mismo equipo sale de la cache")
+	for class_id: String in ClassCatalog.all_ids():
+		var weapon_item: Dictionary = ItemCatalog.items_for("weapon", class_id)[0]
+		var gear := {"weapon": {"id": String(weapon_item["id"]), "rarity": "common", "tier": 1, "stats": {}}}
+		_check(ClassLook.frames(class_id, gear).has_animation("idle_down"), "%s se compone con su arma equipada" % class_id)
 
 
 func _check(condition: bool, label: String) -> void:

@@ -10,6 +10,8 @@
 ##   (rarities y items llevan `value_mult` / `value`: precio de venta)
 ##   loot: {normal_chance, boss_chance, gold_per_xp, rarity_bonus: {origen: bonus}}; el bonus
 ##          multiplica el peso de cada rareza por (1 + bonus x posicion)
+## `look` (opcional) en un item base: {slot, piece, variants} es la capa LPC que el item
+## muestra en el personaje (ver ClassLook); sin `look` (anillos) no se ve.
 ## Un item concreto es un Diccionario {id, rarity, tier, stats} (ver ItemGen).
 class_name ItemCatalog
 extends RefCounted
@@ -147,6 +149,18 @@ static func display_name(entry: Dictionary) -> String:
 	return String(base["name"]) if prefix == "" or String(entry.get("rarity", "common")) == "common" else "%s (%s)" % [base["name"], prefix]
 
 
+## Capa LPC que muestra un item concreto: [slot_visual, [pieza, variante]] o [] si no se
+## ve. La variante sube con la rareza (cada tres rangos pasa a la siguiente).
+static func look_layer(entry: Dictionary) -> Array:
+	var base := item(String(entry.get("id", "")))
+	if base.is_empty() or not base.has("look"):
+		return []
+	var look: Dictionary = base["look"]
+	var variants: Array = look["variants"]
+	var pick := mini(variants.size() - 1, maxi(rarity_rank(String(entry.get("rarity", "common"))), 0) / 3)
+	return [String(look["slot"]), [String(look["piece"]), String(variants[pick])]]
+
+
 ## Un item concreto es valido si su base existe, su rareza existe y solo trae stats conocidos.
 static func is_valid_item(entry: Variant) -> bool:
 	if not (entry is Dictionary):
@@ -246,6 +260,10 @@ static func validate(data: Dictionary) -> Array[String]:
 			for stat: Variant in (spec["stats"] as Dictionary):
 				if not STATS.has(String(stat)) or not _is_number((spec["stats"] as Dictionary)[stat]) or float((spec["stats"] as Dictionary)[stat]) <= 0.0:
 					problems.append("item %s: stat invalido '%s'" % [id, str(stat)])
+		if spec.has("look"):
+			var look: Variant = spec["look"]
+			if not (look is Dictionary) or not ["main_hand", "head", "chest", "legs", "feet"].has(String((look as Dictionary).get("slot", ""))) or String((look as Dictionary).get("piece", "")).is_empty() or not ((look as Dictionary).get("variants") is Array) or ((look as Dictionary)["variants"] as Array).is_empty():
+				problems.append("item %s: look necesita slot, piece y variants" % id)
 		if spec.has("classes") and (not (spec["classes"] is Array) or (spec["classes"] as Array).is_empty()):
 			problems.append("item %s: classes debe ser una lista no vacia" % id)
 	for slot_id: String in slot_ids:
