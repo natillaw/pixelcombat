@@ -1,0 +1,168 @@
+{
+  "name": "SpritePilot Creatures Pack",
+  "license": "CC0-1.0",
+  "source": "https://spritepilot.com/free-game-assets",
+  "layout": "Each PNG is one row of square frames, left to right. The file name gives the frame size and count: explosion-32px_strip10.png is 10 frames of 32 × 32.",
+  "effects": [
+    {
+      "id": "bat",
+      "name": "Bat",
+      "frames": 8,
+      "fps": 14,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/bat-16px_strip8.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/bat-32px_strip8.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/bat-preview.gif"
+    },
+    {
+      "id": "slime",
+      "name": "Slime",
+      "frames": 10,
+      "fps": 10,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/slime-16px_strip10.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/slime-32px_strip10.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/slime-preview.gif"
+    },
+    {
+      "id": "ghost",
+      "name": "Ghost",
+      "frames": 12,
+      "fps": 10,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/ghost-16px_strip12.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/ghost-32px_strip12.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/ghost-preview.gif"
+    },
+    {
+      "id": "bee",
+      "name": "Bee",
+      "frames": 8,
+      "fps": 16,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/bee-16px_strip8.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/bee-32px_strip8.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/bee-preview.gif"
+    },
+    {
+      "id": "fish",
+      "name": "Fish",
+      "frames": 8,
+      "fps": 10,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/fish-16px_strip8.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/fish-32px_strip8.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/fish-preview.gif"
+    },
+    {
+      "id": "bird",
+      "name": "Bird",
+      "frames": 8,
+      "fps": 12,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/bird-16px_strip8.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/bird-32px_strip8.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/bird-preview.gif"
+    },
+    {
+      "id": "spider",
+      "name": "Spider",
+      "frames": 12,
+      "fps": 10,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/spider-16px_strip12.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/spider-32px_strip12.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/spider-preview.gif"
+    },
+    {
+      "id": "beetle",
+      "name": "Beetle",
+      "frames": 8,
+      "fps": 12,
+      "loop": true,
+      "sheets": [
+        {
+          "file": "16px/beetle-16px_strip8.png",
+          "frameWidth": 16,
+          "frameHeight": 16
+        },
+        {
+          "file": "32px/beetle-32px_strip8.png",
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      ],
+      "preview": "previews/beetle-preview.gif"
+    }
+  ]
+}

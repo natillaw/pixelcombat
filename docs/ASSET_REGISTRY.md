@@ -59,6 +59,15 @@ Los frames son de 64×64; las filas son arriba, izquierda, abajo, derecha.
 | `Hit_Impact/Impact2.wav` | golpe del muñeco |
 | `Alert/Alert2.wav` | telegráfico del muñeco |
 
+## Inventario de `new assets`
+
+Veredicto de licencia pack por pack en
+[`INVENTARIO_NEW_ASSETS.md`](INVENTARIO_NEW_ASSETS.md).
+
+| Asset | Ruta | Uso | Licencia | Estado |
+|---|---|---|---|---|
+| **SpritePilot Creatures Pack** | `assets/pixel/enemies/spritepilot_creatures/` | Primeros enemigos (murciélago, slime, fantasma, araña, escarabajo...) | CC0 1.0 | Importado, sin integrar en escena |
+
 ## Disponible para futuros cortes
 
 | Pack | Ruta | Uso previsto | Licencia | Nota |
