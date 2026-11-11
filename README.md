@@ -8,8 +8,11 @@ de la torre. PvP planificado: las clases se diseñan para ser balanceables.
 Cuatro clases base: **Warrior, Rogue, Mage y Archer**, cada una con muchas
 subclases (comunes, raras, únicas y legendarias).
 
-Estado actual: el **Warrior** es jugable en un patio de entrenamiento (M1, M2,
-Rage, pasiva, muñeco, HUD). El resto está en el [roadmap](docs/ROADMAP.md).
+Estado actual: las **cuatro clases son jugables** en un patio de entrenamiento con
+muñecos y enemigos con telegraph. Cada una tiene M1, M2, sus skills, Special y
+Ultimate, su recurso propio (Rage, Energy o Mana), su nivel y su loadout. Se
+cambia de clase en el panel Tab o con F7. El resto está en el
+[roadmap](docs/ROADMAP.md).
 
 ## Requisitos
 
@@ -38,13 +41,14 @@ La primera vez, o tras cambiar muchos assets, importa:
 |---|---|
 | WASD | Mover |
 | Ratón | Apuntar |
-| Clic izquierdo | M1 · Sword Slash: ataque básico con 3 cargas que se recuperan solas (mantener para encadenar) |
-| Clic derecho | M2 · Heavy Strike: especial; mantén el botón tras el golpe inicial para potenciarlo (+60 % daño, +25 % alcance a 0,6 s) |
+| Clic izquierdo | M1: ataque básico con cargas que se recuperan solas (mantener para encadenar) |
+| Clic derecho | M2: ataque especial; mantén el botón para cargarlo (más daño y alcance) |
 | Espacio | Esquiva (i-frames, cancela windup/recovery, cooldown 1,1 s) |
-| 1-5 | Skills S1-S5. Se **desbloquean por nivel**: nivel 2 Piercing Thrust (15 Rage), nivel 4 Cleaving Strike (20 Rage). Empiezas con solo M1, M2 y esquiva; la XP sale de matar enemigos |
-| Q | Special Iron Counter (nivel 6, 30 Rage): postura frontal que bloquea el primer golpe y contraataca |
-| F | Ultimate War God's Descent (nivel 8; necesita la barra al 100 %, que sube al conectar golpes) |
-| Tab | Panel de loadout: equipa las skills desbloqueadas (pausa el juego) |
+| 1-5 | Skills S1-S5. Se **desbloquean por nivel** (niveles 2, 4 y 10 las de cada clase). Empiezas con solo M1, M2 y esquiva; la XP sale de matar enemigos |
+| Q | Special (nivel 6, cuesta 30): Iron Counter, Perfect Evasion, Arcane Overload o Deadeye |
+| F | Ultimate (nivel 8; necesita la barra al 100 %, que sube al conectar golpes) |
+| Tab | Panel de loadout: pestañas de clase y skills desbloqueadas (pausa el juego) |
+| F7 | Depuración: pasar a la siguiente clase |
 | F5 / F6 | Depuración: subir un nivel / volver al nivel 1 |
 | R | Reiniciar entrenamiento |
 | F3 | Overlay de debug |
@@ -76,12 +80,12 @@ Una suite suelta:
 | Ruta | Contenido |
 |---|---|
 | `game/` | Escena principal, arena, actores, VFX, HUD y simulación del corte actual |
-| `game/sim/` | Simulación determinista (`CombatWorld` → `PlayerSim`, `EnemySim`, `DummySim`) |
+| `game/sim/` | Simulación determinista (`CombatWorld` → `PlayerSim`, `EnemySim`, `ProjectileSim`, `DummySim`) |
 | `combat/` | Núcleo de combate reutilizable: stats, skills, efectos, kits de clase |
 | `core/` | Tick fijo (`TickManager`, `Tickable`) |
 | `net/` | Capa de red dormida: `InputMessage`, snapshots, predicción |
 | `ui/` | Overlay de debug |
-| `data/` | Contenido dirigido por datos: `skills/` y `enemies/` hoy; items, recetas y pisos después |
+| `data/` | Contenido dirigido por datos: `classes/`, `skills/`, `enemies/` y `progression.json` hoy; items, recetas y pisos después |
 | `assets/` | Arte LPC, fuentes, SFX y packs usados por el juego |
 | `docs/` | Roadmap, decisiones, arquitectura y diseño |
 

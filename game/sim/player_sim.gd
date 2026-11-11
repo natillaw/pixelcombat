@@ -14,7 +14,7 @@ class_name PlayerSim
 extends RefCounted
 
 signal health_changed(current: float, maximum: float)
-signal rage_changed(current: float, maximum: float)
+signal resource_changed(current: float, maximum: float)
 signal attack_started(skill: Dictionary, direction: Vector2)
 signal attack_hit(skill: Dictionary, target: Object, damage: float, critical: bool, hit_position: Vector2)
 signal attack_finished(skill: Dictionary)
@@ -33,6 +33,9 @@ signal xp_gained(amount: int, source_position: Vector2)
 signal xp_changed(xp: int, to_next: int, level: int)
 signal leveled_up(new_level: int, unlocked: Array)
 signal loadout_changed()
+signal class_changed(class_id: String)
+signal buff_changed(active: bool, multiplier: float, seconds_left: float)
+signal projectiles_launched(skill: Dictionary, direction: Vector2)
 
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
@@ -52,14 +55,6 @@ const BUFFER_SECONDS := 0.25
 const SKILL_SLOTS := ["S1", "S2", "S3", "S4", "S5"]
 ## Slots que se lanzan al pulsar (M1 se lanza manteniendo el boton).
 const EDGE_SLOTS := ["M2", "S1", "S2", "S3", "S4", "S5", "SPECIAL", "ULTIMATE"]
-const DEFAULT_LOADOUT := {
-	"M1": &"warrior_m1",
-	"M2": &"warrior_m2",
-	"S1": &"cleaving_strike",
-	"S2": &"piercing_thrust",
-	"SPECIAL": &"iron_counter",
-	"ULTIMATE": &"war_gods_descent",
-}
 const CRIT_MULTIPLIER := 1.5
 
 var world: Object = null
@@ -112,8 +107,21 @@ var vengeful_until_tick: int = 0
 
 var tick: int = 0
 var last_combat_tick: int = 0
-var swing_resource_gained: float = 0.0
-var swing_ult_gained: float = 0.0
+## Recurso y carga de ultimate ganados en el lanzamiento actual (para respetar el
+## tope por lanzamiento de resource_cap y ult_cap).
+var _swing_tracker: Dictionary = {"resource": 0.0, "ult": 0.0}
+
+## Clase jugada y su definicion (data/classes). El nivel, la XP y el loadout se
+## guardan por clase en `progress` al cambiar de clase.
+var class_id: String = "warrior"
+var class_def: Dictionary = {}
+var resource_kind: String = "rage"
+var progress: Dictionary = {}
+
+## Mejora del siguiente ataque (Special de Mage/Archer, evasion del Rogue).
+var empower_mult: float = 1.0
+var empower_until_tick: int = 0
+var _strike_index: int = 0
 var _attack_damage_mult: float = 1.0
 
 var _m1_held: bool = false
@@ -125,13 +133,20 @@ var _dodge_prev: bool = false
 var _rng: RandomNumberGenerator
 
 
-func _init(p_world: Object = null) -> void:
+func _init(p_world: Object = null, p_class_id: String = "warrior") -> void:
 	world = p_world
 	_rng = _make_rng()
+	_set_class_data(p_class_id if ClassCatalog.has_class(p_class_id) else "warrior")
 	_build_stats()
-	resource = WarriorKit.create_rage_resource()
-	set_loadout(DEFAULT_LOADOUT)
+	resource = ClassCatalog.create_resource(class_id)
+	_auto_equip(_ids_unlocked_between(0, level))
 	reset(position)
+
+
+func _set_class_data(new_class_id: String) -> void:
+	class_id = new_class_id
+	class_def = ClassCatalog.class_def(class_id)
+	resource_kind = String(class_def["resource"]["kind"])
 
 
 ## Equipa skills por slot ({"M1": id, "M2": id, "S1": id, ...} ) sustituyendo el
@@ -156,13 +171,15 @@ func _equip_internal(slot: String, skill: Dictionary) -> void:
 
 
 ## "" si `id` se puede equipar en `slot`; si no, el motivo: "slot", "unknown",
-## "not_implemented", "locked" (nivel insuficiente) o "wrong_slot".
+## "not_implemented", "locked" (nivel insuficiente), "wrong_class" o "wrong_slot".
 func _equip_reason(slot: String, id: StringName) -> String:
 	if slot != "M1" and slot != "M2" and slot != "SPECIAL" and slot != "ULTIMATE" and not SKILL_SLOTS.has(slot):
 		return "slot"
 	var skill: Dictionary = SkillCatalog.skill(id)
 	if skill.is_empty():
 		return "unknown"
+	if String(skill.get("class", "")) != class_id:
+		return "wrong_class"
 	if not bool(skill.get("implemented", false)):
 		return "not_implemented"
 	if int(skill["unlock_level"]) > level:
@@ -281,7 +298,7 @@ func _apply_level_change(previous: int) -> void:
 ## orden de nivel.
 func _ids_unlocked_between(from_level: int, to_level: int) -> Array:
 	var found: Array = []
-	for id: StringName in SkillCatalog.all_ids():
+	for id: StringName in SkillCatalog.ids_for_class(class_id):
 		var skill: Dictionary = SkillCatalog.skill(id)
 		var unlock_at := int(skill["unlock_level"])
 		if bool(skill.get("implemented", false)) and unlock_at > from_level and unlock_at <= to_level:
@@ -290,7 +307,8 @@ func _ids_unlocked_between(from_level: int, to_level: int) -> Array:
 	return found.map(func(entry: Dictionary) -> StringName: return entry["id"])
 
 
-## Pone cada skill recien desbloqueada en su slot preferido (el de DEFAULT_LOADOUT)
+## Pone cada skill recien desbloqueada en su slot preferido (el del default_loadout
+## de la clase)
 ## si esta libre, o en el primer slot libre donde quepa.
 func _auto_equip(ids: Array) -> void:
 	for id: StringName in ids:
@@ -302,8 +320,9 @@ func _auto_equip(ids: Array) -> void:
 		if already:
 			continue
 		var target := ""
-		for slot: String in DEFAULT_LOADOUT:
-			if DEFAULT_LOADOUT[slot] == id and not loadout.has(slot) and slot_accepts(slot, skill):
+		var defaults: Dictionary = class_def["default_loadout"]
+		for slot: String in defaults:
+			if StringName(String(defaults[slot])) == id and not loadout.has(slot) and slot_accepts(slot, skill):
 				target = slot
 		if target.is_empty():
 			for slot: String in ["M1", "M2", "S1", "S2", "S3", "S4", "S5", "SPECIAL", "ULTIMATE"]:
@@ -331,18 +350,19 @@ func _make_rng() -> RandomNumberGenerator:
 
 
 func _build_stats() -> void:
-	var growth: Dictionary = Progression.growth(WarriorKit.CLASS_ID)
+	var base: Dictionary = class_def["stats"]
+	var growth: Dictionary = Progression.growth(class_id)
 	var levels_gained := float(level - 1)
 	stats = CharacterStats.new()
-	stats.set_base_stat(&"strength", 20.0 + float(growth.get("strength_per_level", 0.0)) * levels_gained)
-	stats.set_base_stat(&"stamina", 18.0 + float(growth.get("stamina_per_level", 0.0)) * levels_gained)
-	stats.set_base_stat(&"agility", 10.0)
-	stats.set_base_stat(&"armor", 40.0 + float(growth.get("armor_per_level", 0.0)) * levels_gained)
+	stats.main_stat = StringName(String(class_def["main_stat"]))
+	for stat: String in ["strength", "agility", "stamina", "intellect", "armor"]:
+		stats.set_base_stat(StringName(stat), float(base[stat]) + float(growth.get(stat + "_per_level", 0.0)) * levels_gained)
 	stats.set_base_stat(&"attack_power_bonus", 0.0)
-	stats.set_base_stat(&"crit_chance", 0.10)
-	stats.set_base_stat(&"weapon_min", 12.0)
-	stats.set_base_stat(&"weapon_max", 18.0)
-	stats.set_base_stat(&"weapon_speed", 2.6)
+	stats.set_base_stat(&"spell_power_bonus", 0.0)
+	stats.set_base_stat(&"crit_chance", float(base["crit_chance"]))
+	stats.set_base_stat(&"weapon_min", float(base["weapon_min"]))
+	stats.set_base_stat(&"weapon_max", float(base["weapon_max"]))
+	stats.set_base_stat(&"weapon_speed", float(base["weapon_speed"]))
 	max_health = BASE_HEALTH + stats.get_stat(&"stamina") * HEALTH_PER_STAMINA
 	health = max_health
 
@@ -369,17 +389,19 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	vengeful_active = false
 	vengeful_until_tick = 0
 	last_combat_tick = 0
-	swing_resource_gained = 0.0
-	swing_ult_gained = 0.0
+	_swing_tracker = {"resource": 0.0, "ult": 0.0}
+	empower_mult = 1.0
+	empower_until_tick = 0
+	_strike_index = 0
 	hold_time = 0.0
 	_range_mult = 1.0
 	_refill_charges()
 	ultimate_charge = 0.0
 	attack_point = position
-	resource.current_amount = 0.0
+	resource.current_amount = float(class_def["resource"]["start"])
 	ultimate_changed.emit(ultimate_charge, WarriorKit.ULTIMATE_CHARGE_MAX)
 	health_changed.emit(health, max_health)
-	rage_changed.emit(resource.get_current(), resource.max_amount)
+	resource_changed.emit(resource.get_current(), resource.max_amount)
 	attack_state_changed.emit(state)
 
 
@@ -390,7 +412,7 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 	_update_dodge(delta)
 	_update_attack(delta)
 	_update_movement(delta)
-	_update_rage(delta)
+	_update_resource(delta)
 
 
 func _read_input(input: Object) -> void:
@@ -419,13 +441,16 @@ func _read_input(input: Object) -> void:
 		_slot_prev[slot] = pressed
 	# Atajos de depuracion (F5 sube un nivel, F6 vuelve al nivel 1): son acciones
 	# del input para que sigan siendo deterministas.
-	for action: String in ["debug_level_up", "debug_level_reset"]:
+	for action: String in ["debug_level_up", "debug_level_reset", "debug_class_next"]:
 		var down := bool(input.actions.get(action, false))
 		if down and not bool(_slot_prev.get(action, false)):
 			if action == "debug_level_up":
 				set_level(level + 1)
-			else:
+			elif action == "debug_level_reset":
 				reset_progression()
+			else:
+				var ids := ClassCatalog.all_ids()
+				switch_class(ids[(ids.find(class_id) + 1) % ids.size()])
 		_slot_prev[action] = down
 
 
@@ -497,6 +522,9 @@ func _update_attack(delta: float) -> void:
 
 	state_time += delta
 
+	if state == AttackState.ACTIVE and current_skill.has("strikes"):
+		_process_strikes()
+
 	if state == AttackState.WINDUP and state_time >= float(current_skill["windup"]):
 		if _is_charging(delta):
 			return
@@ -506,10 +534,7 @@ func _update_attack(delta: float) -> void:
 		if String(current_skill.get("anchor", "self")) == "aim_leap":
 			position = attack_point
 			velocity = Vector2.ZERO
-		if current_skill.has("stance"):
-			_stance_spent = false
-		else:
-			_resolve_attack_hit()
+		_enter_active()
 		attack_state_changed.emit(state)
 	elif state == AttackState.ACTIVE and state_time >= float(current_skill["active"]):
 		state = AttackState.RECOVERY
@@ -522,6 +547,78 @@ func _update_attack(delta: float) -> void:
 		current_skill = {}
 		attack_state_changed.emit(state)
 		attack_finished.emit(finished)
+
+
+## Lo que ocurre al empezar la fase ACTIVE segun el tipo de skill: abrir la
+## postura, aplicar la mejora, lanzar proyectiles, empezar los golpes multiples o
+## resolver el golpe.
+func _enter_active() -> void:
+	if current_skill.has("stance"):
+		_stance_spent = false
+		return
+	if current_skill.has("buff"):
+		var buff: Dictionary = current_skill["buff"]
+		_apply_buff(float(buff["next_damage_mult"]), float(buff["duration"]))
+		return
+	match String(current_skill.get("shape", "cone")):
+		"projectile":
+			_launch_projectiles()
+		"self":
+			pass
+		_:
+			if current_skill.has("strikes"):
+				_strike_index = 0
+				_process_strikes()
+			else:
+				_resolve_attack_hit()
+
+
+## Resuelve los golpes multiples que ya tocan segun el tiempo de la fase ACTIVE.
+## El ultimo golpe usa final_mult.
+func _process_strikes() -> void:
+	var strikes: Dictionary = current_skill["strikes"]
+	var count := int(strikes["count"])
+	var interval := float(strikes["interval"])
+	while _strike_index < count and state_time >= float(_strike_index) * interval:
+		var strike_mult := float(strikes["final_mult"]) if _strike_index == count - 1 else 1.0
+		_resolve_attack_hit(strike_mult)
+		_strike_index += 1
+
+
+## Lanza los proyectiles de la skill (en abanico si count > 1) con el dano ya
+## calculado (carga, mejoras, pasiva). Comparten el tope de recurso del lanzamiento.
+func _launch_projectiles() -> void:
+	if world == null:
+		return
+	var spec: Dictionary = current_skill["projectile"]
+	var count := int(spec["count"])
+	var spread := float(spec["spread"])
+	for i: int in range(count):
+		var offset := 0.0 if count == 1 else lerpf(-spread * 0.5, spread * 0.5, float(i) / float(count - 1))
+		var direction := attack_aim.rotated(deg_to_rad(offset))
+		var projectile := ProjectileSim.new(self, current_skill, direction, position + direction * (RADIUS - 2.0), _attack_damage_mult, _range_mult, _swing_tracker)
+		world.spawn_projectile(projectile)
+	projectiles_launched.emit(current_skill, attack_aim)
+
+
+## Mejora el siguiente ataque con dano x `multiplier` durante `seconds`. No se
+## acumula: volver a aplicarla la refresca.
+func _apply_buff(multiplier: float, seconds: float) -> void:
+	empower_mult = multiplier
+	empower_until_tick = tick + int(seconds * 60.0)
+	buff_changed.emit(true, empower_mult, seconds)
+
+
+func _consume_empower() -> void:
+	empower_mult = 1.0
+	empower_until_tick = 0
+	buff_changed.emit(false, 1.0, 0.0)
+
+
+func empower_seconds_left() -> float:
+	if empower_mult <= 1.0:
+		return 0.0
+	return maxf(0.0, float(empower_until_tick - tick) / 60.0)
 
 
 ## Mantener el boton de una skill con `hold` tras acabar el windup la carga hasta
@@ -563,7 +660,8 @@ func charge_fraction() -> float:
 func attack_range_now() -> float:
 	if current_skill.is_empty():
 		return 0.0
-	return float(current_skill["range"]) * _range_mult
+	var base_range: float = float(current_skill["range"]) if current_skill.has("range") else float(current_skill.get("projectile", {}).get("range", 0.0))
+	return base_range * _range_mult
 
 
 func charges_left(slot: String) -> float:
@@ -619,7 +717,7 @@ func _start_attack(slot: String) -> void:
 	var cost := float(current_skill.get("cost", 0.0))
 	if cost > 0.0:
 		resource.consume(cost)
-		rage_changed.emit(resource.get_current(), resource.max_amount)
+		resource_changed.emit(resource.get_current(), resource.max_amount)
 	if current_skill.has("charges"):
 		charges[slot] = maxf(0.0, float(charges.get(slot, 0.0)) - 1.0)
 	hold_time = 0.0
@@ -633,13 +731,19 @@ func _start_attack(slot: String) -> void:
 	attack_aim = aim_dir
 	state = AttackState.WINDUP
 	state_time = 0.0
-	swing_resource_gained = 0.0
-	swing_ult_gained = 0.0
+	_swing_tracker = {"resource": 0.0, "ult": 0.0}
+	_strike_index = 0
 	_attack_damage_mult = float(current_skill["damage_mult"])
+	if empower_mult > 1.0 and not current_skill.has("buff") and String(current_skill.get("shape", "cone")) != "self":
+		_attack_damage_mult *= empower_mult
+		_consume_empower()
 	attack_point = position
 	if String(current_skill.get("anchor", "self")) == "aim_leap":
 		var landing := position + attack_aim * float(current_skill["leap_distance"])
 		attack_point = world.resolve_position(landing, RADIUS) if world != null else landing
+	elif String(current_skill.get("anchor", "self")) == "aim_point":
+		var marked := position + attack_aim * float(current_skill["point_distance"])
+		attack_point = world.resolve_position(marked, RADIUS) if world != null else marked
 
 	if bool(current_skill.get("consumes_vengeful", false)) and vengeful_active:
 		_attack_damage_mult *= 1.0 + float(WarriorKit.PASSIVE["bonus"])
@@ -659,34 +763,58 @@ func _start_attack(slot: String) -> void:
 	attack_started.emit(current_skill, attack_aim)
 
 
-func _resolve_attack_hit() -> void:
+## Origen de la zona del golpe: el punto marcado (aim_point) o el propio jugador.
+func _hit_origin() -> Vector2:
+	if String(current_skill.get("anchor", "self")) == "aim_point":
+		return attack_point
+	return position
+
+
+## Golpea a los objetivos dentro de la forma de la skill actual (cone, line o
+## circle). Los proyectiles y las mejoras no usan esta ruta.
+func _resolve_attack_hit(strike_mult: float = 1.0) -> void:
 	if current_skill.is_empty() or world == null:
 		return
-	var targets: Array = _targets_in_shape(world.get_living_targets())
+	var shape := String(current_skill.get("shape", "cone"))
+	if shape == "projectile" or shape == "self":
+		return
+	for target: Object in _targets_in_shape(world.get_living_targets()):
+		_apply_skill_hit(target, current_skill, _attack_damage_mult * strike_mult * _zone_multiplier(target), _swing_tracker)
 
-	for target: Object in targets:
-		var critical: bool = _rng.randf() < stats.get_crit_chance()
-		var damage: float = stats.roll_weapon_damage(_rng) * _attack_damage_mult * _zone_multiplier(target)
-		if critical:
-			damage *= CRIT_MULTIPLIER
-		var dealt: float = target.take_damage(damage)
-		if not target.alive and target.has_method("xp_reward"):
-			grant_xp(int(target.xp_reward()), target.position)
 
-		var rage_left: float = float(current_skill["resource_cap"]) - swing_resource_gained
-		var resource_gain := minf(float(current_skill["resource_gain"]), maxf(rage_left, 0.0))
-		if resource_gain > 0.0:
-			swing_resource_gained += resource_gain
-			_gain_resource(resource_gain)
+## Un golpe de `skill` contra `target` con multiplicador `mult`: critico, tirada de
+## dano (fisico con arma o magico con Spell Power), XP si muere, recurso y carga de
+## ultimate (con los topes de `tracker`) y la senal attack_hit.
+func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: Dictionary) -> void:
+	var critical: bool = _rng.randf() < stats.get_crit_chance()
+	var roll: float = stats.roll_spell_damage(_rng) if String(skill.get("damage_type", "physical")) == "magic" else stats.roll_weapon_damage(_rng)
+	var damage: float = roll * mult
+	if critical:
+		damage *= CRIT_MULTIPLIER
+	var dealt: float = target.take_damage(damage)
+	if not target.alive and target.has_method("xp_reward"):
+		grant_xp(int(target.xp_reward()), target.position)
 
-		var ult_left: float = float(current_skill.get("ult_cap", 0.0)) - swing_ult_gained
-		var ult_gain := minf(float(current_skill.get("ult_gain", 0.0)), maxf(ult_left, 0.0))
-		if ult_gain > 0.0:
-			swing_ult_gained += ult_gain
-			_gain_ultimate(ult_gain)
+	var resource_left: float = float(skill["resource_cap"]) - float(tracker["resource"])
+	var resource_gain := minf(float(skill["resource_gain"]), maxf(resource_left, 0.0))
+	if resource_gain > 0.0:
+		tracker["resource"] = float(tracker["resource"]) + resource_gain
+		_gain_resource(resource_gain)
 
-		last_combat_tick = tick
-		attack_hit.emit(current_skill, target, dealt, critical, target.position)
+	var ult_left: float = float(skill.get("ult_cap", 0.0)) - float(tracker["ult"])
+	var ult_gain := minf(float(skill.get("ult_gain", 0.0)), maxf(ult_left, 0.0))
+	if ult_gain > 0.0:
+		tracker["ult"] = float(tracker["ult"]) + ult_gain
+		_gain_ultimate(ult_gain)
+
+	last_combat_tick = tick
+	attack_hit.emit(skill, target, dealt, critical, target.position)
+
+
+## Impacto de un proyectil (llamado por ProjectileSim). `scale` reduce el dano
+## de las explosiones respecto al impacto directo.
+func projectile_hit(projectile: Object, target: Object, scale: float = 1.0) -> void:
+	_apply_skill_hit(target, projectile.skill, float(projectile.damage_mult) * scale, projectile.tracker)
 
 
 ## Multiplicador por zona: las skills con center_radius pegan mas fuerte al
@@ -694,7 +822,7 @@ func _resolve_attack_hit() -> void:
 func _zone_multiplier(target: Object) -> float:
 	if not current_skill.has("center_radius"):
 		return 1.0
-	if target.position.distance_to(position) <= float(current_skill["center_radius"]):
+	if target.position.distance_to(_hit_origin()) <= float(current_skill["center_radius"]):
 		return float(current_skill["center_mult"])
 	return 1.0
 
@@ -705,8 +833,9 @@ func _targets_in_shape(candidates: Array) -> Array:
 	var shape := String(current_skill.get("shape", "cone"))
 	var attack_range := float(current_skill["range"]) * _range_mult
 	var hits: Array = []
+	var origin := _hit_origin()
 	for target: Object in candidates:
-		var to_target: Vector2 = target.position - position
+		var to_target: Vector2 = target.position - origin
 		var distance := to_target.length()
 		if distance <= 0.001 or distance > attack_range + target.radius:
 			continue
@@ -725,7 +854,7 @@ func _targets_in_shape(candidates: Array) -> Array:
 	var limit := int(current_skill.get("max_targets", 0))
 	if limit > 0 and hits.size() > limit:
 		hits.sort_custom(func(a: Object, b: Object) -> bool:
-			return a.position.distance_squared_to(position) < b.position.distance_squared_to(position))
+			return a.position.distance_squared_to(origin) < b.position.distance_squared_to(origin))
 		hits = hits.slice(0, limit)
 	return hits
 
@@ -803,22 +932,33 @@ func _gain_resource(amount: float) -> void:
 	var before := resource.get_current()
 	resource.generate(amount)
 	if not is_equal_approx(before, resource.get_current()):
-		rage_changed.emit(resource.get_current(), resource.max_amount)
+		resource_changed.emit(resource.get_current(), resource.max_amount)
 
 
-func _update_rage(delta: float) -> void:
+## Mantenimiento por tick: caduca la pasiva y las mejoras, y mueve el recurso segun
+## la clase (Rage decae fuera de combate; Energy y Mana se regeneran).
+func _update_resource(delta: float) -> void:
 	if vengeful_active and tick >= vengeful_until_tick:
 		vengeful_active = false
 		vengeful_changed.emit(false, 0.0)
+	if empower_mult > 1.0 and tick >= empower_until_tick:
+		_consume_empower()
 
-	if resource.get_current() <= 0.0:
+	if resource_kind == "rage":
+		if resource.get_current() <= 0.0:
+			return
+		var grace_ticks := int(RAGE_DECAY_GRACE * 60.0)
+		if tick - last_combat_tick > grace_ticks:
+			var before := resource.get_current()
+			resource.current_amount = maxf(0.0, before - RAGE_DECAY_PER_SECOND * delta)
+			if not is_equal_approx(before, resource.get_current()):
+				resource_changed.emit(resource.get_current(), resource.max_amount)
 		return
-	var grace_ticks := int(RAGE_DECAY_GRACE * 60.0)
-	if tick - last_combat_tick > grace_ticks:
-		var before := resource.get_current()
-		resource.current_amount = maxf(0.0, before - RAGE_DECAY_PER_SECOND * delta)
-		if not is_equal_approx(before, resource.get_current()):
-			rage_changed.emit(resource.get_current(), resource.max_amount)
+	if resource.current_amount < resource.max_amount:
+		var before := resource.current_amount
+		resource.generate(float(class_def["resource"]["regen_per_second"]) * delta)
+		if not is_equal_approx(before, resource.current_amount):
+			resource_changed.emit(resource.get_current(), resource.max_amount)
 
 
 func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot: bool = false) -> float:
@@ -835,11 +975,12 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 	var dealt := minf(reduced, health)
 	health -= dealt
 
-	var percent_lost := (dealt / max_health) * 100.0
-	_gain_resource(clampf(percent_lost, RAGE_TAKEN_MIN, RAGE_TAKEN_CAP))
+	if resource_kind == "rage":
+		var percent_lost := (dealt / max_health) * 100.0
+		_gain_resource(clampf(percent_lost, RAGE_TAKEN_MIN, RAGE_TAKEN_CAP))
 	last_combat_tick = tick
 
-	if not is_dot:
+	if not is_dot and String(class_def.get("passive", "")) == "vengeful_fury":
 		vengeful_active = true
 		vengeful_until_tick = tick + int(float(WarriorKit.PASSIVE["window"]) * 60.0)
 		vengeful_changed.emit(true, vengeful_seconds_left())
@@ -887,7 +1028,7 @@ func _stance_blocks(source_position: Vector2) -> bool:
 	var toward := source_position - position
 	if toward.length_squared() < 0.0001:
 		return true
-	return absf(rad_to_deg(aim_dir.angle_to(toward))) <= float(current_skill["stance"]["arc"]) * 0.5
+	return absf(rad_to_deg(aim_dir.angle_to(toward))) <= float(current_skill["stance"]["arc"]) * 0.5 + 0.01
 
 
 ## Anula el golpe, gira hacia quien lo lanzo y devuelve el contraataque con la
@@ -899,10 +1040,54 @@ func _block_with_stance(source_position: Vector2) -> void:
 		attack_aim = toward.normalized()
 	attack_blocked.emit(source_position)
 	_resolve_attack_hit()
+	var empower: Dictionary = current_skill["stance"].get("empower", {})
+	if not empower.is_empty():
+		_apply_buff(float(empower["mult"]), float(empower["duration"]))
 	current_skill["recovery"] = float(current_skill["stance"]["counter_recovery"])
 	state = AttackState.RECOVERY
 	state_time = 0.0
 	attack_state_changed.emit(state)
+
+
+## Cambia de clase (solo en reposo). Cada clase conserva su propio nivel, XP y
+## loadout: volver a una clase la deja como estaba. Es la misma simulacion, con
+## otro recurso, otros stats y otras skills; las senales siguen conectadas.
+func switch_class(new_class_id: String) -> String:
+	if not ClassCatalog.has_class(new_class_id):
+		return "unknown"
+	if new_class_id == class_id:
+		return ""
+	if not can_edit_loadout():
+		return "busy"
+	_save_progress()
+	_set_class_data(new_class_id)
+	var saved: Dictionary = progress.get(class_id, {})
+	level = int(saved.get("level", 1))
+	xp = int(saved.get("xp", 0))
+	_build_stats()
+	resource.resource_name = String(class_def["resource"]["name"])
+	resource.max_amount = float(class_def["resource"]["max"])
+	loadout = {}
+	charges = {}
+	if saved.has("loadout"):
+		for slot: String in saved["loadout"]:
+			var id := StringName(String(saved["loadout"][slot]))
+			if _equip_reason(slot, id).is_empty():
+				_equip_internal(slot, SkillCatalog.skill(id))
+	else:
+		_auto_equip(_ids_unlocked_between(0, level))
+	reset(position)
+	class_changed.emit(class_id)
+	loadout_changed.emit()
+	xp_changed.emit(xp, xp_to_next(), level)
+	return ""
+
+
+func _save_progress() -> void:
+	var equipped: Dictionary = {}
+	for slot: String in loadout:
+		equipped[slot] = String((loadout[slot] as Dictionary)["id"])
+	progress[class_id] = {"level": level, "xp": xp, "loadout": equipped}
 
 
 func armor_reduction() -> float:
@@ -952,7 +1137,9 @@ func snapshot() -> Dictionary:
 		"aim": [aim_dir.x, aim_dir.y],
 		"health": health,
 		"max_health": max_health,
-		"rage": resource.get_current(),
+		"class": class_id,
+		"resource": resource.get_current(),
+		"empower": empower_mult,
 		"state": state,
 		"vengeful": vengeful_active,
 		"dodging": dodging,

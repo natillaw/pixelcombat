@@ -56,8 +56,9 @@ Arena / Actors / HUD ◀── leen estado y señales
 
 ## Añadir una habilidad
 
-1. Si usa una forma existente (`cone`, `line`, `circle`), basta con un objeto
-   nuevo en `data/skills/<clase>.json` (esquema en `combat/skill_catalog.gd`).
+1. Si usa una forma o mecánica existente (`cone`, `line`, `circle`, `projectile`,
+   `self` + `buff`, `strikes`, `stance`, anclas `aim_leap` y `aim_point`), basta con
+   un objeto nuevo (con su campo `class`) en `data/skills/<clase>.json` (esquema en `combat/skill_catalog.gd`).
    `tests/test_skill_catalog.gd` valida el esquema y que coste/cooldown
    coincidan con el Skill Book de `combat/warrior_kit.gd`.
 2. Pon su `unlock_level` (nivel al que se desbloquea; también en la entrada del
@@ -72,6 +73,17 @@ Arena / Actors / HUD ◀── leen estado y señales
 5. VFX/SFX en `Arena` y el actor; el actor solo consume señales.
 6. Checks en `tests/test_skills.gd` (daño, coste, cooldown, forma, borde).
 7. Actualiza `docs/design/WARRIOR.md` y `docs/ARCHITECTURE.md` si aplica.
+
+## Añadir una clase
+
+1. `data/classes/<id>.json`: recurso, stats, atributo principal, loadout por
+   defecto, apariencia LPC con piezas que existan en `lpc_index.json` y las skills
+   `planned` del diseño.
+2. Sus skills en `data/skills/<id>.json` y su crecimiento por nivel en
+   `data/progression.json`.
+3. `tests/test_classes.gd` comprueba que la clase está completa (M1, M2, Special,
+   Ultimate, al menos 2 skills normales) y que su aspecto compone; no hace falta
+   tocar la simulación.
 
 ## Tests
 

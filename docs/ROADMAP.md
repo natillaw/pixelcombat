@@ -85,7 +85,7 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 **Hecho cuando:** un Warrior completo (M1, M2, 5 skills, Special, Ultimate) derrota una oleada de 3 tipos de enemigos y los tests de sim cubren cada skill.
 
 ### Fase 2 — Las 4 clases + laboratorio de balance (3–4 semanas)
-- Rogue (Energy), Mage (Mana), Archer (Energy/Focus). Cada una con M1, M2, Skill Book de 15, Special, Ultimate.
+- [x] Rogue (Energy), Mage (Mana), Archer (Energy). Cada una con M1, M2, Special, Ultimate y tres skills normales jugables; el resto de su Skill Book de 15 está previsto en `data/classes/*.json` (`planned`). *Hecho 10 nov: `tests/test_classes.gd`, `test_projectiles.gd`, `test_class_skills.gd`.* Pendiente: completar los Skill Books.
 - Recursos propios por clase en una escala común 0–100.
 - **Laboratorio de balance headless:** duelos 1v1, DPS en muñeco, matriz clase×clase con N repeticiones, edición de stats y guardado. (El proyecto 3D anterior ya lo tenía en `tools/balance`; conviene portar la idea, no el código.)
 - Presupuesto de stats por nivel para que las 4 clases sean comparables.

@@ -10,6 +10,24 @@
 			"strength_per_level": 2.4,
 			"stamina_per_level": 1,
 			"armor_per_level": 1
+		},
+		"rogue": {
+			"agility_per_level": 2.4,
+			"strength_per_level": 1,
+			"stamina_per_level": 0.8,
+			"armor_per_level": 0.6
+		},
+		"mage": {
+			"intellect_per_level": 2.4,
+			"agility_per_level": 0.8,
+			"stamina_per_level": 0.7,
+			"armor_per_level": 0.4
+		},
+		"archer": {
+			"agility_per_level": 2.4,
+			"strength_per_level": 1,
+			"stamina_per_level": 0.8,
+			"armor_per_level": 0.6
 		}
 	}
 }

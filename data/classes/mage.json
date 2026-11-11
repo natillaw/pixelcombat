@@ -1,0 +1,173 @@
+{
+	"id": "mage",
+	"order": 3,
+	"name": "Mage",
+	"role": "Daño a distancia / control",
+	"description": "Burst y control con hechizos. Mucho daño, poca resistencia. El Mana apenas se regenera en combate.",
+	"main_stat": "intellect",
+	"resource": {
+		"name": "Mana",
+		"kind": "mana",
+		"max": 100,
+		"start": 100,
+		"regen_per_second": 4
+	},
+	"stats": {
+		"strength": 6,
+		"agility": 12,
+		"stamina": 12,
+		"intellect": 20,
+		"armor": 10,
+		"crit_chance": 0.08,
+		"weapon_min": 10,
+		"weapon_max": 14,
+		"weapon_speed": 2
+	},
+	"passive": "",
+	"default_loadout": {
+		"M1": "arcane_bolt",
+		"M2": "charged_arcane_blast",
+		"S1": "fireball",
+		"S2": "arcane_explosion",
+		"S3": "ice_lance",
+		"SPECIAL": "arcane_overload",
+		"ULTIMATE": "cataclysm"
+	},
+	"look": {
+		"body": "male",
+		"skin": "light",
+		"eyes": "green",
+		"head": "head_human_male",
+		"hair": "hair_bob",
+		"hair_color": "gray",
+		"beard": "",
+		"equipment": {
+			"chest": [
+				"shirt_longsleeve",
+				"navy"
+			],
+			"legs": [
+				"pants_dyed",
+				"navy"
+			],
+			"feet": [
+				"shoes_basic",
+				"leather"
+			],
+			"main_hand": [
+				"weapon_staff",
+				"default"
+			]
+		}
+	},
+	"planned": [
+		{
+			"id": "frost_nova",
+			"name": "Frost Nova",
+			"role": "Control",
+			"unlock_level": 12,
+			"cost": 25,
+			"cooldown": 12,
+			"description": "Congela brevemente a los enemigos cercanos."
+		},
+		{
+			"id": "lightning_chain",
+			"name": "Lightning Chain",
+			"role": "Daño",
+			"unlock_level": 14,
+			"cost": 20,
+			"cooldown": 8,
+			"description": "Rayo que rebota entre enemigos."
+		},
+		{
+			"id": "arcane_missiles",
+			"name": "Arcane Missiles",
+			"role": "Daño",
+			"unlock_level": 16,
+			"cost": 20,
+			"cooldown": 8,
+			"description": "Serie de proyectiles dirigidos."
+		},
+		{
+			"id": "flame_wave",
+			"name": "Flame Wave",
+			"role": "Área",
+			"unlock_level": 18,
+			"cost": 25,
+			"cooldown": 9,
+			"description": "Onda de fuego frontal."
+		},
+		{
+			"id": "meteor",
+			"name": "Meteor",
+			"role": "Burst / área",
+			"unlock_level": 20,
+			"cost": 30,
+			"cooldown": 14,
+			"description": "Meteorito sobre una zona marcada."
+		},
+		{
+			"id": "blink",
+			"name": "Blink",
+			"role": "Movilidad",
+			"unlock_level": 24,
+			"cost": 15,
+			"cooldown": 10,
+			"description": "Teletransporte corto."
+		},
+		{
+			"id": "ice_barrier",
+			"name": "Ice Barrier",
+			"role": "Defensa",
+			"unlock_level": 28,
+			"cost": 20,
+			"cooldown": 14,
+			"description": "Escudo mágico temporal."
+		},
+		{
+			"id": "frost_wall",
+			"name": "Frost Wall",
+			"role": "Control de zona",
+			"unlock_level": 32,
+			"cost": 25,
+			"cooldown": 14,
+			"description": "Levanta una pared de hielo."
+		},
+		{
+			"id": "mana_drain",
+			"name": "Mana Drain",
+			"role": "Debilitamiento",
+			"unlock_level": 36,
+			"cost": 15,
+			"cooldown": 12,
+			"description": "Drena una cantidad limitada del recurso del objetivo."
+		},
+		{
+			"id": "spell_echo",
+			"name": "Spell Echo",
+			"role": "Mejora",
+			"unlock_level": 40,
+			"cost": 20,
+			"cooldown": 15,
+			"description": "Repite una versión reducida del siguiente hechizo."
+		},
+		{
+			"id": "polymorph",
+			"name": "Polymorph",
+			"role": "Control",
+			"unlock_level": 45,
+			"cost": 25,
+			"cooldown": 18,
+			"description": "Transforma temporalmente a un enemigo."
+		},
+		{
+			"id": "elemental_surge",
+			"name": "Elemental Surge",
+			"role": "Mejora",
+			"unlock_level": 50,
+			"cost": 20,
+			"cooldown": 15,
+			"description": "Potencia el siguiente hechizo elemental."
+		}
+	]
+}

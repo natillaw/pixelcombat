@@ -1,7 +1,8 @@
 ## LoadoutPanel — panel para equipar skills (Tab). Pausa la simulación mientras
 ## está abierto.
 ##
-## A la izquierda los slots (S1-S5, Special y Ultimate); a la derecha el Skill
+## Arriba, las pestañas de clase (cada clase conserva su nivel, XP y loadout). A
+## la izquierda los slots (S1-S5, Special y Ultimate); a la derecha el Skill
 ## Book completo con el estado de cada skill: equipada, disponible, bloqueada por
 ## nivel o aún sin implementar. Clic en una skill disponible la equipa (en el slot
 ## seleccionado o en el primero libre donde quepa); clic en una equipada, o clic
@@ -24,10 +25,13 @@ const RED := Color(0.88, 0.34, 0.28, 1.0)
 const PANEL_RECT := Rect2(36, 14, 568, 332)
 const SLOT_ROWS := ["S1", "S2", "S3", "S4", "S5", "SPECIAL", "ULTIMATE"]
 const SLOT_KEYS := {"S1": "1", "S2": "2", "S3": "3", "S4": "4", "S5": "5", "SPECIAL": "Q", "ULTIMATE": "F"}
-const SLOT_ROW_Y := 70.0
+const SLOT_ROW_Y := 92.0
 const SLOT_ROW_H := 24.0
-const BOOK_ROW_Y := 62.0
-const BOOK_ROW_H := 15.0
+const BOOK_ROW_Y := 84.0
+const BOOK_ROW_H := 14.0
+const TAB_Y := 30.0
+const TAB_W := 86.0
+const TAB_H := 16.0
 
 var world: CombatWorld
 var is_open: bool = false
@@ -82,6 +86,12 @@ func _gui_input(event: InputEvent) -> void:
 		return
 	var position := (event as InputEventMouseButton).position
 	var button := (event as InputEventMouseButton).button_index
+	var tab := _tab_at(position)
+	if not tab.is_empty():
+		if button == MOUSE_BUTTON_LEFT:
+			_switch_class(tab)
+		accept_event()
+		return
 	var slot := _slot_at(position)
 	if not slot.is_empty():
 		if button == MOUSE_BUTTON_RIGHT:
@@ -151,26 +161,44 @@ func _slot_of(id: StringName) -> String:
 	return ""
 
 
+func _switch_class(new_class_id: String) -> void:
+	var result := world.player.switch_class(new_class_id)
+	if result.is_empty():
+		_selected_slot = ""
+		_entries = _build_entries()
+		_say("Clase: %s." % String(world.player.class_def["name"]), GREEN)
+	else:
+		_say("No se puede cambiar de clase ahora (%s)." % result, RED)
+
+
+func _tab_rect(index: int) -> Rect2:
+	return Rect2(PANEL_RECT.position.x + 14.0 + float(index) * (TAB_W + 4.0), TAB_Y, TAB_W, TAB_H)
+
+
+func _tab_at(position: Vector2) -> String:
+	var ids := ClassCatalog.all_ids()
+	for i: int in range(ids.size()):
+		if _tab_rect(i).has_point(position):
+			return ids[i]
+	return ""
+
+
 func _say(text: String, color: Color) -> void:
 	_message = text
 	_message_color = color
 
 
-## Todas las skills con ficha (Skill Book + Special + Ultimate), por nivel.
+## Skills de la clase actual con ficha: las jugables del catalogo mas las
+## previstas del Skill Book (aun sin implementar), por nivel. M1 y M2 no se listan.
 func _build_entries() -> Array:
 	var entries: Array = []
-	var seen: Dictionary = {}
-	for entry: Dictionary in WarriorKit.get_skill_book():
-		var id := StringName(String(entry["id"]))
+	for id: StringName in SkillCatalog.ids_for_class(world.player.class_id):
 		var data := SkillCatalog.skill(id)
-		var skill: Dictionary = data if not data.is_empty() else entry.duplicate(true)
-		seen[id] = true
-		entries.append({"skill": skill})
-	for id: StringName in SkillCatalog.all_ids():
-		var data := SkillCatalog.skill(id)
-		if seen.has(id) or String(data["slot"]) == "M1" or String(data["slot"]) == "M2":
+		if String(data["slot"]) == "M1" or String(data["slot"]) == "M2":
 			continue
 		entries.append({"skill": data})
+	for planned: Dictionary in ClassCatalog.planned(world.player.class_id):
+		entries.append({"skill": planned})
 	entries.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return int(a["skill"]["unlock_level"]) < int(b["skill"]["unlock_level"]))
 	return entries
@@ -207,17 +235,33 @@ func _draw() -> void:
 	draw_rect(PANEL_RECT, EDGE, false, 1.0)
 	_text("LOADOUT", PANEL_RECT.position + Vector2(14, 20), 14, GOLD)
 	_text("LV %d   XP %d / %d" % [warrior.level, warrior.xp, warrior.xp_to_next()], PANEL_RECT.position + Vector2(100, 19), 7, TEXT)
+	_draw_tabs(warrior)
 	_text("TAB / ESC  CERRAR", Vector2(PANEL_RECT.position.x, PANEL_RECT.position.y + 19), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, PANEL_RECT.size.x - 14.0)
 
-	_text("HUECOS", Vector2(PANEL_RECT.position.x + 14.0, 60.0), 7, MUTED)
+	_text("HUECOS", Vector2(PANEL_RECT.position.x + 14.0, 82.0), 7, MUTED)
 	for i: int in range(SLOT_ROWS.size()):
 		_draw_slot_row(i, SLOT_ROWS[i], warrior)
 
-	_text("SKILL BOOK", Vector2(PANEL_RECT.position.x + 272.0, 56.0), 7, MUTED)
+	_text("SKILL BOOK", Vector2(PANEL_RECT.position.x + 272.0, 78.0), 7, MUTED)
 	for i: int in range(_entries.size()):
 		_draw_book_row(i, _entries[i]["skill"], warrior)
 
 	_text(_message, Vector2(PANEL_RECT.position.x + 14.0, PANEL_RECT.end.y - 10.0), 7, _message_color)
+
+
+func _draw_tabs(warrior: PlayerSim) -> void:
+	var ids := ClassCatalog.all_ids()
+	for i: int in range(ids.size()):
+		var rect := _tab_rect(i)
+		var active := ids[i] == warrior.class_id
+		var saved: Dictionary = warrior.progress.get(ids[i], {})
+		var level := warrior.level if active else int(saved.get("level", 1))
+		draw_rect(rect, Color(0.16, 0.14, 0.09, 1.0) if active else Color(0.09, 0.10, 0.14, 1.0))
+		draw_rect(rect, GOLD if active else EDGE, false, 1.0)
+		if rect.has_point(get_local_mouse_position()) and not active:
+			draw_rect(rect, Color(1, 1, 1, 0.07))
+		var name := String(ClassCatalog.class_def(ids[i])["name"]).to_upper()
+		_text("%s  %d" % [name, level], rect.position + Vector2(0, 11), 7, GOLD if active else MUTED, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 
 
 func _draw_slot_row(index: int, slot: String, warrior: PlayerSim) -> void:

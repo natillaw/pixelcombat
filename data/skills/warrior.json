@@ -34,7 +34,9 @@
 				"max": 3,
 				"recharge": 0.9
 			},
-			"unlock_level": 1
+			"unlock_level": 1,
+			"class": "warrior",
+			"damage_type": "physical"
 		},
 		{
 			"id": "warrior_m2",
@@ -71,7 +73,9 @@
 				"damage_bonus": 0.6,
 				"range_bonus": 0.25
 			},
-			"unlock_level": 1
+			"unlock_level": 1,
+			"class": "warrior",
+			"damage_type": "physical"
 		},
 		{
 			"id": "cleaving_strike",
@@ -102,7 +106,9 @@
 			"implemented": true,
 			"ult_gain": 4,
 			"ult_cap": 12,
-			"unlock_level": 4
+			"unlock_level": 4,
+			"class": "warrior",
+			"damage_type": "physical"
 		},
 		{
 			"id": "piercing_thrust",
@@ -133,7 +139,9 @@
 			"implemented": true,
 			"ult_gain": 5,
 			"ult_cap": 10,
-			"unlock_level": 2
+			"unlock_level": 2,
+			"class": "warrior",
+			"damage_type": "physical"
 		},
 		{
 			"id": "iron_counter",
@@ -168,7 +176,9 @@
 			},
 			"anim": "slash",
 			"unlock_level": 6,
-			"implemented": true
+			"implemented": true,
+			"class": "warrior",
+			"damage_type": "physical"
 		},
 		{
 			"id": "war_gods_descent",
@@ -205,7 +215,9 @@
 			"uncancelable": true,
 			"anim": "slash",
 			"implemented": true,
-			"unlock_level": 8
+			"unlock_level": 8,
+			"class": "warrior",
+			"damage_type": "physical"
 		}
 	]
 }

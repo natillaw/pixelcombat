@@ -4,8 +4,9 @@
 ##   max_level: nivel maximo
 ##   xp_curve: {base, exponent}  XP para pasar del nivel L al L+1 =
 ##             round(base * L ^ exponent)
-##   classes: { <clase>: {strength_per_level, stamina_per_level, armor_per_level} }
-##            crecimiento por nivel sobre los stats base del nivel 1
+##   classes: { <clase>: {<stat>_per_level: n, ...} } con strength, agility,
+##            stamina, intellect y armor; crecimiento por nivel sobre los stats
+##            base del nivel 1 (cada clase solo lista los que crecen)
 class_name Progression
 extends RefCounted
 
@@ -77,9 +78,11 @@ static func _ensure_loaded() -> void:
 			if not (growth_data is Dictionary):
 				_errors.append("classes.%s no es un objeto" % class_id)
 				continue
-			for field: String in ["strength_per_level", "stamina_per_level", "armor_per_level"]:
-				if not _is_number((growth_data as Dictionary).get(field)) or float(growth_data[field]) < 0.0:
-					_errors.append("classes.%s.%s debe ser >= 0" % [class_id, field])
+			if (growth_data as Dictionary).is_empty():
+				_errors.append("classes.%s no define ningun crecimiento" % class_id)
+			for field: String in growth_data:
+				if not field.ends_with("_per_level") or not _is_number((growth_data as Dictionary)[field]) or float(growth_data[field]) < 0.0:
+					_errors.append("classes.%s.%s debe ser un numero >= 0 (campos *_per_level)" % [class_id, field])
 	_data = data
 
 

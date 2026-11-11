@@ -5,6 +5,8 @@ extends RefCounted
 const StatBlockScript = preload("res://combat/stat_block.gd")
 
 var stats: Dictionary = {} ## StringName -> StatBlock
+## Atributo que da Attack Power / Spell Power (strength, agility o intellect).
+var main_stat: StringName = &"strength"
 
 
 func set_base_stat(stat_name: StringName, value: float, min_val: float = -INF, max_val: float = INF) -> void:
@@ -32,9 +34,9 @@ func add_modifier(stat_name: StringName, modifier: Object) -> void:
 
 ## Fórmula WoW Classic adaptada: 1 Fuerza = 2 AP
 func get_attack_power() -> float:
-	var strength = get_stat(&"strength")
+	var main_value = get_stat(main_stat)
 	var bonus_ap = get_stat(&"attack_power_bonus")
-	return (strength * 2.0) + bonus_ap
+	return (main_value * 2.0) + bonus_ap
 
 
 ## Daño medio del arma: (min + max) / 2 + AP / 14 * velocidad.
@@ -52,6 +54,17 @@ func roll_weapon_damage(rng: RandomNumberGenerator) -> float:
 	var speed := get_stat(&"weapon_speed")
 	var roll := rng.randf_range(min_damage, max_damage)
 	return roll + get_attack_power() / 14.0 * speed
+
+
+## Spell Power: 2 por Intellect, mas el bonus del equipo.
+func get_spell_power() -> float:
+	return get_stat(&"intellect") * 2.0 + get_stat(&"spell_power_bonus")
+
+
+## Tirada determinista de dano magico: base del arma + Spell Power / 14 * velocidad.
+func roll_spell_damage(rng: RandomNumberGenerator) -> float:
+	var roll := rng.randf_range(get_stat(&"weapon_min"), get_stat(&"weapon_max"))
+	return roll + get_spell_power() / 14.0 * get_stat(&"weapon_speed")
 
 
 func get_crit_chance() -> float:

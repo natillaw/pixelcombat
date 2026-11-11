@@ -1,0 +1,181 @@
+{
+	"id": "rogue",
+	"order": 2,
+	"name": "Rogue",
+	"role": "Asesino / escaramuza",
+	"description": "Frágil pero veloz y letal: entra, ejecuta una combinación y se retira. Energy se regenera sola.",
+	"main_stat": "agility",
+	"resource": {
+		"name": "Energy",
+		"kind": "energy",
+		"max": 100,
+		"start": 100,
+		"regen_per_second": 12
+	},
+	"stats": {
+		"strength": 10,
+		"agility": 20,
+		"stamina": 14,
+		"intellect": 5,
+		"armor": 20,
+		"crit_chance": 0.15,
+		"weapon_min": 9,
+		"weapon_max": 13,
+		"weapon_speed": 1.8
+	},
+	"passive": "",
+	"default_loadout": {
+		"M1": "twin_fang",
+		"M2": "cross_cut",
+		"S1": "ambush",
+		"S2": "blade_flurry",
+		"S3": "fan_of_knives",
+		"SPECIAL": "perfect_evasion",
+		"ULTIMATE": "death_sentence"
+	},
+	"look": {
+		"body": "male",
+		"skin": "olive",
+		"eyes": "brown",
+		"head": "head_human_male",
+		"hair": "hair_plain",
+		"hair_color": "black",
+		"beard": "",
+		"equipment": {
+			"chest": [
+				"armour_leather",
+				"black_iron"
+			],
+			"legs": [
+				"pants",
+				"charcoal"
+			],
+			"feet": [
+				"boots_basic",
+				"black"
+			],
+			"head": [
+				"hood",
+				"brown"
+			],
+			"main_hand": [
+				"weapon_dagger",
+				"default"
+			],
+			"off_hand": [
+				"weapon_dagger_offhand",
+				"default"
+			]
+		}
+	},
+	"planned": [
+		{
+			"id": "shadowstep",
+			"name": "Shadowstep",
+			"role": "Movilidad",
+			"unlock_level": 12,
+			"cost": 20,
+			"cooldown": 8,
+			"description": "Desplazamiento corto hacia una dirección o posición válida."
+		},
+		{
+			"id": "backstab",
+			"name": "Backstab",
+			"role": "Burst",
+			"unlock_level": 14,
+			"cost": 20,
+			"cooldown": 8,
+			"description": "Ataque potenciado desde detrás del objetivo."
+		},
+		{
+			"id": "poisoned_blades",
+			"name": "Poisoned Blades",
+			"role": "Debilitamiento",
+			"unlock_level": 16,
+			"cost": 20,
+			"cooldown": 10,
+			"description": "Aplica veneno con acumulaciones limitadas."
+		},
+		{
+			"id": "mark_for_death",
+			"name": "Mark for Death",
+			"role": "Preparación",
+			"unlock_level": 18,
+			"cost": 15,
+			"cooldown": 12,
+			"description": "Marca a un objetivo para potenciar el siguiente ataque."
+		},
+		{
+			"id": "smoke_bomb",
+			"name": "Smoke Bomb",
+			"role": "Escape",
+			"unlock_level": 20,
+			"cost": 20,
+			"cooldown": 14,
+			"description": "Nube que dificulta la visión y permite reposicionarse."
+		},
+		{
+			"id": "vanish",
+			"name": "Vanish",
+			"role": "Sigilo / escape",
+			"unlock_level": 24,
+			"cost": 25,
+			"cooldown": 18,
+			"description": "Desaparece brevemente y rompe el objetivo enemigo."
+		},
+		{
+			"id": "evasive_roll",
+			"name": "Evasive Roll",
+			"role": "Evasión",
+			"unlock_level": 28,
+			"cost": 10,
+			"cooldown": 6,
+			"description": "Esquiva rápida con ventana limitada de evasión."
+		},
+		{
+			"id": "shadow_clone",
+			"name": "Shadow Clone",
+			"role": "Engaño",
+			"unlock_level": 32,
+			"cost": 25,
+			"cooldown": 16,
+			"description": "Crea un señuelo que confunde ataques dirigidos."
+		},
+		{
+			"id": "crippling_strike",
+			"name": "Crippling Strike",
+			"role": "Control",
+			"unlock_level": 36,
+			"cost": 20,
+			"cooldown": 10,
+			"description": "Corte que ralentiza al enemigo."
+		},
+		{
+			"id": "hemorrhage",
+			"name": "Hemorrhage",
+			"role": "Daño progresivo",
+			"unlock_level": 40,
+			"cost": 20,
+			"cooldown": 10,
+			"description": "Aplica sangrado durante un periodo."
+		},
+		{
+			"id": "feint",
+			"name": "Feint",
+			"role": "Defensa",
+			"unlock_level": 45,
+			"cost": 15,
+			"cooldown": 8,
+			"description": "Reduce el daño de un ataque próximo si se ejecuta bien."
+		},
+		{
+			"id": "executioners_cut",
+			"name": "Executioner's Cut",
+			"role": "Ejecución",
+			"unlock_level": 50,
+			"cost": 30,
+			"cooldown": 14,
+			"description": "Golpe adicional contra objetivos con poca vida."
+		}
+	]
+}

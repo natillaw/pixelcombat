@@ -122,6 +122,8 @@ func _spawn_actors() -> void:
 		entities.add_child(dummy)
 		dummy_actors.append(dummy)
 
+	world.projectile_spawned.connect(_on_projectile_spawned)
+
 	for spawn: Dictionary in ENEMY_SPAWNS:
 		var enemy_sim := world.add_enemy(spawn["id"], spawn["position"])
 		var enemy := EnemyActor.new()
@@ -130,6 +132,14 @@ func _spawn_actors() -> void:
 		enemy.setup(enemy_sim, self)
 		entities.add_child(enemy)
 		enemy_actors.append(enemy)
+
+
+## Cada proyectil de la simulacion tiene su actor, que se libera solo al morir.
+func _on_projectile_spawned(projectile: ProjectileSim) -> void:
+	var actor := ProjectileActor.new()
+	actor.name = "Projectile"
+	actor.setup(projectile)
+	fx.add_child(actor)
 
 
 func _process(delta: float) -> void:

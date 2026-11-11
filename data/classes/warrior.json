@@ -1,0 +1,71 @@
+{
+	"id": "warrior",
+	"order": 1,
+	"name": "Warrior",
+	"role": "Tanque / cuerpo a cuerpo",
+	"description": "Resistente y de golpe pesado. Su Rage sube al golpear y al recibir daño.",
+	"main_stat": "strength",
+	"resource": {
+		"name": "Rage",
+		"kind": "rage",
+		"max": 100,
+		"start": 0,
+		"regen_per_second": 0
+	},
+	"stats": {
+		"strength": 20,
+		"agility": 10,
+		"stamina": 18,
+		"intellect": 5,
+		"armor": 40,
+		"crit_chance": 0.1,
+		"weapon_min": 12,
+		"weapon_max": 18,
+		"weapon_speed": 2.6
+	},
+	"passive": "vengeful_fury",
+	"default_loadout": {
+		"M1": "warrior_m1",
+		"M2": "warrior_m2",
+		"S1": "cleaving_strike",
+		"S2": "piercing_thrust",
+		"SPECIAL": "iron_counter",
+		"ULTIMATE": "war_gods_descent"
+	},
+	"look": {
+		"body": "male",
+		"skin": "light",
+		"eyes": "blue",
+		"head": "head_human_male",
+		"hair": "hair_buzzcut",
+		"hair_color": "dark_brown",
+		"beard": "beard_trimmed",
+		"equipment": {
+			"chest": [
+				"armour_plate",
+				"steel"
+			],
+			"legs": [
+				"legs_plate",
+				"steel"
+			],
+			"hands": [
+				"gloves",
+				"steel"
+			],
+			"feet": [
+				"boots_basic",
+				"leather"
+			],
+			"head": [
+				"helmet_barbuta",
+				"steel"
+			],
+			"main_hand": [
+				"weapon_longsword",
+				"default"
+			]
+		}
+	},
+	"planned": []
+}

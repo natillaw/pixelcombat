@@ -1,0 +1,177 @@
+{
+	"id": "archer",
+	"order": 4,
+	"name": "Archer",
+	"role": "Daño a distancia / precisión",
+	"description": "Controla la distancia y castiga errores de posicionamiento con proyectiles. Energy se regenera sola.",
+	"main_stat": "agility",
+	"resource": {
+		"name": "Energy",
+		"kind": "energy",
+		"max": 100,
+		"start": 100,
+		"regen_per_second": 10
+	},
+	"stats": {
+		"strength": 10,
+		"agility": 20,
+		"stamina": 14,
+		"intellect": 5,
+		"armor": 20,
+		"crit_chance": 0.12,
+		"weapon_min": 10,
+		"weapon_max": 14,
+		"weapon_speed": 2.4
+	},
+	"passive": "",
+	"default_loadout": {
+		"M1": "quick_shot",
+		"M2": "charged_shot",
+		"S1": "multishot",
+		"S2": "explosive_arrow",
+		"S3": "piercing_arrow",
+		"SPECIAL": "deadeye",
+		"ULTIMATE": "rain_of_arrows"
+	},
+	"look": {
+		"body": "male",
+		"skin": "taupe",
+		"eyes": "green",
+		"head": "head_human_male",
+		"hair": "hair_plain",
+		"hair_color": "chestnut",
+		"beard": "",
+		"equipment": {
+			"chest": [
+				"armour_leather",
+				"walnut_iron"
+			],
+			"legs": [
+				"pants",
+				"brown"
+			],
+			"feet": [
+				"boots_basic",
+				"leather"
+			],
+			"head": [
+				"hood",
+				"forest"
+			],
+			"main_hand": [
+				"weapon_bow",
+				"default"
+			]
+		}
+	},
+	"planned": [
+		{
+			"id": "rapid_fire",
+			"name": "Rapid Fire",
+			"role": "Presión",
+			"unlock_level": 12,
+			"cost": 20,
+			"cooldown": 10,
+			"description": "Secuencia de disparos rápidos."
+		},
+		{
+			"id": "crippling_arrow",
+			"name": "Crippling Arrow",
+			"role": "Control",
+			"unlock_level": 14,
+			"cost": 20,
+			"cooldown": 9,
+			"description": "Flecha que ralentiza al objetivo."
+		},
+		{
+			"id": "marked_target",
+			"name": "Marked Target",
+			"role": "Preparación",
+			"unlock_level": 16,
+			"cost": 15,
+			"cooldown": 12,
+			"description": "Marca al enemigo y mejora los siguientes ataques contra él."
+		},
+		{
+			"id": "backstep_shot",
+			"name": "Backstep Shot",
+			"role": "Movilidad",
+			"unlock_level": 18,
+			"cost": 15,
+			"cooldown": 8,
+			"description": "Retrocede mientras dispara."
+		},
+		{
+			"id": "evasive_leap",
+			"name": "Evasive Leap",
+			"role": "Evasión",
+			"unlock_level": 20,
+			"cost": 10,
+			"cooldown": 7,
+			"description": "Salto hacia atrás o lateral."
+		},
+		{
+			"id": "bear_trap",
+			"name": "Bear Trap",
+			"role": "Trampa",
+			"unlock_level": 24,
+			"cost": 20,
+			"cooldown": 14,
+			"description": "Coloca una trampa que inmoviliza brevemente."
+		},
+		{
+			"id": "frost_trap",
+			"name": "Frost Trap",
+			"role": "Control de zona",
+			"unlock_level": 28,
+			"cost": 25,
+			"cooldown": 14,
+			"description": "Crea una zona que ralentiza."
+		},
+		{
+			"id": "volley",
+			"name": "Volley",
+			"role": "Área",
+			"unlock_level": 32,
+			"cost": 30,
+			"cooldown": 14,
+			"description": "Lluvia de flechas sobre una zona marcada."
+		},
+		{
+			"id": "camouflage",
+			"name": "Camouflage",
+			"role": "Escape",
+			"unlock_level": 36,
+			"cost": 20,
+			"cooldown": 18,
+			"description": "Oculta temporalmente al Archer bajo condiciones específicas."
+		},
+		{
+			"id": "wind_arrow",
+			"name": "Wind Arrow",
+			"role": "Daño / empuje",
+			"unlock_level": 40,
+			"cost": 20,
+			"cooldown": 9,
+			"description": "Flecha de impacto que desplaza ligeramente al objetivo."
+		},
+		{
+			"id": "predators_instinct",
+			"name": "Predator's Instinct",
+			"role": "Mejora",
+			"unlock_level": 45,
+			"cost": 20,
+			"cooldown": 18,
+			"description": "Aumenta temporalmente el crítico y la velocidad de disparo."
+		},
+		{
+			"id": "hunters_focus",
+			"name": "Hunter's Focus",
+			"role": "Preparación",
+			"unlock_level": 50,
+			"cost": 15,
+			"cooldown": 12,
+			"description": "Mejora el siguiente Charged Shot y reduce su tiempo de carga."
+		}
+	]
+}

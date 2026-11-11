@@ -41,6 +41,9 @@ SUITES=(
     "tests/test_enemies.gd"
     "tests/test_progression.gd"
     "tests/test_special.gd"
+    "tests/test_classes.gd"
+    "tests/test_projectiles.gd"
+    "tests/test_class_skills.gd"
 )
 
 : >"$SUMMARY"

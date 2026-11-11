@@ -8,6 +8,8 @@ class_name CombatWorld
 extends "res://core/tickable.gd"
 
 signal tick_advanced(tick_number: int)
+signal projectile_spawned(projectile: ProjectileSim)
+signal projectile_removed(projectile: ProjectileSim)
 
 const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
@@ -21,6 +23,7 @@ var obstacles: Array = []
 var player: PlayerSim
 var dummies: Array = []
 var enemies: Array = []
+var projectiles: Array = []
 var pending_input: InputMessage = null
 
 
@@ -52,6 +55,12 @@ func add_enemy(def_id: StringName, spawn: Vector2) -> EnemySim:
 	return enemy
 
 
+## Anade un proyectil al mundo; lo avanza step() hasta que muere.
+func spawn_projectile(projectile: ProjectileSim) -> void:
+	projectiles.append(projectile)
+	projectile_spawned.emit(projectile)
+
+
 func submit_input(input: InputMessage) -> void:
 	pending_input = input
 
@@ -67,6 +76,11 @@ func step(delta: float, tick_number: int = -1) -> void:
 		dummy.step(tick, delta, player)
 	for enemy: EnemySim in enemies:
 		enemy.step(tick, delta, player)
+	for projectile: ProjectileSim in projectiles.duplicate():
+		projectile.step(self, delta)
+		if not projectile.alive:
+			projectiles.erase(projectile)
+			projectile_removed.emit(projectile)
 
 	pending_input = null
 	tick_advanced.emit(tick)
@@ -84,7 +98,16 @@ func get_living_dummies() -> Array:
 	return living
 
 
-## Todo lo que el Warrior puede golpear: muñecos y enemigos vivos.
+## Si un circulo de `radius` en `point` toca algun obstaculo fijo (pilares).
+func blocked_by_obstacle(point: Vector2, radius: float) -> bool:
+	for obstacle: Dictionary in obstacles:
+		var min_distance := radius + float(obstacle["radius"])
+		if point.distance_squared_to(obstacle["position"]) < min_distance * min_distance:
+			return true
+	return false
+
+
+## Todo lo que el jugador puede golpear: muñecos y enemigos vivos.
 func get_living_targets() -> Array:
 	var living: Array = get_living_dummies()
 	for enemy: EnemySim in enemies:
@@ -142,6 +165,10 @@ func reset() -> void:
 		dummy.revive()
 	for enemy: EnemySim in enemies:
 		enemy.revive()
+	for projectile: ProjectileSim in projectiles.duplicate():
+		projectile.alive = false
+		projectile_removed.emit(projectile)
+	projectiles.clear()
 
 
 func snapshot() -> Dictionary:
@@ -156,4 +183,5 @@ func snapshot() -> Dictionary:
 		"player": player.snapshot(),
 		"dummies": dummy_states,
 		"enemies": enemy_states,
+		"projectiles": projectiles.map(func(p: ProjectileSim) -> Dictionary: return p.snapshot()),
 	}

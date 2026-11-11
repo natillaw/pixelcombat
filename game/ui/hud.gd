@@ -20,6 +20,8 @@ const HEALTH := Color(0.42, 0.78, 0.42, 1.0)
 const HEALTH_LOW := Color(0.86, 0.38, 0.24, 1.0)
 const RAGE := Color(0.93, 0.35, 0.20, 1.0)
 const XP := Color(0.45, 0.68, 1.0, 1.0)
+const ENERGY := Color(0.95, 0.80, 0.25, 1.0)
+const MANA := Color(0.35, 0.55, 1.0, 1.0)
 
 const SLOT_COUNT := 10
 const SLOT_W := 54.0
@@ -78,7 +80,7 @@ func _draw() -> void:
 
 func _draw_status(warrior: PlayerSim) -> void:
 	_panel(Rect2(10, 6, 246, 78))
-	_draw_text("WARRIOR", Vector2(16, 24), 14, GOLD)
+	_draw_text(String(warrior.class_def["name"]).to_upper(), Vector2(16, 24), 14, GOLD)
 	_draw_text("LV %d" % warrior.level, Vector2(16, 24), 14, TEXT, HORIZONTAL_ALIGNMENT_RIGHT, 234)
 	_draw_text("TRAINING GROUNDS", Vector2(84, 23), 7, MUTED)
 
@@ -91,11 +93,11 @@ func _draw_status(warrior: PlayerSim) -> void:
 	)
 
 	var rage_ratio: float = warrior.resource.get_current() / maxf(warrior.resource.max_amount, 1.0)
-	_bar(Rect2(16, 45, 234, 8), rage_ratio, RAGE)
-	if warrior.resource.is_full():
+	_bar(Rect2(16, 45, 234, 8), rage_ratio, _resource_color(warrior))
+	if warrior.resource.is_full() and warrior.resource_kind == "rage":
 		draw_rect(Rect2(16, 45, 234, 8), GOLD, false, 1.0)
 	_draw_text(
-		"RAGE  %d / %d" % [floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)],
+		"%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)],
 		Vector2(16, 52), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 234
 	)
 
@@ -103,11 +105,17 @@ func _draw_status(warrior: PlayerSim) -> void:
 	var special_mark := 16.0 + 234.0 * (WarriorKit.SPECIAL_COST / WarriorKit.MAX_RAGE)
 	draw_line(Vector2(special_mark, 45), Vector2(special_mark, 52), Color(1, 1, 1, 0.35), 1.0)
 
-	var passive := "PASSIVE  VENGEFUL FURY"
-	var passive_color := GOLD
-	if warrior.vengeful_active:
-		passive += "  ACTIVE %.1fs" % warrior.vengeful_seconds_left()
-		passive_color = ORANGE
+	var passive := String(warrior.class_def["role"]).to_upper()
+	var passive_color := MUTED
+	if String(warrior.class_def["passive"]) == "vengeful_fury":
+		passive = "PASSIVE  VENGEFUL FURY"
+		passive_color = GOLD
+		if warrior.vengeful_active:
+			passive += "  ACTIVE %.1fs" % warrior.vengeful_seconds_left()
+			passive_color = ORANGE
+	if warrior.empower_mult > 1.0:
+		passive = "EMPOWERED  x%.1f  %.1fs" % [warrior.empower_mult, warrior.empower_seconds_left()]
+		passive_color = Color(0.65, 0.88, 1.0, 1.0)
 	_draw_text(passive, Vector2(16, 66), 7, passive_color)
 
 	# XP del nivel actual.
@@ -121,13 +129,13 @@ func _draw_status(warrior: PlayerSim) -> void:
 func _draw_abilities(warrior: PlayerSim) -> void:
 	_draw_ability(
 		_slot_rect(0),
-		"LMB", "SLASH", "M1",
+		"LMB", _hud_label(warrior, "M1"), "M1",
 		warrior.attack_cooldown_left("M1"), warrior.attack_cooldown_total("M1"),
 		false, warrior.state == PlayerSim.AttackState.IDLE
 	)
 	_draw_ability(
 		_slot_rect(1),
-		"RMB", "HEAVY", "M2",
+		"RMB", _hud_label(warrior, "M2"), "M2",
 		warrior.attack_cooldown_left("M2"), warrior.attack_cooldown_total("M2"),
 		warrior.vengeful_active, warrior.state == PlayerSim.AttackState.IDLE
 	)
@@ -155,7 +163,10 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 
 	var icon_color := ORANGE if empowered else (GOLD if left <= 0.0 else Color(0.62, 0.64, 0.72, 1.0))
 	var icon_center := rect.position + Vector2(rect.size.x * 0.5, 17)
-	if slot == "M1":
+	var shape := String(world.player.loadout.get(slot, {}).get("shape", "cone"))
+	if shape == "projectile":
+		_draw_arrow_icon(icon_center, icon_color, slot == "M2")
+	elif slot == "M1":
 		_draw_sword_icon(icon_center, -0.65, icon_color, false)
 	else:
 		_draw_sword_icon(icon_center, -1.5708, icon_color, true)
@@ -214,7 +225,7 @@ func _draw_ultimate_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	_draw_text("F", rect.position + Vector2(4, 9), 7, MUTED)
 	_draw_text("ULT", Vector2(rect.position.x, rect.position.y + 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 4)
 	_draw_text("READY" if ready else "%d%%" % int(ratio * 100.0), Vector2(rect.position.x, rect.position.y + rect.size.y * 0.62), 7, GOLD if ready else TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
-	_draw_text("DESCENT", Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	_draw_text(_hud_label(warrior, "ULTIMATE"), Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 
 
 ## Hueco de una skill equipada (S1-S5): etiqueta, coste y cooldown. Se vuelve
@@ -270,6 +281,31 @@ func _draw_dodge_slot(rect: Rect2, warrior: PlayerSim) -> void:
 		draw_rect(rect.grow(-2.0), Color(edge.r, edge.g, edge.b, 0.22), false, 1.0)
 
 
+func _hud_label(warrior: PlayerSim, slot: String) -> String:
+	return String((warrior.loadout.get(slot, {}) as Dictionary).get("hud_label", slot))
+
+
+func _resource_color(warrior: PlayerSim) -> Color:
+	match warrior.resource_kind:
+		"energy":
+			return ENERGY
+		"mana":
+			return MANA
+		_:
+			return RAGE
+
+
+## Flecha o proyectil como icono de los basicos a distancia.
+func _draw_arrow_icon(center: Vector2, color: Color, heavy: bool) -> void:
+	var width := 3.0 if heavy else 2.0
+	draw_line(center + Vector2(-10, 6), center + Vector2(8, -6), color, width)
+	draw_colored_polygon(PackedVector2Array([center + Vector2(11, -8), center + Vector2(3, -7), center + Vector2(7, -1)]), color)
+	draw_line(center + Vector2(-10, 6), center + Vector2(-13, 2), color, 1.5)
+	draw_line(center + Vector2(-10, 6), center + Vector2(-6, 9), color, 1.5)
+	if heavy:
+		draw_circle(center + Vector2(-2, 0), 1.5, color)
+
+
 func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) -> void:
 	draw_set_transform(center, angle, Vector2.ONE)
 	var width := 3.0 if heavy else 2.0
@@ -282,12 +318,12 @@ func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) 
 
 
 func _draw_controls() -> void:
-	_panel(Rect2(498, 6, 132, 112))
+	_panel(Rect2(498, 6, 132, 121))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
-		"LMB    SWORD SLASH",
-		"RMB    HEAVY (HOLD)",
+		"LMB    PRIMARY",
+		"RMB    SECONDARY (HOLD)",
 		"SPACE  DODGE",
 		"1-5    SKILLS",
 		"Q      SPECIAL",
@@ -295,6 +331,7 @@ func _draw_controls() -> void:
 		"TAB    LOADOUT",
 		"R      RESET",
 		"F3     DEBUG",
+		"F7     NEXT CLASS",
 	]
 	for i: int in range(lines.size()):
 		_draw_text(String(lines[i]), Vector2(504, 17 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)

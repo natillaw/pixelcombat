@@ -6,14 +6,24 @@
 ## los archivos, así que un dato mal escrito falla en CI.
 ##
 ## Esquema (todos los tiempos en segundos, distancias en px):
-##   id, name, slot ("M1", "M2", "S", "SPECIAL", "ULTIMATE"), kind, role,
+##   id, name, class (id de clase), slot ("M1", "M2", "S", "SPECIAL", "ULTIMATE"), kind, role,
 ##   description, hud_label, anim, implemented
 ##   windup, active, recovery, cooldown, cost, damage_mult
 ##   resource_gain, resource_cap, max_targets (0 = sin limite)
 ##   move: {windup, active, recovery}  factor de velocidad en cada fase (0..1)
-##   shape: "cone" (range, arc) | "line" (range, width) | "circle" (range)
+##   shape: "cone" (range, arc) | "line" (range, width) | "circle" (range) |
+##          "projectile" (ver `projectile`) | "self" (sin golpe: solo mejora)
 ##   unlock_level: nivel del personaje al que se desbloquea (entero >= 1)
 ##   Opcionales:
+##   damage_type: "physical" (defecto, usa Weapon Damage + Attack Power) o "magic"
+##                (usa la base del arma + Spell Power)
+##   projectile: {speed, range, radius, count, spread (grados), pierce, visual,
+##                explode: {radius, mult} opcional} para shape "projectile"
+##   strikes: {count, interval, final_mult} varios golpes durante `active`
+##            (count * interval debe caber en `active`); el ultimo usa final_mult
+##   buff: {next_damage_mult, duration} (shape "self") potencia el siguiente ataque
+##   point_distance: con anchor "aim_point" la zona se marca a esa distancia hacia
+##                   el cursor, sin mover al jugador
 ##   consumes_vengeful: gasta la pasiva Vengeful Fury al lanzarse
 ##   charges: {max, recharge} reserva de cargas que se gasta una por uso y se
 ##            recupera una cada `recharge` s (el basico M1, estilo Drakantos)
@@ -26,7 +36,7 @@
 ##           durante el windup y golpea alli)
 ##   leap_distance: distancia del salto (obligatoria con aim_leap)
 ##   center_radius, center_mult: zona central con mas dano (forma circle)
-##   stance: {arc, counter_recovery} la fase active es una postura: bloquea el
+##   stance: {arc, counter_recovery, empower?: {mult, duration}} la fase active es una postura: bloquea el
 ##           primer golpe frontal (dentro de `arc` grados), lo anula y lanza el
 ##           contraataque con la forma de la skill; luego recupera en
 ##           counter_recovery s. Si nadie golpea, expira con su recovery normal
@@ -36,15 +46,16 @@ class_name SkillCatalog
 extends RefCounted
 
 const SKILLS_DIR := "res://data/skills/"
-const SHAPES := ["cone", "line", "circle"]
+const SHAPES := ["cone", "line", "circle", "projectile", "self"]
+const DAMAGE_TYPES := ["physical", "magic"]
 const KINDS := ["basic", "skill", "special", "ultimate"]
 const SLOTS := ["M1", "M2", "S", "SPECIAL", "ULTIMATE"]
 const TIME_FIELDS := ["windup", "active", "recovery", "cooldown"]
 const NUMBER_FIELDS := ["cost", "damage_mult", "resource_gain", "resource_cap", "max_targets"]
-const STRING_FIELDS := ["id", "name", "slot", "kind", "shape", "anim", "hud_label"]
-const OPTIONAL_NUMBERS := ["ult_gain", "ult_cap", "charge", "leap_distance", "center_radius", "center_mult"]
+const STRING_FIELDS := ["id", "name", "class", "slot", "kind", "shape", "anim", "hud_label"]
+const OPTIONAL_NUMBERS := ["ult_gain", "ult_cap", "charge", "leap_distance", "center_radius", "center_mult", "point_distance"]
 const OPTIONAL_BOOLS := ["consumes_vengeful", "telegraph", "uncancelable"]
-const ANCHORS := ["self", "aim_leap"]
+const ANCHORS := ["self", "aim_leap", "aim_point"]
 
 static var _skills: Dictionary = {}
 static var _errors: Array[String] = []
@@ -57,6 +68,16 @@ static func skill(id: StringName) -> Dictionary:
 	if not _skills.has(id):
 		return {}
 	return (_skills[id] as Dictionary).duplicate(true)
+
+
+## Ids de las skills de una clase, en el orden del JSON.
+static func ids_for_class(class_id: String) -> Array[StringName]:
+	_ensure_loaded()
+	var ids: Array[StringName] = []
+	for id: StringName in _skills:
+		if String((_skills[id] as Dictionary)["class"]) == class_id:
+			ids.append(id)
+	return ids
 
 
 static func has_skill(id: StringName) -> bool:
@@ -138,8 +159,10 @@ static func validate(entry: Dictionary) -> Array[String]:
 	for field: String in NUMBER_FIELDS:
 		if not _is_number(entry.get(field)) or float(entry[field]) < 0.0:
 			problems.append("'%s' debe ser un numero >= 0" % field)
-	if _is_number(entry.get("damage_mult")) and float(entry["damage_mult"]) <= 0.0:
-		problems.append("'damage_mult' debe ser > 0")
+	if _is_number(entry.get("damage_mult")) and float(entry["damage_mult"]) <= 0.0 and not entry.has("buff"):
+		problems.append("'damage_mult' debe ser > 0 (salvo en una mejora con 'buff')")
+	if entry.has("damage_type") and not DAMAGE_TYPES.has(entry["damage_type"]):
+		problems.append("damage_type desconocido '%s' (physical o magic)" % str(entry["damage_type"]))
 	if not (entry.get("implemented") is bool):
 		problems.append("'implemented' debe ser true/false")
 	if entry.get("kind") is String and not KINDS.has(entry["kind"]):
@@ -161,6 +184,10 @@ static func validate(entry: Dictionary) -> Array[String]:
 		var stance: Variant = entry["stance"]
 		if not (stance is Dictionary) or not _is_number((stance as Dictionary).get("arc")) or float(stance["arc"]) <= 0.0 or float(stance["arc"]) > 360.0 or not _is_number((stance as Dictionary).get("counter_recovery")) or float(stance["counter_recovery"]) < 0.0:
 			problems.append("'stance' necesita arc entre 0 y 360 y counter_recovery >= 0")
+		elif (stance as Dictionary).has("empower"):
+			var empower: Variant = stance["empower"]
+			if not (empower is Dictionary) or not _is_number((empower as Dictionary).get("mult")) or float(empower["mult"]) <= 1.0 or not _is_number((empower as Dictionary).get("duration")) or float(empower["duration"]) <= 0.0:
+				problems.append("stance.empower necesita mult > 1 y duration > 0")
 	for field: String in OPTIONAL_NUMBERS:
 		if entry.has(field) and (not _is_number(entry[field]) or float(entry[field]) < 0.0):
 			problems.append("'%s' debe ser un numero >= 0" % field)
@@ -177,9 +204,23 @@ static func validate(entry: Dictionary) -> Array[String]:
 			problems.append("'hold' necesita max > 0, damage_bonus >= 0 y range_bonus >= 0")
 	var anchor: Variant = entry.get("anchor", "self")
 	if not (anchor is String) or not ANCHORS.has(anchor):
-		problems.append("anchor desconocido '%s' (self o aim_leap)" % str(anchor))
+		problems.append("anchor desconocido '%s' (self, aim_leap o aim_point)" % str(anchor))
 	elif anchor == "aim_leap" and (not _is_number(entry.get("leap_distance")) or float(entry["leap_distance"]) <= 0.0):
 		problems.append("aim_leap requiere 'leap_distance' > 0")
+	elif anchor == "aim_point" and (not _is_number(entry.get("point_distance")) or float(entry["point_distance"]) <= 0.0):
+		problems.append("aim_point requiere 'point_distance' > 0")
+	if entry.has("strikes"):
+		var strikes: Variant = entry["strikes"]
+		if not (strikes is Dictionary) or not _is_number((strikes as Dictionary).get("count")) or float(strikes["count"]) < 2.0 or not _is_number((strikes as Dictionary).get("interval")) or float(strikes["interval"]) <= 0.0 or not _is_number((strikes as Dictionary).get("final_mult")) or float(strikes["final_mult"]) <= 0.0:
+			problems.append("'strikes' necesita count >= 2, interval > 0 y final_mult > 0")
+		elif _is_number(entry.get("active")) and float(strikes["count"]) * float(strikes["interval"]) > float(entry["active"]) + 0.001:
+			problems.append("los golpes de 'strikes' (count * interval) no caben en 'active'")
+	if entry.has("buff"):
+		var buff: Variant = entry["buff"]
+		if not (buff is Dictionary) or not _is_number((buff as Dictionary).get("next_damage_mult")) or float(buff["next_damage_mult"]) <= 1.0 or not _is_number((buff as Dictionary).get("duration")) or float(buff["duration"]) <= 0.0:
+			problems.append("'buff' necesita next_damage_mult > 1 y duration > 0")
+		if entry.get("shape") != "self":
+			problems.append("una skill con 'buff' debe tener shape \"self\"")
 	if entry.has("center_mult") != entry.has("center_radius"):
 		problems.append("'center_radius' y 'center_mult' van juntos")
 	_validate_shape(entry, problems)
@@ -189,7 +230,12 @@ static func validate(entry: Dictionary) -> Array[String]:
 static func _validate_shape(entry: Dictionary, problems: Array[String]) -> void:
 	var shape: Variant = entry.get("shape")
 	if not (shape is String) or not SHAPES.has(shape):
-		problems.append("forma desconocida '%s' (cone, line o circle)" % str(shape))
+		problems.append("forma desconocida '%s' (cone, line, circle, projectile o self)" % str(shape))
+		return
+	if shape == "self":
+		return
+	if shape == "projectile":
+		_validate_projectile(entry, problems)
 		return
 	if not _is_number(entry.get("range")) or float(entry["range"]) <= 0.0:
 		problems.append("'range' debe ser un numero > 0")
@@ -199,6 +245,29 @@ static func _validate_shape(entry: Dictionary, problems: Array[String]) -> void:
 	elif shape == "line":
 		if not _is_number(entry.get("width")) or float(entry["width"]) <= 0.0:
 			problems.append("line: 'width' debe ser un numero > 0")
+
+
+static func _validate_projectile(entry: Dictionary, problems: Array[String]) -> void:
+	var projectile: Variant = entry.get("projectile")
+	if not (projectile is Dictionary):
+		problems.append("shape projectile necesita 'projectile'")
+		return
+	var spec: Dictionary = projectile
+	for field: String in ["speed", "range", "radius"]:
+		if not _is_number(spec.get(field)) or float(spec[field]) <= 0.0:
+			problems.append("projectile.%s debe ser > 0" % field)
+	if not _is_number(spec.get("count")) or float(spec["count"]) < 1.0:
+		problems.append("projectile.count debe ser >= 1")
+	if not _is_number(spec.get("spread")) or float(spec["spread"]) < 0.0 or float(spec["spread"]) > 180.0:
+		problems.append("projectile.spread debe estar entre 0 y 180")
+	if not _is_number(spec.get("pierce")) or float(spec["pierce"]) < 0.0:
+		problems.append("projectile.pierce debe ser >= 0")
+	if not _is_text(spec.get("visual")) or String(spec["visual"]).is_empty():
+		problems.append("projectile.visual es obligatorio")
+	if spec.has("explode"):
+		var explode: Variant = spec["explode"]
+		if not (explode is Dictionary) or not _is_number((explode as Dictionary).get("radius")) or float(explode["radius"]) <= 0.0 or not _is_number((explode as Dictionary).get("mult")) or float(explode["mult"]) <= 0.0:
+			problems.append("projectile.explode necesita radius > 0 y mult > 0")
 
 
 static func _is_number(value: Variant) -> bool:

@@ -163,7 +163,7 @@ func _test_snapshot() -> void:
 	var snap: Dictionary = world.snapshot()
 	_check(snap.has("tick") and snap.has("player") and snap.has("dummies"), "snapshot has the network sections")
 	var warrior: Dictionary = snap["player"]
-	for key: String in ["position", "velocity", "aim", "health", "max_health", "rage", "state", "vengeful", "alive"]:
+	for key: String in ["position", "velocity", "aim", "health", "max_health", "resource", "state", "vengeful", "alive"]:
 		_check(warrior.has(key), "warrior snapshot has %s" % key)
 
 	var dummy: Dictionary = snap["dummies"][0]

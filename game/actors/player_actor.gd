@@ -46,7 +46,7 @@ func setup(p_sim: PlayerSim, p_arena: Arena) -> void:
 func _build_sprite() -> void:
 	sprite = AnimatedSprite2D.new()
 	sprite.name = "LpcSprite"
-	sprite.sprite_frames = WarriorLook.frames()
+	sprite.sprite_frames = ClassLook.frames(sim.class_id)
 	sprite.position = LpcComposer.FEET_OFFSET
 	sprite.centered = true
 	sprite.z_index = 1
@@ -71,6 +71,9 @@ func _connect_signals() -> void:
 	sim.attack_blocked.connect(_on_attack_blocked)
 	sim.xp_gained.connect(_on_xp_gained)
 	sim.leveled_up.connect(_on_leveled_up)
+	sim.class_changed.connect(_on_class_changed)
+	sim.buff_changed.connect(_on_buff_changed)
+	sim.projectiles_launched.connect(_on_projectiles_launched)
 
 
 func _process(delta: float) -> void:
@@ -171,8 +174,12 @@ func _on_attack_state_changed(state: int) -> void:
 
 	if arena == null:
 		return
+	var shape := String(_current_skill.get("shape", "cone"))
+	if shape == "projectile" or shape == "self":
+		return
+	var origin := sim.attack_point if String(_current_skill.get("anchor", "self")) == "aim_point" else sim.position
 	arena.spawn_slash(
-		sim.position,
+		origin,
 		sim.attack_aim,
 		sim.attack_range_now(),
 		visual_arc(_current_skill),
@@ -298,6 +305,34 @@ func _on_attack_blocked(source_position: Vector2) -> void:
 	_facing = _dir_name(direction)
 
 
+## Cambio de clase: nuevo aspecto LPC (otro equipo y otra arma).
+func _on_class_changed(_new_class_id: String) -> void:
+	sprite.sprite_frames = ClassLook.frames(sim.class_id)
+	sprite.play("combat_idle_%s" % _facing)
+	_current_skill = {}
+	if arena != null:
+		arena.spawn_impact(sim.position, Color(0.8, 0.9, 1.0, 1.0), true)
+		arena.spawn_floating_text(sim.position + Vector2(0.0, -26.0), String(sim.class_def["name"]).to_upper(), GOLD_TEXT)
+		arena.play_sfx(SFX_HIT, -6.0, 1.3)
+
+
+## Mejora del siguiente ataque (Special de Mage/Archer, evasion del Rogue).
+func _on_buff_changed(active: bool, multiplier: float, _seconds_left: float) -> void:
+	if arena == null or not active:
+		return
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -20.0), "EMPOWERED  x%.1f" % multiplier, Color(0.7, 0.9, 1.0, 1.0))
+	arena.play_sfx(SFX_HIT, -9.0, 1.6)
+
+
+## Destello y sonido al soltar la salva de proyectiles.
+func _on_projectiles_launched(skill: Dictionary, direction: Vector2) -> void:
+	if arena == null:
+		return
+	var heavy := String(skill.get("slot", "M1")) != "M1"
+	arena.spawn_impact(sim.position + direction * 18.0 + Vector2(0.0, -12.0), Color(1.0, 0.95, 0.8, 1.0), false)
+	arena.play_sfx(SFX_SLASH_HEAVY if heavy else SFX_SLASH, -8.0, randf_range(1.15, 1.35))
+
+
 func _on_xp_gained(amount: int, _source_position: Vector2) -> void:
 	if arena != null:
 		arena.spawn_floating_text(sim.position + Vector2(0.0, 6.0), "+%d XP" % amount, XP_TEXT)
@@ -374,6 +409,17 @@ func _apply_damage_flash() -> void:
 		sprite.modulate = Color.WHITE
 
 
+## Aura clara alrededor del personaje mientras el siguiente ataque esta mejorado.
+func _draw_empower() -> void:
+	if not sim.alive or sim.empower_mult <= 1.0:
+		return
+	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.015)
+	draw_set_transform(Vector2(0, -2), 0.0, Vector2(1.0, 0.45))
+	draw_circle(Vector2.ZERO, 20.0 + pulse * 2.0, Color(0.55, 0.8, 1.0, 0.10 + 0.06 * pulse))
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	draw_arc(Vector2(0, -2), 21.0 + pulse * 2.0, 0.0, TAU, 28, Color(0.65, 0.88, 1.0, 0.45 + 0.3 * pulse), 1.5)
+
+
 ## Escudo frontal mientras la postura del Special esta abierta: un arco del
 ## ancho real del bloqueo, hacia donde apunta el jugador.
 func _draw_stance() -> void:
@@ -437,6 +483,7 @@ func _draw() -> void:
 	_draw_telegraph()
 	_draw_charge()
 	_draw_stance()
+	_draw_empower()
 
 	# Aura de Vengeful Fury cuando la pasiva está cargada.
 	if sim.vengeful_active and sim.alive:
