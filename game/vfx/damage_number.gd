@@ -29,6 +29,24 @@ func setup(amount: float, critical: bool) -> void:
 	set_process(true)
 
 
+## Texto flotante sin cifra (p. ej. DODGE).
+func setup_label(label: String, color: Color) -> void:
+	text = label
+	add_theme_font_override("font", FONT)
+	add_theme_font_size_override("font_size", 12)
+	add_theme_color_override("font_color", color)
+	add_theme_color_override("font_outline_color", Color(0.04, 0.05, 0.1, 1.0))
+	add_theme_constant_override("outline_size", 3)
+	horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	custom_minimum_size = Vector2(48, 18)
+	size = Vector2(48, 18)
+	pivot_offset = Vector2(24, 9)
+	z_index = 60
+	_duration = 0.6
+	_rise = 26.0
+	set_process(true)
+
+
 func place(world_position: Vector2) -> void:
 	_start = world_position + Vector2(-24, -56)
 	position = _start

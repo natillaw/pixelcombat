@@ -3,8 +3,8 @@
 ## Solo cambia dentro de step(), que llama CombatWorld una vez por tick fijo.
 ## La presentación lee sus campos y escucha sus señales; nunca escribe estado.
 ##
-## Implementado: M1 Sword Slash, M2 Heavy Strike, Rage, Vengeful Fury, muerte y
-## reset. El Skill Book completo vive en WarriorKit como datos.
+## Implementado: M1 Sword Slash, M2 Heavy Strike, esquiva con i-frames, Rage,
+## Vengeful Fury, muerte y reset. El Skill Book completo vive en WarriorKit como datos.
 class_name WarriorSim
 extends RefCounted
 
@@ -17,6 +17,9 @@ signal damage_taken(amount: float, source_position: Vector2, is_dot: bool)
 signal died()
 signal vengeful_changed(active: bool, seconds_left: float)
 signal attack_state_changed(state: int)
+signal dodge_started(direction: Vector2)
+signal dodge_ended()
+signal attack_evaded(source_position: Vector2)
 
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
@@ -57,6 +60,12 @@ var cooldown_m2: float = 0.0
 var buffered_slot: String = ""
 var buffer_timer: float = 0.0
 
+var dodging: bool = false
+var dodge_time: float = 0.0
+var dodge_dir: Vector2 = Vector2.DOWN
+var cooldown_dodge: float = 0.0
+var dodge_buffer_timer: float = 0.0
+
 var vengeful_active: bool = false
 var vengeful_until_tick: int = 0
 
@@ -66,6 +75,7 @@ var swing_rage_gained: float = 0.0
 var _attack_damage_mult: float = 1.0
 
 var _m1_held: bool = false
+var _dodge_prev: bool = false
 var _rng: RandomNumberGenerator
 
 
@@ -115,6 +125,11 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	cooldown_m2 = 0.0
 	buffered_slot = ""
 	buffer_timer = 0.0
+	dodging = false
+	dodge_time = 0.0
+	cooldown_dodge = 0.0
+	dodge_buffer_timer = 0.0
+	_dodge_prev = false
 	vengeful_active = false
 	vengeful_until_tick = 0
 	last_combat_tick = 0
@@ -129,6 +144,7 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 	tick = tick_number
 	_read_input(input)
 	_tick_timers(delta)
+	_update_dodge(delta)
 	_update_attack(delta)
 	_update_movement(delta)
 	_update_rage(delta)
@@ -138,12 +154,17 @@ func _read_input(input: Object) -> void:
 	if input == null:
 		move_input = Vector2.ZERO
 		_m1_held = false
+		_dodge_prev = false
 		return
 	move_input = (input.move_dir as Vector2).limit_length(1.0)
 	var aim: Vector2 = input.aim_dir
 	if aim.length_squared() > 0.0001:
 		aim_dir = aim.normalized()
 	_m1_held = bool(input.actions.get("m1", false))
+	var dodge_pressed := bool(input.actions.get("dodge", false))
+	if dodge_pressed and not _dodge_prev:
+		dodge_buffer_timer = float(WarriorKit.DODGE["buffer"])
+	_dodge_prev = dodge_pressed
 	if bool(input.actions.get("m2", false)):
 		buffered_slot = "M2"
 		buffer_timer = BUFFER_SECONDS
@@ -152,10 +173,52 @@ func _read_input(input: Object) -> void:
 func _tick_timers(delta: float) -> void:
 	cooldown_m1 = maxf(0.0, cooldown_m1 - delta)
 	cooldown_m2 = maxf(0.0, cooldown_m2 - delta)
+	cooldown_dodge = maxf(0.0, cooldown_dodge - delta)
+	dodge_buffer_timer = maxf(0.0, dodge_buffer_timer - delta)
 	if buffer_timer > 0.0:
 		buffer_timer = maxf(0.0, buffer_timer - delta)
 		if buffer_timer <= 0.0:
 			buffered_slot = ""
+
+
+## Esquiva: avanza la que esta en curso o arranca la bufferizada. Puede cancelar
+## un ataque en WINDUP o RECOVERY, no en ACTIVE.
+func _update_dodge(delta: float) -> void:
+	if dodging:
+		dodge_time += delta
+		return
+	if dodge_buffer_timer <= 0.0 or cooldown_dodge > 0.0 or not alive:
+		return
+	if state == AttackState.ACTIVE:
+		return
+	_start_dodge(delta)
+
+
+func _start_dodge(delta_for_start: float) -> void:
+	dodge_buffer_timer = 0.0
+	if state != AttackState.IDLE:
+		_cancel_attack()
+	if move_input.length_squared() > 0.0001:
+		dodge_dir = move_input.normalized()
+	else:
+		dodge_dir = -aim_dir
+	dodging = true
+	dodge_time = delta_for_start
+	cooldown_dodge = float(WarriorKit.DODGE["cooldown"])
+	dodge_started.emit(dodge_dir)
+
+
+## Corta el ataque actual sin resolver el golpe. Los cooldowns ya gastados se
+## conservan para que cancelar con la esquiva no sea gratis.
+func _cancel_attack() -> void:
+	var cancelled := current_skill
+	state = AttackState.IDLE
+	state_time = 0.0
+	current_skill = {}
+	buffered_slot = ""
+	buffer_timer = 0.0
+	attack_state_changed.emit(state)
+	attack_finished.emit(cancelled)
 
 
 func _update_attack(delta: float) -> void:
@@ -184,7 +247,7 @@ func _update_attack(delta: float) -> void:
 
 
 func _try_start_attack() -> void:
-	if not alive:
+	if not alive or dodging:
 		return
 	if buffered_slot == "M2" and cooldown_m2 <= 0.0:
 		buffered_slot = ""
@@ -259,6 +322,9 @@ func _update_movement(delta: float) -> void:
 	if not alive:
 		velocity = Vector2.ZERO
 		return
+	if dodging:
+		_move_dodge(delta)
+		return
 	var factor := _movement_factor()
 	var desired := move_input * MOVE_SPEED * factor
 	var rate := ACCELERATION if move_input.length_squared() > 0.0001 else FRICTION
@@ -268,6 +334,21 @@ func _update_movement(delta: float) -> void:
 	position += velocity * delta
 	if world != null:
 		position = world.resolve_position(position, RADIUS)
+
+
+## Un paso de la esquiva. Ocupa exactamente `duration` segundos y recorre
+## `distance` px; el tick que cumple la duracion es el ultimo con movimiento de
+## esquiva y ahi termina.
+func _move_dodge(delta: float) -> void:
+	var dodge_speed: float = float(WarriorKit.DODGE["distance"]) / float(WarriorKit.DODGE["duration"])
+	velocity = dodge_dir * dodge_speed
+	position += velocity * delta
+	if world != null:
+		position = world.resolve_position(position, RADIUS)
+	if dodge_time >= float(WarriorKit.DODGE["duration"]) - 0.0001:
+		dodging = false
+		velocity = dodge_dir * MOVE_SPEED if move_input.length_squared() > 0.0001 else Vector2.ZERO
+		dodge_ended.emit()
 
 
 func _movement_factor() -> float:
@@ -306,6 +387,9 @@ func _update_rage(delta: float) -> void:
 func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot: bool = false) -> float:
 	if not alive or amount <= 0.0:
 		return 0.0
+	if is_invulnerable() and not is_dot:
+		attack_evaded.emit(source_position)
+		return 0.0
 
 	var reduced := amount * (1.0 - armor_reduction())
 	var dealt := minf(reduced, health)
@@ -326,12 +410,28 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 	if health <= 0.0:
 		health = 0.0
 		alive = false
+		dodging = false
 		state = AttackState.IDLE
 		current_skill = {}
 		velocity = Vector2.ZERO
 		died.emit()
 
 	return dealt
+
+
+## Verdadero durante la ventana de i-frames de la esquiva.
+func is_invulnerable() -> bool:
+	if not dodging:
+		return false
+	return dodge_time >= float(WarriorKit.DODGE["iframe_start"]) and dodge_time < float(WarriorKit.DODGE["iframe_end"])
+
+
+func dodge_cooldown_left() -> float:
+	return cooldown_dodge
+
+
+func dodge_cooldown_total() -> float:
+	return float(WarriorKit.DODGE["cooldown"])
 
 
 func armor_reduction() -> float:
@@ -378,5 +478,7 @@ func snapshot() -> Dictionary:
 		"rage": resource.get_current(),
 		"state": state,
 		"vengeful": vengeful_active,
+		"dodging": dodging,
+		"dodge_cd": cooldown_dodge,
 		"alive": alive,
 	}

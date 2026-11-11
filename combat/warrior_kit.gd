@@ -59,6 +59,26 @@ const M2 := {
 	"implemented": true,
 }
 
+## Esquiva (accion comun a todas las clases): desplazamiento corto con ventana de
+## invulnerabilidad. No gasta recurso; solo cooldown. Puede cancelar un ataque
+## en WINDUP o RECOVERY, nunca en ACTIVE (el golpe ya salio).
+## Sin direccion de movimiento, retrocede (opuesto al cursor).
+const DODGE := {
+	"id": &"dodge",
+	"name": "Dodge",
+	"slot": "DODGE",
+	"kind": "movement",
+	"role": "Movilidad / evasion",
+	"description": "Desplazamiento corto con invulnerabilidad al inicio. Cancela windup y recovery.",
+	"duration": 0.25,
+	"distance": 104.0,
+	"iframe_start": 0.0,
+	"iframe_end": 0.18,
+	"cooldown": 1.1,
+	"buffer": 0.15,
+	"implemented": true,
+}
+
 ## Pasiva: Vengeful Fury (nueva en la v2). No se acumula; el daño periódico no la activa.
 const PASSIVE := {
 	"id": &"vengeful_fury",

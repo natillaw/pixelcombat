@@ -116,6 +116,7 @@ func _draw_abilities(warrior: WarriorSim) -> void:
 		warrior.attack_cooldown_left("M2"), warrior.attack_cooldown_total("M2"),
 		warrior.vengeful_active, warrior.state == WarriorSim.AttackState.IDLE
 	)
+	_draw_dodge_slot(Rect2(396, 310, 64, 38), warrior)
 
 
 func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: float, total: float, empowered: bool, idle: bool) -> void:
@@ -146,6 +147,30 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 		_draw_text("!", rect.position + Vector2(rect.size.x - 12, 9), 7, ORANGE)
 
 
+## Hueco de la esquiva: tres chevrones y cooldown en el mismo estilo que M1/M2.
+func _draw_dodge_slot(rect: Rect2, warrior: WarriorSim) -> void:
+	var left := warrior.dodge_cooldown_left()
+	var total := warrior.dodge_cooldown_total()
+	var ready := left <= 0.0
+	var edge := Color(0.55, 0.82, 1.0, 1.0) if warrior.dodging else PANEL_EDGE
+	draw_rect(rect, PANEL)
+	draw_rect(rect, edge, false, 1.0)
+	_draw_text("SPACE", rect.position + Vector2(4, 9), 7, MUTED)
+	var icon_color := Color(0.6, 0.85, 1.0, 1.0) if ready else Color(0.62, 0.64, 0.72, 1.0)
+	var c := rect.position + Vector2(rect.size.x * 0.5, 18)
+	for i: int in range(3):
+		var x := -8.0 + i * 8.0
+		draw_line(Vector2(c.x + x - 2, c.y - 6), Vector2(c.x + x + 2, c.y), icon_color, 2.0)
+		draw_line(Vector2(c.x + x + 2, c.y), Vector2(c.x + x - 2, c.y + 6), icon_color, 2.0)
+	_draw_text("DODGE", Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	if left > 0.05:
+		var ratio := clampf(left / maxf(total, 0.001), 0.0, 1.0)
+		draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * ratio)), Color(0.02, 0.02, 0.04, 0.62))
+		_draw_text("%.1f" % left, Vector2(rect.position.x, rect.position.y + rect.size.y * 0.78), 7, Color(0.95, 0.92, 0.85, 0.95), HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	elif warrior.state == WarriorSim.AttackState.IDLE:
+		draw_rect(rect.grow(-2.0), Color(edge.r, edge.g, edge.b, 0.22), false, 1.0)
+
+
 func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) -> void:
 	draw_set_transform(center, angle, Vector2.ONE)
 	var width := 3.0 if heavy else 2.0
@@ -158,17 +183,18 @@ func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) 
 
 
 func _draw_controls() -> void:
-	_panel(Rect2(498, 292, 132, 62))
+	_panel(Rect2(498, 283, 132, 71))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
 		"LMB    SWORD SLASH",
 		"RMB    HEAVY STRIKE",
+		"SPACE  DODGE",
 		"R      RESET",
 		"F3     DEBUG",
 	]
 	for i: int in range(lines.size()):
-		_draw_text(String(lines[i]), Vector2(504, 303 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
+		_draw_text(String(lines[i]), Vector2(504, 294 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
 
 
 # --- Overlays ---------------------------------------------------------------

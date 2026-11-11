@@ -75,5 +75,6 @@ func _read_input() -> InputMessage:
 	message.actions = {
 		"m1": Input.is_action_pressed("attack_m1"),
 		"m2": Input.is_action_pressed("attack_m2"),
+		"dodge": Input.is_action_pressed("dodge"),
 	}
 	return message

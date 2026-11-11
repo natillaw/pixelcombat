@@ -152,6 +152,13 @@ func spawn_damage_number(at: Vector2, amount: float, critical: bool = false) -> 
 	fx.add_child(number)
 
 
+func spawn_floating_text(at: Vector2, label: String, color: Color = Color.WHITE) -> void:
+	var number := DamageNumber.new()
+	number.setup_label(label, color)
+	number.place(at)
+	fx.add_child(number)
+
+
 func play_sfx(stream: AudioStream, volume_db: float = -6.0, pitch: float = 1.0) -> void:
 	if stream == null or _sfx_pool.is_empty():
 		return

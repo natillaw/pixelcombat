@@ -70,7 +70,7 @@ Cada una con mi recomendación; marca las que cambies.
 ### Fase 1 — Combate núcleo estilo Drakantos (2–3 semanas)
 Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - [x] Encarar siempre al cursor (con bloqueo durante ataques/channels). *Hecho 10 nov: `WarriorActor.facing_for`, con histéresis y test.*
-- Esquiva con i-frames cortos y coste/cooldown.
+- [x] Esquiva con i-frames cortos y coste/cooldown. *Hecho 10 nov: `WarriorKit.DODGE`, `tests/test_dodge.gd`.*
 - Pipeline de skills genérico y dirigido por datos: windup → activo → recovery, cancel windows, telegraph, hitbox (línea, cono, círculo, proyectil).
 - Slots de loadout: M1, M2, S1–S5, Special, Ultimate. Ultimate con Charge por golpes.
 - Estados: stun, slow, empuje, sangrado, escudo, silencio. Prioridad y duración centralizadas.

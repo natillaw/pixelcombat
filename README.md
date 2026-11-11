@@ -40,12 +40,13 @@ La primera vez, o tras cambiar muchos assets, importa:
 | Ratón | Apuntar |
 | Clic izquierdo | M1 · Sword Slash (mantener para encadenar) |
 | Clic derecho | M2 · Heavy Strike |
+| Espacio | Esquiva (i-frames, cancela windup/recovery, cooldown 1,1 s) |
 | R | Reiniciar entrenamiento |
 | F3 | Overlay de debug |
 | Esc | Salir |
 
-Espacio (esquiva), Q (Special) y F (Ultimate) ya están en el mapa de input pero
-**aún no hacen nada**: llegan en la Fase 1 del roadmap.
+Q (Special) y F (Ultimate) ya están en el mapa de input pero **aún no hacen
+nada**: llegan en la Fase 1 del roadmap.
 
 ## Tests
 

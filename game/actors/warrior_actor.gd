@@ -12,7 +12,12 @@ const SFX_HIT_HEAVY := preload("res://assets/audio/sfx/ninja/Hit_Impact/Impact3.
 const SFX_HURT := preload("res://assets/audio/sfx/ninja/Hit_Impact/Impact.wav")
 const SFX_DEATH := preload("res://assets/audio/sfx/ninja/Hit_Impact/Impact5.wav")
 
+const SFX_DODGE := preload("res://assets/audio/sfx/ninja/Whoosh_Slash/Whoosh.wav")
+
 const FLASH_SECONDS := 0.14
+const AFTERIMAGE_INTERVAL := 0.035
+const AFTERIMAGE_LIFETIME := 0.22
+const DODGE_ALPHA := 0.62
 
 var sim: WarriorSim
 var arena: Arena
@@ -25,6 +30,7 @@ var _current_skill: Dictionary = {}
 var _flash: float = 0.0
 var _dead_visual: bool = false
 var _death_tween: Tween = null
+var _afterimage_timer: float = 0.0
 
 
 func setup(p_sim: WarriorSim, p_arena: Arena) -> void:
@@ -54,6 +60,9 @@ func _connect_signals() -> void:
 	sim.damage_taken.connect(_on_damage_taken)
 	sim.died.connect(_on_died)
 	sim.vengeful_changed.connect(_on_vengeful_changed)
+	sim.dodge_started.connect(_on_dodge_started)
+	sim.dodge_ended.connect(_on_dodge_ended)
+	sim.attack_evaded.connect(_on_attack_evaded)
 
 
 func _process(delta: float) -> void:
@@ -67,6 +76,7 @@ func _process(delta: float) -> void:
 			_restore_visual()
 		_update_facing()
 		_update_animation()
+		_update_dodge_visual(delta)
 		_apply_damage_flash()
 	else:
 		_apply_damage_flash()
@@ -110,6 +120,11 @@ func _update_animation() -> void:
 				_play("combat_idle")
 			WarriorSim.AttackState.ACTIVE, WarriorSim.AttackState.RECOVERY:
 				pass
+		return
+
+	if sim.dodging:
+		sprite.speed_scale = 1.8
+		_play("run")
 		return
 
 	sprite.speed_scale = 1.0
@@ -208,6 +223,57 @@ func _restore_visual() -> void:
 	sprite.play("combat_idle_%s" % _facing)
 
 
+## Durante la esquiva el sprite se vuelve semitransparente (mientras dura la
+## invulnerabilidad) y deja una estela de imagenes residuales.
+func _update_dodge_visual(delta: float) -> void:
+	if not sim.dodging:
+		_afterimage_timer = 0.0
+		return
+	_afterimage_timer -= delta
+	if _afterimage_timer <= 0.0:
+		_afterimage_timer = AFTERIMAGE_INTERVAL
+		_spawn_afterimage()
+
+
+func _spawn_afterimage() -> void:
+	if arena == null or sprite.sprite_frames == null:
+		return
+	var texture := sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+	if texture == null:
+		return
+	var ghost := Sprite2D.new()
+	ghost.texture = texture
+	ghost.centered = true
+	ghost.z_index = 0
+	ghost.modulate = Color(0.55, 0.8, 1.0, 0.45)
+	arena.fx.add_child(ghost)
+	ghost.global_position = sprite.global_position
+	var tween := ghost.create_tween()
+	tween.tween_property(ghost, "modulate:a", 0.0, AFTERIMAGE_LIFETIME)
+	tween.tween_callback(ghost.queue_free)
+
+
+func _on_dodge_started(_direction: Vector2) -> void:
+	_current_skill = {}
+	sprite.speed_scale = 1.8
+	if arena == null:
+		return
+	arena.spawn_impact(sim.position + Vector2(0.0, 6.0), Color(0.82, 0.86, 0.95, 0.9), false)
+	arena.play_sfx(SFX_DODGE, -10.0, randf_range(1.05, 1.2))
+
+
+func _on_dodge_ended() -> void:
+	sprite.modulate = Color.WHITE
+	sprite.speed_scale = 1.0
+
+
+func _on_attack_evaded(_source_position: Vector2) -> void:
+	if arena == null:
+		return
+	arena.spawn_floating_text(sim.position, "DODGE", Color(0.6, 0.85, 1.0, 1.0))
+	arena.play_sfx(SFX_DODGE, -6.0, 1.4)
+
+
 func _on_vengeful_changed(active: bool, _seconds_left: float) -> void:
 	if active and arena != null:
 		arena.play_sfx(SFX_HIT, -16.0, 0.65)
@@ -219,6 +285,8 @@ func _apply_damage_flash() -> void:
 	if _flash > 0.0:
 		var t := _flash / FLASH_SECONDS
 		sprite.modulate = Color(1.0 + t * 0.9, 0.72 + (1.0 - t) * 0.28, 0.72 + (1.0 - t) * 0.28, 1.0)
+	elif sim != null and sim.is_invulnerable():
+		sprite.modulate = Color(0.75, 0.9, 1.0, DODGE_ALPHA)
 	else:
 		sprite.modulate = Color.WHITE
 
