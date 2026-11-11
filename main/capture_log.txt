@@ -21,6 +21,8 @@ shot 01_arena -> /home/runner/work/pixelcombat/pixelcombat/screenshots/01_arena.
 shot 02_sword_slash -> /home/runner/work/pixelcombat/pixelcombat/screenshots/02_sword_slash.png err=0
 shot 03_heavy_strike -> /home/runner/work/pixelcombat/pixelcombat/screenshots/03_heavy_strike.png err=0
 shot 04_impact -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04_impact.png err=0
+shot 04b_ultimate_telegraph -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04b_ultimate_telegraph.png err=0
+shot 04c_ultimate_impact -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04c_ultimate_impact.png err=0
 shot 05_vengeful_fury -> /home/runner/work/pixelcombat/pixelcombat/screenshots/05_vengeful_fury.png err=0
 shot 06_death -> /home/runner/work/pixelcombat/pixelcombat/screenshots/06_death.png err=0
 CAPTURE DONE -> /home/runner/work/pixelcombat/pixelcombat/screenshots
