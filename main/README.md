@@ -1,5 +1,5 @@
 # Capturas de main
-Commit `05054b9` — 2026-11-11 01:10 UTC
+Commit `5235fbf` — 2026-11-11 01:24 UTC
 
 ## 01_arena.png
 ![](01_arena.png)
@@ -12,6 +12,15 @@ Commit `05054b9` — 2026-11-11 01:10 UTC
 
 ## 04_impact.png
 ![](04_impact.png)
+
+## 04a2_loadout_panel.png
+![](04a2_loadout_panel.png)
+
+## 04a3_iron_counter_stance.png
+![](04a3_iron_counter_stance.png)
+
+## 04a_level10_hud.png
+![](04a_level10_hud.png)
 
 ## 04b_ultimate_telegraph.png
 ![](04b_ultimate_telegraph.png)
