@@ -12,6 +12,7 @@ signal projectile_spawned(projectile: ProjectileSim)
 signal projectile_removed(projectile: ProjectileSim)
 signal enemy_spawned(enemy: EnemySim)
 signal layout_loaded(layout: FloorLayout)
+signal loot_dropped(item: Dictionary, position: Vector2)
 
 const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
@@ -31,11 +32,15 @@ var layout: FloorLayout = null
 ## Verdadero mientras load_layout() crea los enemigos (la arena los dibuja luego).
 var loading_layout: bool = false
 var pending_input: InputMessage = null
+## RNG propio del botin (no altera la secuencia del combate).
+var loot_rng: RandomNumberGenerator
 
 
 func _init(seed_value: int = 1337) -> void:
 	rng = RandomNumberGenerator.new()
 	rng.seed = seed_value
+	loot_rng = RandomNumberGenerator.new()
+	loot_rng.seed = seed_value * 31 + 7
 	player = PlayerSimScript.new(self)
 	player.position = Vector2(480, 380)
 
@@ -58,6 +63,7 @@ func add_dummy(spawn: Vector2, auto_attack: bool = true) -> DummySim:
 func add_enemy(def_id: StringName, spawn: Vector2, level_scale: float = 1.0) -> EnemySim:
 	var enemy := EnemySim.new(self, def_id, spawn, int(rng.seed) + (enemies.size() + 1) * 7919)
 	enemy.apply_scale(level_scale)
+	enemy.died.connect(_on_enemy_died.bind(enemy))
 	enemies.append(enemy)
 	enemy_spawned.emit(enemy)
 	return enemy
@@ -93,6 +99,23 @@ func load_layout(new_layout: FloorLayout) -> void:
 		enemy.required = bool(spec.get("required", true))
 	loading_layout = false
 	layout_loaded.emit(new_layout)
+
+
+## Botin al morir un enemigo (las crias invocadas no sueltan nada). El tier sale del
+## piso si hay uno cargado y, si no, del propio enemigo.
+func _on_enemy_died(enemy: EnemySim) -> void:
+	if enemy.summoned:
+		return
+	var tier: int = layout.tier if layout != null and layout.tier > 0 else int(enemy.data.get("tier", 1))
+	var kind := "normal"
+	if enemy.is_boss():
+		var spike := TowerCatalog.spike_kind(layout.floor_number) if layout != null and layout.floor_number > 0 else ""
+		kind = spike if spike != "" else "boss"
+	var item := ItemGen.roll_drop(loot_rng, tier, kind)
+	if item.is_empty():
+		return
+	player.add_item(item)
+	loot_dropped.emit(item, enemy.position)
 
 
 func submit_input(input: InputMessage) -> void:

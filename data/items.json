@@ -1,0 +1,52 @@
+{
+	"_doc": "Items, rarezas y botin. Esquema en combat/item_catalog.gd. Numeros provisionales (tier 1, rareza comun).",
+	"bag_size": 40,
+	"tier_scale": 0.30,
+	"rarities": [
+		{"id": "common", "name": "Comun", "color": [0.78, 0.78, 0.80], "stat_mult": 1.0, "affixes": 0, "weight": 60},
+		{"id": "uncommon", "name": "Poco comun", "color": [0.40, 0.85, 0.40], "stat_mult": 1.25, "affixes": 1, "weight": 28},
+		{"id": "rare", "name": "Raro", "color": [0.35, 0.60, 1.0], "stat_mult": 1.55, "affixes": 2, "weight": 9},
+		{"id": "epic", "name": "Epico", "color": [0.72, 0.38, 0.95], "stat_mult": 1.9, "affixes": 3, "weight": 2.5},
+		{"id": "legendary", "name": "Legendario", "color": [1.0, 0.62, 0.15], "stat_mult": 2.3, "affixes": 4, "weight": 0.5}
+	],
+	"slots": [
+		{"id": "weapon", "name": "Arma"},
+		{"id": "head", "name": "Cabeza"},
+		{"id": "chest", "name": "Pecho"},
+		{"id": "legs", "name": "Piernas"},
+		{"id": "feet", "name": "Pies"},
+		{"id": "ring", "name": "Anillo"}
+	],
+	"items": [
+		{"id": "iron_sword", "name": "Espada de hierro", "slot": "weapon", "classes": ["warrior"], "stats": {"weapon_min": 3.0, "weapon_max": 5.0, "strength": 2.0}},
+		{"id": "hunting_knife", "name": "Cuchillo de caza", "slot": "weapon", "classes": ["rogue"], "stats": {"weapon_min": 2.5, "weapon_max": 4.0, "agility": 2.0}},
+		{"id": "oak_staff", "name": "Baston de roble", "slot": "weapon", "classes": ["mage"], "stats": {"weapon_min": 2.5, "weapon_max": 4.0, "intellect": 2.0}},
+		{"id": "short_bow", "name": "Arco corto", "slot": "weapon", "classes": ["archer"], "stats": {"weapon_min": 2.5, "weapon_max": 4.0, "agility": 2.0}},
+		{"id": "leather_cap", "name": "Gorro de cuero", "slot": "head", "stats": {"armor": 4.0, "stamina": 1.0}},
+		{"id": "cloth_hood", "name": "Capucha de tela", "slot": "head", "stats": {"armor": 2.0, "intellect": 1.5}},
+		{"id": "leather_vest", "name": "Jubon de cuero", "slot": "chest", "stats": {"armor": 8.0, "stamina": 2.0}},
+		{"id": "padded_robe", "name": "Tunica acolchada", "slot": "chest", "stats": {"armor": 4.0, "intellect": 2.0, "stamina": 1.0}},
+		{"id": "leather_pants", "name": "Pantalon de cuero", "slot": "legs", "stats": {"armor": 6.0, "stamina": 1.0}},
+		{"id": "cloth_trousers", "name": "Calzas de tela", "slot": "legs", "stats": {"armor": 3.0, "intellect": 1.5}},
+		{"id": "worn_boots", "name": "Botas gastadas", "slot": "feet", "stats": {"armor": 3.0, "agility": 1.0}},
+		{"id": "traveler_shoes", "name": "Zapatos de viajero", "slot": "feet", "stats": {"armor": 2.0, "stamina": 1.5}},
+		{"id": "copper_ring", "name": "Anillo de cobre", "slot": "ring", "stats": {"crit_chance": 0.01, "stamina": 1.0}},
+		{"id": "bone_ring", "name": "Anillo de hueso", "slot": "ring", "stats": {"attack_power_bonus": 3.0}},
+		{"id": "mystic_ring", "name": "Anillo mistico", "slot": "ring", "stats": {"spell_power_bonus": 3.0}}
+	],
+	"affixes": [
+		{"stat": "strength", "min": 1.0, "max": 2.0},
+		{"stat": "agility", "min": 1.0, "max": 2.0},
+		{"stat": "intellect", "min": 1.0, "max": 2.0},
+		{"stat": "stamina", "min": 1.0, "max": 3.0},
+		{"stat": "armor", "min": 2.0, "max": 5.0},
+		{"stat": "crit_chance", "min": 0.005, "max": 0.015},
+		{"stat": "attack_power_bonus", "min": 2.0, "max": 5.0},
+		{"stat": "spell_power_bonus", "min": 2.0, "max": 5.0}
+	],
+	"loot": {
+		"normal_chance": 0.18,
+		"boss_chance": 1.0,
+		"rarity_bonus": {"normal": 0.0, "mid_boss": 1.5, "boss": 3.0, "floor_chest": 0.5, "floor_chest_mid_boss": 1.5, "floor_chest_boss": 3.0}
+	}
+}

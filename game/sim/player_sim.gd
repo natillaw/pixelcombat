@@ -30,6 +30,9 @@ signal ultimate_changed(current: float, maximum: float)
 signal ultimate_ready()
 signal attack_blocked(source_position: Vector2)
 signal xp_gained(amount: int, source_position: Vector2)
+signal item_gained(item: Dictionary)
+signal bag_full(item: Dictionary)
+signal inventory_changed()
 signal xp_changed(xp: int, to_next: int, level: int)
 signal leveled_up(new_level: int, unlocked: Array)
 signal loadout_changed()
@@ -118,6 +121,10 @@ var class_id: String = "warrior"
 var class_def: Dictionary = {}
 var resource_kind: String = "rage"
 var progress: Dictionary = {}
+## Mochila compartida por todas las clases (items concretos, ver ItemGen).
+var bag: Array = []
+## Equipo de la clase activa: ranura -> item. Cada clase guarda el suyo.
+var equipment: Dictionary = {}
 ## En zona segura (ciudad, patio) se puede cambiar de clase y de loadout; en un
 ## piso de la torre no. Lo fija la sesion; los mundos de test son seguros.
 var safe_zone: bool = true
@@ -365,11 +372,14 @@ func _build_stats() -> void:
 	stats.main_stat = StringName(String(class_def["main_stat"]))
 	for stat: String in ["strength", "agility", "stamina", "intellect", "armor"]:
 		stats.set_base_stat(StringName(stat), float(base[stat]) + float(growth.get(stat + "_per_level", 0.0)) * levels_gained)
-	stats.set_base_stat(&"attack_power_bonus", 0.0)
-	stats.set_base_stat(&"spell_power_bonus", 0.0)
-	stats.set_base_stat(&"crit_chance", float(base["crit_chance"]))
-	stats.set_base_stat(&"weapon_min", float(base["weapon_min"]))
-	stats.set_base_stat(&"weapon_max", float(base["weapon_max"]))
+	var gear := gear_stats()
+	for stat: String in ["strength", "agility", "stamina", "intellect", "armor"]:
+		stats.set_base_stat(StringName(stat), stats.get_stat(StringName(stat)) + float(gear.get(stat, 0.0)))
+	stats.set_base_stat(&"attack_power_bonus", float(gear.get("attack_power_bonus", 0.0)))
+	stats.set_base_stat(&"spell_power_bonus", float(gear.get("spell_power_bonus", 0.0)))
+	stats.set_base_stat(&"crit_chance", float(base["crit_chance"]) + float(gear.get("crit_chance", 0.0)))
+	stats.set_base_stat(&"weapon_min", float(base["weapon_min"]) + float(gear.get("weapon_min", 0.0)))
+	stats.set_base_stat(&"weapon_max", float(base["weapon_max"]) + float(gear.get("weapon_max", 0.0)))
 	stats.set_base_stat(&"weapon_speed", float(base["weapon_speed"]))
 	max_health = BASE_HEALTH + stats.get_stat(&"stamina") * HEALTH_PER_STAMINA
 	health = max_health
@@ -1114,6 +1124,11 @@ func _activate_class(new_class_id: String) -> void:
 	var saved: Dictionary = progress.get(class_id, {})
 	level = int(saved.get("level", 1))
 	xp = int(saved.get("xp", 0))
+	equipment = {}
+	for slot: String in saved.get("equipment", {}):
+		var piece: Variant = (saved["equipment"] as Dictionary)[slot]
+		if ItemCatalog.is_valid_item(piece) and String(ItemCatalog.item(String(piece["id"]))["slot"]) == slot and ItemCatalog.can_equip_base(String(piece["id"]), class_id):
+			equipment[slot] = ItemCatalog.normalized(piece)
 	_build_stats()
 	resource.resource_name = String(class_def["resource"]["name"])
 	resource.max_amount = float(class_def["resource"]["max"])
@@ -1136,7 +1151,7 @@ func _activate_class(new_class_id: String) -> void:
 ## clase.
 func export_state() -> Dictionary:
 	_save_progress()
-	return {"class_id": class_id, "progress": progress.duplicate(true)}
+	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true)}
 
 
 ## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
@@ -1146,6 +1161,10 @@ func import_state(data: Dictionary) -> void:
 	for id: String in saved:
 		if ClassCatalog.has_class(id):
 			progress[id] = (saved[id] as Dictionary).duplicate(true)
+	bag = []
+	for piece: Variant in data.get("bag", []):
+		if ItemCatalog.is_valid_item(piece) and bag.size() < ItemCatalog.bag_size():
+			bag.append(ItemCatalog.normalized(piece))
 	var target := String(data.get("class_id", "warrior"))
 	_activate_class(target if ClassCatalog.has_class(target) else "warrior")
 
@@ -1154,7 +1173,88 @@ func _save_progress() -> void:
 	var equipped: Dictionary = {}
 	for slot: String in loadout:
 		equipped[slot] = String((loadout[slot] as Dictionary)["id"])
-	progress[class_id] = {"level": level, "xp": xp, "loadout": equipped}
+	progress[class_id] = {"level": level, "xp": xp, "loadout": equipped, "equipment": equipment.duplicate(true)}
+
+
+# --- Inventario y equipo ------------------------------------------------------
+
+
+## Suma de los stats del equipo puesto.
+func gear_stats() -> Dictionary:
+	var total: Dictionary = {}
+	for slot: String in equipment:
+		for stat: String in (equipment[slot] as Dictionary)["stats"]:
+			total[stat] = float(total.get(stat, 0.0)) + float((equipment[slot] as Dictionary)["stats"][stat])
+	return total
+
+
+## Guarda un item en la mochila; si no cabe, avisa con bag_full y lo pierde.
+func add_item(item: Dictionary) -> bool:
+	if bag.size() >= ItemCatalog.bag_size():
+		bag_full.emit(item)
+		return false
+	bag.append(item)
+	item_gained.emit(item)
+	inventory_changed.emit()
+	return true
+
+
+## Motivo por el que no se puede equipar el item de la mochila (o "" si se puede).
+func equip_reason(index: int) -> String:
+	if index < 0 or index >= bag.size():
+		return "unknown"
+	if not can_edit_loadout():
+		return "busy"
+	var piece: Dictionary = bag[index]
+	if not ItemCatalog.can_equip_base(String(piece["id"]), class_id):
+		return "class"
+	return ""
+
+
+## Equipa el item de la mochila; el que hubiera en esa ranura vuelve a la mochila.
+func equip_from_bag(index: int) -> String:
+	var reason := equip_reason(index)
+	if reason != "":
+		return reason
+	var piece: Dictionary = bag[index]
+	var slot := String(ItemCatalog.item(String(piece["id"]))["slot"])
+	var previous: Variant = equipment.get(slot)
+	bag.remove_at(index)
+	equipment[slot] = piece
+	if previous != null:
+		bag.append(previous)
+	_refresh_gear()
+	return ""
+
+
+func unequip_gear(slot: String) -> String:
+	if not equipment.has(slot):
+		return "unknown"
+	if not can_edit_loadout():
+		return "busy"
+	if bag.size() >= ItemCatalog.bag_size():
+		return "full"
+	bag.append(equipment[slot])
+	equipment.erase(slot)
+	_refresh_gear()
+	return ""
+
+
+## Tira un item de la mochila (de momento no se vende: aun no hay tiendas).
+func discard_from_bag(index: int) -> bool:
+	if index < 0 or index >= bag.size():
+		return false
+	bag.remove_at(index)
+	inventory_changed.emit()
+	return true
+
+
+## Recalcula los stats tras cambiar el equipo conservando el porcentaje de vida.
+func _refresh_gear() -> void:
+	var ratio := health / maxf(max_health, 1.0)
+	_build_stats()
+	health = max_health * ratio
+	inventory_changed.emit()
 
 
 func armor_reduction() -> float:

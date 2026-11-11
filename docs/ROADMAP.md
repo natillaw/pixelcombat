@@ -100,6 +100,8 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - Apariencia: cada item mapea a capas LPC (`LpcWardrobe`) para que se vea en el personaje.
 - Drops: tablas por enemigo, por piso y por tier.
 
+> **Estado:** hecho el catalogo (`data/items.json`: 5 rarezas, 6 ranuras, 15 items base, afijos), la generacion determinista, el botin de enemigos y el cofre de piso, la mochila (40) y el equipo por clase con stats reales, y el panel de inventario (I). Falta la rareza Unica, la apariencia en el sprite (capas LPC), comparar items, tablas de drop por enemigo y vender.
+
 **Hecho cuando:** un jugador mata enemigos, recibe items de varias rarezas, los equipa y los ve en su sprite.
 
 ### Fase 4 — Mundo y ciudad hub (3–4 semanas)

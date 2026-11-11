@@ -10,6 +10,7 @@ extends RefCounted
 
 signal location_changed(layout: FloorLayout)
 signal floor_completed(floor_number: int, xp: int)
+signal chest_opened(item: Dictionary)
 signal message(text: String)
 
 ## Ticks que pasan tras morir en un piso antes de volver a la ciudad (2,5 s).
@@ -185,4 +186,8 @@ func _complete_floor() -> void:
 	if xp > 0:
 		world.player.grant_xp(xp, world.player.position)
 	floor_completed.emit(floor_number, xp)
+	if first_time:
+		var chest := ItemGen.roll_chest(world.loot_rng, layout.tier, TowerCatalog.spike_kind(floor_number))
+		world.player.add_item(chest)
+		chest_opened.emit(chest)
 	autosave()

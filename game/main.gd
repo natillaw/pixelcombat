@@ -12,6 +12,7 @@ var session: GameSession
 var arena: Arena
 var hud: GameHud
 var loadout_panel: LoadoutPanel
+var inventory_panel: InventoryPanel
 
 var _was_dead: bool = false
 
@@ -45,6 +46,10 @@ func _ready() -> void:
 	loadout_panel.name = "LoadoutPanel"
 	loadout_layer.add_child(loadout_panel)
 	loadout_panel.bind(world)
+	inventory_panel = InventoryPanel.new()
+	inventory_panel.name = "InventoryPanel"
+	loadout_layer.add_child(inventory_panel)
+	inventory_panel.bind(world)
 
 	var debug_overlay: CanvasLayer = DebugOverlayScene.instantiate()
 	debug_overlay.name = "DebugOverlay"

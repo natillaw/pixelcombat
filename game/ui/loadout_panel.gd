@@ -63,7 +63,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _toggle() -> void:
-	if not is_open and not world.player.can_edit_loadout():
+	if not is_open and (not world.player.can_edit_loadout() or TickManager.is_paused()):
 		return
 	is_open = not is_open
 	visible = is_open

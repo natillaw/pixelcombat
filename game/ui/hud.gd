@@ -34,6 +34,7 @@ var session: GameSession
 var _damage_flash: float = 0.0
 var _toast: String = ""
 var _toast_time: float = 0.0
+var _toast_color: Color = Color(0.93, 0.90, 0.83, 1.0)
 var _banner: String = ""
 var _banner_time: float = 0.0
 
@@ -54,6 +55,9 @@ func bind(p_world: CombatWorld, p_session: GameSession = null) -> void:
 		session.message.connect(_on_message)
 		session.floor_completed.connect(_on_floor_completed)
 	if world != null and world.player != null:
+		world.player.item_gained.connect(_on_item_gained)
+		world.player.bag_full.connect(_on_bag_full)
+	if world != null and world.player != null:
 		world.player.damage_taken.connect(_on_damage_taken)
 
 
@@ -66,6 +70,19 @@ func _process(delta: float) -> void:
 
 func _on_message(text: String) -> void:
 	_toast = text
+	_toast_color = TEXT
+	_toast_time = 3.0
+
+
+func _on_item_gained(item: Dictionary) -> void:
+	_toast = "BOTIN: %s" % ItemCatalog.display_name(item)
+	_toast_color = ItemCatalog.rarity_color(String(item["rarity"]))
+	_toast_time = 3.0
+
+
+func _on_bag_full(_item: Dictionary) -> void:
+	_toast = "MOCHILA LLENA: el botin se pierde"
+	_toast_color = RED
 	_toast_time = 3.0
 
 
@@ -397,13 +414,13 @@ func _draw_location() -> void:
 			_panel(Rect2(190, 290, 260, 16))
 			_draw_text(prompt.to_upper(), Vector2(190, 301), 7, TEXT if session.portal_active(portal) else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 260)
 	if _toast_time > 0.0:
-		_draw_text(_toast.to_upper(), Vector2(0, 120), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 640)
+		_draw_text(_toast.to_upper(), Vector2(0, 120), 7, _toast_color, HORIZONTAL_ALIGNMENT_CENTER, 640)
 	if _banner_time > 0.0:
 		_draw_text(_banner, Vector2(0, 90), 14, GOLD, HORIZONTAL_ALIGNMENT_CENTER, 640)
 
 
 func _draw_controls() -> void:
-	_panel(Rect2(498, 6, 132, 139))
+	_panel(Rect2(498, 6, 132, 148))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
@@ -414,6 +431,7 @@ func _draw_controls() -> void:
 		"Q      SPECIAL",
 		"F      ULTIMATE",
 		"TAB    LOADOUT",
+		"I      INVENTORY",
 		"E      INTERACT",
 		", .    TOWER FLOOR",
 		"R      RESTART",

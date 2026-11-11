@@ -48,6 +48,7 @@ SUITES=(
     "tests/test_ranged_boss.gd"
     "tests/test_status.gd"
     "tests/test_tower.gd"
+    "tests/test_items.gd"
 )
 
 : >"$SUMMARY"
