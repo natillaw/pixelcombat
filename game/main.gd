@@ -10,6 +10,7 @@ const DebugOverlayScene := preload("res://ui/debug_overlay.tscn")
 var world: CombatWorld
 var arena: Arena
 var hud: GameHud
+var loadout_panel: LoadoutPanel
 
 var _was_dead: bool = false
 
@@ -31,6 +32,16 @@ func _ready() -> void:
 	hud.name = "Hud"
 	hud_layer.add_child(hud)
 	hud.bind(world)
+
+	# Panel de loadout (Tab): capa propia por encima del HUD.
+	var loadout_layer := CanvasLayer.new()
+	loadout_layer.name = "LoadoutLayer"
+	loadout_layer.layer = 20
+	add_child(loadout_layer)
+	loadout_panel = LoadoutPanel.new()
+	loadout_panel.name = "LoadoutPanel"
+	loadout_layer.add_child(loadout_panel)
+	loadout_panel.bind(world)
 
 	var debug_overlay: CanvasLayer = DebugOverlayScene.instantiate()
 	debug_overlay.name = "DebugOverlay"
@@ -82,5 +93,8 @@ func _read_input() -> InputMessage:
 		"s4": Input.is_action_pressed("skill_4"),
 		"s5": Input.is_action_pressed("skill_5"),
 		"ultimate": Input.is_action_pressed("ultimate"),
+		"special": Input.is_action_pressed("special"),
+		"debug_level_up": Input.is_action_pressed("debug_level_up"),
+		"debug_level_reset": Input.is_action_pressed("debug_level_reset"),
 	}
 	return message

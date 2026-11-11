@@ -60,7 +60,9 @@ Arena / Actors / HUD ◀── leen estado y señales
    nuevo en `data/skills/<clase>.json` (esquema en `combat/skill_catalog.gd`).
    `tests/test_skill_catalog.gd` valida el esquema y que coste/cooldown
    coincidan con el Skill Book de `combat/warrior_kit.gd`.
-2. Marca `implemented: true` en el JSON **y** en la entrada del Skill Book, y
+2. Pon su `unlock_level` (nivel al que se desbloquea; también en la entrada del
+   Skill Book de `combat/warrior_kit.gd`: un test comprueba que coincidan), marca
+   `implemented: true` en el JSON **y** en la entrada del Skill Book, y
    añade su id a `IMPLEMENTED_SKILLS` en `tests/test_warrior_data.gd` y
    `combat/tests/test_warrior.gd`.
 3. Si necesita una forma o una mecánica nueva (estado, proyectil, canalizado),

@@ -19,6 +19,13 @@ const RED := Color(0.88, 0.28, 0.24, 1.0)
 const HEALTH := Color(0.42, 0.78, 0.42, 1.0)
 const HEALTH_LOW := Color(0.86, 0.38, 0.24, 1.0)
 const RAGE := Color(0.93, 0.35, 0.20, 1.0)
+const XP := Color(0.45, 0.68, 1.0, 1.0)
+
+const SLOT_COUNT := 10
+const SLOT_W := 54.0
+const SLOT_H := 38.0
+const SLOT_GAP := 3.0
+const SLOT_Y := 316.0
 
 var world: CombatWorld
 var _damage_flash: float = 0.0
@@ -70,9 +77,10 @@ func _draw() -> void:
 
 
 func _draw_status(warrior: WarriorSim) -> void:
-	_panel(Rect2(10, 6, 246, 68))
+	_panel(Rect2(10, 6, 246, 78))
 	_draw_text("WARRIOR", Vector2(16, 24), 14, GOLD)
-	_draw_text("TRAINING GROUNDS", Vector2(112, 23), 7, MUTED)
+	_draw_text("LV %d" % warrior.level, Vector2(16, 24), 14, TEXT, HORIZONTAL_ALIGNMENT_RIGHT, 234)
+	_draw_text("TRAINING GROUNDS", Vector2(84, 23), 7, MUTED)
 
 	var health_ratio: float = warrior.health / maxf(warrior.max_health, 1.0)
 	var health_color := HEALTH if health_ratio > 0.30 else HEALTH_LOW
@@ -102,26 +110,39 @@ func _draw_status(warrior: WarriorSim) -> void:
 		passive_color = ORANGE
 	_draw_text(passive, Vector2(16, 66), 7, passive_color)
 
+	# XP del nivel actual.
+	var to_next := warrior.xp_to_next()
+	var xp_ratio := 1.0 if to_next <= 0 else float(warrior.xp) / float(to_next)
+	_bar(Rect2(16, 70, 234, 5), xp_ratio, XP)
+	_draw_text("MAX LEVEL" if to_next <= 0 else "XP  %d / %d" % [warrior.xp, to_next], Vector2(16, 82), 7, XP, HORIZONTAL_ALIGNMENT_RIGHT, 234)
 
+
+## Barra inferior: M1, M2, esquiva, S1-S5, Special y Ultimate (10 huecos).
 func _draw_abilities(warrior: WarriorSim) -> void:
 	_draw_ability(
-		Rect2(256, 310, 64, 38),
+		_slot_rect(0),
 		"LMB", "SLASH", "M1",
 		warrior.attack_cooldown_left("M1"), warrior.attack_cooldown_total("M1"),
 		false, warrior.state == WarriorSim.AttackState.IDLE
 	)
 	_draw_ability(
-		Rect2(326, 310, 64, 38),
+		_slot_rect(1),
 		"RMB", "HEAVY", "M2",
 		warrior.attack_cooldown_left("M2"), warrior.attack_cooldown_total("M2"),
 		warrior.vengeful_active, warrior.state == WarriorSim.AttackState.IDLE
 	)
-	_draw_dodge_slot(Rect2(396, 310, 64, 38), warrior)
-	_draw_m1_pips(Rect2(256, 310, 64, 38), warrior)
-	_draw_m2_charge(Rect2(326, 310, 64, 38), warrior)
-	_draw_ultimate_slot(Rect2(46, 310, 64, 38), warrior)
-	_draw_skill_slot(Rect2(116, 310, 64, 38), "1", "S1", warrior)
-	_draw_skill_slot(Rect2(186, 310, 64, 38), "2", "S2", warrior)
+	_draw_dodge_slot(_slot_rect(2), warrior)
+	_draw_m1_pips(_slot_rect(0), warrior)
+	_draw_m2_charge(_slot_rect(1), warrior)
+	for i: int in range(5):
+		_draw_skill_slot(_slot_rect(3 + i), str(i + 1), "S%d" % (i + 1), warrior)
+	_draw_skill_slot(_slot_rect(8), "Q", "SPECIAL", warrior)
+	_draw_ultimate_slot(_slot_rect(9), warrior)
+
+
+func _slot_rect(index: int) -> Rect2:
+	var total := float(SLOT_COUNT) * SLOT_W + float(SLOT_COUNT - 1) * SLOT_GAP
+	return Rect2((640.0 - total) * 0.5 + float(index) * (SLOT_W + SLOT_GAP), SLOT_Y, SLOT_W, SLOT_H)
 
 
 func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: float, total: float, empowered: bool, idle: bool) -> void:
@@ -261,20 +282,22 @@ func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) 
 
 
 func _draw_controls() -> void:
-	_panel(Rect2(498, 265, 132, 89))
+	_panel(Rect2(498, 6, 132, 112))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
 		"LMB    SWORD SLASH",
 		"RMB    HEAVY (HOLD)",
 		"SPACE  DODGE",
-		"1 2    SKILLS",
+		"1-5    SKILLS",
+		"Q      SPECIAL",
 		"F      ULTIMATE",
+		"TAB    LOADOUT",
 		"R      RESET",
 		"F3     DEBUG",
 	]
 	for i: int in range(lines.size()):
-		_draw_text(String(lines[i]), Vector2(504, 276 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
+		_draw_text(String(lines[i]), Vector2(504, 17 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
 
 
 # --- Overlays ---------------------------------------------------------------

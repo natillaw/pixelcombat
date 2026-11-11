@@ -33,7 +33,8 @@
 			"charges": {
 				"max": 3,
 				"recharge": 0.9
-			}
+			},
+			"unlock_level": 1
 		},
 		{
 			"id": "warrior_m2",
@@ -69,7 +70,8 @@
 				"max": 0.6,
 				"damage_bonus": 0.6,
 				"range_bonus": 0.25
-			}
+			},
+			"unlock_level": 1
 		},
 		{
 			"id": "cleaving_strike",
@@ -99,7 +101,8 @@
 			"anim": "slash",
 			"implemented": true,
 			"ult_gain": 4,
-			"ult_cap": 12
+			"ult_cap": 12,
+			"unlock_level": 4
 		},
 		{
 			"id": "piercing_thrust",
@@ -129,7 +132,43 @@
 			"anim": "thrust",
 			"implemented": true,
 			"ult_gain": 5,
-			"ult_cap": 10
+			"ult_cap": 10,
+			"unlock_level": 2
+		},
+		{
+			"id": "iron_counter",
+			"name": "Iron Counter",
+			"slot": "SPECIAL",
+			"kind": "special",
+			"role": "Contraataque",
+			"description": "Postura de contraataque frontal. Desvía un ataque bloqueable y responde con un corte potente.",
+			"hud_label": "COUNTER",
+			"shape": "cone",
+			"windup": 0.08,
+			"active": 0.6,
+			"recovery": 0.35,
+			"cooldown": 12,
+			"cost": 30,
+			"range": 95,
+			"arc": 140,
+			"damage_mult": 3,
+			"rage_gain": 12,
+			"rage_cap": 12,
+			"max_targets": 0,
+			"ult_gain": 6,
+			"ult_cap": 6,
+			"move": {
+				"windup": 0,
+				"active": 0.25,
+				"recovery": 0.4
+			},
+			"stance": {
+				"arc": 160,
+				"counter_recovery": 0.25
+			},
+			"anim": "slash",
+			"unlock_level": 6,
+			"implemented": true
 		},
 		{
 			"id": "war_gods_descent",
@@ -165,7 +204,8 @@
 			"telegraph": true,
 			"uncancelable": true,
 			"anim": "slash",
-			"implemented": true
+			"implemented": true,
+			"unlock_level": 8
 		}
 	]
 }

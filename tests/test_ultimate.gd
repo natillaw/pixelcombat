@@ -166,6 +166,7 @@ func _test_reset_and_snapshot() -> void:
 func _make_world(offsets: Array) -> CombatWorld:
 	var world: CombatWorld = CombatWorldScript.new(9)
 	world.setup_arena(Rect2(0, 0, 900, 600))
+	world.warrior.set_level(10)  # las skills se desbloquean por nivel
 	var origin: Vector2 = world.warrior.position
 	for offset: Vector2 in offsets:
 		world.add_dummy(origin + offset, false)

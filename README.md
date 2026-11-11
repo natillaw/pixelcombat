@@ -41,13 +41,15 @@ La primera vez, o tras cambiar muchos assets, importa:
 | Clic izquierdo | M1 · Sword Slash: ataque básico con 3 cargas que se recuperan solas (mantener para encadenar) |
 | Clic derecho | M2 · Heavy Strike: especial; mantén el botón tras el golpe inicial para potenciarlo (+60 % daño, +25 % alcance a 0,6 s) |
 | Espacio | Esquiva (i-frames, cancela windup/recovery, cooldown 1,1 s) |
-| 1 / 2 | Skills S1 Cleaving Strike (20 Rage) y S2 Piercing Thrust (15 Rage) |
-| F | Ultimate War God's Descent (necesita la barra de Ultimate al 100 %, que sube al conectar golpes) |
+| 1-5 | Skills S1-S5. Se **desbloquean por nivel**: nivel 2 Piercing Thrust (15 Rage), nivel 4 Cleaving Strike (20 Rage). Empiezas con solo M1, M2 y esquiva; la XP sale de matar enemigos |
+| Q | Special Iron Counter (nivel 6, 30 Rage): postura frontal que bloquea el primer golpe y contraataca |
+| F | Ultimate War God's Descent (nivel 8; necesita la barra al 100 %, que sube al conectar golpes) |
+| Tab | Panel de loadout: equipa las skills desbloqueadas (pausa el juego) |
+| F5 / F6 | Depuración: subir un nivel / volver al nivel 1 |
 | R | Reiniciar entrenamiento |
 | F3 | Overlay de debug |
 | Esc | Salir |
 
-Q (Special) ya está en el mapa de input pero **aún no hace nada**.
 
 ## Tests
 

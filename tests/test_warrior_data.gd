@@ -79,7 +79,7 @@ func _test_no_variants() -> void:
 	implemented += 1 if bool(WarriorKit.PASSIVE["implemented"]) else 0
 
 	_check(implemented == 3, "first slice implements exactly M1, M2 and the passive")
-	_check(not bool(WarriorKit.SPECIAL["implemented"]), "Special has no variant active")
+	_check(not WarriorKit.SPECIAL.has("variant") and not WarriorKit.SPECIAL.has("variants"), "Special has no variant field")
 	_check(not WarriorKit.ULTIMATE.has("variant") and not WarriorKit.ULTIMATE.has("variants"), "Ultimate has no variant field")
 
 	for entry: Dictionary in WarriorKit.get_skill_book():

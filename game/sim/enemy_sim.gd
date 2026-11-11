@@ -278,3 +278,8 @@ func snapshot() -> Dictionary:
 		"state": state,
 		"telegraph": telegraph_progress(),
 	}
+
+
+## XP que da al morir (dato stats.xp).
+func xp_reward() -> int:
+	return int(data["stats"].get("xp", 0))

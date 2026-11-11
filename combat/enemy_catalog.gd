@@ -7,7 +7,8 @@
 ##
 ## Esquema (tiempos en segundos, distancias en px):
 ##   id, name, tier, role, description, respawn_seconds (0 = no reaparece)
-##   stats:  health, speed, radius, damage, armor (opcional, reduccion
+##   stats:  health, speed, radius, damage, xp (experiencia al morir), armor
+##           (opcional, reduccion
 ##           armor / (armor + 100) como la del jugador)
 ##   ai:     aggro_range, leash (multiplo de aggro_range a partir del cual deja
 ##           de perseguir)
@@ -121,6 +122,8 @@ static func validate(entry: Dictionary) -> Array[String]:
 		for field: String in ["health", "radius", "damage"]:
 			if not _is_number((stats as Dictionary).get(field)) or float(stats[field]) <= 0.0:
 				problems.append("stats.%s debe ser > 0" % field)
+		if not _is_number((stats as Dictionary).get("xp")) or float(stats["xp"]) < 0.0:
+			problems.append("stats.xp debe ser >= 0")
 		for field: String in ["speed", "armor"]:
 			if (stats as Dictionary).has(field) and (not _is_number(stats[field]) or float(stats[field]) < 0.0):
 				problems.append("stats.%s debe ser >= 0" % field)

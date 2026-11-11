@@ -12,6 +12,7 @@
 ##   rage_gain, rage_cap, max_targets (0 = sin limite)
 ##   move: {windup, active, recovery}  factor de velocidad en cada fase (0..1)
 ##   shape: "cone" (range, arc) | "line" (range, width) | "circle" (range)
+##   unlock_level: nivel del personaje al que se desbloquea (entero >= 1)
 ##   Opcionales:
 ##   consumes_vengeful: gasta la pasiva Vengeful Fury al lanzarse
 ##   charges: {max, recharge} reserva de cargas que se gasta una por uso y se
@@ -25,6 +26,10 @@
 ##           durante el windup y golpea alli)
 ##   leap_distance: distancia del salto (obligatoria con aim_leap)
 ##   center_radius, center_mult: zona central con mas dano (forma circle)
+##   stance: {arc, counter_recovery} la fase active es una postura: bloquea el
+##           primer golpe frontal (dentro de `arc` grados), lo anula y lanza el
+##           contraataque con la forma de la skill; luego recupera en
+##           counter_recovery s. Si nadie golpea, expira con su recovery normal
 ##   telegraph: dibuja la zona durante el windup
 ##   uncancelable: la esquiva no puede cancelarla
 class_name SkillCatalog
@@ -149,6 +154,13 @@ static func validate(entry: Dictionary) -> Array[String]:
 			var factor: Variant = (move as Dictionary).get(phase)
 			if not _is_number(factor) or float(factor) < 0.0 or float(factor) > 1.0:
 				problems.append("move.%s debe estar entre 0 y 1" % phase)
+	var unlock: Variant = entry.get("unlock_level")
+	if not _is_number(unlock) or float(unlock) < 1.0 or float(unlock) != floorf(float(unlock)):
+		problems.append("'unlock_level' debe ser un entero >= 1")
+	if entry.has("stance"):
+		var stance: Variant = entry["stance"]
+		if not (stance is Dictionary) or not _is_number((stance as Dictionary).get("arc")) or float(stance["arc"]) <= 0.0 or float(stance["arc"]) > 360.0 or not _is_number((stance as Dictionary).get("counter_recovery")) or float(stance["counter_recovery"]) < 0.0:
+			problems.append("'stance' necesita arc entre 0 y 360 y counter_recovery >= 0")
 	for field: String in OPTIONAL_NUMBERS:
 		if entry.has(field) and (not _is_number(entry[field]) or float(entry[field]) < 0.0):
 			problems.append("'%s' debe ser un numero >= 0" % field)

@@ -157,7 +157,7 @@ func _test_snapshot() -> void:
 	_step(world, 1, _input("s1"))
 	var snap: Dictionary = world.warrior.snapshot()
 	var cooldowns: Dictionary = snap.get("cooldowns", {})
-	_check(cooldowns.has("S1") and float(cooldowns["S1"]) > 0.0, "snapshot carries the slot cooldowns")
+	_check(cooldowns.has("cleaving_strike") and float(cooldowns["cleaving_strike"]) > 0.0, "snapshot carries the per-skill cooldowns")
 
 
 # --- Helpers ----------------------------------------------------------------
@@ -168,6 +168,7 @@ func _test_snapshot() -> void:
 func _make_world(offsets: Array) -> CombatWorld:
 	var world: CombatWorld = CombatWorldScript.new(3)
 	world.setup_arena(Rect2(0, 0, 900, 600))
+	world.warrior.set_level(10)  # las skills se desbloquean por nivel
 	var origin: Vector2 = world.warrior.position
 	for offset: Vector2 in offsets:
 		world.add_dummy(origin + offset, false)

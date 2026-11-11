@@ -92,7 +92,7 @@ func _test_passive() -> void:
 func _test_special_and_ultimate() -> void:
 	_check(is_equal_approx(float(WarriorKit.SPECIAL["cost"]), 30.0), "Special costs 30 Rage")
 	_check(float(WarriorKit.SPECIAL["cooldown"]) > 0.0, "Special has a cooldown")
-	_check(not bool(WarriorKit.SPECIAL["implemented"]), "Special is data only in the first slice")
+	_check(bool(WarriorKit.SPECIAL["implemented"]), "Special (Iron Counter) is playable")
 	_check(is_equal_approx(float(WarriorKit.ULTIMATE["charge"]), 100.0), "Ultimate charges to 100")
 	_check(bool(WarriorKit.ULTIMATE["implemented"]), "Ultimate is playable (data/skills/warrior.json)")
 

@@ -21,6 +21,9 @@ const ACTIONS := {
 	"special": [KEY_Q],
 	"ultimate": [KEY_F],
 	"toggle_debug_overlay": [KEY_F3],
+	"toggle_loadout": [KEY_TAB],
+	"debug_level_up": [KEY_F5],
+	"debug_level_reset": [KEY_F6],
 	"restart_training": [KEY_R],
 	"quit_game": [KEY_ESCAPE],
 }

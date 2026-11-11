@@ -47,6 +47,20 @@ func _ready() -> void:
 	# Pasiva activa + pantalla de muerte.
 	var world: CombatWorld = _main.get("world")
 	if world != null:
+		# Nivel 10: todas las skills desbloqueadas, panel de loadout y Special.
+		world.warrior.set_level(10)
+		world.warrior.resource.current_amount = 80.0
+		await _wait(1.2)  # el loadout solo se abre en reposo: deja acabar el ataque anterior
+		await _shot("04a_level10_hud", 0.1)
+		_toggle_loadout()
+		await _shot("04a2_loadout_panel", 0.3)
+		_toggle_loadout()
+		await _wait(0.2)
+		Input.action_press("special")
+		await _shot("04a3_iron_counter_stance", 0.30)
+		Input.action_release("special")
+		await _wait(1.6)
+
 		# Ultimate: carga llena, telegraph durante el salto y golpe al caer.
 		world.warrior.ultimate_charge = WarriorKit.ULTIMATE_CHARGE_MAX
 		await _wait(1.0)  # deja acabar el M2 anterior (el buffer es de 0,25 s)
@@ -92,6 +106,14 @@ func _enemy_telegraph(world: CombatWorld, index: int, attack_index: int, shot_na
 	enemy._start_telegraph(attack)
 	await _shot(shot_name, float(attack["windup"]) * 0.6)
 	await _wait(float(attack["windup"]) + 0.3)
+
+
+## Abre o cierra el panel de loadout como si se pulsara Tab.
+func _toggle_loadout() -> void:
+	var press := InputEventAction.new()
+	press.action = "toggle_loadout"
+	press.pressed = true
+	Input.parse_input_event(press)
 
 
 func _aim_up() -> void:

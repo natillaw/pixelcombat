@@ -7,12 +7,40 @@
 			"tier": 1,
 			"role": "Melee lento",
 			"description": "Lento y predecible. Un golpe frontal con aviso largo: ideal para aprender a leer el telegraph.",
-			"stats": {"health": 90.0, "speed": 62.0, "radius": 12.0, "damage": 12.0, "armor": 0.0},
-			"ai": {"aggro_range": 190.0, "leash": 1.6},
-			"respawn_seconds": 8.0,
-			"sprite": {"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/slime-32px_strip10.png", "frame": 32, "frames": 10, "fps": 8.0, "scale": 1.6},
+			"stats": {
+				"health": 90,
+				"speed": 62,
+				"radius": 12,
+				"damage": 12,
+				"armor": 0,
+				"xp": 20
+			},
+			"ai": {
+				"aggro_range": 190,
+				"leash": 1.6
+			},
+			"respawn_seconds": 8,
+			"sprite": {
+				"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/slime-32px_strip10.png",
+				"frame": 32,
+				"frames": 10,
+				"fps": 8,
+				"scale": 1.6
+			},
 			"attacks": [
-				{"id": "smash", "shape": "cone", "range": 42.0, "arc": 100.0, "windup": 0.75, "active": 0.10, "recovery": 0.60, "cooldown": 1.4, "damage_mult": 1.0, "trigger_range": 36.0, "weight": 1.0}
+				{
+					"id": "smash",
+					"shape": "cone",
+					"range": 42,
+					"arc": 100,
+					"windup": 0.75,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 1.4,
+					"damage_mult": 1,
+					"trigger_range": 36,
+					"weight": 1
+				}
 			]
 		},
 		{
@@ -21,12 +49,41 @@
 			"tier": 1,
 			"role": "Embestida",
 			"description": "Rápido y frágil. Marca una línea y se lanza por ella: hay que salir de la línea o esquivar justo al impacto.",
-			"stats": {"health": 45.0, "speed": 118.0, "radius": 9.0, "damage": 14.0, "armor": 0.0},
-			"ai": {"aggro_range": 240.0, "leash": 1.6},
-			"respawn_seconds": 8.0,
-			"sprite": {"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/bat-32px_strip8.png", "frame": 32, "frames": 8, "fps": 14.0, "scale": 1.3},
+			"stats": {
+				"health": 45,
+				"speed": 118,
+				"radius": 9,
+				"damage": 14,
+				"armor": 0,
+				"xp": 14
+			},
+			"ai": {
+				"aggro_range": 240,
+				"leash": 1.6
+			},
+			"respawn_seconds": 8,
+			"sprite": {
+				"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/bat-32px_strip8.png",
+				"frame": 32,
+				"frames": 8,
+				"fps": 14,
+				"scale": 1.3
+			},
 			"attacks": [
-				{"id": "dive", "shape": "line", "range": 120.0, "width": 24.0, "windup": 0.55, "active": 0.20, "recovery": 0.80, "cooldown": 2.0, "damage_mult": 1.0, "trigger_range": 110.0, "dash_distance": 120.0, "weight": 1.0}
+				{
+					"id": "dive",
+					"shape": "line",
+					"range": 120,
+					"width": 24,
+					"windup": 0.55,
+					"active": 0.2,
+					"recovery": 0.8,
+					"cooldown": 2,
+					"damage_mult": 1,
+					"trigger_range": 110,
+					"dash_distance": 120,
+					"weight": 1
+				}
 			]
 		},
 		{
@@ -35,13 +92,52 @@
 			"tier": 1,
 			"role": "Zona y salto",
 			"description": "Alterna una explosión alrededor de sí misma (hay que alejarse) con un salto frontal estrecho (hay que apartarse).",
-			"stats": {"health": 110.0, "speed": 85.0, "radius": 12.0, "damage": 16.0, "armor": 0.0},
-			"ai": {"aggro_range": 220.0, "leash": 1.6},
-			"respawn_seconds": 8.0,
-			"sprite": {"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/spider-32px_strip12.png", "frame": 32, "frames": 12, "fps": 12.0, "scale": 1.5},
+			"stats": {
+				"health": 110,
+				"speed": 85,
+				"radius": 12,
+				"damage": 16,
+				"armor": 0,
+				"xp": 28
+			},
+			"ai": {
+				"aggro_range": 220,
+				"leash": 1.6
+			},
+			"respawn_seconds": 8,
+			"sprite": {
+				"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/spider-32px_strip12.png",
+				"frame": 32,
+				"frames": 12,
+				"fps": 12,
+				"scale": 1.5
+			},
 			"attacks": [
-				{"id": "burst", "shape": "circle", "range": 58.0, "windup": 0.90, "active": 0.10, "recovery": 0.70, "cooldown": 2.2, "damage_mult": 1.0, "trigger_range": 50.0, "weight": 1.0},
-				{"id": "pounce", "shape": "cone", "range": 92.0, "arc": 40.0, "windup": 0.50, "active": 0.10, "recovery": 0.50, "cooldown": 2.0, "damage_mult": 0.8, "trigger_range": 86.0, "weight": 1.0}
+				{
+					"id": "burst",
+					"shape": "circle",
+					"range": 58,
+					"windup": 0.9,
+					"active": 0.1,
+					"recovery": 0.7,
+					"cooldown": 2.2,
+					"damage_mult": 1,
+					"trigger_range": 50,
+					"weight": 1
+				},
+				{
+					"id": "pounce",
+					"shape": "cone",
+					"range": 92,
+					"arc": 40,
+					"windup": 0.5,
+					"active": 0.1,
+					"recovery": 0.5,
+					"cooldown": 2,
+					"damage_mult": 0.8,
+					"trigger_range": 86,
+					"weight": 1
+				}
 			]
 		},
 		{
@@ -50,12 +146,40 @@
 			"tier": 1,
 			"role": "Tanque pesado",
 			"description": "Muy resistente y lento, con un golpe enorme y un aviso largo. Castiga al que se queda pegado.",
-			"stats": {"health": 240.0, "speed": 48.0, "radius": 16.0, "damage": 30.0, "armor": 40.0},
-			"ai": {"aggro_range": 200.0, "leash": 1.6},
-			"respawn_seconds": 10.0,
-			"sprite": {"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/beetle-32px_strip8.png", "frame": 32, "frames": 8, "fps": 8.0, "scale": 1.8},
+			"stats": {
+				"health": 240,
+				"speed": 48,
+				"radius": 16,
+				"damage": 30,
+				"armor": 40,
+				"xp": 60
+			},
+			"ai": {
+				"aggro_range": 200,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/beetle-32px_strip8.png",
+				"frame": 32,
+				"frames": 8,
+				"fps": 8,
+				"scale": 1.8
+			},
 			"attacks": [
-				{"id": "crush", "shape": "cone", "range": 64.0, "arc": 120.0, "windup": 1.00, "active": 0.12, "recovery": 0.90, "cooldown": 2.6, "damage_mult": 1.0, "trigger_range": 58.0, "weight": 1.0}
+				{
+					"id": "crush",
+					"shape": "cone",
+					"range": 64,
+					"arc": 120,
+					"windup": 1,
+					"active": 0.12,
+					"recovery": 0.9,
+					"cooldown": 2.6,
+					"damage_mult": 1,
+					"trigger_range": 58,
+					"weight": 1
+				}
 			]
 		}
 	]

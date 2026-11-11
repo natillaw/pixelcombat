@@ -7,7 +7,9 @@
 ## Rage, cooldown y formas cone/line/circle), esquiva con i-frames, Rage,
 ## Vengeful Fury, M1 con cargas y M2 que se carga manteniendo el boton (estilo
 ## Drakantos), Ultimate Charge (sube al conectar golpes; War God's Descent la
-## gasta entera), muerte y reset. El Skill Book completo vive en WarriorKit.
+## gasta entera), Special Iron Counter (postura que bloquea y contraataca),
+## niveles con XP y skills que se desbloquean por nivel, loadout equipable,
+## muerte y reset. El Skill Book completo vive en WarriorKit.
 class_name WarriorSim
 extends RefCounted
 
@@ -26,6 +28,11 @@ signal attack_evaded(source_position: Vector2)
 signal skill_denied(slot: String, reason: String)
 signal ultimate_changed(current: float, maximum: float)
 signal ultimate_ready()
+signal attack_blocked(source_position: Vector2)
+signal xp_gained(amount: int, source_position: Vector2)
+signal xp_changed(xp: int, to_next: int, level: int)
+signal leveled_up(new_level: int, unlocked: Array)
+signal loadout_changed()
 
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
@@ -44,12 +51,13 @@ const RAGE_TAKEN_MIN := 1.0
 const BUFFER_SECONDS := 0.25
 const SKILL_SLOTS := ["S1", "S2", "S3", "S4", "S5"]
 ## Slots que se lanzan al pulsar (M1 se lanza manteniendo el boton).
-const EDGE_SLOTS := ["M2", "S1", "S2", "S3", "S4", "S5"]
+const EDGE_SLOTS := ["M2", "S1", "S2", "S3", "S4", "S5", "SPECIAL", "ULTIMATE"]
 const DEFAULT_LOADOUT := {
 	"M1": &"warrior_m1",
 	"M2": &"warrior_m2",
 	"S1": &"cleaving_strike",
 	"S2": &"piercing_thrust",
+	"SPECIAL": &"iron_counter",
 	"ULTIMATE": &"war_gods_descent",
 }
 const CRIT_MULTIPLIER := 1.5
@@ -63,6 +71,10 @@ var velocity: Vector2 = Vector2.ZERO
 var move_input: Vector2 = Vector2.ZERO
 var aim_dir: Vector2 = Vector2.RIGHT
 
+## Nivel y XP dentro del nivel. Las skills se desbloquean por nivel (unlock_level).
+var level: int = 1
+var xp: int = 0
+
 var max_health: float = 1.0
 var health: float = 1.0
 var alive: bool = true
@@ -71,7 +83,8 @@ var state: int = AttackState.IDLE
 var state_time: float = 0.0
 var current_skill: Dictionary = {}
 var attack_aim: Vector2 = Vector2.RIGHT
-## slot -> segundos restantes. Un slot sin entrada esta listo.
+## id de skill -> segundos restantes. El cooldown sigue a la skill, no al slot:
+## cambiar el loadout no lo reinicia.
 var cooldowns: Dictionary = {}
 ## slot -> skill (copia del catalogo). Se cambia con set_loadout() en zona segura.
 var loadout: Dictionary = {}
@@ -104,6 +117,7 @@ var swing_ult_gained: float = 0.0
 var _attack_damage_mult: float = 1.0
 
 var _m1_held: bool = false
+var _stance_spent: bool = false
 var _slot_prev: Dictionary = {}
 var _actions: Dictionary = {}
 var _range_mult: float = 1.0
@@ -120,21 +134,184 @@ func _init(p_world: Object = null) -> void:
 	reset(position)
 
 
-## Equipa skills por slot ({"M1": id, "M2": id, "S1": id, ...}). Ignora ids que
-## no existen o no estan implementados, y slots desconocidos.
+## Equipa skills por slot ({"M1": id, "M2": id, "S1": id, ...} ) sustituyendo el
+## loadout actual. Ignora ids desconocidos, no implementados, bloqueados por nivel
+## o que no caben en el slot.
 func set_loadout(new_loadout: Dictionary) -> void:
 	loadout = {}
 	charges = {}
 	for slot: String in new_loadout:
-		if slot != "M1" and slot != "M2" and slot != "ULTIMATE" and not SKILL_SLOTS.has(slot):
+		var id := StringName(String(new_loadout[slot]))
+		if not _equip_reason(slot, id).is_empty():
 			continue
-		var skill: Dictionary = SkillCatalog.skill(StringName(String(new_loadout[slot])))
-		if skill.is_empty() or not bool(skill.get("implemented", false)):
+		_equip_internal(slot, SkillCatalog.skill(id))
+	loadout_changed.emit()
+
+
+func _equip_internal(slot: String, skill: Dictionary) -> void:
+	skill["slot"] = slot
+	loadout[slot] = skill
+	if skill.has("charges"):
+		charges[slot] = float(skill["charges"]["max"])
+
+
+## "" si `id` se puede equipar en `slot`; si no, el motivo: "slot", "unknown",
+## "not_implemented", "locked" (nivel insuficiente) o "wrong_slot".
+func _equip_reason(slot: String, id: StringName) -> String:
+	if slot != "M1" and slot != "M2" and slot != "SPECIAL" and slot != "ULTIMATE" and not SKILL_SLOTS.has(slot):
+		return "slot"
+	var skill: Dictionary = SkillCatalog.skill(id)
+	if skill.is_empty():
+		return "unknown"
+	if not bool(skill.get("implemented", false)):
+		return "not_implemented"
+	if int(skill["unlock_level"]) > level:
+		return "locked"
+	if not slot_accepts(slot, skill):
+		return "wrong_slot"
+	return ""
+
+
+## Un slot S1-S5 acepta skills genericas ("S"); los demas, solo la suya.
+func slot_accepts(slot: String, skill: Dictionary) -> bool:
+	var skill_slot := String(skill.get("slot", ""))
+	if SKILL_SLOTS.has(slot):
+		return skill_slot == "S"
+	return skill_slot == slot
+
+
+## El loadout solo se edita en reposo (zona segura / entre combates).
+func can_edit_loadout() -> bool:
+	return alive and state == AttackState.IDLE and not dodging
+
+
+## Equipa `id` en `slot`. Devuelve "" si salio bien o el motivo del rechazo (los
+## de _equip_reason, mas "busy" si no se puede editar ahora). Si la skill ya
+## estaba en otro slot, se mueve.
+func equip(slot: String, id: StringName) -> String:
+	if not can_edit_loadout():
+		return "busy"
+	var reason := _equip_reason(slot, id)
+	if not reason.is_empty():
+		return reason
+	for other: String in loadout.keys():
+		if StringName(String((loadout[other] as Dictionary)["id"])) == id:
+			loadout.erase(other)
+			charges.erase(other)
+	_equip_internal(slot, SkillCatalog.skill(id))
+	loadout_changed.emit()
+	return ""
+
+
+## Vacia un slot S1-S5, SPECIAL o ULTIMATE (M1 y M2 no se vacian).
+func unequip(slot: String) -> bool:
+	if not can_edit_loadout() or not loadout.has(slot):
+		return false
+	if slot == "M1" or slot == "M2":
+		return false
+	loadout.erase(slot)
+	loadout_changed.emit()
+	return true
+
+
+func is_unlocked(id: StringName) -> bool:
+	var skill: Dictionary = SkillCatalog.skill(id)
+	return not skill.is_empty() and int(skill["unlock_level"]) <= level
+
+
+# --- Niveles y XP -----------------------------------------------------------
+
+
+func xp_to_next() -> int:
+	return Progression.xp_to_next(level)
+
+
+## Suma XP (p. ej. al matar un enemigo) y sube de nivel las veces que haga falta.
+## Subir de nivel recalcula los stats, cura del todo y equipa las skills que se
+## desbloquean en los slots libres.
+func grant_xp(amount: int, source_position: Vector2 = Vector2.ZERO) -> void:
+	if amount <= 0 or level >= Progression.max_level():
+		return
+	xp_gained.emit(amount, source_position)
+	xp += amount
+	var previous := level
+	while level < Progression.max_level() and xp >= Progression.xp_to_next(level):
+		xp -= Progression.xp_to_next(level)
+		level += 1
+	if level >= Progression.max_level():
+		xp = 0
+	if level != previous:
+		_apply_level_change(previous)
+	xp_changed.emit(xp, xp_to_next(), level)
+
+
+## Fija el nivel (depuracion, tests y reinicio). Con un nivel menor se retiran las
+## skills que dejan de estar desbloqueadas.
+func set_level(new_level: int) -> void:
+	var previous := level
+	level = clampi(new_level, 1, Progression.max_level())
+	xp = 0
+	_apply_level_change(previous)
+	xp_changed.emit(xp, xp_to_next(), level)
+
+
+func reset_progression() -> void:
+	set_level(1)
+
+
+func _apply_level_change(previous: int) -> void:
+	_build_stats()
+	health = max_health
+	var unlocked: Array = []
+	if level < previous:
+		for slot: String in loadout.keys():
+			if int((loadout[slot] as Dictionary)["unlock_level"]) > level:
+				loadout.erase(slot)
+				charges.erase(slot)
+	else:
+		unlocked = _ids_unlocked_between(previous, level)
+		_auto_equip(unlocked)
+	health_changed.emit(health, max_health)
+	loadout_changed.emit()
+	if level > previous:
+		leveled_up.emit(level, unlocked)
+
+
+## Ids de skills implementadas cuyo nivel de desbloqueo esta en (from, to], por
+## orden de nivel.
+func _ids_unlocked_between(from_level: int, to_level: int) -> Array:
+	var found: Array = []
+	for id: StringName in SkillCatalog.all_ids():
+		var skill: Dictionary = SkillCatalog.skill(id)
+		var unlock_at := int(skill["unlock_level"])
+		if bool(skill.get("implemented", false)) and unlock_at > from_level and unlock_at <= to_level:
+			found.append({"id": id, "level": unlock_at})
+	found.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a["level"]) < int(b["level"]))
+	return found.map(func(entry: Dictionary) -> StringName: return entry["id"])
+
+
+## Pone cada skill recien desbloqueada en su slot preferido (el de DEFAULT_LOADOUT)
+## si esta libre, o en el primer slot libre donde quepa.
+func _auto_equip(ids: Array) -> void:
+	for id: StringName in ids:
+		var skill: Dictionary = SkillCatalog.skill(id)
+		var already := false
+		for slot: String in loadout:
+			if StringName(String((loadout[slot] as Dictionary)["id"])) == id:
+				already = true
+		if already:
 			continue
-		skill["slot"] = slot
-		loadout[slot] = skill
-		if skill.has("charges"):
-			charges[slot] = float(skill["charges"]["max"])
+		var target := ""
+		for slot: String in DEFAULT_LOADOUT:
+			if DEFAULT_LOADOUT[slot] == id and not loadout.has(slot) and slot_accepts(slot, skill):
+				target = slot
+		if target.is_empty():
+			for slot: String in ["M1", "M2", "S1", "S2", "S3", "S4", "S5", "SPECIAL", "ULTIMATE"]:
+				if not loadout.has(slot) and slot_accepts(slot, skill):
+					target = slot
+					break
+		if not target.is_empty():
+			_equip_internal(target, skill)
 
 
 func _refill_charges() -> void:
@@ -154,11 +331,13 @@ func _make_rng() -> RandomNumberGenerator:
 
 
 func _build_stats() -> void:
+	var growth: Dictionary = Progression.growth(WarriorKit.CLASS_ID)
+	var levels_gained := float(level - 1)
 	stats = CharacterStats.new()
-	stats.set_base_stat(&"strength", 20.0)
-	stats.set_base_stat(&"stamina", 18.0)
+	stats.set_base_stat(&"strength", 20.0 + float(growth.get("strength_per_level", 0.0)) * levels_gained)
+	stats.set_base_stat(&"stamina", 18.0 + float(growth.get("stamina_per_level", 0.0)) * levels_gained)
 	stats.set_base_stat(&"agility", 10.0)
-	stats.set_base_stat(&"armor", 40.0)
+	stats.set_base_stat(&"armor", 40.0 + float(growth.get("armor_per_level", 0.0)) * levels_gained)
 	stats.set_base_stat(&"attack_power_bonus", 0.0)
 	stats.set_base_stat(&"crit_chance", 0.10)
 	stats.set_base_stat(&"weapon_min", 12.0)
@@ -238,11 +417,16 @@ func _read_input(input: Object) -> void:
 			buffered_slot = slot
 			buffer_timer = BUFFER_SECONDS
 		_slot_prev[slot] = pressed
-	var ult_pressed := bool(input.actions.get("ultimate", false))
-	if ult_pressed and not bool(_slot_prev.get("ULTIMATE", false)):
-		buffered_slot = "ULTIMATE"
-		buffer_timer = BUFFER_SECONDS
-	_slot_prev["ULTIMATE"] = ult_pressed
+	# Atajos de depuracion (F5 sube un nivel, F6 vuelve al nivel 1): son acciones
+	# del input para que sigan siendo deterministas.
+	for action: String in ["debug_level_up", "debug_level_reset"]:
+		var down := bool(input.actions.get(action, false))
+		if down and not bool(_slot_prev.get(action, false)):
+			if action == "debug_level_up":
+				set_level(level + 1)
+			else:
+				reset_progression()
+		_slot_prev[action] = down
 
 
 func _tick_timers(delta: float) -> void:
@@ -271,7 +455,7 @@ func _update_dodge(delta: float) -> void:
 		return
 	if dodge_buffer_timer <= 0.0 or cooldown_dodge > 0.0 or not alive:
 		return
-	if state == AttackState.ACTIVE:
+	if state == AttackState.ACTIVE and not current_skill.has("stance"):
 		return
 	if state != AttackState.IDLE and bool(current_skill.get("uncancelable", false)):
 		return
@@ -322,7 +506,10 @@ func _update_attack(delta: float) -> void:
 		if String(current_skill.get("anchor", "self")) == "aim_leap":
 			position = attack_point
 			velocity = Vector2.ZERO
-		_resolve_attack_hit()
+		if current_skill.has("stance"):
+			_stance_spent = false
+		else:
+			_resolve_attack_hit()
 		attack_state_changed.emit(state)
 	elif state == AttackState.ACTIVE and state_time >= float(current_skill["active"]):
 		state = AttackState.RECOVERY
@@ -437,6 +624,7 @@ func _start_attack(slot: String) -> void:
 		charges[slot] = maxf(0.0, float(charges.get(slot, 0.0)) - 1.0)
 	hold_time = 0.0
 	_range_mult = 1.0
+	_stance_spent = false
 	var charge := float(current_skill.get("charge", 0.0))
 	if charge > 0.0:
 		ultimate_charge = maxf(0.0, ultimate_charge - charge)
@@ -461,10 +649,11 @@ func _start_attack(slot: String) -> void:
 
 	# Los basicos cuentan el cooldown desde que acaba el ataque; las demas skills,
 	# desde que se lanzan.
+	var cooldown_key := String(current_skill["id"])
 	if String(current_skill["kind"]) == "basic":
-		cooldowns[slot] = total_attack_duration(current_skill) + float(current_skill["cooldown"])
+		cooldowns[cooldown_key] = total_attack_duration(current_skill) + float(current_skill["cooldown"])
 	else:
-		cooldowns[slot] = float(current_skill["cooldown"])
+		cooldowns[cooldown_key] = float(current_skill["cooldown"])
 
 	attack_state_changed.emit(state)
 	attack_started.emit(current_skill, attack_aim)
@@ -481,6 +670,8 @@ func _resolve_attack_hit() -> void:
 		if critical:
 			damage *= CRIT_MULTIPLIER
 		var dealt: float = target.take_damage(damage)
+		if not target.alive and target.has_method("xp_reward"):
+			grant_xp(int(target.xp_reward()), target.position)
 
 		var rage_left: float = float(current_skill["rage_cap"]) - swing_rage_gained
 		var rage_gain := minf(float(current_skill["rage_gain"]), maxf(rage_left, 0.0))
@@ -636,6 +827,9 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 	if is_invulnerable() and not is_dot:
 		attack_evaded.emit(source_position)
 		return 0.0
+	if not is_dot and _stance_blocks(source_position):
+		_block_with_stance(source_position)
+		return 0.0
 
 	var reduced := amount * (1.0 - armor_reduction())
 	var dealt := minf(reduced, health)
@@ -680,6 +874,37 @@ func dodge_cooldown_total() -> float:
 	return float(WarriorKit.DODGE["cooldown"])
 
 
+## Verdadero mientras la postura del Special esta abierta (y no ha bloqueado aun).
+func stance_active() -> bool:
+	return state == AttackState.ACTIVE and current_skill.has("stance") and not _stance_spent
+
+
+## Una fuente real (distinta de Vector2.ZERO) dentro del arco frontal de la
+## postura, segun hacia donde apunta el jugador, es bloqueada.
+func _stance_blocks(source_position: Vector2) -> bool:
+	if not stance_active() or source_position == Vector2.ZERO:
+		return false
+	var toward := source_position - position
+	if toward.length_squared() < 0.0001:
+		return true
+	return absf(rad_to_deg(aim_dir.angle_to(toward))) <= float(current_skill["stance"]["arc"]) * 0.5
+
+
+## Anula el golpe, gira hacia quien lo lanzo y devuelve el contraataque con la
+## forma de la skill. Despues recupera mas rapido que si la postura expira.
+func _block_with_stance(source_position: Vector2) -> void:
+	_stance_spent = true
+	var toward := source_position - position
+	if toward.length_squared() > 0.0001:
+		attack_aim = toward.normalized()
+	attack_blocked.emit(source_position)
+	_resolve_attack_hit()
+	current_skill["recovery"] = float(current_skill["stance"]["counter_recovery"])
+	state = AttackState.RECOVERY
+	state_time = 0.0
+	attack_state_changed.emit(state)
+
+
 func armor_reduction() -> float:
 	var armor := stats.get_stat(&"armor")
 	return armor / (armor + 100.0)
@@ -698,7 +923,9 @@ func total_attack_duration(skill: Dictionary) -> float:
 
 
 func attack_cooldown_left(slot: String) -> float:
-	return float(cooldowns.get(slot, 0.0))
+	if not loadout.has(slot):
+		return 0.0
+	return float(cooldowns.get(String((loadout[slot] as Dictionary)["id"]), 0.0))
 
 
 func attack_cooldown_total(slot: String) -> float:
@@ -732,6 +959,8 @@ func snapshot() -> Dictionary:
 		"dodge_cd": cooldown_dodge,
 		"cooldowns": cooldowns.duplicate(),
 		"ultimate": ultimate_charge,
+		"level": level,
+		"xp": xp,
 		"charges": charges.duplicate(),
 		"hold": hold_time,
 		"alive": alive,

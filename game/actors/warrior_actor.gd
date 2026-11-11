@@ -20,6 +20,7 @@ const AFTERIMAGE_LIFETIME := 0.22
 const DODGE_ALPHA := 0.62
 const LEAP_HEIGHT := 34.0
 const GOLD_TEXT := Color(1.0, 0.82, 0.3, 1.0)
+const XP_TEXT := Color(0.55, 0.75, 1.0, 1.0)
 
 var sim: WarriorSim
 var arena: Arena
@@ -67,6 +68,9 @@ func _connect_signals() -> void:
 	sim.attack_evaded.connect(_on_attack_evaded)
 	sim.skill_denied.connect(_on_skill_denied)
 	sim.ultimate_ready.connect(_on_ultimate_ready)
+	sim.attack_blocked.connect(_on_attack_blocked)
+	sim.xp_gained.connect(_on_xp_gained)
+	sim.leveled_up.connect(_on_leveled_up)
 
 
 func _process(delta: float) -> void:
@@ -281,6 +285,37 @@ func _on_skill_denied(_slot: String, reason: String) -> void:
 	arena.spawn_floating_text(sim.position, label, Color(1.0, 0.45, 0.35, 1.0))
 
 
+## Bloqueo de la postura del Special: destello, texto y el corte de respuesta.
+func _on_attack_blocked(source_position: Vector2) -> void:
+	if arena == null:
+		return
+	var direction := (source_position - sim.position).normalized() if source_position != sim.position else sim.aim_dir
+	arena.spawn_impact(sim.position + direction * 22.0, GOLD_TEXT, true)
+	arena.spawn_slash(sim.position, direction, sim.attack_range_now(), visual_arc(sim.current_skill), true)
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -6.0), "BLOCK", GOLD_TEXT)
+	arena.play_sfx(SFX_HIT_HEAVY, -3.0, 0.8)
+	arena.shake(3.5, 0.18)
+	_facing = _dir_name(direction)
+
+
+func _on_xp_gained(amount: int, _source_position: Vector2) -> void:
+	if arena != null:
+		arena.spawn_floating_text(sim.position + Vector2(0.0, 6.0), "+%d XP" % amount, XP_TEXT)
+
+
+func _on_leveled_up(new_level: int, unlocked: Array) -> void:
+	if arena == null:
+		return
+	arena.spawn_impact(sim.position, GOLD_TEXT, true)
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -26.0), "LEVEL UP  %d" % new_level, GOLD_TEXT)
+	var row := 0
+	for id: StringName in unlocked:
+		row += 1
+		arena.spawn_floating_text(sim.position + Vector2(0.0, -26.0 - 12.0 * row), "NEW: %s" % SkillCatalog.skill(id).get("name", id), Color(0.7, 0.95, 0.7, 1.0))
+	arena.play_sfx(SFX_HIT, -5.0, 1.5)
+	arena.shake(2.5, 0.2)
+
+
 func _on_ultimate_ready() -> void:
 	if arena == null:
 		return
@@ -339,6 +374,19 @@ func _apply_damage_flash() -> void:
 		sprite.modulate = Color.WHITE
 
 
+## Escudo frontal mientras la postura del Special esta abierta: un arco del
+## ancho real del bloqueo, hacia donde apunta el jugador.
+func _draw_stance() -> void:
+	if not sim.alive or not sim.stance_active():
+		return
+	var half := deg_to_rad(float(sim.current_skill["stance"]["arc"]) * 0.5)
+	var angle := sim.aim_dir.angle()
+	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.02)
+	var color := Color(0.65, 0.85, 1.0, 0.65 + 0.3 * pulse)
+	draw_arc(Vector2(0, -14), 26.0, angle - half, angle + half, 28, color, 3.0)
+	draw_arc(Vector2(0, -14), 21.0, angle - half, angle + half, 28, Color(color.r, color.g, color.b, 0.35), 1.0)
+
+
 ## Anillo que crece alrededor de los pies mientras se mantiene M2 (hold).
 func _draw_charge() -> void:
 	var fraction := sim.charge_fraction()
@@ -388,6 +436,7 @@ func _draw() -> void:
 
 	_draw_telegraph()
 	_draw_charge()
+	_draw_stance()
 
 	# Aura de Vengeful Fury cuando la pasiva está cargada.
 	if sim.vengeful_active and sim.alive:
