@@ -25,7 +25,7 @@ signal died()
 signal revived()
 signal phase_changed(index: int, phase_name: String)
 
-enum State { IDLE, CHASE, TELEGRAPH, ACTIVE, RECOVER, DEAD, PHASE }
+enum State { IDLE, CHASE, TELEGRAPH, ACTIVE, RECOVER, DEAD, PHASE, STUN }
 
 const WARRIOR_RADIUS := 14.0
 ## Margen para no quedarse pegado al jugador al perseguirlo.
@@ -55,6 +55,9 @@ var phase: int = 0
 ## Invocado por un jefe: no reaparece y desaparece con el reinicio.
 var summoned: bool = false
 
+## Estados alterados activos (stun, slow, veneno).
+var statuses: StatusSet = StatusSet.new()
+
 var current_attack: Dictionary = {}
 var attack_direction: Vector2 = Vector2.RIGHT
 var _attack_cooldowns: Dictionary = {}
@@ -69,6 +72,7 @@ func _init(p_world: Object, p_def_id: StringName, p_position: Vector2, rng_seed:
 	assert(not data.is_empty(), "enemigo desconocido: %s" % p_def_id)
 	position = p_position
 	spawn_position = p_position
+	statuses.resist = data.get("resist", {})
 	radius = float(data["stats"]["radius"])
 	max_health = float(data["stats"]["health"])
 	health = max_health
@@ -92,6 +96,17 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 			_attack_cooldowns.erase(attack_id)
 		else:
 			_attack_cooldowns[attack_id] = left
+
+	var dot := statuses.step(delta)
+	if dot > 0.0:
+		_dot_damage(dot)
+		if not alive:
+			return
+	if state == State.STUN:
+		if statuses.is_stunned():
+			return
+		state = State.CHASE
+		state_time = 0.0
 
 	var target_alive: bool = warrior != null and bool(warrior.alive)
 	match state:
@@ -146,7 +161,7 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 		_start_telegraph(attack)
 		return
 
-	var speed := float(data["stats"]["speed"]) * _speed_mult()
+	var speed := float(data["stats"]["speed"]) * _speed_mult() * statuses.speed_mult()
 	var keep := float(data["ai"].get("keep_distance", 0.0))
 	if keep > 0.0:
 		# Tirador: retrocede si lo alcanzan y se queda quieto a su distancia.
@@ -217,6 +232,8 @@ func _resolve_hit(warrior: Object) -> void:
 	var amount := float(data["stats"]["damage"]) * float(current_attack["damage_mult"])
 	var dealt: float = warrior.take_damage(amount, position, false)
 	attack_landed.emit(dealt)
+	if dealt > 0.0:
+		_apply_on_hit(current_attack)
 
 
 ## Si el ataque en curso amenaza un punto (zona marcada por el telegraph). Lo usan
@@ -275,8 +292,38 @@ func _launch_projectiles() -> void:
 
 
 ## Un proyectil de este enemigo ha alcanzado al jugador (dealt = dano real).
-func projectile_landed(dealt: float) -> void:
+func projectile_landed(dealt: float, attack: Dictionary = {}) -> void:
 	attack_landed.emit(dealt)
+	if dealt > 0.0:
+		_apply_on_hit(attack)
+
+
+## Aplica al jugador los estados que lleva el ataque cuando el golpe le alcanza.
+func _apply_on_hit(attack: Dictionary) -> void:
+	if world == null or world.player == null:
+		return
+	for effect: Dictionary in attack.get("on_hit", []):
+		world.player.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)))
+
+
+## Aplica un estado al enemigo. Un stun interrumpe el ataque en curso. Devuelve
+## false si es inmune (o su resistencia es total).
+func apply_status(id: String, duration: float, strength: float = 0.0) -> bool:
+	if not alive or state == State.PHASE:
+		return false
+	var applied := statuses.apply(id, duration, strength)
+	if applied and id == "stun":
+		state = State.STUN
+		state_time = 0.0
+		current_attack = {}
+	return applied
+
+
+## Dano continuo (veneno): si mata, la XP es del jugador.
+func _dot_damage(amount: float) -> void:
+	take_damage(amount)
+	if not alive and world != null and world.player != null:
+		world.player.grant_xp(xp_reward(), position)
 
 
 func _step_dash(delta: float) -> void:
@@ -319,6 +366,7 @@ func take_damage(amount: float) -> float:
 
 func revive() -> void:
 	phase = 0
+	statuses.clear()
 	alive = true
 	health = max_health
 	position = spawn_position
@@ -352,6 +400,7 @@ func snapshot() -> Dictionary:
 		"state": state,
 		"telegraph": telegraph_progress(),
 		"phase": phase,
+		"statuses": statuses.snapshot(),
 	}
 
 

@@ -15,6 +15,8 @@
 ##          "projectile" (ver `projectile`) | "self" (sin golpe: solo mejora)
 ##   unlock_level: nivel del personaje al que se desbloquea (entero >= 1)
 ##   Opcionales:
+##   on_hit: [{id, duration, strength?}] estados que aplica a cada blanco que golpea
+##           (stun, slow, poison; ver data/statuses.json)
 ##   damage_type: "physical" (defecto, usa Weapon Damage + Attack Power) o "magic"
 ##                (usa la base del arma + Spell Power)
 ##   projectile: {speed, range, radius, count, spread (grados), pierce, visual,
@@ -161,6 +163,8 @@ static func validate(entry: Dictionary) -> Array[String]:
 			problems.append("'%s' debe ser un numero >= 0" % field)
 	if _is_number(entry.get("damage_mult")) and float(entry["damage_mult"]) <= 0.0 and not entry.has("buff"):
 		problems.append("'damage_mult' debe ser > 0 (salvo en una mejora con 'buff')")
+	if entry.has("on_hit"):
+		problems.append_array(StatusCatalog.validate_on_hit(entry["on_hit"]))
 	if entry.has("damage_type") and not DAMAGE_TYPES.has(entry["damage_type"]):
 		problems.append("damage_type desconocido '%s' (physical o magic)" % str(entry["damage_type"]))
 	if not (entry.get("implemented") is bool):

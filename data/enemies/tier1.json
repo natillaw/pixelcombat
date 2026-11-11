@@ -136,7 +136,14 @@
 					"cooldown": 2,
 					"damage_mult": 0.8,
 					"trigger_range": 86,
-					"weight": 1
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.5,
+							"strength": 0.5
+						}
+					]
 				}
 			]
 		},
@@ -178,7 +185,13 @@
 					"cooldown": 2.6,
 					"damage_mult": 1,
 					"trigger_range": 58,
-					"weight": 1
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.3
+						}
+					]
 				}
 			]
 		},
@@ -228,7 +241,14 @@
 					"cooldown": 2.2,
 					"damage_mult": 1,
 					"trigger_range": 260,
-					"weight": 1
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.5,
+							"strength": 0.3
+						}
+					]
 				}
 			]
 		},
@@ -278,7 +298,14 @@
 					"cooldown": 1.9,
 					"damage_mult": 1,
 					"trigger_range": 200,
-					"weight": 1
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "poison",
+							"duration": 3,
+							"strength": 3
+						}
+					]
 				}
 			]
 		},
@@ -370,7 +397,13 @@
 					"cooldown": 2,
 					"damage_mult": 1,
 					"trigger_range": 80,
-					"weight": 1
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.35
+						}
+					]
 				},
 				{
 					"id": "charge",
@@ -404,7 +437,14 @@
 					"cooldown": 4,
 					"damage_mult": 0.5,
 					"trigger_range": 300,
-					"weight": 1
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.2,
+							"strength": 0.25
+						}
+					]
 				},
 				{
 					"id": "quake",
@@ -416,9 +456,19 @@
 					"cooldown": 6,
 					"damage_mult": 1.5,
 					"trigger_range": 110,
-					"weight": 1
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.4
+						}
+					]
 				}
-			]
+			],
+			"resist": {
+				"stun": 1,
+				"slow": 0.5
+			}
 		}
 	]
 }

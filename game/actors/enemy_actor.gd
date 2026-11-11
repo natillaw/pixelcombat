@@ -36,6 +36,7 @@ func setup(p_sim: EnemySim, p_arena: Arena) -> void:
 	sim.died.connect(_on_died)
 	sim.revived.connect(_on_revived)
 	sim.phase_changed.connect(_on_phase_changed)
+	sim.statuses.applied.connect(_on_status_applied)
 
 
 func _build_sprite() -> void:
@@ -105,8 +106,10 @@ func _apply_state_visual() -> void:
 		var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.001 * rate)
 		sprite.modulate = Color(1.0 + 0.5 * pulse, 1.0 - 0.35 * pulse, 1.0 - 0.35 * pulse, 1.0)
 	else:
-		sprite.modulate = _tint
-	sprite.speed_scale = 0.5 if sim.state == EnemySim.State.TELEGRAPH else 1.0
+		sprite.modulate = _tint * _status_tint()
+	sprite.speed_scale = 0.5 if sim.state == EnemySim.State.TELEGRAPH or sim.statuses.has("slow") else 1.0
+	if sim.state == EnemySim.State.STUN:
+		sprite.speed_scale = 0.0
 
 
 func _restore_visual() -> void:
@@ -146,6 +149,43 @@ func _on_phase_changed(index: int, phase_name: String) -> void:
 	arena.shake(6.0, 0.5)
 
 
+## Aviso flotante al recibir un estado (STUN, SLOW, POISON).
+func _on_status_applied(id: String) -> void:
+	if arena == null:
+		return
+	var definition := StatusCatalog.status(id)
+	var color_data: Array = definition["color"]
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -_sprite_height - 6.0), String(definition["name"]).to_upper(), Color(float(color_data[0]), float(color_data[1]), float(color_data[2]), 1.0))
+
+
+## Tinte del sprite segun los estados: azul con slow, verde con veneno.
+func _status_tint() -> Color:
+	var tint := Color.WHITE
+	if sim.statuses.has("slow"):
+		tint = Color(0.65, 0.85, 1.25, 1.0)
+	if sim.statuses.has("poison"):
+		tint = Color(tint.r * 0.75, tint.g * 1.15, tint.b * 0.7, 1.0)
+	return tint
+
+
+## Puntos de color sobre la cabeza (uno por estado activo) y estrellas con stun.
+func _draw_status_icons() -> void:
+	var ids := sim.statuses.active_ids()
+	if ids.is_empty():
+		return
+	var y := -_sprite_height - 10.0
+	var x := -float(ids.size() - 1) * 4.5
+	for id: String in ids:
+		var color_data: Array = StatusCatalog.status(id)["color"]
+		draw_circle(Vector2(x, y), 3.0, Color(float(color_data[0]), float(color_data[1]), float(color_data[2]), 1.0))
+		x += 9.0
+	if sim.statuses.is_stunned():
+		var spin := Time.get_ticks_msec() * 0.008
+		for i: int in range(3):
+			var angle := spin + float(i) * TAU / 3.0
+			draw_circle(Vector2(cos(angle) * 12.0, -_sprite_height + 4.0 + sin(angle) * 4.0), 2.0, Color(1.0, 0.9, 0.3, 1.0))
+
+
 func _on_died() -> void:
 	if arena != null:
 		arena.play_sfx(SFX_IMPACT, -9.0, 0.7)
@@ -170,6 +210,8 @@ func _draw() -> void:
 
 	if sim.alive and not sim.is_boss() and (sim.health < sim.max_health or sim.state != EnemySim.State.IDLE):
 		_draw_health_bar()
+	if sim.alive:
+		_draw_status_icons()
 
 
 ## Onda que se expande desde el jefe durante el rugido de cambio de fase.

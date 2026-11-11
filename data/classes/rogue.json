@@ -88,15 +88,6 @@
 			"description": "Ataque potenciado desde detrás del objetivo."
 		},
 		{
-			"id": "poisoned_blades",
-			"name": "Poisoned Blades",
-			"role": "Debilitamiento",
-			"unlock_level": 16,
-			"cost": 20,
-			"cooldown": 10,
-			"description": "Aplica veneno con acumulaciones limitadas."
-		},
-		{
 			"id": "mark_for_death",
 			"name": "Mark for Death",
 			"role": "Preparación",
@@ -140,15 +131,6 @@
 			"cost": 25,
 			"cooldown": 16,
 			"description": "Crea un señuelo que confunde ataques dirigidos."
-		},
-		{
-			"id": "crippling_strike",
-			"name": "Crippling Strike",
-			"role": "Control",
-			"unlock_level": 36,
-			"cost": 20,
-			"cooldown": 10,
-			"description": "Corte que ralentiza al enemigo."
 		},
 		{
 			"id": "hemorrhage",

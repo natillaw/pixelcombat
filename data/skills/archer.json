@@ -290,6 +290,53 @@
 			},
 			"anim": "shoot",
 			"unlock_level": 10
+		},
+		{
+			"kind": "skill",
+			"slot": "S",
+			"cost": 20,
+			"cooldown": 9,
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 6,
+			"damage_type": "physical",
+			"implemented": true,
+			"id": "crippling_arrow",
+			"name": "Crippling Arrow",
+			"class": "archer",
+			"role": "Control",
+			"description": "Flecha que ralentiza al objetivo.",
+			"hud_label": "CRIPPLING",
+			"shape": "projectile",
+			"windup": 0.18,
+			"active": 0.05,
+			"recovery": 0.25,
+			"damage_mult": 1,
+			"projectile": {
+				"speed": 520,
+				"range": 340,
+				"radius": 5,
+				"count": 1,
+				"spread": 0,
+				"pierce": 0,
+				"visual": "ice"
+			},
+			"on_hit": [
+				{
+					"id": "slow",
+					"duration": 3,
+					"strength": 0.5
+				}
+			],
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"anim": "shoot",
+			"unlock_level": 14
 		}
 	]
 }

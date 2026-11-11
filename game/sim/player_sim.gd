@@ -36,6 +36,7 @@ signal loadout_changed()
 signal class_changed(class_id: String)
 signal buff_changed(active: bool, multiplier: float, seconds_left: float)
 signal projectiles_launched(skill: Dictionary, direction: Vector2)
+signal status_applied(id: String)
 
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
@@ -119,6 +120,9 @@ var resource_kind: String = "rage"
 var progress: Dictionary = {}
 
 ## Mejora del siguiente ataque (Special de Mage/Archer, evasion del Rogue).
+## Estados alterados activos (stun, slow, veneno).
+var statuses: StatusSet = StatusSet.new()
+
 var empower_mult: float = 1.0
 var empower_until_tick: int = 0
 var _strike_index: int = 0
@@ -136,6 +140,7 @@ var _rng: RandomNumberGenerator
 func _init(p_world: Object = null, p_class_id: String = "warrior") -> void:
 	world = p_world
 	_rng = _make_rng()
+	statuses.applied.connect(func(id: String) -> void: status_applied.emit(id))
 	_set_class_data(p_class_id if ClassCatalog.has_class(p_class_id) else "warrior")
 	_build_stats()
 	resource = ClassCatalog.create_resource(class_id)
@@ -394,6 +399,7 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	empower_until_tick = 0
 	_strike_index = 0
 	hold_time = 0.0
+	statuses.clear()
 	_range_mult = 1.0
 	_refill_charges()
 	ultimate_charge = 0.0
@@ -409,6 +415,7 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 	tick = tick_number
 	_read_input(input)
 	_tick_timers(delta)
+	_update_statuses(delta)
 	_update_dodge(delta)
 	_update_attack(delta)
 	_update_movement(delta)
@@ -454,6 +461,36 @@ func _read_input(input: Object) -> void:
 		_slot_prev[action] = down
 
 
+## Aplica un estado al jugador (stun, slow, veneno). Devuelve false si es inmune.
+## Un stun cancela lo que estuviera haciendo, incluida la esquiva.
+func apply_status(id: String, duration: float, strength: float = 0.0) -> bool:
+	if not alive:
+		return false
+	var applied := statuses.apply(id, duration, strength)
+	if applied and id == "stun":
+		if state != AttackState.IDLE:
+			_cancel_attack()
+		if dodging:
+			dodging = false
+			dodge_ended.emit()
+		buffered_slot = ""
+		buffer_timer = 0.0
+		dodge_buffer_timer = 0.0
+	return applied
+
+
+## Avanza los estados; el veneno hace su dano continuo (que ignora i-frames y
+## posturas). Aturdido, el jugador pierde las pulsaciones bufferizadas.
+func _update_statuses(delta: float) -> void:
+	var dot := statuses.step(delta)
+	if dot > 0.0 and alive:
+		take_damage(dot, Vector2.ZERO, true)
+	if statuses.is_stunned():
+		buffered_slot = ""
+		buffer_timer = 0.0
+		dodge_buffer_timer = 0.0
+
+
 func _tick_timers(delta: float) -> void:
 	for slot: String in charges.keys():
 		var recharge := float((loadout[slot] as Dictionary)["charges"]["recharge"])
@@ -478,7 +515,7 @@ func _update_dodge(delta: float) -> void:
 	if dodging:
 		dodge_time += delta
 		return
-	if dodge_buffer_timer <= 0.0 or cooldown_dodge > 0.0 or not alive:
+	if dodge_buffer_timer <= 0.0 or cooldown_dodge > 0.0 or not alive or statuses.is_stunned():
 		return
 	if state == AttackState.ACTIVE and not current_skill.has("stance"):
 		return
@@ -675,7 +712,7 @@ func charges_max(slot: String) -> float:
 
 
 func _try_start_attack() -> void:
-	if not alive or dodging:
+	if not alive or dodging or statuses.is_stunned():
 		return
 	if buffered_slot != "":
 		var slot := buffered_slot
@@ -794,6 +831,9 @@ func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: D
 	var dealt: float = target.take_damage(damage)
 	if not target.alive and target.has_method("xp_reward"):
 		grant_xp(int(target.xp_reward()), target.position)
+	elif dealt > 0.0 and skill.has("on_hit") and target.has_method("apply_status"):
+		for effect: Dictionary in skill["on_hit"]:
+			target.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)))
 
 	var resource_left: float = float(skill["resource_cap"]) - float(tracker["resource"])
 	var resource_gain := minf(float(skill["resource_gain"]), maxf(resource_left, 0.0))
@@ -869,7 +909,7 @@ func _update_movement(delta: float) -> void:
 	if state == AttackState.WINDUP and String(current_skill.get("anchor", "self")) == "aim_leap":
 		_move_leap(delta)
 		return
-	var factor := _movement_factor()
+	var factor := _movement_factor() * statuses.speed_mult()
 	var desired := move_input * MOVE_SPEED * factor
 	var rate := ACCELERATION if move_input.length_squared() > 0.0001 else FRICTION
 	velocity = velocity.move_toward(desired, rate * delta)
@@ -975,7 +1015,7 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 	var dealt := minf(reduced, health)
 	health -= dealt
 
-	if resource_kind == "rage":
+	if resource_kind == "rage" and not is_dot:
 		var percent_lost := (dealt / max_health) * 100.0
 		_gain_resource(clampf(percent_lost, RAGE_TAKEN_MIN, RAGE_TAKEN_CAP))
 	last_combat_tick = tick
@@ -1138,6 +1178,7 @@ func snapshot() -> Dictionary:
 		"health": health,
 		"max_health": max_health,
 		"class": class_id,
+		"statuses": statuses.snapshot(),
 		"resource": resource.get_current(),
 		"empower": empower_mult,
 		"state": state,

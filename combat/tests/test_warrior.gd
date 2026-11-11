@@ -12,7 +12,7 @@ const StatsScript: GDScript = preload("res://combat/stats.gd")
 ## Skills del Skill Book jugables hoy (data/skills/warrior.json). Al implementar
 ## una nueva, se anade aqui: este contrato fija que nada se marca jugable sin
 ## estar en el catalogo.
-const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust"]
+const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp"]
 
 var _failures: int = 0
 var _checks: int = 0

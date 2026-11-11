@@ -64,6 +64,7 @@ func _draw() -> void:
 	var warrior := world.player
 
 	_draw_status(warrior)
+	_draw_statuses(warrior)
 	_draw_abilities(warrior)
 	_draw_controls()
 	_draw_boss_bar()
@@ -316,6 +317,22 @@ func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) 
 	if heavy:
 		draw_circle(Vector2(0, -10), 1.5, color)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+
+## Estados alterados del jugador (STUN, SLOW, POISON) con su tiempo restante, bajo
+## el panel de estado.
+func _draw_statuses(warrior: PlayerSim) -> void:
+	var x := 12.0
+	for id: String in warrior.statuses.active_ids():
+		var definition := StatusCatalog.status(id)
+		var color_data: Array = definition["color"]
+		var color := Color(float(color_data[0]), float(color_data[1]), float(color_data[2]), 1.0)
+		var label := "%s %.1f" % [String(definition["name"]).to_upper(), warrior.statuses.remaining(id)]
+		var width := 8.0 + 4.6 * float(label.length())
+		draw_rect(Rect2(x, 90, width, 12), Color(color.r, color.g, color.b, 0.25))
+		draw_rect(Rect2(x, 90, width, 12), color, false, 1.0)
+		_draw_text(label, Vector2(x + 4.0, 99), 7, color)
+		x += width + 4.0
 
 
 ## Barra de vida del jefe activo, arriba al centro, con una marca en cada cambio de

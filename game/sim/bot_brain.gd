@@ -46,7 +46,7 @@ func decide(world: CombatWorld) -> InputMessage:
 	if distance > preferred + 12.0:
 		message.move_dir = message.aim_dir
 	elif ranged and distance < preferred - 45.0:
-		message.move_dir = -message.aim_dir
+		message.move_dir = _retreat_direction(world, player, message.aim_dir)
 
 	if dodge_enemies and _should_dodge(world, player):
 		message.actions["dodge"] = not bool(_pressed_last.get("dodge", false))
@@ -68,6 +68,25 @@ func decide(world: CombatWorld) -> InputMessage:
 			break
 	_pressed_last = message.actions.duplicate()
 	return message
+
+
+## Hacia donde retroceder: directamente lejos del blanco, salvo que eso lleve contra
+## una pared; entonces se desliza de lado hacia donde haya mas sitio.
+func _retreat_direction(world: CombatWorld, player: PlayerSim, aim: Vector2) -> Vector2:
+	var back := -aim
+	var safe_zone := world.bounds.grow(-60.0)
+	if safe_zone.has_point(player.position + back * 70.0):
+		return back
+	var side := aim.orthogonal()
+	var left_room := safe_zone.has_point(player.position + side * 70.0)
+	var right_room := safe_zone.has_point(player.position - side * 70.0)
+	if left_room and not right_room:
+		return (side + back * 0.3).normalized()
+	if right_room and not left_room:
+		return (-side + back * 0.3).normalized()
+	# Ambos lados libres o ninguno: hacia el centro de la arena.
+	var to_center := (world.bounds.get_center() - player.position).normalized()
+	return to_center if to_center.length_squared() > 0.0 else back
 
 
 func _nearest_target(world: CombatWorld) -> Object:

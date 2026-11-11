@@ -15,6 +15,8 @@
 ##           mas que el 70 % de esa distancia, retrocede; para tiradores)
 ##   sprite: sheet (tira horizontal de frames cuadrados), frame, frames, fps, scale,
 ##           tint (opcional, [r, g, b, a])
+##   resist (opcional): {estado: 0..1} resistencia a estados; 1 = inmune (jefes), 0,5
+##           = duracion a la mitad
 ##   boss (opcional): true marca un jefe (barra de vida propia)
 ##   phases (opcional, jefes): lista ordenada de {name, hp_below (fraccion de vida
 ##           a partir de la cual entra, la primera es 1.0), speed_mult, attacks
@@ -28,6 +30,8 @@
 ##     shape "projectile": en vez de range/arc/width lleva `projectile` {speed,
 ##       range, radius, count, spread, pierce, visual}; dispara al acabar el aviso
 ##       y el aviso marca el carril
+##     on_hit (opcional): [{id, duration, strength?}] estados que aplica al jugador
+##       cuando el golpe le alcanza de verdad (no si lo esquiva o lo bloquea)
 ##     dash_distance (opcional): se desplaza esa distancia durante `active`
 class_name EnemyCatalog
 extends RefCounted
@@ -178,6 +182,13 @@ static func validate(entry: Dictionary) -> Array[String]:
 			if seen.has(attack_id):
 				problems.append("ataque duplicado '%s'" % attack_id)
 			seen[attack_id] = true
+	if entry.has("resist"):
+		if not (entry["resist"] is Dictionary):
+			problems.append("'resist' debe ser un objeto")
+		else:
+			for status_id: String in entry["resist"]:
+				if not StatusCatalog.has_status(status_id) or not _is_number(entry["resist"][status_id]) or float(entry["resist"][status_id]) < 0.0 or float(entry["resist"][status_id]) > 1.0:
+					problems.append("resist.%s debe ser un estado conocido con valor entre 0 y 1" % status_id)
 	if entry.has("boss") and not (entry["boss"] is bool):
 		problems.append("'boss' debe ser true/false")
 	if entry.has("phases"):
@@ -256,6 +267,8 @@ static func validate_attack(attack: Dictionary) -> Array[String]:
 		problems.append("cone: 'arc' debe estar entre 0 y 360")
 	if shape == "line" and (not _is_number(attack.get("width")) or float(attack["width"]) <= 0.0):
 		problems.append("line: 'width' debe ser > 0")
+	if attack.has("on_hit"):
+		problems.append_array(StatusCatalog.validate_on_hit(attack["on_hit"]))
 	if attack.has("dash_distance"):
 		if not _is_number(attack["dash_distance"]) or float(attack["dash_distance"]) < 0.0:
 			problems.append("'dash_distance' debe ser >= 0")

@@ -62,15 +62,6 @@
 	},
 	"planned": [
 		{
-			"id": "frost_nova",
-			"name": "Frost Nova",
-			"role": "Control",
-			"unlock_level": 12,
-			"cost": 25,
-			"cooldown": 12,
-			"description": "Congela brevemente a los enemigos cercanos."
-		},
-		{
 			"id": "lightning_chain",
 			"name": "Lightning Chain",
 			"role": "Daño",

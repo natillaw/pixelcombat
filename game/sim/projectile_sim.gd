@@ -99,7 +99,7 @@ func _step_hostile(world: Object) -> void:
 	if player.alive and position.distance_to(player.position) <= radius + float(PlayerSim.RADIUS):
 		var dealt: float = player.take_damage(damage_mult, position, false)
 		if owner != null and owner.has_method("projectile_landed"):
-			owner.projectile_landed(dealt)
+			owner.projectile_landed(dealt, skill)
 		alive = false
 		return
 	if range_left <= 0.0 or not world.bounds.has_point(position) or world.blocked_by_obstacle(position, radius):

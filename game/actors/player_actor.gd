@@ -74,6 +74,7 @@ func _connect_signals() -> void:
 	sim.class_changed.connect(_on_class_changed)
 	sim.buff_changed.connect(_on_buff_changed)
 	sim.projectiles_launched.connect(_on_projectiles_launched)
+	sim.status_applied.connect(_on_status_applied)
 
 
 func _process(delta: float) -> void:
@@ -333,6 +334,16 @@ func _on_projectiles_launched(skill: Dictionary, direction: Vector2) -> void:
 	arena.play_sfx(SFX_SLASH_HEAVY if heavy else SFX_SLASH, -8.0, randf_range(1.15, 1.35))
 
 
+## Aviso flotante al recibir un estado (STUN, SLOW, POISON).
+func _on_status_applied(id: String) -> void:
+	if arena == null:
+		return
+	var definition := StatusCatalog.status(id)
+	var color_data: Array = definition["color"]
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -34.0), String(definition["name"]).to_upper() + "!", Color(float(color_data[0]), float(color_data[1]), float(color_data[2]), 1.0))
+	arena.play_sfx(SFX_HURT, -10.0, 1.4)
+
+
 func _on_xp_gained(amount: int, _source_position: Vector2) -> void:
 	if arena != null:
 		arena.spawn_floating_text(sim.position + Vector2(0.0, 6.0), "+%d XP" % amount, XP_TEXT)
@@ -405,8 +416,22 @@ func _apply_damage_flash() -> void:
 		sprite.modulate = Color(1.0 + t * 0.9, 0.72 + (1.0 - t) * 0.28, 0.72 + (1.0 - t) * 0.28, 1.0)
 	elif sim != null and sim.is_invulnerable():
 		sprite.modulate = Color(0.75, 0.9, 1.0, DODGE_ALPHA)
+	elif sim != null and sim.statuses.has("poison"):
+		sprite.modulate = Color(0.75, 1.15, 0.7, 1.0)
+	elif sim != null and sim.statuses.has("slow"):
+		sprite.modulate = Color(0.7, 0.88, 1.25, 1.0)
 	else:
 		sprite.modulate = Color.WHITE
+
+
+## Estrellas giratorias sobre la cabeza mientras el jugador esta aturdido.
+func _draw_stun_stars() -> void:
+	if not sim.alive or not sim.statuses.is_stunned():
+		return
+	var spin := Time.get_ticks_msec() * 0.008
+	for i: int in range(3):
+		var angle := spin + float(i) * TAU / 3.0
+		draw_circle(Vector2(cos(angle) * 12.0, -50.0 + sin(angle) * 4.0), 2.5, Color(1.0, 0.9, 0.3, 1.0))
 
 
 ## Aura clara alrededor del personaje mientras el siguiente ataque esta mejorado.
@@ -484,6 +509,7 @@ func _draw() -> void:
 	_draw_charge()
 	_draw_stance()
 	_draw_empower()
+	_draw_stun_stars()
 
 	# Aura de Vengeful Fury cuando la pasiva está cargada.
 	if sim.vengeful_active and sim.alive:

@@ -1,0 +1,34 @@
+{
+	"_doc": "Estados alterados (stun, slow, veneno). Esquema y validacion en combat/status_catalog.gd. Numeros provisionales.",
+	"statuses": [
+		{
+			"id": "stun",
+			"name": "Stun",
+			"kind": "control",
+			"description": "No puede actuar ni moverse. Cancela lo que estuviera haciendo.",
+			"max_duration": 2.0,
+			"immune_after": 2.5,
+			"color": [1.0, 0.9, 0.3, 1.0]
+		},
+		{
+			"id": "slow",
+			"name": "Slow",
+			"kind": "control",
+			"description": "Reduce la velocidad de movimiento (strength = fraccion perdida, tope 0,6).",
+			"max_duration": 4.0,
+			"max_strength": 0.6,
+			"immune_after": 0.0,
+			"color": [0.45, 0.75, 1.0, 1.0]
+		},
+		{
+			"id": "poison",
+			"name": "Poison",
+			"kind": "damage",
+			"description": "Dano continuo que ignora i-frames y posturas (strength = dano por segundo).",
+			"max_duration": 8.0,
+			"tick": 0.5,
+			"immune_after": 0.0,
+			"color": [0.5, 0.9, 0.3, 1.0]
+		}
+	]
+}

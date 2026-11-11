@@ -267,6 +267,86 @@
 			},
 			"anim": "slash",
 			"unlock_level": 10
+		},
+		{
+			"kind": "skill",
+			"slot": "S",
+			"cost": 20,
+			"cooldown": 10,
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 6,
+			"damage_type": "physical",
+			"implemented": true,
+			"id": "poisoned_blades",
+			"name": "Poisoned Blades",
+			"class": "rogue",
+			"role": "Debilitamiento",
+			"description": "Corte envenenado: el veneno hace dano continuo y no se acumula, se refresca.",
+			"hud_label": "POISON",
+			"shape": "cone",
+			"range": 52,
+			"arc": 90,
+			"windup": 0.12,
+			"active": 0.08,
+			"recovery": 0.25,
+			"damage_mult": 0.8,
+			"on_hit": [
+				{
+					"id": "poison",
+					"duration": 6,
+					"strength": 6
+				}
+			],
+			"move": {
+				"windup": 0.5,
+				"active": 0.3,
+				"recovery": 0.6
+			},
+			"anim": "slash",
+			"unlock_level": 16
+		},
+		{
+			"kind": "skill",
+			"slot": "S",
+			"cost": 20,
+			"cooldown": 10,
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 6,
+			"damage_type": "physical",
+			"implemented": true,
+			"id": "crippling_strike",
+			"name": "Crippling Strike",
+			"class": "rogue",
+			"role": "Control",
+			"description": "Corte que ralentiza al enemigo.",
+			"hud_label": "CRIPPLE",
+			"shape": "cone",
+			"range": 56,
+			"arc": 80,
+			"windup": 0.15,
+			"active": 0.08,
+			"recovery": 0.25,
+			"damage_mult": 1.5,
+			"on_hit": [
+				{
+					"id": "slow",
+					"duration": 3,
+					"strength": 0.5
+				}
+			],
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.6
+			},
+			"anim": "slash",
+			"unlock_level": 36
 		}
 	]
 }

@@ -280,6 +280,50 @@
 			},
 			"anim": "spellcast",
 			"unlock_level": 10
+		},
+		{
+			"kind": "skill",
+			"slot": "S",
+			"cost": 25,
+			"cooldown": 12,
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"damage_type": "magic",
+			"implemented": true,
+			"id": "frost_nova",
+			"name": "Frost Nova",
+			"class": "mage",
+			"role": "Control",
+			"description": "Congela brevemente a los enemigos cercanos: stun corto y ralentizacion.",
+			"hud_label": "NOVA",
+			"shape": "circle",
+			"range": 80,
+			"windup": 0.3,
+			"active": 0.08,
+			"recovery": 0.35,
+			"damage_mult": 1,
+			"telegraph": true,
+			"on_hit": [
+				{
+					"id": "stun",
+					"duration": 0.6
+				},
+				{
+					"id": "slow",
+					"duration": 3.5,
+					"strength": 0.5
+				}
+			],
+			"move": {
+				"windup": 0.2,
+				"active": 0.1,
+				"recovery": 0.4
+			},
+			"anim": "spellcast",
+			"unlock_level": 12
 		}
 	]
 }

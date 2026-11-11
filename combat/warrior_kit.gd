@@ -65,7 +65,7 @@ static var ULTIMATE: Dictionary = SkillCatalog.skill(&"war_gods_descent")
 ## Skill Book completo (15 habilidades normales). Costes y cooldowns provisionales.
 const SKILL_BOOK := [
 	{"id": &"cleaving_strike", "unlock_level": 4, "name": "Cleaving Strike", "role": "Daño / AoE", "cost": 20, "cooldown": 6.0, "description": "Corte horizontal amplio que daña a todos los enemigos alcanzados.", "implemented": true},
-	{"id": &"crushing_blow", "unlock_level": 10, "name": "Crushing Blow", "role": "Burst / castigo", "cost": 25, "cooldown": 10.0, "description": "Golpe descendente muy pesado; interrumpe habilidades canalizadas si conecta.", "implemented": false},
+	{"id": &"crushing_blow", "unlock_level": 10, "name": "Crushing Blow", "role": "Burst / castigo", "cost": 25, "cooldown": 10.0, "description": "Golpe descendente muy pesado; interrumpe habilidades canalizadas si conecta.", "implemented": true},
 	{"id": &"piercing_thrust", "unlock_level": 2, "name": "Piercing Thrust", "role": "Daño preciso", "cost": 15, "cooldown": 5.0, "description": "Estocada rápida y lineal con más alcance que M1.", "implemented": true},
 	{"id": &"whirlwind", "unlock_level": 14, "name": "Whirlwind", "role": "Daño / AoE", "cost": 30, "cooldown": 9.0, "description": "Giro con la espada extendida que golpea alrededor, con límite de impactos.", "implemented": false},
 	{"id": &"parry", "unlock_level": 12, "name": "Parry", "role": "Defensa", "cost": 20, "cooldown": 10.0, "description": "Desvía un ataque frontal en una ventana breve; si acierta, permite contraatacar.", "implemented": false},
@@ -74,7 +74,7 @@ const SKILL_BOOK := [
 	{"id": &"combat_roll", "unlock_level": 16, "name": "Combat Roll", "role": "Movilidad / evasión", "cost": 10, "cooldown": 6.0, "description": "Rodar en una dirección con una ventana breve de evasión.", "implemented": false},
 	{"id": &"heroic_leap", "unlock_level": 20, "name": "Heroic Leap", "role": "Movilidad / iniciación", "cost": 20, "cooldown": 12.0, "description": "Salto a una ubicación seleccionada con golpe al aterrizar; el impacto se muestra antes.", "implemented": false},
 	{"id": &"relentless_pursuit", "unlock_level": 32, "name": "Relentless Pursuit", "role": "Movilidad / persecución", "cost": 15, "cooldown": 9.0, "description": "Carga frontal con daño al impactar y ralentización breve.", "implemented": false},
-	{"id": &"ground_stomp", "unlock_level": 24, "name": "Ground Stomp", "role": "Control / AoE", "cost": 25, "cooldown": 11.0, "description": "Golpea el suelo y ralentiza brevemente a los enemigos cercanos.", "implemented": false},
+	{"id": &"ground_stomp", "unlock_level": 24, "name": "Ground Stomp", "role": "Control / AoE", "cost": 25, "cooldown": 11.0, "description": "Golpea el suelo y ralentiza brevemente a los enemigos cercanos.", "implemented": true},
 	{"id": &"earth_splitter", "unlock_level": 45, "name": "Earth Splitter", "role": "Control de zona", "cost": 30, "cooldown": 12.0, "description": "Fisura frontal que daña y ralentiza a los enemigos alcanzados.", "implemented": false},
 	{"id": &"sundering_strike", "unlock_level": 36, "name": "Sundering Strike", "role": "Debilitamiento", "cost": 20, "cooldown": 10.0, "description": "Golpe que reduce temporalmente la armadura del objetivo; no se acumula.", "implemented": false},
 	{"id": &"battle_cry", "unlock_level": 40, "name": "Battle Cry", "role": "Mejora / ofensiva", "cost": 25, "cooldown": 15.0, "description": "Aumenta temporalmente el Attack Power propio y de aliados cercanos.", "implemented": false},

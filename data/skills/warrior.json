@@ -218,6 +218,85 @@
 			"unlock_level": 8,
 			"class": "warrior",
 			"damage_type": "physical"
+		},
+		{
+			"kind": "skill",
+			"slot": "S",
+			"cost": 25,
+			"cooldown": 10,
+			"max_targets": 0,
+			"resource_gain": 10,
+			"resource_cap": 10,
+			"ult_gain": 5,
+			"ult_cap": 8,
+			"damage_type": "physical",
+			"implemented": true,
+			"id": "crushing_blow",
+			"name": "Crushing Blow",
+			"class": "warrior",
+			"role": "Burst / castigo",
+			"description": "Golpe descendente muy pesado; aturde a los enemigos alcanzados.",
+			"hud_label": "CRUSH",
+			"shape": "cone",
+			"range": 70,
+			"arc": 70,
+			"windup": 0.5,
+			"active": 0.12,
+			"recovery": 0.4,
+			"damage_mult": 2.4,
+			"on_hit": [
+				{
+					"id": "stun",
+					"duration": 0.7
+				}
+			],
+			"move": {
+				"windup": 0.1,
+				"active": 0.1,
+				"recovery": 0.3
+			},
+			"anim": "thrust",
+			"unlock_level": 10
+		},
+		{
+			"kind": "skill",
+			"slot": "S",
+			"cost": 25,
+			"cooldown": 11,
+			"max_targets": 0,
+			"resource_gain": 6,
+			"resource_cap": 12,
+			"ult_gain": 4,
+			"ult_cap": 10,
+			"damage_type": "physical",
+			"implemented": true,
+			"id": "ground_stomp",
+			"name": "Ground Stomp",
+			"class": "warrior",
+			"role": "Control / AoE",
+			"description": "Golpea el suelo y ralentiza a los enemigos cercanos.",
+			"hud_label": "STOMP",
+			"shape": "circle",
+			"range": 90,
+			"windup": 0.35,
+			"active": 0.1,
+			"recovery": 0.4,
+			"damage_mult": 1.2,
+			"telegraph": true,
+			"on_hit": [
+				{
+					"id": "slow",
+					"duration": 3,
+					"strength": 0.45
+				}
+			],
+			"move": {
+				"windup": 0.2,
+				"active": 0.1,
+				"recovery": 0.3
+			},
+			"anim": "slash",
+			"unlock_level": 24
 		}
 	]
 }

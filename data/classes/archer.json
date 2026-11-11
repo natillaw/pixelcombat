@@ -75,15 +75,6 @@
 			"description": "Secuencia de disparos rápidos."
 		},
 		{
-			"id": "crippling_arrow",
-			"name": "Crippling Arrow",
-			"role": "Control",
-			"unlock_level": 14,
-			"cost": 20,
-			"cooldown": 9,
-			"description": "Flecha que ralentiza al objetivo."
-		},
-		{
 			"id": "marked_target",
 			"name": "Marked Target",
 			"role": "Preparación",
