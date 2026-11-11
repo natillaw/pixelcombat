@@ -38,8 +38,8 @@ La primera vez, o tras cambiar muchos assets, importa:
 |---|---|
 | WASD | Mover |
 | Ratón | Apuntar |
-| Clic izquierdo | M1 · Sword Slash (mantener para encadenar) |
-| Clic derecho | M2 · Heavy Strike |
+| Clic izquierdo | M1 · Sword Slash: ataque básico con 3 cargas que se recuperan solas (mantener para encadenar) |
+| Clic derecho | M2 · Heavy Strike: especial; mantén el botón tras el golpe inicial para potenciarlo (+60 % daño, +25 % alcance a 0,6 s) |
 | Espacio | Esquiva (i-frames, cancela windup/recovery, cooldown 1,1 s) |
 | 1 / 2 | Skills S1 Cleaving Strike (20 Rage) y S2 Piercing Thrust (15 Rage) |
 | F | Ultimate War God's Descent (necesita la barra de Ultimate al 100 %, que sube al conectar golpes) |

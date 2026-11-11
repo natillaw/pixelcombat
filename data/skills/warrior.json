@@ -7,7 +7,7 @@
 			"slot": "M1",
 			"kind": "basic",
 			"role": "Daño / presión",
-			"description": "Corte horizontal rápido. Genera poca Rage al acertar.",
+			"description": "Ataque básico (clic izquierdo). Funciona como en Drakantos: se puede usar sin esperar cooldown a cambio de gastar una carga; las cargas se recuperan solas.",
 			"hud_label": "SLASH",
 			"shape": "cone",
 			"windup": 0.12,
@@ -29,7 +29,11 @@
 			"anim": "slash",
 			"implemented": true,
 			"ult_gain": 3,
-			"ult_cap": 6
+			"ult_cap": 6,
+			"charges": {
+				"max": 3,
+				"recharge": 0.9
+			}
 		},
 		{
 			"id": "warrior_m2",
@@ -37,13 +41,13 @@
 			"slot": "M2",
 			"kind": "basic",
 			"role": "Burst / castigo",
-			"description": "Golpe vertical lento y potente, con recuperación mayor y más Rage.",
+			"description": "Ataque especial (clic derecho). Mantén el botón para potenciarlo: más daño y más alcance hasta el máximo de carga; soltar antes lo lanza con la potencia que lleve.",
 			"hud_label": "HEAVY",
 			"shape": "cone",
 			"windup": 0.3,
 			"active": 0.12,
 			"recovery": 0.35,
-			"cooldown": 0.2,
+			"cooldown": 3,
 			"cost": 0,
 			"range": 70,
 			"arc": 80,
@@ -60,7 +64,12 @@
 			"anim": "thrust",
 			"implemented": true,
 			"ult_gain": 6,
-			"ult_cap": 8
+			"ult_cap": 8,
+			"hold": {
+				"max": 0.6,
+				"damage_bonus": 0.6,
+				"range_bonus": 0.25
+			}
 		},
 		{
 			"id": "cleaving_strike",

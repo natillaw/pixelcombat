@@ -5,7 +5,8 @@
 ##
 ## Implementado: skills por datos (M1, M2 y S1-S5 desde SkillCatalog, con coste de
 ## Rage, cooldown y formas cone/line/circle), esquiva con i-frames, Rage,
-## Vengeful Fury, Ultimate Charge (sube al conectar golpes; War God's Descent la
+## Vengeful Fury, M1 con cargas y M2 que se carga manteniendo el boton (estilo
+## Drakantos), Ultimate Charge (sube al conectar golpes; War God's Descent la
 ## gasta entera), muerte y reset. El Skill Book completo vive en WarriorKit.
 class_name WarriorSim
 extends RefCounted
@@ -42,6 +43,8 @@ const RAGE_TAKEN_MIN := 1.0
 
 const BUFFER_SECONDS := 0.25
 const SKILL_SLOTS := ["S1", "S2", "S3", "S4", "S5"]
+## Slots que se lanzan al pulsar (M1 se lanza manteniendo el boton).
+const EDGE_SLOTS := ["M2", "S1", "S2", "S3", "S4", "S5"]
 const DEFAULT_LOADOUT := {
 	"M1": &"warrior_m1",
 	"M2": &"warrior_m2",
@@ -77,6 +80,11 @@ var buffer_timer: float = 0.0
 
 ## Ultimate Charge 0..ULTIMATE_CHARGE_MAX. Sube al conectar golpes.
 var ultimate_charge: float = 0.0
+## Segundos que lleva cargandose el ataque actual con `hold` (M2).
+var hold_time: float = 0.0
+## slot -> cargas actuales (decimal: se recargan de forma continua). Solo slots
+## cuya skill declara `charges` (M1).
+var charges: Dictionary = {}
 ## Punto de aterrizaje de las skills con anchor aim_leap (y origen del salto).
 var attack_point: Vector2 = Vector2.ZERO
 
@@ -97,6 +105,8 @@ var _attack_damage_mult: float = 1.0
 
 var _m1_held: bool = false
 var _slot_prev: Dictionary = {}
+var _actions: Dictionary = {}
+var _range_mult: float = 1.0
 var _dodge_prev: bool = false
 var _rng: RandomNumberGenerator
 
@@ -114,6 +124,7 @@ func _init(p_world: Object = null) -> void:
 ## no existen o no estan implementados, y slots desconocidos.
 func set_loadout(new_loadout: Dictionary) -> void:
 	loadout = {}
+	charges = {}
 	for slot: String in new_loadout:
 		if slot != "M1" and slot != "M2" and slot != "ULTIMATE" and not SKILL_SLOTS.has(slot):
 			continue
@@ -122,6 +133,15 @@ func set_loadout(new_loadout: Dictionary) -> void:
 			continue
 		skill["slot"] = slot
 		loadout[slot] = skill
+		if skill.has("charges"):
+			charges[slot] = float(skill["charges"]["max"])
+
+
+func _refill_charges() -> void:
+	for slot: String in loadout:
+		var skill: Dictionary = loadout[slot]
+		if skill.has("charges"):
+			charges[slot] = float(skill["charges"]["max"])
 
 
 func _make_rng() -> RandomNumberGenerator:
@@ -172,6 +192,9 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	last_combat_tick = 0
 	swing_rage_gained = 0.0
 	swing_ult_gained = 0.0
+	hold_time = 0.0
+	_range_mult = 1.0
+	_refill_charges()
 	ultimate_charge = 0.0
 	attack_point = position
 	resource.current_amount = 0.0
@@ -192,6 +215,7 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 
 
 func _read_input(input: Object) -> void:
+	_actions = {} if input == null else input.actions
 	if input == null:
 		move_input = Vector2.ZERO
 		_m1_held = false
@@ -207,11 +231,8 @@ func _read_input(input: Object) -> void:
 	if dodge_pressed and not _dodge_prev:
 		dodge_buffer_timer = float(WarriorKit.DODGE["buffer"])
 	_dodge_prev = dodge_pressed
-	# M2 repite mientras se mantiene; las skills S1-S5 se lanzan al pulsar.
-	if bool(input.actions.get("m2", false)):
-		buffered_slot = "M2"
-		buffer_timer = BUFFER_SECONDS
-	for slot: String in SKILL_SLOTS:
+	# M2 y S1-S5 se lanzan al pulsar (mantener M2 despues del windup la carga).
+	for slot: String in EDGE_SLOTS:
 		var pressed := bool(input.actions.get(slot.to_lower(), false))
 		if pressed and not bool(_slot_prev.get(slot, false)):
 			buffered_slot = slot
@@ -225,6 +246,9 @@ func _read_input(input: Object) -> void:
 
 
 func _tick_timers(delta: float) -> void:
+	for slot: String in charges.keys():
+		var recharge := float((loadout[slot] as Dictionary)["charges"]["recharge"])
+		charges[slot] = minf(float((loadout[slot] as Dictionary)["charges"]["max"]), float(charges[slot]) + delta / recharge)
 	for slot: String in cooldowns.keys():
 		var left := maxf(0.0, float(cooldowns[slot]) - delta)
 		if left <= 0.0:
@@ -277,6 +301,7 @@ func _cancel_attack() -> void:
 	current_skill = {}
 	buffered_slot = ""
 	buffer_timer = 0.0
+	hold_time = 0.0
 	attack_state_changed.emit(state)
 	attack_finished.emit(cancelled)
 
@@ -289,6 +314,9 @@ func _update_attack(delta: float) -> void:
 	state_time += delta
 
 	if state == AttackState.WINDUP and state_time >= float(current_skill["windup"]):
+		if _is_charging(delta):
+			return
+		_apply_hold_bonus()
 		state = AttackState.ACTIVE
 		state_time -= float(current_skill["windup"])
 		if String(current_skill.get("anchor", "self")) == "aim_leap":
@@ -309,6 +337,58 @@ func _update_attack(delta: float) -> void:
 		attack_finished.emit(finished)
 
 
+## Mantener el boton de una skill con `hold` tras acabar el windup la carga hasta
+## su maximo, momento en que se lanza sola. Devuelve true mientras sigue cargando.
+func _is_charging(delta: float) -> bool:
+	if not current_skill.has("hold"):
+		return false
+	var max_hold := float(current_skill["hold"]["max"])
+	if hold_time >= max_hold or not _slot_held(String(current_skill["slot"])):
+		return false
+	hold_time = minf(hold_time + delta, max_hold)
+	state_time = float(current_skill["windup"])
+	return hold_time < max_hold
+
+
+func _slot_held(slot: String) -> bool:
+	return bool(_actions.get(slot.to_lower(), false))
+
+
+## Aplica el bonus de la carga justo al soltar: dano y alcance proporcionales a
+## lo mantenido.
+func _apply_hold_bonus() -> void:
+	if not current_skill.has("hold") or hold_time <= 0.0:
+		return
+	var hold: Dictionary = current_skill["hold"]
+	var fraction := clampf(hold_time / float(hold["max"]), 0.0, 1.0)
+	_attack_damage_mult *= 1.0 + fraction * float(hold["damage_bonus"])
+	_range_mult = 1.0 + fraction * float(hold["range_bonus"])
+
+
+## 0..1: cuanto lleva cargado el ataque actual (0 si no tiene `hold`).
+func charge_fraction() -> float:
+	if state != AttackState.WINDUP or not current_skill.has("hold"):
+		return 0.0
+	return clampf(hold_time / float(current_skill["hold"]["max"]), 0.0, 1.0)
+
+
+## Alcance real del ataque actual, con el bonus de carga ya aplicado.
+func attack_range_now() -> float:
+	if current_skill.is_empty():
+		return 0.0
+	return float(current_skill["range"]) * _range_mult
+
+
+func charges_left(slot: String) -> float:
+	return float(charges.get(slot, 0.0))
+
+
+func charges_max(slot: String) -> float:
+	if not loadout.has(slot) or not (loadout[slot] as Dictionary).has("charges"):
+		return 0.0
+	return float((loadout[slot] as Dictionary)["charges"]["max"])
+
+
 func _try_start_attack() -> void:
 	if not alive or dodging:
 		return
@@ -325,7 +405,7 @@ func _try_start_attack() -> void:
 				_start_attack(slot)
 				return
 			skill_denied.emit(slot, reason)
-	if _m1_held and loadout.has("M1") and attack_cooldown_left("M1") <= 0.0:
+	if _m1_held and loadout.has("M1") and attack_cooldown_left("M1") <= 0.0 and _afford_reason("M1").is_empty():
 		_start_attack("M1")
 
 
@@ -339,6 +419,8 @@ func _afford_reason(slot: String) -> String:
 		return "resource"
 	if ultimate_charge < float(skill.get("charge", 0.0)):
 		return "charge"
+	if skill.has("charges") and float(charges.get(slot, 0.0)) < 1.0:
+		return "charges"
 	return ""
 
 
@@ -351,6 +433,10 @@ func _start_attack(slot: String) -> void:
 	if cost > 0.0:
 		resource.consume(cost)
 		rage_changed.emit(resource.get_current(), resource.max_amount)
+	if current_skill.has("charges"):
+		charges[slot] = maxf(0.0, float(charges.get(slot, 0.0)) - 1.0)
+	hold_time = 0.0
+	_range_mult = 1.0
 	var charge := float(current_skill.get("charge", 0.0))
 	if charge > 0.0:
 		ultimate_charge = maxf(0.0, ultimate_charge - charge)
@@ -426,7 +512,7 @@ func _zone_multiplier(target: Object) -> float:
 ## (los mas cercanos primero). Mantiene el orden original si no hay limite.
 func _targets_in_shape(candidates: Array) -> Array:
 	var shape := String(current_skill.get("shape", "cone"))
-	var attack_range := float(current_skill["range"])
+	var attack_range := float(current_skill["range"]) * _range_mult
 	var hits: Array = []
 	for target: Object in candidates:
 		var to_target: Vector2 = target.position - position
@@ -646,5 +732,7 @@ func snapshot() -> Dictionary:
 		"dodge_cd": cooldown_dodge,
 		"cooldowns": cooldowns.duplicate(),
 		"ultimate": ultimate_charge,
+		"charges": charges.duplicate(),
+		"hold": hold_time,
 		"alive": alive,
 	}

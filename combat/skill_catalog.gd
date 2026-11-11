@@ -14,6 +14,11 @@
 ##   shape: "cone" (range, arc) | "line" (range, width) | "circle" (range)
 ##   Opcionales:
 ##   consumes_vengeful: gasta la pasiva Vengeful Fury al lanzarse
+##   charges: {max, recharge} reserva de cargas que se gasta una por uso y se
+##            recupera una cada `recharge` s (el basico M1, estilo Drakantos)
+##   hold: {max, damage_bonus, range_bonus} mantener el boton tras el windup
+##         carga la skill hasta `max` s; da hasta +damage_bonus de dano y
+##         +range_bonus de alcance (proporcional a lo mantenido)
 ##   ult_gain, ult_cap: Ultimate Charge que da cada golpe y tope por lanzamiento
 ##   charge: Ultimate Charge que gasta al lanzarse (la ultimate usa 100)
 ##   anchor: "self" (defecto) o "aim_leap" (salta leap_distance px hacia el cursor
@@ -150,6 +155,14 @@ static func validate(entry: Dictionary) -> Array[String]:
 	for field: String in OPTIONAL_BOOLS:
 		if entry.has(field) and not (entry[field] is bool):
 			problems.append("'%s' debe ser true/false" % field)
+	if entry.has("charges"):
+		var charges: Variant = entry["charges"]
+		if not (charges is Dictionary) or not _is_number((charges as Dictionary).get("max")) or float(charges["max"]) < 1.0 or not _is_number((charges as Dictionary).get("recharge")) or float(charges["recharge"]) <= 0.0:
+			problems.append("'charges' necesita max >= 1 y recharge > 0")
+	if entry.has("hold"):
+		var hold: Variant = entry["hold"]
+		if not (hold is Dictionary) or not _is_number((hold as Dictionary).get("max")) or float(hold["max"]) <= 0.0 or not _is_number((hold as Dictionary).get("damage_bonus")) or float(hold["damage_bonus"]) < 0.0 or not _is_number((hold as Dictionary).get("range_bonus")) or float(hold["range_bonus"]) < 0.0:
+			problems.append("'hold' necesita max > 0, damage_bonus >= 0 y range_bonus >= 0")
 	var anchor: Variant = entry.get("anchor", "self")
 	if not (anchor is String) or not ANCHORS.has(anchor):
 		problems.append("anchor desconocido '%s' (self o aim_leap)" % str(anchor))

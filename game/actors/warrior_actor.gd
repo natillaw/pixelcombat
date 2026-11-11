@@ -170,7 +170,7 @@ func _on_attack_state_changed(state: int) -> void:
 	arena.spawn_slash(
 		sim.position,
 		sim.attack_aim,
-		float(_current_skill.get("range", 78.0)),
+		sim.attack_range_now(),
 		visual_arc(_current_skill),
 		heavy
 	)
@@ -339,6 +339,22 @@ func _apply_damage_flash() -> void:
 		sprite.modulate = Color.WHITE
 
 
+## Anillo que crece alrededor de los pies mientras se mantiene M2 (hold).
+func _draw_charge() -> void:
+	var fraction := sim.charge_fraction()
+	if not sim.alive or fraction <= 0.0:
+		return
+	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.02)
+	var full := fraction >= 1.0
+	var color := Color(1.0, 0.85, 0.3, 1.0) if full else Color(1.0, 0.55, 0.2, 1.0)
+	draw_set_transform(Vector2(0, -2), 0.0, Vector2(1.0, 0.45))
+	draw_circle(Vector2.ZERO, 14.0 + fraction * 16.0, Color(color.r, color.g, color.b, 0.10 + 0.10 * fraction))
+	draw_arc(Vector2.ZERO, 18.0 + fraction * 12.0, -PI * 0.5, -PI * 0.5 + TAU * fraction, 40, Color(color.r, color.g, color.b, 0.9), 2.0)
+	if full:
+		draw_arc(Vector2.ZERO, 32.0 + pulse * 3.0, 0.0, TAU, 40, Color(color.r, color.g, color.b, 0.5 + 0.3 * pulse), 1.5)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+
 ## Zona marcada durante el windup de una skill con telegraph: contorno completo y
 ## relleno que crece hasta el borde cuando cae el golpe.
 func _draw_telegraph() -> void:
@@ -371,6 +387,7 @@ func _draw() -> void:
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 	_draw_telegraph()
+	_draw_charge()
 
 	# Aura de Vengeful Fury cuando la pasiva está cargada.
 	if sim.vengeful_active and sim.alive:

@@ -117,6 +117,8 @@ func _draw_abilities(warrior: WarriorSim) -> void:
 		warrior.vengeful_active, warrior.state == WarriorSim.AttackState.IDLE
 	)
 	_draw_dodge_slot(Rect2(396, 310, 64, 38), warrior)
+	_draw_m1_pips(Rect2(256, 310, 64, 38), warrior)
+	_draw_m2_charge(Rect2(326, 310, 64, 38), warrior)
 	_draw_ultimate_slot(Rect2(46, 310, 64, 38), warrior)
 	_draw_skill_slot(Rect2(116, 310, 64, 38), "1", "S1", warrior)
 	_draw_skill_slot(Rect2(186, 310, 64, 38), "2", "S2", warrior)
@@ -148,6 +150,33 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 
 	if empowered:
 		_draw_text("!", rect.position + Vector2(rect.size.x - 12, 9), 7, ORANGE)
+
+
+## Cargas de M1 como tres barras sobre el hueco; la que se esta recargando se va
+## llenando.
+func _draw_m1_pips(rect: Rect2, warrior: WarriorSim) -> void:
+	var maximum := int(warrior.charges_max("M1"))
+	if maximum <= 0:
+		return
+	var left := warrior.charges_left("M1")
+	var gap := 3.0
+	var width := (rect.size.x - gap * float(maximum - 1)) / float(maximum)
+	for i: int in range(maximum):
+		var fill := clampf(left - float(i), 0.0, 1.0)
+		var bar := Rect2(rect.position.x + float(i) * (width + gap), rect.position.y - 7.0, width, 3.0)
+		draw_rect(bar, Color(0.02, 0.02, 0.04, 0.8))
+		draw_rect(Rect2(bar.position, Vector2(bar.size.x * fill, bar.size.y)), GOLD if fill >= 1.0 else Color(0.62, 0.64, 0.72, 1.0))
+
+
+## Barra de carga de M2 mientras se mantiene el boton.
+func _draw_m2_charge(rect: Rect2, warrior: WarriorSim) -> void:
+	var fraction := warrior.charge_fraction()
+	if fraction <= 0.0:
+		return
+	var bar := Rect2(rect.position.x, rect.position.y - 7.0, rect.size.x, 4.0)
+	draw_rect(bar, Color(0.02, 0.02, 0.04, 0.85))
+	draw_rect(Rect2(bar.position, Vector2(bar.size.x * fraction, bar.size.y)), GOLD if fraction >= 1.0 else ORANGE)
+	draw_rect(bar, PANEL_EDGE, false, 1.0)
 
 
 ## Hueco de la ultimate: se llena con la Ultimate Charge y brilla cuando esta lista.
@@ -237,7 +266,7 @@ func _draw_controls() -> void:
 		"WASD   MOVE",
 		"MOUSE  AIM",
 		"LMB    SWORD SLASH",
-		"RMB    HEAVY STRIKE",
+		"RMB    HEAVY (HOLD)",
 		"SPACE  DODGE",
 		"1 2    SKILLS",
 		"F      ULTIMATE",
