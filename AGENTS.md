@@ -1,13 +1,17 @@
 # AGENTS.md
 
-Guía para agentes y personas que trabajen en **Reflections**. Léela antes de
+Guía para agentes y personas que trabajen en **PixelCombat**. Léela antes de
 tocar código o assets.
 
 ## Contexto
 
-Reflections es un action RPG top-down de clases con identidad fija: sin gacha,
-sin builds y sin variantes. El único corte jugable hoy es el **Warrior** en un
-patio de entrenamiento. Godot 4.7.2, renderer `gl_compatibility`.
+PixelCombat es un action RPG 2D de pixel art: combate de acción con el ratón
+(referencia Drakantos + Battlerite), torre de 100 pisos procedurales, crafting,
+items con rarezas y ciudad hub. Cuatro clases base (Warrior, Rogue, Mage,
+Archer) con muchas subclases. Habrá PvP, así que el balance importa. El único
+corte jugable hoy es el **Warrior** en un patio de entrenamiento. Godot 4.7.2,
+renderer `gl_compatibility`. El plan está en `docs/ROADMAP.md` y las decisiones
+en `docs/DECISIONES.md`.
 
 ## Reglas de arquitectura (no romper)
 
@@ -25,7 +29,12 @@ patio de entrenamiento. Godot 4.7.2, renderer `gl_compatibility`.
 5. **Números de balance en datos.** Los valores del Warrior viven en
    `combat/warrior_kit.gd`; la simulación los lee, no los duplica. La UI no
    contiene números de combate.
-6. **Un `class_name` por archivo**, GDScript tipado. Evita `:=` cuando la
+6. **Contenido dirigido por datos.** Skills, items, recetas, enemigos, pisos y
+   tiers nuevos se añaden como datos en `data/` o en los kits, no con código
+   específico por contenido.
+7. **Rareza no es poder.** Las clases, subclases y skills raras, únicas o
+   legendarias cambian cómo se juega; no suben el techo de balance (PvP).
+8. **Un `class_name` por archivo**, GDScript tipado. Evita `:=` cuando la
    expresión devuelve `Variant` (acceso a `Dictionary`, `Array` sin tipo,
    `get()`); Godot 4.7 trata esa inferencia como error en este proyecto.
 
@@ -82,8 +91,8 @@ pwsh -File tools/run_tests.ps1
 
 ## Carpetas que no se tocan
 
-- `archive/legacy_ts/` es histórico. No lo importes ni lo reactives.
-- `new assets/` es material de origen, no contenido del juego.
+- `new assets/` (si existe en tu copia local) es material de origen, no
+  contenido del juego.
 
 ## Estilo
 
@@ -98,4 +107,5 @@ pwsh -File tools/run_tests.ps1
 - Trabaja en una rama descriptiva (`overhaul/...`, `feat/...`).
 - Commits pequeños y con intención: separar reestructuración de assets de
   cambios de gameplay.
-- No borres historia: lo que deja de usarse se archiva.
+- No reescribas historia publicada. Lo que deja de usarse se elimina con un
+  commit explicado (el historial lo conserva).

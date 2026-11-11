@@ -1,4 +1,4 @@
-# Ejecuta todas las suites headless de Reflections en Godot 4.7.x.
+# Ejecuta todas las suites headless de PixelCombat en Godot 4.7.x.
 #
 #   pwsh -File tools/run_tests.ps1
 #   pwsh -File tools/run_tests.ps1 -Godot "C:\ruta\a\godot_console.exe"
@@ -20,8 +20,8 @@ $importLogPath = Join-Path $PSScriptRoot "import_log.txt"
 
 if (-not $Godot) {
     $candidates = @(
-        "C:\Users\natha\AppData\Local\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe",
-        "C:\Users\natha\AppData\Local\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe"
+        (Join-Path $env:LOCALAPPDATA 'Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe'),
+        (Join-Path $env:USERPROFILE 'Downloads\Godot_v4.7.2-stable_win64.exe\Godot_v4.7.2-stable_win64_console.exe')
     )
     foreach ($candidate in $candidates) {
         if (Test-Path $candidate) {
@@ -60,6 +60,13 @@ try {
     Write-Host "== Import =="
     & $Godot --headless --path . --import 2>&1 | Tee-Object -FilePath $importLogPath | Out-Null
     $importExit = $LASTEXITCODE
+    if ($importExit -ne 0) {
+        # En una importacion en frio Godot 4.7.2 a veces termina con segfault;
+        # el segundo intento reutiliza la cache y suele pasar.
+        Write-Host "Import fallo (exit $importExit); reintentando una vez"
+        & $Godot --headless --path . --import 2>&1 | Tee-Object -FilePath $importLogPath | Out-Null
+        $importExit = $LASTEXITCODE
+    }
     if ($importExit -ne 0) {
         Write-Host "IMPORT FAILED (exit $importExit); revisa $importLogPath"
         "IMPORT FAILED (exit $importExit)" | Add-Content -Path $summaryPath -Encoding utf8

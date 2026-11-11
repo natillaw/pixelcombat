@@ -1,6 +1,6 @@
 # Warrior — primer corte jugable
 
-Documento de implementación de la clase Warrior de **Reflections**. Los números
+Documento de implementación de la clase Warrior de **PixelCombat**. Los números
 son **provisionales**: sirven para validar el feel del combate, no para balance
 final. La fuente de verdad del código es `combat/warrior_kit.gd`; este documento
 explica qué está implementado y por qué.

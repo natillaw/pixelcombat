@@ -60,7 +60,7 @@ Cada una con mi recomendación; marca las que cambies.
 ### Fase 0 — Fundación del repo (1–3 días)
 - Primer commit y push a `natillaw/pixelcombat`.
 - Actualizar README y AGENTS: nombre, visión nueva (hoy dicen "sin builds ni variantes", lo cual contradice subclases y orbes).
-- Decidir qué hacer con `archive/legacy_ts/` (14 MB del proyecto anterior): moverlo fuera del repo nuevo o dejarlo.
+- ~~Decidir qué hacer con `archive/legacy_ts/`~~ Hecho: eliminado del repo (ver DECISIONES).
 - Pasar los scripts de test y CI a la nueva ruta (los de `README` apuntan a `C:\dev\combat`).
 - Crear `docs/DECISIONES.md` (bitácora) y cerrar D1–D8.
 - Auditoría de licencias de assets (D7) y `CREDITS` globales.

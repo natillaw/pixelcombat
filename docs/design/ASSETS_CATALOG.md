@@ -1,6 +1,6 @@
 # Auditoría y Categorización de Nuevos Assets (`new assets/`)
 
-> Índice de referencia para el uso de assets gráficos, tilesets, personajes, monstruos y objetos en Project B (Reflections). Todos los assets provienen principalmente del ecosistema LPC (Liberated Pixel Cup) y recursos CC0/CC-BY compatibles.
+> Índice de referencia para el uso de assets gráficos, tilesets, personajes, monstruos y objetos en Project B (PixelCombat). Todos los assets provienen principalmente del ecosistema LPC (Liberated Pixel Cup) y recursos CC0/CC-BY compatibles.
 
 ---
 

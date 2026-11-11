@@ -1,6 +1,6 @@
 # Registro de assets y licencias
 
-Vista humana de los assets de **Reflections**. Los datos completos por pack
+Vista humana de los assets de **PixelCombat**. Los datos completos por pack
 siguen en `assets/ASSET_REGISTRY.json` y `assets/CREDITS.md`; los créditos
 archivo por archivo del LPC están en `assets/pixel/lpc/CREDITS.csv`.
 
@@ -77,7 +77,7 @@ Los frames son de 64×64; las filas son arriba, izquierda, abajo, derecha.
 | Ruta | Qué es |
 |---|---|
 | `new assets/` | Packs crudos descargados (~588 MB). Ignorados por git y Godot. |
-| `archive/legacy_ts/` | Código, escenas y assets del proyecto anterior. Histórico, no se importa. |
+
 
 ## Atribución mínima
 
@@ -99,3 +99,24 @@ Si se publica una build, incluir:
 - **Packs marcados REVISAR** en `assets/ASSET_REGISTRY.json` (RPG icons, pixel
   weapons, armor16): uso autorizado por el dueño como excepción, pero sin
   licencia clara. No usar en builds públicas hasta resolverlo.
+
+## Licencias del LPC (auditoría, 10 nov 2026)
+
+Cada archivo del LPC lista una o varias licencias **alternativas** en
+`assets/pixel/lpc/CREDITS.csv` (columna `licenses`); se puede elegir una.
+Sobre las 342 filas del CSV:
+
+- **281** ofrecen una opción de solo atribución (OGA-BY 3.0, CC-BY 3.0/4.0 o
+  CC0). Elegimos esa opción: basta con acreditar a los autores.
+- **61** solo ofrecen CC-BY-SA 3.0 y/o GPL: si salen en una build, el arte
+  derivado de esas capas queda bajo share-alike. El código no se contamina,
+  porque las capas se componen en memoria como datos.
+
+Reglas:
+
+1. Al elegir piezas nuevas del LPC, **preferir las que tienen opción de solo
+   atribución**.
+2. Las 61 piezas solo SA/GPL se pueden usar en desarrollo, pero hay que revisarlas
+   (y acreditar con SA) antes de publicar una build.
+3. Antes de publicar, generar la pantalla de créditos a partir de
+   `CREDITS.csv` (tarea pendiente, Fase 10).

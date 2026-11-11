@@ -1,6 +1,6 @@
 # Arquitectura
 
-Reflections separa **simulación determinista** y **presentación**. Esta página
+PixelCombat separa **simulación determinista** y **presentación**. Esta página
 describe el estado actual del código (corte Warrior) y las reglas que hay que
 mantener al ampliarlo.
 

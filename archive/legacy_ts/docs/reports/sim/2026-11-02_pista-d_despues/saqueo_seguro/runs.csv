@@ -1,9 +1,0 @@
-variant,floor,seed,mission,outcome,win,reason,time_s,first_contact_s,party,downs,deaths,killed,enemies,damage,healing,taken,pings,commands,skills,revives,gathered,kept,lost,reward,reward_items,consumables_used,wall_ms
-loco,3,2000,defense,FAILED,0,master_lost,141.3,43.8,3,2,2,13,58,1007,365,788,31,2,2,0,,,,,0,0,20630
-loco,3,2001,defense,FAILED,0,master_lost,189.2,48.0,3,2,2,18,66,1476,630,1068,33,3,3,0,,,,,0,0,27365
-loco,9,2000,survival,FAILED,0,master_lost,164.9,49.4,5,7,4,9,68,1087,450,1410,26,2,1,0,mat_rune_plate 2.0,,mat_rune_plate 2.0,,0,0,30568
-loco,9,2001,survival,FAILED,0,master_lost,131.6,83.0,5,4,4,4,64,648,72,911,12,1,1,0,mat_rune_plate 1.0,,mat_rune_plate 1.0,,0,0,24949
-tactico,3,2000,defense,FAILED,0,master_lost,249.9,43.8,3,2,2,21,70,1721,770,1195,33,3,3,0,essence 2.0,,essence 2.0,,0,0,34871
-tactico,3,2001,defense,FAILED,0,master_lost,201.3,48.0,3,2,2,13,60,1076,347,791,21,2,0,0,,,,,0,0,27575
-tactico,9,2000,survival,SUCCESS,1,,300.0,49.4,5,4,0,10,68,1080,651,925,25,3,0,4,mat_rune_plate 1.0,mat_rune_plate 1.0,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,48555
-tactico,9,2001,survival,FAILED,0,master_lost,180.9,83.0,5,5,4,8,69,1372,216,1045,25,2,1,1,,,,,0,0,41811

@@ -1,46 +1,38 @@
-# Reflections
+# PixelCombat
 
-Action RPG top-down con clases de identidad fija: sin gacha, sin builds y sin
-variantes. Cada clase tiene un set cerrado de habilidades y se domina
-aprendiendo cuándo usarlas.
+Action RPG 2D de pixel art. Combate de acción con el ratón estilo **Drakantos**
+y skillshots con telegraph estilo **Battlerite**, una torre de 100 pisos
+procedurales, recolección, crafting, items con rarezas y una ciudad hub al pie
+de la torre. PvP planificado: las clases se diseñan para ser balanceables.
 
-El proyecto está en desarrollo. El primer corte jugable es el **Warrior** en un
-patio de entrenamiento: M1, M2, Rage, la pasiva Vengeful Fury, un muñeco de
-entrenamiento y HUD completo.
+Cuatro clases base: **Warrior, Rogue, Mage y Archer**, cada una con muchas
+subclases (comunes, raras, únicas y legendarias).
+
+Estado actual: el **Warrior** es jugable en un patio de entrenamiento (M1, M2,
+Rage, pasiva, muñeco, HUD). El resto está en el [roadmap](docs/ROADMAP.md).
 
 ## Requisitos
 
-- **Godot 4.7.2** (el proyecto también declara compatibilidad 4.7).
-- Windows para el flujo de desarrollo actual; Linux funciona para CI y tests
-  headless.
-
-Ruta local de referencia en este equipo:
-
-```
-C:\Users\natha\AppData\Local\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe
-```
+- **Godot 4.7.2**.
+- Windows para el desarrollo diario; Linux funciona para CI y tests headless.
+- Variable de entorno `GODOT` apuntando al ejecutable (usa la versión
+  `_console` para los comandos de terminal).
 
 ## Ejecutar
 
-Directo, sin editor:
+Abre el proyecto en el editor y pulsa **F5**, o desde terminal:
 
 ```powershell
-& 'C:\Users\natha\AppData\Local\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe' --path 'C:\dev\combat'
+& $env:GODOT --path .
 ```
 
-O abre el editor y pulsa **F5**:
+La primera vez, o tras cambiar muchos assets, importa:
 
 ```powershell
-& 'C:\Users\natha\AppData\Local\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64.exe' --editor --path 'C:\dev\combat'
+& $env:GODOT --headless --path . --import
 ```
 
-Si es la primera ejecución tras un cambio grande de assets:
-
-```powershell
-& 'C:\Users\natha\AppData\Local\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe' --headless --path 'C:\dev\combat' --import
-```
-
-## Controles
+## Controles (corte actual)
 
 | Entrada | Acción |
 |---|---|
@@ -50,6 +42,10 @@ Si es la primera ejecución tras un cambio grande de assets:
 | Clic derecho | M2 · Heavy Strike |
 | R | Reiniciar entrenamiento |
 | F3 | Overlay de debug |
+| Esc | Salir |
+
+Espacio (esquiva), Q (Special) y F (Ultimate) ya están en el mapa de input pero
+**aún no hacen nada**: llegan en la Fase 1 del roadmap.
 
 ## Tests
 
@@ -68,42 +64,41 @@ GODOT=/ruta/a/godot bash tools/run_tests.sh
 Una suite suelta:
 
 ```powershell
-& 'C:\Users\natha\AppData\Local\Programs\Godot\4.7.2\Godot_v4.7.2-stable_win64_console.exe' --headless --path 'C:\dev\combat' --script tests/test_warrior_sim.gd
+& $env:GODOT --headless --path . --script tests/test_warrior_sim.gd
 ```
 
 ## Estructura
 
 | Ruta | Contenido |
 |---|---|
-| `game/` | Juego del primer corte: `main`, arena, actores, VFX, HUD, simulación |
+| `game/` | Escena principal, arena, actores, VFX, HUD y simulación del corte actual |
 | `game/sim/` | Simulación determinista (`CombatWorld` → `WarriorSim`, `DummySim`) |
-| `combat/` | Núcleo de combate reutilizable: stats, skills, efectos, `WarriorKit` |
+| `combat/` | Núcleo de combate reutilizable: stats, skills, efectos, kits de clase |
 | `core/` | Tick fijo (`TickManager`, `Tickable`) |
-| `net/` | Base de red dormida: `InputMessage`, snapshots, predicción |
+| `net/` | Capa de red dormida: `InputMessage`, snapshots, predicción |
 | `ui/` | Overlay de debug |
+| `data/` | Contenido dirigido por datos (skills, items, recetas, pisos) |
 | `assets/` | Arte LPC, fuentes, SFX y packs usados por el juego |
-| `docs/` | Diseño y arquitectura |
-| `archive/legacy_ts/` | Código y contenido del proyecto anterior, fuera de uso |
-| `new assets/` | Packs crudos descargados; ignorados por git y por Godot |
+| `docs/` | Roadmap, decisiones, arquitectura y diseño |
 
 Las suites viven en `core/tests/`, `net/tests/`, `combat/tests/` y `tests/`.
 
 ## Documentación
 
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — cómo está montado y qué
-  reglas no se rompen.
-- [`docs/design/CLASES_V2.md`](docs/design/CLASES_V2.md) — diseño de las cinco
-  clases.
-- [`docs/design/WARRIOR.md`](docs/design/WARRIOR.md) — el corte actual, números
-  y qué falta.
-- [`docs/design/EVOLUCIONES_V1.md`](docs/design/EVOLUCIONES_V1.md) — progresión
-  futura.
-- [`docs/ASSET_REGISTRY.md`](docs/ASSET_REGISTRY.md) — assets y licencias.
-- [`AGENTS.md`](AGENTS.md) — convenciones para contribuir.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md): fases del proyecto.
+- [`docs/DECISIONES.md`](docs/DECISIONES.md): bitácora de decisiones.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): cómo está montado y qué reglas
+  no se rompen.
+- [`docs/design/CLASES_V2.md`](docs/design/CLASES_V2.md) y
+  [`docs/design/EVOLUCIONES_V1.md`](docs/design/EVOLUCIONES_V1.md): clases y
+  subclases (el diseño original tenía cinco clases; ver DECISIONES D6).
+- [`docs/design/WARRIOR.md`](docs/design/WARRIOR.md): el corte actual.
+- [`docs/ASSET_REGISTRY.md`](docs/ASSET_REGISTRY.md): assets y licencias.
+- [`AGENTS.md`](AGENTS.md): convenciones para contribuir.
 
 ## Licencias
 
-El código es del proyecto. Los assets de terceros conservan sus licencias; los
-créditos por archivo están en `assets/pixel/lpc/CREDITS.csv` y en los
-`LICENSE.txt` de cada pack. No se redistribuyen los packs crudos de
-`new assets/`.
+El código es del proyecto. Los assets de terceros conservan sus licencias;
+los créditos por archivo están en `assets/pixel/lpc/CREDITS.csv` y en
+[`docs/ASSET_REGISTRY.md`](docs/ASSET_REGISTRY.md), que además explica cómo se
+eligen las licencias del LPC.

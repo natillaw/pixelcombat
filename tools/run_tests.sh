@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Ejecuta todas las suites headless de Reflections en Godot 4.7.x.
+# Ejecuta todas las suites headless de PixelCombat en Godot 4.7.x.
 #
 #   GODOT=/ruta/a/godot bash tools/run_tests.sh
 #
@@ -41,6 +41,13 @@ cd "$ROOT" || exit 1
 echo "== Import =="
 "$GODOT_BIN" --headless --path . --import 2>&1 | tee "$IMPORT_LOG" | tail -n 20
 IMPORT_EXIT=${PIPESTATUS[0]}
+if [ "$IMPORT_EXIT" -ne 0 ]; then
+    # Importacion en frio: Godot 4.7.2 a veces termina con segfault; el segundo
+    # intento reutiliza la cache y suele pasar.
+    echo "Import fallo (exit $IMPORT_EXIT); reintentando una vez"
+    "$GODOT_BIN" --headless --path . --import 2>&1 | tee "$IMPORT_LOG" | tail -n 20
+    IMPORT_EXIT=${PIPESTATUS[0]}
+fi
 if [ "$IMPORT_EXIT" -ne 0 ]; then
     echo "IMPORT FAILED (exit $IMPORT_EXIT); revisa tools/import_log.txt"
     echo "IMPORT FAILED (exit $IMPORT_EXIT)" >>"$SUMMARY"

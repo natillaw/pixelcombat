@@ -27,8 +27,6 @@ assets/packs/
 assets/_inbox/
 assets/processed/
 
-# Archived legacy assets (kept on disk, outside the Godot import)
-archive/**/assets/
 
 # Test outputs
 tests/out/*

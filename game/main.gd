@@ -1,4 +1,4 @@
-## Main — punto de entrada del primer corte jugable de Reflections.
+## Main — punto de entrada del primer corte jugable de PixelCombat.
 ##
 ## Monta el mundo de simulación, la arena, los actores, el HUD y el overlay de
 ## debug. Traduce el teclado/ratón a [InputMessage] y lo entrega a

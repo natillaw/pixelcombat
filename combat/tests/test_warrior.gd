@@ -18,7 +18,7 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-	print("== test_warrior (Reflections - Warrior data) ==")
+	print("== test_warrior (PixelCombat - Warrior data) ==")
 
 	_test_identity_and_resource()
 	_test_basics()

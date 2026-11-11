@@ -20,7 +20,7 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-	print("== test_warrior_sim (Reflections) ==")
+	print("== test_warrior_sim (PixelCombat) ==")
 
 	_test_m1_damage_and_rage()
 	_test_m2_is_heavier()
