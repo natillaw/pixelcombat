@@ -163,6 +163,7 @@ func _draw_status(warrior: PlayerSim) -> void:
 	var to_next := warrior.xp_to_next()
 	var xp_ratio := 1.0 if to_next <= 0 else float(warrior.xp) / float(to_next)
 	_bar(Rect2(16, 70, 234, 5), xp_ratio, XP)
+	_draw_text("GOLD  %d" % warrior.gold, Vector2(16, 82), 7, GOLD)
 	_draw_text("MAX LEVEL" if to_next <= 0 else "XP  %d / %d" % [warrior.xp, to_next], Vector2(16, 82), 7, XP, HORIZONTAL_ALIGNMENT_RIGHT, 234)
 
 

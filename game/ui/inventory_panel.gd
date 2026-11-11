@@ -2,9 +2,9 @@
 ##
 ## A la izquierda las ranuras de equipo de la clase activa; a la derecha la mochila
 ## compartida. Clic izquierdo en un item de la mochila lo equipa; clic derecho lo tira;
-## clic en una ranura equipada lo guarda en la mochila. Abajo se ve el detalle del
+## clic en una ranura equipada lo guarda en la mochila. Clic derecho vende (solo en zona segura). Abajo se ve el detalle del
 ## item bajo el ratón. Es presentación: solo llama a PlayerSim.equip_from_bag(),
-## unequip_gear() y discard_from_bag(), que son las que validan.
+## unequip_gear() y sell_from_bag(), que son las que validan.
 class_name InventoryPanel
 extends Control
 
@@ -17,6 +17,7 @@ const MUTED := Color(0.56, 0.60, 0.70, 1.0)
 const DIM := Color(0.36, 0.39, 0.46, 1.0)
 const GOLD := Color(0.94, 0.74, 0.36, 1.0)
 const RED := Color(0.88, 0.34, 0.28, 1.0)
+const GREEN := Color(0.55, 0.82, 0.45, 1.0)
 
 const PANEL_RECT := Rect2(36, 14, 568, 332)
 const EQUIP_X := 48.0
@@ -66,7 +67,7 @@ func _toggle() -> void:
 	TickManager.set_paused(is_open)
 	if is_open:
 		_hover = {}
-		_say("Clic: equipar. Clic derecho: tirar. Solo se equipa en zona segura.", MUTED)
+		_say("Clic: equipar. Clic derecho: vender. Solo en zona segura.", MUTED)
 	queue_redraw()
 
 
@@ -92,8 +93,11 @@ func _gui_input(event: InputEvent) -> void:
 		if button == MOUSE_BUTTON_LEFT:
 			_report(world.player.equip_from_bag(index), "Equipado.")
 		elif button == MOUSE_BUTTON_RIGHT:
-			world.player.discard_from_bag(index)
-			_say("Item tirado.", MUTED)
+			var gained := world.player.sell_from_bag(index)
+			if gained < 0:
+				_say("Solo puedes vender en la ciudad o el patio.", RED)
+			else:
+				_say("Vendido por %d de oro." % gained, GOLD)
 		accept_event()
 
 
@@ -155,6 +159,7 @@ func _draw() -> void:
 	_text("INVENTARIO  -  %s" % String(player.class_def["name"]).to_upper(), Vector2(48, 36), 14, GOLD)
 	_text("I / ESC  CERRAR", Vector2(0, 36), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 592)
 	_text("EQUIPO", Vector2(EQUIP_X, 54), 7, MUTED)
+	_text("ORO  %d" % player.gold, Vector2(0, 54), 7, GOLD, HORIZONTAL_ALIGNMENT_RIGHT, 592)
 	_text("MOCHILA  %d / %d" % [player.bag.size(), ItemCatalog.bag_size()], Vector2(BAG_X, 54), 7, MUTED)
 
 	var slots := ItemCatalog.slots()
@@ -205,10 +210,28 @@ func _draw_detail(player: PlayerSim) -> void:
 	var classes: Variant = ItemCatalog.item(String(_hover["id"])).get("classes")
 	if classes != null:
 		_text("SOLO: %s" % ", ".join((classes as Array).map(func(c: Variant) -> String: return String(c).to_upper())), box.position + Vector2(6, 22), 7, DIM)
+	_text("VALOR %d" % ItemCatalog.sell_value(_hover), box.position + Vector2(0, 22), 7, GOLD, HORIZONTAL_ALIGNMENT_RIGHT, 334)
+	# Comparacion con lo que llevas puesto en esa ranura.
+	var slot := String(ItemCatalog.item(String(_hover["id"]))["slot"])
+	var worn: Variant = player.equipment.get(slot)
+	var is_worn := worn != null and JSON.stringify(worn) == JSON.stringify(_hover)
+	var compare: Dictionary = (worn as Dictionary)["stats"] if worn != null and not is_worn else {}
+	var names: Array = (_hover["stats"] as Dictionary).keys()
+	for stat: String in compare:
+		if not names.has(stat):
+			names.append(stat)
 	var col := 0
 	var row := 0
-	for stat: String in _hover["stats"]:
-		_text("+%s %s" % [_stat_value(stat, float(_hover["stats"][stat])), _stat_label(stat)], box.position + Vector2(6 + col * 112, 34 + row * 9), 7, TEXT)
+	for stat: String in names:
+		var value := float((_hover["stats"] as Dictionary).get(stat, 0.0))
+		var line := "+%s %s" % [_stat_value(stat, value), _stat_label(stat)]
+		var color := TEXT
+		if worn != null and not is_worn:
+			var delta := value - float(compare.get(stat, 0.0))
+			if absf(delta) > 0.0001:
+				line += "  (%s%s)" % ["+" if delta > 0.0 else "-", _stat_value(stat, absf(delta))]
+				color = GREEN if delta > 0.0 else RED
+		_text(line, box.position + Vector2(6 + col * 112, 34 + row * 9), 7, color)
 		row += 1
 		if row >= 3:
 			row = 0

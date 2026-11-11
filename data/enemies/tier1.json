@@ -41,7 +41,14 @@
 					"trigger_range": 36,
 					"weight": 1
 				}
-			]
+			],
+			"loot": {
+				"chance": 0.22,
+				"slots": [
+					"ring",
+					"feet"
+				]
+			}
 		},
 		{
 			"id": "bat",
@@ -84,7 +91,14 @@
 					"dash_distance": 120,
 					"weight": 1
 				}
-			]
+			],
+			"loot": {
+				"chance": 0.2,
+				"slots": [
+					"feet",
+					"head"
+				]
+			}
 		},
 		{
 			"id": "spider",
@@ -145,7 +159,14 @@
 						}
 					]
 				}
-			]
+			],
+			"loot": {
+				"chance": 0.22,
+				"slots": [
+					"legs",
+					"chest"
+				]
+			}
 		},
 		{
 			"id": "beetle",
@@ -193,7 +214,14 @@
 						}
 					]
 				}
-			]
+			],
+			"loot": {
+				"chance": 0.24,
+				"slots": [
+					"chest",
+					"head"
+				]
+			}
 		},
 		{
 			"id": "wisp",
@@ -250,7 +278,13 @@
 						}
 					]
 				}
-			]
+			],
+			"loot": {
+				"chance": 0.2,
+				"slots": [
+					"ring"
+				]
+			}
 		},
 		{
 			"id": "hornet",
@@ -307,7 +341,14 @@
 						}
 					]
 				}
-			]
+			],
+			"loot": {
+				"chance": 0.2,
+				"slots": [
+					"ring",
+					"weapon"
+				]
+			}
 		},
 		{
 			"id": "brood_beetle",
@@ -468,6 +509,13 @@
 			"resist": {
 				"stun": 1,
 				"slow": 0.5
+			},
+			"loot": {
+				"slots": [
+					"weapon",
+					"chest",
+					"ring"
+				]
 			}
 		},
 		{
@@ -593,7 +641,14 @@
 						}
 					]
 				}
-			]
+			],
+			"loot": {
+				"slots": [
+					"head",
+					"legs",
+					"weapon"
+				]
+			}
 		}
 	]
 }

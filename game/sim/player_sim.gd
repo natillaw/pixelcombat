@@ -33,6 +33,7 @@ signal xp_gained(amount: int, source_position: Vector2)
 signal item_gained(item: Dictionary)
 signal bag_full(item: Dictionary)
 signal inventory_changed()
+signal gold_changed(total: int)
 signal xp_changed(xp: int, to_next: int, level: int)
 signal leveled_up(new_level: int, unlocked: Array)
 signal loadout_changed()
@@ -125,6 +126,8 @@ var progress: Dictionary = {}
 var bag: Array = []
 ## Equipo de la clase activa: ranura -> item. Cada clase guarda el suyo.
 var equipment: Dictionary = {}
+## Oro compartido por todas las clases.
+var gold: int = 0
 ## En zona segura (ciudad, patio) se puede cambiar de clase y de loadout; en un
 ## piso de la torre no. Lo fija la sesion; los mundos de test son seguros.
 var safe_zone: bool = true
@@ -1151,7 +1154,7 @@ func _activate_class(new_class_id: String) -> void:
 ## clase.
 func export_state() -> Dictionary:
 	_save_progress()
-	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true)}
+	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold}
 
 
 ## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
@@ -1161,6 +1164,7 @@ func import_state(data: Dictionary) -> void:
 	for id: String in saved:
 		if ClassCatalog.has_class(id):
 			progress[id] = (saved[id] as Dictionary).duplicate(true)
+	gold = maxi(int(data.get("gold", 0)), 0)
 	bag = []
 	for piece: Variant in data.get("bag", []):
 		if ItemCatalog.is_valid_item(piece) and bag.size() < ItemCatalog.bag_size():
@@ -1240,7 +1244,25 @@ func unequip_gear(slot: String) -> String:
 	return ""
 
 
-## Tira un item de la mochila (de momento no se vende: aun no hay tiendas).
+func add_gold(amount: int) -> void:
+	if amount <= 0:
+		return
+	gold += amount
+	gold_changed.emit(gold)
+
+
+## Vende un item de la mochila (solo en zona segura); devuelve el oro ganado o -1.
+func sell_from_bag(index: int) -> int:
+	if index < 0 or index >= bag.size() or not safe_zone:
+		return -1
+	var value := ItemCatalog.sell_value(bag[index])
+	bag.remove_at(index)
+	add_gold(value)
+	inventory_changed.emit()
+	return value
+
+
+## Tira un item de la mochila sin cobrar nada.
 func discard_from_bag(index: int) -> bool:
 	if index < 0 or index >= bag.size():
 		return false

@@ -111,7 +111,8 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	if enemy.is_boss():
 		var spike := TowerCatalog.spike_kind(layout.floor_number) if layout != null and layout.floor_number > 0 else ""
 		kind = spike if spike != "" else "boss"
-	var item := ItemGen.roll_drop(loot_rng, tier, kind)
+	player.add_gold(int(round(float(enemy.xp_reward()) * float(ItemCatalog.loot().get("gold_per_xp", 0.0)))))
+	var item := ItemGen.roll_drop(loot_rng, tier, kind, enemy.data.get("loot", {}))
 	if item.is_empty():
 		return
 	player.add_item(item)

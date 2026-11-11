@@ -7,7 +7,8 @@
 ##   items: [{id, name, slot, classes?, stats: {stat: valor}}]; `classes` restringe quien
 ##          puede equiparlo (las armas); sin el campo, todas las clases
 ##   affixes: [{stat, min, max}] bonus aleatorios (tantos como `affixes` de la rareza)
-##   loot: {normal_chance, boss_chance, rarity_bonus: {origen: bonus}}; el bonus
+##   (rarities y items llevan `value_mult` / `value`: precio de venta)
+##   loot: {normal_chance, boss_chance, gold_per_xp, rarity_bonus: {origen: bonus}}; el bonus
 ##          multiplica el peso de cada rareza por (1 + bonus x posicion)
 ## Un item concreto es un Diccionario {id, rarity, tier, stats} (ver ItemGen).
 class_name ItemCatalog
@@ -65,6 +66,15 @@ static func rarity_color(id: String) -> Color:
 		return Color.WHITE
 	var c: Array = spec["color"]
 	return Color(float(c[0]), float(c[1]), float(c[2]))
+
+
+## Oro que da vender el item: valor base x multiplicador de rareza x multiplicador de tier.
+static func sell_value(entry: Dictionary) -> int:
+	var base := item(String(entry.get("id", "")))
+	var spec := rarity(String(entry.get("rarity", "common")))
+	if base.is_empty() or spec.is_empty():
+		return 0
+	return maxi(1, int(round(float(base["value"]) * float(spec["value_mult"]) * tier_multiplier(int(entry.get("tier", 1))))))
 
 
 static func slots() -> Array:
@@ -205,6 +215,8 @@ static func validate(data: Dictionary) -> Array[String]:
 				problems.append("rareza %s: affixes debe ser >= 0" % id)
 			if not _is_number(spec.get("weight")) or float(spec["weight"]) <= 0.0:
 				problems.append("rareza %s: weight debe ser > 0" % id)
+			if not _is_number(spec.get("value_mult")) or float(spec["value_mult"]) <= 0.0:
+				problems.append("rareza %s: value_mult debe ser > 0" % id)
 	var slot_ids: Array = []
 	for entry: Variant in data.get("slots", []):
 		if entry is Dictionary:
@@ -226,6 +238,8 @@ static func validate(data: Dictionary) -> Array[String]:
 			problems.append("item %s: ranura desconocida" % id)
 		else:
 			slots_with_items.append(String(spec["slot"]))
+		if not _is_number(spec.get("value")) or float(spec["value"]) <= 0.0:
+			problems.append("item %s: value debe ser > 0" % id)
 		if not (spec.get("stats") is Dictionary) or (spec["stats"] as Dictionary).is_empty():
 			problems.append("item %s: necesita stats" % id)
 		else:

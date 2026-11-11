@@ -25,6 +25,8 @@ func _run() -> void:
 	_test_gear_changes_stats()
 	_test_class_rules()
 	_test_drops_in_world()
+	_test_enemy_tables()
+	_test_sell_and_gold()
 	_test_floor_chest()
 	_test_save_roundtrip()
 	SaveGame.delete(SAVE_PATH)
@@ -47,7 +49,7 @@ func _new_player() -> PlayerSim:
 
 func _test_catalog() -> void:
 	_check(ItemCatalog.errors().is_empty(), "items.json valido: %s" % str(ItemCatalog.errors()))
-	_check(ItemCatalog.rarity_ids() == ["common", "uncommon", "rare", "epic", "legendary"], "cinco rarezas de peor a mejor")
+	_check(ItemCatalog.rarity_ids() == ["common", "uncommon", "rare", "epic", "unique", "legendary"], "seis rarezas de peor a mejor (con la Unica antes de la Legendaria)")
 	var every_slot := true
 	for slot: String in ItemCatalog.slots():
 		if ItemCatalog.items_for(slot).is_empty():
@@ -244,6 +246,69 @@ func _test_drops_in_world() -> void:
 		if int(item["tier"]) != 1:
 			tier_ok = false
 	_check(tier_ok, "el tier del botin sale del piso")
+
+
+func _test_enemy_tables() -> void:
+	var table_ok := true
+	var reason := ""
+	for id: Variant in EnemyCatalog.all_ids():
+		var data := EnemyCatalog.enemy(StringName(String(id)))
+		var table: Dictionary = data.get("loot", {})
+		for slot: Variant in table.get("slots", []):
+			if not ItemCatalog.slots().has(String(slot)):
+				table_ok = false
+				reason = "%s: ranura %s" % [id, slot]
+	_check(table_ok, "las tablas de botin de los enemigos usan ranuras validas (%s)" % reason)
+	_check(EnemyCatalog.enemy(&"wisp")["loot"]["slots"] == ["ring"], "el Wisp tiene tabla propia (solo anillos)")
+	var rng := _rng(90)
+	var only_rings := true
+	var drops := 0
+	for i: int in range(400):
+		var item := ItemGen.roll_drop(rng, 1, "normal", EnemyCatalog.enemy(&"wisp")["loot"])
+		if item.is_empty():
+			continue
+		drops += 1
+		if String(ItemCatalog.item(String(item["id"]))["slot"]) != "ring":
+			only_rings = false
+	_check(drops > 50 and drops < 120 and only_rings, "el Wisp solo suelta anillos y con su propia probabilidad (%d de 400)" % drops)
+	var boss_slots := {}
+	for i: int in range(200):
+		var item := ItemGen.roll_drop(rng, 1, "boss", EnemyCatalog.enemy(&"brood_beetle")["loot"])
+		boss_slots[String(ItemCatalog.item(String(item["id"]))["slot"])] = true
+	_check(boss_slots.has("weapon") and boss_slots.has("chest") and boss_slots.has("ring") and not boss_slots.has("feet"), "el jefe solo suelta lo que dice su tabla y siempre suelta")
+
+
+func _test_sell_and_gold() -> void:
+	var player := _new_player()
+	var common := {"id": "iron_sword", "rarity": "common", "tier": 1, "stats": {"strength": 2.0}}
+	var legendary := {"id": "iron_sword", "rarity": "legendary", "tier": 1, "stats": {"strength": 2.0}}
+	var deep := {"id": "iron_sword", "rarity": "common", "tier": 11, "stats": {"strength": 2.0}}
+	_check(ItemCatalog.sell_value(common) == 20 and ItemCatalog.sell_value(legendary) == 1200 and ItemCatalog.sell_value(deep) == 80, "el precio sube con la rareza y el tier")
+	player.add_item(common)
+	player.add_item(legendary)
+	var gold_events: Array = []
+	player.gold_changed.connect(func(total: int) -> void: gold_events.append(total))
+	_check(player.sell_from_bag(0) == 20 and player.gold == 20 and player.bag.size() == 1 and gold_events == [20], "vender da oro y quita el item")
+	_check(player.sell_from_bag(5) == -1 and player.gold == 20, "vender un indice invalido no hace nada")
+	player.safe_zone = false
+	_check(player.sell_from_bag(0) == -1 and player.bag.size() == 1, "no se vende en un piso")
+	player.safe_zone = true
+	var world: CombatWorld = CombatWorldScript.new(40)
+	world.setup_arena(Rect2(0, 0, 900, 600))
+	var slime := world.add_enemy(&"slime", Vector2(300, 300))
+	var expected := int(round(float(slime.xp_reward()) * 0.35))
+	slime.take_damage(1.0e9)
+	_check(world.player.gold == expected and expected > 0, "los enemigos sueltan oro segun su XP")
+	var data := player.export_state()
+	var other := _new_player()
+	other.import_state(data)
+	_check(other.gold == player.gold, "el oro se guarda y se restaura")
+	var unique_seen := false
+	var rng := _rng(5)
+	for i: int in range(3000):
+		if ItemGen.roll_rarity(rng, 0.0) == "unique":
+			unique_seen = true
+	_check(unique_seen, "la rareza Unica puede salir")
 
 
 func _test_floor_chest() -> void:

@@ -51,13 +51,20 @@ static func roll_item(rng: RandomNumberGenerator, tier: int, rarity: String = ""
 
 ## Botin de un enemigo muerto: devuelve el item o {} si no suelta nada.
 ## `kind`: "normal", "mid_boss" o "boss" (tambien la clave del bonus de rareza).
-static func roll_drop(rng: RandomNumberGenerator, tier: int, kind: String) -> Dictionary:
+## `table` es el bloque `loot` del enemigo (opcional): `chance` cambia la probabilidad y
+## `slots` limita las ranuras que puede soltar.
+static func roll_drop(rng: RandomNumberGenerator, tier: int, kind: String, table: Dictionary = {}) -> Dictionary:
 	var loot := ItemCatalog.loot()
 	var chance := float(loot["boss_chance"]) if kind != "normal" else float(loot["normal_chance"])
+	chance = float(table.get("chance", chance))
 	if rng.randf() >= chance:
 		return {}
 	var bonus := float((loot["rarity_bonus"] as Dictionary).get(kind, 0.0))
-	return roll_item(rng, tier, "", "", "", "", bonus)
+	var slot := ""
+	var slots: Array = table.get("slots", [])
+	if not slots.is_empty():
+		slot = String(slots[rng.randi_range(0, slots.size() - 1)])
+	return roll_item(rng, tier, "", slot, "", "", bonus)
 
 
 ## Cofre al completar un piso por primera vez: siempre da un item.
