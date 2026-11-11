@@ -69,6 +69,13 @@ En Linux / CI:
 GODOT=/ruta/a/godot bash tools/run_tests.sh
 ```
 
+Laboratorio de balance (bots deterministas; escribe `tests/out/balance_matrix.csv`):
+
+```powershell
+& $env:GODOT --headless --path . --script tools/balance/run_balance.gd
+& $env:GODOT --headless --path . --script tools/balance/run_balance.gd -- 30   # otro nivel
+```
+
 Una suite suelta:
 
 ```powershell

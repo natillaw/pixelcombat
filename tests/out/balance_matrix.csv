@@ -1,0 +1,5 @@
+class,level,hp,dps,burst_dps,sustained_dps,wave_cleared,wave_time,wave_hp_left,wave_damage_taken
+warrior,10,370,68.25,70.33,63.68,true,10.82,0.977,8.6
+rogue,10,312,60.46,51.83,68.54,true,12.22,1.000,0.0
+mage,10,283,62.33,64.84,63.16,true,11.03,0.960,11.3
+archer,10,312,63.25,61.15,65.00,true,10.12,0.964,11.2

@@ -233,7 +233,7 @@
 			"active": 0.9,
 			"recovery": 0.4,
 			"charge": 100,
-			"damage_mult": 0.8,
+			"damage_mult": 0.95,
 			"strikes": {
 				"count": 6,
 				"interval": 0.15,

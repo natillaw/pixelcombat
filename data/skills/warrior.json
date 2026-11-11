@@ -196,7 +196,7 @@
 			"cost": 0,
 			"charge": 100,
 			"range": 78,
-			"damage_mult": 4,
+			"damage_mult": 3,
 			"center_radius": 32,
 			"center_mult": 1.5,
 			"resource_gain": 15,

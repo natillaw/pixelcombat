@@ -226,7 +226,7 @@
 			"active": 0.2,
 			"recovery": 0.5,
 			"charge": 100,
-			"damage_mult": 5,
+			"damage_mult": 5.6,
 			"center_radius": 40,
 			"center_mult": 1.4,
 			"anchor": "aim_point",

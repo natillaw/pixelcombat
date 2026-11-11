@@ -62,7 +62,8 @@ $suites = @(
     "tests/test_special.gd",
     "tests/test_classes.gd",
     "tests/test_projectiles.gd",
-    "tests/test_class_skills.gd"
+    "tests/test_class_skills.gd",
+    "tests/test_balance.gd"
 )
 
 "" | Set-Content -Path $summaryPath -Encoding utf8

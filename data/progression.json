@@ -7,7 +7,7 @@
 	},
 	"classes": {
 		"warrior": {
-			"strength_per_level": 2.4,
+			"strength_per_level": 2,
 			"stamina_per_level": 1,
 			"armor_per_level": 1
 		},

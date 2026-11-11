@@ -25,7 +25,7 @@
 			"windup": 0.08,
 			"active": 0.08,
 			"recovery": 0.14,
-			"damage_mult": 0.8,
+			"damage_mult": 1.03,
 			"charges": {
 				"max": 4,
 				"recharge": 0.5
@@ -62,7 +62,7 @@
 			"windup": 0.18,
 			"active": 0.1,
 			"recovery": 0.3,
-			"damage_mult": 1.7,
+			"damage_mult": 2.18,
 			"anchor": "aim_leap",
 			"leap_distance": 55,
 			"move": {
@@ -97,7 +97,7 @@
 			"windup": 0.22,
 			"active": 0.1,
 			"recovery": 0.3,
-			"damage_mult": 2.2,
+			"damage_mult": 2.82,
 			"anchor": "aim_leap",
 			"leap_distance": 120,
 			"move": {
@@ -131,7 +131,7 @@
 			"windup": 0.12,
 			"active": 0.3,
 			"recovery": 0.3,
-			"damage_mult": 0.7,
+			"damage_mult": 0.9,
 			"strikes": {
 				"count": 3,
 				"interval": 0.1,
@@ -169,7 +169,7 @@
 			"windup": 0.04,
 			"active": 0.35,
 			"recovery": 0.3,
-			"damage_mult": 1.2,
+			"damage_mult": 1.54,
 			"stance": {
 				"arc": 360,
 				"counter_recovery": 0.1,
@@ -210,7 +210,7 @@
 			"active": 0.6,
 			"recovery": 0.4,
 			"charge": 100,
-			"damage_mult": 0.9,
+			"damage_mult": 1.16,
 			"strikes": {
 				"count": 5,
 				"interval": 0.12,
@@ -250,7 +250,7 @@
 			"windup": 0.15,
 			"active": 0.05,
 			"recovery": 0.25,
-			"damage_mult": 0.8,
+			"damage_mult": 1.03,
 			"projectile": {
 				"speed": 420,
 				"range": 150,
