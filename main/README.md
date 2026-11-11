@@ -1,5 +1,5 @@
 # Capturas de main
-Commit `9c7439a` — 2026-11-11 03:11 UTC
+Commit `4e3b50d` — 2026-11-11 03:20 UTC
 
 ## 01_arena.png
 ![](01_arena.png)
@@ -45,3 +45,48 @@ Commit `9c7439a` — 2026-11-11 03:11 UTC
 
 ## 06_death.png
 ![](06_death.png)
+
+## gear_archer_1_default.png
+![](gear_archer_1_default.png)
+
+## gear_archer_2_common.png
+![](gear_archer_2_common.png)
+
+## gear_archer_2_epic.png
+![](gear_archer_2_epic.png)
+
+## gear_crafting.png
+![](gear_crafting.png)
+
+## gear_inventory.png
+![](gear_inventory.png)
+
+## gear_mage_1_default.png
+![](gear_mage_1_default.png)
+
+## gear_mage_2_common.png
+![](gear_mage_2_common.png)
+
+## gear_mage_2_epic.png
+![](gear_mage_2_epic.png)
+
+## gear_rogue_1_default.png
+![](gear_rogue_1_default.png)
+
+## gear_rogue_2_common.png
+![](gear_rogue_2_common.png)
+
+## gear_rogue_2_epic.png
+![](gear_rogue_2_epic.png)
+
+## gear_sheet.png
+![](gear_sheet.png)
+
+## gear_warrior_1_default.png
+![](gear_warrior_1_default.png)
+
+## gear_warrior_2_common.png
+![](gear_warrior_2_common.png)
+
+## gear_warrior_2_epic.png
+![](gear_warrior_2_epic.png)
