@@ -48,8 +48,8 @@ func _ready() -> void:
 	var world: CombatWorld = _main.get("world")
 	if world != null:
 		# Nivel 10: todas las skills desbloqueadas, panel de loadout y Special.
-		world.warrior.set_level(10)
-		world.warrior.resource.current_amount = 80.0
+		world.player.set_level(10)
+		world.player.resource.current_amount = 80.0
 		await _wait(1.2)  # el loadout solo se abre en reposo: deja acabar el ataque anterior
 		await _shot("04a_level10_hud", 0.1)
 		_toggle_loadout()
@@ -62,7 +62,7 @@ func _ready() -> void:
 		await _wait(1.6)
 
 		# Ultimate: carga llena, telegraph durante el salto y golpe al caer.
-		world.warrior.ultimate_charge = WarriorKit.ULTIMATE_CHARGE_MAX
+		world.player.ultimate_charge = WarriorKit.ULTIMATE_CHARGE_MAX
 		await _wait(1.0)  # deja acabar el M2 anterior (el buffer es de 0,25 s)
 		_aim_up()
 		Input.action_press("ultimate")
@@ -76,17 +76,17 @@ func _ready() -> void:
 		await _enemy_telegraph(world, 1, 0, "04e_enemy_bat_line")
 		await _enemy_telegraph(world, 2, 0, "04f_enemy_spider_circle")
 		await _enemy_telegraph(world, 3, 0, "04g_enemy_beetle_cone")
-		world.warrior.health = world.warrior.max_health
-		world.warrior.reset(world.bounds.get_center())
+		world.player.health = world.player.max_health
+		world.player.reset(world.bounds.get_center())
 		for enemy: EnemySim in world.enemies:
 			enemy.revive()
 		await _wait(0.5)
-		world.warrior.take_damage(25.0, Vector2.ZERO, false)
+		world.player.take_damage(25.0, Vector2.ZERO, false)
 		_aim_up()
 		Input.action_press("attack_m2")
 		await _shot("05_vengeful_fury", 0.10)
 		Input.action_release("attack_m2")
-		world.warrior.take_damage(99999.0, Vector2.ZERO, false)
+		world.player.take_damage(99999.0, Vector2.ZERO, false)
 		await _shot("06_death", 0.45)
 
 	print("CAPTURE DONE -> ", _dir)
@@ -99,9 +99,9 @@ func _enemy_telegraph(world: CombatWorld, index: int, attack_index: int, shot_na
 	var enemy: EnemySim = world.enemies[index]
 	var attack: Dictionary = enemy.data["attacks"][attack_index]
 	var distance := float(attack["trigger_range"]) * 0.6 + 10.0
-	world.warrior.reset(enemy.position + Vector2(-distance, -10.0))
-	world.warrior.health = world.warrior.max_health
-	enemy.facing = (world.warrior.position - enemy.position).normalized()
+	world.player.reset(enemy.position + Vector2(-distance, -10.0))
+	world.player.health = world.player.max_health
+	enemy.facing = (world.player.position - enemy.position).normalized()
 	enemy.state = EnemySim.State.CHASE
 	enemy._start_telegraph(attack)
 	await _shot(shot_name, float(attack["windup"]) * 0.6)

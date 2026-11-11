@@ -45,7 +45,7 @@ func _test_m1_damage_and_rage() -> void:
 	var world := _make_world(false, 11)
 	var dummy: DummySim = world.dummies[0]
 	var hits: Array = []
-	world.warrior.attack_hit.connect(func(_skill: Dictionary, _target: Object, damage: float, critical: bool, _pos: Vector2) -> void:
+	world.player.attack_hit.connect(func(_skill: Dictionary, _target: Object, damage: float, critical: bool, _pos: Vector2) -> void:
 		hits.append({"damage": damage, "critical": critical})
 	)
 
@@ -53,8 +53,8 @@ func _test_m1_damage_and_rage() -> void:
 
 	_check(hits.size() >= 1, "M1 lands at least one hit")
 	_check(dummy.health < dummy.max_health, "the dummy loses health")
-	_check(world.warrior.rage() > 0.0, "hitting generates Rage")
-	_check(world.warrior.rage() <= WarriorKit.MAX_RAGE, "Rage never exceeds its cap")
+	_check(world.player.resource_amount() > 0.0, "hitting generates Rage")
+	_check(world.player.resource_amount() <= WarriorKit.MAX_RAGE, "Rage never exceeds its cap")
 	if not hits.is_empty():
 		_check(float(hits[0]["damage"]) > 0.0, "M1 deals positive damage")
 
@@ -83,18 +83,18 @@ func _test_vengeful_fury() -> void:
 		)
 
 	var world := _make_world(false, 31)
-	world.warrior.take_damage(10.0, Vector2.ZERO, false)
-	_check(world.warrior.vengeful_active, "a direct hit activates Vengeful Fury")
+	world.player.take_damage(10.0, Vector2.ZERO, false)
+	_check(world.player.vengeful_active, "a direct hit activates Vengeful Fury")
 	_step(world, 40, _input(Vector2(0, -1), false, true))
-	_check(not world.warrior.vengeful_active, "the next Heavy Strike consumes the passive")
+	_check(not world.player.vengeful_active, "the next Heavy Strike consumes the passive")
 
 
 func _test_vengeful_expiry() -> void:
 	var world := _make_world(false, 5)
-	world.warrior.take_damage(10.0, Vector2.ZERO, false)
-	_check(world.warrior.vengeful_active, "passive starts active")
+	world.player.take_damage(10.0, Vector2.ZERO, false)
+	_check(world.player.vengeful_active, "passive starts active")
 	_step(world, 250, null)
-	_check(not world.warrior.vengeful_active, "passive expires after its 4 s window")
+	_check(not world.player.vengeful_active, "passive expires after its 4 s window")
 
 
 func _test_rage_decay() -> void:
@@ -102,28 +102,28 @@ func _test_rage_decay() -> void:
 	# Un solo swing: mantener M1 todo el rato encadenaría golpes y falsearía el pico.
 	_step(world, 1, _input(Vector2(0, -1), true, false))
 	_step(world, 40, null)
-	var peak: float = world.warrior.rage()
+	var peak: float = world.player.resource_amount()
 	_check(peak > 0.0, "Rage is stored after a hit")
 
 	_step(world, 340, null)
-	_check(world.warrior.rage() < peak, "Rage decays after the 5 s grace period")
+	_check(world.player.resource_amount() < peak, "Rage decays after the 5 s grace period")
 
 
 func _test_death_and_reset() -> void:
 	var world := _make_world(false, 3)
 	var died: Array = [false]
-	world.warrior.died.connect(func() -> void: died[0] = true)
+	world.player.died.connect(func() -> void: died[0] = true)
 
-	world.warrior.take_damage(99999.0, Vector2.ZERO, false)
-	_check(not world.warrior.alive, "lethal damage kills the Warrior")
-	_check(is_zero_approx(world.warrior.health), "health is clamped to zero")
+	world.player.take_damage(99999.0, Vector2.ZERO, false)
+	_check(not world.player.alive, "lethal damage kills the Warrior")
+	_check(is_zero_approx(world.player.health), "health is clamped to zero")
 	_check(died[0], "the died signal fires")
 
 	world.reset()
-	_check(world.warrior.alive, "reset revives the Warrior")
-	_check(is_equal_approx(world.warrior.health, world.warrior.max_health), "reset restores full health")
-	_check(is_zero_approx(world.warrior.rage()), "reset clears Rage")
-	_check(world.warrior.position.distance_to(world.bounds.get_center()) < 0.01, "reset returns to the arena center")
+	_check(world.player.alive, "reset revives the Warrior")
+	_check(is_equal_approx(world.player.health, world.player.max_health), "reset restores full health")
+	_check(is_zero_approx(world.player.resource_amount()), "reset clears Rage")
+	_check(world.player.position.distance_to(world.bounds.get_center()) < 0.01, "reset returns to the arena center")
 
 
 func _test_dummy_telegraph_and_respawn() -> void:
@@ -141,7 +141,7 @@ func _test_dummy_telegraph_and_respawn() -> void:
 	_step(world, 70, null)
 	_check(telegraphs[0] >= 1, "the dummy telegraphs its attack")
 	_check(landings[0] >= 1, "the dummy lands its attack")
-	_check(world.warrior.health < world.warrior.max_health, "the dummy hurts the Warrior")
+	_check(world.player.health < world.player.max_health, "the dummy hurts the Warrior")
 
 	dummy.take_damage(99999.0)
 	_check(not dummy.alive, "a dummy can be destroyed")
@@ -161,8 +161,8 @@ func _test_determinism() -> void:
 func _test_snapshot() -> void:
 	var world := _make_world(false, 1)
 	var snap: Dictionary = world.snapshot()
-	_check(snap.has("tick") and snap.has("warrior") and snap.has("dummies"), "snapshot has the network sections")
-	var warrior: Dictionary = snap["warrior"]
+	_check(snap.has("tick") and snap.has("player") and snap.has("dummies"), "snapshot has the network sections")
+	var warrior: Dictionary = snap["player"]
 	for key: String in ["position", "velocity", "aim", "health", "max_health", "rage", "state", "vengeful", "alive"]:
 		_check(warrior.has(key), "warrior snapshot has %s" % key)
 
@@ -226,11 +226,11 @@ func _duplicate_input(message: InputMessage) -> InputMessage:
 func _first_hit(slot: String, seed_value: int, hurt_first: bool = false) -> Array:
 	var world := _make_world(false, seed_value)
 	var hits: Array = []
-	world.warrior.attack_hit.connect(func(_skill: Dictionary, _target: Object, damage: float, _critical: bool, _pos: Vector2) -> void:
+	world.player.attack_hit.connect(func(_skill: Dictionary, _target: Object, damage: float, _critical: bool, _pos: Vector2) -> void:
 		hits.append(damage)
 	)
 	if hurt_first:
-		world.warrior.take_damage(10.0, Vector2.ZERO, false)
+		world.player.take_damage(10.0, Vector2.ZERO, false)
 	_step(world, 60, _input(Vector2(0, -1), slot == "M1", slot == "M2"))
 	return hits
 

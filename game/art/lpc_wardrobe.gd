@@ -10,7 +10,7 @@ const STARTER_OUTFIT := {
     "feet": ["shoes_basic", "leather"],
 }
 const STARTER_WEAPON_BY_CLASS := {
-    "class.warrior": "weapon_arming", "class.rogue": "weapon_dagger", "class.archer": "weapon_bow",
+    "class.player": "weapon_arming", "class.rogue": "weapon_dagger", "class.archer": "weapon_bow",
     "class.mage": "weapon_staff", "class.cleric": "weapon_staff", "class.commoner": "weapon_dagger", "class.none": "",
 }
 ## Look pools (heroes): every entry exists in the imported sheets.

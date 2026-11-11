@@ -76,7 +76,7 @@ Una suite suelta:
 | Ruta | Contenido |
 |---|---|
 | `game/` | Escena principal, arena, actores, VFX, HUD y simulación del corte actual |
-| `game/sim/` | Simulación determinista (`CombatWorld` → `WarriorSim`, `EnemySim`, `DummySim`) |
+| `game/sim/` | Simulación determinista (`CombatWorld` → `PlayerSim`, `EnemySim`, `DummySim`) |
 | `combat/` | Núcleo de combate reutilizable: stats, skills, efectos, kits de clase |
 | `core/` | Tick fijo (`TickManager`, `Tickable`) |
 | `net/` | Capa de red dormida: `InputMessage`, snapshots, predicción |

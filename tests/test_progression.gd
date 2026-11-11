@@ -162,12 +162,12 @@ func _test_equip_reasons() -> void:
 	_check(warrior.equip("S1", &"iron_counter") == "wrong_slot", "el Special no cabe en un slot normal")
 	_check(warrior.equip("M1", &"warrior_m2") == "wrong_slot", "M2 no cabe en el slot M1")
 	var world := _world()
-	world.warrior.set_level(10)
-	world.warrior.resource.current_amount = 50.0
+	world.player.set_level(10)
+	world.player.resource.current_amount = 50.0
 	_step(world, 1, _input({"s1": true}))
-	_check(world.warrior.state != WarriorSim.AttackState.IDLE, "(preparacion) la skill esta en curso")
-	_check(world.warrior.equip("S3", &"piercing_thrust") == "busy", "no se puede equipar mientras se ataca")
-	_check(not world.warrior.can_edit_loadout(), "can_edit_loadout es falso en pleno ataque")
+	_check(world.player.state != PlayerSim.AttackState.IDLE, "(preparacion) la skill esta en curso")
+	_check(world.player.equip("S3", &"piercing_thrust") == "busy", "no se puede equipar mientras se ataca")
+	_check(not world.player.can_edit_loadout(), "can_edit_loadout es falso en pleno ataque")
 
 
 func _test_equip_moves_and_unequips() -> void:
@@ -186,16 +186,16 @@ func _test_equip_moves_and_unequips() -> void:
 
 func _test_cooldown_follows_the_skill() -> void:
 	var world := _world()
-	world.warrior.set_level(10)
-	world.warrior.resource.current_amount = 50.0
+	world.player.set_level(10)
+	world.player.resource.current_amount = 50.0
 	_step(world, 1, _input({"s1": true}))
 	_step(world, 60, _input({}))
-	_check(world.warrior.state == WarriorSim.AttackState.IDLE, "(preparacion) el lanzamiento ha terminado")
-	var left_before: float = world.warrior.attack_cooldown_left("S1")
+	_check(world.player.state == PlayerSim.AttackState.IDLE, "(preparacion) el lanzamiento ha terminado")
+	var left_before: float = world.player.attack_cooldown_left("S1")
 	_check(left_before > 4.0, "Cleaving Strike esta en cooldown (%.1f s)" % left_before)
-	_check(world.warrior.unequip("S1"), "se retira de S1")
-	_check(world.warrior.equip("S4", &"cleaving_strike") == "", "y se equipa en S4")
-	_check(world.warrior.attack_cooldown_left("S4") > 4.0, "el cooldown se conserva al cambiarla de slot (no se puede evadir cambiando el loadout)")
+	_check(world.player.unequip("S1"), "se retira de S1")
+	_check(world.player.equip("S4", &"cleaving_strike") == "", "y se equipa en S4")
+	_check(world.player.attack_cooldown_left("S4") > 4.0, "el cooldown se conserva al cambiarla de slot (no se puede evadir cambiando el loadout)")
 
 
 # --- XP ----------------------------------------------------------------------
@@ -203,22 +203,22 @@ func _test_cooldown_follows_the_skill() -> void:
 
 func _test_xp_from_kills() -> void:
 	var world := _world()
-	var enemy := world.add_enemy(&"slime", world.warrior.position + Vector2(44, 0))
+	var enemy := world.add_enemy(&"slime", world.player.position + Vector2(44, 0))
 	enemy.health = 1.0
 	var gained: Array = []
-	world.warrior.xp_gained.connect(func(amount: int, _pos: Vector2) -> void: gained.append(amount))
+	world.player.xp_gained.connect(func(amount: int, _pos: Vector2) -> void: gained.append(amount))
 	_step(world, 1, _input({"m1": true}))
 	_step(world, 40, _input({}))
 	_check(not enemy.alive, "el slime muere de un golpe")
 	_check(gained == [int(enemy.data["stats"]["xp"])], "matarlo da su XP (%s)" % str(gained))
-	_check(world.warrior.xp == int(enemy.data["stats"]["xp"]), "la XP se acumula en el Warrior")
+	_check(world.player.xp == int(enemy.data["stats"]["xp"]), "la XP se acumula en el Warrior")
 
 	var world2 := _world()
-	var dummy := world2.add_dummy(world2.warrior.position + Vector2(44, 0), false)
+	var dummy := world2.add_dummy(world2.player.position + Vector2(44, 0), false)
 	dummy.health = 1.0
 	_step(world2, 1, _input({"m1": true}))
 	_step(world2, 40, _input({}))
-	_check(not dummy.alive and world2.warrior.xp == 0, "matar un muneco de entrenamiento no da XP")
+	_check(not dummy.alive and world2.player.xp == 0, "matar un muneco de entrenamiento no da XP")
 
 
 func _test_max_level() -> void:
@@ -232,14 +232,14 @@ func _test_max_level() -> void:
 func _test_debug_actions() -> void:
 	var world := _world()
 	_step(world, 1, _input({"debug_level_up": true}))
-	_check(world.warrior.level == 2, "F5 sube un nivel")
+	_check(world.player.level == 2, "F5 sube un nivel")
 	_step(world, 30, _input({"debug_level_up": true}))
-	_check(world.warrior.level == 2, "mantener F5 no sube mas niveles")
+	_check(world.player.level == 2, "mantener F5 no sube mas niveles")
 	_step(world, 1, _input({}))
 	_step(world, 1, _input({"debug_level_up": true}))
-	_check(world.warrior.level == 3, "soltar y volver a pulsar sube otro")
+	_check(world.player.level == 3, "soltar y volver a pulsar sube otro")
 	_step(world, 1, _input({"debug_level_reset": true}))
-	_check(world.warrior.level == 1, "F6 vuelve al nivel 1")
+	_check(world.player.level == 1, "F6 vuelve al nivel 1")
 
 
 # --- Helpers ----------------------------------------------------------------
@@ -251,8 +251,8 @@ func _world() -> CombatWorld:
 	return world
 
 
-func _warrior() -> WarriorSim:
-	return _world().warrior
+func _warrior() -> PlayerSim:
+	return _world().player
 
 
 func _input(actions: Dictionary) -> InputMessage:

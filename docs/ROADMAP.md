@@ -69,11 +69,11 @@ Cada una con mi recomendación; marca las que cambies.
 
 ### Fase 1 — Combate núcleo estilo Drakantos (2–3 semanas)
 Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
-- [x] Encarar siempre al cursor (con bloqueo durante ataques/channels). *Hecho 10 nov: `WarriorActor.facing_for`, con histéresis y test.*
+- [x] Encarar siempre al cursor (con bloqueo durante ataques/channels). *Hecho 10 nov: `PlayerActor.facing_for`, con histéresis y test.*
 - [x] Esquiva con i-frames cortos y coste/cooldown. *Hecho 10 nov: `WarriorKit.DODGE`, `tests/test_dodge.gd`.*
 - [x] Pipeline de skills genérico y dirigido por datos: windup → activo → recovery, formas cono/línea/círculo, coste, cooldown, límite de objetivos, movimiento por fase. *Hecho 10 nov: `data/skills/warrior.json`, `SkillCatalog`, S1/S2 jugables.* Pendiente: proyectiles, estados (stun, slow...) y telegraph en enemigos.
 - [x] M1 con cargas y M2 que se potencia manteniendo el botón (referencia Drakantos). *Hecho 10 nov: `tests/test_basics.gd`.*
-- [x] Slots de loadout: M1, M2, S1–S5, Special y Ultimate, con panel para equipar (Tab). *Hecho 10 nov: `WarriorSim.equip/unequip`, `LoadoutPanel`.*
+- [x] Slots de loadout: M1, M2, S1–S5, Special y Ultimate, con panel para equipar (Tab). *Hecho 10 nov: `PlayerSim.equip/unequip`, `LoadoutPanel`.*
 - [x] Special: Iron Counter (postura que bloquea y contraataca). *Hecho 10 nov: `tests/test_special.gd`.*
 - [x] Niveles, XP y skills desbloqueadas por nivel (no todas desde el nivel 1). *Hecho 10 nov: `Progression`, `unlock_level`, `tests/test_progression.gd`.* Pendiente: guardar loadout/nivel en disco y limitar el cambio de loadout a la ciudad.
 - [x] Ultimate con Charge por golpes (War God's Descent). *Hecho 10 nov: `tests/test_ultimate.gd`.*

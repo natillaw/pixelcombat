@@ -1,8 +1,8 @@
-## WarriorActor — presentación del Warrior: animación LPC, VFX y sonido.
+## PlayerActor — presentación del Warrior: animación LPC, VFX y sonido.
 ##
-## Es un nodo de presentación puro. Lee el estado de [WarriorSim] en _process y
+## Es un nodo de presentación puro. Lee el estado de [PlayerSim] en _process y
 ## escucha sus señales; nunca modifica la simulación.
-class_name WarriorActor
+class_name PlayerActor
 extends Node2D
 
 const SFX_SLASH := preload("res://assets/audio/sfx/ninja/Whoosh_Slash/Slash2.wav")
@@ -22,7 +22,7 @@ const LEAP_HEIGHT := 34.0
 const GOLD_TEXT := Color(1.0, 0.82, 0.3, 1.0)
 const XP_TEXT := Color(0.55, 0.75, 1.0, 1.0)
 
-var sim: WarriorSim
+var sim: PlayerSim
 var arena: Arena
 var sprite: AnimatedSprite2D
 
@@ -36,7 +36,7 @@ var _death_tween: Tween = null
 var _afterimage_timer: float = 0.0
 
 
-func setup(p_sim: WarriorSim, p_arena: Arena) -> void:
+func setup(p_sim: PlayerSim, p_arena: Arena) -> void:
 	sim = p_sim
 	arena = p_arena
 	_build_sprite()
@@ -124,10 +124,10 @@ static func _dir_name(direction: Vector2) -> String:
 func _update_animation() -> void:
 	if sim.is_attacking():
 		match sim.state:
-			WarriorSim.AttackState.WINDUP:
+			PlayerSim.AttackState.WINDUP:
 				sprite.speed_scale = 1.0
 				_play("combat_idle")
-			WarriorSim.AttackState.ACTIVE, WarriorSim.AttackState.RECOVERY:
+			PlayerSim.AttackState.ACTIVE, PlayerSim.AttackState.RECOVERY:
 				pass
 		return
 
@@ -139,7 +139,7 @@ func _update_animation() -> void:
 	sprite.speed_scale = 1.0
 	if sim.velocity.length_squared() > 196.0:
 		_play("walk")
-		var speed_ratio := sim.velocity.length() / WarriorSim.MOVE_SPEED
+		var speed_ratio := sim.velocity.length() / PlayerSim.MOVE_SPEED
 		sprite.speed_scale = clampf(0.75 + speed_ratio * 0.55, 0.75, 1.4)
 	else:
 		_play("combat_idle")
@@ -158,7 +158,7 @@ func _on_attack_started(skill: Dictionary, direction: Vector2) -> void:
 
 
 func _on_attack_state_changed(state: int) -> void:
-	if state != WarriorSim.AttackState.ACTIVE or _current_skill.is_empty():
+	if state != PlayerSim.AttackState.ACTIVE or _current_skill.is_empty():
 		return
 
 	var slot := String(_current_skill.get("slot", "M1"))
@@ -328,7 +328,7 @@ func _on_ultimate_ready() -> void:
 func _update_leap_visual() -> void:
 	if _dead_visual:
 		return
-	var leaping := sim.state == WarriorSim.AttackState.WINDUP and String(sim.current_skill.get("anchor", "self")) == "aim_leap"
+	var leaping := sim.state == PlayerSim.AttackState.WINDUP and String(sim.current_skill.get("anchor", "self")) == "aim_leap"
 	if leaping:
 		var t := clampf(sim.state_time / maxf(float(sim.current_skill["windup"]), 0.001), 0.0, 1.0)
 		sprite.position = LpcComposer.FEET_OFFSET + Vector2(0.0, -sin(t * PI) * LEAP_HEIGHT)
@@ -406,7 +406,7 @@ func _draw_charge() -> void:
 ## Zona marcada durante el windup de una skill con telegraph: contorno completo y
 ## relleno que crece hasta el borde cuando cae el golpe.
 func _draw_telegraph() -> void:
-	if not sim.alive or sim.state != WarriorSim.AttackState.WINDUP:
+	if not sim.alive or sim.state != PlayerSim.AttackState.WINDUP:
 		return
 	if not bool(sim.current_skill.get("telegraph", false)):
 		return

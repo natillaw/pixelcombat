@@ -28,8 +28,8 @@ const EQUIPMENT := {
 
 
 static func frames() -> SpriteFrames:
-	return LpcComposer.build_frames_for(LOOK, "class.warrior", EQUIPMENT)
+	return LpcComposer.build_frames_for(LOOK, "class.player", EQUIPMENT)
 
 
 static func portrait() -> Texture2D:
-	return LpcComposer.pose_texture_for(LOOK, "class.warrior", "idle", EQUIPMENT)
+	return LpcComposer.pose_texture_for(LOOK, "class.player", "idle", EQUIPMENT)

@@ -44,7 +44,7 @@ var world: CombatWorld
 var camera: Camera2D
 var entities: Node2D
 var fx: Node2D
-var warrior_actor: WarriorActor
+var player_actor: PlayerActor
 var dummy_actors: Array[DummyActor] = []
 var enemy_actors: Array[EnemyActor] = []
 
@@ -95,7 +95,7 @@ func _obstacles() -> Array:
 func _build_camera() -> void:
 	camera = Camera2D.new()
 	camera.name = "Camera"
-	camera.position = world.warrior.position
+	camera.position = world.player.position
 	camera.limit_left = 0
 	camera.limit_top = 0
 	camera.limit_right = int(SIZE.x)
@@ -107,11 +107,11 @@ func _build_camera() -> void:
 
 
 func _spawn_actors() -> void:
-	warrior_actor = WarriorActor.new()
-	warrior_actor.name = "Warrior"
-	warrior_actor.position = world.warrior.position
-	warrior_actor.setup(world.warrior, self)
-	entities.add_child(warrior_actor)
+	player_actor = PlayerActor.new()
+	player_actor.name = "Warrior"
+	player_actor.position = world.player.position
+	player_actor.setup(world.player, self)
+	entities.add_child(player_actor)
 
 	for spawn: Dictionary in DUMMY_SPAWNS:
 		var dummy_sim := world.add_dummy(spawn["position"], bool(spawn["auto_attack"]))
@@ -136,7 +136,7 @@ func _process(delta: float) -> void:
 	if world == null or camera == null:
 		return
 
-	camera.position = world.warrior.position
+	camera.position = world.player.position
 
 	if _shake_time > 0.0:
 		_shake_time = maxf(0.0, _shake_time - delta)

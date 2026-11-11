@@ -69,14 +69,14 @@ func _test_basics() -> void:
 		_check(float(skill["range"]) > 0.0, "%s has range" % skill["name"])
 		_check(float(skill["arc"]) > 0.0, "%s has an arc" % skill["name"])
 		_check(float(skill["damage_mult"]) > 0.0, "%s deals damage" % skill["name"])
-		_check(float(skill["rage_gain"]) > 0.0, "%s generates Rage" % skill["name"])
-		_check(float(skill["rage_cap"]) >= float(skill["rage_gain"]), "%s rage cap covers its gain" % skill["name"])
+		_check(float(skill["resource_gain"]) > 0.0, "%s generates Rage" % skill["name"])
+		_check(float(skill["resource_cap"]) >= float(skill["resource_gain"]), "%s rage cap covers its gain" % skill["name"])
 
 	var m1_total := float(m1["windup"]) + float(m1["active"]) + float(m1["recovery"])
 	var m2_total := float(m2["windup"]) + float(m2["active"]) + float(m2["recovery"])
 	_check(m2_total > m1_total, "Heavy Strike is slower than Sword Slash")
 	_check(float(m2["damage_mult"]) > float(m1["damage_mult"]), "Heavy Strike hits harder than Sword Slash")
-	_check(float(m2["rage_gain"]) >= float(m1["rage_gain"]), "Heavy Strike generates at least as much Rage")
+	_check(float(m2["resource_gain"]) >= float(m1["resource_gain"]), "Heavy Strike generates at least as much Rage")
 
 	basics["M1"]["name"] = "mutated"
 	_check(WarriorKit.M1["name"] == "Sword Slash", "get_basics returns a defensive copy")

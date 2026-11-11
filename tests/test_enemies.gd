@@ -100,12 +100,12 @@ func _test_chase_and_leash() -> void:
 	var enemy: EnemySim = setup["enemy"]
 	var aggroed: Array = []
 	enemy.aggroed.connect(func() -> void: aggroed.append(true))
-	var before := enemy.position.distance_to(world.warrior.position)
+	var before := enemy.position.distance_to(world.player.position)
 	_step(world, 45, _input({}))
 	_check(aggroed.size() == 1, "entering the aggro range emits aggroed once")
-	_check(enemy.position.distance_to(world.warrior.position) < before - 20.0, "an aggroed enemy closes the distance")
+	_check(enemy.position.distance_to(world.player.position) < before - 20.0, "an aggroed enemy closes the distance")
 	# Si el jugador se aleja mas que aggro * leash, vuelve a IDLE.
-	world.warrior.position = enemy.position + Vector2(float(enemy.data["ai"]["aggro_range"]) * float(enemy.data["ai"]["leash"]) + 80.0, 0)
+	world.player.position = enemy.position + Vector2(float(enemy.data["ai"]["aggro_range"]) * float(enemy.data["ai"]["leash"]) + 80.0, 0)
 	_step(world, 2, _input({}))
 	_check(enemy.state == EnemySim.State.IDLE, "the enemy gives up past aggro_range * leash")
 
@@ -123,16 +123,16 @@ func _test_telegraph_comes_before_the_hit() -> void:
 		if not events.has("landed"):
 			events["landed"] = world.tick
 			events["damage"] = damage)
-	var health_before: float = world.warrior.health
+	var health_before: float = world.player.health
 	_step(world, 100, _input({}))
 	_check(events.has("telegraph") and events.has("landed"), "the slime telegraphs and then hits")
 	if events.has("telegraph") and events.has("landed"):
 		var windup_ticks := int(round(float(enemy.data["attacks"][0]["windup"]) / DT))
 		var gap := int(events["landed"]) - int(events["telegraph"])
 		_check(gap >= windup_ticks - 1, "the hit lands only after the full telegraph (%d ticks, windup %d)" % [gap, windup_ticks])
-		var expected := float(enemy.data["stats"]["damage"]) * (1.0 - world.warrior.armor_reduction())
+		var expected := float(enemy.data["stats"]["damage"]) * (1.0 - world.player.armor_reduction())
 		_check(absf(float(events["damage"]) - expected) < 0.01, "the hit deals stats.damage after armor (%.2f)" % float(events["damage"]))
-		_check(is_equal_approx(health_before - world.warrior.health, float(events["damage"])), "the warrior loses exactly the reported damage")
+		_check(is_equal_approx(health_before - world.player.health, float(events["damage"])), "the warrior loses exactly the reported damage")
 
 
 func _test_stepping_out_of_the_zone_dodges_it() -> void:
@@ -148,12 +148,12 @@ func _test_stepping_out_of_the_zone_dodges_it() -> void:
 		_step(world, 1, _input({}))
 		guard += 1
 	_check(enemy.is_telegraphing(), "the enemy reaches its telegraph")
-	var health_before: float = world.warrior.health
+	var health_before: float = world.player.health
 	# El jugador lee la zona y se aparta: la direccion ya esta fijada.
-	world.warrior.position = enemy.position + Vector2(0, 90)
+	world.player.position = enemy.position + Vector2(0, 90)
 	_step(world, 90, _input({}))
 	_check(missed.size() == 1 and landed.is_empty(), "leaving the telegraphed zone makes the attack miss")
-	_check(is_equal_approx(world.warrior.health, health_before), "a dodged attack deals no damage")
+	_check(is_equal_approx(world.player.health, health_before), "a dodged attack deals no damage")
 
 
 func _test_attack_cooldown() -> void:
@@ -263,7 +263,7 @@ func _test_warrior_hits_enemies() -> void:
 	var enemy: EnemySim = setup["enemy"]
 	_check(world.get_living_targets().has(enemy), "living enemies are valid targets")
 	var hits: Array = []
-	world.warrior.attack_hit.connect(func(_s: Dictionary, target: Object, _d: float, _c: bool, _p: Vector2) -> void: hits.append(target))
+	world.player.attack_hit.connect(func(_s: Dictionary, target: Object, _d: float, _c: bool, _p: Vector2) -> void: hits.append(target))
 	_step(world, 1, _input({"m1": true}))
 	_step(world, 40, _input({}))
 	_check(hits.has(enemy) and enemy.health < enemy.max_health, "the Warrior's M1 damages an enemy")
@@ -275,8 +275,8 @@ func _test_collision() -> void:
 	var setup := _make(&"beetle", Vector2(40, 0))
 	var world: CombatWorld = setup["world"]
 	var enemy: EnemySim = setup["enemy"]
-	var pushed := world.resolve_position(enemy.position + Vector2(2, 0), WarriorSim.RADIUS)
-	_check(pushed.distance_to(enemy.position) >= WarriorSim.RADIUS + enemy.radius - 0.01, "the Warrior cannot walk through an enemy")
+	var pushed := world.resolve_position(enemy.position + Vector2(2, 0), PlayerSim.RADIUS)
+	_check(pushed.distance_to(enemy.position) >= PlayerSim.RADIUS + enemy.radius - 0.01, "the Warrior cannot walk through an enemy")
 	var own := world.resolve_position(enemy.position, enemy.radius, enemy)
 	_check(own.is_equal_approx(enemy.position), "an enemy does not collide with itself")
 
@@ -295,8 +295,8 @@ func _test_determinism() -> void:
 func _run_fight(seed_value: int) -> String:
 	var world: CombatWorld = CombatWorldScript.new(seed_value)
 	world.setup_arena(Rect2(0, 0, 900, 600))
-	world.add_enemy(&"spider", world.warrior.position + Vector2(70, 0))
-	world.add_enemy(&"slime", world.warrior.position + Vector2(-90, 20))
+	world.add_enemy(&"spider", world.player.position + Vector2(70, 0))
+	world.add_enemy(&"slime", world.player.position + Vector2(-90, 20))
 	for i: int in range(900):
 		world.submit_input(_input({"m1": i % 90 < 30}))
 		world.step(DT)
@@ -321,7 +321,7 @@ func _test_snapshot_and_reset() -> void:
 func _make(enemy_id: StringName, offset: Vector2) -> Dictionary:
 	var world: CombatWorld = CombatWorldScript.new(6)
 	world.setup_arena(Rect2(0, 0, 900, 600))
-	var enemy := world.add_enemy(enemy_id, world.warrior.position + offset)
+	var enemy := world.add_enemy(enemy_id, world.player.position + offset)
 	return {"world": world, "enemy": enemy}
 
 

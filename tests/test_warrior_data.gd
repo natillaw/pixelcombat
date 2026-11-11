@@ -94,8 +94,8 @@ func _test_identity_numbers() -> void:
 	_check(is_equal_approx(float(WarriorKit.PASSIVE["bonus"]), 0.30), "Vengeful Fury grants +30%")
 	_check(is_equal_approx(float(WarriorKit.SPECIAL["cost"]), 30.0), "Iron Counter costs 30 Rage")
 	_check(is_equal_approx(float(WarriorKit.ULTIMATE["charge"]), 100.0), "War God's Descent needs full charge")
-	_check(is_equal_approx(float(WarriorKit.M2["rage_gain"]), 14.0), "M2 keeps its 14 Rage gain")
-	_check(is_equal_approx(float(WarriorKit.M1["rage_gain"]), 8.0), "M1 keeps its 8 Rage gain")
+	_check(is_equal_approx(float(WarriorKit.M2["resource_gain"]), 14.0), "M2 keeps its 14 Rage gain")
+	_check(is_equal_approx(float(WarriorKit.M1["resource_gain"]), 8.0), "M1 keeps its 8 Rage gain")
 
 
 func _test_roles() -> void:

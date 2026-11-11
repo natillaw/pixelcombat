@@ -6,7 +6,7 @@
 ## nivel o aún sin implementar. Clic en una skill disponible la equipa (en el slot
 ## seleccionado o en el primero libre donde quepa); clic en una equipada, o clic
 ## derecho en un slot, la quita. Es presentación: solo llama a
-## WarriorSim.equip()/unequip(), que son las que validan.
+## PlayerSim.equip()/unequip(), que son las que validan.
 class_name LoadoutPanel
 extends Control
 
@@ -59,7 +59,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _toggle() -> void:
-	if not is_open and not world.warrior.can_edit_loadout():
+	if not is_open and not world.player.can_edit_loadout():
 		return
 	is_open = not is_open
 	visible = is_open
@@ -85,7 +85,7 @@ func _gui_input(event: InputEvent) -> void:
 	var slot := _slot_at(position)
 	if not slot.is_empty():
 		if button == MOUSE_BUTTON_RIGHT:
-			if world.warrior.unequip(slot):
+			if world.player.unequip(slot):
 				_say("Hueco %s vaciado." % slot, MUTED)
 			_entries = _build_entries()
 		else:
@@ -101,7 +101,7 @@ func _gui_input(event: InputEvent) -> void:
 func _click_skill(entry: Dictionary) -> void:
 	var skill: Dictionary = entry["skill"]
 	var id := StringName(String(skill["id"]))
-	var warrior := world.warrior
+	var warrior := world.player
 	if not bool(skill.get("implemented", false)):
 		_say("%s aún no está implementada." % skill["name"], DIM)
 		return
@@ -130,7 +130,7 @@ func _click_skill(entry: Dictionary) -> void:
 ## Slot elegido si la skill cabe; si no, el primero libre donde quepa; si no hay
 ## libres, el primero donde quepa (la sustituye).
 func _target_slot_for(skill: Dictionary) -> String:
-	var warrior := world.warrior
+	var warrior := world.player
 	if not _selected_slot.is_empty() and warrior.slot_accepts(_selected_slot, skill):
 		return _selected_slot
 	var first_fit := ""
@@ -146,7 +146,7 @@ func _target_slot_for(skill: Dictionary) -> String:
 
 func _slot_of(id: StringName) -> String:
 	for slot: String in SLOT_ROWS:
-		if world.warrior.loadout.has(slot) and StringName(String((world.warrior.loadout[slot] as Dictionary)["id"])) == id:
+		if world.player.loadout.has(slot) and StringName(String((world.player.loadout[slot] as Dictionary)["id"])) == id:
 			return slot
 	return ""
 
@@ -201,7 +201,7 @@ func _entry_at(position: Vector2) -> Dictionary:
 func _draw() -> void:
 	if not is_open or world == null:
 		return
-	var warrior := world.warrior
+	var warrior := world.player
 	draw_rect(Rect2(Vector2.ZERO, size), Color(0.0, 0.0, 0.0, 0.55))
 	draw_rect(PANEL_RECT, PANEL)
 	draw_rect(PANEL_RECT, EDGE, false, 1.0)
@@ -220,7 +220,7 @@ func _draw() -> void:
 	_text(_message, Vector2(PANEL_RECT.position.x + 14.0, PANEL_RECT.end.y - 10.0), 7, _message_color)
 
 
-func _draw_slot_row(index: int, slot: String, warrior: WarriorSim) -> void:
+func _draw_slot_row(index: int, slot: String, warrior: PlayerSim) -> void:
 	var rect := _slot_rect(index)
 	draw_rect(rect, Color(0.09, 0.10, 0.14, 1.0))
 	var selected := slot == _selected_slot
@@ -236,7 +236,7 @@ func _draw_slot_row(index: int, slot: String, warrior: WarriorSim) -> void:
 		_text("— vacío —", rect.position + Vector2(62, 15), 7, DIM)
 
 
-func _draw_book_row(index: int, skill: Dictionary, warrior: WarriorSim) -> void:
+func _draw_book_row(index: int, skill: Dictionary, warrior: PlayerSim) -> void:
 	var rect := _entry_rect(index)
 	var id := StringName(String(skill["id"]))
 	var implemented := bool(skill.get("implemented", false))

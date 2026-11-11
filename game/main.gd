@@ -64,7 +64,7 @@ func _physics_process(_delta: float) -> void:
 		world.reset()
 		_was_dead = false
 
-	if world.warrior.alive and world.warrior.health <= 0.0:
+	if world.player.alive and world.player.health <= 0.0:
 		_was_dead = true
 
 	world.submit_input(_read_input())
@@ -77,11 +77,11 @@ func _read_input() -> InputMessage:
 	message.move_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	var mouse_world := get_global_mouse_position()
-	var aim := mouse_world - world.warrior.position
+	var aim := mouse_world - world.player.position
 	if aim.length_squared() > 4.0:
 		message.aim_dir = aim.normalized()
 	else:
-		message.aim_dir = world.warrior.aim_dir
+		message.aim_dir = world.player.aim_dir
 
 	message.actions = {
 		"m1": Input.is_action_pressed("attack_m1"),

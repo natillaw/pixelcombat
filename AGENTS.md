@@ -16,13 +16,13 @@ en `docs/DECISIONES.md`.
 ## Reglas de arquitectura (no romper)
 
 1. **La simulación solo cambia dentro de un tick fijo.** El único `Tickable`
-   registrado en `TickManager` es `CombatWorld`. `WarriorSim` y `DummySim` solo
+   registrado en `TickManager` es `CombatWorld`. `PlayerSim` y `DummySim` solo
    mutan dentro de `step()`.
-2. **Presentación ≠ simulación.** `Arena`, `WarriorActor`, `DummyActor`, VFX,
+2. **Presentación ≠ simulación.** `Arena`, `PlayerActor`, `DummyActor`, VFX,
    cámara y `GameHud` leen estado o escuchan señales; nunca escriben posición,
    vida, Rage, cooldowns ni estado de ataque.
 3. **Determinismo.** Nada de `randf()` global ni `Time` dentro de la simulación.
-   Usa el RNG del `CombatWorld`/`WarriorSim`, sembrado y avanzado por tick.
+   Usa el RNG del `CombatWorld`/`PlayerSim`, sembrado y avanzado por tick.
 4. **Input como comando.** El input del jugador se empaqueta en `InputMessage`
    (`move_dir`, `aim_dir`, `actions`) y se entrega una vez por tick. Esto es lo
    que permite que el netcode futuro reutilice la misma simulación.
@@ -43,7 +43,7 @@ en `docs/DECISIONES.md`.
 
 ```
 main.gd ──input──▶ CombatWorld (Tickable)
-                     ├── WarriorSim
+                     ├── PlayerSim
                      └── DummySim[]
 Arena / Actors / HUD ◀── leen estado y señales
 ```
@@ -66,7 +66,7 @@ Arena / Actors / HUD ◀── leen estado y señales
    añade su id a `IMPLEMENTED_SKILLS` en `tests/test_warrior_data.gd` y
    `combat/tests/test_warrior.gd`.
 3. Si necesita una forma o una mecánica nueva (estado, proyectil, canalizado),
-   impleméntala una vez en `WarriorSim` dentro de `step()` y deja que el dato la
+   impleméntala una vez en `PlayerSim` dentro de `step()` y deja que el dato la
    active; no hagas código por skill.
 4. Expón lo necesario en `snapshot()` si afecta a la red.
 5. VFX/SFX en `Arena` y el actor; el actor solo consume señales.

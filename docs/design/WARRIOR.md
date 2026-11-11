@@ -189,15 +189,15 @@ Ultimate: **War God's Descent** (100 de carga, 60 s) — salto de área.
 ```
 main.gd                  input → InputMessage, registra CombatWorld en TickManager
 └── CombatWorld (Tickable)   único paso de simulación por tick fijo
-    ├── WarriorSim          ataques, Rage, pasiva, movimiento, muerte
+    ├── PlayerSim          ataques, Rage, pasiva, movimiento, muerte
     └── DummySim ×3         telegráfico, ataque, respawn
 Arena (Node2D)           construye el mapa y spawnea actores; lee la sim
-├── WarriorActor         LPC + VFX + SFX; nunca escribe la sim
+├── PlayerActor         LPC + VFX + SFX; nunca escribe la sim
 └── DummyActor ×3        dibujo procedural, barra de vida, telegraph
 GameHud (Control)        vida, Rage, cooldowns, pasiva, muerte
 ```
 
-Regla dura: **la simulación solo cambia en `WarriorSim.step()`**. Los actores,
+Regla dura: **la simulación solo cambia en `PlayerSim.step()`**. Los actores,
 VFX, cámara y HUD son presentación y leen el estado o escuchan señales.
 
 ## Qué falta para cerrar el Warrior

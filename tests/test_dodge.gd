@@ -35,9 +35,9 @@ func _run() -> void:
 
 func _test_moves_along_input() -> void:
 	var world := _make_world()
-	var start: Vector2 = world.warrior.position
+	var start: Vector2 = world.player.position
 	_step_until_dodge_ends(world, Vector2.RIGHT, Vector2.RIGHT)
-	var moved: Vector2 = world.warrior.position - start
+	var moved: Vector2 = world.player.position - start
 	var distance := float(WarriorKit.DODGE["distance"])
 	_check(absf(moved.x - distance) < 8.0, "dodge covers the configured distance (%.1f vs %.1f)" % [moved.x, distance])
 	_check(absf(moved.y) < 0.5, "dodge keeps the input direction")
@@ -45,104 +45,104 @@ func _test_moves_along_input() -> void:
 
 func _test_idle_dodges_backward() -> void:
 	var world := _make_world()
-	var start: Vector2 = world.warrior.position
+	var start: Vector2 = world.player.position
 	# Sin movimiento y apuntando a la derecha: retrocede hacia la izquierda.
 	_step_until_dodge_ends(world, Vector2.RIGHT, Vector2.ZERO)
-	_check(world.warrior.position.x < start.x - 90.0, "a stationary dodge goes opposite to the aim")
+	_check(world.player.position.x < start.x - 90.0, "a stationary dodge goes opposite to the aim")
 
 
 func _test_iframes() -> void:
 	var world := _make_world()
 	var evaded: Array = []
-	world.warrior.attack_evaded.connect(func(_pos: Vector2) -> void: evaded.append(true))
+	world.player.attack_evaded.connect(func(_pos: Vector2) -> void: evaded.append(true))
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.RIGHT, true))
-	_check(world.warrior.dodging, "pressing dodge starts a dodge")
-	_check(world.warrior.is_invulnerable(), "the dodge starts invulnerable")
-	var health_before: float = world.warrior.health
-	var dealt: float = world.warrior.take_damage(30.0, Vector2.ZERO, false)
-	_check(is_zero_approx(dealt) and is_equal_approx(world.warrior.health, health_before), "damage during i-frames is ignored")
+	_check(world.player.dodging, "pressing dodge starts a dodge")
+	_check(world.player.is_invulnerable(), "the dodge starts invulnerable")
+	var health_before: float = world.player.health
+	var dealt: float = world.player.take_damage(30.0, Vector2.ZERO, false)
+	_check(is_zero_approx(dealt) and is_equal_approx(world.player.health, health_before), "damage during i-frames is ignored")
 	_check(evaded.size() == 1, "an evaded hit emits attack_evaded")
-	_check(is_zero_approx(world.warrior.rage()), "an evaded hit gives no Rage")
-	_check(not world.warrior.vengeful_active, "an evaded hit does not trigger Vengeful Fury")
+	_check(is_zero_approx(world.player.resource_amount()), "an evaded hit gives no Rage")
+	_check(not world.player.vengeful_active, "an evaded hit does not trigger Vengeful Fury")
 
 	# Pasada la ventana de i-frames, todavia esquivando, vuelve a ser vulnerable.
 	var window := float(WarriorKit.DODGE["iframe_end"])
 	var ticks := int(ceil(window / DT)) + 1
 	_step(world, ticks, _input(Vector2.RIGHT, Vector2.RIGHT, true))
-	_check(world.warrior.dodging and not world.warrior.is_invulnerable(), "i-frames end before the dodge ends")
-	var dealt_after: float = world.warrior.take_damage(30.0, Vector2.ZERO, false)
+	_check(world.player.dodging and not world.player.is_invulnerable(), "i-frames end before the dodge ends")
+	var dealt_after: float = world.player.take_damage(30.0, Vector2.ZERO, false)
 	_check(dealt_after > 0.0, "damage after the i-frame window lands")
 
 
 func _test_dots_pass_through() -> void:
 	var world := _make_world()
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.RIGHT, true))
-	var dealt: float = world.warrior.take_damage(10.0, Vector2.ZERO, true)
+	var dealt: float = world.player.take_damage(10.0, Vector2.ZERO, true)
 	_check(dealt > 0.0, "damage over time is not blocked by i-frames")
 
 
 func _test_cooldown_and_hold() -> void:
 	var world := _make_world()
 	_step_until_dodge_ends(world, Vector2.RIGHT, Vector2.RIGHT)
-	_check(world.warrior.dodge_cooldown_left() > 0.0, "the dodge goes on cooldown")
+	_check(world.player.dodge_cooldown_left() > 0.0, "the dodge goes on cooldown")
 	# Soltar y volver a pulsar con cooldown activo no esquiva.
 	_step(world, 3, _input(Vector2.RIGHT, Vector2.RIGHT, false))
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.RIGHT, true))
-	_check(not world.warrior.dodging, "no dodge while on cooldown")
+	_check(not world.player.dodging, "no dodge while on cooldown")
 	# Mantener la tecla no encadena esquivas al terminar el cooldown.
 	var wait := int(ceil(float(WarriorKit.DODGE["cooldown"]) / DT)) + 20
 	_step(world, wait, _input(Vector2.RIGHT, Vector2.RIGHT, true))
-	_check(not world.warrior.dodging, "holding the key does not retrigger the dodge")
+	_check(not world.player.dodging, "holding the key does not retrigger the dodge")
 	_step(world, 2, _input(Vector2.RIGHT, Vector2.RIGHT, false))
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.RIGHT, true))
-	_check(world.warrior.dodging, "a fresh press after the cooldown dodges again")
+	_check(world.player.dodging, "a fresh press after the cooldown dodges again")
 
 
 func _test_cancels_windup() -> void:
 	var world := _make_world()
 	var finished: Array = []
 	var hits: Array = []
-	world.warrior.attack_finished.connect(func(skill: Dictionary) -> void: finished.append(skill))
-	world.warrior.attack_hit.connect(func(_s: Dictionary, _t: Object, _d: float, _c: bool, _p: Vector2) -> void: hits.append(true))
+	world.player.attack_finished.connect(func(skill: Dictionary) -> void: finished.append(skill))
+	world.player.attack_hit.connect(func(_s: Dictionary, _t: Object, _d: float, _c: bool, _p: Vector2) -> void: hits.append(true))
 	_step(world, 4, _input(Vector2.RIGHT, Vector2.ZERO, false, false, true))
-	_check(world.warrior.state == WarriorSim.AttackState.WINDUP, "M2 is winding up")
+	_check(world.player.state == PlayerSim.AttackState.WINDUP, "M2 is winding up")
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.ZERO, true))
-	_check(world.warrior.dodging, "dodge starts during WINDUP")
-	_check(world.warrior.state == WarriorSim.AttackState.IDLE, "the dodge cancels the attack")
+	_check(world.player.dodging, "dodge starts during WINDUP")
+	_check(world.player.state == PlayerSim.AttackState.IDLE, "the dodge cancels the attack")
 	_check(finished.size() == 1, "a cancelled attack emits attack_finished")
 	_step(world, 40, _input(Vector2.RIGHT, Vector2.ZERO, false))
 	_check(hits.is_empty(), "a cancelled WINDUP never resolves its hit")
-	_check(world.warrior.attack_cooldown_left("M2") > 0.0, "cooldowns spent on a cancelled attack are kept")
+	_check(world.player.attack_cooldown_left("M2") > 0.0, "cooldowns spent on a cancelled attack are kept")
 
 
 func _test_not_in_active() -> void:
 	var world := _make_world()
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.ZERO, false, false, true))
 	var guard := 0
-	while world.warrior.state != WarriorSim.AttackState.ACTIVE and guard < 120:
+	while world.player.state != PlayerSim.AttackState.ACTIVE and guard < 120:
 		_step(world, 1, _input(Vector2.RIGHT, Vector2.ZERO, false))
 		guard += 1
-	_check(world.warrior.state == WarriorSim.AttackState.ACTIVE, "reached the ACTIVE frames")
+	_check(world.player.state == PlayerSim.AttackState.ACTIVE, "reached the ACTIVE frames")
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.ZERO, true))
-	_check(not world.warrior.dodging, "dodge cannot cancel the ACTIVE frames")
+	_check(not world.player.dodging, "dodge cannot cancel the ACTIVE frames")
 	var guard2 := 0
-	while not world.warrior.dodging and guard2 < 30:
+	while not world.player.dodging and guard2 < 30:
 		_step(world, 1, _input(Vector2.RIGHT, Vector2.ZERO, false))
 		guard2 += 1
-	_check(world.warrior.dodging, "the buffered dodge fires right after the ACTIVE frames")
+	_check(world.player.dodging, "the buffered dodge fires right after the ACTIVE frames")
 
 
 func _test_respects_bounds() -> void:
 	var world := _make_world()
-	world.warrior.position = Vector2(world.bounds.end.x - 20.0, world.bounds.get_center().y)
+	world.player.position = Vector2(world.bounds.end.x - 20.0, world.bounds.get_center().y)
 	_step_until_dodge_ends(world, Vector2.RIGHT, Vector2.RIGHT)
-	_check(world.warrior.position.x <= world.bounds.end.x - WarriorSim.RADIUS + 0.01, "a dodge never leaves the arena")
+	_check(world.player.position.x <= world.bounds.end.x - PlayerSim.RADIUS + 0.01, "a dodge never leaves the arena")
 
 
 func _test_snapshot() -> void:
 	var world := _make_world()
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.RIGHT, true))
-	var snap: Dictionary = world.warrior.snapshot()
+	var snap: Dictionary = world.player.snapshot()
 	_check(bool(snap.get("dodging", false)), "snapshot reports dodging")
 	_check(float(snap.get("dodge_cd", 0.0)) > 0.0, "snapshot reports the dodge cooldown")
 
@@ -183,7 +183,7 @@ func _step(world: CombatWorld, ticks: int, message: InputMessage) -> void:
 func _step_until_dodge_ends(world: CombatWorld, aim: Vector2, move: Vector2) -> void:
 	_step(world, 1, _input(aim, move, true))
 	var guard := 0
-	while world.warrior.dodging and guard < 120:
+	while world.player.dodging and guard < 120:
 		_step(world, 1, _input(aim, move, false))
 		guard += 1
 

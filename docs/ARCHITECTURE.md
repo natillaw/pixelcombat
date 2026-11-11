@@ -31,7 +31,7 @@ En cada `_physics_process`, `main.gd` lee teclado y ratón, empaqueta un
 ```
 TickManager (60 Hz)
 └── CombatWorld._on_tick(tick_number, delta)
-    ├── WarriorSim.step(tick, delta, input)
+    ├── PlayerSim.step(tick, delta, input)
     │   ├── leer input
     │   ├── avanzar cooldowns / buffer
     │   ├── avanzar ataque (WINDUP → ACTIVE → RECOVERY → IDLE)
@@ -87,10 +87,10 @@ TickManager (60 Hz)
 | Escuchar señales | Iniciar ataques o aplicar daño |
 | `_process`, tweens, dibujo, audio | Usar `_physics_process` para lógica |
 
-Los actores son la prueba de esta frontera: `WarriorActor` lee
+Los actores son la prueba de esta frontera: `PlayerActor` lee
 `sim.position`, `sim.velocity`, `sim.state`, y reacciona a
 `attack_started` / `attack_hit` / `damage_taken`. Si el sprite se mueve, la
-autoridad sigue siendo `WarriorSim`.
+autoridad sigue siendo `PlayerSim`.
 
 ## Colisión y arena
 
@@ -103,7 +103,7 @@ autoridad sigue siendo `WarriorSim`.
 
 ## Ataques
 
-`WarriorSim` usa una máquina de estados simple:
+`PlayerSim` usa una máquina de estados simple:
 
 ```
 IDLE ──input──▶ WINDUP ──tiempo──▶ ACTIVE ──tiempo──▶ RECOVERY ──tiempo──▶ IDLE
@@ -119,7 +119,7 @@ IDLE ──input──▶ WINDUP ──tiempo──▶ ACTIVE ──tiempo──
 
 ## Rage
 
-`ClassResource` encapsula el valor y el máximo. `WarriorSim` decide cuándo
+`ClassResource` encapsula el valor y el máximo. `PlayerSim` decide cuándo
 generar y cuándo decaer:
 
 - Al golpear: `rage_gain` del skill, limitado por `rage_cap` por swing.

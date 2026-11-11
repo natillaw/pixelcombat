@@ -4,7 +4,7 @@
 ## ejecutables (M1, M2, Cleaving Strike, Piercing Thrust) viven en
 ## data/skills/warrior.json y se cargan con SkillCatalog; aqui quedan la pasiva,
 ## Special, Ultimate, la esquiva y el Skill Book completo (15 habilidades).
-## La simulacion (game/sim/warrior_sim.gd) lee estos datos; no tiene valores de
+## La simulacion (game/sim/player_sim.gd) lee estos datos; no tiene valores de
 ## combate hardcodeados. `implemented` marca lo que ya se puede jugar.
 class_name WarriorKit
 extends RefCounted

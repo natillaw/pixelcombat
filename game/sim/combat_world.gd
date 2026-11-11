@@ -9,7 +9,7 @@ extends "res://core/tickable.gd"
 
 signal tick_advanced(tick_number: int)
 
-const WarriorSimScript := preload("res://game/sim/warrior_sim.gd")
+const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
 
 const DEFAULT_BOUNDS := Rect2(0, 0, 960, 640)
@@ -18,7 +18,7 @@ var tick: int = 0
 var rng: RandomNumberGenerator
 var bounds: Rect2 = DEFAULT_BOUNDS
 var obstacles: Array = []
-var warrior: WarriorSim
+var player: PlayerSim
 var dummies: Array = []
 var enemies: Array = []
 var pending_input: InputMessage = null
@@ -27,15 +27,15 @@ var pending_input: InputMessage = null
 func _init(seed_value: int = 1337) -> void:
 	rng = RandomNumberGenerator.new()
 	rng.seed = seed_value
-	warrior = WarriorSimScript.new(self)
-	warrior.position = Vector2(480, 380)
+	player = PlayerSimScript.new(self)
+	player.position = Vector2(480, 380)
 
 
 func setup_arena(arena_bounds: Rect2, arena_obstacles: Array = []) -> void:
 	bounds = arena_bounds
 	obstacles = arena_obstacles.duplicate()
-	warrior.position = bounds.get_center()
-	warrior.reset(bounds.get_center())
+	player.position = bounds.get_center()
+	player.reset(bounds.get_center())
 
 
 func add_dummy(spawn: Vector2, auto_attack: bool = true) -> DummySim:
@@ -62,11 +62,11 @@ func step(delta: float, tick_number: int = -1) -> void:
 	else:
 		tick += 1
 
-	warrior.step(tick, delta, pending_input)
+	player.step(tick, delta, pending_input)
 	for dummy: DummySim in dummies:
-		dummy.step(tick, delta, warrior)
+		dummy.step(tick, delta, player)
 	for enemy: EnemySim in enemies:
-		enemy.step(tick, delta, warrior)
+		enemy.step(tick, delta, player)
 
 	pending_input = null
 	tick_advanced.emit(tick)
@@ -136,7 +136,7 @@ func resolve_position(desired: Vector2, radius: float, ignore: Object = null) ->
 func reset() -> void:
 	tick = 0
 	pending_input = null
-	warrior.reset(bounds.get_center())
+	player.reset(bounds.get_center())
 	for dummy: DummySim in dummies:
 		dummy.position = dummy.spawn_position
 		dummy.revive()
@@ -153,7 +153,7 @@ func snapshot() -> Dictionary:
 		enemy_states.append(enemy.snapshot())
 	return {
 		"tick": tick,
-		"warrior": warrior.snapshot(),
+		"player": player.snapshot(),
 		"dummies": dummy_states,
 		"enemies": enemy_states,
 	}

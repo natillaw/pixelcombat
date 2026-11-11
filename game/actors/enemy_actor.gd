@@ -118,7 +118,7 @@ func _on_attack_active(_attack: Dictionary, _direction: Vector2) -> void:
 func _on_attack_landed(damage: float) -> void:
 	if arena == null or damage <= 0.0:
 		return
-	var warrior_position: Vector2 = sim.world.warrior.position
+	var warrior_position: Vector2 = sim.world.player.position
 	arena.spawn_impact(warrior_position, Color(0.95, 0.25, 0.18, 1.0), false)
 	arena.spawn_damage_number(warrior_position, damage, false)
 	arena.play_sfx(SFX_IMPACT, -6.0, randf_range(0.9, 1.0))

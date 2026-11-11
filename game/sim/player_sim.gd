@@ -1,4 +1,4 @@
-## WarriorSim — simulación determinista del Warrior (primer corte).
+## PlayerSim — simulación determinista del Warrior (primer corte).
 ##
 ## Solo cambia dentro de step(), que llama CombatWorld una vez por tick fijo.
 ## La presentación lee sus campos y escucha sus señales; nunca escribe estado.
@@ -10,7 +10,7 @@
 ## gasta entera), Special Iron Counter (postura que bloquea y contraataca),
 ## niveles con XP y skills que se desbloquean por nivel, loadout equipable,
 ## muerte y reset. El Skill Book completo vive en WarriorKit.
-class_name WarriorSim
+class_name PlayerSim
 extends RefCounted
 
 signal health_changed(current: float, maximum: float)
@@ -112,7 +112,7 @@ var vengeful_until_tick: int = 0
 
 var tick: int = 0
 var last_combat_tick: int = 0
-var swing_rage_gained: float = 0.0
+var swing_resource_gained: float = 0.0
 var swing_ult_gained: float = 0.0
 var _attack_damage_mult: float = 1.0
 
@@ -369,7 +369,7 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	vengeful_active = false
 	vengeful_until_tick = 0
 	last_combat_tick = 0
-	swing_rage_gained = 0.0
+	swing_resource_gained = 0.0
 	swing_ult_gained = 0.0
 	hold_time = 0.0
 	_range_mult = 1.0
@@ -633,7 +633,7 @@ func _start_attack(slot: String) -> void:
 	attack_aim = aim_dir
 	state = AttackState.WINDUP
 	state_time = 0.0
-	swing_rage_gained = 0.0
+	swing_resource_gained = 0.0
 	swing_ult_gained = 0.0
 	_attack_damage_mult = float(current_skill["damage_mult"])
 	attack_point = position
@@ -673,11 +673,11 @@ func _resolve_attack_hit() -> void:
 		if not target.alive and target.has_method("xp_reward"):
 			grant_xp(int(target.xp_reward()), target.position)
 
-		var rage_left: float = float(current_skill["rage_cap"]) - swing_rage_gained
-		var rage_gain := minf(float(current_skill["rage_gain"]), maxf(rage_left, 0.0))
-		if rage_gain > 0.0:
-			swing_rage_gained += rage_gain
-			_gain_rage(rage_gain)
+		var rage_left: float = float(current_skill["resource_cap"]) - swing_resource_gained
+		var resource_gain := minf(float(current_skill["resource_gain"]), maxf(rage_left, 0.0))
+		if resource_gain > 0.0:
+			swing_resource_gained += resource_gain
+			_gain_resource(resource_gain)
 
 		var ult_left: float = float(current_skill.get("ult_cap", 0.0)) - swing_ult_gained
 		var ult_gain := minf(float(current_skill.get("ult_gain", 0.0)), maxf(ult_left, 0.0))
@@ -799,7 +799,7 @@ func ultimate_ready_now() -> bool:
 	return ultimate_charge >= WarriorKit.ULTIMATE_CHARGE_MAX
 
 
-func _gain_rage(amount: float) -> void:
+func _gain_resource(amount: float) -> void:
 	var before := resource.get_current()
 	resource.generate(amount)
 	if not is_equal_approx(before, resource.get_current()):
@@ -836,7 +836,7 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 	health -= dealt
 
 	var percent_lost := (dealt / max_health) * 100.0
-	_gain_rage(clampf(percent_lost, RAGE_TAKEN_MIN, RAGE_TAKEN_CAP))
+	_gain_resource(clampf(percent_lost, RAGE_TAKEN_MIN, RAGE_TAKEN_CAP))
 	last_combat_tick = tick
 
 	if not is_dot:
@@ -941,7 +941,7 @@ func is_attacking() -> bool:
 	return state != AttackState.IDLE
 
 
-func rage() -> float:
+func resource_amount() -> float:
 	return resource.get_current()
 
 

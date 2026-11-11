@@ -40,18 +40,18 @@ func _run() -> void:
 
 func _test_m1_starts_full_and_spends_charges() -> void:
 	var world := _make_world([])
-	var max_charges: float = world.warrior.charges_max("M1")
+	var max_charges: float = world.player.charges_max("M1")
 	_check(is_equal_approx(max_charges, float(WarriorKit.M1["charges"]["max"])), "M1 declares its charge pool in the data")
-	_check(is_equal_approx(world.warrior.charges_left("M1"), max_charges), "M1 starts with every charge")
+	_check(is_equal_approx(world.player.charges_left("M1"), max_charges), "M1 starts with every charge")
 	_step(world, 1, _input({"m1": true}))
-	_check(is_equal_approx(world.warrior.charges_left("M1"), max_charges - 1.0), "a swing spends exactly one charge")
+	_check(is_equal_approx(world.player.charges_left("M1"), max_charges - 1.0), "a swing spends exactly one charge")
 
 
 func _test_m1_is_throttled_by_charges() -> void:
 	var world := _make_world([])
 	var swings: Array = []
-	world.warrior.attack_started.connect(func(skill: Dictionary, _dir: Vector2) -> void:
-		swings.append(world.warrior.tick))
+	world.player.attack_started.connect(func(skill: Dictionary, _dir: Vector2) -> void:
+		swings.append(world.player.tick))
 	# Mantener M1 8 s: sin cargas cabrian ~17 swings; con 3 cargas y una nueva cada
 	# 0,9 s caben ~3 + 8 / 0,9 = 11.
 	_step(world, 480, _input({"m1": true}))
@@ -62,7 +62,7 @@ func _test_m1_is_throttled_by_charges() -> void:
 	# Con la reserva vacia no hay swing aunque se mantenga el boton ni aviso de denegado.
 	var world2 := _make_world([])
 	var denied: Array = []
-	world2.warrior.skill_denied.connect(func(slot: String, _reason: String) -> void: denied.append(slot))
+	world2.player.skill_denied.connect(func(slot: String, _reason: String) -> void: denied.append(slot))
 	_step(world2, 480, _input({"m1": true}))
 	_check(denied.is_empty(), "running out of M1 charges is silent, not a denial")
 
@@ -70,12 +70,12 @@ func _test_m1_is_throttled_by_charges() -> void:
 func _test_m1_recharges() -> void:
 	var world := _make_world([])
 	_step(world, 60, _input({"m1": true}))
-	var low: float = world.warrior.charges_left("M1")
-	_check(low < world.warrior.charges_max("M1"), "charges were spent")
+	var low: float = world.player.charges_left("M1")
+	_check(low < world.player.charges_max("M1"), "charges were spent")
 	_step(world, 600, _input({}))
-	_check(is_equal_approx(world.warrior.charges_left("M1"), world.warrior.charges_max("M1")), "idle time refills every M1 charge")
+	_check(is_equal_approx(world.player.charges_left("M1"), world.player.charges_max("M1")), "idle time refills every M1 charge")
 	_step(world, 30, _input({"m1": false}))
-	_check(world.warrior.charges_left("M1") <= world.warrior.charges_max("M1"), "charges never exceed the pool")
+	_check(world.player.charges_left("M1") <= world.player.charges_max("M1"), "charges never exceed the pool")
 
 
 # --- M2 ----------------------------------------------------------------------
@@ -150,7 +150,7 @@ func _test_m2_auto_releases_at_max() -> void:
 func _test_m2_is_press_not_repeat() -> void:
 	var world := _make_world([])
 	var casts: Array = []
-	world.warrior.attack_started.connect(func(skill: Dictionary, _dir: Vector2) -> void:
+	world.player.attack_started.connect(func(skill: Dictionary, _dir: Vector2) -> void:
 		if skill["slot"] == "M2":
 			casts.append(true))
 	_step(world, 600, _input({"m2": true}))
@@ -159,15 +159,15 @@ func _test_m2_is_press_not_repeat() -> void:
 
 func _test_m2_charge_fraction() -> void:
 	var world := _make_world([Vector2(50, 0)])
-	_check(is_zero_approx(world.warrior.charge_fraction()), "no charge before casting")
+	_check(is_zero_approx(world.player.charge_fraction()), "no charge before casting")
 	var windup_ticks := int(ceil(float(WarriorKit.M2["windup"]) / DT)) + 1
 	_step(world, windup_ticks, _input({"m2": true}))
 	_step(world, 18, _input({"m2": true}))
-	var mid: float = world.warrior.charge_fraction()
+	var mid: float = world.player.charge_fraction()
 	_check(mid > 0.2 and mid < 0.8, "charge_fraction rises while holding (%.2f)" % mid)
 	_step(world, 1, _input({}))
 	_step(world, 60, _input({}))
-	_check(is_zero_approx(world.warrior.charge_fraction()), "charge_fraction returns to 0 after release")
+	_check(is_zero_approx(world.player.charge_fraction()), "charge_fraction returns to 0 after release")
 
 
 func _test_dodge_cancels_charge() -> void:
@@ -175,17 +175,17 @@ func _test_dodge_cancels_charge() -> void:
 	var hits := _watch_hits(world)
 	var windup_ticks := int(ceil(float(WarriorKit.M2["windup"]) / DT)) + 8
 	_step(world, windup_ticks, _input({"m2": true}))
-	_check(world.warrior.charge_fraction() > 0.0, "charging before the dodge")
+	_check(world.player.charge_fraction() > 0.0, "charging before the dodge")
 	_step(world, 1, _input({"m2": true, "dodge": true}))
-	_check(world.warrior.dodging, "the dodge starts while charging")
-	_check(is_zero_approx(world.warrior.hold_time), "cancelling resets the charge")
+	_check(world.player.dodging, "the dodge starts while charging")
+	_check(is_zero_approx(world.player.hold_time), "cancelling resets the charge")
 	_step(world, 60, _input({}))
 	_check(hits.is_empty(), "a cancelled charge never lands")
 
 
 func _test_snapshot() -> void:
 	var world := _make_world([])
-	var snap: Dictionary = world.warrior.snapshot()
+	var snap: Dictionary = world.player.snapshot()
 	_check(snap.has("charges") and snap["charges"].has("M1"), "snapshot carries the M1 charges")
 	_check(snap.has("hold"), "snapshot carries the hold time")
 
@@ -196,21 +196,21 @@ func _test_snapshot() -> void:
 func _make_world(offsets: Array) -> CombatWorld:
 	var world: CombatWorld = CombatWorldScript.new(4)
 	world.setup_arena(Rect2(0, 0, 900, 600))
-	var origin: Vector2 = world.warrior.position
+	var origin: Vector2 = world.player.position
 	for offset: Vector2 in offsets:
 		world.add_dummy(origin + offset, false)
 	return world
 
 
 func _fix_damage(world: CombatWorld, amount: float) -> void:
-	world.warrior.stats.set_base_stat(&"weapon_min", amount)
-	world.warrior.stats.set_base_stat(&"weapon_max", amount)
-	world.warrior.stats.set_base_stat(&"crit_chance", 0.0)
+	world.player.stats.set_base_stat(&"weapon_min", amount)
+	world.player.stats.set_base_stat(&"weapon_max", amount)
+	world.player.stats.set_base_stat(&"crit_chance", 0.0)
 
 
 func _watch_hits(world: CombatWorld) -> Array:
 	var hits: Array = []
-	world.warrior.attack_hit.connect(func(_s: Dictionary, _t: Object, damage: float, _c: bool, _p: Vector2) -> void: hits.append(damage))
+	world.player.attack_hit.connect(func(_s: Dictionary, _t: Object, damage: float, _c: bool, _p: Vector2) -> void: hits.append(damage))
 	return hits
 
 

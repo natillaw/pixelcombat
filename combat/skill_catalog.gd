@@ -9,7 +9,7 @@
 ##   id, name, slot ("M1", "M2", "S", "SPECIAL", "ULTIMATE"), kind, role,
 ##   description, hud_label, anim, implemented
 ##   windup, active, recovery, cooldown, cost, damage_mult
-##   rage_gain, rage_cap, max_targets (0 = sin limite)
+##   resource_gain, resource_cap, max_targets (0 = sin limite)
 ##   move: {windup, active, recovery}  factor de velocidad en cada fase (0..1)
 ##   shape: "cone" (range, arc) | "line" (range, width) | "circle" (range)
 ##   unlock_level: nivel del personaje al que se desbloquea (entero >= 1)
@@ -40,7 +40,7 @@ const SHAPES := ["cone", "line", "circle"]
 const KINDS := ["basic", "skill", "special", "ultimate"]
 const SLOTS := ["M1", "M2", "S", "SPECIAL", "ULTIMATE"]
 const TIME_FIELDS := ["windup", "active", "recovery", "cooldown"]
-const NUMBER_FIELDS := ["cost", "damage_mult", "rage_gain", "rage_cap", "max_targets"]
+const NUMBER_FIELDS := ["cost", "damage_mult", "resource_gain", "resource_cap", "max_targets"]
 const STRING_FIELDS := ["id", "name", "slot", "kind", "shape", "anim", "hud_label"]
 const OPTIONAL_NUMBERS := ["ult_gain", "ult_cap", "charge", "leap_distance", "center_radius", "center_mult"]
 const OPTIONAL_BOOLS := ["consumes_vengeful", "telegraph", "uncancelable"]

@@ -42,8 +42,8 @@ func bind(p_world: CombatWorld) -> void:
 	if world == p_world:
 		return
 	world = p_world
-	if world != null and world.warrior != null:
-		world.warrior.damage_taken.connect(_on_damage_taken)
+	if world != null and world.player != null:
+		world.player.damage_taken.connect(_on_damage_taken)
 
 
 func _process(delta: float) -> void:
@@ -57,9 +57,9 @@ func _on_damage_taken(_amount: float, _source_position: Vector2, is_dot: bool) -
 
 
 func _draw() -> void:
-	if world == null or world.warrior == null:
+	if world == null or world.player == null:
 		return
-	var warrior := world.warrior
+	var warrior := world.player
 
 	_draw_status(warrior)
 	_draw_abilities(warrior)
@@ -76,7 +76,7 @@ func _draw() -> void:
 # --- Paneles ----------------------------------------------------------------
 
 
-func _draw_status(warrior: WarriorSim) -> void:
+func _draw_status(warrior: PlayerSim) -> void:
 	_panel(Rect2(10, 6, 246, 78))
 	_draw_text("WARRIOR", Vector2(16, 24), 14, GOLD)
 	_draw_text("LV %d" % warrior.level, Vector2(16, 24), 14, TEXT, HORIZONTAL_ALIGNMENT_RIGHT, 234)
@@ -118,18 +118,18 @@ func _draw_status(warrior: WarriorSim) -> void:
 
 
 ## Barra inferior: M1, M2, esquiva, S1-S5, Special y Ultimate (10 huecos).
-func _draw_abilities(warrior: WarriorSim) -> void:
+func _draw_abilities(warrior: PlayerSim) -> void:
 	_draw_ability(
 		_slot_rect(0),
 		"LMB", "SLASH", "M1",
 		warrior.attack_cooldown_left("M1"), warrior.attack_cooldown_total("M1"),
-		false, warrior.state == WarriorSim.AttackState.IDLE
+		false, warrior.state == PlayerSim.AttackState.IDLE
 	)
 	_draw_ability(
 		_slot_rect(1),
 		"RMB", "HEAVY", "M2",
 		warrior.attack_cooldown_left("M2"), warrior.attack_cooldown_total("M2"),
-		warrior.vengeful_active, warrior.state == WarriorSim.AttackState.IDLE
+		warrior.vengeful_active, warrior.state == PlayerSim.AttackState.IDLE
 	)
 	_draw_dodge_slot(_slot_rect(2), warrior)
 	_draw_m1_pips(_slot_rect(0), warrior)
@@ -175,7 +175,7 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 
 ## Cargas de M1 como tres barras sobre el hueco; la que se esta recargando se va
 ## llenando.
-func _draw_m1_pips(rect: Rect2, warrior: WarriorSim) -> void:
+func _draw_m1_pips(rect: Rect2, warrior: PlayerSim) -> void:
 	var maximum := int(warrior.charges_max("M1"))
 	if maximum <= 0:
 		return
@@ -190,7 +190,7 @@ func _draw_m1_pips(rect: Rect2, warrior: WarriorSim) -> void:
 
 
 ## Barra de carga de M2 mientras se mantiene el boton.
-func _draw_m2_charge(rect: Rect2, warrior: WarriorSim) -> void:
+func _draw_m2_charge(rect: Rect2, warrior: PlayerSim) -> void:
 	var fraction := warrior.charge_fraction()
 	if fraction <= 0.0:
 		return
@@ -201,7 +201,7 @@ func _draw_m2_charge(rect: Rect2, warrior: WarriorSim) -> void:
 
 
 ## Hueco de la ultimate: se llena con la Ultimate Charge y brilla cuando esta lista.
-func _draw_ultimate_slot(rect: Rect2, warrior: WarriorSim) -> void:
+func _draw_ultimate_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	var maximum := WarriorKit.ULTIMATE_CHARGE_MAX
 	var ratio := clampf(warrior.ultimate_charge / maximum, 0.0, 1.0)
 	var ready := warrior.ultimate_ready_now()
@@ -219,7 +219,7 @@ func _draw_ultimate_slot(rect: Rect2, warrior: WarriorSim) -> void:
 
 ## Hueco de una skill equipada (S1-S5): etiqueta, coste y cooldown. Se vuelve
 ## rojo si no hay Rage suficiente.
-func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: WarriorSim) -> void:
+func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: PlayerSim) -> void:
 	draw_rect(rect, PANEL)
 	if not warrior.loadout.has(slot):
 		draw_rect(rect, PANEL_EDGE_SOFT, false, 1.0)
@@ -230,7 +230,7 @@ func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: WarriorSi
 	var cost := float(skill.get("cost", 0.0))
 	var left := warrior.attack_cooldown_left(slot)
 	var total := warrior.attack_cooldown_total(slot)
-	var affordable := warrior.rage() >= cost
+	var affordable := warrior.resource_amount() >= cost
 	var edge := PANEL_EDGE if affordable else RED
 	draw_rect(rect, edge, false, 1.0)
 	_draw_text(key, rect.position + Vector2(4, 9), 7, MUTED)
@@ -247,7 +247,7 @@ func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: WarriorSi
 
 
 ## Hueco de la esquiva: tres chevrones y cooldown en el mismo estilo que M1/M2.
-func _draw_dodge_slot(rect: Rect2, warrior: WarriorSim) -> void:
+func _draw_dodge_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	var left := warrior.dodge_cooldown_left()
 	var total := warrior.dodge_cooldown_total()
 	var ready := left <= 0.0
@@ -266,7 +266,7 @@ func _draw_dodge_slot(rect: Rect2, warrior: WarriorSim) -> void:
 		var ratio := clampf(left / maxf(total, 0.001), 0.0, 1.0)
 		draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * ratio)), Color(0.02, 0.02, 0.04, 0.62))
 		_draw_text("%.1f" % left, Vector2(rect.position.x, rect.position.y + rect.size.y * 0.78), 7, Color(0.95, 0.92, 0.85, 0.95), HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
-	elif warrior.state == WarriorSim.AttackState.IDLE:
+	elif warrior.state == PlayerSim.AttackState.IDLE:
 		draw_rect(rect.grow(-2.0), Color(edge.r, edge.g, edge.b, 0.22), false, 1.0)
 
 
@@ -307,8 +307,8 @@ func _draw_damage_flash() -> void:
 	var amount := 0.0
 	if _damage_flash > 0.0:
 		amount = 0.35 * _damage_flash
-	if world != null and world.warrior != null and world.warrior.alive:
-		var ratio: float = world.warrior.health / maxf(world.warrior.max_health, 1.0)
+	if world != null and world.player != null and world.player.alive:
+		var ratio: float = world.player.health / maxf(world.player.max_health, 1.0)
 		if ratio < 0.30:
 			var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)
 			amount = maxf(amount, 0.10 + 0.08 * pulse)
