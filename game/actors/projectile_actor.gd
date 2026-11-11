@@ -82,8 +82,24 @@ func _draw() -> void:
 			var back := center - direction * 7.0
 			draw_colored_polygon(PackedVector2Array([tip, center + side * 3.0, back, center - side * 3.0]), Color(0.7, 0.92, 1.0, 1.0))
 			draw_line(back, tip, Color.WHITE, 1.0)
+		"wisp":
+			var glow := 0.5 + 0.5 * sin(_age * 14.0)
+			draw_circle(center, sim.radius + 4.0 + glow * 2.0, Color(0.4, 0.9, 1.0, 0.25))
+			draw_circle(center, sim.radius, Color(0.6, 0.95, 1.0, 0.95))
+			draw_circle(center, sim.radius * 0.45, Color.WHITE)
+		"stinger":
+			draw_line(center - direction * 7.0, center + direction * 5.0, Color(1.0, 0.85, 0.2, 1.0), 2.0)
+			draw_colored_polygon(PackedVector2Array([center + direction * 8.0, center + direction * 2.0 + side * 2.5, center + direction * 2.0 - side * 2.5]), Color(0.2, 0.15, 0.1, 1.0))
+		"spit":
+			var blob := 0.5 + 0.5 * sin(_age * 20.0)
+			draw_circle(center, sim.radius + 2.0 + blob * 1.5, Color(0.4, 0.85, 0.2, 0.35))
+			draw_circle(center, sim.radius, Color(0.55, 0.9, 0.25, 1.0))
+			draw_circle(center + Vector2(-2, -2), sim.radius * 0.35, Color(0.85, 1.0, 0.6, 1.0))
 		_:
 			draw_circle(center, sim.radius, _main_color())
+	# Los proyectiles enemigos llevan un aro rojo para leerlos como peligro.
+	if sim.hostile:
+		draw_arc(center, sim.radius + 3.5, 0.0, TAU, 20, Color(1.0, 0.28, 0.2, 0.85), 1.5)
 
 
 func _main_color() -> Color:
@@ -92,6 +108,12 @@ func _main_color() -> Color:
 			return Color(0.75, 0.5, 1.0, 1.0)
 		"fire":
 			return Color(1.0, 0.5, 0.15, 1.0)
+		"wisp":
+			return Color(0.5, 0.92, 1.0, 1.0)
+		"stinger":
+			return Color(1.0, 0.85, 0.2, 1.0)
+		"spit":
+			return Color(0.55, 0.9, 0.25, 1.0)
 		"ice":
 			return Color(0.7, 0.92, 1.0, 1.0)
 		_:

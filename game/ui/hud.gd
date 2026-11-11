@@ -66,6 +66,7 @@ func _draw() -> void:
 	_draw_status(warrior)
 	_draw_abilities(warrior)
 	_draw_controls()
+	_draw_boss_bar()
 
 	if warrior.vengeful_active and warrior.alive:
 		_draw_text("M2 EMPOWERED  +30%", Vector2(220, 305), 7, ORANGE, HORIZONTAL_ALIGNMENT_CENTER, 200)
@@ -315,6 +316,26 @@ func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) 
 	if heavy:
 		draw_circle(Vector2(0, -10), 1.5, color)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+
+## Barra de vida del jefe activo, arriba al centro, con una marca en cada cambio de
+## fase y el nombre de la fase actual.
+func _draw_boss_bar() -> void:
+	for enemy: EnemySim in world.enemies:
+		if not enemy.alive or not enemy.is_boss() or enemy.state == EnemySim.State.IDLE:
+			continue
+		var panel := Rect2(262, 6, 230, 34)
+		_panel(panel)
+		_draw_text(String(enemy.data["name"]).to_upper(), Vector2(268, 18), 7, GOLD)
+		_draw_text(enemy.phase_name().to_upper(), Vector2(268, 18), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 218)
+		var bar := Rect2(268, 24, 218, 9)
+		var ratio := clampf(enemy.health / maxf(enemy.max_health, 1.0), 0.0, 1.0)
+		var roaring := enemy.state == EnemySim.State.PHASE
+		_bar(bar, ratio, Color(1.0, 0.8, 0.3, 1.0) if roaring else RED)
+		for i: int in range(1, enemy.data["phases"].size()):
+			var mark := bar.position.x + bar.size.x * float(enemy.data["phases"][i]["hp_below"])
+			draw_line(Vector2(mark, bar.position.y - 1.0), Vector2(mark, bar.end.y + 1.0), Color(1, 1, 1, 0.55), 1.0)
+		return
 
 
 func _draw_controls() -> void:

@@ -10,6 +10,7 @@ extends "res://core/tickable.gd"
 signal tick_advanced(tick_number: int)
 signal projectile_spawned(projectile: ProjectileSim)
 signal projectile_removed(projectile: ProjectileSim)
+signal enemy_spawned(enemy: EnemySim)
 
 const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
@@ -52,6 +53,7 @@ func add_dummy(spawn: Vector2, auto_attack: bool = true) -> DummySim:
 func add_enemy(def_id: StringName, spawn: Vector2) -> EnemySim:
 	var enemy := EnemySim.new(self, def_id, spawn, int(rng.seed) + (enemies.size() + 1) * 7919)
 	enemies.append(enemy)
+	enemy_spawned.emit(enemy)
 	return enemy
 
 
@@ -74,7 +76,7 @@ func step(delta: float, tick_number: int = -1) -> void:
 	player.step(tick, delta, pending_input)
 	for dummy: DummySim in dummies:
 		dummy.step(tick, delta, player)
-	for enemy: EnemySim in enemies:
+	for enemy: EnemySim in enemies.duplicate():
 		enemy.step(tick, delta, player)
 	for projectile: ProjectileSim in projectiles.duplicate():
 		projectile.step(self, delta)
@@ -163,6 +165,12 @@ func reset() -> void:
 	for dummy: DummySim in dummies:
 		dummy.position = dummy.spawn_position
 		dummy.revive()
+	# Las crias invocadas por un jefe desaparecen con el reinicio.
+	for enemy: EnemySim in enemies.duplicate():
+		if enemy.summoned:
+			enemy.alive = false
+			enemy.state_time = 99.0
+			enemies.erase(enemy)
 	for enemy: EnemySim in enemies:
 		enemy.revive()
 	for projectile: ProjectileSim in projectiles.duplicate():

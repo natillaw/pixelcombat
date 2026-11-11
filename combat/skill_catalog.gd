@@ -248,10 +248,16 @@ static func _validate_shape(entry: Dictionary, problems: Array[String]) -> void:
 
 
 static func _validate_projectile(entry: Dictionary, problems: Array[String]) -> void:
-	var projectile: Variant = entry.get("projectile")
+	problems.append_array(validate_projectile_spec(entry.get("projectile")))
+
+
+## Problemas de un bloque `projectile` (lo comparten las skills y los ataques de
+## los enemigos).
+static func validate_projectile_spec(projectile: Variant) -> Array[String]:
+	var problems: Array[String] = []
 	if not (projectile is Dictionary):
 		problems.append("shape projectile necesita 'projectile'")
-		return
+		return problems
 	var spec: Dictionary = projectile
 	for field: String in ["speed", "range", "radius"]:
 		if not _is_number(spec.get(field)) or float(spec[field]) <= 0.0:
@@ -268,6 +274,7 @@ static func _validate_projectile(entry: Dictionary, problems: Array[String]) -> 
 		var explode: Variant = spec["explode"]
 		if not (explode is Dictionary) or not _is_number((explode as Dictionary).get("radius")) or float(explode["radius"]) <= 0.0 or not _is_number((explode as Dictionary).get("mult")) or float(explode["mult"]) <= 0.0:
 			problems.append("projectile.explode necesita radius > 0 y mult > 0")
+	return problems
 
 
 static func _is_number(value: Variant) -> bool:

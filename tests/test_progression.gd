@@ -72,7 +72,8 @@ func _test_data_consistency() -> void:
 	_check(int(WarriorKit.SPECIAL["unlock_level"]) > 1 and int(WarriorKit.ULTIMATE["unlock_level"]) > 1, "Special y Ultimate no estan desde el nivel 1")
 	for id: StringName in EnemyCatalog.all_ids():
 		var xp := float(EnemyCatalog.enemy(id)["stats"]["xp"])
-		_check(xp > 0.0 and xp <= 100.0, "%s da XP razonable (%d)" % [id, int(xp)])
+		var xp_limit := 500.0 if bool(EnemyCatalog.enemy(id).get("boss", false)) else 100.0
+		_check(xp > 0.0 and xp <= xp_limit, "%s da XP razonable (%d)" % [id, int(xp)])
 
 
 # --- Desbloqueos ----------------------------------------------------------------

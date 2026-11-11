@@ -5,6 +5,7 @@
 ##             con todas sus skills; devuelve DPS sostenido, rafaga y casts.
 ##   wave_run: el bot (que esquiva) se enfrenta a los cuatro enemigos del tier 1;
 ##             devuelve si limpia la oleada, en cuanto tiempo y con cuanta vida.
+##   boss_run: lo mismo contra el jefe Brood Beetle (3 fases, invoca crias).
 ##
 ## Los resultados salen en `matrix()` y se vuelcan a `tests/out/balance_matrix.csv`
 ## con `tools/balance/run_balance.gd`. `tests/test_balance.gd` exige que ninguna
@@ -98,12 +99,41 @@ static func wave_run(class_id: String, level: int, seed_value: int = 1, max_seco
 	}
 
 
+## El jefe del tier 1 (Brood Beetle): el bot esquiva y abre posturas. Devuelve si lo
+## derrota, en cuanto tiempo, con cuanta vida y hasta que fase llego el jefe.
+static func boss_run(class_id: String, level: int, seed_value: int = 1, max_seconds: float = 150.0) -> Dictionary:
+	var world := _new_world(class_id, level, seed_value)
+	var boss := world.add_enemy(&"brood_beetle", world.player.position + Vector2(0, -230))
+	boss.data["respawn_seconds"] = 0.0
+	var bot := BotBrain.new()
+	bot.dodge_enemies = true
+	bot.use_stances = true
+	var damage_taken := [0.0]
+	world.player.damage_taken.connect(func(amount: float, _src: Vector2, _dot: bool) -> void: damage_taken[0] += amount)
+	var elapsed := 0.0
+	while elapsed < max_seconds and world.player.alive and boss.alive:
+		world.submit_input(bot.decide(world))
+		world.step(DT)
+		elapsed += DT
+	return {
+		"class": class_id,
+		"level": level,
+		"cleared": not boss.alive,
+		"alive": world.player.alive,
+		"time": elapsed,
+		"hp_left": world.player.health / world.player.max_health,
+		"damage_taken": damage_taken[0],
+		"phase": boss.phase,
+	}
+
+
 ## Una fila por clase (en el orden del selector) con ambos escenarios.
 static func matrix(level: int = 10, seconds: float = 20.0) -> Array:
 	var rows: Array = []
 	for class_id: String in ClassCatalog.all_ids():
 		var dps := dps_run(class_id, level, seconds)
 		var wave := wave_run(class_id, level)
+		var boss := boss_run(class_id, level)
 		rows.append({
 			"class": class_id,
 			"level": level,
@@ -115,6 +145,9 @@ static func matrix(level: int = 10, seconds: float = 20.0) -> Array:
 			"wave_time": wave["time"],
 			"wave_hp_left": wave["hp_left"],
 			"wave_damage_taken": wave["damage_taken"],
+			"boss_cleared": boss["cleared"],
+			"boss_time": boss["time"],
+			"boss_hp_left": boss["hp_left"],
 		})
 	return rows
 

@@ -11,19 +11,29 @@
 ##           (opcional, reduccion
 ##           armor / (armor + 100) como la del jugador)
 ##   ai:     aggro_range, leash (multiplo de aggro_range a partir del cual deja
-##           de perseguir)
-##   sprite: sheet (tira horizontal de frames cuadrados), frame, frames, fps, scale
+##           de perseguir), keep_distance (opcional: si el jugador se acerca
+##           mas que el 70 % de esa distancia, retrocede; para tiradores)
+##   sprite: sheet (tira horizontal de frames cuadrados), frame, frames, fps, scale,
+##           tint (opcional, [r, g, b, a])
+##   boss (opcional): true marca un jefe (barra de vida propia)
+##   phases (opcional, jefes): lista ordenada de {name, hp_below (fraccion de vida
+##           a partir de la cual entra, la primera es 1.0), speed_mult, attacks
+##           (ids permitidos en la fase), summons: [{id, count}]}. Al entrar en
+##           una fase hay una pausa (rugido) en la que es invulnerable
 ##   attacks: lista de ataques con
 ##     id, shape ("cone": range+arc | "line": range+width | "circle": range)
 ##     windup (TELEGRAPH visible, el golpe cae al terminar), active, recovery,
 ##     cooldown, damage_mult (sobre stats.damage), trigger_range (distancia a la
 ##     que decide lanzarlo), weight (probabilidad relativa entre ataques listos)
+##     shape "projectile": en vez de range/arc/width lleva `projectile` {speed,
+##       range, radius, count, spread, pierce, visual}; dispara al acabar el aviso
+##       y el aviso marca el carril
 ##     dash_distance (opcional): se desplaza esa distancia durante `active`
 class_name EnemyCatalog
 extends RefCounted
 
 const ENEMIES_DIR := "res://data/enemies/"
-const SHAPES := ["cone", "line", "circle"]
+const SHAPES := ["cone", "line", "circle", "projectile"]
 
 static var _enemies: Dictionary = {}
 static var _errors: Array[String] = []
@@ -138,6 +148,8 @@ static func validate(entry: Dictionary) -> Array[String]:
 			problems.append("ai.aggro_range debe ser > 0")
 		if not _is_number((ai as Dictionary).get("leash")) or float(ai["leash"]) < 1.0:
 			problems.append("ai.leash debe ser >= 1")
+		if (ai as Dictionary).has("keep_distance") and (not _is_number(ai["keep_distance"]) or float(ai["keep_distance"]) <= 0.0):
+			problems.append("ai.keep_distance debe ser > 0")
 
 	var sprite: Variant = entry.get("sprite")
 	if not (sprite is Dictionary):
@@ -148,6 +160,8 @@ static func validate(entry: Dictionary) -> Array[String]:
 		for field: String in ["frame", "frames", "fps", "scale"]:
 			if not _is_number((sprite as Dictionary).get(field)) or float(sprite[field]) <= 0.0:
 				problems.append("sprite.%s debe ser > 0" % field)
+		if (sprite as Dictionary).has("tint") and (not (sprite["tint"] is Array) or (sprite["tint"] as Array).size() != 4):
+			problems.append("sprite.tint debe ser [r, g, b, a]")
 
 	var attacks: Variant = entry.get("attacks")
 	if not (attacks is Array) or (attacks as Array).is_empty():
@@ -164,6 +178,56 @@ static func validate(entry: Dictionary) -> Array[String]:
 			if seen.has(attack_id):
 				problems.append("ataque duplicado '%s'" % attack_id)
 			seen[attack_id] = true
+	if entry.has("boss") and not (entry["boss"] is bool):
+		problems.append("'boss' debe ser true/false")
+	if entry.has("phases"):
+		problems.append_array(_validate_phases(entry))
+	return problems
+
+
+static func _validate_phases(entry: Dictionary) -> Array[String]:
+	var problems: Array[String] = []
+	var phases: Variant = entry["phases"]
+	if not (phases is Array) or (phases as Array).is_empty():
+		return ["'phases' debe ser una lista no vacia"]
+	var attack_ids: Dictionary = {}
+	if entry.get("attacks") is Array:
+		for attack: Variant in entry["attacks"]:
+			if attack is Dictionary:
+				attack_ids[str((attack as Dictionary).get("id", ""))] = true
+	var previous := 2.0
+	for i: int in range((phases as Array).size()):
+		var phase: Variant = phases[i]
+		if not (phase is Dictionary):
+			problems.append("la fase %d no es un objeto" % i)
+			continue
+		var spec: Dictionary = phase
+		if not _is_text(spec.get("name")) or String(spec["name"]).is_empty():
+			problems.append("fase %d: falta 'name'" % i)
+		if not _is_number(spec.get("hp_below")) or float(spec["hp_below"]) <= 0.0 or float(spec["hp_below"]) > 1.0:
+			problems.append("fase %d: hp_below debe estar entre 0 y 1" % i)
+		elif float(spec["hp_below"]) >= previous:
+			problems.append("fase %d: hp_below debe ser menor que el de la fase anterior" % i)
+		else:
+			previous = float(spec["hp_below"])
+		if i == 0 and _is_number(spec.get("hp_below")) and not is_equal_approx(float(spec["hp_below"]), 1.0):
+			problems.append("la primera fase debe empezar en hp_below = 1.0")
+		if not _is_number(spec.get("speed_mult")) or float(spec["speed_mult"]) <= 0.0:
+			problems.append("fase %d: speed_mult debe ser > 0" % i)
+		if spec.has("attacks"):
+			if not (spec["attacks"] is Array) or (spec["attacks"] as Array).is_empty():
+				problems.append("fase %d: 'attacks' debe ser una lista no vacia" % i)
+			else:
+				for attack_id: Variant in spec["attacks"]:
+					if not attack_ids.has(str(attack_id)):
+						problems.append("fase %d: el ataque '%s' no existe" % [i, str(attack_id)])
+		if spec.has("summons"):
+			if not (spec["summons"] is Array):
+				problems.append("fase %d: 'summons' debe ser una lista" % i)
+			else:
+				for summon: Variant in spec["summons"]:
+					if not (summon is Dictionary) or not _is_text((summon as Dictionary).get("id")) or not _is_number((summon as Dictionary).get("count")) or float(summon["count"]) < 1.0:
+						problems.append("fase %d: cada invocacion necesita id y count >= 1" % i)
 	return problems
 
 
@@ -181,7 +245,10 @@ static func validate_attack(attack: Dictionary) -> Array[String]:
 			problems.append("'%s' debe ser > 0" % field)
 	var shape: Variant = attack.get("shape")
 	if not (shape is String) or not SHAPES.has(shape):
-		problems.append("forma desconocida '%s' (cone, line o circle)" % str(shape))
+		problems.append("forma desconocida '%s' (cone, line, circle o projectile)" % str(shape))
+		return problems
+	if shape == "projectile":
+		problems.append_array(SkillCatalog.validate_projectile_spec(attack.get("projectile")))
 		return problems
 	if not _is_number(attack.get("range")) or float(attack["range"]) <= 0.0:
 		problems.append("'range' debe ser > 0")

@@ -21,6 +21,7 @@ var arena: Arena
 var sprite: AnimatedSprite2D
 
 var _sprite_height: float = 32.0
+var _tint: Color = Color.WHITE
 var _was_alive: bool = true
 
 
@@ -34,6 +35,7 @@ func setup(p_sim: EnemySim, p_arena: Arena) -> void:
 	sim.attack_landed.connect(_on_attack_landed)
 	sim.died.connect(_on_died)
 	sim.revived.connect(_on_revived)
+	sim.phase_changed.connect(_on_phase_changed)
 
 
 func _build_sprite() -> void:
@@ -61,6 +63,10 @@ func _build_sprite() -> void:
 	sprite.scale = Vector2.ONE * sprite_scale
 	sprite.position = Vector2(0.0, -_sprite_height * 0.5 + 4.0)
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	if sprite_data.has("tint"):
+		var tint: Array = sprite_data["tint"]
+		_tint = Color(float(tint[0]), float(tint[1]), float(tint[2]), float(tint[3]))
+		sprite.modulate = _tint
 	add_child(sprite)
 	sprite.play(&"move")
 
@@ -80,6 +86,9 @@ func _process(_delta: float) -> void:
 		_was_alive = false
 		var t := clampf(sim.state_time / 0.35, 0.0, 1.0)
 		sprite.modulate = Color(0.6, 0.55, 0.55, 1.0 - t)
+		if sim.summoned and sim.state_time > 1.2:
+			queue_free()
+			return
 		sprite.scale = Vector2.ONE * float(sim.data["sprite"]["scale"]) * (1.0 - 0.3 * t)
 	queue_redraw()
 
@@ -87,19 +96,22 @@ func _process(_delta: float) -> void:
 func _apply_state_visual() -> void:
 	if sim.hit_flash_ticks > 0:
 		sprite.modulate = Color(1.9, 1.5, 1.5, 1.0)
+	elif sim.state == EnemySim.State.PHASE:
+		var roar := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.03)
+		sprite.modulate = Color(1.0 + 0.8 * roar, 0.85 + 0.2 * roar, 0.7, 1.0)
 	elif sim.state == EnemySim.State.TELEGRAPH:
 		# Parpadeo rojo cada vez mas rapido al acercarse el golpe.
 		var rate := 12.0 + 20.0 * sim.telegraph_progress()
 		var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.001 * rate)
 		sprite.modulate = Color(1.0 + 0.5 * pulse, 1.0 - 0.35 * pulse, 1.0 - 0.35 * pulse, 1.0)
 	else:
-		sprite.modulate = Color.WHITE
+		sprite.modulate = _tint
 	sprite.speed_scale = 0.5 if sim.state == EnemySim.State.TELEGRAPH else 1.0
 
 
 func _restore_visual() -> void:
 	_was_alive = true
-	sprite.modulate = Color.WHITE
+	sprite.modulate = _tint
 	sprite.scale = Vector2.ONE * float(sim.data["sprite"]["scale"])
 
 
@@ -124,6 +136,16 @@ func _on_attack_landed(damage: float) -> void:
 	arena.play_sfx(SFX_IMPACT, -6.0, randf_range(0.9, 1.0))
 
 
+## Rugido del jefe al entrar en una fase nueva.
+func _on_phase_changed(index: int, phase_name: String) -> void:
+	if arena == null:
+		return
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -_sprite_height - 12.0), phase_name.to_upper(), Color(1.0, 0.82, 0.3, 1.0))
+	arena.spawn_impact(sim.position, Color(1.0, 0.6, 0.2, 1.0), true)
+	arena.play_sfx(SFX_IMPACT, -2.0, 0.55)
+	arena.shake(6.0, 0.5)
+
+
 func _on_died() -> void:
 	if arena != null:
 		arena.play_sfx(SFX_IMPACT, -9.0, 0.7)
@@ -138,14 +160,24 @@ func _draw() -> void:
 		return
 	if sim.alive and sim.state == EnemySim.State.TELEGRAPH:
 		_draw_telegraph()
+	if sim.alive and sim.state == EnemySim.State.PHASE:
+		_draw_roar()
 
 	# Sombra.
 	draw_set_transform(Vector2(0, -1), 0.0, Vector2(1.0, 0.42))
 	draw_circle(Vector2.ZERO, sim.radius + 3.0, Color(0.0, 0.0, 0.0, 0.32))
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
-	if sim.alive and (sim.health < sim.max_health or sim.state != EnemySim.State.IDLE):
+	if sim.alive and not sim.is_boss() and (sim.health < sim.max_health or sim.state != EnemySim.State.IDLE):
 		_draw_health_bar()
+
+
+## Onda que se expande desde el jefe durante el rugido de cambio de fase.
+func _draw_roar() -> void:
+	var t := clampf(sim.state_time / EnemySim.PHASE_PAUSE, 0.0, 1.0)
+	var radius := sim.radius + t * 150.0
+	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color(1.0, 0.7, 0.3, 0.8 * (1.0 - t)), 3.0)
+	draw_arc(Vector2.ZERO, radius * 0.6, 0.0, TAU, 40, Color(1.0, 0.9, 0.5, 0.5 * (1.0 - t)), 1.5)
 
 
 ## Zona exacta del ataque (la misma que usa la simulacion): contorno completo
@@ -164,6 +196,21 @@ func _draw_telegraph() -> void:
 			var radius := float(attack["range"])
 			draw_circle(Vector2.ZERO, radius * progress, fill)
 			draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, edge, 1.5)
+		"projectile":
+			var spec: Dictionary = attack["projectile"]
+			var lane_length := float(spec["range"])
+			var start_half := float(spec["radius"]) + 2.0
+			var half_spread := deg_to_rad(minf(float(spec["spread"]) * 0.5, 80.0)) if int(spec["count"]) > 1 else 0.0
+			var lane_side := direction.orthogonal()
+			var end_half := start_half + lane_length * tan(half_spread)
+			var lane := PackedVector2Array([lane_side * start_half, lane_side * end_half + direction * lane_length, -lane_side * end_half + direction * lane_length, -lane_side * start_half])
+			draw_colored_polygon(lane, Color(fill.r, fill.g, fill.b, 0.06))
+			var reach_now := lane_length * progress
+			var half_now := start_half + reach_now * tan(half_spread)
+			draw_colored_polygon(PackedVector2Array([lane_side * start_half, lane_side * half_now + direction * reach_now, -lane_side * half_now + direction * reach_now, -lane_side * start_half]), fill)
+			var closed_lane := lane.duplicate()
+			closed_lane.append(lane[0])
+			draw_polyline(closed_lane, edge, 1.5)
 		"line":
 			var length := float(attack["range"])
 			var half_width := float(attack["width"]) * 0.5

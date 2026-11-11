@@ -58,7 +58,8 @@ TickManager (60 Hz)
 | `game/sim/combat_world.gd` | Único Tickable; bounds, obstáculos, dummies, snapshots | Simulación |
 | `game/sim/warrior_sim.gd` | Ataques, Rage, pasiva, movimiento, muerte, reset | Simulación |
 | `game/sim/player_sim.gd` | Jugador de cualquier clase: skills por datos, recurso (Rage, Energy o Mana), nivel y XP, loadout, cambio de clase con progreso propio | Simulación |
-| `game/sim/projectile_sim.gd` | Proyectil (vuelo, perforación, explosión, abanico) lanzado por `PlayerSim` y avanzado por `CombatWorld` | Simulación |
+| `game/sim/projectile_sim.gd` | Proyectil (vuelo, perforación, explosión, abanico) lanzado por `PlayerSim` o, si es hostil, por un `EnemySim`; lo avanza `CombatWorld` | Simulación |
+| `game/sim/bot_brain.gd`, `tools/balance/` | Bot que juega con el mismo input que un jugador y laboratorio de balance (DPS, oleada, jefe) | Herramientas |
 | `combat/class_catalog.gd` | Carga y valida `data/classes/*.json` | Datos |
 | `game/art/class_look.gd` | Aspecto LPC de cada clase | Presentación |
 | `game/actors/projectile_actor.gd` | Dibujo de flechas, dagas y hechizos | Presentación |

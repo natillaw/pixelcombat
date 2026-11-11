@@ -128,7 +128,7 @@ func _enemy_about_to_hit(player: PlayerSim, windup: float) -> bool:
 		if not enemy.alive or not enemy.is_telegraphing():
 			continue
 		var left := float(enemy.current_attack["windup"]) * (1.0 - enemy.telegraph_progress())
-		if left > windup + 0.05 and left < windup + 0.35 and enemy.position.distance_to(player.position) <= float(enemy.current_attack["range"]) + 24.0:
+		if left > windup + 0.05 and left < windup + 0.35 and enemy.threatens(player.position):
 			return true
 	return false
 
@@ -143,6 +143,6 @@ func _should_dodge(world: CombatWorld, player: PlayerSim) -> bool:
 			continue
 		if enemy.telegraph_progress() < 0.62:
 			continue
-		if enemy.position.distance_to(player.position) <= float(enemy.current_attack["range"]) + 22.0:
+		if enemy.threatens(player.position):
 			return true
 	return false

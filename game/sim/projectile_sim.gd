@@ -1,10 +1,15 @@
-## ProjectileSim — proyectil determinista (flecha, hechizo, daga...).
+## ProjectileSim — proyectil determinista (flecha, hechizo, daga, orbe enemigo...).
 ##
 ## Lo lanza PlayerSim con el dano ya calculado y lo avanza CombatWorld en cada
 ## tick. Vuela en linea recta, golpea a los blancos (enemigos y muñecos) que toca,
 ## atraviesa `pierce` de ellos, y puede explotar al impactar. Muere al agotar su
 ## alcance, al salir de la arena o al chocar con un obstaculo. Es simulacion pura:
 ## la presentacion (ProjectileActor) solo lo lee.
+##
+## Los del jugador golpean a enemigos y muñecos con el dano de la skill. Los
+## hostiles (disparados por un EnemySim) solo golpean al jugador, con dano plano
+## (`damage_mult` es el dano), y la esquiva, los i-frames y las posturas actuan
+## como con cualquier golpe.
 class_name ProjectileSim
 extends RefCounted
 
@@ -24,6 +29,8 @@ var explode: Dictionary = {}
 var visual: String = "arrow"
 var alive: bool = true
 var travelled: float = 0.0
+## Disparado por un enemigo: solo golpea al jugador.
+var hostile: bool = false
 
 var _already_hit: Dictionary = {}
 
@@ -44,6 +51,14 @@ func _init(p_owner: Object, p_skill: Dictionary, p_direction: Vector2, p_positio
 	visual = String(spec["visual"])
 
 
+## Proyectil de un enemigo: `attack` es su diccionario de ataque (lleva el bloque
+## `projectile`) y `damage` el dano plano que hace al jugador.
+static func hostile_from_attack(p_owner: Object, attack: Dictionary, p_direction: Vector2, p_position: Vector2, damage: float) -> ProjectileSim:
+	var projectile := ProjectileSim.new(p_owner, attack, p_direction, p_position, damage, 1.0, {})
+	projectile.hostile = true
+	return projectile
+
+
 func step(world: Object, delta: float) -> void:
 	if not alive:
 		return
@@ -51,6 +66,10 @@ func step(world: Object, delta: float) -> void:
 	position += direction * distance
 	range_left -= distance
 	travelled += distance
+
+	if hostile:
+		_step_hostile(world)
+		return
 
 	for target: Object in world.get_living_targets():
 		var id := target.get_instance_id()
@@ -69,6 +88,20 @@ func step(world: Object, delta: float) -> void:
 			return
 		pierce_left -= 1
 
+	if range_left <= 0.0 or not world.bounds.has_point(position) or world.blocked_by_obstacle(position, radius):
+		alive = false
+
+
+## Un proyectil hostil golpea al jugador si lo toca (y muere), o muere al agotar
+## su alcance, salir de la arena o chocar con un obstaculo.
+func _step_hostile(world: Object) -> void:
+	var player: Object = world.player
+	if player.alive and position.distance_to(player.position) <= radius + float(PlayerSim.RADIUS):
+		var dealt: float = player.take_damage(damage_mult, position, false)
+		if owner != null and owner.has_method("projectile_landed"):
+			owner.projectile_landed(dealt)
+		alive = false
+		return
 	if range_left <= 0.0 or not world.bounds.has_point(position) or world.blocked_by_obstacle(position, radius):
 		alive = false
 

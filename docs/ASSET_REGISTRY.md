@@ -66,7 +66,7 @@ Veredicto de licencia pack por pack en
 
 | Asset | Ruta | Uso | Licencia | Estado |
 |---|---|---|---|---|
-| **SpritePilot Creatures Pack** | `assets/pixel/enemies/spritepilot_creatures/` | Enemigos del tier 1: Slime, Bat, Spider y Beetle (32 px); fantasma, abeja, pez y pájaro sin usar | CC0 1.0 | **En uso** (`data/enemies/tier1.json`) |
+| **SpritePilot Creatures Pack** | `assets/pixel/enemies/spritepilot_creatures/` | Enemigos del tier 1: Slime, Bat, Spider, Beetle, Wisp (fantasma), Hornet (abeja) y el jefe Brood Beetle (el Beetle ampliado y tintado); pez y pájaro sin usar | CC0 1.0 | **En uso** (`data/enemies/tier1.json`) |
 
 ## Disponible para futuros cortes
 

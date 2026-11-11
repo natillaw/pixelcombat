@@ -24,6 +24,7 @@ func _run() -> void:
 	print("== test_balance (banda entre clases) ==")
 	_test_dps_bands()
 	_test_waves_are_cleared()
+	_test_boss_is_beatable_but_dangerous()
 	_test_resistance_identity()
 	_test_the_lab_is_deterministic()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
@@ -63,6 +64,24 @@ func _test_waves_are_cleared() -> void:
 			var wave := BalanceLab.wave_run(class_id, level)
 			_check(bool(wave["cleared"]) and bool(wave["alive"]), "nivel %d: %s limpia la oleada del tier 1 (%.0f s, %.0f%% de vida)" % [level, class_id, wave["time"], float(wave["hp_left"]) * 100.0])
 			_check(float(wave["time"]) < 45.0, "nivel %d: %s la limpia en menos de 45 s" % [level, class_id])
+
+
+## El jefe del tier 1 es para el nivel 10: las cuatro clases lo derrotan (con un bot
+## que esquiva) pero no es un paseo, y a nivel 5 todavia es un riesgo real.
+func _test_boss_is_beatable_but_dangerous() -> void:
+	var left_total := 0.0
+	for class_id: String in ClassCatalog.all_ids():
+		var boss := BalanceLab.boss_run(class_id, 10)
+		_check(bool(boss["cleared"]) and bool(boss["alive"]), "nivel 10: %s derrota al Brood Beetle (%.0f s, %.0f%% de vida)" % [class_id, boss["time"], float(boss["hp_left"]) * 100.0])
+		_check(float(boss["time"]) < 100.0, "nivel 10: %s lo derrota en menos de 100 s" % class_id)
+		_check(int(boss["phase"]) == 2, "nivel 10: %s llega a ver las tres fases" % class_id)
+		left_total += float(boss["hp_left"])
+	_check(left_total / 4.0 < 0.75, "el jefe no es un paseo: la media acaba por debajo del 75 %% de vida (%.0f%%)" % (left_total / 4.0 * 100.0))
+	var weak_wins := 0
+	for class_id: String in ClassCatalog.all_ids():
+		if bool(BalanceLab.boss_run(class_id, 5)["cleared"]):
+			weak_wins += 1
+	_check(weak_wins < 4, "a nivel 5 al menos una clase todavia no puede con el jefe (%d de 4 ganan)" % weak_wins)
 
 
 func _test_resistance_identity() -> void:

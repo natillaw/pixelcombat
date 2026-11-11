@@ -38,6 +38,9 @@ const ENEMY_SPAWNS := [
 	{"id": &"bat", "position": Vector2(110, 575)},
 	{"id": &"spider", "position": Vector2(840, 80)},
 	{"id": &"beetle", "position": Vector2(480, 590)},
+	{"id": &"wisp", "position": Vector2(860, 330)},
+	{"id": &"hornet", "position": Vector2(100, 330)},
+	{"id": &"brood_beetle", "position": Vector2(480, 62)},
 ]
 
 var world: CombatWorld
@@ -132,6 +135,17 @@ func _spawn_actors() -> void:
 		enemy.setup(enemy_sim, self)
 		entities.add_child(enemy)
 		enemy_actors.append(enemy)
+	# Las crias que invoca un jefe aparecen despues y necesitan su actor.
+	world.enemy_spawned.connect(_on_enemy_spawned)
+
+
+func _on_enemy_spawned(enemy_sim: EnemySim) -> void:
+	var enemy := EnemyActor.new()
+	enemy.name = String(enemy_sim.def_id).capitalize()
+	enemy.position = enemy_sim.position
+	enemy.setup(enemy_sim, self)
+	entities.add_child(enemy)
+	enemy_actors.append(enemy)
 
 
 ## Cada proyectil de la simulacion tiene su actor, que se libera solo al morir.
