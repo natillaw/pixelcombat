@@ -48,7 +48,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "bluecarrot16"
@@ -58,7 +58,8 @@
     "arms",
     "armour"
    ],
-   "layer_path": "arms/armour/plate/male/"
+   "layer_path": "arms/armour/plate/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_arms_gloves",
@@ -113,7 +114,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "bluecarrot16"
@@ -123,7 +124,8 @@
     "arms",
     "gloves"
    ],
-   "layer_path": "arms/hands/gloves/male/"
+   "layer_path": "arms/hands/gloves/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_arms_hands_ring_stud",
@@ -181,7 +183,8 @@
     "ring",
     "stud"
    ],
-   "layer_path": "arms/hands/ring/stud/male/"
+   "layer_path": "arms/hands/ring/stud/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_bauldron",
@@ -238,7 +241,8 @@
     "arms",
     "bauldron"
    ],
-   "layer_path": "shoulders/bauldron/male/"
+   "layer_path": "shoulders/bauldron/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_shoulders_shoulders_epaulets",
@@ -299,7 +303,8 @@
     "shoulders",
     "epaulets"
    ],
-   "layer_path": "shoulders/epaulets/male/"
+   "layer_path": "shoulders/epaulets/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_shoulders_shoulders_legion",
@@ -351,7 +356,8 @@
     "shoulders",
     "legion"
    ],
-   "layer_path": "shoulders/legion/male/"
+   "layer_path": "shoulders/legion/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_shoulders_shoulders_mantal",
@@ -407,7 +413,8 @@
     "shoulders",
     "mantal"
    ],
-   "layer_path": "shoulders/mantal/male/"
+   "layer_path": "shoulders/mantal/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_shoulders_shoulders_pauldrons",
@@ -461,7 +468,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -471,7 +478,8 @@
     "shoulders",
     "pauldrons"
    ],
-   "layer_path": "shoulders/pauldrons/male/"
+   "layer_path": "shoulders/pauldrons/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_wrists_arms_bracers",
@@ -522,7 +530,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)"
    ],
    "tags": [
@@ -531,7 +539,8 @@
     "arms",
     "bracers"
    ],
-   "layer_path": "arms/bracers/male/"
+   "layer_path": "arms/bracers/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_wrists_wrists_cuffs",
@@ -586,7 +595,8 @@
     "wrists",
     "cuffs"
    ],
-   "layer_path": "arms/wrists/cuffs/male/"
+   "layer_path": "arms/wrists/cuffs/male/",
+   "license_safe": true
   },
   {
    "visual_id": "arms_wrists_wrists_cuffs_lace",
@@ -642,7 +652,8 @@
     "cuffs",
     "lace"
    ],
-   "layer_path": "arms/wrists/lace/male/"
+   "layer_path": "arms/wrists/lace/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_accessory_feet_plate_toe",
@@ -704,7 +715,8 @@
     "plate",
     "toe"
    ],
-   "layer_path": "feet/accessory/plate_toe/male/"
+   "layer_path": "feet/accessory/plate_toe/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_accessory_feet_plate_toe_thick",
@@ -767,7 +779,8 @@
     "toe",
     "thick"
    ],
-   "layer_path": "feet/accessory/plate_toe_thick/male/"
+   "layer_path": "feet/accessory/plate_toe_thick/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_boots_feet_boots_basic",
@@ -832,7 +845,8 @@
     "boots",
     "basic"
    ],
-   "layer_path": "feet/boots/basic/male/"
+   "layer_path": "feet/boots/basic/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_boots_feet_boots_fold",
@@ -894,7 +908,8 @@
     "boots",
     "fold"
    ],
-   "layer_path": "feet/boots/fold/male/"
+   "layer_path": "feet/boots/fold/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_boots_feet_boots_revised",
@@ -949,7 +964,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -959,7 +974,8 @@
     "boots",
     "revised"
    ],
-   "layer_path": "feet/boots/revised/male/"
+   "layer_path": "feet/boots/revised/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_boots_feet_boots_rim",
@@ -1021,7 +1037,8 @@
     "boots",
     "rim"
    ],
-   "layer_path": "feet/boots/rimmed/male/"
+   "layer_path": "feet/boots/rimmed/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_feet_armour",
@@ -1070,7 +1087,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)"
    ],
    "tags": [
@@ -1078,7 +1095,8 @@
     "feet",
     "armour"
    ],
-   "layer_path": "feet/armour/plate/male/"
+   "layer_path": "feet/armour/plate/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_feet_hoofs",
@@ -1136,7 +1154,8 @@
     "feet",
     "hoofs"
    ],
-   "layer_path": "feet/hoofs/male/"
+   "layer_path": "feet/hoofs/male/",
+   "license_safe": false
   },
   {
    "visual_id": "feet_feet_sandals",
@@ -1190,7 +1209,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Nila122"
    ],
@@ -1199,7 +1218,8 @@
     "feet",
     "sandals"
    ],
-   "layer_path": "feet/sandals/male/"
+   "layer_path": "feet/sandals/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_feet_slippers",
@@ -1260,7 +1280,8 @@
     "feet",
     "slippers"
    ],
-   "layer_path": "feet/slippers/male/"
+   "layer_path": "feet/slippers/male/",
+   "license_safe": false
   },
   {
    "visual_id": "feet_shoes_feet_shoes_basic",
@@ -1315,7 +1336,7 @@
    "authors": [
     "JaidynReiman",
     "Joe White",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -1325,7 +1346,8 @@
     "shoes",
     "basic"
    ],
-   "layer_path": "feet/shoes/basic/male/"
+   "layer_path": "feet/shoes/basic/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_shoes_feet_shoes_ghillies",
@@ -1389,7 +1411,8 @@
     "shoes",
     "ghillies"
    ],
-   "layer_path": "feet/shoes/ghillies/male/"
+   "layer_path": "feet/shoes/ghillies/male/",
+   "license_safe": false
   },
   {
    "visual_id": "feet_shoes_feet_shoes_revised",
@@ -1444,7 +1467,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -1454,7 +1477,8 @@
     "shoes",
     "revised"
    ],
-   "layer_path": "feet/shoes/revised/male/"
+   "layer_path": "feet/shoes/revised/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_shoes_feet_shoes_sara",
@@ -1520,7 +1544,8 @@
     "shoes",
     "sara"
    ],
-   "layer_path": "feet/shoes/sara/male/"
+   "layer_path": "feet/shoes/sara/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_socks_feet_socks_ankle",
@@ -1573,7 +1598,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -1583,7 +1608,8 @@
     "socks",
     "ankle"
    ],
-   "layer_path": "feet/socks/ankle/male/"
+   "layer_path": "feet/socks/ankle/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_socks_feet_socks_high",
@@ -1636,7 +1662,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -1646,7 +1672,8 @@
     "socks",
     "high"
    ],
-   "layer_path": "feet/socks/high/male/"
+   "layer_path": "feet/socks/high/male/",
+   "license_safe": true
   },
   {
    "visual_id": "feet_socks_feet_socks_tabi",
@@ -1700,7 +1727,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -1710,7 +1737,8 @@
     "socks",
     "tabi"
    ],
-   "layer_path": "feet/socks/tabi/male/"
+   "layer_path": "feet/socks/tabi/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_earrings_facial_earring_left",
@@ -1798,7 +1826,8 @@
     "earring",
     "left"
    ],
-   "layer_path": "facial/earrings/simple/left/adult/"
+   "layer_path": "facial/earrings/simple/left/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_earrings_facial_earring_right",
@@ -1886,7 +1915,8 @@
     "earring",
     "right"
    ],
-   "layer_path": "facial/earrings/simple/right/adult/"
+   "layer_path": "facial/earrings/simple/right/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_earrings_facial_earrings_emerald",
@@ -1929,7 +1959,8 @@
     "earrings",
     "emerald"
    ],
-   "layer_path": "facial/earrings/emerald/male/"
+   "layer_path": "facial/earrings/emerald/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_earrings_facial_earrings_moon",
@@ -1974,7 +2005,8 @@
     "earrings",
     "moon"
    ],
-   "layer_path": "facial/earrings/moon/male/"
+   "layer_path": "facial/earrings/moon/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_earrings_facial_earrings_pear",
@@ -2017,7 +2049,8 @@
     "earrings",
     "pear"
    ],
-   "layer_path": "facial/earrings/pear/male/"
+   "layer_path": "facial/earrings/pear/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_earrings_facial_earrings_princess",
@@ -2060,7 +2093,8 @@
     "earrings",
     "princess"
    ],
-   "layer_path": "facial/earrings/princess/male/"
+   "layer_path": "facial/earrings/princess/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_earrings_facial_earrings_stud",
@@ -2105,7 +2139,8 @@
     "earrings",
     "stud"
    ],
-   "layer_path": "facial/earrings/stud/male/"
+   "layer_path": "facial/earrings/stud/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_eyepatch_facial_eyepatch2_left",
@@ -2184,7 +2219,8 @@
     "eyepatch2",
     "left"
    ],
-   "layer_path": "facial/patches/eyepatch2/left/adult/"
+   "layer_path": "facial/patches/eyepatch2/left/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_eyepatch_facial_eyepatch2_right",
@@ -2263,7 +2299,8 @@
     "eyepatch2",
     "right"
    ],
-   "layer_path": "facial/patches/eyepatch2/right/adult/"
+   "layer_path": "facial/patches/eyepatch2/right/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_eyepatch_facial_eyepatch_ambi",
@@ -2344,7 +2381,8 @@
     "eyepatch",
     "ambi"
    ],
-   "layer_path": "facial/patches/eyepatch/ambi/adult/"
+   "layer_path": "facial/patches/eyepatch/ambi/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_eyepatch_facial_eyepatch_left",
@@ -2425,7 +2463,8 @@
     "eyepatch",
     "left"
    ],
-   "layer_path": "facial/patches/eyepatch/left/adult/"
+   "layer_path": "facial/patches/eyepatch/left/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_eyepatch_facial_eyepatch_right",
@@ -2506,7 +2545,8 @@
     "eyepatch",
     "right"
    ],
-   "layer_path": "facial/patches/eyepatch/right/adult/"
+   "layer_path": "facial/patches/eyepatch/right/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_eyepatch_facial_eyepatch_small_left",
@@ -2589,7 +2629,8 @@
     "small",
     "left"
    ],
-   "layer_path": "facial/patches/small/left/adult/"
+   "layer_path": "facial/patches/small/left/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_eyepatch_facial_eyepatch_small_right",
@@ -2672,7 +2713,8 @@
     "small",
     "right"
    ],
-   "layer_path": "facial/patches/small/right/adult/"
+   "layer_path": "facial/patches/small/right/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_facial_mask_plain",
@@ -2763,7 +2805,8 @@
     "mask",
     "plain"
    ],
-   "layer_path": "facial/masks/plain/adult/"
+   "layer_path": "facial/masks/plain/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_glasses_facial_glasses",
@@ -2849,7 +2892,8 @@
     "facial",
     "glasses"
    ],
-   "layer_path": "facial/glasses/glasses/adult/"
+   "layer_path": "facial/glasses/glasses/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_glasses_facial_glasses_halfmoon",
@@ -2936,7 +2980,8 @@
     "glasses",
     "halfmoon"
    ],
-   "layer_path": "facial/glasses/halfmoon/adult/"
+   "layer_path": "facial/glasses/halfmoon/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_accessories_glasses_facial_glasses_nerd",
@@ -3026,7 +3071,8 @@
     "glasses",
     "nerd"
    ],
-   "layer_path": "facial/glasses/nerd/adult/"
+   "layer_path": "facial/glasses/nerd/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_glasses_facial_glasses_round",
@@ -3118,7 +3164,8 @@
     "glasses",
     "round"
    ],
-   "layer_path": "facial/glasses/round/adult/"
+   "layer_path": "facial/glasses/round/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_glasses_facial_glasses_secretary",
@@ -3208,7 +3255,8 @@
     "glasses",
     "secretary"
    ],
-   "layer_path": "facial/glasses/secretary/adult/"
+   "layer_path": "facial/glasses/secretary/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_glasses_facial_glasses_shades",
@@ -3299,7 +3347,8 @@
     "glasses",
     "shades"
    ],
-   "layer_path": "facial/glasses/shades/adult/"
+   "layer_path": "facial/glasses/shades/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_glasses_facial_glasses_sunglasses",
@@ -3391,7 +3440,8 @@
     "glasses",
     "sunglasses"
    ],
-   "layer_path": "facial/glasses/sunglasses/adult/"
+   "layer_path": "facial/glasses/sunglasses/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_monocle_facial_monocle_left",
@@ -3457,7 +3507,8 @@
     "monocle",
     "left"
    ],
-   "layer_path": "facial/monocle/left/adult/"
+   "layer_path": "facial/monocle/left/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_monocle_facial_monocle_left_frame",
@@ -3548,7 +3599,8 @@
     "left",
     "frame"
    ],
-   "layer_path": "facial/monocle/left/frame/adult/"
+   "layer_path": "facial/monocle/left/frame/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_monocle_facial_monocle_right",
@@ -3614,7 +3666,8 @@
     "monocle",
     "right"
    ],
-   "layer_path": "facial/monocle/right/adult/"
+   "layer_path": "facial/monocle/right/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_accessories_monocle_facial_monocle_right_frame",
@@ -3705,7 +3758,8 @@
     "right",
     "frame"
    ],
-   "layer_path": "facial/monocle/right/frame/adult/"
+   "layer_path": "facial/monocle/right/frame/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_coverings_bandana_hat_bandana",
@@ -3767,7 +3821,8 @@
     "hat",
     "bandana"
    ],
-   "layer_path": "hat/cloth/bandana/adult/"
+   "layer_path": "hat/cloth/bandana/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_bandana_hat_bandana2",
@@ -3831,7 +3886,8 @@
     "hat",
     "bandana2"
    ],
-   "layer_path": "hat/cloth/bandana2/adult/"
+   "layer_path": "hat/cloth/bandana2/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_bandana_hat_bandana_pirate",
@@ -3893,7 +3949,8 @@
     "bandana",
     "pirate"
    ],
-   "layer_path": "hat/pirate/bandana/adult/"
+   "layer_path": "hat/pirate/bandana/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_coverings_bandana_hat_bandana_pirate_skull",
@@ -3955,7 +4012,8 @@
     "pirate",
     "skull"
    ],
-   "layer_path": "hat/pirate/bandana/skull/adult/"
+   "layer_path": "hat/pirate/bandana/skull/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_coverings_headbands_hat_headband_hairtie",
@@ -4017,7 +4075,8 @@
     "headband",
     "hairtie"
    ],
-   "layer_path": "hat/headband/hairtie/adult/"
+   "layer_path": "hat/headband/hairtie/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_headbands_hat_headband_hairtie_rune",
@@ -4081,7 +4140,8 @@
     "hairtie",
     "rune"
    ],
-   "layer_path": "hat/headband/hairtie/rune/adult/"
+   "layer_path": "hat/headband/hairtie/rune/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_headbands_hat_headband_kerchief",
@@ -4146,7 +4206,8 @@
     "headband",
     "kerchief"
    ],
-   "layer_path": "hat/pirate/kerchief/adult/"
+   "layer_path": "hat/pirate/kerchief/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_headbands_hat_headband_thick",
@@ -4208,7 +4269,8 @@
     "headband",
     "thick"
    ],
-   "layer_path": "hat/headband/thick/adult/"
+   "layer_path": "hat/headband/thick/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_headbands_hat_headband_thick_rune",
@@ -4272,7 +4334,8 @@
     "thick",
     "rune"
    ],
-   "layer_path": "hat/headband/thick/rune/adult/"
+   "layer_path": "hat/headband/thick/rune/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_headbands_hat_headband_tied",
@@ -4334,7 +4397,8 @@
     "headband",
     "tied"
    ],
-   "layer_path": "hat/headband/tied/adult/"
+   "layer_path": "hat/headband/tied/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_hoods_hat_hood_cloth",
@@ -4387,7 +4451,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)"
+    "Johannes Sjölund (wulax)"
    ],
    "tags": [
     "headwear",
@@ -4397,7 +4461,8 @@
     "hood",
     "cloth"
    ],
-   "layer_path": "hat/cloth/hood/adult/"
+   "layer_path": "hat/cloth/hood/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_hoods_hat_hood_hijab",
@@ -4457,7 +4522,8 @@
     "hood",
     "hijab"
    ],
-   "layer_path": "hat/cloth/hijab/male/"
+   "layer_path": "hat/cloth/hijab/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_coverings_hoods_hat_hood_sack_cloth",
@@ -4521,7 +4587,8 @@
     "sack",
     "cloth"
    ],
-   "layer_path": "hat/cloth/hood_sack/adult/"
+   "layer_path": "hat/cloth/hood_sack/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_admiral",
@@ -4602,7 +4669,8 @@
     "athwart",
     "admiral"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/admiral/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/admiral/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_admiral_cockade",
@@ -4684,7 +4752,8 @@
     "admiral",
     "cockade"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/admiral/cockade/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/admiral/cockade/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_admiral_trim",
@@ -4775,7 +4844,8 @@
     "admiral",
     "trim"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/admiral/trim/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/admiral/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_basic",
@@ -4855,7 +4925,8 @@
     "athwart",
     "basic"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/basic/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/basic/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_basic_skull",
@@ -4937,7 +5008,8 @@
     "basic",
     "skull"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/basic/skull/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/basic/skull/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_captain",
@@ -5018,7 +5090,8 @@
     "athwart",
     "captain"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/captain/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/captain/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_captain_skull",
@@ -5100,7 +5173,8 @@
     "captain",
     "skull"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/captain/skull/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/captain/skull/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_commodore",
@@ -5181,7 +5255,8 @@
     "athwart",
     "commodore"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/commodore/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/commodore/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_athwart_hat_bicorne_athwart_commodore_trim",
@@ -5272,7 +5347,8 @@
     "commodore",
     "trim"
    ],
-   "layer_path": "hat/pirate/bicorne/athwart/commodore/trim/adult/"
+   "layer_path": "hat/pirate/bicorne/athwart/commodore/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_bonnie",
@@ -5352,7 +5428,8 @@
     "cap",
     "bonnie"
    ],
-   "layer_path": "hat/pirate/bonnie/adult/"
+   "layer_path": "hat/pirate/bonnie/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_bonnie_feather",
@@ -5433,7 +5510,8 @@
     "bonnie",
     "feather"
    ],
-   "layer_path": "hat/pirate/bonnie/feather/adult/"
+   "layer_path": "hat/pirate/bonnie/feather/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_bonnie_tilt",
@@ -5514,7 +5592,8 @@
     "bonnie",
     "tilt"
    ],
-   "layer_path": "hat/pirate/bonnie/tilt/adult/"
+   "layer_path": "hat/pirate/bonnie/tilt/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_bonnie_trim",
@@ -5595,7 +5674,8 @@
     "bonnie",
     "trim"
    ],
-   "layer_path": "hat/pirate/bonnie/trim/adult/"
+   "layer_path": "hat/pirate/bonnie/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_cavalier",
@@ -5675,7 +5755,8 @@
     "cap",
     "cavalier"
    ],
-   "layer_path": "hat/pirate/cavalier/adult/"
+   "layer_path": "hat/pirate/cavalier/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_cavalier_feather",
@@ -5756,7 +5837,8 @@
     "cavalier",
     "feather"
    ],
-   "layer_path": "hat/pirate/cavalier/feather/adult/"
+   "layer_path": "hat/pirate/cavalier/feather/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_leather",
@@ -5829,7 +5911,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (Makrohn)"
    ],
    "tags": [
@@ -5840,7 +5922,8 @@
     "cap",
     "leather"
    ],
-   "layer_path": "hat/cloth/leather_cap/adult/"
+   "layer_path": "hat/cloth/leather_cap/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_caps_hat_cap_leather_feather",
@@ -5912,7 +5995,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (Makrohn)"
    ],
    "tags": [
@@ -5924,7 +6007,8 @@
     "leather",
     "feather"
    ],
-   "layer_path": "hat/cloth/leather_cap/feather/adult/"
+   "layer_path": "hat/cloth/leather_cap/feather/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_foreaft_hat_bicorne_foreaft",
@@ -6004,7 +6088,8 @@
     "bicorne",
     "foreaft"
    ],
-   "layer_path": "hat/pirate/bicorne/foreaft/adult/"
+   "layer_path": "hat/pirate/bicorne/foreaft/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_foreaft_hat_bicorne_foreaft_commodore",
@@ -6085,7 +6170,8 @@
     "foreaft",
     "commodore"
    ],
-   "layer_path": "hat/pirate/bicorne/foreaft/commodore/adult/"
+   "layer_path": "hat/pirate/bicorne/foreaft/commodore/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_foreaft_hat_bicorne_foreaft_commodore_trim",
@@ -6176,7 +6262,8 @@
     "commodore",
     "trim"
    ],
-   "layer_path": "hat/pirate/bicorne/foreaft/commodore/trim/adult/"
+   "layer_path": "hat/pirate/bicorne/foreaft/commodore/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_formal_hat_formal_bowler",
@@ -6258,7 +6345,8 @@
     "formal",
     "bowler"
    ],
-   "layer_path": "hat/formal/bowler/adult/"
+   "layer_path": "hat/formal/bowler/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_formal_hat_formal_crown",
@@ -6351,7 +6439,8 @@
     "formal",
     "crown"
    ],
-   "layer_path": "hat/formal/crown/adult/"
+   "layer_path": "hat/formal/crown/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_formal_hat_formal_tiara",
@@ -6444,7 +6533,8 @@
     "formal",
     "tiara"
    ],
-   "layer_path": "hat/formal/tiara/adult/"
+   "layer_path": "hat/formal/tiara/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_formal_hat_formal_tophat",
@@ -6526,7 +6616,8 @@
     "formal",
     "tophat"
    ],
-   "layer_path": "hat/formal/tophat/adult/"
+   "layer_path": "hat/formal/tophat/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_holiday_hat_holiday_christmas",
@@ -6607,7 +6698,8 @@
     "holiday",
     "christmas"
    ],
-   "layer_path": "hat/holiday/christmas/adult/"
+   "layer_path": "hat/holiday/christmas/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_holiday_hat_holiday_elf",
@@ -6688,7 +6780,8 @@
     "holiday",
     "elf"
    ],
-   "layer_path": "hat/holiday/elf/adult/"
+   "layer_path": "hat/holiday/elf/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_holiday_hat_holiday_santa",
@@ -6769,7 +6862,8 @@
     "holiday",
     "santa"
    ],
-   "layer_path": "hat/holiday/santa/adult/"
+   "layer_path": "hat/holiday/santa/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_celestial",
@@ -6850,7 +6944,8 @@
     "magic",
     "celestial"
    ],
-   "layer_path": "hat/magic/celestial/adult/"
+   "layer_path": "hat/magic/celestial/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_celestial_moon",
@@ -6932,7 +7027,8 @@
     "celestial",
     "moon"
    ],
-   "layer_path": "hat/magic/celestial_moon/adult/"
+   "layer_path": "hat/magic/celestial_moon/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_celestial_moon_trim",
@@ -7023,7 +7119,8 @@
     "moon",
     "trim"
    ],
-   "layer_path": "hat/magic/celestial_moon/trim/adult/"
+   "layer_path": "hat/magic/celestial_moon/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_celestial_trim",
@@ -7114,7 +7211,8 @@
     "celestial",
     "trim"
    ],
-   "layer_path": "hat/magic/celestial/trim/adult/"
+   "layer_path": "hat/magic/celestial/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_large",
@@ -7172,7 +7270,8 @@
     "magic",
     "large"
    ],
-   "layer_path": "hat/magic/large/adult/"
+   "layer_path": "hat/magic/large/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_wizard",
@@ -7261,7 +7360,8 @@
     "magic",
     "wizard"
    ],
-   "layer_path": "hat/magic/wizard/base/adult/"
+   "layer_path": "hat/magic/wizard/base/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_wizard_belt",
@@ -7351,7 +7451,8 @@
     "wizard",
     "belt"
    ],
-   "layer_path": "hat/magic/wizard/belt/adult/"
+   "layer_path": "hat/magic/wizard/belt/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_magic_hat_magic_wizard_buckle",
@@ -7419,7 +7520,8 @@
     "wizard",
     "buckle"
    ],
-   "layer_path": "hat/magic/wizard/buckle/adult/"
+   "layer_path": "hat/magic/wizard/buckle/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne",
@@ -7497,7 +7599,8 @@
     "hat",
     "tricorne"
    ],
-   "layer_path": "hat/pirate/tricorne/basic/adult/"
+   "layer_path": "hat/pirate/tricorne/basic/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne_captain",
@@ -7576,7 +7679,8 @@
     "tricorne",
     "captain"
    ],
-   "layer_path": "hat/pirate/tricorne/captain/adult/"
+   "layer_path": "hat/pirate/tricorne/captain/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne_captain_skull",
@@ -7656,7 +7760,8 @@
     "captain",
     "skull"
    ],
-   "layer_path": "hat/pirate/tricorne/captain/skull/adult/"
+   "layer_path": "hat/pirate/tricorne/captain/skull/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne_captain_trim",
@@ -7745,7 +7850,8 @@
     "captain",
     "trim"
    ],
-   "layer_path": "hat/pirate/tricorne/captain/trim/adult/"
+   "layer_path": "hat/pirate/tricorne/captain/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne_lieutenant",
@@ -7824,7 +7930,8 @@
     "tricorne",
     "lieutenant"
    ],
-   "layer_path": "hat/pirate/tricorne/lieutenant/adult/"
+   "layer_path": "hat/pirate/tricorne/lieutenant/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne_lieutenant_trim",
@@ -7913,7 +8020,8 @@
     "lieutenant",
     "trim"
    ],
-   "layer_path": "hat/pirate/tricorne/lieutenant/trim/adult/"
+   "layer_path": "hat/pirate/tricorne/lieutenant/trim/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne_stitched",
@@ -7992,7 +8100,8 @@
     "tricorne",
     "stitched"
    ],
-   "layer_path": "hat/pirate/tricorne/basic/stitching/adult/"
+   "layer_path": "hat/pirate/tricorne/basic/stitching/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_hats_tricorne_hat_tricorne_thatch",
@@ -8071,7 +8180,8 @@
     "tricorne",
     "thatch"
    ],
-   "layer_path": "hat/pirate/tricorne/basic/thatching/adult/"
+   "layer_path": "hat/pirate/tricorne/basic/thatching/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_crest",
@@ -8132,7 +8242,8 @@
     "accessory",
     "crest"
    ],
-   "layer_path": "hat/accessory/crest/adult/"
+   "layer_path": "hat/accessory/crest/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_crest_centurion",
@@ -8195,7 +8306,8 @@
     "crest",
     "centurion"
    ],
-   "layer_path": "hat/accessory/crest_centurion/adult/"
+   "layer_path": "hat/accessory/crest_centurion/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_horns_downward",
@@ -8258,7 +8370,8 @@
     "horns",
     "downward"
    ],
-   "layer_path": "hat/accessory/horns_downward/fg/adult/"
+   "layer_path": "hat/accessory/horns_downward/fg/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_horns_short",
@@ -8321,7 +8434,8 @@
     "horns",
     "short"
    ],
-   "layer_path": "hat/accessory/horns_short/fg/adult/"
+   "layer_path": "hat/accessory/horns_short/fg/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_horns_upward",
@@ -8384,7 +8498,8 @@
     "horns",
     "upward"
    ],
-   "layer_path": "hat/accessory/horns_upward/fg/adult/"
+   "layer_path": "hat/accessory/horns_upward/fg/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_plumage",
@@ -8448,7 +8563,8 @@
     "accessory",
     "plumage"
    ],
-   "layer_path": "hat/accessory/plumage/adult/"
+   "layer_path": "hat/accessory/plumage/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_plumage_centurion",
@@ -8522,7 +8638,8 @@
     "plumage",
     "centurion"
    ],
-   "layer_path": "hat/accessory/plumage_centurion/adult/"
+   "layer_path": "hat/accessory/plumage_centurion/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_plumage_legion",
@@ -8577,7 +8694,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Nila122",
     "bluecarrot16"
@@ -8591,7 +8708,8 @@
     "plumage",
     "legion"
    ],
-   "layer_path": "hat/accessory/plumage_legion/adult/"
+   "layer_path": "hat/accessory/plumage_legion/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_accessories_hat_accessory_wings",
@@ -8654,7 +8772,8 @@
     "accessory",
     "wings"
    ],
-   "layer_path": "hat/accessory/wings/fg/adult/"
+   "layer_path": "hat/accessory/wings/fg/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_armet",
@@ -8708,7 +8827,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -8719,7 +8838,8 @@
     "helmet",
     "armet"
    ],
-   "layer_path": "hat/helmet/armet/adult/"
+   "layer_path": "hat/helmet/armet/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_armet_simple",
@@ -8773,7 +8893,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -8785,7 +8905,8 @@
     "armet",
     "simple"
    ],
-   "layer_path": "hat/helmet/armet_simple/adult/"
+   "layer_path": "hat/helmet/armet_simple/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_barbarian",
@@ -8864,7 +8985,8 @@
     "helmet",
     "barbarian"
    ],
-   "layer_path": "hat/helmet/barbarian/adult/"
+   "layer_path": "hat/helmet/barbarian/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_barbarian_nasal",
@@ -8944,7 +9066,8 @@
     "barbarian",
     "nasal"
    ],
-   "layer_path": "hat/helmet/barbarian_nasal/adult/"
+   "layer_path": "hat/helmet/barbarian_nasal/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_barbarian_viking",
@@ -9024,7 +9147,8 @@
     "barbarian",
     "viking"
    ],
-   "layer_path": "hat/helmet/barbarian_viking/adult/"
+   "layer_path": "hat/helmet/barbarian_viking/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_barbuta",
@@ -9089,7 +9213,8 @@
     "helmet",
     "barbuta"
    ],
-   "layer_path": "hat/helmet/barbuta/male/"
+   "layer_path": "hat/helmet/barbuta/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_barbuta_simple",
@@ -9155,7 +9280,8 @@
     "barbuta",
     "simple"
    ],
-   "layer_path": "hat/helmet/barbuta_simple/adult/"
+   "layer_path": "hat/helmet/barbuta_simple/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_bascinet",
@@ -9221,7 +9347,8 @@
     "helmet",
     "bascinet"
    ],
-   "layer_path": "hat/helmet/bascinet/adult/"
+   "layer_path": "hat/helmet/bascinet/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_bascinet_round",
@@ -9289,7 +9416,8 @@
     "bascinet",
     "round"
    ],
-   "layer_path": "hat/helmet/bascinet_round/adult/"
+   "layer_path": "hat/helmet/bascinet_round/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_close",
@@ -9354,7 +9482,8 @@
     "helmet",
     "close"
    ],
-   "layer_path": "hat/helmet/close/male/"
+   "layer_path": "hat/helmet/close/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_flattop",
@@ -9419,7 +9548,8 @@
     "helmet",
     "flattop"
    ],
-   "layer_path": "hat/helmet/flattop/male/"
+   "layer_path": "hat/helmet/flattop/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_greathelm",
@@ -9484,7 +9614,8 @@
     "helmet",
     "greathelm"
    ],
-   "layer_path": "hat/helmet/greathelm/male/"
+   "layer_path": "hat/helmet/greathelm/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_horned",
@@ -9536,7 +9667,7 @@
     "GPL 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Sander Frenken (castelonia)",
     "Shaun Williams",
@@ -9550,7 +9681,8 @@
     "helmet",
     "horned"
    ],
-   "layer_path": "hat/helmet/horned/adult/"
+   "layer_path": "hat/helmet/horned/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_kettle",
@@ -9616,7 +9748,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Napsio (Vitruvian Studio)"
    ],
    "tags": [
@@ -9627,7 +9759,8 @@
     "helmet",
     "kettle"
    ],
-   "layer_path": "hat/helmet/kettle/adult/"
+   "layer_path": "hat/helmet/kettle/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_legion",
@@ -9682,7 +9815,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Nila122",
     "bluecarrot16"
@@ -9695,7 +9828,8 @@
     "helmet",
     "legion"
    ],
-   "layer_path": "hat/helmet/legion/adult/"
+   "layer_path": "hat/helmet/legion/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_mail",
@@ -9749,7 +9883,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Napsio (Vitruvian Studio)"
    ],
    "tags": [
@@ -9760,7 +9894,8 @@
     "helmet",
     "mail"
    ],
-   "layer_path": "hat/helmet/mail/adult/"
+   "layer_path": "hat/helmet/mail/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_maximus",
@@ -9825,7 +9960,8 @@
     "helmet",
     "maximus"
    ],
-   "layer_path": "hat/helmet/maximus/adult/"
+   "layer_path": "hat/helmet/maximus/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_morion",
@@ -9890,7 +10026,8 @@
     "helmet",
     "morion"
    ],
-   "layer_path": "hat/helmet/morion/adult/"
+   "layer_path": "hat/helmet/morion/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_nasal",
@@ -9955,7 +10092,8 @@
     "helmet",
     "nasal"
    ],
-   "layer_path": "hat/helmet/nasal/adult/"
+   "layer_path": "hat/helmet/nasal/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_norman",
@@ -10020,7 +10158,8 @@
     "helmet",
     "norman"
    ],
-   "layer_path": "hat/helmet/norman/adult/"
+   "layer_path": "hat/helmet/norman/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_pointed",
@@ -10086,7 +10225,8 @@
     "helmet",
     "pointed"
    ],
-   "layer_path": "hat/helmet/pointed/adult/"
+   "layer_path": "hat/helmet/pointed/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_spangenhelm",
@@ -10151,7 +10291,8 @@
     "helmet",
     "spangenhelm"
    ],
-   "layer_path": "hat/helmet/spangenhelm/adult/"
+   "layer_path": "hat/helmet/spangenhelm/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_spangenhelm_viking",
@@ -10217,7 +10358,8 @@
     "spangenhelm",
     "viking"
    ],
-   "layer_path": "hat/helmet/spangenhelm_viking/adult/"
+   "layer_path": "hat/helmet/spangenhelm_viking/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_sugarloaf",
@@ -10282,7 +10424,8 @@
     "helmet",
     "sugarloaf"
    ],
-   "layer_path": "hat/helmet/sugarloaf/male/"
+   "layer_path": "hat/helmet/sugarloaf/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_sugarloaf_simple",
@@ -10348,7 +10491,8 @@
     "sugarloaf",
     "simple"
    ],
-   "layer_path": "hat/helmet/sugarloaf_simple/male/"
+   "layer_path": "hat/helmet/sugarloaf_simple/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_helmets_hat_helmet_xeon",
@@ -10410,7 +10554,8 @@
     "helmet",
     "xeon"
    ],
-   "layer_path": "hat/helmet/xeon/adult/"
+   "layer_path": "hat/helmet/xeon/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_grated",
@@ -10475,7 +10620,8 @@
     "visor",
     "grated"
    ],
-   "layer_path": "hat/visor/grated/adult/"
+   "layer_path": "hat/visor/grated/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_grated_narrow",
@@ -10541,7 +10687,8 @@
     "grated",
     "narrow"
    ],
-   "layer_path": "hat/visor/grated_narrow/adult/"
+   "layer_path": "hat/visor/grated_narrow/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_horned",
@@ -10593,7 +10740,7 @@
     "GPL 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Sander Frenken (castelonia)",
     "Shaun Williams",
@@ -10607,7 +10754,8 @@
     "visor",
     "horned"
    ],
-   "layer_path": "hat/visor/horned/adult/"
+   "layer_path": "hat/visor/horned/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_pigface",
@@ -10673,7 +10821,8 @@
     "visor",
     "pigface"
    ],
-   "layer_path": "hat/visor/pigface/adult/"
+   "layer_path": "hat/visor/pigface/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_pigface_raised",
@@ -10740,7 +10889,8 @@
     "pigface",
     "raised"
    ],
-   "layer_path": "hat/visor/pigface_raised/adult/"
+   "layer_path": "hat/visor/pigface_raised/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_round",
@@ -10806,7 +10956,8 @@
     "visor",
     "round"
    ],
-   "layer_path": "hat/visor/round/adult/"
+   "layer_path": "hat/visor/round/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_round_raised",
@@ -10873,7 +11024,8 @@
     "round",
     "raised"
    ],
-   "layer_path": "hat/visor/round_raised/adult/"
+   "layer_path": "hat/visor/round_raised/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_slit",
@@ -10926,7 +11078,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -10937,7 +11089,8 @@
     "visor",
     "slit"
    ],
-   "layer_path": "hat/visor/slit/adult/"
+   "layer_path": "hat/visor/slit/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_helmets_visors_hat_visor_slit_narrow",
@@ -10990,7 +11143,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -11002,7 +11155,8 @@
     "slit",
     "narrow"
    ],
-   "layer_path": "hat/visor/slit/adult/"
+   "layer_path": "hat/visor/slit/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_amulet_cross",
@@ -11095,7 +11249,8 @@
     "amulet",
     "cross"
    ],
-   "layer_path": "neck/amulet/cross/male/"
+   "layer_path": "neck/amulet/cross/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_amulet_dangle",
@@ -11189,7 +11344,8 @@
     "amulet",
     "dangle"
    ],
-   "layer_path": "neck/amulet/dangle/male/"
+   "layer_path": "neck/amulet/dangle/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_amulet_spider",
@@ -11282,7 +11438,8 @@
     "amulet",
     "spider"
    ],
-   "layer_path": "neck/amulet/spider/male/"
+   "layer_path": "neck/amulet/spider/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_amulet_star",
@@ -11377,7 +11534,8 @@
     "amulet",
     "star"
    ],
-   "layer_path": "neck/amulet/star/male/"
+   "layer_path": "neck/amulet/star/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_charm_box",
@@ -11430,7 +11588,8 @@
     "charm",
     "box"
    ],
-   "layer_path": "neck/charm/box/male/"
+   "layer_path": "neck/charm/box/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_charm_oval",
@@ -11483,7 +11642,8 @@
     "charm",
     "oval"
    ],
-   "layer_path": "neck/charm/oval/male/"
+   "layer_path": "neck/charm/oval/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_charm_ring",
@@ -11536,7 +11696,8 @@
     "charm",
     "ring"
    ],
-   "layer_path": "neck/charm/ring/male/"
+   "layer_path": "neck/charm/ring/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_charm_star",
@@ -11589,7 +11750,8 @@
     "charm",
     "star"
    ],
-   "layer_path": "neck/charm/star/male/"
+   "layer_path": "neck/charm/star/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_emerald",
@@ -11640,7 +11802,8 @@
     "gem",
     "emerald"
    ],
-   "layer_path": "neck/gem/emerald/male/"
+   "layer_path": "neck/gem/emerald/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_marquise",
@@ -11691,7 +11854,8 @@
     "gem",
     "marquise"
    ],
-   "layer_path": "neck/gem/marquise/male/"
+   "layer_path": "neck/gem/marquise/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_natural",
@@ -11742,7 +11906,8 @@
     "gem",
     "natural"
    ],
-   "layer_path": "neck/gem/natural/male/"
+   "layer_path": "neck/gem/natural/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_pear",
@@ -11793,7 +11958,8 @@
     "gem",
     "pear"
    ],
-   "layer_path": "neck/gem/pear/male/"
+   "layer_path": "neck/gem/pear/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_pearl",
@@ -11844,7 +12010,8 @@
     "gem",
     "pearl"
    ],
-   "layer_path": "neck/gem/pearl/male/"
+   "layer_path": "neck/gem/pearl/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_princess",
@@ -11895,7 +12062,8 @@
     "gem",
     "princess"
    ],
-   "layer_path": "neck/gem/princess/male/"
+   "layer_path": "neck/gem/princess/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_round",
@@ -11946,7 +12114,8 @@
     "gem",
     "round"
    ],
-   "layer_path": "neck/gem/round/male/"
+   "layer_path": "neck/gem/round/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_charms_neck_gem_trilliant",
@@ -11997,7 +12166,8 @@
     "gem",
     "trilliant"
    ],
-   "layer_path": "neck/gem/trilliant/male/"
+   "layer_path": "neck/gem/trilliant/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_bowtie",
@@ -12059,7 +12229,8 @@
     "neck",
     "bowtie"
    ],
-   "layer_path": "neck/tie/bowtie/adult/"
+   "layer_path": "neck/tie/bowtie/adult/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_neck_neck_bowtie2",
@@ -12116,7 +12287,8 @@
     "neck",
     "bowtie2"
    ],
-   "layer_path": "neck/tie/bowtie2/adult/"
+   "layer_path": "neck/tie/bowtie2/adult/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_capeclip",
@@ -12186,7 +12358,8 @@
     "neck",
     "capeclip"
    ],
-   "layer_path": "neck/capeclip/male/"
+   "layer_path": "neck/capeclip/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_capetie",
@@ -12242,7 +12415,8 @@
     "neck",
     "capetie"
    ],
-   "layer_path": "neck/capetie/male/"
+   "layer_path": "neck/capetie/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_cravat",
@@ -12296,7 +12470,8 @@
     "neck",
     "cravat"
    ],
-   "layer_path": "neck/cravat/male/"
+   "layer_path": "neck/cravat/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_jabot",
@@ -12350,7 +12525,8 @@
     "neck",
     "jabot"
    ],
-   "layer_path": "neck/jabot/male/"
+   "layer_path": "neck/jabot/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_necklace",
@@ -12404,7 +12580,8 @@
     "neck",
     "necklace"
    ],
-   "layer_path": "neck/necklace/female/"
+   "layer_path": "neck/necklace/female/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_neck_neck_necklace_beaded_large",
@@ -12461,7 +12638,8 @@
     "beaded",
     "large"
    ],
-   "layer_path": "neck/necklace/beaded_large/male/"
+   "layer_path": "neck/necklace/beaded_large/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_necklace_beaded_small",
@@ -12519,7 +12697,8 @@
     "beaded",
     "small"
    ],
-   "layer_path": "neck/necklace/beaded_small/male/"
+   "layer_path": "neck/necklace/beaded_small/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_necklace_chain",
@@ -12571,7 +12750,8 @@
     "necklace",
     "chain"
    ],
-   "layer_path": "neck/necklace/chain/male/"
+   "layer_path": "neck/necklace/chain/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_necklace_simple",
@@ -12623,7 +12803,8 @@
     "necklace",
     "simple"
    ],
-   "layer_path": "neck/necklace/simple/male/"
+   "layer_path": "neck/necklace/simple/male/",
+   "license_safe": true
   },
   {
    "visual_id": "headwear_neck_neck_necktie",
@@ -12685,7 +12866,8 @@
     "neck",
     "necktie"
    ],
-   "layer_path": "neck/tie/necktie/male/"
+   "layer_path": "neck/tie/necktie/male/",
+   "license_safe": false
   },
   {
    "visual_id": "headwear_neck_neck_scarf",
@@ -12734,7 +12916,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Nila122",
     "Stephen Challener (Redshrike)"
    ],
@@ -12744,7 +12926,8 @@
     "neck",
     "scarf"
    ],
-   "layer_path": "neck/scarf/"
+   "layer_path": "neck/scarf/",
+   "license_safe": false
   },
   {
    "visual_id": "legs_leggings_legs_hose",
@@ -12796,7 +12979,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -12806,7 +12989,8 @@
     "legs",
     "hose"
    ],
-   "layer_path": "legs/hose/male/"
+   "layer_path": "legs/hose/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_leggings_legs_leggings",
@@ -12858,7 +13042,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Mandi Paugh",
     "Stephen Challener (Redshrike)",
     "William.Thompsonj",
@@ -12870,7 +13054,8 @@
     "legs",
     "leggings"
    ],
-   "layer_path": "legs/leggings/male/"
+   "layer_path": "legs/leggings/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_leggings_legs_leggings2",
@@ -12922,7 +13107,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Mandi Paugh",
     "Stephen Challener (Redshrike)",
     "William.Thompsonj",
@@ -12934,7 +13119,8 @@
     "legs",
     "leggings2"
    ],
-   "layer_path": "legs/leggings2/male/"
+   "layer_path": "legs/leggings2/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_legs_armour",
@@ -12983,7 +13169,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "bluecarrot16"
@@ -12993,7 +13179,8 @@
     "legs",
     "armour"
    ],
-   "layer_path": "legs/armour/plate/male/"
+   "layer_path": "legs/armour/plate/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_pants_legs_cuffed",
@@ -13046,7 +13233,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -13055,7 +13242,8 @@
     "legs",
     "cuffed"
    ],
-   "layer_path": "legs/cuffed/male/"
+   "layer_path": "legs/cuffed/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_pants_legs_formal",
@@ -13109,7 +13297,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -13119,7 +13307,8 @@
     "legs",
     "formal"
    ],
-   "layer_path": "legs/formal/male/"
+   "layer_path": "legs/formal/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_pants_legs_formal_striped",
@@ -13173,7 +13362,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -13184,7 +13373,8 @@
     "formal",
     "striped"
    ],
-   "layer_path": "legs/formal_striped/male/"
+   "layer_path": "legs/formal_striped/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_pants_legs_pantaloons",
@@ -13238,7 +13428,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Nila122",
     "Stephen Challener (Redshrike)"
    ],
@@ -13248,7 +13438,8 @@
     "legs",
     "pantaloons"
    ],
-   "layer_path": "legs/pantaloons/male/"
+   "layer_path": "legs/pantaloons/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_pants_legs_pants",
@@ -13303,7 +13494,7 @@
     "ElizaWy",
     "JaidynReiman",
     "Joe White",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
@@ -13314,7 +13505,8 @@
     "legs",
     "pants"
    ],
-   "layer_path": "legs/pants/male/"
+   "layer_path": "legs/pants/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_pants_legs_pants2",
@@ -13367,7 +13559,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -13376,7 +13568,8 @@
     "legs",
     "pants2"
    ],
-   "layer_path": "legs/pants2/male/"
+   "layer_path": "legs/pants2/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_pants_legs_widepants",
@@ -13428,7 +13621,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "dalonedrau"
    ],
@@ -13438,7 +13631,8 @@
     "legs",
     "widepants"
    ],
-   "layer_path": "legs/pants/muscular/"
+   "layer_path": "legs/pants/muscular/",
+   "license_safe": false
   },
   {
    "visual_id": "legs_shorts_legs_shorts",
@@ -13491,7 +13685,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -13500,7 +13694,8 @@
     "legs",
     "shorts"
    ],
-   "layer_path": "legs/shorts/shorts/male/"
+   "layer_path": "legs/shorts/shorts/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_shorts_legs_shorts_short",
@@ -13553,7 +13748,7 @@
     "Bluecarrot16",
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -13563,7 +13758,8 @@
     "shorts",
     "short"
    ],
-   "layer_path": "legs/shorts/short_shorts/male/"
+   "layer_path": "legs/shorts/short_shorts/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_skirts_legs_skirt_belle",
@@ -13617,7 +13813,8 @@
     "skirt",
     "belle"
    ],
-   "layer_path": "legs/skirts/belle/thin/"
+   "layer_path": "legs/skirts/belle/thin/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_skirts_legs_skirt_overskirt",
@@ -13671,7 +13868,8 @@
     "skirt",
     "overskirt"
    ],
-   "layer_path": "legs/skirts/overskirt/thin/"
+   "layer_path": "legs/skirts/overskirt/thin/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_skirts_legs_skirt_straight",
@@ -13723,7 +13921,8 @@
     "skirt",
     "straight"
    ],
-   "layer_path": "legs/skirts/straight/thin/"
+   "layer_path": "legs/skirts/straight/thin/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_skirts_legs_skirts_legion",
@@ -13784,7 +13983,8 @@
     "skirts",
     "legion"
    ],
-   "layer_path": "legs/skirts/legion/male/"
+   "layer_path": "legs/skirts/legion/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_skirts_legs_skirts_plain",
@@ -13831,7 +14031,7 @@
    "authors": [
     "Ahmad3366",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)",
     "bluecarrot16"
    ],
@@ -13842,7 +14042,8 @@
     "skirts",
     "plain"
    ],
-   "layer_path": "legs/skirts/plain/male/"
+   "layer_path": "legs/skirts/plain/male/",
+   "license_safe": true
   },
   {
    "visual_id": "legs_skirts_legs_skirts_slit",
@@ -13898,7 +14099,8 @@
     "skirts",
     "slit"
    ],
-   "layer_path": "legs/skirts/slit/thin/"
+   "layer_path": "legs/skirts/slit/thin/",
+   "license_safe": true
   },
   {
    "visual_id": "tools_tool_axe",
@@ -13962,7 +14164,8 @@
     "tool",
     "axe"
    ],
-   "layer_path": "tools/axe/male/"
+   "layer_path": "tools/axe/male/",
+   "license_safe": true
   },
   {
    "visual_id": "tools_tool_hammer",
@@ -14026,7 +14229,8 @@
     "tool",
     "hammer"
    ],
-   "layer_path": "tools/hammer/male/"
+   "layer_path": "tools/hammer/male/",
+   "license_safe": true
   },
   {
    "visual_id": "tools_tool_hoe",
@@ -14079,7 +14283,7 @@
    "authors": [
     "Inboxninja",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)",
     "bluecarrot16"
    ],
@@ -14088,7 +14292,8 @@
     "tool",
     "hoe"
    ],
-   "layer_path": "tools/hoe/bg/"
+   "layer_path": "tools/hoe/bg/",
+   "license_safe": false
   },
   {
    "visual_id": "tools_tool_pickaxe",
@@ -14152,7 +14357,8 @@
     "tool",
     "pickaxe"
    ],
-   "layer_path": "tools/pickaxe/male/"
+   "layer_path": "tools/pickaxe/male/",
+   "license_safe": true
   },
   {
    "visual_id": "tools_tool_rod",
@@ -14221,7 +14427,8 @@
     "tool",
     "rod"
    ],
-   "layer_path": "tools/fishing_rod/bg"
+   "layer_path": "tools/fishing_rod/bg",
+   "license_safe": true
   },
   {
    "visual_id": "tools_tool_shovel",
@@ -14274,7 +14481,7 @@
    "authors": [
     "Inboxninja",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)",
     "bluecarrot16"
    ],
@@ -14283,7 +14490,8 @@
     "tool",
     "shovel"
    ],
-   "layer_path": "tools/shovel/bg/"
+   "layer_path": "tools/shovel/bg/",
+   "license_safe": false
   },
   {
    "visual_id": "tools_tool_watering_can",
@@ -14331,7 +14539,8 @@
     "watering",
     "can"
    ],
-   "layer_path": "tools/watering_can/bg/"
+   "layer_path": "tools/watering_can/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "tools_tool_whip",
@@ -14377,7 +14586,8 @@
     "tool",
     "whip"
    ],
-   "layer_path": "tools/whip/bg"
+   "layer_path": "tools/whip/bg",
+   "license_safe": true
   },
   {
    "visual_id": "torso_aprons_torso_aprons_apron",
@@ -14439,7 +14649,8 @@
     "aprons",
     "apron"
    ],
-   "layer_path": "torso/aprons/apron/male/"
+   "layer_path": "torso/aprons/apron/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_aprons_torso_aprons_apron_full",
@@ -14500,7 +14711,8 @@
     "apron",
     "full"
    ],
-   "layer_path": "torso/aprons/apron_full/female/"
+   "layer_path": "torso/aprons/apron_full/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_aprons_torso_aprons_apron_half",
@@ -14561,7 +14773,8 @@
     "apron",
     "half"
    ],
-   "layer_path": "torso/aprons/apron_half/female/"
+   "layer_path": "torso/aprons/apron_half/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_aprons_torso_aprons_overalls",
@@ -14641,7 +14854,8 @@
     "aprons",
     "overalls"
    ],
-   "layer_path": "torso/aprons/overalls/male/"
+   "layer_path": "torso/aprons/overalls/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_aprons_torso_aprons_suspenders",
@@ -14720,7 +14934,8 @@
     "aprons",
     "suspenders"
    ],
-   "layer_path": "torso/aprons/suspenders/male/"
+   "layer_path": "torso/aprons/suspenders/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_armour_torso_armour_leather",
@@ -14782,7 +14997,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "bluecarrot16"
@@ -14794,7 +15009,8 @@
     "armour",
     "leather"
    ],
-   "layer_path": "torso/armour/leather/male/"
+   "layer_path": "torso/armour/leather/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_armour_torso_armour_legion",
@@ -14859,7 +15075,8 @@
     "armour",
     "legion"
    ],
-   "layer_path": "torso/armour/legion/male/"
+   "layer_path": "torso/armour/legion/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_armour_torso_armour_plate",
@@ -14912,7 +15129,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "Napsio (Vitruvian Studio)",
@@ -14925,7 +15142,8 @@
     "armour",
     "plate"
    ],
-   "layer_path": "torso/armour/plate/male/"
+   "layer_path": "torso/armour/plate/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_backpack_backpack",
@@ -14981,7 +15199,8 @@
     "backpack",
     "backpack"
    ],
-   "layer_path": "backpack/backpack/male/"
+   "layer_path": "backpack/backpack/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_backpack_backpack_basket",
@@ -15018,7 +15237,8 @@
     "backpack",
     "basket"
    ],
-   "layer_path": "backpack/basket/fg/"
+   "layer_path": "backpack/basket/fg/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_backpack_backpack_jetpack",
@@ -15058,7 +15278,8 @@
     "backpack",
     "jetpack"
    ],
-   "layer_path": "backpack/jetpack/male/"
+   "layer_path": "backpack/jetpack/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_backpack_backpack_jetpack_fins",
@@ -15099,7 +15320,8 @@
     "jetpack",
     "fins"
    ],
-   "layer_path": "backpack/jetpack_fins/male/"
+   "layer_path": "backpack/jetpack_fins/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_backpack_backpack_squarepack",
@@ -15156,7 +15378,8 @@
     "backpack",
     "squarepack"
    ],
-   "layer_path": "backpack/squarepack/male/"
+   "layer_path": "backpack/squarepack/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_backpack_backpack_straps",
@@ -15213,7 +15436,8 @@
     "backpack",
     "straps"
    ],
-   "layer_path": "backpack/straps/male/"
+   "layer_path": "backpack/straps/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_backpack_cargo_backpack_contents_ore",
@@ -15258,7 +15482,8 @@
     "contents",
     "ore"
    ],
-   "layer_path": "backpack/basket_contents/ore/fg/"
+   "layer_path": "backpack/basket_contents/ore/fg/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_backpack_cargo_backpack_contents_wood",
@@ -15299,7 +15524,8 @@
     "contents",
     "wood"
    ],
-   "layer_path": "backpack/basket_contents/wood/fg/"
+   "layer_path": "backpack/basket_contents/wood/fg/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_backpack_quiver",
@@ -15329,14 +15555,15 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)"
+    "Johannes Sjölund (wulax)"
    ],
    "tags": [
     "torso",
     "backpack",
     "quiver"
    ],
-   "layer_path": "quiver/"
+   "layer_path": "quiver/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_cape_cape_solid",
@@ -15390,7 +15617,8 @@
     "cape",
     "solid"
    ],
-   "layer_path": "cape/solid/fg/"
+   "layer_path": "cape/solid/fg/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_cape_cape_tattered",
@@ -15443,7 +15671,8 @@
     "cape",
     "tattered"
    ],
-   "layer_path": "cape/tattered/fg/"
+   "layer_path": "cape/tattered/fg/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_cape_cape_trim",
@@ -15498,7 +15727,8 @@
     "cape",
     "trim"
    ],
-   "layer_path": "cape/trim/"
+   "layer_path": "cape/trim/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_dress_bodice",
@@ -15567,7 +15797,8 @@
     "dress",
     "bodice"
    ],
-   "layer_path": "dress/bodice/female/"
+   "layer_path": "dress/bodice/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_dress_sash",
@@ -15636,7 +15867,8 @@
     "dress",
     "sash"
    ],
-   "layer_path": "dress/sash/female/"
+   "layer_path": "dress/sash/female/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_dresses_dress_slit",
@@ -15706,7 +15938,8 @@
     "dress",
     "slit"
    ],
-   "layer_path": "dress/slit/female/"
+   "layer_path": "dress/slit/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono",
@@ -15766,7 +15999,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -15776,7 +16009,8 @@
     "dress",
     "kimono"
    ],
-   "layer_path": "dress/kimono/normal/universal/female/"
+   "layer_path": "dress/kimono/normal/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono_longsleeve",
@@ -15836,7 +16070,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -15847,7 +16081,8 @@
     "kimono",
     "longsleeve"
    ],
-   "layer_path": "dress/kimono/sleeves/universal/female/"
+   "layer_path": "dress/kimono/sleeves/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono_longsleeve_trim",
@@ -15907,7 +16142,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -15919,7 +16154,8 @@
     "longsleeve",
     "trim"
    ],
-   "layer_path": "dress/kimono/sleeves/trim/universal/female/"
+   "layer_path": "dress/kimono/sleeves/trim/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono_oversize",
@@ -15979,7 +16215,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -15990,7 +16226,8 @@
     "kimono",
     "oversize"
    ],
-   "layer_path": "dress/kimono/sleeves_oversize/universal/female/"
+   "layer_path": "dress/kimono/sleeves_oversize/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono_oversize_trim",
@@ -16050,7 +16287,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -16062,7 +16299,8 @@
     "oversize",
     "trim"
    ],
-   "layer_path": "dress/kimono/sleeves_oversize/trim/universal/female/"
+   "layer_path": "dress/kimono/sleeves_oversize/trim/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono_split",
@@ -16122,7 +16360,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -16133,7 +16371,8 @@
     "kimono",
     "split"
    ],
-   "layer_path": "dress/kimono/split/universal/female/"
+   "layer_path": "dress/kimono/split/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono_split_trim",
@@ -16193,7 +16432,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -16205,7 +16444,8 @@
     "split",
     "trim"
    ],
-   "layer_path": "dress/kimono/split/trim/universal/female/"
+   "layer_path": "dress/kimono/split/trim/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_dresses_kimono_dress_kimono_trim",
@@ -16265,7 +16505,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -16276,7 +16516,8 @@
     "kimono",
     "trim"
    ],
-   "layer_path": "dress/kimono/normal/trim/universal/female/"
+   "layer_path": "dress/kimono/normal/trim/universal/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_accessory_torso_jacket_frock_buttons",
@@ -16319,7 +16560,8 @@
     "frock",
     "buttons"
    ],
-   "layer_path": "torso/jacket/trim/frock_buttons/"
+   "layer_path": "torso/jacket/trim/frock_buttons/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_accessory_torso_jacket_frock_collar",
@@ -16362,7 +16604,8 @@
     "frock",
     "collar"
    ],
-   "layer_path": "torso/jacket/trim/frock_collar/"
+   "layer_path": "torso/jacket/trim/frock_collar/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_accessory_torso_jacket_frock_lace",
@@ -16405,7 +16648,8 @@
     "frock",
     "lace"
    ],
-   "layer_path": "torso/jacket/trim/frock_lace/"
+   "layer_path": "torso/jacket/trim/frock_lace/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_accessory_torso_jacket_frock_lapel",
@@ -16448,7 +16692,8 @@
     "frock",
     "lapel"
    ],
-   "layer_path": "torso/jacket/trim/frock_lapel/"
+   "layer_path": "torso/jacket/trim/frock_lapel/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_accessory_torso_jacket_pockets",
@@ -16507,7 +16752,8 @@
     "jacket",
     "pockets"
    ],
-   "layer_path": "torso/jacket/trim/jacket_pockets/"
+   "layer_path": "torso/jacket/trim/jacket_pockets/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_torso_jacket_collared",
@@ -16567,7 +16813,8 @@
     "jacket",
     "collared"
    ],
-   "layer_path": "torso/jacket/collared/male/"
+   "layer_path": "torso/jacket/collared/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_jacket_torso_jacket_frock",
@@ -16625,7 +16872,8 @@
     "jacket",
     "frock"
    ],
-   "layer_path": "torso/jacket/frock/male/"
+   "layer_path": "torso/jacket/frock/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_jacket_torso_jacket_iverness",
@@ -16661,7 +16909,8 @@
     "jacket",
     "iverness"
    ],
-   "layer_path": "torso/jacket/iverness/male/"
+   "layer_path": "torso/jacket/iverness/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_jacket_torso_jacket_santa",
@@ -16720,7 +16969,8 @@
     "jacket",
     "santa"
    ],
-   "layer_path": "torso/jacket/santa/male/"
+   "layer_path": "torso/jacket/santa/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_torso_jacket_tabard",
@@ -16768,7 +17018,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -16779,7 +17029,8 @@
     "jacket",
     "tabard"
    ],
-   "layer_path": "torso/jacket/tabard/male/"
+   "layer_path": "torso/jacket/tabard/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_jacket_torso_jacket_trench",
@@ -16816,7 +17067,8 @@
     "jacket",
     "trench"
    ],
-   "layer_path": "torso/jacket/trench/male/"
+   "layer_path": "torso/jacket/trench/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve",
@@ -16869,7 +17121,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -16881,7 +17133,8 @@
     "clothes",
     "longsleeve"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeve/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeve/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve2",
@@ -16932,7 +17185,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -16943,7 +17196,8 @@
     "clothes",
     "longsleeve2"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeve2/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeve2/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve2_buttoned",
@@ -16994,7 +17248,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17006,7 +17260,8 @@
     "longsleeve2",
     "buttoned"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeve2_buttoned/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeve2_buttoned/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve2_cardigan",
@@ -17057,7 +17312,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17069,7 +17324,8 @@
     "longsleeve2",
     "cardigan"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeve2_cardigan/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeve2_cardigan/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve2_polo",
@@ -17120,7 +17376,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17132,7 +17388,8 @@
     "longsleeve2",
     "polo"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeve2_polo/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeve2_polo/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve2_scoop",
@@ -17183,7 +17440,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17195,7 +17452,8 @@
     "longsleeve2",
     "scoop"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeve2_scoop/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeve2_scoop/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve2_vneck",
@@ -17246,7 +17504,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17258,7 +17516,8 @@
     "longsleeve2",
     "vneck"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeve2_vneck/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeve2_vneck/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve_formal",
@@ -17285,7 +17544,7 @@
     "GPL 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "Thane Brimhall (pennomi)",
     "bluecarrot16",
@@ -17300,7 +17559,8 @@
     "longsleeve",
     "formal"
    ],
-   "layer_path": "torso/clothes/longsleeve/formal/male/"
+   "layer_path": "torso/clothes/longsleeve/formal/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve_formal_striped",
@@ -17327,7 +17587,7 @@
     "GPL 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "Thane Brimhall (pennomi)",
     "bluecarrot16",
@@ -17343,7 +17603,8 @@
     "formal",
     "striped"
    ],
-   "layer_path": "torso/clothes/longsleeve/formal_striped/male/"
+   "layer_path": "torso/clothes/longsleeve/formal_striped/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve_laced",
@@ -17394,7 +17655,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -17407,7 +17668,8 @@
     "longsleeve",
     "laced"
    ],
-   "layer_path": "torso/clothes/longsleeve/laced/male/"
+   "layer_path": "torso/clothes/longsleeve/laced/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeve_scoop",
@@ -17459,7 +17721,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -17472,7 +17734,8 @@
     "longsleeve",
     "scoop"
    ],
-   "layer_path": "torso/clothes/longsleeve/scoop/male/"
+   "layer_path": "torso/clothes/longsleeve/scoop/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_longsleeve_torso_clothes_longsleeves_cuffed",
@@ -17523,7 +17786,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17535,7 +17798,8 @@
     "longsleeves",
     "cuffed"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeves_cuffed/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeves_cuffed/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_shortsleeve_torso_clothes_shortsleeve",
@@ -17588,7 +17852,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Nyom",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
@@ -17601,7 +17865,8 @@
     "clothes",
     "shortsleeve"
    ],
-   "layer_path": "torso/clothes/shortsleeve/shortsleeve/male/"
+   "layer_path": "torso/clothes/shortsleeve/shortsleeve/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_shortsleeve_torso_clothes_shortsleeve_cardigan",
@@ -17652,7 +17917,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17664,7 +17929,8 @@
     "shortsleeve",
     "cardigan"
    ],
-   "layer_path": "torso/clothes/shortsleeve/shortsleeve_cardigan/male/"
+   "layer_path": "torso/clothes/shortsleeve/shortsleeve_cardigan/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_shortsleeve_torso_clothes_shortsleeve_polo",
@@ -17715,7 +17981,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17727,7 +17993,8 @@
     "shortsleeve",
     "polo"
    ],
-   "layer_path": "torso/clothes/shortsleeve/shortsleeve_polo/male/"
+   "layer_path": "torso/clothes/shortsleeve/shortsleeve_polo/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_shortsleeve_torso_clothes_tshirt",
@@ -17778,7 +18045,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17789,7 +18056,8 @@
     "clothes",
     "tshirt"
    ],
-   "layer_path": "torso/clothes/shortsleeve/tshirt/male/"
+   "layer_path": "torso/clothes/shortsleeve/tshirt/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_shortsleeve_torso_clothes_tshirt_buttoned",
@@ -17840,7 +18108,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17852,7 +18120,8 @@
     "tshirt",
     "buttoned"
    ],
-   "layer_path": "torso/clothes/shortsleeve/tshirt_buttoned/male/"
+   "layer_path": "torso/clothes/shortsleeve/tshirt_buttoned/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_shortsleeve_torso_clothes_tshirt_scoop",
@@ -17903,7 +18172,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17915,7 +18184,8 @@
     "tshirt",
     "scoop"
    ],
-   "layer_path": "torso/clothes/shortsleeve/tshirt_scoop/male/"
+   "layer_path": "torso/clothes/shortsleeve/tshirt_scoop/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_shortsleeve_torso_clothes_tshirt_vneck",
@@ -17966,7 +18236,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -17978,7 +18248,8 @@
     "tshirt",
     "vneck"
    ],
-   "layer_path": "torso/clothes/shortsleeve/tshirt_vneck/male/"
+   "layer_path": "torso/clothes/shortsleeve/tshirt_vneck/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless",
@@ -18032,7 +18303,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Marcel van de Steeg (MadMarcel)",
     "Matthew Krohn (makrohn)",
     "Nila122",
@@ -18047,7 +18318,8 @@
     "clothes",
     "sleeveless"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless1",
@@ -18112,7 +18384,8 @@
     "clothes",
     "sleeveless1"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless1/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless1/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless2",
@@ -18163,7 +18436,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18174,7 +18447,8 @@
     "clothes",
     "sleeveless2"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless2/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless2/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless2_buttoned",
@@ -18225,7 +18499,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18237,7 +18511,8 @@
     "sleeveless2",
     "buttoned"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless2_buttoned/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless2_buttoned/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless2_cardigan",
@@ -18288,7 +18563,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18300,7 +18575,8 @@
     "sleeveless2",
     "cardigan"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless2_cardigan/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless2_cardigan/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless2_polo",
@@ -18351,7 +18627,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18363,7 +18639,8 @@
     "sleeveless2",
     "polo"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless2_polo/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless2_polo/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless2_scoop",
@@ -18414,7 +18691,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18426,7 +18703,8 @@
     "sleeveless2",
     "scoop"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless2_scoop/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless2_scoop/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless2_vneck",
@@ -18477,7 +18755,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18489,7 +18767,8 @@
     "sleeveless2",
     "vneck"
    ],
-   "layer_path": "torso/clothes/sleeveless/sleeveless2_vneck/male/"
+   "layer_path": "torso/clothes/sleeveless/sleeveless2_vneck/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless_laced",
@@ -18541,7 +18820,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Marcel van de Steeg (MadMarcel)",
     "Matthew Krohn (makrohn)",
     "Nila122",
@@ -18557,7 +18836,8 @@
     "sleeveless",
     "laced"
    ],
-   "layer_path": "torso/clothes/sleeveless/laced/male/"
+   "layer_path": "torso/clothes/sleeveless/laced/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless_striped",
@@ -18609,7 +18889,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Marcel van de Steeg (MadMarcel)",
     "Matthew Krohn (makrohn)",
     "Nila122",
@@ -18625,7 +18905,8 @@
     "sleeveless",
     "striped"
    ],
-   "layer_path": "torso/clothes/sleeveless/striped/male/"
+   "layer_path": "torso/clothes/sleeveless/striped/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeveless_torso_clothes_sleeveless_tanktop",
@@ -18677,7 +18958,7 @@
    ],
    "authors": [
     "ElizaWy",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Marcel van de Steeg (MadMarcel)",
     "Matthew Krohn (makrohn)",
     "Stephen Challener (Redshrike)",
@@ -18692,7 +18973,8 @@
     "sleeveless",
     "tanktop"
    ],
-   "layer_path": "torso/clothes/sleeveless/tanktop/female/"
+   "layer_path": "torso/clothes/sleeveless/tanktop/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeves_torso_clothes_longsleeves",
@@ -18745,7 +19027,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -18757,7 +19039,8 @@
     "clothes",
     "longsleeves"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeves/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeves/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeves_torso_clothes_longsleeves2",
@@ -18808,7 +19091,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18819,7 +19102,8 @@
     "clothes",
     "longsleeves2"
    ],
-   "layer_path": "torso/clothes/longsleeve/longsleeves2/male/"
+   "layer_path": "torso/clothes/longsleeve/longsleeves2/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeves_torso_clothes_shortsleeves",
@@ -18872,7 +19156,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -18884,7 +19168,8 @@
     "clothes",
     "shortsleeves"
    ],
-   "layer_path": "torso/clothes/shortsleeve/shortsleeves/male/"
+   "layer_path": "torso/clothes/shortsleeve/shortsleeves/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_sleeves_torso_clothes_shortsleeves2",
@@ -18935,7 +19220,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "tags": [
@@ -18946,7 +19231,8 @@
     "clothes",
     "shortsleeves2"
    ],
-   "layer_path": "torso/clothes/shortsleeve/shortsleeves2/male/"
+   "layer_path": "torso/clothes/shortsleeve/shortsleeves2/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_torso_clothes_blouse",
@@ -19003,7 +19289,8 @@
     "clothes",
     "blouse"
    ],
-   "layer_path": "torso/clothes/blouse/female/"
+   "layer_path": "torso/clothes/blouse/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_torso_clothes_blouse_longsleeve",
@@ -19061,7 +19348,8 @@
     "blouse",
     "longsleeve"
    ],
-   "layer_path": "torso/clothes/blouse_longsleeve/female/"
+   "layer_path": "torso/clothes/blouse_longsleeve/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_torso_clothes_corset",
@@ -19117,7 +19405,8 @@
     "clothes",
     "corset"
    ],
-   "layer_path": "torso/clothes/corset/female/"
+   "layer_path": "torso/clothes/corset/female/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_shirts_torso_clothes_robe",
@@ -19162,7 +19451,8 @@
     "clothes",
     "robe"
    ],
-   "layer_path": "torso/clothes/robe/female/"
+   "layer_path": "torso/clothes/robe/female/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_shirts_torso_clothes_tunic",
@@ -19214,7 +19504,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Marcel van de Steeg (MadMarcel)",
     "Matthew Krohn (makrohn)",
     "Stephen Challener (Redshrike)",
@@ -19227,7 +19517,8 @@
     "clothes",
     "tunic"
    ],
-   "layer_path": "torso/clothes/tunic/female/"
+   "layer_path": "torso/clothes/tunic/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_shirts_torso_clothes_tunic_sara",
@@ -19276,7 +19567,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Mandi Paugh",
     "Stephen Challener (Redshrike)",
     "William.Thompsonj"
@@ -19289,7 +19580,8 @@
     "tunic",
     "sara"
    ],
-   "layer_path": "torso/clothes/tunic_sara/female/"
+   "layer_path": "torso/clothes/tunic_sara/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_torso_bandages",
@@ -19326,7 +19618,8 @@
     "torso",
     "bandages"
    ],
-   "layer_path": "torso/bandage/male/"
+   "layer_path": "torso/bandage/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_torso_chainmail",
@@ -19375,7 +19668,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Napsio (Vitruvian Studio)"
    ],
    "tags": [
@@ -19383,7 +19676,8 @@
     "torso",
     "chainmail"
    ],
-   "layer_path": "torso/chainmail/male/"
+   "layer_path": "torso/chainmail/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_vest_torso_clothes_vest",
@@ -19443,7 +19737,7 @@
     "GPL 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Michael Whitlock (bigbeargames)",
     "Stephen Challener (Redshrike)",
     "Thane Brimhall (pennomi)",
@@ -19457,7 +19751,8 @@
     "clothes",
     "vest"
    ],
-   "layer_path": "torso/clothes/vest/male/"
+   "layer_path": "torso/clothes/vest/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_vest_torso_clothes_vest_open",
@@ -19527,7 +19822,8 @@
     "vest",
     "open"
    ],
-   "layer_path": "torso/clothes/vest_open/male/"
+   "layer_path": "torso/clothes/vest_open/male/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_waist_belt_belly",
@@ -19562,7 +19858,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -19572,7 +19868,8 @@
     "belt",
     "belly"
    ],
-   "layer_path": "torso/waist/belt_belly/male/"
+   "layer_path": "torso/waist/belt_belly/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_double",
@@ -19607,7 +19904,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -19617,7 +19914,8 @@
     "belt",
     "double"
    ],
-   "layer_path": "torso/waist/belt_double/male/"
+   "layer_path": "torso/waist/belt_double/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_formal",
@@ -19654,7 +19952,8 @@
     "belt",
     "formal"
    ],
-   "layer_path": "torso/waist/belt_formal/"
+   "layer_path": "torso/waist/belt_formal/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_waist_belt_leather",
@@ -19689,7 +19988,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -19699,7 +19998,8 @@
     "belt",
     "leather"
    ],
-   "layer_path": "torso/waist/belt_leather/male/"
+   "layer_path": "torso/waist/belt_leather/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_leather2",
@@ -19728,7 +20028,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)"
    ],
    "tags": [
@@ -19737,7 +20037,8 @@
     "belt",
     "leather2"
    ],
-   "layer_path": "torso/waist/belt_leather2/male/"
+   "layer_path": "torso/waist/belt_leather2/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_loose",
@@ -19772,7 +20073,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -19782,7 +20083,8 @@
     "belt",
     "loose"
    ],
-   "layer_path": "torso/waist/belt_loose/male/"
+   "layer_path": "torso/waist/belt_loose/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_mage",
@@ -19827,7 +20129,8 @@
     "belt",
     "mage"
    ],
-   "layer_path": "torso/waist/belt_mage/"
+   "layer_path": "torso/waist/belt_mage/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_waist_belt_robe",
@@ -19857,7 +20160,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)"
    ],
    "tags": [
@@ -19866,7 +20169,8 @@
     "belt",
     "robe"
    ],
-   "layer_path": "torso/waist/belt_robe/male/"
+   "layer_path": "torso/waist/belt_robe/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_sash",
@@ -19928,7 +20232,8 @@
     "belt",
     "sash"
    ],
-   "layer_path": "torso/waist/sash/male/"
+   "layer_path": "torso/waist/sash/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_sash_narrow",
@@ -19991,7 +20296,8 @@
     "sash",
     "narrow"
    ],
-   "layer_path": "torso/waist/sash_narrow/male/"
+   "layer_path": "torso/waist/sash_narrow/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_belt_waistband",
@@ -20056,7 +20362,8 @@
     "belt",
     "waistband"
    ],
-   "layer_path": "torso/waist/waistband/female/"
+   "layer_path": "torso/waist/waistband/female/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_buckles",
@@ -20093,7 +20400,8 @@
     "waist",
     "buckles"
    ],
-   "layer_path": "torso/waist/buckles/female/"
+   "layer_path": "torso/waist/buckles/female/",
+   "license_safe": false
   },
   {
    "visual_id": "torso_waist_obi_belt_obi",
@@ -20173,7 +20481,8 @@
     "belt",
     "obi"
    ],
-   "layer_path": "torso/waist/obi/male/"
+   "layer_path": "torso/waist/obi/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_obi_belt_obi_knot_left",
@@ -20255,7 +20564,8 @@
     "knot",
     "left"
    ],
-   "layer_path": "torso/waist/obi/knot/left/male/"
+   "layer_path": "torso/waist/obi/knot/left/male/",
+   "license_safe": true
   },
   {
    "visual_id": "torso_waist_obi_belt_obi_knot_right",
@@ -20337,7 +20647,8 @@
     "knot",
     "right"
    ],
-   "layer_path": "torso/waist/obi/knot/right/male/"
+   "layer_path": "torso/waist/obi/knot/right/male/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_blunt_weapon_blunt_club",
@@ -20378,7 +20689,8 @@
     "blunt",
     "club"
    ],
-   "layer_path": "weapon/blunt/club/"
+   "layer_path": "weapon/blunt/club/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_blunt_weapon_blunt_flail",
@@ -20422,7 +20734,8 @@
     "blunt",
     "flail"
    ],
-   "layer_path": "weapon/blunt/flail/behind/"
+   "layer_path": "weapon/blunt/flail/behind/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_blunt_weapon_blunt_mace",
@@ -20455,7 +20768,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -20465,7 +20778,8 @@
     "blunt",
     "mace"
    ],
-   "layer_path": "weapon/blunt/mace/"
+   "layer_path": "weapon/blunt/mace/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_blunt_weapon_blunt_waraxe",
@@ -20509,7 +20823,8 @@
     "blunt",
     "waraxe"
    ],
-   "layer_path": "weapon/blunt/waraxe/behind/"
+   "layer_path": "weapon/blunt/waraxe/behind/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_magic_weapon_magic_crystal",
@@ -20557,7 +20872,8 @@
     "magic",
     "crystal"
    ],
-   "layer_path": "weapon/magic/crystal/universal/foreground/"
+   "layer_path": "weapon/magic/crystal/universal/foreground/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_magic_weapon_magic_diamond",
@@ -20611,7 +20927,8 @@
     "magic",
     "diamond"
    ],
-   "layer_path": "weapon/magic/diamond/universal/foreground/"
+   "layer_path": "weapon/magic/diamond/universal/foreground/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_magic_weapon_magic_gnarled",
@@ -20665,7 +20982,8 @@
     "magic",
     "gnarled"
    ],
-   "layer_path": "weapon/magic/gnarled/universal/foreground/"
+   "layer_path": "weapon/magic/gnarled/universal/foreground/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_magic_weapon_magic_loop",
@@ -20719,7 +21037,8 @@
     "magic",
     "loop"
    ],
-   "layer_path": "weapon/magic/loop/universal/foreground/"
+   "layer_path": "weapon/magic/loop/universal/foreground/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_magic_weapon_magic_s",
@@ -20772,7 +21091,8 @@
     "weapon",
     "magic"
    ],
-   "layer_path": "weapon/magic/s/universal/foreground/"
+   "layer_path": "weapon/magic/s/universal/foreground/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_magic_weapon_magic_simple",
@@ -20815,7 +21135,8 @@
     "magic",
     "simple"
    ],
-   "layer_path": "weapon/magic/simple/foreground/"
+   "layer_path": "weapon/magic/simple/foreground/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_magic_weapon_magic_wand",
@@ -20856,7 +21177,8 @@
     "magic",
     "wand"
    ],
-   "layer_path": "weapon/magic/wand/male/"
+   "layer_path": "weapon/magic/wand/male/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_polearm_weapon_polearm_cane",
@@ -20897,7 +21219,8 @@
     "polearm",
     "cane"
    ],
-   "layer_path": "weapon/polearm/cane/male/"
+   "layer_path": "weapon/polearm/cane/male/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_polearm_weapon_polearm_dragonspear",
@@ -20940,7 +21263,7 @@
    ],
    "authors": [
     "Daniel Eddeland (daneeklu)",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "gr3yh47"
    ],
    "tags": [
@@ -20950,7 +21273,8 @@
     "polearm",
     "dragonspear"
    ],
-   "layer_path": "weapon/polearm/dragonspear/foreground/walk/"
+   "layer_path": "weapon/polearm/dragonspear/foreground/walk/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_polearm_weapon_polearm_halberd",
@@ -20995,7 +21319,8 @@
     "polearm",
     "halberd"
    ],
-   "layer_path": "weapon/polearm/halberd/behind/"
+   "layer_path": "weapon/polearm/halberd/behind/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_polearm_weapon_polearm_longspear",
@@ -21038,7 +21363,7 @@
    ],
    "authors": [
     "Inboxninja",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)"
    ],
    "tags": [
@@ -21048,7 +21373,8 @@
     "polearm",
     "longspear"
    ],
-   "layer_path": "weapon/polearm/longspear/foreground/walk/"
+   "layer_path": "weapon/polearm/longspear/foreground/walk/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_polearm_weapon_polearm_scythe",
@@ -21089,7 +21415,8 @@
     "polearm",
     "scythe"
    ],
-   "layer_path": "weapon/polearm/scythe/"
+   "layer_path": "weapon/polearm/scythe/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_polearm_weapon_polearm_spear",
@@ -21133,7 +21460,7 @@
    ],
    "authors": [
     "Inboxninja",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)"
    ],
    "tags": [
@@ -21143,7 +21470,8 @@
     "polearm",
     "spear"
    ],
-   "layer_path": "weapon/polearm/spear/foreground/"
+   "layer_path": "weapon/polearm/spear/foreground/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_polearm_weapon_polearm_trident",
@@ -21186,7 +21514,7 @@
    ],
    "authors": [
     "Daniel Eddeland (daneeklu)",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "gr3yh47"
    ],
    "tags": [
@@ -21196,7 +21524,8 @@
     "polearm",
     "trident"
    ],
-   "layer_path": "weapon/polearm/trident/foreground/walk/"
+   "layer_path": "weapon/polearm/trident/foreground/walk/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_ranged_bow_weapon_ranged_bow_arrow",
@@ -21228,7 +21557,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)"
+    "Johannes Sjölund (wulax)"
    ],
    "tags": [
     "weapons",
@@ -21239,7 +21568,8 @@
     "bow",
     "arrow"
    ],
-   "layer_path": "weapon/ranged/bow/arrow/"
+   "layer_path": "weapon/ranged/bow/arrow/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_ranged_bow_weapon_ranged_bow_great",
@@ -21284,7 +21614,7 @@
    ],
    "authors": [
     "Daniel Eddeland (daneeklu)",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)",
     "gr3yh47"
    ],
@@ -21297,7 +21627,8 @@
     "bow",
     "great"
    ],
-   "layer_path": "weapon/ranged/bow/great/universal/background/"
+   "layer_path": "weapon/ranged/bow/great/universal/background/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_ranged_bow_weapon_ranged_bow_normal",
@@ -21343,7 +21674,7 @@
     "OGA-BY 3.0+"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)"
    ],
    "tags": [
@@ -21355,7 +21686,8 @@
     "bow",
     "normal"
    ],
-   "layer_path": "weapon/ranged/bow/normal/universal/background/"
+   "layer_path": "weapon/ranged/bow/normal/universal/background/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_ranged_bow_weapon_ranged_bow_recurve",
@@ -21400,7 +21732,7 @@
    ],
    "authors": [
     "Daniel Eddeland (daneeklu)",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)",
     "gr3yh47"
    ],
@@ -21413,7 +21745,8 @@
     "bow",
     "recurve"
    ],
-   "layer_path": "weapon/ranged/bow/recurve/universal/background/"
+   "layer_path": "weapon/ranged/bow/recurve/universal/background/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_ranged_weapon_ranged_boomerang",
@@ -21454,7 +21787,8 @@
     "ranged",
     "boomerang"
    ],
-   "layer_path": "weapon/ranged/boomerang/"
+   "layer_path": "weapon/ranged/boomerang/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_ranged_weapon_ranged_crossbow",
@@ -21496,7 +21830,8 @@
     "ranged",
     "crossbow"
    ],
-   "layer_path": "weapon/ranged/crossbow/background/"
+   "layer_path": "weapon/ranged/crossbow/background/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_ranged_weapon_ranged_slingshot",
@@ -21539,7 +21874,8 @@
     "ranged",
     "slingshot"
    ],
-   "layer_path": "weapon/ranged/slingshot/foreground/"
+   "layer_path": "weapon/ranged/slingshot/foreground/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_engrailed_shield_crusader",
@@ -21577,7 +21913,8 @@
     "shield",
     "crusader"
    ],
-   "layer_path": "shield/crusader/bg/"
+   "layer_path": "shield/crusader/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_engrailed_shield_plus",
@@ -21615,7 +21952,8 @@
     "shield",
     "plus"
    ],
-   "layer_path": "shield/plus/bg/"
+   "layer_path": "shield/plus/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_engrailed_shield_two_engrailed",
@@ -21654,7 +21992,8 @@
     "two",
     "engrailed"
    ],
-   "layer_path": "shield/two_engrailed/paint/bg/"
+   "layer_path": "shield/two_engrailed/paint/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_engrailed_shield_two_engrailed_trim",
@@ -21694,7 +22033,8 @@
     "engrailed",
     "trim"
    ],
-   "layer_path": "shield/two_engrailed/trim/bg/"
+   "layer_path": "shield/two_engrailed/trim/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_barry",
@@ -21758,7 +22098,8 @@
     "pattern",
     "barry"
    ],
-   "layer_path": "shield/heater/original/pattern/barry/bg/"
+   "layer_path": "shield/heater/original/pattern/barry/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_bend",
@@ -21822,7 +22163,8 @@
     "pattern",
     "bend"
    ],
-   "layer_path": "shield/heater/original/pattern/bend/bg/"
+   "layer_path": "shield/heater/original/pattern/bend/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_bend_sinister",
@@ -21887,7 +22229,8 @@
     "bend",
     "sinister"
    ],
-   "layer_path": "shield/heater/original/pattern/bend_sinister/bg/"
+   "layer_path": "shield/heater/original/pattern/bend_sinister/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_bendy",
@@ -21952,7 +22295,8 @@
     "pattern",
     "bendy"
    ],
-   "layer_path": "shield/heater/original/pattern/bendy/bg/"
+   "layer_path": "shield/heater/original/pattern/bendy/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_bendy_sinister",
@@ -22018,7 +22362,8 @@
     "bendy",
     "sinister"
    ],
-   "layer_path": "shield/heater/original/pattern/bendy_sinister/bg/"
+   "layer_path": "shield/heater/original/pattern/bendy_sinister/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_bordure",
@@ -22082,7 +22427,8 @@
     "pattern",
     "bordure"
    ],
-   "layer_path": "shield/heater/original/pattern/bordure/bg/"
+   "layer_path": "shield/heater/original/pattern/bordure/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_chevron",
@@ -22146,7 +22492,8 @@
     "pattern",
     "chevron"
    ],
-   "layer_path": "shield/heater/original/pattern/chevron/bg/"
+   "layer_path": "shield/heater/original/pattern/chevron/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_chevron_inverted",
@@ -22211,7 +22558,8 @@
     "chevron",
     "inverted"
    ],
-   "layer_path": "shield/heater/original/pattern/chevron_inverted/bg/"
+   "layer_path": "shield/heater/original/pattern/chevron_inverted/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_chief",
@@ -22275,7 +22623,8 @@
     "pattern",
     "chief"
    ],
-   "layer_path": "shield/heater/original/pattern/chief/bg/"
+   "layer_path": "shield/heater/original/pattern/chief/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_cross",
@@ -22339,7 +22688,8 @@
     "pattern",
     "cross"
    ],
-   "layer_path": "shield/heater/original/pattern/cross/bg/"
+   "layer_path": "shield/heater/original/pattern/cross/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_fess",
@@ -22403,7 +22753,8 @@
     "pattern",
     "fess"
    ],
-   "layer_path": "shield/heater/original/pattern/fess/bg/"
+   "layer_path": "shield/heater/original/pattern/fess/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_lozengy",
@@ -22468,7 +22819,8 @@
     "pattern",
     "lozengy"
    ],
-   "layer_path": "shield/heater/original/pattern/lozengy/bg/"
+   "layer_path": "shield/heater/original/pattern/lozengy/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_pale",
@@ -22532,7 +22884,8 @@
     "pattern",
     "pale"
    ],
-   "layer_path": "shield/heater/original/pattern/pale/bg/"
+   "layer_path": "shield/heater/original/pattern/pale/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_pall",
@@ -22596,7 +22949,8 @@
     "pattern",
     "pall"
    ],
-   "layer_path": "shield/heater/original/pattern/pall/bg/"
+   "layer_path": "shield/heater/original/pattern/pall/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_paly",
@@ -22661,7 +23015,8 @@
     "pattern",
     "paly"
    ],
-   "layer_path": "shield/heater/original/pattern/paly/bg/"
+   "layer_path": "shield/heater/original/pattern/paly/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_per_bend",
@@ -22726,7 +23081,8 @@
     "per",
     "bend"
    ],
-   "layer_path": "shield/heater/original/pattern/per_bend/bg/"
+   "layer_path": "shield/heater/original/pattern/per_bend/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_per_bend_sinister",
@@ -22792,7 +23148,8 @@
     "bend",
     "sinister"
    ],
-   "layer_path": "shield/heater/original/pattern/per_bend_sinister/bg/"
+   "layer_path": "shield/heater/original/pattern/per_bend_sinister/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_per_chevron",
@@ -22857,7 +23214,8 @@
     "per",
     "chevron"
    ],
-   "layer_path": "shield/heater/original/pattern/per_chevron/bg/"
+   "layer_path": "shield/heater/original/pattern/per_chevron/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_per_chevron_inverted",
@@ -22923,7 +23281,8 @@
     "chevron",
     "inverted"
    ],
-   "layer_path": "shield/heater/original/pattern/per_chevron_inverted/bg/"
+   "layer_path": "shield/heater/original/pattern/per_chevron_inverted/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_per_fess",
@@ -22988,7 +23347,8 @@
     "per",
     "fess"
    ],
-   "layer_path": "shield/heater/original/pattern/per_fess/bg/"
+   "layer_path": "shield/heater/original/pattern/per_fess/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_per_pale",
@@ -23053,7 +23413,8 @@
     "per",
     "pale"
    ],
-   "layer_path": "shield/heater/original/pattern/per_pale/bg/"
+   "layer_path": "shield/heater/original/pattern/per_pale/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_per_saltire",
@@ -23118,7 +23479,8 @@
     "per",
     "saltire"
    ],
-   "layer_path": "shield/heater/original/pattern/per_saltire/bg/"
+   "layer_path": "shield/heater/original/pattern/per_saltire/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_quarterly",
@@ -23182,7 +23544,8 @@
     "pattern",
     "quarterly"
    ],
-   "layer_path": "shield/heater/original/pattern/quarterly/bg/"
+   "layer_path": "shield/heater/original/pattern/quarterly/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_pattern_shield_heater_pattern_saltire",
@@ -23246,7 +23609,8 @@
     "pattern",
     "saltire"
    ],
-   "layer_path": "shield/heater/original/pattern/saltire/bg/"
+   "layer_path": "shield/heater/original/pattern/saltire/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_barry",
@@ -23313,7 +23677,8 @@
     "pattern",
     "barry"
    ],
-   "layer_path": "shield/heater/revised/pattern/barry/bg/"
+   "layer_path": "shield/heater/revised/pattern/barry/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_bend",
@@ -23380,7 +23745,8 @@
     "pattern",
     "bend"
    ],
-   "layer_path": "shield/heater/revised/pattern/bend/bg/"
+   "layer_path": "shield/heater/revised/pattern/bend/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_bend_sinister",
@@ -23448,7 +23814,8 @@
     "bend",
     "sinister"
    ],
-   "layer_path": "shield/heater/revised/pattern/bend_sinister/bg/"
+   "layer_path": "shield/heater/revised/pattern/bend_sinister/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_bendy",
@@ -23515,7 +23882,8 @@
     "pattern",
     "bendy"
    ],
-   "layer_path": "shield/heater/revised/pattern/bendy/bg/"
+   "layer_path": "shield/heater/revised/pattern/bendy/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_bendy_sinister",
@@ -23583,7 +23951,8 @@
     "bendy",
     "sinister"
    ],
-   "layer_path": "shield/heater/revised/pattern/bendy_sinister/bg/"
+   "layer_path": "shield/heater/revised/pattern/bendy_sinister/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_bordure",
@@ -23650,7 +24019,8 @@
     "pattern",
     "bordure"
    ],
-   "layer_path": "shield/heater/revised/pattern/bordure/bg/"
+   "layer_path": "shield/heater/revised/pattern/bordure/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_chevron",
@@ -23717,7 +24087,8 @@
     "pattern",
     "chevron"
    ],
-   "layer_path": "shield/heater/revised/pattern/chevron/bg/"
+   "layer_path": "shield/heater/revised/pattern/chevron/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_chevron_inverted",
@@ -23785,7 +24156,8 @@
     "chevron",
     "inverted"
    ],
-   "layer_path": "shield/heater/revised/pattern/chevron_inverted/bg/"
+   "layer_path": "shield/heater/revised/pattern/chevron_inverted/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_chief",
@@ -23852,7 +24224,8 @@
     "pattern",
     "chief"
    ],
-   "layer_path": "shield/heater/revised/pattern/chief/bg/"
+   "layer_path": "shield/heater/revised/pattern/chief/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_cross",
@@ -23919,7 +24292,8 @@
     "pattern",
     "cross"
    ],
-   "layer_path": "shield/heater/revised/pattern/cross/bg/"
+   "layer_path": "shield/heater/revised/pattern/cross/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_fess",
@@ -23986,7 +24360,8 @@
     "pattern",
     "fess"
    ],
-   "layer_path": "shield/heater/revised/pattern/fess/bg/"
+   "layer_path": "shield/heater/revised/pattern/fess/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_lozengy",
@@ -24053,7 +24428,8 @@
     "pattern",
     "lozengy"
    ],
-   "layer_path": "shield/heater/revised/pattern/lozengy/bg/"
+   "layer_path": "shield/heater/revised/pattern/lozengy/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_pale",
@@ -24120,7 +24496,8 @@
     "pattern",
     "pale"
    ],
-   "layer_path": "shield/heater/revised/pattern/pale/bg/"
+   "layer_path": "shield/heater/revised/pattern/pale/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_pall",
@@ -24187,7 +24564,8 @@
     "pattern",
     "pall"
    ],
-   "layer_path": "shield/heater/revised/pattern/pall/bg/"
+   "layer_path": "shield/heater/revised/pattern/pall/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_paly",
@@ -24254,7 +24632,8 @@
     "pattern",
     "paly"
    ],
-   "layer_path": "shield/heater/revised/pattern/paly/bg/"
+   "layer_path": "shield/heater/revised/pattern/paly/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_per_bend",
@@ -24322,7 +24701,8 @@
     "per",
     "bend"
    ],
-   "layer_path": "shield/heater/revised/pattern/per_bend/bg/"
+   "layer_path": "shield/heater/revised/pattern/per_bend/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_per_bend_sinister",
@@ -24391,7 +24771,8 @@
     "bend",
     "sinister"
    ],
-   "layer_path": "shield/heater/revised/pattern/per_bend_sinister/bg/"
+   "layer_path": "shield/heater/revised/pattern/per_bend_sinister/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_per_chevron",
@@ -24459,7 +24840,8 @@
     "per",
     "chevron"
    ],
-   "layer_path": "shield/heater/revised/pattern/per_chevron/bg/"
+   "layer_path": "shield/heater/revised/pattern/per_chevron/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_per_chevron_inverted",
@@ -24528,7 +24910,8 @@
     "chevron",
     "inverted"
    ],
-   "layer_path": "shield/heater/revised/pattern/per_chevron_inverted/bg/"
+   "layer_path": "shield/heater/revised/pattern/per_chevron_inverted/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_per_fess",
@@ -24596,7 +24979,8 @@
     "per",
     "fess"
    ],
-   "layer_path": "shield/heater/revised/pattern/per_fess/bg/"
+   "layer_path": "shield/heater/revised/pattern/per_fess/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_per_pale",
@@ -24664,7 +25048,8 @@
     "per",
     "pale"
    ],
-   "layer_path": "shield/heater/revised/pattern/per_pale/bg/"
+   "layer_path": "shield/heater/revised/pattern/per_pale/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_per_saltire",
@@ -24732,7 +25117,8 @@
     "per",
     "saltire"
    ],
-   "layer_path": "shield/heater/revised/pattern/per_saltire/bg/"
+   "layer_path": "shield/heater/revised/pattern/per_saltire/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_quarterly",
@@ -24799,7 +25185,8 @@
     "pattern",
     "quarterly"
    ],
-   "layer_path": "shield/heater/revised/pattern/quarterly/bg/"
+   "layer_path": "shield/heater/revised/pattern/quarterly/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_revised_pattern_shield_heater_revised_pattern_saltire",
@@ -24866,7 +25253,8 @@
     "pattern",
     "saltire"
    ],
-   "layer_path": "shield/heater/revised/pattern/saltire/bg/"
+   "layer_path": "shield/heater/revised/pattern/saltire/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_shield_heater_paint",
@@ -24928,7 +25316,8 @@
     "heater",
     "paint"
    ],
-   "layer_path": "shield/heater/original/paint/bg/"
+   "layer_path": "shield/heater/original/paint/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_shield_heater_revised_paint",
@@ -24991,7 +25380,8 @@
     "revised",
     "paint"
    ],
-   "layer_path": "shield/heater/revised/paint/bg/"
+   "layer_path": "shield/heater/revised/paint/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_shield_heater_revised_trim",
@@ -25056,7 +25446,8 @@
     "revised",
     "trim"
    ],
-   "layer_path": "shield/heater/revised/trim/bg/"
+   "layer_path": "shield/heater/revised/trim/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_shield_heater_revised_wood",
@@ -25121,7 +25512,8 @@
     "revised",
     "wood"
    ],
-   "layer_path": "shield/heater/revised/wood/bg/"
+   "layer_path": "shield/heater/revised/wood/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_shield_heater_trim",
@@ -25184,7 +25576,8 @@
     "heater",
     "trim"
    ],
-   "layer_path": "shield/heater/original/trim/fg/"
+   "layer_path": "shield/heater/original/trim/fg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_heater_shield_heater_wood",
@@ -25247,7 +25640,8 @@
     "heater",
     "wood"
    ],
-   "layer_path": "shield/heater/original/wood/bg/"
+   "layer_path": "shield/heater/original/wood/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_scutum_shield_scutum",
@@ -25285,7 +25679,8 @@
     "shield",
     "scutum"
    ],
-   "layer_path": "shield/scutum/paint/bg/"
+   "layer_path": "shield/scutum/paint/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_scutum_shield_scutum_trim",
@@ -25324,7 +25719,8 @@
     "scutum",
     "trim"
    ],
-   "layer_path": "shield/scutum_trim/bg/"
+   "layer_path": "shield/scutum_trim/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_shield_kite",
@@ -25373,7 +25769,8 @@
     "shield",
     "kite"
    ],
-   "layer_path": "shield/kite/male/"
+   "layer_path": "shield/kite/male/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_shields_shield_round",
@@ -25409,7 +25806,7 @@
    ],
    "authors": [
     "DarkwallLKE",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Michael Whitlock (bigbeargames)",
     "Tuomo Untinen (reemax)"
    ],
@@ -25419,7 +25816,8 @@
     "shield",
     "round"
    ],
-   "layer_path": "shield/round/"
+   "layer_path": "shield/round/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_shields_shield_spartan",
@@ -25456,7 +25854,8 @@
     "shield",
     "spartan"
    ],
-   "layer_path": "shield/spartan/bg/"
+   "layer_path": "shield/spartan/bg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_arming",
@@ -25508,7 +25907,8 @@
     "sword",
     "arming"
    ],
-   "layer_path": "weapon/sword/arming/universal/fg/"
+   "layer_path": "weapon/sword/arming/universal/fg/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_dagger",
@@ -25543,7 +25943,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -25554,7 +25954,8 @@
     "sword",
     "dagger"
    ],
-   "layer_path": "weapon/sword/dagger/"
+   "layer_path": "weapon/sword/dagger/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_glowsword",
@@ -25588,7 +25989,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16",
     "tskaufma"
    ],
@@ -25599,7 +26000,8 @@
     "sword",
     "glowsword"
    ],
-   "layer_path": "weapon/sword/glowsword/"
+   "layer_path": "weapon/sword/glowsword/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_katana",
@@ -25641,7 +26043,8 @@
     "sword",
     "katana"
    ],
-   "layer_path": "weapon/sword/katana/walk/"
+   "layer_path": "weapon/sword/katana/walk/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_longsword",
@@ -25676,7 +26079,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -25686,7 +26089,8 @@
     "sword",
     "longsword"
    ],
-   "layer_path": "weapon/sword/longsword/"
+   "layer_path": "weapon/sword/longsword/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_longsword_alt",
@@ -25727,7 +26131,8 @@
     "longsword",
     "alt"
    ],
-   "layer_path": "weapon/sword/longsword_alt/walk/"
+   "layer_path": "weapon/sword/longsword_alt/walk/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_rapier",
@@ -25760,7 +26165,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "tags": [
@@ -25770,7 +26175,8 @@
     "sword",
     "rapier"
    ],
-   "layer_path": "weapon/sword/rapier/"
+   "layer_path": "weapon/sword/rapier/",
+   "license_safe": true
   },
   {
    "visual_id": "weapons_sword_weapon_sword_saber",
@@ -25803,7 +26209,7 @@
    ],
    "authors": [
     "Daniel Eddeland (daneeklu)",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16",
     "gr3yh47"
    ],
@@ -25814,7 +26220,8 @@
     "sword",
     "saber"
    ],
-   "layer_path": "weapon/sword/saber/"
+   "layer_path": "weapon/sword/saber/",
+   "license_safe": false
   },
   {
    "visual_id": "weapons_sword_weapon_sword_scimitar",
@@ -25855,7 +26262,9 @@
     "sword",
     "scimitar"
    ],
-   "layer_path": "weapon/sword/scimitar/walk/"
+   "layer_path": "weapon/sword/scimitar/walk/",
+   "license_safe": true
   }
- ]
+ ],
+ "_license_note": "license_safe=false: sin opcion de solo atribucion (SA/GPL). No importar para la build (docs/ASSET_REGISTRY.md)."
 }

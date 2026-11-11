@@ -26,7 +26,7 @@
     "ElizaWy",
     "Evert",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "MuffinElZangano",
     "Nila122",
@@ -1484,185 +1484,6 @@
     }
    ]
   },
-  "ears_elven": {
-   "name": "Elven ears",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "JaidynReiman",
-    "Matthew Krohn (makrohn)",
-    "Thane Brimhall (pennomi)",
-    "bluecarrot16",
-    "laetissima"
-   ],
-   "layers": [
-    {
-     "z": 126,
-     "files": {
-      "male": {
-       "light": {
-        "idle": "ears_elven/layer_1/male/light/idle.png",
-        "combat_idle": "ears_elven/layer_1/male/light/combat_idle.png",
-        "walk": "ears_elven/layer_1/male/light/walk.png",
-        "run": "ears_elven/layer_1/male/light/run.png",
-        "slash": "ears_elven/layer_1/male/light/slash.png",
-        "thrust": "ears_elven/layer_1/male/light/thrust.png",
-        "shoot": "ears_elven/layer_1/male/light/shoot.png",
-        "spellcast": "ears_elven/layer_1/male/light/spellcast.png",
-        "hurt": "ears_elven/layer_1/male/light/hurt.png"
-       },
-       "amber": {
-        "idle": "ears_elven/layer_1/male/amber/idle.png",
-        "combat_idle": "ears_elven/layer_1/male/amber/combat_idle.png",
-        "walk": "ears_elven/layer_1/male/amber/walk.png",
-        "run": "ears_elven/layer_1/male/amber/run.png",
-        "slash": "ears_elven/layer_1/male/amber/slash.png",
-        "thrust": "ears_elven/layer_1/male/amber/thrust.png",
-        "shoot": "ears_elven/layer_1/male/amber/shoot.png",
-        "spellcast": "ears_elven/layer_1/male/amber/spellcast.png",
-        "hurt": "ears_elven/layer_1/male/amber/hurt.png"
-       },
-       "olive": {
-        "idle": "ears_elven/layer_1/male/olive/idle.png",
-        "combat_idle": "ears_elven/layer_1/male/olive/combat_idle.png",
-        "walk": "ears_elven/layer_1/male/olive/walk.png",
-        "run": "ears_elven/layer_1/male/olive/run.png",
-        "slash": "ears_elven/layer_1/male/olive/slash.png",
-        "thrust": "ears_elven/layer_1/male/olive/thrust.png",
-        "shoot": "ears_elven/layer_1/male/olive/shoot.png",
-        "spellcast": "ears_elven/layer_1/male/olive/spellcast.png",
-        "hurt": "ears_elven/layer_1/male/olive/hurt.png"
-       },
-       "taupe": {
-        "idle": "ears_elven/layer_1/male/taupe/idle.png",
-        "combat_idle": "ears_elven/layer_1/male/taupe/combat_idle.png",
-        "walk": "ears_elven/layer_1/male/taupe/walk.png",
-        "run": "ears_elven/layer_1/male/taupe/run.png",
-        "slash": "ears_elven/layer_1/male/taupe/slash.png",
-        "thrust": "ears_elven/layer_1/male/taupe/thrust.png",
-        "shoot": "ears_elven/layer_1/male/taupe/shoot.png",
-        "spellcast": "ears_elven/layer_1/male/taupe/spellcast.png",
-        "hurt": "ears_elven/layer_1/male/taupe/hurt.png"
-       },
-       "bronze": {
-        "idle": "ears_elven/layer_1/male/bronze/idle.png",
-        "combat_idle": "ears_elven/layer_1/male/bronze/combat_idle.png",
-        "walk": "ears_elven/layer_1/male/bronze/walk.png",
-        "run": "ears_elven/layer_1/male/bronze/run.png",
-        "slash": "ears_elven/layer_1/male/bronze/slash.png",
-        "thrust": "ears_elven/layer_1/male/bronze/thrust.png",
-        "shoot": "ears_elven/layer_1/male/bronze/shoot.png",
-        "spellcast": "ears_elven/layer_1/male/bronze/spellcast.png",
-        "hurt": "ears_elven/layer_1/male/bronze/hurt.png"
-       },
-       "brown": {
-        "idle": "ears_elven/layer_1/male/brown/idle.png",
-        "combat_idle": "ears_elven/layer_1/male/brown/combat_idle.png",
-        "walk": "ears_elven/layer_1/male/brown/walk.png",
-        "run": "ears_elven/layer_1/male/brown/run.png",
-        "slash": "ears_elven/layer_1/male/brown/slash.png",
-        "thrust": "ears_elven/layer_1/male/brown/thrust.png",
-        "shoot": "ears_elven/layer_1/male/brown/shoot.png",
-        "spellcast": "ears_elven/layer_1/male/brown/spellcast.png",
-        "hurt": "ears_elven/layer_1/male/brown/hurt.png"
-       },
-       "black": {
-        "idle": "ears_elven/layer_1/male/black/idle.png",
-        "combat_idle": "ears_elven/layer_1/male/black/combat_idle.png",
-        "walk": "ears_elven/layer_1/male/black/walk.png",
-        "run": "ears_elven/layer_1/male/black/run.png",
-        "slash": "ears_elven/layer_1/male/black/slash.png",
-        "thrust": "ears_elven/layer_1/male/black/thrust.png",
-        "shoot": "ears_elven/layer_1/male/black/shoot.png",
-        "spellcast": "ears_elven/layer_1/male/black/spellcast.png",
-        "hurt": "ears_elven/layer_1/male/black/hurt.png"
-       }
-      },
-      "female": {
-       "light": {
-        "idle": "ears_elven/layer_1/female/light/idle.png",
-        "combat_idle": "ears_elven/layer_1/female/light/combat_idle.png",
-        "walk": "ears_elven/layer_1/female/light/walk.png",
-        "run": "ears_elven/layer_1/female/light/run.png",
-        "slash": "ears_elven/layer_1/female/light/slash.png",
-        "thrust": "ears_elven/layer_1/female/light/thrust.png",
-        "shoot": "ears_elven/layer_1/female/light/shoot.png",
-        "spellcast": "ears_elven/layer_1/female/light/spellcast.png",
-        "hurt": "ears_elven/layer_1/female/light/hurt.png"
-       },
-       "amber": {
-        "idle": "ears_elven/layer_1/female/amber/idle.png",
-        "combat_idle": "ears_elven/layer_1/female/amber/combat_idle.png",
-        "walk": "ears_elven/layer_1/female/amber/walk.png",
-        "run": "ears_elven/layer_1/female/amber/run.png",
-        "slash": "ears_elven/layer_1/female/amber/slash.png",
-        "thrust": "ears_elven/layer_1/female/amber/thrust.png",
-        "shoot": "ears_elven/layer_1/female/amber/shoot.png",
-        "spellcast": "ears_elven/layer_1/female/amber/spellcast.png",
-        "hurt": "ears_elven/layer_1/female/amber/hurt.png"
-       },
-       "olive": {
-        "idle": "ears_elven/layer_1/female/olive/idle.png",
-        "combat_idle": "ears_elven/layer_1/female/olive/combat_idle.png",
-        "walk": "ears_elven/layer_1/female/olive/walk.png",
-        "run": "ears_elven/layer_1/female/olive/run.png",
-        "slash": "ears_elven/layer_1/female/olive/slash.png",
-        "thrust": "ears_elven/layer_1/female/olive/thrust.png",
-        "shoot": "ears_elven/layer_1/female/olive/shoot.png",
-        "spellcast": "ears_elven/layer_1/female/olive/spellcast.png",
-        "hurt": "ears_elven/layer_1/female/olive/hurt.png"
-       },
-       "taupe": {
-        "idle": "ears_elven/layer_1/female/taupe/idle.png",
-        "combat_idle": "ears_elven/layer_1/female/taupe/combat_idle.png",
-        "walk": "ears_elven/layer_1/female/taupe/walk.png",
-        "run": "ears_elven/layer_1/female/taupe/run.png",
-        "slash": "ears_elven/layer_1/female/taupe/slash.png",
-        "thrust": "ears_elven/layer_1/female/taupe/thrust.png",
-        "shoot": "ears_elven/layer_1/female/taupe/shoot.png",
-        "spellcast": "ears_elven/layer_1/female/taupe/spellcast.png",
-        "hurt": "ears_elven/layer_1/female/taupe/hurt.png"
-       },
-       "bronze": {
-        "idle": "ears_elven/layer_1/female/bronze/idle.png",
-        "combat_idle": "ears_elven/layer_1/female/bronze/combat_idle.png",
-        "walk": "ears_elven/layer_1/female/bronze/walk.png",
-        "run": "ears_elven/layer_1/female/bronze/run.png",
-        "slash": "ears_elven/layer_1/female/bronze/slash.png",
-        "thrust": "ears_elven/layer_1/female/bronze/thrust.png",
-        "shoot": "ears_elven/layer_1/female/bronze/shoot.png",
-        "spellcast": "ears_elven/layer_1/female/bronze/spellcast.png",
-        "hurt": "ears_elven/layer_1/female/bronze/hurt.png"
-       },
-       "brown": {
-        "idle": "ears_elven/layer_1/female/brown/idle.png",
-        "combat_idle": "ears_elven/layer_1/female/brown/combat_idle.png",
-        "walk": "ears_elven/layer_1/female/brown/walk.png",
-        "run": "ears_elven/layer_1/female/brown/run.png",
-        "slash": "ears_elven/layer_1/female/brown/slash.png",
-        "thrust": "ears_elven/layer_1/female/brown/thrust.png",
-        "shoot": "ears_elven/layer_1/female/brown/shoot.png",
-        "spellcast": "ears_elven/layer_1/female/brown/spellcast.png",
-        "hurt": "ears_elven/layer_1/female/brown/hurt.png"
-       },
-       "black": {
-        "idle": "ears_elven/layer_1/female/black/idle.png",
-        "combat_idle": "ears_elven/layer_1/female/black/combat_idle.png",
-        "walk": "ears_elven/layer_1/female/black/walk.png",
-        "run": "ears_elven/layer_1/female/black/run.png",
-        "slash": "ears_elven/layer_1/female/black/slash.png",
-        "thrust": "ears_elven/layer_1/female/black/thrust.png",
-        "shoot": "ears_elven/layer_1/female/black/shoot.png",
-        "spellcast": "ears_elven/layer_1/female/black/spellcast.png",
-        "hurt": "ears_elven/layer_1/female/black/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
   "hair_buzzcut": {
    "name": "Buzzcut",
    "licenses": [
@@ -2094,1107 +1915,6 @@
         "shoot": "hair_bob/layer_1/female/red/shoot.png",
         "spellcast": "hair_bob/layer_1/female/red/spellcast.png",
         "hurt": "hair_bob/layer_1/female/red/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "hair_long": {
-   "name": "Long",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "JaidynReiman",
-    "Manuel Riecke (MrBeast)"
-   ],
-   "layers": [
-    {
-     "z": 120,
-     "files": {
-      "male": {
-       "black": {
-        "idle": "hair_long/layer_1/male/black/idle.png",
-        "combat_idle": "hair_long/layer_1/male/black/combat_idle.png",
-        "walk": "hair_long/layer_1/male/black/walk.png",
-        "run": "hair_long/layer_1/male/black/run.png",
-        "slash": "hair_long/layer_1/male/black/slash.png",
-        "thrust": "hair_long/layer_1/male/black/thrust.png",
-        "shoot": "hair_long/layer_1/male/black/shoot.png",
-        "spellcast": "hair_long/layer_1/male/black/spellcast.png",
-        "hurt": "hair_long/layer_1/male/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_long/layer_1/male/dark_brown/idle.png",
-        "combat_idle": "hair_long/layer_1/male/dark_brown/combat_idle.png",
-        "walk": "hair_long/layer_1/male/dark_brown/walk.png",
-        "run": "hair_long/layer_1/male/dark_brown/run.png",
-        "slash": "hair_long/layer_1/male/dark_brown/slash.png",
-        "thrust": "hair_long/layer_1/male/dark_brown/thrust.png",
-        "shoot": "hair_long/layer_1/male/dark_brown/shoot.png",
-        "spellcast": "hair_long/layer_1/male/dark_brown/spellcast.png",
-        "hurt": "hair_long/layer_1/male/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_long/layer_1/male/chestnut/idle.png",
-        "combat_idle": "hair_long/layer_1/male/chestnut/combat_idle.png",
-        "walk": "hair_long/layer_1/male/chestnut/walk.png",
-        "run": "hair_long/layer_1/male/chestnut/run.png",
-        "slash": "hair_long/layer_1/male/chestnut/slash.png",
-        "thrust": "hair_long/layer_1/male/chestnut/thrust.png",
-        "shoot": "hair_long/layer_1/male/chestnut/shoot.png",
-        "spellcast": "hair_long/layer_1/male/chestnut/spellcast.png",
-        "hurt": "hair_long/layer_1/male/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_long/layer_1/male/light_brown/idle.png",
-        "combat_idle": "hair_long/layer_1/male/light_brown/combat_idle.png",
-        "walk": "hair_long/layer_1/male/light_brown/walk.png",
-        "run": "hair_long/layer_1/male/light_brown/run.png",
-        "slash": "hair_long/layer_1/male/light_brown/slash.png",
-        "thrust": "hair_long/layer_1/male/light_brown/thrust.png",
-        "shoot": "hair_long/layer_1/male/light_brown/shoot.png",
-        "spellcast": "hair_long/layer_1/male/light_brown/spellcast.png",
-        "hurt": "hair_long/layer_1/male/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_long/layer_1/male/blonde/idle.png",
-        "combat_idle": "hair_long/layer_1/male/blonde/combat_idle.png",
-        "walk": "hair_long/layer_1/male/blonde/walk.png",
-        "run": "hair_long/layer_1/male/blonde/run.png",
-        "slash": "hair_long/layer_1/male/blonde/slash.png",
-        "thrust": "hair_long/layer_1/male/blonde/thrust.png",
-        "shoot": "hair_long/layer_1/male/blonde/shoot.png",
-        "spellcast": "hair_long/layer_1/male/blonde/spellcast.png",
-        "hurt": "hair_long/layer_1/male/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_long/layer_1/male/ginger/idle.png",
-        "combat_idle": "hair_long/layer_1/male/ginger/combat_idle.png",
-        "walk": "hair_long/layer_1/male/ginger/walk.png",
-        "run": "hair_long/layer_1/male/ginger/run.png",
-        "slash": "hair_long/layer_1/male/ginger/slash.png",
-        "thrust": "hair_long/layer_1/male/ginger/thrust.png",
-        "shoot": "hair_long/layer_1/male/ginger/shoot.png",
-        "spellcast": "hair_long/layer_1/male/ginger/spellcast.png",
-        "hurt": "hair_long/layer_1/male/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_long/layer_1/male/gray/idle.png",
-        "combat_idle": "hair_long/layer_1/male/gray/combat_idle.png",
-        "walk": "hair_long/layer_1/male/gray/walk.png",
-        "run": "hair_long/layer_1/male/gray/run.png",
-        "slash": "hair_long/layer_1/male/gray/slash.png",
-        "thrust": "hair_long/layer_1/male/gray/thrust.png",
-        "shoot": "hair_long/layer_1/male/gray/shoot.png",
-        "spellcast": "hair_long/layer_1/male/gray/spellcast.png",
-        "hurt": "hair_long/layer_1/male/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_long/layer_1/male/white/idle.png",
-        "combat_idle": "hair_long/layer_1/male/white/combat_idle.png",
-        "walk": "hair_long/layer_1/male/white/walk.png",
-        "run": "hair_long/layer_1/male/white/run.png",
-        "slash": "hair_long/layer_1/male/white/slash.png",
-        "thrust": "hair_long/layer_1/male/white/thrust.png",
-        "shoot": "hair_long/layer_1/male/white/shoot.png",
-        "spellcast": "hair_long/layer_1/male/white/spellcast.png",
-        "hurt": "hair_long/layer_1/male/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_long/layer_1/male/red/idle.png",
-        "combat_idle": "hair_long/layer_1/male/red/combat_idle.png",
-        "walk": "hair_long/layer_1/male/red/walk.png",
-        "run": "hair_long/layer_1/male/red/run.png",
-        "slash": "hair_long/layer_1/male/red/slash.png",
-        "thrust": "hair_long/layer_1/male/red/thrust.png",
-        "shoot": "hair_long/layer_1/male/red/shoot.png",
-        "spellcast": "hair_long/layer_1/male/red/spellcast.png",
-        "hurt": "hair_long/layer_1/male/red/hurt.png"
-       }
-      },
-      "female": {
-       "black": {
-        "idle": "hair_long/layer_1/female/black/idle.png",
-        "combat_idle": "hair_long/layer_1/female/black/combat_idle.png",
-        "walk": "hair_long/layer_1/female/black/walk.png",
-        "run": "hair_long/layer_1/female/black/run.png",
-        "slash": "hair_long/layer_1/female/black/slash.png",
-        "thrust": "hair_long/layer_1/female/black/thrust.png",
-        "shoot": "hair_long/layer_1/female/black/shoot.png",
-        "spellcast": "hair_long/layer_1/female/black/spellcast.png",
-        "hurt": "hair_long/layer_1/female/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_long/layer_1/female/dark_brown/idle.png",
-        "combat_idle": "hair_long/layer_1/female/dark_brown/combat_idle.png",
-        "walk": "hair_long/layer_1/female/dark_brown/walk.png",
-        "run": "hair_long/layer_1/female/dark_brown/run.png",
-        "slash": "hair_long/layer_1/female/dark_brown/slash.png",
-        "thrust": "hair_long/layer_1/female/dark_brown/thrust.png",
-        "shoot": "hair_long/layer_1/female/dark_brown/shoot.png",
-        "spellcast": "hair_long/layer_1/female/dark_brown/spellcast.png",
-        "hurt": "hair_long/layer_1/female/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_long/layer_1/female/chestnut/idle.png",
-        "combat_idle": "hair_long/layer_1/female/chestnut/combat_idle.png",
-        "walk": "hair_long/layer_1/female/chestnut/walk.png",
-        "run": "hair_long/layer_1/female/chestnut/run.png",
-        "slash": "hair_long/layer_1/female/chestnut/slash.png",
-        "thrust": "hair_long/layer_1/female/chestnut/thrust.png",
-        "shoot": "hair_long/layer_1/female/chestnut/shoot.png",
-        "spellcast": "hair_long/layer_1/female/chestnut/spellcast.png",
-        "hurt": "hair_long/layer_1/female/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_long/layer_1/female/light_brown/idle.png",
-        "combat_idle": "hair_long/layer_1/female/light_brown/combat_idle.png",
-        "walk": "hair_long/layer_1/female/light_brown/walk.png",
-        "run": "hair_long/layer_1/female/light_brown/run.png",
-        "slash": "hair_long/layer_1/female/light_brown/slash.png",
-        "thrust": "hair_long/layer_1/female/light_brown/thrust.png",
-        "shoot": "hair_long/layer_1/female/light_brown/shoot.png",
-        "spellcast": "hair_long/layer_1/female/light_brown/spellcast.png",
-        "hurt": "hair_long/layer_1/female/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_long/layer_1/female/blonde/idle.png",
-        "combat_idle": "hair_long/layer_1/female/blonde/combat_idle.png",
-        "walk": "hair_long/layer_1/female/blonde/walk.png",
-        "run": "hair_long/layer_1/female/blonde/run.png",
-        "slash": "hair_long/layer_1/female/blonde/slash.png",
-        "thrust": "hair_long/layer_1/female/blonde/thrust.png",
-        "shoot": "hair_long/layer_1/female/blonde/shoot.png",
-        "spellcast": "hair_long/layer_1/female/blonde/spellcast.png",
-        "hurt": "hair_long/layer_1/female/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_long/layer_1/female/ginger/idle.png",
-        "combat_idle": "hair_long/layer_1/female/ginger/combat_idle.png",
-        "walk": "hair_long/layer_1/female/ginger/walk.png",
-        "run": "hair_long/layer_1/female/ginger/run.png",
-        "slash": "hair_long/layer_1/female/ginger/slash.png",
-        "thrust": "hair_long/layer_1/female/ginger/thrust.png",
-        "shoot": "hair_long/layer_1/female/ginger/shoot.png",
-        "spellcast": "hair_long/layer_1/female/ginger/spellcast.png",
-        "hurt": "hair_long/layer_1/female/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_long/layer_1/female/gray/idle.png",
-        "combat_idle": "hair_long/layer_1/female/gray/combat_idle.png",
-        "walk": "hair_long/layer_1/female/gray/walk.png",
-        "run": "hair_long/layer_1/female/gray/run.png",
-        "slash": "hair_long/layer_1/female/gray/slash.png",
-        "thrust": "hair_long/layer_1/female/gray/thrust.png",
-        "shoot": "hair_long/layer_1/female/gray/shoot.png",
-        "spellcast": "hair_long/layer_1/female/gray/spellcast.png",
-        "hurt": "hair_long/layer_1/female/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_long/layer_1/female/white/idle.png",
-        "combat_idle": "hair_long/layer_1/female/white/combat_idle.png",
-        "walk": "hair_long/layer_1/female/white/walk.png",
-        "run": "hair_long/layer_1/female/white/run.png",
-        "slash": "hair_long/layer_1/female/white/slash.png",
-        "thrust": "hair_long/layer_1/female/white/thrust.png",
-        "shoot": "hair_long/layer_1/female/white/shoot.png",
-        "spellcast": "hair_long/layer_1/female/white/spellcast.png",
-        "hurt": "hair_long/layer_1/female/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_long/layer_1/female/red/idle.png",
-        "combat_idle": "hair_long/layer_1/female/red/combat_idle.png",
-        "walk": "hair_long/layer_1/female/red/walk.png",
-        "run": "hair_long/layer_1/female/red/run.png",
-        "slash": "hair_long/layer_1/female/red/slash.png",
-        "thrust": "hair_long/layer_1/female/red/thrust.png",
-        "shoot": "hair_long/layer_1/female/red/shoot.png",
-        "spellcast": "hair_long/layer_1/female/red/spellcast.png",
-        "hurt": "hair_long/layer_1/female/red/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "hair_bedhead": {
-   "name": "Bedhead",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "JaidynReiman",
-    "Manuel Riecke (MrBeast)"
-   ],
-   "layers": [
-    {
-     "z": 120,
-     "files": {
-      "male": {
-       "black": {
-        "idle": "hair_bedhead/layer_1/male/black/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/black/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/black/walk.png",
-        "run": "hair_bedhead/layer_1/male/black/run.png",
-        "slash": "hair_bedhead/layer_1/male/black/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/black/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/black/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/black/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_bedhead/layer_1/male/dark_brown/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/dark_brown/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/dark_brown/walk.png",
-        "run": "hair_bedhead/layer_1/male/dark_brown/run.png",
-        "slash": "hair_bedhead/layer_1/male/dark_brown/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/dark_brown/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/dark_brown/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/dark_brown/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_bedhead/layer_1/male/chestnut/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/chestnut/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/chestnut/walk.png",
-        "run": "hair_bedhead/layer_1/male/chestnut/run.png",
-        "slash": "hair_bedhead/layer_1/male/chestnut/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/chestnut/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/chestnut/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/chestnut/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_bedhead/layer_1/male/light_brown/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/light_brown/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/light_brown/walk.png",
-        "run": "hair_bedhead/layer_1/male/light_brown/run.png",
-        "slash": "hair_bedhead/layer_1/male/light_brown/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/light_brown/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/light_brown/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/light_brown/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_bedhead/layer_1/male/blonde/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/blonde/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/blonde/walk.png",
-        "run": "hair_bedhead/layer_1/male/blonde/run.png",
-        "slash": "hair_bedhead/layer_1/male/blonde/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/blonde/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/blonde/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/blonde/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_bedhead/layer_1/male/ginger/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/ginger/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/ginger/walk.png",
-        "run": "hair_bedhead/layer_1/male/ginger/run.png",
-        "slash": "hair_bedhead/layer_1/male/ginger/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/ginger/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/ginger/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/ginger/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_bedhead/layer_1/male/gray/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/gray/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/gray/walk.png",
-        "run": "hair_bedhead/layer_1/male/gray/run.png",
-        "slash": "hair_bedhead/layer_1/male/gray/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/gray/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/gray/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/gray/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_bedhead/layer_1/male/white/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/white/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/white/walk.png",
-        "run": "hair_bedhead/layer_1/male/white/run.png",
-        "slash": "hair_bedhead/layer_1/male/white/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/white/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/white/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/white/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_bedhead/layer_1/male/red/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/male/red/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/male/red/walk.png",
-        "run": "hair_bedhead/layer_1/male/red/run.png",
-        "slash": "hair_bedhead/layer_1/male/red/slash.png",
-        "thrust": "hair_bedhead/layer_1/male/red/thrust.png",
-        "shoot": "hair_bedhead/layer_1/male/red/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/male/red/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/male/red/hurt.png"
-       }
-      },
-      "female": {
-       "black": {
-        "idle": "hair_bedhead/layer_1/female/black/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/black/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/black/walk.png",
-        "run": "hair_bedhead/layer_1/female/black/run.png",
-        "slash": "hair_bedhead/layer_1/female/black/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/black/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/black/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/black/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_bedhead/layer_1/female/dark_brown/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/dark_brown/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/dark_brown/walk.png",
-        "run": "hair_bedhead/layer_1/female/dark_brown/run.png",
-        "slash": "hair_bedhead/layer_1/female/dark_brown/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/dark_brown/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/dark_brown/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/dark_brown/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_bedhead/layer_1/female/chestnut/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/chestnut/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/chestnut/walk.png",
-        "run": "hair_bedhead/layer_1/female/chestnut/run.png",
-        "slash": "hair_bedhead/layer_1/female/chestnut/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/chestnut/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/chestnut/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/chestnut/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_bedhead/layer_1/female/light_brown/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/light_brown/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/light_brown/walk.png",
-        "run": "hair_bedhead/layer_1/female/light_brown/run.png",
-        "slash": "hair_bedhead/layer_1/female/light_brown/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/light_brown/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/light_brown/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/light_brown/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_bedhead/layer_1/female/blonde/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/blonde/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/blonde/walk.png",
-        "run": "hair_bedhead/layer_1/female/blonde/run.png",
-        "slash": "hair_bedhead/layer_1/female/blonde/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/blonde/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/blonde/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/blonde/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_bedhead/layer_1/female/ginger/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/ginger/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/ginger/walk.png",
-        "run": "hair_bedhead/layer_1/female/ginger/run.png",
-        "slash": "hair_bedhead/layer_1/female/ginger/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/ginger/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/ginger/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/ginger/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_bedhead/layer_1/female/gray/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/gray/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/gray/walk.png",
-        "run": "hair_bedhead/layer_1/female/gray/run.png",
-        "slash": "hair_bedhead/layer_1/female/gray/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/gray/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/gray/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/gray/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_bedhead/layer_1/female/white/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/white/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/white/walk.png",
-        "run": "hair_bedhead/layer_1/female/white/run.png",
-        "slash": "hair_bedhead/layer_1/female/white/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/white/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/white/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/white/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_bedhead/layer_1/female/red/idle.png",
-        "combat_idle": "hair_bedhead/layer_1/female/red/combat_idle.png",
-        "walk": "hair_bedhead/layer_1/female/red/walk.png",
-        "run": "hair_bedhead/layer_1/female/red/run.png",
-        "slash": "hair_bedhead/layer_1/female/red/slash.png",
-        "thrust": "hair_bedhead/layer_1/female/red/thrust.png",
-        "shoot": "hair_bedhead/layer_1/female/red/shoot.png",
-        "spellcast": "hair_bedhead/layer_1/female/red/spellcast.png",
-        "hurt": "hair_bedhead/layer_1/female/red/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "hair_messy1": {
-   "name": "Messy1",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "JaidynReiman",
-    "Manuel Riecke (MrBeast)"
-   ],
-   "layers": [
-    {
-     "z": 120,
-     "files": {
-      "male": {
-       "black": {
-        "idle": "hair_messy1/layer_1/male/black/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/black/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/black/walk.png",
-        "run": "hair_messy1/layer_1/male/black/run.png",
-        "slash": "hair_messy1/layer_1/male/black/slash.png",
-        "thrust": "hair_messy1/layer_1/male/black/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/black/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/black/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_messy1/layer_1/male/dark_brown/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/dark_brown/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/dark_brown/walk.png",
-        "run": "hair_messy1/layer_1/male/dark_brown/run.png",
-        "slash": "hair_messy1/layer_1/male/dark_brown/slash.png",
-        "thrust": "hair_messy1/layer_1/male/dark_brown/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/dark_brown/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/dark_brown/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_messy1/layer_1/male/chestnut/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/chestnut/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/chestnut/walk.png",
-        "run": "hair_messy1/layer_1/male/chestnut/run.png",
-        "slash": "hair_messy1/layer_1/male/chestnut/slash.png",
-        "thrust": "hair_messy1/layer_1/male/chestnut/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/chestnut/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/chestnut/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_messy1/layer_1/male/light_brown/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/light_brown/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/light_brown/walk.png",
-        "run": "hair_messy1/layer_1/male/light_brown/run.png",
-        "slash": "hair_messy1/layer_1/male/light_brown/slash.png",
-        "thrust": "hair_messy1/layer_1/male/light_brown/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/light_brown/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/light_brown/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_messy1/layer_1/male/blonde/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/blonde/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/blonde/walk.png",
-        "run": "hair_messy1/layer_1/male/blonde/run.png",
-        "slash": "hair_messy1/layer_1/male/blonde/slash.png",
-        "thrust": "hair_messy1/layer_1/male/blonde/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/blonde/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/blonde/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_messy1/layer_1/male/ginger/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/ginger/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/ginger/walk.png",
-        "run": "hair_messy1/layer_1/male/ginger/run.png",
-        "slash": "hair_messy1/layer_1/male/ginger/slash.png",
-        "thrust": "hair_messy1/layer_1/male/ginger/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/ginger/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/ginger/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_messy1/layer_1/male/gray/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/gray/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/gray/walk.png",
-        "run": "hair_messy1/layer_1/male/gray/run.png",
-        "slash": "hair_messy1/layer_1/male/gray/slash.png",
-        "thrust": "hair_messy1/layer_1/male/gray/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/gray/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/gray/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_messy1/layer_1/male/white/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/white/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/white/walk.png",
-        "run": "hair_messy1/layer_1/male/white/run.png",
-        "slash": "hair_messy1/layer_1/male/white/slash.png",
-        "thrust": "hair_messy1/layer_1/male/white/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/white/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/white/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_messy1/layer_1/male/red/idle.png",
-        "combat_idle": "hair_messy1/layer_1/male/red/combat_idle.png",
-        "walk": "hair_messy1/layer_1/male/red/walk.png",
-        "run": "hair_messy1/layer_1/male/red/run.png",
-        "slash": "hair_messy1/layer_1/male/red/slash.png",
-        "thrust": "hair_messy1/layer_1/male/red/thrust.png",
-        "shoot": "hair_messy1/layer_1/male/red/shoot.png",
-        "spellcast": "hair_messy1/layer_1/male/red/spellcast.png",
-        "hurt": "hair_messy1/layer_1/male/red/hurt.png"
-       }
-      },
-      "female": {
-       "black": {
-        "idle": "hair_messy1/layer_1/female/black/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/black/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/black/walk.png",
-        "run": "hair_messy1/layer_1/female/black/run.png",
-        "slash": "hair_messy1/layer_1/female/black/slash.png",
-        "thrust": "hair_messy1/layer_1/female/black/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/black/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/black/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_messy1/layer_1/female/dark_brown/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/dark_brown/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/dark_brown/walk.png",
-        "run": "hair_messy1/layer_1/female/dark_brown/run.png",
-        "slash": "hair_messy1/layer_1/female/dark_brown/slash.png",
-        "thrust": "hair_messy1/layer_1/female/dark_brown/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/dark_brown/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/dark_brown/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_messy1/layer_1/female/chestnut/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/chestnut/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/chestnut/walk.png",
-        "run": "hair_messy1/layer_1/female/chestnut/run.png",
-        "slash": "hair_messy1/layer_1/female/chestnut/slash.png",
-        "thrust": "hair_messy1/layer_1/female/chestnut/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/chestnut/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/chestnut/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_messy1/layer_1/female/light_brown/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/light_brown/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/light_brown/walk.png",
-        "run": "hair_messy1/layer_1/female/light_brown/run.png",
-        "slash": "hair_messy1/layer_1/female/light_brown/slash.png",
-        "thrust": "hair_messy1/layer_1/female/light_brown/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/light_brown/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/light_brown/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_messy1/layer_1/female/blonde/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/blonde/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/blonde/walk.png",
-        "run": "hair_messy1/layer_1/female/blonde/run.png",
-        "slash": "hair_messy1/layer_1/female/blonde/slash.png",
-        "thrust": "hair_messy1/layer_1/female/blonde/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/blonde/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/blonde/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_messy1/layer_1/female/ginger/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/ginger/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/ginger/walk.png",
-        "run": "hair_messy1/layer_1/female/ginger/run.png",
-        "slash": "hair_messy1/layer_1/female/ginger/slash.png",
-        "thrust": "hair_messy1/layer_1/female/ginger/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/ginger/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/ginger/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_messy1/layer_1/female/gray/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/gray/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/gray/walk.png",
-        "run": "hair_messy1/layer_1/female/gray/run.png",
-        "slash": "hair_messy1/layer_1/female/gray/slash.png",
-        "thrust": "hair_messy1/layer_1/female/gray/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/gray/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/gray/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_messy1/layer_1/female/white/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/white/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/white/walk.png",
-        "run": "hair_messy1/layer_1/female/white/run.png",
-        "slash": "hair_messy1/layer_1/female/white/slash.png",
-        "thrust": "hair_messy1/layer_1/female/white/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/white/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/white/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_messy1/layer_1/female/red/idle.png",
-        "combat_idle": "hair_messy1/layer_1/female/red/combat_idle.png",
-        "walk": "hair_messy1/layer_1/female/red/walk.png",
-        "run": "hair_messy1/layer_1/female/red/run.png",
-        "slash": "hair_messy1/layer_1/female/red/slash.png",
-        "thrust": "hair_messy1/layer_1/female/red/thrust.png",
-        "shoot": "hair_messy1/layer_1/female/red/shoot.png",
-        "spellcast": "hair_messy1/layer_1/female/red/spellcast.png",
-        "hurt": "hair_messy1/layer_1/female/red/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "hair_parted": {
-   "name": "Parted",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "JaidynReiman",
-    "Joe White",
-    "Manuel Riecke (MrBeast)"
-   ],
-   "layers": [
-    {
-     "z": 120,
-     "files": {
-      "male": {
-       "black": {
-        "idle": "hair_parted/layer_1/male/black/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/black/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/black/walk.png",
-        "run": "hair_parted/layer_1/male/black/run.png",
-        "slash": "hair_parted/layer_1/male/black/slash.png",
-        "thrust": "hair_parted/layer_1/male/black/thrust.png",
-        "shoot": "hair_parted/layer_1/male/black/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/black/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_parted/layer_1/male/dark_brown/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/dark_brown/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/dark_brown/walk.png",
-        "run": "hair_parted/layer_1/male/dark_brown/run.png",
-        "slash": "hair_parted/layer_1/male/dark_brown/slash.png",
-        "thrust": "hair_parted/layer_1/male/dark_brown/thrust.png",
-        "shoot": "hair_parted/layer_1/male/dark_brown/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/dark_brown/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_parted/layer_1/male/chestnut/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/chestnut/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/chestnut/walk.png",
-        "run": "hair_parted/layer_1/male/chestnut/run.png",
-        "slash": "hair_parted/layer_1/male/chestnut/slash.png",
-        "thrust": "hair_parted/layer_1/male/chestnut/thrust.png",
-        "shoot": "hair_parted/layer_1/male/chestnut/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/chestnut/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_parted/layer_1/male/light_brown/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/light_brown/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/light_brown/walk.png",
-        "run": "hair_parted/layer_1/male/light_brown/run.png",
-        "slash": "hair_parted/layer_1/male/light_brown/slash.png",
-        "thrust": "hair_parted/layer_1/male/light_brown/thrust.png",
-        "shoot": "hair_parted/layer_1/male/light_brown/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/light_brown/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_parted/layer_1/male/blonde/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/blonde/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/blonde/walk.png",
-        "run": "hair_parted/layer_1/male/blonde/run.png",
-        "slash": "hair_parted/layer_1/male/blonde/slash.png",
-        "thrust": "hair_parted/layer_1/male/blonde/thrust.png",
-        "shoot": "hair_parted/layer_1/male/blonde/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/blonde/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_parted/layer_1/male/ginger/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/ginger/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/ginger/walk.png",
-        "run": "hair_parted/layer_1/male/ginger/run.png",
-        "slash": "hair_parted/layer_1/male/ginger/slash.png",
-        "thrust": "hair_parted/layer_1/male/ginger/thrust.png",
-        "shoot": "hair_parted/layer_1/male/ginger/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/ginger/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_parted/layer_1/male/gray/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/gray/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/gray/walk.png",
-        "run": "hair_parted/layer_1/male/gray/run.png",
-        "slash": "hair_parted/layer_1/male/gray/slash.png",
-        "thrust": "hair_parted/layer_1/male/gray/thrust.png",
-        "shoot": "hair_parted/layer_1/male/gray/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/gray/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_parted/layer_1/male/white/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/white/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/white/walk.png",
-        "run": "hair_parted/layer_1/male/white/run.png",
-        "slash": "hair_parted/layer_1/male/white/slash.png",
-        "thrust": "hair_parted/layer_1/male/white/thrust.png",
-        "shoot": "hair_parted/layer_1/male/white/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/white/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_parted/layer_1/male/red/idle.png",
-        "combat_idle": "hair_parted/layer_1/male/red/combat_idle.png",
-        "walk": "hair_parted/layer_1/male/red/walk.png",
-        "run": "hair_parted/layer_1/male/red/run.png",
-        "slash": "hair_parted/layer_1/male/red/slash.png",
-        "thrust": "hair_parted/layer_1/male/red/thrust.png",
-        "shoot": "hair_parted/layer_1/male/red/shoot.png",
-        "spellcast": "hair_parted/layer_1/male/red/spellcast.png",
-        "hurt": "hair_parted/layer_1/male/red/hurt.png"
-       }
-      },
-      "female": {
-       "black": {
-        "idle": "hair_parted/layer_1/female/black/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/black/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/black/walk.png",
-        "run": "hair_parted/layer_1/female/black/run.png",
-        "slash": "hair_parted/layer_1/female/black/slash.png",
-        "thrust": "hair_parted/layer_1/female/black/thrust.png",
-        "shoot": "hair_parted/layer_1/female/black/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/black/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_parted/layer_1/female/dark_brown/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/dark_brown/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/dark_brown/walk.png",
-        "run": "hair_parted/layer_1/female/dark_brown/run.png",
-        "slash": "hair_parted/layer_1/female/dark_brown/slash.png",
-        "thrust": "hair_parted/layer_1/female/dark_brown/thrust.png",
-        "shoot": "hair_parted/layer_1/female/dark_brown/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/dark_brown/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_parted/layer_1/female/chestnut/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/chestnut/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/chestnut/walk.png",
-        "run": "hair_parted/layer_1/female/chestnut/run.png",
-        "slash": "hair_parted/layer_1/female/chestnut/slash.png",
-        "thrust": "hair_parted/layer_1/female/chestnut/thrust.png",
-        "shoot": "hair_parted/layer_1/female/chestnut/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/chestnut/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_parted/layer_1/female/light_brown/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/light_brown/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/light_brown/walk.png",
-        "run": "hair_parted/layer_1/female/light_brown/run.png",
-        "slash": "hair_parted/layer_1/female/light_brown/slash.png",
-        "thrust": "hair_parted/layer_1/female/light_brown/thrust.png",
-        "shoot": "hair_parted/layer_1/female/light_brown/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/light_brown/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_parted/layer_1/female/blonde/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/blonde/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/blonde/walk.png",
-        "run": "hair_parted/layer_1/female/blonde/run.png",
-        "slash": "hair_parted/layer_1/female/blonde/slash.png",
-        "thrust": "hair_parted/layer_1/female/blonde/thrust.png",
-        "shoot": "hair_parted/layer_1/female/blonde/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/blonde/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_parted/layer_1/female/ginger/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/ginger/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/ginger/walk.png",
-        "run": "hair_parted/layer_1/female/ginger/run.png",
-        "slash": "hair_parted/layer_1/female/ginger/slash.png",
-        "thrust": "hair_parted/layer_1/female/ginger/thrust.png",
-        "shoot": "hair_parted/layer_1/female/ginger/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/ginger/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_parted/layer_1/female/gray/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/gray/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/gray/walk.png",
-        "run": "hair_parted/layer_1/female/gray/run.png",
-        "slash": "hair_parted/layer_1/female/gray/slash.png",
-        "thrust": "hair_parted/layer_1/female/gray/thrust.png",
-        "shoot": "hair_parted/layer_1/female/gray/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/gray/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_parted/layer_1/female/white/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/white/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/white/walk.png",
-        "run": "hair_parted/layer_1/female/white/run.png",
-        "slash": "hair_parted/layer_1/female/white/slash.png",
-        "thrust": "hair_parted/layer_1/female/white/thrust.png",
-        "shoot": "hair_parted/layer_1/female/white/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/white/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_parted/layer_1/female/red/idle.png",
-        "combat_idle": "hair_parted/layer_1/female/red/combat_idle.png",
-        "walk": "hair_parted/layer_1/female/red/walk.png",
-        "run": "hair_parted/layer_1/female/red/run.png",
-        "slash": "hair_parted/layer_1/female/red/slash.png",
-        "thrust": "hair_parted/layer_1/female/red/thrust.png",
-        "shoot": "hair_parted/layer_1/female/red/shoot.png",
-        "spellcast": "hair_parted/layer_1/female/red/spellcast.png",
-        "hurt": "hair_parted/layer_1/female/red/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "hair_pixie": {
-   "name": "Pixie",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "JaidynReiman",
-    "Manuel Riecke (MrBeast)"
-   ],
-   "layers": [
-    {
-     "z": 120,
-     "files": {
-      "male": {
-       "black": {
-        "idle": "hair_pixie/layer_1/male/black/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/black/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/black/walk.png",
-        "run": "hair_pixie/layer_1/male/black/run.png",
-        "slash": "hair_pixie/layer_1/male/black/slash.png",
-        "thrust": "hair_pixie/layer_1/male/black/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/black/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/black/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_pixie/layer_1/male/dark_brown/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/dark_brown/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/dark_brown/walk.png",
-        "run": "hair_pixie/layer_1/male/dark_brown/run.png",
-        "slash": "hair_pixie/layer_1/male/dark_brown/slash.png",
-        "thrust": "hair_pixie/layer_1/male/dark_brown/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/dark_brown/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/dark_brown/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_pixie/layer_1/male/chestnut/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/chestnut/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/chestnut/walk.png",
-        "run": "hair_pixie/layer_1/male/chestnut/run.png",
-        "slash": "hair_pixie/layer_1/male/chestnut/slash.png",
-        "thrust": "hair_pixie/layer_1/male/chestnut/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/chestnut/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/chestnut/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_pixie/layer_1/male/light_brown/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/light_brown/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/light_brown/walk.png",
-        "run": "hair_pixie/layer_1/male/light_brown/run.png",
-        "slash": "hair_pixie/layer_1/male/light_brown/slash.png",
-        "thrust": "hair_pixie/layer_1/male/light_brown/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/light_brown/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/light_brown/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_pixie/layer_1/male/blonde/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/blonde/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/blonde/walk.png",
-        "run": "hair_pixie/layer_1/male/blonde/run.png",
-        "slash": "hair_pixie/layer_1/male/blonde/slash.png",
-        "thrust": "hair_pixie/layer_1/male/blonde/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/blonde/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/blonde/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_pixie/layer_1/male/ginger/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/ginger/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/ginger/walk.png",
-        "run": "hair_pixie/layer_1/male/ginger/run.png",
-        "slash": "hair_pixie/layer_1/male/ginger/slash.png",
-        "thrust": "hair_pixie/layer_1/male/ginger/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/ginger/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/ginger/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_pixie/layer_1/male/gray/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/gray/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/gray/walk.png",
-        "run": "hair_pixie/layer_1/male/gray/run.png",
-        "slash": "hair_pixie/layer_1/male/gray/slash.png",
-        "thrust": "hair_pixie/layer_1/male/gray/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/gray/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/gray/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_pixie/layer_1/male/white/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/white/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/white/walk.png",
-        "run": "hair_pixie/layer_1/male/white/run.png",
-        "slash": "hair_pixie/layer_1/male/white/slash.png",
-        "thrust": "hair_pixie/layer_1/male/white/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/white/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/white/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_pixie/layer_1/male/red/idle.png",
-        "combat_idle": "hair_pixie/layer_1/male/red/combat_idle.png",
-        "walk": "hair_pixie/layer_1/male/red/walk.png",
-        "run": "hair_pixie/layer_1/male/red/run.png",
-        "slash": "hair_pixie/layer_1/male/red/slash.png",
-        "thrust": "hair_pixie/layer_1/male/red/thrust.png",
-        "shoot": "hair_pixie/layer_1/male/red/shoot.png",
-        "spellcast": "hair_pixie/layer_1/male/red/spellcast.png",
-        "hurt": "hair_pixie/layer_1/male/red/hurt.png"
-       }
-      },
-      "female": {
-       "black": {
-        "idle": "hair_pixie/layer_1/female/black/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/black/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/black/walk.png",
-        "run": "hair_pixie/layer_1/female/black/run.png",
-        "slash": "hair_pixie/layer_1/female/black/slash.png",
-        "thrust": "hair_pixie/layer_1/female/black/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/black/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/black/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/black/hurt.png"
-       },
-       "dark_brown": {
-        "idle": "hair_pixie/layer_1/female/dark_brown/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/dark_brown/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/dark_brown/walk.png",
-        "run": "hair_pixie/layer_1/female/dark_brown/run.png",
-        "slash": "hair_pixie/layer_1/female/dark_brown/slash.png",
-        "thrust": "hair_pixie/layer_1/female/dark_brown/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/dark_brown/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/dark_brown/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/dark_brown/hurt.png"
-       },
-       "chestnut": {
-        "idle": "hair_pixie/layer_1/female/chestnut/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/chestnut/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/chestnut/walk.png",
-        "run": "hair_pixie/layer_1/female/chestnut/run.png",
-        "slash": "hair_pixie/layer_1/female/chestnut/slash.png",
-        "thrust": "hair_pixie/layer_1/female/chestnut/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/chestnut/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/chestnut/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/chestnut/hurt.png"
-       },
-       "light_brown": {
-        "idle": "hair_pixie/layer_1/female/light_brown/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/light_brown/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/light_brown/walk.png",
-        "run": "hair_pixie/layer_1/female/light_brown/run.png",
-        "slash": "hair_pixie/layer_1/female/light_brown/slash.png",
-        "thrust": "hair_pixie/layer_1/female/light_brown/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/light_brown/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/light_brown/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/light_brown/hurt.png"
-       },
-       "blonde": {
-        "idle": "hair_pixie/layer_1/female/blonde/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/blonde/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/blonde/walk.png",
-        "run": "hair_pixie/layer_1/female/blonde/run.png",
-        "slash": "hair_pixie/layer_1/female/blonde/slash.png",
-        "thrust": "hair_pixie/layer_1/female/blonde/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/blonde/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/blonde/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/blonde/hurt.png"
-       },
-       "ginger": {
-        "idle": "hair_pixie/layer_1/female/ginger/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/ginger/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/ginger/walk.png",
-        "run": "hair_pixie/layer_1/female/ginger/run.png",
-        "slash": "hair_pixie/layer_1/female/ginger/slash.png",
-        "thrust": "hair_pixie/layer_1/female/ginger/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/ginger/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/ginger/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/ginger/hurt.png"
-       },
-       "gray": {
-        "idle": "hair_pixie/layer_1/female/gray/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/gray/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/gray/walk.png",
-        "run": "hair_pixie/layer_1/female/gray/run.png",
-        "slash": "hair_pixie/layer_1/female/gray/slash.png",
-        "thrust": "hair_pixie/layer_1/female/gray/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/gray/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/gray/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/gray/hurt.png"
-       },
-       "white": {
-        "idle": "hair_pixie/layer_1/female/white/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/white/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/white/walk.png",
-        "run": "hair_pixie/layer_1/female/white/run.png",
-        "slash": "hair_pixie/layer_1/female/white/slash.png",
-        "thrust": "hair_pixie/layer_1/female/white/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/white/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/white/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/white/hurt.png"
-       },
-       "red": {
-        "idle": "hair_pixie/layer_1/female/red/idle.png",
-        "combat_idle": "hair_pixie/layer_1/female/red/combat_idle.png",
-        "walk": "hair_pixie/layer_1/female/red/walk.png",
-        "run": "hair_pixie/layer_1/female/red/run.png",
-        "slash": "hair_pixie/layer_1/female/red/slash.png",
-        "thrust": "hair_pixie/layer_1/female/red/thrust.png",
-        "shoot": "hair_pixie/layer_1/female/red/shoot.png",
-        "spellcast": "hair_pixie/layer_1/female/red/spellcast.png",
-        "hurt": "hair_pixie/layer_1/female/red/hurt.png"
        }
       }
      }
@@ -3651,7 +2371,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
    ],
@@ -3722,7 +2442,7 @@
     "ElizaWy",
     "JaidynReiman",
     "Joe White",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"
@@ -3793,7 +2513,7 @@
    "authors": [
     "JaidynReiman",
     "Joe White",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "layers": [
@@ -3838,7 +2558,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -3998,7 +2718,7 @@
     "OGA-BY 3.0+"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Pierre Vigier (pvigier)"
    ],
    "layers": [
@@ -4092,7 +2812,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)"
+    "Johannes Sjölund (wulax)"
    ],
    "layers": [
     {
@@ -4180,7 +2900,7 @@
    "authors": [
     "ElizaWy",
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Stephen Challener (Redshrike)"
    ],
    "layers": [
@@ -4226,7 +2946,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "bluecarrot16"
@@ -4292,7 +3012,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "Napsio (Vitruvian Studio)",
@@ -4537,144 +3257,6 @@
     }
    ]
   },
-  "helmet_horned": {
-   "name": "Horned helmet",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
-    "Matthew Krohn (makrohn)",
-    "Sander Frenken (castelonia)",
-    "Shaun Williams",
-    "bluecarrot16"
-   ],
-   "layers": [
-    {
-     "z": 130,
-     "files": {
-      "male": {
-       "gold": {
-        "idle": "helmet_horned/layer_1/male/gold/idle.png",
-        "combat_idle": "helmet_horned/layer_1/male/gold/combat_idle.png",
-        "walk": "helmet_horned/layer_1/male/gold/walk.png",
-        "run": "helmet_horned/layer_1/male/gold/run.png",
-        "slash": "helmet_horned/layer_1/male/gold/slash.png",
-        "thrust": "helmet_horned/layer_1/male/gold/thrust.png",
-        "shoot": "helmet_horned/layer_1/male/gold/shoot.png",
-        "spellcast": "helmet_horned/layer_1/male/gold/spellcast.png",
-        "hurt": "helmet_horned/layer_1/male/gold/hurt.png"
-       }
-      },
-      "female": {
-       "gold": {
-        "idle": "helmet_horned/layer_1/female/gold/idle.png",
-        "combat_idle": "helmet_horned/layer_1/female/gold/combat_idle.png",
-        "walk": "helmet_horned/layer_1/female/gold/walk.png",
-        "run": "helmet_horned/layer_1/female/gold/run.png",
-        "slash": "helmet_horned/layer_1/female/gold/slash.png",
-        "thrust": "helmet_horned/layer_1/female/gold/thrust.png",
-        "shoot": "helmet_horned/layer_1/female/gold/shoot.png",
-        "spellcast": "helmet_horned/layer_1/female/gold/spellcast.png",
-        "hurt": "helmet_horned/layer_1/female/gold/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "eyepatch": {
-   "name": "Small Eyepatch Left",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "Michael Whitlock (bigbeargames)",
-    "Thane Brimhall (pennomi)",
-    "laetissima"
-   ],
-   "layers": [
-    {
-     "z": 115,
-     "files": {
-      "male": {
-       "default": {
-        "idle": "eyepatch/layer_1/male/idle.png",
-        "combat_idle": "eyepatch/layer_1/male/combat_idle.png",
-        "walk": "eyepatch/layer_1/male/walk.png",
-        "run": "eyepatch/layer_1/male/run.png",
-        "slash": "eyepatch/layer_1/male/slash.png",
-        "thrust": "eyepatch/layer_1/male/thrust.png",
-        "shoot": "eyepatch/layer_1/male/shoot.png",
-        "spellcast": "eyepatch/layer_1/male/spellcast.png",
-        "hurt": "eyepatch/layer_1/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "idle": "eyepatch/layer_1/female/idle.png",
-        "combat_idle": "eyepatch/layer_1/female/combat_idle.png",
-        "walk": "eyepatch/layer_1/female/walk.png",
-        "run": "eyepatch/layer_1/female/run.png",
-        "slash": "eyepatch/layer_1/female/slash.png",
-        "thrust": "eyepatch/layer_1/female/thrust.png",
-        "shoot": "eyepatch/layer_1/female/shoot.png",
-        "spellcast": "eyepatch/layer_1/female/spellcast.png",
-        "hurt": "eyepatch/layer_1/female/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "weapon_waraxe": {
-   "name": "Waraxe",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "Benjamin K. Smith (BenCreating)",
-    "Sander Frenken (castelonia)",
-    "bluecarrot16"
-   ],
-   "layers": [
-    {
-     "z": 9,
-     "files": {
-      "male": {
-       "default": {
-        "walk": "weapon_waraxe/layer_1/male/walk.png"
-       }
-      },
-      "female": {
-       "default": {
-        "walk": "weapon_waraxe/layer_1/female/walk.png"
-       }
-      }
-     }
-    },
-    {
-     "z": 140,
-     "files": {
-      "male": {
-       "default": {
-        "walk": "weapon_waraxe/layer_2/male/walk.png",
-        "hurt": "weapon_waraxe/layer_2/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "walk": "weapon_waraxe/layer_2/female/walk.png",
-        "hurt": "weapon_waraxe/layer_2/female/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
   "weapon_mace": {
    "name": "Mace",
    "licenses": [
@@ -4682,7 +3264,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "layers": [
@@ -4825,7 +3407,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "bluecarrot16"
    ],
    "layers": [
@@ -4874,7 +3456,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Napsio (Vitruvian Studio)"
    ],
    "layers": [
@@ -5132,7 +3714,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "bluecarrot16"
@@ -5248,7 +3830,7 @@
    ],
    "authors": [
     "JaidynReiman",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Michael Whitlock (bigbeargames)",
     "bluecarrot16"
@@ -5481,7 +4063,7 @@
    ],
    "authors": [
     "DarkwallLKE",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Michael Whitlock (bigbeargames)",
     "Tuomo Untinen (reemax)"
    ],
@@ -5515,7 +4097,7 @@
     "OGA-BY 3.0"
    ],
    "authors": [
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "bluecarrot16"
    ],
@@ -5554,100 +4136,6 @@
        "default": {
         "walk": "weapon_dagger_offhand/layer_2/female/walk.png",
         "slash": "weapon_dagger_offhand/layer_2/female/slash.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "weapon_bow_recurve": {
-   "name": "Recurve",
-   "licenses": [
-    "CC-BY-SA 3.0"
-   ],
-   "authors": [
-    "Daniel Eddeland (daneeklu)",
-    "Johannes Sj\u00f6lund (wulax)",
-    "Pierre Vigier (pvigier)",
-    "gr3yh47"
-   ],
-   "layers": [
-    {
-     "z": -1,
-     "files": {
-      "male": {
-       "default": {
-        "shoot": "weapon_bow_recurve/layer_1/male/shoot.png",
-        "hurt": "weapon_bow_recurve/layer_1/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "shoot": "weapon_bow_recurve/layer_1/female/shoot.png",
-        "hurt": "weapon_bow_recurve/layer_1/female/hurt.png"
-       }
-      }
-     }
-    },
-    {
-     "z": 140,
-     "files": {
-      "male": {
-       "default": {
-        "shoot": "weapon_bow_recurve/layer_2/male/shoot.png",
-        "hurt": "weapon_bow_recurve/layer_2/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "shoot": "weapon_bow_recurve/layer_2/female/shoot.png",
-        "hurt": "weapon_bow_recurve/layer_2/female/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "weapon_bow_great": {
-   "name": "Great",
-   "licenses": [
-    "CC-BY-SA 3.0"
-   ],
-   "authors": [
-    "Daniel Eddeland (daneeklu)",
-    "Johannes Sj\u00f6lund (wulax)",
-    "Pierre Vigier (pvigier)",
-    "gr3yh47"
-   ],
-   "layers": [
-    {
-     "z": -1,
-     "files": {
-      "male": {
-       "default": {
-        "hurt": "weapon_bow_great/layer_1/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "hurt": "weapon_bow_great/layer_1/female/hurt.png"
-       }
-      }
-     }
-    },
-    {
-     "z": 140,
-     "files": {
-      "male": {
-       "default": {
-        "shoot": "weapon_bow_great/layer_2/male/shoot.png",
-        "hurt": "weapon_bow_great/layer_2/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "shoot": "weapon_bow_great/layer_2/female/shoot.png",
-        "hurt": "weapon_bow_great/layer_2/female/hurt.png"
        }
       }
      }
@@ -5698,40 +4186,6 @@
         "walk": "weapon_crossbow/layer_2/female/walk.png",
         "thrust": "weapon_crossbow/layer_2/female/thrust.png",
         "hurt": "weapon_crossbow/layer_2/female/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "shield_kite": {
-   "name": "Kite",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 2.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "DarkwallLKE",
-    "Michael Whitlock (bigbeargames)",
-    "Tuomo Untinen (reemax)"
-   ],
-   "layers": [
-    {
-     "z": 110,
-     "files": {
-      "male": {
-       "default": {
-        "walk": "shield_kite/layer_1/male/walk.png",
-        "slash": "shield_kite/layer_1/male/slash.png",
-        "thrust": "shield_kite/layer_1/male/thrust.png"
-       }
-      },
-      "female": {
-       "default": {
-        "walk": "shield_kite/layer_1/female/walk.png",
-        "slash": "shield_kite/layer_1/female/slash.png",
-        "thrust": "shield_kite/layer_1/female/thrust.png"
        }
       }
      }
@@ -5800,82 +4254,6 @@
     }
    ]
   },
-  "backpack_satchel": {
-   "name": "Square pack",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "Benjamin K. Smith (BenCreating)",
-    "macmanmatty"
-   ],
-   "layers": [
-    {
-     "z": 110,
-     "files": {
-      "male": {
-       "default": {
-        "walk": "backpack_satchel/layer_1/male/walk.png",
-        "slash": "backpack_satchel/layer_1/male/slash.png",
-        "thrust": "backpack_satchel/layer_1/male/thrust.png",
-        "shoot": "backpack_satchel/layer_1/male/shoot.png",
-        "spellcast": "backpack_satchel/layer_1/male/spellcast.png",
-        "hurt": "backpack_satchel/layer_1/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "walk": "backpack_satchel/layer_1/female/walk.png",
-        "slash": "backpack_satchel/layer_1/female/slash.png",
-        "thrust": "backpack_satchel/layer_1/female/thrust.png",
-        "shoot": "backpack_satchel/layer_1/female/shoot.png",
-        "spellcast": "backpack_satchel/layer_1/female/spellcast.png",
-        "hurt": "backpack_satchel/layer_1/female/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
-  "backpack_pack": {
-   "name": "Backpack",
-   "licenses": [
-    "CC-BY-SA 3.0",
-    "GPL 3.0"
-   ],
-   "authors": [
-    "Benjamin K. Smith (BenCreating)",
-    "macmanmatty"
-   ],
-   "layers": [
-    {
-     "z": 110,
-     "files": {
-      "male": {
-       "default": {
-        "walk": "backpack_pack/layer_1/male/walk.png",
-        "slash": "backpack_pack/layer_1/male/slash.png",
-        "thrust": "backpack_pack/layer_1/male/thrust.png",
-        "shoot": "backpack_pack/layer_1/male/shoot.png",
-        "spellcast": "backpack_pack/layer_1/male/spellcast.png",
-        "hurt": "backpack_pack/layer_1/male/hurt.png"
-       }
-      },
-      "female": {
-       "default": {
-        "walk": "backpack_pack/layer_1/female/walk.png",
-        "slash": "backpack_pack/layer_1/female/slash.png",
-        "thrust": "backpack_pack/layer_1/female/thrust.png",
-        "shoot": "backpack_pack/layer_1/female/shoot.png",
-        "spellcast": "backpack_pack/layer_1/female/spellcast.png",
-        "hurt": "backpack_pack/layer_1/female/hurt.png"
-       }
-      }
-     }
-    }
-   ]
-  },
   "pants_dyed": {
    "name": "Pants",
    "licenses": [
@@ -5887,7 +4265,7 @@
     "ElizaWy",
     "JaidynReiman",
     "Joe White",
-    "Johannes Sj\u00f6lund (wulax)",
+    "Johannes Sjölund (wulax)",
     "Matthew Krohn (makrohn)",
     "Stephen Challener (Redshrike)",
     "bluecarrot16"

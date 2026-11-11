@@ -16,7 +16,7 @@ const STARTER_WEAPON_BY_CLASS := {
 ## Look pools (heroes): every entry exists in the imported sheets.
 const SKINS := ["light", "amber", "olive", "taupe", "bronze", "brown", "black"]
 const EYES := ["blue", "green", "brown", "gray"]
-const HAIR := ["hair_buzzcut", "hair_bob", "hair_long", "hair_bedhead", "hair_messy1", "hair_parted", "hair_pixie", "hair_plain"]
+const HAIR := ["hair_buzzcut", "hair_bob", "hair_plain"]   # solo piezas con licencia de atribucion (docs/ASSET_REGISTRY.md)
 const HAIR_COLORS := ["black", "dark_brown", "chestnut", "light_brown", "blonde", "ginger", "gray", "white", "red"]
 const BEARD_CHANCE := 0.3             # male bodies only
 ## Bandit faction colour (D-E): no hero starter piece may use it.
@@ -31,7 +31,7 @@ static func random_look(rng: RandomNumberGenerator, race: String = "human") -> D
         "skin": SKINS[rng.randi() % SKINS.size()],
         "eyes": EYES[rng.randi() % EYES.size()],
         "head": "head_human_" + body,
-        "ears": "ears_elven" if race == "elf" else "",
+        "ears": "",   # ears_elven retirado: solo ofrecia CC-BY-SA/GPL
         "hair": HAIR[rng.randi() % HAIR.size()],
         "hair_color": HAIR_COLORS[rng.randi() % HAIR_COLORS.size()],
         "beard": "",

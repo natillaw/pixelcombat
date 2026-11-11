@@ -28,6 +28,14 @@ archivos de momentos distintos y no compilaba.
   (ver `docs/ASSET_REGISTRY.md`).
 - **D8 — PvP:** arenas instanciadas (1v1, 2v2, 3v3), como Battlerite.
 
+- **D9 — Avance por la torre:** no se puede subir de piso sin haber completado
+  el piso actual (condición de "completado" por definir: limpiar enemigos y/o
+  objetivo del piso). Los pisos ya completados se pueden revisitar y respawnean
+  enemigos.
+- **D10 — Sin GPL:** el arte LPC solo usa piezas con opción de solo atribución
+  (OGA-BY, CC-BY, CC0). Se eliminaron las 14 piezas que solo ofrecían SA/GPL.
+  Para hachas dobles (Berserker) y arcos grandes hará falta otra fuente.
+
 ### Limpieza de la Fase 0
 - Se eliminó `archive/legacy_ts/` (proyecto Tactical Summoners, 14 MB). Sigue
   disponible en el repo `natillaw/tactical-summoners`.
@@ -36,3 +44,8 @@ archivos de momentos distintos y no compilaba.
 - `tools/run_tests.*` reintentan la importación una vez: en una importación en
   frío Godot 4.7.2 termina a veces con segfault (observado en Windows) y el
   segundo intento pasa.
+
+## 2026-11-10 — Fase 1: combate
+
+- **Encarar al cursor (hecho):** el personaje siempre mira al cursor, también al moverse (strafe). El sprite de 4 direcciones usa histéresis del 15 % para no parpadear en diagonales.
+- **Enemigos y telegraph (decisión de diseño):** las fuentes públicas de Drakantos no documentan telegraphs ni ventanas de esquiva. Lo único confirmado: jefes de varias fases y enemigos con mecánicas combinables. Por tanto el telegraph viene de Battlerite (zona o cono visible antes del golpe, escalado por peligro) y de Drakantos tomamos los **jefes por fases** y la **combinación de mecánicas simples** entre tipos de enemigo.

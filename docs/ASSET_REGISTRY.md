@@ -108,15 +108,18 @@ Sobre las 342 filas del CSV:
 
 - **281** ofrecen una opción de solo atribución (OGA-BY 3.0, CC-BY 3.0/4.0 o
   CC0). Elegimos esa opción: basta con acreditar a los autores.
-- **61** solo ofrecen CC-BY-SA 3.0 y/o GPL: si salen en una build, el arte
-  derivado de esas capas queda bajo share-alike. El código no se contamina,
-  porque las capas se componen en memoria como datos.
+- **61** solo ofrecían CC-BY-SA y/o GPL. **Se eliminaron del repo (10 nov 2026)**:
+  `ears_elven`, `hair_long`, `hair_bedhead`, `hair_messy1`, `hair_parted`,
+  `hair_pixie`, `helmet_horned`, `eyepatch`, `weapon_waraxe`,
+  `weapon_bow_recurve`, `weapon_bow_great`, `shield_kite`, `backpack_pack` y
+  `backpack_satchel`. Sus filas ya no están en `CREDITS.csv`.
 
 Reglas:
 
 1. Al elegir piezas nuevas del LPC, **preferir las que tienen opción de solo
    atribución**.
-2. Las 61 piezas solo SA/GPL se pueden usar en desarrollo, pero hay que revisarlas
-   (y acreditar con SA) antes de publicar una build.
+2. `wardrobe_catalog.json` marca con `license_safe: false` (67 de 408 piezas del
+   generador) las que no ofrecen solo atribución: **no importarlas**.
+   `tests/test_asset_licenses.gd` falla si el índice vuelve a incluir una.
 3. Antes de publicar, generar la pantalla de créditos a partir de
    `CREDITS.csv` (tarea pendiente, Fase 10).

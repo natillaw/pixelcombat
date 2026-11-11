@@ -18,6 +18,8 @@ var sim: WarriorSim
 var arena: Arena
 var sprite: AnimatedSprite2D
 
+const FACING_HYSTERESIS := 1.15
+
 var _facing: String = "down"
 var _current_skill: Dictionary = {}
 var _flash: float = 0.0
@@ -72,16 +74,29 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 
+## Estilo Drakantos: el personaje siempre encara el cursor, se mueva o no
+## (strafe). Durante un ataque la direccion queda fijada por `attack_aim`.
 func _update_facing() -> void:
 	if sim.is_attacking():
 		return
-	if sim.velocity.length_squared() > 64.0:
-		_facing = _dir_name(sim.velocity)
-	else:
-		_facing = _dir_name(sim.aim_dir)
+	_facing = facing_for(sim.aim_dir, _facing)
 
 
-func _dir_name(direction: Vector2) -> String:
+## Direccion de 4 vias para un vector de apuntado. Con histeresis: solo cambia
+## de eje cuando el otro eje gana por mas de un 15 %, para que el sprite no
+## parpadee en las diagonales.
+static func facing_for(direction: Vector2, current: String) -> String:
+	var ax := absf(direction.x)
+	var ay := absf(direction.y)
+	var horizontal := current == "left" or current == "right"
+	if horizontal and ay <= ax * FACING_HYSTERESIS:
+		return "right" if direction.x >= 0.0 else "left"
+	if not horizontal and current != "" and ax <= ay * FACING_HYSTERESIS:
+		return "down" if direction.y >= 0.0 else "up"
+	return _dir_name(direction)
+
+
+static func _dir_name(direction: Vector2) -> String:
 	if absf(direction.x) >= absf(direction.y):
 		return "right" if direction.x >= 0.0 else "left"
 	return "down" if direction.y >= 0.0 else "up"

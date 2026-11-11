@@ -69,7 +69,7 @@ Cada una con mi recomendación; marca las que cambies.
 
 ### Fase 1 — Combate núcleo estilo Drakantos (2–3 semanas)
 Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
-- Encarar siempre al cursor (con bloqueo durante ataques/channels).
+- [x] Encarar siempre al cursor (con bloqueo durante ataques/channels). *Hecho 10 nov: `WarriorActor.facing_for`, con histéresis y test.*
 - Esquiva con i-frames cortos y coste/cooldown.
 - Pipeline de skills genérico y dirigido por datos: windup → activo → recovery, cancel windows, telegraph, hitbox (línea, cono, círculo, proyectil).
 - Slots de loadout: M1, M2, S1–S5, Special, Ultimate. Ultimate con Charge por golpes.
@@ -113,6 +113,7 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - 10 tiers × 10 pisos. Cada tier cambia materiales, items, tema visual, enemigos y paleta.
 - **Pisos 5 y 10 (D3):** mini-jefe / jefe, con misión difícil opcional y recompensa mayor.
 - Misiones de piso (objetivos procedurales), recompensas y curva de nivel.
+- **Candado de avance (D9):** no se puede subir de piso sin completar el actual; los pisos completados se pueden revisitar y respawnean.
 - Portal de ida/vuelta con pisos ya desbloqueados.
 
 **Hecho cuando:** se sube del piso 1 al 10 (tier 1), se sale, se vuelve a entrar y el piso conserva su estado con enemigos respawneados.
