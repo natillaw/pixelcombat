@@ -279,6 +279,18 @@ func _test_enemy_tables() -> void:
 	_check(boss_slots.has("weapon") and boss_slots.has("chest") and boss_slots.has("ring") and not boss_slots.has("feet"), "el jefe solo suelta lo que dice su tabla y siempre suelta")
 
 
+func _click(world: CombatWorld, point: Vector2) -> void:
+	var press := InputMessage.new()
+	press.actions = {"pickup": true}
+	press.target_pos = point
+	world.submit_input(press)
+	world.step(1.0 / 60.0)
+	var release := InputMessage.new()
+	release.actions = {"pickup": false}
+	world.submit_input(release)
+	world.step(1.0 / 60.0)
+
+
 func _test_ground_loot() -> void:
 	var world: CombatWorld = CombatWorldScript.new(50)
 	world.setup_arena(Rect2(0, 0, 900, 600))
@@ -292,18 +304,39 @@ func _test_ground_loot() -> void:
 	world.player.position = Vector2(200, 200)
 	for i: int in range(60):
 		world.step(1.0 / 60.0)
-	_check(world.loot_drops.size() == 1 and world.player.bag.is_empty(), "lejos del jugador el item se queda en el suelo")
+	_check(world.loot_drops.size() == 1 and world.player.bag.is_empty(), "el botin no se recoge solo, ni estando cerca")
+	world.player.position = Vector2(600, 420)
+	for i: int in range(60):
+		world.step(1.0 / 60.0)
+	_check(world.loot_drops.size() == 1 and world.player.bag.is_empty(), "estar encima del item no lo recoge automaticamente")
+	world.player.position = Vector2(200, 200)
+	_click(world, Vector2(600, 400))
+	_check(world.loot_drops.size() == 1 and world.try_click(Vector2(600, 400)) == "far", "con clic desde lejos no se recoge")
+	_check(world.try_click(Vector2(100, 100)) == "none", "un clic donde no hay nada no hace nada")
+	world.player.position = Vector2(600, 420)
+	_click(world, Vector2(900, 100))
+	_check(world.loot_drops.size() == 1, "un clic lejos del item no lo recoge aunque estes cerca")
 	drop.age = 0.0
-	world.player.position = Vector2(600, 400)
-	for i: int in range(10):
-		world.step(1.0 / 60.0)
-	_check(world.loot_drops.size() == 1, "no se recoge hasta pasado el breve retraso")
-	var drop2 := LootDrop.new(item, Vector2(600, 400))
-	_check(not drop2.can_pick_up(), "un item recien caido aun no se puede coger")
-	for i: int in range(40):
-		world.step(1.0 / 60.0)
-	_check(world.loot_drops.is_empty() and world.player.bag.size() == 1 and removed.size() == 1, "al acercarse se recoge a la mochila y avisa de que desaparece")
-	# Mochila llena: se queda en el suelo y avisa una sola vez.
+	_check(world.try_click(Vector2(600, 400)) == "wait", "un item recien caido aun no se puede coger")
+	drop.age = 1.0
+	_click(world, Vector2(610, 405))
+	_check(world.loot_drops.is_empty() and world.player.bag.size() == 1 and removed.size() == 1, "clic sobre el item estando cerca lo recoge y avisa de que desaparece")
+	# Cada pulsacion recoge una sola vez (flanco), no uno por tick.
+	var two: CombatWorld = CombatWorldScript.new(55)
+	two.setup_arena(Rect2(0, 0, 900, 600))
+	two.player.position = Vector2(300, 300)
+	two.loot_drops.append(LootDrop.new(item.duplicate(true), Vector2(300, 310)))
+	two.loot_drops.append(LootDrop.new(item.duplicate(true), Vector2(300, 310)))
+	for drop_entry: LootDrop in two.loot_drops:
+		drop_entry.age = 1.0
+	var held := InputMessage.new()
+	held.actions = {"pickup": true}
+	held.target_pos = Vector2(300, 310)
+	for i: int in range(20):
+		two.submit_input(held)
+		two.step(1.0 / 60.0)
+	_check(two.player.bag.size() == 1 and two.loot_drops.size() == 1, "mantener el clic recoge un solo item")
+	# Mochila llena: se queda en el suelo y avisa.
 	var full_world: CombatWorld = CombatWorldScript.new(51)
 	full_world.setup_arena(Rect2(0, 0, 900, 600))
 	for i: int in range(ItemCatalog.bag_size()):
@@ -311,13 +344,13 @@ func _test_ground_loot() -> void:
 	var warnings: Array = []
 	full_world.player.bag_full.connect(func(_it: Dictionary) -> void: warnings.append(1))
 	full_world.loot_drops.append(LootDrop.new(item, Vector2(300, 300)))
+	full_world.loot_drops[0].age = 1.0
 	full_world.player.position = Vector2(300, 300)
-	for i: int in range(120):
-		full_world.step(1.0 / 60.0)
-	_check(full_world.loot_drops.size() == 1 and warnings.size() == 1 and full_world.player.bag.size() == ItemCatalog.bag_size(), "con la mochila llena el item sigue en el suelo y avisa una vez")
+	_click(full_world, Vector2(300, 300))
+	_check(full_world.loot_drops.size() == 1 and warnings.size() == 1 and full_world.player.bag.size() == ItemCatalog.bag_size(), "con la mochila llena el clic avisa y el item sigue en el suelo")
 	full_world.player.discard_from_bag(0)
-	full_world.step(1.0 / 60.0)
-	_check(full_world.loot_drops.is_empty() and full_world.player.bag.size() == ItemCatalog.bag_size(), "al hacer sitio se recoge")
+	_click(full_world, Vector2(300, 300))
+	_check(full_world.loot_drops.is_empty() and full_world.player.bag.size() == ItemCatalog.bag_size(), "al hacer sitio se puede recoger")
 	# Caducidad y cambio de escenario.
 	var timed: CombatWorld = CombatWorldScript.new(52)
 	timed.setup_arena(Rect2(0, 0, 900, 600))
@@ -334,8 +367,8 @@ func _test_ground_loot() -> void:
 	dead.setup_arena(Rect2(0, 0, 900, 600))
 	dead.loot_drops.append(LootDrop.new(item, dead.player.position))
 	dead.player.take_damage(1.0e9)
-	for i: int in range(60):
-		dead.step(1.0 / 60.0)
+	dead.loot_drops[0].age = 1.0
+	_click(dead, dead.player.position)
 	_check(dead.loot_drops.size() == 1, "un jugador muerto no recoge")
 
 

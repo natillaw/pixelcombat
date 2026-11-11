@@ -68,6 +68,8 @@ $suites = @(
     "tests/test_status.gd"
     "tests/test_tower.gd"
     "tests/test_items.gd"
+    "tests/test_gathering.gd"
+    "tests/test_scene_smoke.tscn"
 )
 
 "" | Set-Content -Path $summaryPath -Encoding utf8
@@ -97,7 +99,8 @@ try {
         Write-Host ""
         Write-Host "== $suite =="
         "===== $suite =====" | Add-Content -Path $summaryPath -Encoding utf8
-        & $Godot --headless --path . --script $suite 2>&1 |
+        $runArgs = if ($suite -like '*.tscn') { @("res://$suite") } else { @('--script', $suite) }
+        & $Godot --headless --path . @runArgs 2>&1 |
             Tee-Object -FilePath $summaryPath -Append |
             ForEach-Object { Write-Host $_ }
         $exit = $LASTEXITCODE

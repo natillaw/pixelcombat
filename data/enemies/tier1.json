@@ -48,6 +48,9 @@
 					"ring",
 					"feet"
 				]
+			},
+			"materials": {
+				"hide": 0.25
 			}
 		},
 		{
@@ -98,6 +101,9 @@
 					"feet",
 					"head"
 				]
+			},
+			"materials": {
+				"hide": 0.55
 			}
 		},
 		{
@@ -166,6 +172,10 @@
 					"legs",
 					"chest"
 				]
+			},
+			"materials": {
+				"chitin": 0.4,
+				"hide": 0.2
 			}
 		},
 		{
@@ -221,6 +231,9 @@
 					"chest",
 					"head"
 				]
+			},
+			"materials": {
+				"chitin": 0.65
 			}
 		},
 		{
@@ -348,6 +361,9 @@
 					"ring",
 					"weapon"
 				]
+			},
+			"materials": {
+				"chitin": 0.5
 			}
 		},
 		{
@@ -516,6 +532,10 @@
 					"chest",
 					"ring"
 				]
+			},
+			"materials": {
+				"chitin": 1,
+				"hide": 1
 			}
 		},
 		{
@@ -648,6 +668,10 @@
 					"legs",
 					"weapon"
 				]
+			},
+			"materials": {
+				"chitin": 1,
+				"hide": 1
 			}
 		}
 	]

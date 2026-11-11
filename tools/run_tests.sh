@@ -49,6 +49,8 @@ SUITES=(
     "tests/test_status.gd"
     "tests/test_tower.gd"
     "tests/test_items.gd"
+    "tests/test_gathering.gd"
+    "tests/test_scene_smoke.tscn"
 )
 
 : >"$SUMMARY"
@@ -79,7 +81,8 @@ for suite in "${SUITES[@]}"; do
     echo
     echo "== $suite =="
     echo "===== $suite =====" >>"$SUMMARY"
-    "$GODOT_BIN" --headless --path . --script "$suite" 2>&1 | tee -a "$SUMMARY"
+    if [[ "$suite" == *.tscn ]]; then RUN_ARGS=("res://$suite"); else RUN_ARGS=(--script "$suite"); fi
+    "$GODOT_BIN" --headless --path . "${RUN_ARGS[@]}" 2>&1 | tee -a "$SUMMARY"
     EXIT=${PIPESTATUS[0]}
     if [ "$EXIT" -ne 0 ]; then
         FAILED+=("$suite")

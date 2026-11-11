@@ -21,6 +21,8 @@ var player_actor: PlayerActor
 var dummy_actors: Array[DummyActor] = []
 var enemy_actors: Array[EnemyActor] = []
 var portal_markers: Array[PortalMarker] = []
+## Lo que hay bajo el cursor y se puede coger (lo pone main).
+var hovered_pickable: Object = null
 
 var layout: FloorLayout
 var _theme: Dictionary = {}
@@ -97,6 +99,7 @@ func _rebuild(new_layout: FloorLayout) -> void:
 	_build_props()
 	_build_torches()
 	_build_portals()
+	_build_resources()
 	_spawn_actors()
 
 	camera.limit_right = int(_size.x)
@@ -147,7 +150,7 @@ func _add_enemy_actor(enemy_sim: EnemySim) -> void:
 
 func _on_loot_spawned(drop: LootDrop) -> void:
 	var actor := LootActor.new()
-	actor.setup(drop, world)
+	actor.setup(drop, world, self)
 	entities.add_child(actor)
 
 
@@ -340,6 +343,15 @@ func _build_torches() -> void:
 		var torch := Torch.new()
 		torch.phase = float(i) * 1.7
 		_add_static(torch, layout.torches[i])
+
+
+func _build_resources() -> void:
+	for node: ResourceNode in world.resource_nodes:
+		var actor := ResourceActor.new()
+		actor.node = node
+		actor.world = world
+		actor.arena = self
+		_add_static(actor, node.position)
 
 
 func _build_portals() -> void:
@@ -561,12 +573,15 @@ class LootActor extends Node2D:
 	var _rank: int = 0
 	var _time: float = 0.0
 
-	func setup(p_drop: LootDrop, world: CombatWorld) -> void:
+	var arena: Arena
+
+	func setup(p_drop: LootDrop, world: CombatWorld, p_arena: Arena) -> void:
 		drop = p_drop
 		position = drop.position
 		_color = ItemCatalog.rarity_color(String(drop.item["rarity"]))
 		_rank = ItemCatalog.rarity_rank(String(drop.item["rarity"]))
 		world.loot_removed.connect(_on_removed)
+		arena = p_arena
 
 	func _on_removed(removed: LootDrop) -> void:
 		if removed == drop:
@@ -588,7 +603,72 @@ class LootActor extends Node2D:
 			var pulse := 0.5 + 0.5 * sin(_time * 4.0)
 			draw_rect(Rect2(-3, -64, 6, 56), Color(_color.r, _color.g, _color.b, 0.10 + 0.08 * pulse))
 			draw_rect(Rect2(-1, -64, 2, 56), Color(_color.r, _color.g, _color.b, 0.25 + 0.15 * pulse))
+		if arena != null and arena.hovered_pickable == drop:
+			draw_arc(lift, 13.0, 0.0, TAU, 24, Color(1, 1, 1, 0.9), 1.5)
 		var gem := PackedVector2Array([lift + Vector2(0, -7), lift + Vector2(6, 0), lift + Vector2(0, 7), lift + Vector2(-6, 0)])
 		draw_colored_polygon(gem, _color)
 		draw_polyline(PackedVector2Array([gem[0], gem[1], gem[2], gem[3], gem[0]]), _color.lightened(0.5), 1.0)
 		draw_rect(Rect2(lift + Vector2(-1, -4), Vector2(2, 3)), Color(1, 1, 1, 0.8))
+
+
+## Nodo de recoleccion: veta de mineral, mata de hierba o arbol. Al agotarse queda
+## apagado; mientras se recolecta muestra una barra de progreso.
+class ResourceActor extends Node2D:
+	var node: ResourceNode
+	var world: CombatWorld
+	var arena: Arena
+	var _time: float = 0.0
+
+	func _process(delta: float) -> void:
+		_time += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.45))
+		draw_circle(Vector2.ZERO, 17.0, Color(0.0, 0.0, 0.0, 0.3))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		var dim := 0.35 if node.depleted else 1.0
+		match node.kind:
+			"ore":
+				_draw_ore(dim)
+			"herb":
+				_draw_herb(dim)
+			_:
+				_draw_tree(dim)
+		if arena != null and arena.hovered_pickable == node:
+			draw_arc(Vector2(0, -12), 20.0, 0.0, TAU, 28, Color(1, 1, 1, 0.9), 1.5)
+		if world != null and world.gather_node == node:
+			var ratio := 1.0 - world.gather_left / maxf(node.gather_seconds(), 0.01)
+			draw_rect(Rect2(-16, -42, 32, 5), Color(0.05, 0.05, 0.08, 0.9))
+			draw_rect(Rect2(-15, -41, 30 * clampf(ratio, 0.0, 1.0), 3), Color(0.95, 0.78, 0.35))
+
+	func _draw_ore(dim: float) -> void:
+		var rock := Color(0.36, 0.37, 0.43, 1.0).darkened(1.0 - dim)
+		var vein := Color(0.85, 0.55, 0.30, 1.0).darkened(1.0 - dim)
+		draw_colored_polygon(PackedVector2Array([Vector2(-16, 0), Vector2(-11, -16), Vector2(0, -22), Vector2(12, -15), Vector2(17, 0)]), rock)
+		draw_colored_polygon(PackedVector2Array([Vector2(-6, -4), Vector2(-3, -14), Vector2(4, -12), Vector2(2, -3)]), vein)
+		if not node.depleted:
+			var glint := 0.5 + 0.5 * sin(_time * 4.0)
+			draw_circle(Vector2(-2, -12), 1.5 + glint, Color(1, 1, 1, 0.5 + 0.4 * glint))
+
+	func _draw_herb(dim: float) -> void:
+		var leaf := Color(0.26, 0.62, 0.34, 1.0).darkened(1.0 - dim)
+		var flower := Color(0.55, 0.75, 1.0, 1.0).darkened(1.0 - dim)
+		for i: int in range(5):
+			var angle := -PI * 0.5 + (float(i) - 2.0) * 0.5
+			draw_line(Vector2(0, 0), Vector2.from_angle(angle) * 16.0, leaf, 3.0)
+		if not node.depleted:
+			draw_circle(Vector2(0, -16), 3.5, flower)
+			draw_circle(Vector2(-7, -13), 2.5, flower)
+			draw_circle(Vector2(7, -13), 2.5, flower)
+
+	func _draw_tree(dim: float) -> void:
+		var trunk := Color(0.38, 0.25, 0.14, 1.0).darkened(1.0 - dim)
+		var crown := Color(0.20, 0.45, 0.24, 1.0).darkened(1.0 - dim)
+		draw_rect(Rect2(-4, -26, 8, 26), trunk)
+		if node.depleted:
+			draw_rect(Rect2(-6, -8, 12, 8), trunk)
+			return
+		draw_circle(Vector2(0, -34), 15.0, crown)
+		draw_circle(Vector2(-10, -27), 10.0, crown.lightened(0.1))
+		draw_circle(Vector2(10, -28), 10.0, crown.darkened(0.1))

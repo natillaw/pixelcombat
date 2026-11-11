@@ -35,6 +35,8 @@ var portals: Array = []
 ## Fachadas decorativas (ciudad): [{id, rect, label, color}]
 var buildings: Array = []
 var torches: Array = []
+## Nodos de recoleccion: [{kind: "ore"|"herb"|"wood", position: Vector2}]
+var resources: Array = []
 var player_spawn: Vector2 = Vector2.ZERO
 var floor_number: int = 0
 var tier: int = 0
@@ -95,6 +97,7 @@ func to_dict() -> Dictionary:
 		"spawn": [player_spawn.x, player_spawn.y],
 		"obstacles": obstacles.map(func(o: Dictionary) -> Array: return [o["position"].x, o["position"].y, o["radius"]]),
 		"enemies": enemies.map(func(e: Dictionary) -> Array: return [String(e["id"]), e["position"].x, e["position"].y, bool(e.get("required", true))]),
+		"resources": resources.map(func(r: Dictionary) -> Array: return [String(r["kind"]), r["position"].x, r["position"].y]),
 		"portals": portals.map(func(p: Dictionary) -> Array: return [String(p["id"]), p["position"].x, p["position"].y, String(p["action"])]),
 		"objective": objective,
 	}

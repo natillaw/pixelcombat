@@ -35,6 +35,11 @@ static func training() -> FloorLayout:
 		[&"brood_beetle", Vector2(480, 62)],
 	]:
 		layout.enemies.append({"id": spawn[0], "position": spawn[1], "required": false})
+	layout.resources = [
+		{"kind": "ore", "position": Vector2(300, 250)},
+		{"kind": "herb", "position": Vector2(560, 300)},
+		{"kind": "wood", "position": Vector2(380, 470)},
+	]
 	layout.portals = [{"id": "to_city", "position": Vector2(92, 86), "radius": 34.0, "label": "Volver a la ciudad", "action": "to_city", "requires_complete": false}]
 	layout.torches = _torches(layout)
 	layout.player_spawn = layout.bounds().get_center()

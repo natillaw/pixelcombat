@@ -33,6 +33,8 @@ var world: CombatWorld
 var session: GameSession
 var _damage_flash: float = 0.0
 var _toast: String = ""
+## Texto bajo el cursor sobre algo que se puede coger (lo pone main).
+var pickup_prompt: String = ""
 var _toast_time: float = 0.0
 var _toast_color: Color = Color(0.93, 0.90, 0.83, 1.0)
 var _banner: String = ""
@@ -57,6 +59,8 @@ func bind(p_world: CombatWorld, p_session: GameSession = null) -> void:
 	if world != null and world.player != null:
 		world.player.item_gained.connect(_on_item_gained)
 		world.player.bag_full.connect(_on_bag_full)
+		world.player.material_gained.connect(_on_material_gained)
+		world.gather_interrupted.connect(_on_gather_interrupted)
 	if world != null and world.player != null:
 		world.player.damage_taken.connect(_on_damage_taken)
 
@@ -78,6 +82,18 @@ func _on_item_gained(item: Dictionary) -> void:
 	_toast = "BOTIN: %s" % ItemCatalog.display_name(item)
 	_toast_color = ItemCatalog.rarity_color(String(item["rarity"]))
 	_toast_time = 3.0
+
+
+func _on_material_gained(id: String, amount: int) -> void:
+	_toast = "+%d %s" % [amount, MaterialCatalog.display_name(id)]
+	_toast_color = Color(0.85, 0.9, 0.7, 1.0)
+	_toast_time = 2.5
+
+
+func _on_gather_interrupted(_node: ResourceNode, reason: String) -> void:
+	_toast = "RECOLECCION INTERRUMPIDA" if reason != "moved" else "RECOLECCION CANCELADA: TE MOVISTE"
+	_toast_color = MUTED
+	_toast_time = 2.0
 
 
 func _on_bag_full(_item: Dictionary) -> void:
@@ -405,6 +421,9 @@ func _location_title() -> String:
 func _draw_location() -> void:
 	if session == null or session.layout == null:
 		return
+	if not pickup_prompt.is_empty():
+		_panel(Rect2(170, 268, 300, 16))
+		_draw_text(pickup_prompt.to_upper(), Vector2(170, 279), 7, GOLD, HORIZONTAL_ALIGNMENT_CENTER, 300)
 	var objective := session.objective_text()
 	if not objective.is_empty():
 		_draw_text(objective.to_upper(), Vector2(262, 52), 7, GOLD if session.is_floor_done() else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 230)

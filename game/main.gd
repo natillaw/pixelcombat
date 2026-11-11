@@ -15,6 +15,8 @@ var loadout_panel: LoadoutPanel
 var inventory_panel: InventoryPanel
 
 var _was_dead: bool = false
+## Hasta soltar el boton, el clic que recogio algo no ataca.
+var _click_consumed: bool = false
 
 
 func _ready() -> void:
@@ -81,7 +83,28 @@ func _physics_process(_delta: float) -> void:
 	if world.player.alive and world.player.health <= 0.0:
 		_was_dead = true
 
+	_update_pickup_hover()
 	world.submit_input(_read_input())
+
+
+## Si el cursor esta sobre algo que se puede coger y el jugador llega, el clic
+## izquierdo lo recoge en vez de atacar. La arena resalta lo que hay bajo el cursor.
+func _update_pickup_hover() -> void:
+	var target := world.target_at(get_global_mouse_position())
+	arena.hovered_pickable = target
+	hud.pickup_prompt = ""
+	if target != null:
+		var label := ""
+		var verb := "RECOGER"
+		if target is LootDrop:
+			label = ItemCatalog.display_name((target as LootDrop).item)
+		else:
+			label = (target as ResourceNode).display_name()
+			verb = "RECOLECTAR"
+		hud.pickup_prompt = ("CLIC: %s  %s" % [verb, label]) if world.in_reach(target) else ("%s  (acercate)" % label)
+	_click_consumed = _click_consumed and Input.is_action_pressed("attack_m1")
+	if target != null and world.in_reach(target) and Input.is_action_just_pressed("attack_m1"):
+		_click_consumed = true
 
 
 func _read_input() -> InputMessage:
@@ -97,8 +120,10 @@ func _read_input() -> InputMessage:
 	else:
 		message.aim_dir = world.player.aim_dir
 
+	message.target_pos = mouse_world
 	message.actions = {
-		"m1": Input.is_action_pressed("attack_m1"),
+		"pickup": _click_consumed,
+		"m1": Input.is_action_pressed("attack_m1") and not _click_consumed,
 		"m2": Input.is_action_pressed("attack_m2"),
 		"dodge": Input.is_action_pressed("dodge"),
 		"s1": Input.is_action_pressed("skill_1"),

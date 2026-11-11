@@ -51,6 +51,7 @@ static func generate(floor_number: int, world_seed: int) -> FloorLayout:
 	_place_enemies(layout, rng, tier_data, spike)
 	layout.torches = Layouts._torches(layout)
 	layout.objective = _objective(layout, spike)
+	_place_resources(layout, rng, spike)
 	return layout
 
 
@@ -111,7 +112,7 @@ static func _place_enemies(layout: FloorLayout, rng: RandomNumberGenerator, tier
 
 ## Un punto libre: dentro de la zona, lejos de la entrada, de los obstaculos y de
 ## los demas enemigos. Si no encuentra uno tras varios intentos, devuelve el mejor.
-static func _free_spot(layout: FloorLayout, rng: RandomNumberGenerator, placed: Array, min_spawn_distance: float) -> Vector2:
+static func _free_spot(layout: FloorLayout, rng: RandomNumberGenerator, placed: Array, min_spawn_distance: float, separation: float = MIN_ENEMY_SEPARATION) -> Vector2:
 	var bounds := layout.bounds()
 	var best := bounds.get_center()
 	var best_score := -INF
@@ -127,7 +128,7 @@ static func _free_spot(layout: FloorLayout, rng: RandomNumberGenerator, placed: 
 				ok = false
 		for other_position: Vector2 in placed:
 			var gap := point.distance_to(other_position)
-			if gap < MIN_ENEMY_SEPARATION:
+			if gap < separation:
 				ok = false
 			score = maxf(score, 0.0) + minf(gap, 200.0)
 		if ok:
@@ -137,6 +138,20 @@ static func _free_spot(layout: FloorLayout, rng: RandomNumberGenerator, placed: 
 			best_score = score
 			best = point
 	return best
+
+
+## Nodos de recoleccion: 3-5 en un piso normal, 1-2 en uno de pico. Lejos de la
+## entrada, de los obstaculos y de los enemigos; el tipo es aleatorio.
+static func _place_resources(layout: FloorLayout, rng: RandomNumberGenerator, spike: String) -> void:
+	var kinds := MaterialCatalog.gatherable_kinds()
+	var count := rng.randi_range(3, 5) if spike == "" else rng.randi_range(1, 2)
+	var placed: Array = []
+	for spec: Dictionary in layout.enemies:
+		placed.append(spec["position"])
+	for i: int in range(count):
+		var spot := _free_spot(layout, rng, placed, 120.0, 110.0)
+		layout.resources.append({"kind": String(kinds[rng.randi_range(0, kinds.size() - 1)]), "position": spot})
+		placed.append(spot)
 
 
 static func _objective(layout: FloorLayout, spike: String) -> Dictionary:

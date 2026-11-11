@@ -19,7 +19,7 @@ const GOLD := Color(0.94, 0.74, 0.36, 1.0)
 const RED := Color(0.88, 0.34, 0.28, 1.0)
 const GREEN := Color(0.55, 0.82, 0.45, 1.0)
 
-const PANEL_RECT := Rect2(36, 14, 568, 332)
+const PANEL_RECT := Rect2(36, 14, 568, 340)
 const EQUIP_X := 48.0
 const EQUIP_Y := 60.0
 const EQUIP_W := 190.0
@@ -27,8 +27,8 @@ const ROW_H := 26.0
 const BAG_X := 256.0
 const BAG_Y := 60.0
 const BAG_COL_W := 172.0
-const BAG_ROW_H := 13.0
-const BAG_ROWS := 15
+const BAG_ROW_H := 10.0
+const BAG_ROWS := 20
 
 var world: CombatWorld
 var is_open: bool = false
@@ -161,6 +161,7 @@ func _draw() -> void:
 	_text("EQUIPO", Vector2(EQUIP_X, 54), 7, MUTED)
 	_text("ORO  %d" % player.gold, Vector2(0, 54), 7, GOLD, HORIZONTAL_ALIGNMENT_RIGHT, 592)
 	_text("MOCHILA  %d / %d" % [player.bag.size(), ItemCatalog.bag_size()], Vector2(BAG_X, 54), 7, MUTED)
+	_draw_materials(player)
 
 	var slots := ItemCatalog.slots()
 	for i: int in range(slots.size()):
@@ -184,7 +185,17 @@ func _draw() -> void:
 		_text(ItemCatalog.display_name(piece), rect.position + Vector2(2, 9), 7, color, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 4.0)
 
 	_draw_detail(player)
-	_text(_message, Vector2(48, 336), 7, _message_color)
+	_text(_message, Vector2(48, 325), 7, _message_color)
+
+
+## Materiales que lleva el jugador, en una linea bajo el titulo y sin pasar del panel.
+func _draw_materials(player: PlayerSim) -> void:
+	var parts: Array = []
+	var ids: Array = player.materials.keys()
+	ids.sort()
+	for id: String in ids:
+		parts.append("%s x%d" % [MaterialCatalog.display_name(id), int(player.materials[id])])
+	_text("MATERIALES  " + ("-" if parts.is_empty() else "   ".join(parts)), Vector2(EQUIP_X, 326 + 10), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 544)
 
 
 func _draw_detail(player: PlayerSim) -> void:

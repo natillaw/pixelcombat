@@ -15,6 +15,9 @@ signal layout_loaded(layout: FloorLayout)
 signal loot_dropped(item: Dictionary, position: Vector2)
 signal loot_spawned(drop: LootDrop)
 signal loot_removed(drop: LootDrop)
+signal gather_started(node: ResourceNode)
+signal gather_interrupted(node: ResourceNode, reason: String)
+signal resource_gathered(node: ResourceNode, material_id: String, amount: int)
 
 const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
@@ -38,6 +41,14 @@ var pending_input: InputMessage = null
 var loot_rng: RandomNumberGenerator
 ## Items en el suelo (se recogen al acercarse).
 var loot_drops: Array = []
+var _pickup_prev: bool = false
+## Nodos de recoleccion del escenario (veta, hierba, arbol).
+var resource_nodes: Array = []
+## Nodo que se esta recolectando y segundos que faltan.
+var gather_node: ResourceNode = null
+var gather_left: float = 0.0
+var _gather_from: Vector2 = Vector2.ZERO
+var _gather_health: float = 0.0
 
 
 func _init(seed_value: int = 1337) -> void:
@@ -94,6 +105,8 @@ func load_layout(new_layout: FloorLayout) -> void:
 	enemies.clear()
 	for drop: LootDrop in loot_drops.duplicate():
 		_remove_drop(drop)
+	resource_nodes.clear()
+	gather_node = null
 	pending_input = null
 	setup_arena(new_layout.bounds(), new_layout.obstacles)
 	player.position = new_layout.player_spawn
@@ -103,6 +116,9 @@ func load_layout(new_layout: FloorLayout) -> void:
 	for spec: Dictionary in new_layout.enemies:
 		var enemy := add_enemy(StringName(String(spec["id"])), spec["position"], new_layout.enemy_scale)
 		enemy.required = bool(spec.get("required", true))
+	var node_tier := maxi(new_layout.tier, 1)
+	for spec: Dictionary in new_layout.resources:
+		resource_nodes.append(ResourceNode.new(String(spec["kind"]), node_tier, spec["position"]))
 	loading_layout = false
 	layout_loaded.emit(new_layout)
 
@@ -118,6 +134,10 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 		var spike := TowerCatalog.spike_kind(layout.floor_number) if layout != null and layout.floor_number > 0 else ""
 		kind = spike if spike != "" else "boss"
 	player.add_gold(int(round(float(enemy.xp_reward()) * float(ItemCatalog.loot().get("gold_per_xp", 0.0)))))
+	var material_table: Dictionary = enemy.data.get("materials", {})
+	for kind_id: String in material_table:
+		if loot_rng.randf() < float(material_table[kind_id]):
+			player.add_material(MaterialCatalog.material_id(kind_id, tier), loot_rng.randi_range(1, 2) + (2 if kind != "normal" else 0))
 	var item := ItemGen.roll_drop(loot_rng, tier, kind, enemy.data.get("loot", {}))
 	if item.is_empty():
 		return
@@ -150,28 +170,116 @@ func step(delta: float, tick_number: int = -1) -> void:
 			projectile_removed.emit(projectile)
 
 	_step_loot(delta)
+	_step_pickup()
+	_step_gather(delta)
 	pending_input = null
 	tick_advanced.emit(tick)
 
 
-## Envejece el botin del suelo y recoge el que esta al alcance del jugador. Con la
-## mochila llena el item se queda en el suelo (y avisa una sola vez).
+## Envejece el botin del suelo y borra el caducado.
 func _step_loot(delta: float) -> void:
 	for drop: LootDrop in loot_drops.duplicate():
 		drop.age += delta
 		if drop.expired():
 			_remove_drop(drop)
-			continue
-		if not player.alive or not drop.can_pick_up():
-			continue
-		if player.position.distance_to(drop.position) > LootDrop.PICKUP_RADIUS:
-			continue
-		if player.bag_has_room():
-			player.add_item(drop.item)
-			_remove_drop(drop)
-		elif not drop.warned_full:
-			drop.warned_full = true
+
+
+## Lo que se puede coger con clic cerca de `point`: el item del suelo mas cercano al
+## punto, dentro del radio de clic y del alcance del jugador. null si no hay.
+func target_at(point: Vector2) -> Object:
+	var best: Object = null
+	var best_distance := INF
+	for drop: LootDrop in loot_drops:
+		var distance := drop.position.distance_to(point)
+		if distance <= LootDrop.CLICK_RADIUS and distance < best_distance:
+			best = drop
+			best_distance = distance
+	for node: ResourceNode in resource_nodes:
+		var distance := node.position.distance_to(point)
+		if not node.depleted and distance <= ResourceNode.CLICK_RADIUS and distance < best_distance:
+			best = node
+			best_distance = distance
+	return best
+
+
+## Si el jugador llega a `target` (item o nodo) para cogerlo o recolectarlo.
+func in_reach(target: Object) -> bool:
+	if not player.alive or target == null:
+		return false
+	if target is LootDrop:
+		return player.position.distance_to((target as LootDrop).position) <= LootDrop.PICKUP_RANGE
+	return player.position.distance_to((target as ResourceNode).position) <= ResourceNode.GATHER_RANGE
+
+
+## Clic izquierdo sobre `point`: recoge el item o empieza a recolectar el nodo.
+## Devuelve "" si hizo algo o el motivo: "none" (nada ahi), "far", "wait" (el item
+## acaba de caer), "full" (mochila llena), "busy" (ya recolectando o atacando).
+func try_click(point: Vector2) -> String:
+	var target := target_at(point)
+	if target == null:
+		return "none"
+	if not in_reach(target):
+		return "far"
+	if target is LootDrop:
+		var drop := target as LootDrop
+		if not drop.can_pick_up():
+			return "wait"
+		if not player.bag_has_room():
 			player.bag_full.emit(drop.item)
+			return "full"
+		player.add_item(drop.item)
+		_remove_drop(drop)
+		return ""
+	var node := target as ResourceNode
+	if gather_node != null or player.state != PlayerSimScript.AttackState.IDLE or player.dodging:
+		return "busy"
+	gather_node = node
+	gather_left = node.gather_seconds()
+	_gather_from = player.position
+	_gather_health = player.health
+	gather_started.emit(node)
+	return ""
+
+
+## Avanza la recoleccion: se interrumpe si el jugador se mueve, ataca, esquiva, recibe
+## dano o muere; al terminar da materiales y agota el nodo.
+func _step_gather(delta: float) -> void:
+	if gather_node == null:
+		return
+	var reason := ""
+	if not player.alive:
+		reason = "dead"
+	elif player.position.distance_to(_gather_from) > 3.0:
+		reason = "moved"
+	elif player.health < _gather_health - 0.001:
+		reason = "hit"
+	elif player.state != PlayerSimScript.AttackState.IDLE or player.dodging:
+		reason = "busy"
+	if reason != "":
+		var node := gather_node
+		gather_node = null
+		gather_interrupted.emit(node, reason)
+		return
+	gather_left -= delta
+	if gather_left > 0.0:
+		return
+	var node := gather_node
+	gather_node = null
+	node.depleted = true
+	var spec := MaterialCatalog.gather_yield()
+	var amount := loot_rng.randi_range(int(spec["min"]), int(spec["max"]))
+	if loot_rng.randf() < float(spec["bonus_chance"]):
+		amount += 1
+	player.add_material(node.material_id(), amount)
+	resource_gathered.emit(node, node.material_id(), amount)
+
+
+## El clic de recoger actua una vez por pulsacion (flanco), sobre el cursor.
+func _step_pickup() -> void:
+	var pressed := pending_input != null and bool(pending_input.actions.get("pickup", false))
+	if pressed and not _pickup_prev and player.alive:
+		try_click(pending_input.target_pos)
+	_pickup_prev = pressed
 
 
 func _remove_drop(drop: LootDrop) -> void:

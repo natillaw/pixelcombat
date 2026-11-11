@@ -1,14 +1,17 @@
 ## LootDrop — un item en el suelo esperando a que el jugador lo recoja.
 ##
-## Lo crea `CombatWorld` al morir un enemigo; el mundo lo recoge cuando el jugador
-## se acerca (tras un breve retraso y si hay sitio en la mochila) y lo borra al
-## caducar o al cambiar de escenario.
+## Lo crea `CombatWorld` al morir un enemigo; el jugador lo recoge haciendo clic
+## izquierdo sobre el, estando cerca (tras un breve retraso y si hay sitio en la
+## mochila). Se borra al caducar o al cambiar de escenario.
 class_name LootDrop
 extends RefCounted
 
 ## Segundos hasta poder recogerlo (el objeto "salta" antes de quedarse quieto).
 const PICKUP_DELAY := 0.4
-const PICKUP_RADIUS := 30.0
+## A que distancia del jugador se puede recoger (clic izquierdo sobre el item).
+const PICKUP_RANGE := 56.0
+## A que distancia del cursor debe estar el item para contar como clicado.
+const CLICK_RADIUS := 20.0
 ## Segundos hasta que desaparece.
 const LIFETIME := 120.0
 

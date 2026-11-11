@@ -34,6 +34,8 @@ signal item_gained(item: Dictionary)
 signal bag_full(item: Dictionary)
 signal inventory_changed()
 signal gold_changed(total: int)
+signal materials_changed()
+signal material_gained(id: String, amount: int)
 signal xp_changed(xp: int, to_next: int, level: int)
 signal leveled_up(new_level: int, unlocked: Array)
 signal loadout_changed()
@@ -128,6 +130,8 @@ var bag: Array = []
 var equipment: Dictionary = {}
 ## Oro compartido por todas las clases.
 var gold: int = 0
+## Materiales (id -> cantidad), compartidos por las clases. No ocupan mochila.
+var materials: Dictionary = {}
 ## En zona segura (ciudad, patio) se puede cambiar de clase y de loadout; en un
 ## piso de la torre no. Lo fija la sesion; los mundos de test son seguros.
 var safe_zone: bool = true
@@ -1154,7 +1158,7 @@ func _activate_class(new_class_id: String) -> void:
 ## clase.
 func export_state() -> Dictionary:
 	_save_progress()
-	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold}
+	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate()}
 
 
 ## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
@@ -1165,6 +1169,11 @@ func import_state(data: Dictionary) -> void:
 		if ClassCatalog.has_class(id):
 			progress[id] = (saved[id] as Dictionary).duplicate(true)
 	gold = maxi(int(data.get("gold", 0)), 0)
+	materials = {}
+	var saved_materials: Dictionary = data.get("materials", {})
+	for id: String in saved_materials:
+		if MaterialCatalog.is_valid(id) and int(saved_materials[id]) > 0:
+			materials[id] = int(saved_materials[id])
 	bag = []
 	for piece: Variant in data.get("bag", []):
 		if ItemCatalog.is_valid_item(piece) and bag.size() < ItemCatalog.bag_size():
@@ -1246,6 +1255,45 @@ func unequip_gear(slot: String) -> String:
 	equipment.erase(slot)
 	_refresh_gear()
 	return ""
+
+
+func material_count(id: String) -> int:
+	return int(materials.get(id, 0))
+
+
+func add_material(id: String, amount: int) -> void:
+	if amount <= 0 or not MaterialCatalog.is_valid(id):
+		return
+	materials[id] = material_count(id) + amount
+	material_gained.emit(id, amount)
+	materials_changed.emit()
+
+
+## Si hay de todo lo que pide `cost` (id -> cantidad).
+func has_materials(cost: Dictionary) -> bool:
+	for id: String in cost:
+		if material_count(id) < int(cost[id]):
+			return false
+	return true
+
+
+func spend_materials(cost: Dictionary) -> bool:
+	if not has_materials(cost):
+		return false
+	for id: String in cost:
+		materials[id] = material_count(id) - int(cost[id])
+		if int(materials[id]) <= 0:
+			materials.erase(id)
+	materials_changed.emit()
+	return true
+
+
+func spend_gold(amount: int) -> bool:
+	if amount < 0 or gold < amount:
+		return false
+	gold -= amount
+	gold_changed.emit(gold)
+	return true
 
 
 func add_gold(amount: int) -> void:

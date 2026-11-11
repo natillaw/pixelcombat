@@ -52,6 +52,7 @@ La primera vez, o tras cambiar muchos assets, importa:
 | F5 / F6 | Depuración: subir un nivel / volver al nivel 1 |
 | E | Interactuar: puertas de la ciudad, entrada de la torre, salidas de piso |
 | , / . | En la ciudad, elegir el piso de la torre (hasta el más alto desbloqueado) |
+| Clic izquierdo sobre un item del suelo o un nodo | Recoger / recolectar (hay que estar cerca; el clic no ataca). Recolectar tarda ~1,5 s y se cancela si te mueves, atacas, esquivas o te golpean |
 | I | Inventario: clic equipa, clic derecho vende (solo en zona segura) |
 | R | Reiniciar el escenario actual (enemigos vivos y vida completa) |
 | F3 | Overlay de debug |
