@@ -1192,6 +1192,10 @@ func gear_stats() -> Dictionary:
 	return total
 
 
+func bag_has_room() -> bool:
+	return bag.size() < ItemCatalog.bag_size()
+
+
 ## Guarda un item en la mochila; si no cabe, avisa con bag_full y lo pierde.
 func add_item(item: Dictionary) -> bool:
 	if bag.size() >= ItemCatalog.bag_size():

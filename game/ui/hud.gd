@@ -81,7 +81,7 @@ func _on_item_gained(item: Dictionary) -> void:
 
 
 func _on_bag_full(_item: Dictionary) -> void:
-	_toast = "MOCHILA LLENA: el botin se pierde"
+	_toast = "MOCHILA LLENA: no puedes recoger mas"
 	_toast_color = RED
 	_toast_time = 3.0
 

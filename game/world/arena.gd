@@ -68,6 +68,7 @@ func build(p_world: CombatWorld) -> void:
 	# Las crias que invoca un jefe aparecen despues y necesitan su actor.
 	world.enemy_spawned.connect(_on_enemy_spawned)
 	world.layout_loaded.connect(_rebuild)
+	world.loot_spawned.connect(_on_loot_spawned)
 	_rebuild(world.layout)
 
 
@@ -142,6 +143,12 @@ func _add_enemy_actor(enemy_sim: EnemySim) -> void:
 	enemy.setup(enemy_sim, self)
 	entities.add_child(enemy)
 	enemy_actors.append(enemy)
+
+
+func _on_loot_spawned(drop: LootDrop) -> void:
+	var actor := LootActor.new()
+	actor.setup(drop, world)
+	entities.add_child(actor)
 
 
 func _on_enemy_spawned(enemy_sim: EnemySim) -> void:
@@ -544,3 +551,44 @@ class PortalMarker extends Node2D:
 		if label != "" and (near or String(portal.get("action", "")) == "tower"):
 			var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
 			draw_string(font, Vector2(-size.x * 0.5, -radius * 0.6 - 8.0), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color(1, 1, 1, 0.9) if active else Color(0.7, 0.7, 0.75, 0.9))
+
+
+## Item en el suelo: gema del color de su rareza que salta al caer, flota y, a partir
+## de Raro, lanza un rayo de luz. Se libera cuando el mundo lo recoge o caduca.
+class LootActor extends Node2D:
+	var drop: LootDrop
+	var _color: Color = Color.WHITE
+	var _rank: int = 0
+	var _time: float = 0.0
+
+	func setup(p_drop: LootDrop, world: CombatWorld) -> void:
+		drop = p_drop
+		position = drop.position
+		_color = ItemCatalog.rarity_color(String(drop.item["rarity"]))
+		_rank = ItemCatalog.rarity_rank(String(drop.item["rarity"]))
+		world.loot_removed.connect(_on_removed)
+
+	func _on_removed(removed: LootDrop) -> void:
+		if removed == drop:
+			queue_free()
+
+	func _process(delta: float) -> void:
+		_time += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		var fall := clampf(_time / LootDrop.PICKUP_DELAY, 0.0, 1.0)
+		var hop := (1.0 - fall) * 22.0 * sin(fall * PI + 0.001) + (1.0 - fall) * 14.0
+		var bob := sin(_time * 3.0) * 2.0 if fall >= 1.0 else 0.0
+		var lift := Vector2(0.0, -10.0 - hop - bob)
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.45))
+		draw_circle(Vector2.ZERO, 9.0, Color(0.0, 0.0, 0.0, 0.35))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		if _rank >= 2:
+			var pulse := 0.5 + 0.5 * sin(_time * 4.0)
+			draw_rect(Rect2(-3, -64, 6, 56), Color(_color.r, _color.g, _color.b, 0.10 + 0.08 * pulse))
+			draw_rect(Rect2(-1, -64, 2, 56), Color(_color.r, _color.g, _color.b, 0.25 + 0.15 * pulse))
+		var gem := PackedVector2Array([lift + Vector2(0, -7), lift + Vector2(6, 0), lift + Vector2(0, 7), lift + Vector2(-6, 0)])
+		draw_colored_polygon(gem, _color)
+		draw_polyline(PackedVector2Array([gem[0], gem[1], gem[2], gem[3], gem[0]]), _color.lightened(0.5), 1.0)
+		draw_rect(Rect2(lift + Vector2(-1, -4), Vector2(2, 3)), Color(1, 1, 1, 0.8))

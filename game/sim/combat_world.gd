@@ -13,6 +13,8 @@ signal projectile_removed(projectile: ProjectileSim)
 signal enemy_spawned(enemy: EnemySim)
 signal layout_loaded(layout: FloorLayout)
 signal loot_dropped(item: Dictionary, position: Vector2)
+signal loot_spawned(drop: LootDrop)
+signal loot_removed(drop: LootDrop)
 
 const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
@@ -34,6 +36,8 @@ var loading_layout: bool = false
 var pending_input: InputMessage = null
 ## RNG propio del botin (no altera la secuencia del combate).
 var loot_rng: RandomNumberGenerator
+## Items en el suelo (se recogen al acercarse).
+var loot_drops: Array = []
 
 
 func _init(seed_value: int = 1337) -> void:
@@ -88,6 +92,8 @@ func load_layout(new_layout: FloorLayout) -> void:
 	projectiles.clear()
 	dummies.clear()
 	enemies.clear()
+	for drop: LootDrop in loot_drops.duplicate():
+		_remove_drop(drop)
 	pending_input = null
 	setup_arena(new_layout.bounds(), new_layout.obstacles)
 	player.position = new_layout.player_spawn
@@ -115,8 +121,11 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	var item := ItemGen.roll_drop(loot_rng, tier, kind, enemy.data.get("loot", {}))
 	if item.is_empty():
 		return
-	player.add_item(item)
-	loot_dropped.emit(item, enemy.position)
+	var spot := resolve_position(enemy.position + Vector2.from_angle(loot_rng.randf() * TAU) * 14.0, 8.0)
+	var drop := LootDrop.new(item, spot)
+	loot_drops.append(drop)
+	loot_spawned.emit(drop)
+	loot_dropped.emit(item, spot)
 
 
 func submit_input(input: InputMessage) -> void:
@@ -140,8 +149,34 @@ func step(delta: float, tick_number: int = -1) -> void:
 			projectiles.erase(projectile)
 			projectile_removed.emit(projectile)
 
+	_step_loot(delta)
 	pending_input = null
 	tick_advanced.emit(tick)
+
+
+## Envejece el botin del suelo y recoge el que esta al alcance del jugador. Con la
+## mochila llena el item se queda en el suelo (y avisa una sola vez).
+func _step_loot(delta: float) -> void:
+	for drop: LootDrop in loot_drops.duplicate():
+		drop.age += delta
+		if drop.expired():
+			_remove_drop(drop)
+			continue
+		if not player.alive or not drop.can_pick_up():
+			continue
+		if player.position.distance_to(drop.position) > LootDrop.PICKUP_RADIUS:
+			continue
+		if player.bag_has_room():
+			player.add_item(drop.item)
+			_remove_drop(drop)
+		elif not drop.warned_full:
+			drop.warned_full = true
+			player.bag_full.emit(drop.item)
+
+
+func _remove_drop(drop: LootDrop) -> void:
+	loot_drops.erase(drop)
+	loot_removed.emit(drop)
 
 
 func _on_tick(tick_number: int, delta: float) -> void:

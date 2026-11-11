@@ -26,6 +26,7 @@ func _run() -> void:
 	_test_class_rules()
 	_test_drops_in_world()
 	_test_enemy_tables()
+	_test_ground_loot()
 	_test_sell_and_gold()
 	_test_floor_chest()
 	_test_save_roundtrip()
@@ -210,7 +211,7 @@ func _test_drops_in_world() -> void:
 		var slime := world.add_enemy(&"slime", Vector2(300, 300))
 		slime.take_damage(1.0e9)
 	_check(dropped.size() > 25 and dropped.size() < 90, "matar enemigos normales suelta botin de vez en cuando (%d de 300)" % dropped.size())
-	_check(world.player.bag.size() == mini(dropped.size(), ItemCatalog.bag_size()), "el botin va a la mochila")
+	_check(world.loot_drops.size() == dropped.size() and world.player.bag.is_empty(), "el botin cae al suelo, no directo a la mochila")
 	var boss_world: CombatWorld = CombatWorldScript.new(32)
 	boss_world.setup_arena(Rect2(0, 0, 900, 600))
 	var boss_drops: Array = []
@@ -276,6 +277,66 @@ func _test_enemy_tables() -> void:
 		var item := ItemGen.roll_drop(rng, 1, "boss", EnemyCatalog.enemy(&"brood_beetle")["loot"])
 		boss_slots[String(ItemCatalog.item(String(item["id"]))["slot"])] = true
 	_check(boss_slots.has("weapon") and boss_slots.has("chest") and boss_slots.has("ring") and not boss_slots.has("feet"), "el jefe solo suelta lo que dice su tabla y siempre suelta")
+
+
+func _test_ground_loot() -> void:
+	var world: CombatWorld = CombatWorldScript.new(50)
+	world.setup_arena(Rect2(0, 0, 900, 600))
+	var spawned: Array = []
+	var removed: Array = []
+	world.loot_spawned.connect(func(drop: LootDrop) -> void: spawned.append(drop))
+	world.loot_removed.connect(func(drop: LootDrop) -> void: removed.append(drop))
+	var item := ItemGen.roll_item(_rng(1), 1, "rare")
+	var drop := LootDrop.new(item, Vector2(600, 400))
+	world.loot_drops.append(drop)
+	world.player.position = Vector2(200, 200)
+	for i: int in range(60):
+		world.step(1.0 / 60.0)
+	_check(world.loot_drops.size() == 1 and world.player.bag.is_empty(), "lejos del jugador el item se queda en el suelo")
+	drop.age = 0.0
+	world.player.position = Vector2(600, 400)
+	for i: int in range(10):
+		world.step(1.0 / 60.0)
+	_check(world.loot_drops.size() == 1, "no se recoge hasta pasado el breve retraso")
+	var drop2 := LootDrop.new(item, Vector2(600, 400))
+	_check(not drop2.can_pick_up(), "un item recien caido aun no se puede coger")
+	for i: int in range(40):
+		world.step(1.0 / 60.0)
+	_check(world.loot_drops.is_empty() and world.player.bag.size() == 1 and removed.size() == 1, "al acercarse se recoge a la mochila y avisa de que desaparece")
+	# Mochila llena: se queda en el suelo y avisa una sola vez.
+	var full_world: CombatWorld = CombatWorldScript.new(51)
+	full_world.setup_arena(Rect2(0, 0, 900, 600))
+	for i: int in range(ItemCatalog.bag_size()):
+		full_world.player.add_item(item.duplicate(true))
+	var warnings: Array = []
+	full_world.player.bag_full.connect(func(_it: Dictionary) -> void: warnings.append(1))
+	full_world.loot_drops.append(LootDrop.new(item, Vector2(300, 300)))
+	full_world.player.position = Vector2(300, 300)
+	for i: int in range(120):
+		full_world.step(1.0 / 60.0)
+	_check(full_world.loot_drops.size() == 1 and warnings.size() == 1 and full_world.player.bag.size() == ItemCatalog.bag_size(), "con la mochila llena el item sigue en el suelo y avisa una vez")
+	full_world.player.discard_from_bag(0)
+	full_world.step(1.0 / 60.0)
+	_check(full_world.loot_drops.is_empty() and full_world.player.bag.size() == ItemCatalog.bag_size(), "al hacer sitio se recoge")
+	# Caducidad y cambio de escenario.
+	var timed: CombatWorld = CombatWorldScript.new(52)
+	timed.setup_arena(Rect2(0, 0, 900, 600))
+	timed.player.position = Vector2(50, 50)
+	timed.loot_drops.append(LootDrop.new(item, Vector2(800, 500)))
+	timed.loot_drops[0].age = LootDrop.LIFETIME - 0.01
+	timed.step(1.0 / 60.0)
+	_check(timed.loot_drops.is_empty(), "el botin del suelo caduca")
+	var session := GameSession.new(CombatWorldScript.new(53), "")
+	session.world.loot_drops.append(LootDrop.new(item, Vector2(300, 300)))
+	session.go_to_training()
+	_check(session.world.loot_drops.is_empty(), "al cambiar de escenario se borra el botin del suelo")
+	var dead: CombatWorld = CombatWorldScript.new(54)
+	dead.setup_arena(Rect2(0, 0, 900, 600))
+	dead.loot_drops.append(LootDrop.new(item, dead.player.position))
+	dead.player.take_damage(1.0e9)
+	for i: int in range(60):
+		dead.step(1.0 / 60.0)
+	_check(dead.loot_drops.size() == 1, "un jugador muerto no recoge")
 
 
 func _test_sell_and_gold() -> void:

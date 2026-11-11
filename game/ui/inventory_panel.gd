@@ -223,15 +223,15 @@ func _draw_detail(player: PlayerSim) -> void:
 	var col := 0
 	var row := 0
 	for stat: String in names:
-		var value := float((_hover["stats"] as Dictionary).get(stat, 0.0))
+		var value: float = float((_hover["stats"] as Dictionary).get(stat, 0.0))
 		var line := "+%s %s" % [_stat_value(stat, value), _stat_label(stat)]
-		var color := TEXT
+		var line_color := TEXT
 		if worn != null and not is_worn:
 			var delta := value - float(compare.get(stat, 0.0))
 			if absf(delta) > 0.0001:
 				line += "  (%s%s)" % ["+" if delta > 0.0 else "-", _stat_value(stat, absf(delta))]
-				color = GREEN if delta > 0.0 else RED
-		_text(line, box.position + Vector2(6 + col * 112, 34 + row * 9), 7, color)
+				line_color = GREEN if delta > 0.0 else RED
+		_text(line, box.position + Vector2(6 + col * 112, 34 + row * 9), 7, line_color)
 		row += 1
 		if row >= 3:
 			row = 0
