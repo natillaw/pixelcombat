@@ -33,7 +33,7 @@ shot 04g_enemy_beetle_cone -> /home/runner/work/pixelcombat/pixelcombat/screensh
 shot 05_vengeful_fury -> /home/runner/work/pixelcombat/pixelcombat/screenshots/05_vengeful_fury.png err=0
 shot 06_death -> /home/runner/work/pixelcombat/pixelcombat/screenshots/06_death.png err=0
 CAPTURE DONE -> /home/runner/work/pixelcombat/pixelcombat/screenshots
-WARNING: 50 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+WARNING: 59 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
-ERROR: 11 resources still in use at exit (run with --verbose for details).
+ERROR: 12 resources still in use at exit (run with --verbose for details).
    at: clear (core/io/resource.cpp:822)
