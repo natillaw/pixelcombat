@@ -31,3 +31,6 @@ assets/processed/
 # Test outputs
 tests/out/*
 !tests/out/balance_matrix.csv
+
+# Capturas locales (tests/capture_*.gd)
+screenshots/
