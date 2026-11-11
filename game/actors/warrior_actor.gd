@@ -18,6 +18,8 @@ const FLASH_SECONDS := 0.14
 const AFTERIMAGE_INTERVAL := 0.035
 const AFTERIMAGE_LIFETIME := 0.22
 const DODGE_ALPHA := 0.62
+const LEAP_HEIGHT := 34.0
+const GOLD_TEXT := Color(1.0, 0.82, 0.3, 1.0)
 
 var sim: WarriorSim
 var arena: Arena
@@ -64,6 +66,7 @@ func _connect_signals() -> void:
 	sim.dodge_ended.connect(_on_dodge_ended)
 	sim.attack_evaded.connect(_on_attack_evaded)
 	sim.skill_denied.connect(_on_skill_denied)
+	sim.ultimate_ready.connect(_on_ultimate_ready)
 
 
 func _process(delta: float) -> void:
@@ -78,6 +81,7 @@ func _process(delta: float) -> void:
 		_update_facing()
 		_update_animation()
 		_update_dodge_visual(delta)
+		_update_leap_visual()
 		_apply_damage_flash()
 	else:
 		_apply_damage_flash()
@@ -171,7 +175,11 @@ func _on_attack_state_changed(state: int) -> void:
 		heavy
 	)
 	arena.play_sfx(SFX_SLASH_HEAVY if heavy else SFX_SLASH, -7.0, randf_range(0.94, 1.08))
-	if heavy:
+	if String(_current_skill.get("kind", "")) == "ultimate":
+		arena.spawn_impact(sim.position, Color(1.0, 0.7, 0.3, 1.0), true)
+		arena.play_sfx(SFX_DEATH, -3.0, 0.75)
+		arena.shake(7.0, 0.4)
+	elif heavy:
 		arena.shake(2.4, 0.14)
 
 
@@ -266,10 +274,31 @@ static func visual_arc(skill: Dictionary) -> float:
 			return float(skill.get("arc", 110.0))
 
 
-func _on_skill_denied(_slot: String, _reason: String) -> void:
+func _on_skill_denied(_slot: String, reason: String) -> void:
 	if arena == null:
 		return
-	arena.spawn_floating_text(sim.position, "NO RAGE", Color(1.0, 0.45, 0.35, 1.0))
+	var label := "NO CHARGE" if reason == "charge" else "NO RAGE"
+	arena.spawn_floating_text(sim.position, label, Color(1.0, 0.45, 0.35, 1.0))
+
+
+func _on_ultimate_ready() -> void:
+	if arena == null:
+		return
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -10.0), "ULTIMATE READY", GOLD_TEXT)
+	arena.play_sfx(SFX_HIT, -8.0, 0.5)
+
+
+## Arco vertical del salto: el sprite sube y baja durante el windup de una skill
+## aim_leap. La sombra y la posicion de la simulacion no cambian.
+func _update_leap_visual() -> void:
+	if _dead_visual:
+		return
+	var leaping := sim.state == WarriorSim.AttackState.WINDUP and String(sim.current_skill.get("anchor", "self")) == "aim_leap"
+	if leaping:
+		var t := clampf(sim.state_time / maxf(float(sim.current_skill["windup"]), 0.001), 0.0, 1.0)
+		sprite.position = LpcComposer.FEET_OFFSET + Vector2(0.0, -sin(t * PI) * LEAP_HEIGHT)
+	elif sprite.position != LpcComposer.FEET_OFFSET:
+		sprite.position = LpcComposer.FEET_OFFSET
 
 
 func _on_dodge_started(_direction: Vector2) -> void:
@@ -310,6 +339,28 @@ func _apply_damage_flash() -> void:
 		sprite.modulate = Color.WHITE
 
 
+## Zona marcada durante el windup de una skill con telegraph: contorno completo y
+## relleno que crece hasta el borde cuando cae el golpe.
+func _draw_telegraph() -> void:
+	if not sim.alive or sim.state != WarriorSim.AttackState.WINDUP:
+		return
+	if not bool(sim.current_skill.get("telegraph", false)):
+		return
+	if String(sim.current_skill.get("shape", "cone")) != "circle":
+		return
+	var center := sim.attack_point - sim.position
+	var radius := float(sim.current_skill["range"])
+	var t := clampf(sim.state_time / maxf(float(sim.current_skill["windup"]), 0.001), 0.0, 1.0)
+	var red := Color(1.0, 0.25, 0.15, 1.0)
+	draw_set_transform(center, 0.0, Vector2(1.0, 0.55))
+	draw_circle(Vector2.ZERO, radius * t, Color(red.r, red.g, red.b, 0.16 + 0.12 * t))
+	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color(red.r, red.g, red.b, 0.85), 2.0)
+	var inner := float(sim.current_skill.get("center_radius", 0.0))
+	if inner > 0.0:
+		draw_arc(Vector2.ZERO, inner, 0.0, TAU, 32, Color(1.0, 0.75, 0.3, 0.7), 1.0)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+
 func _draw() -> void:
 	if sim == null:
 		return
@@ -318,6 +369,8 @@ func _draw() -> void:
 	draw_set_transform(Vector2(0, -2), 0.0, Vector2(1.0, 0.42))
 	draw_circle(Vector2.ZERO, 13.0, Color(0.0, 0.0, 0.0, 0.38))
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+	_draw_telegraph()
 
 	# Aura de Vengeful Fury cuando la pasiva está cargada.
 	if sim.vengeful_active and sim.alive:

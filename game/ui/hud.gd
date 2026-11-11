@@ -117,6 +117,7 @@ func _draw_abilities(warrior: WarriorSim) -> void:
 		warrior.vengeful_active, warrior.state == WarriorSim.AttackState.IDLE
 	)
 	_draw_dodge_slot(Rect2(396, 310, 64, 38), warrior)
+	_draw_ultimate_slot(Rect2(46, 310, 64, 38), warrior)
 	_draw_skill_slot(Rect2(116, 310, 64, 38), "1", "S1", warrior)
 	_draw_skill_slot(Rect2(186, 310, 64, 38), "2", "S2", warrior)
 
@@ -147,6 +148,23 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 
 	if empowered:
 		_draw_text("!", rect.position + Vector2(rect.size.x - 12, 9), 7, ORANGE)
+
+
+## Hueco de la ultimate: se llena con la Ultimate Charge y brilla cuando esta lista.
+func _draw_ultimate_slot(rect: Rect2, warrior: WarriorSim) -> void:
+	var maximum := WarriorKit.ULTIMATE_CHARGE_MAX
+	var ratio := clampf(warrior.ultimate_charge / maximum, 0.0, 1.0)
+	var ready := warrior.ultimate_ready_now()
+	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.01)
+	var edge := Color(GOLD.r, GOLD.g, GOLD.b, 0.65 + 0.35 * pulse) if ready else PANEL_EDGE
+	draw_rect(rect, PANEL)
+	var fill := Color(GOLD.r, GOLD.g, GOLD.b, 0.55 if ready else 0.35)
+	draw_rect(Rect2(rect.position.x, rect.position.y + rect.size.y * (1.0 - ratio), rect.size.x, rect.size.y * ratio), fill)
+	draw_rect(rect, edge, false, 1.0)
+	_draw_text("F", rect.position + Vector2(4, 9), 7, MUTED)
+	_draw_text("ULT", Vector2(rect.position.x, rect.position.y + 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 4)
+	_draw_text("READY" if ready else "%d%%" % int(ratio * 100.0), Vector2(rect.position.x, rect.position.y + rect.size.y * 0.62), 7, GOLD if ready else TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	_draw_text("DESCENT", Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 
 
 ## Hueco de una skill equipada (S1-S5): etiqueta, coste y cooldown. Se vuelve
@@ -214,7 +232,7 @@ func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) 
 
 
 func _draw_controls() -> void:
-	_panel(Rect2(498, 274, 132, 80))
+	_panel(Rect2(498, 265, 132, 89))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
@@ -222,11 +240,12 @@ func _draw_controls() -> void:
 		"RMB    HEAVY STRIKE",
 		"SPACE  DODGE",
 		"1 2    SKILLS",
+		"F      ULTIMATE",
 		"R      RESET",
 		"F3     DEBUG",
 	]
 	for i: int in range(lines.size()):
-		_draw_text(String(lines[i]), Vector2(504, 285 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
+		_draw_text(String(lines[i]), Vector2(504, 276 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
 
 
 # --- Overlays ---------------------------------------------------------------

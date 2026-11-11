@@ -12,7 +12,16 @@
 ##   rage_gain, rage_cap, max_targets (0 = sin limite)
 ##   move: {windup, active, recovery}  factor de velocidad en cada fase (0..1)
 ##   shape: "cone" (range, arc) | "line" (range, width) | "circle" (range)
-##   consumes_vengeful (opcional): gasta la pasiva Vengeful Fury al lanzarse
+##   Opcionales:
+##   consumes_vengeful: gasta la pasiva Vengeful Fury al lanzarse
+##   ult_gain, ult_cap: Ultimate Charge que da cada golpe y tope por lanzamiento
+##   charge: Ultimate Charge que gasta al lanzarse (la ultimate usa 100)
+##   anchor: "self" (defecto) o "aim_leap" (salta leap_distance px hacia el cursor
+##           durante el windup y golpea alli)
+##   leap_distance: distancia del salto (obligatoria con aim_leap)
+##   center_radius, center_mult: zona central con mas dano (forma circle)
+##   telegraph: dibuja la zona durante el windup
+##   uncancelable: la esquiva no puede cancelarla
 class_name SkillCatalog
 extends RefCounted
 
@@ -23,6 +32,9 @@ const SLOTS := ["M1", "M2", "S", "SPECIAL", "ULTIMATE"]
 const TIME_FIELDS := ["windup", "active", "recovery", "cooldown"]
 const NUMBER_FIELDS := ["cost", "damage_mult", "rage_gain", "rage_cap", "max_targets"]
 const STRING_FIELDS := ["id", "name", "slot", "kind", "shape", "anim", "hud_label"]
+const OPTIONAL_NUMBERS := ["ult_gain", "ult_cap", "charge", "leap_distance", "center_radius", "center_mult"]
+const OPTIONAL_BOOLS := ["consumes_vengeful", "telegraph", "uncancelable"]
+const ANCHORS := ["self", "aim_leap"]
 
 static var _skills: Dictionary = {}
 static var _errors: Array[String] = []
@@ -132,6 +144,19 @@ static func validate(entry: Dictionary) -> Array[String]:
 			var factor: Variant = (move as Dictionary).get(phase)
 			if not _is_number(factor) or float(factor) < 0.0 or float(factor) > 1.0:
 				problems.append("move.%s debe estar entre 0 y 1" % phase)
+	for field: String in OPTIONAL_NUMBERS:
+		if entry.has(field) and (not _is_number(entry[field]) or float(entry[field]) < 0.0):
+			problems.append("'%s' debe ser un numero >= 0" % field)
+	for field: String in OPTIONAL_BOOLS:
+		if entry.has(field) and not (entry[field] is bool):
+			problems.append("'%s' debe ser true/false" % field)
+	var anchor: Variant = entry.get("anchor", "self")
+	if not (anchor is String) or not ANCHORS.has(anchor):
+		problems.append("anchor desconocido '%s' (self o aim_leap)" % str(anchor))
+	elif anchor == "aim_leap" and (not _is_number(entry.get("leap_distance")) or float(entry["leap_distance"]) <= 0.0):
+		problems.append("aim_leap requiere 'leap_distance' > 0")
+	if entry.has("center_mult") != entry.has("center_radius"):
+		problems.append("'center_radius' y 'center_mult' van juntos")
 	_validate_shape(entry, problems)
 	return problems
 

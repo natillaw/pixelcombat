@@ -81,5 +81,6 @@ func _read_input() -> InputMessage:
 		"s3": Input.is_action_pressed("skill_3"),
 		"s4": Input.is_action_pressed("skill_4"),
 		"s5": Input.is_action_pressed("skill_5"),
+		"ultimate": Input.is_action_pressed("ultimate"),
 	}
 	return message

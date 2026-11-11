@@ -42,12 +42,12 @@ La primera vez, o tras cambiar muchos assets, importa:
 | Clic derecho | M2 · Heavy Strike |
 | Espacio | Esquiva (i-frames, cancela windup/recovery, cooldown 1,1 s) |
 | 1 / 2 | Skills S1 Cleaving Strike (20 Rage) y S2 Piercing Thrust (15 Rage) |
+| F | Ultimate War God's Descent (necesita la barra de Ultimate al 100 %, que sube al conectar golpes) |
 | R | Reiniciar entrenamiento |
 | F3 | Overlay de debug |
 | Esc | Salir |
 
-Q (Special) y F (Ultimate) ya están en el mapa de input pero **aún no hacen
-nada**: llegan en la Fase 1 del roadmap.
+Q (Special) ya está en el mapa de input pero **aún no hace nada**.
 
 ## Tests
 

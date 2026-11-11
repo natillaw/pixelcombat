@@ -67,18 +67,10 @@ const SPECIAL := {
 	"implemented": false,
 }
 
-## Ultimate: barra aparte de Ultimate Charge (0-100).
-const ULTIMATE := {
-	"id": &"war_gods_descent",
-	"name": "War God's Descent",
-	"slot": "ULTIMATE",
-	"kind": "ultimate",
-	"role": "Daño de área / iniciación",
-	"description": "Salto a una zona marcada con un golpe devastador; más daño en el centro y preparación esquivable.",
-	"charge": 100,
-	"cooldown": 60.0,
-	"implemented": false,
-}
+## Ultimate: barra aparte de Ultimate Charge (0-100), que sube al conectar golpes.
+## Los datos viven en data/skills/warrior.json; no tiene cooldown aparte, la
+## limita la carga.
+static var ULTIMATE: Dictionary = SkillCatalog.skill(&"war_gods_descent")
 
 ## Skill Book completo (15 habilidades normales). Costes y cooldowns provisionales.
 const SKILL_BOOK := [

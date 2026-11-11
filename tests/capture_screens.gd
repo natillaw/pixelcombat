@@ -47,6 +47,15 @@ func _ready() -> void:
 	# Pasiva activa + pantalla de muerte.
 	var world: CombatWorld = _main.get("world")
 	if world != null:
+		# Ultimate: carga llena, telegraph durante el salto y golpe al caer.
+		world.warrior.ultimate_charge = WarriorKit.ULTIMATE_CHARGE_MAX
+		await _wait(1.0)  # deja acabar el M2 anterior (el buffer es de 0,25 s)
+		_aim_up()
+		Input.action_press("ultimate")
+		await _shot("04b_ultimate_telegraph", 0.35)
+		Input.action_release("ultimate")
+		await _shot("04c_ultimate_impact", 0.45)
+		await _wait(0.9)
 		world.warrior.take_damage(25.0, Vector2.ZERO, false)
 		_aim_up()
 		Input.action_press("attack_m2")

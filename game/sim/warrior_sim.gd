@@ -5,7 +5,8 @@
 ##
 ## Implementado: skills por datos (M1, M2 y S1-S5 desde SkillCatalog, con coste de
 ## Rage, cooldown y formas cone/line/circle), esquiva con i-frames, Rage,
-## Vengeful Fury, muerte y reset. El Skill Book completo vive en WarriorKit.
+## Vengeful Fury, Ultimate Charge (sube al conectar golpes; War God's Descent la
+## gasta entera), muerte y reset. El Skill Book completo vive en WarriorKit.
 class_name WarriorSim
 extends RefCounted
 
@@ -22,6 +23,8 @@ signal dodge_started(direction: Vector2)
 signal dodge_ended()
 signal attack_evaded(source_position: Vector2)
 signal skill_denied(slot: String, reason: String)
+signal ultimate_changed(current: float, maximum: float)
+signal ultimate_ready()
 
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
@@ -44,6 +47,7 @@ const DEFAULT_LOADOUT := {
 	"M2": &"warrior_m2",
 	"S1": &"cleaving_strike",
 	"S2": &"piercing_thrust",
+	"ULTIMATE": &"war_gods_descent",
 }
 const CRIT_MULTIPLIER := 1.5
 
@@ -71,6 +75,11 @@ var loadout: Dictionary = {}
 var buffered_slot: String = ""
 var buffer_timer: float = 0.0
 
+## Ultimate Charge 0..ULTIMATE_CHARGE_MAX. Sube al conectar golpes.
+var ultimate_charge: float = 0.0
+## Punto de aterrizaje de las skills con anchor aim_leap (y origen del salto).
+var attack_point: Vector2 = Vector2.ZERO
+
 var dodging: bool = false
 var dodge_time: float = 0.0
 var dodge_dir: Vector2 = Vector2.DOWN
@@ -83,6 +92,7 @@ var vengeful_until_tick: int = 0
 var tick: int = 0
 var last_combat_tick: int = 0
 var swing_rage_gained: float = 0.0
+var swing_ult_gained: float = 0.0
 var _attack_damage_mult: float = 1.0
 
 var _m1_held: bool = false
@@ -105,7 +115,7 @@ func _init(p_world: Object = null) -> void:
 func set_loadout(new_loadout: Dictionary) -> void:
 	loadout = {}
 	for slot: String in new_loadout:
-		if slot != "M1" and slot != "M2" and not SKILL_SLOTS.has(slot):
+		if slot != "M1" and slot != "M2" and slot != "ULTIMATE" and not SKILL_SLOTS.has(slot):
 			continue
 		var skill: Dictionary = SkillCatalog.skill(StringName(String(new_loadout[slot])))
 		if skill.is_empty() or not bool(skill.get("implemented", false)):
@@ -161,7 +171,11 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	vengeful_until_tick = 0
 	last_combat_tick = 0
 	swing_rage_gained = 0.0
+	swing_ult_gained = 0.0
+	ultimate_charge = 0.0
+	attack_point = position
 	resource.current_amount = 0.0
+	ultimate_changed.emit(ultimate_charge, WarriorKit.ULTIMATE_CHARGE_MAX)
 	health_changed.emit(health, max_health)
 	rage_changed.emit(resource.get_current(), resource.max_amount)
 	attack_state_changed.emit(state)
@@ -203,6 +217,11 @@ func _read_input(input: Object) -> void:
 			buffered_slot = slot
 			buffer_timer = BUFFER_SECONDS
 		_slot_prev[slot] = pressed
+	var ult_pressed := bool(input.actions.get("ultimate", false))
+	if ult_pressed and not bool(_slot_prev.get("ULTIMATE", false)):
+		buffered_slot = "ULTIMATE"
+		buffer_timer = BUFFER_SECONDS
+	_slot_prev["ULTIMATE"] = ult_pressed
 
 
 func _tick_timers(delta: float) -> void:
@@ -229,6 +248,8 @@ func _update_dodge(delta: float) -> void:
 	if dodge_buffer_timer <= 0.0 or cooldown_dodge > 0.0 or not alive:
 		return
 	if state == AttackState.ACTIVE:
+		return
+	if state != AttackState.IDLE and bool(current_skill.get("uncancelable", false)):
 		return
 	_start_dodge(delta)
 
@@ -270,6 +291,9 @@ func _update_attack(delta: float) -> void:
 	if state == AttackState.WINDUP and state_time >= float(current_skill["windup"]):
 		state = AttackState.ACTIVE
 		state_time -= float(current_skill["windup"])
+		if String(current_skill.get("anchor", "self")) == "aim_leap":
+			position = attack_point
+			velocity = Vector2.ZERO
 		_resolve_attack_hit()
 		attack_state_changed.emit(state)
 	elif state == AttackState.ACTIVE and state_time >= float(current_skill["active"]):
@@ -296,18 +320,26 @@ func _try_start_attack() -> void:
 		elif attack_cooldown_left(slot) <= 0.0:
 			buffered_slot = ""
 			buffer_timer = 0.0
-			if _can_afford(slot):
+			var reason := _afford_reason(slot)
+			if reason.is_empty():
 				_start_attack(slot)
 				return
-			skill_denied.emit(slot, "resource")
+			skill_denied.emit(slot, reason)
 	if _m1_held and loadout.has("M1") and attack_cooldown_left("M1") <= 0.0:
 		_start_attack("M1")
 
 
-func _can_afford(slot: String) -> bool:
+## "" si se puede pagar la skill del slot; si no, el motivo ("resource" = Rage,
+## "charge" = Ultimate Charge).
+func _afford_reason(slot: String) -> String:
 	if not loadout.has(slot):
-		return false
-	return resource.get_current() >= float((loadout[slot] as Dictionary).get("cost", 0.0))
+		return "slot"
+	var skill: Dictionary = loadout[slot]
+	if resource.get_current() < float(skill.get("cost", 0.0)):
+		return "resource"
+	if ultimate_charge < float(skill.get("charge", 0.0)):
+		return "charge"
+	return ""
 
 
 func _start_attack(slot: String) -> void:
@@ -319,11 +351,21 @@ func _start_attack(slot: String) -> void:
 	if cost > 0.0:
 		resource.consume(cost)
 		rage_changed.emit(resource.get_current(), resource.max_amount)
+	var charge := float(current_skill.get("charge", 0.0))
+	if charge > 0.0:
+		ultimate_charge = maxf(0.0, ultimate_charge - charge)
+		ultimate_changed.emit(ultimate_charge, WarriorKit.ULTIMATE_CHARGE_MAX)
+
 	attack_aim = aim_dir
 	state = AttackState.WINDUP
 	state_time = 0.0
 	swing_rage_gained = 0.0
+	swing_ult_gained = 0.0
 	_attack_damage_mult = float(current_skill["damage_mult"])
+	attack_point = position
+	if String(current_skill.get("anchor", "self")) == "aim_leap":
+		var landing := position + attack_aim * float(current_skill["leap_distance"])
+		attack_point = world.resolve_position(landing, RADIUS) if world != null else landing
 
 	if bool(current_skill.get("consumes_vengeful", false)) and vengeful_active:
 		_attack_damage_mult *= 1.0 + float(WarriorKit.PASSIVE["bonus"])
@@ -349,7 +391,7 @@ func _resolve_attack_hit() -> void:
 
 	for target: Object in targets:
 		var critical: bool = _rng.randf() < stats.get_crit_chance()
-		var damage: float = stats.roll_weapon_damage(_rng) * _attack_damage_mult
+		var damage: float = stats.roll_weapon_damage(_rng) * _attack_damage_mult * _zone_multiplier(target)
 		if critical:
 			damage *= CRIT_MULTIPLIER
 		var dealt: float = target.take_damage(damage)
@@ -360,8 +402,24 @@ func _resolve_attack_hit() -> void:
 			swing_rage_gained += rage_gain
 			_gain_rage(rage_gain)
 
+		var ult_left: float = float(current_skill.get("ult_cap", 0.0)) - swing_ult_gained
+		var ult_gain := minf(float(current_skill.get("ult_gain", 0.0)), maxf(ult_left, 0.0))
+		if ult_gain > 0.0:
+			swing_ult_gained += ult_gain
+			_gain_ultimate(ult_gain)
+
 		last_combat_tick = tick
 		attack_hit.emit(current_skill, target, dealt, critical, target.position)
+
+
+## Multiplicador por zona: las skills con center_radius pegan mas fuerte al
+## centro (War God's Descent).
+func _zone_multiplier(target: Object) -> float:
+	if not current_skill.has("center_radius"):
+		return 1.0
+	if target.position.distance_to(position) <= float(current_skill["center_radius"]):
+		return float(current_skill["center_mult"])
+	return 1.0
 
 
 ## Objetivos dentro de la forma de la skill actual, con el limite max_targets
@@ -402,6 +460,9 @@ func _update_movement(delta: float) -> void:
 	if dodging:
 		_move_dodge(delta)
 		return
+	if state == AttackState.WINDUP and String(current_skill.get("anchor", "self")) == "aim_leap":
+		_move_leap(delta)
+		return
 	var factor := _movement_factor()
 	var desired := move_input * MOVE_SPEED * factor
 	var rate := ACCELERATION if move_input.length_squared() > 0.0001 else FRICTION
@@ -411,6 +472,14 @@ func _update_movement(delta: float) -> void:
 	position += velocity * delta
 	if world != null:
 		position = world.resolve_position(position, RADIUS)
+
+
+## Salto de las skills aim_leap: recorre la distancia hasta attack_point durante
+## el windup, ignorando el input de movimiento.
+func _move_leap(delta: float) -> void:
+	var speed: float = float(current_skill["leap_distance"]) / maxf(float(current_skill["windup"]), 0.001)
+	position = position.move_toward(attack_point, speed * delta)
+	velocity = Vector2.ZERO
 
 
 ## Un paso de la esquiva. Ocupa exactamente `duration` segundos y recorre
@@ -437,6 +506,20 @@ func _movement_factor() -> float:
 	if state == AttackState.ACTIVE:
 		return float(move["active"])
 	return float(move["recovery"])
+
+
+func _gain_ultimate(amount: float) -> void:
+	var before := ultimate_charge
+	ultimate_charge = minf(ultimate_charge + amount, WarriorKit.ULTIMATE_CHARGE_MAX)
+	if is_equal_approx(before, ultimate_charge):
+		return
+	ultimate_changed.emit(ultimate_charge, WarriorKit.ULTIMATE_CHARGE_MAX)
+	if before < WarriorKit.ULTIMATE_CHARGE_MAX and ultimate_charge >= WarriorKit.ULTIMATE_CHARGE_MAX:
+		ultimate_ready.emit()
+
+
+func ultimate_ready_now() -> bool:
+	return ultimate_charge >= WarriorKit.ULTIMATE_CHARGE_MAX
 
 
 func _gain_rage(amount: float) -> void:
@@ -562,5 +645,6 @@ func snapshot() -> Dictionary:
 		"dodging": dodging,
 		"dodge_cd": cooldown_dodge,
 		"cooldowns": cooldowns.duplicate(),
+		"ultimate": ultimate_charge,
 		"alive": alive,
 	}
