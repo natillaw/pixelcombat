@@ -126,6 +126,8 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 
 > **Estado:** hecho el generador, el candado, la persistencia por semilla, los pisos 5/10 del tier 1 (Elder Spider / Brood Beetle) y 10 tiers con datos (el 2-10 son provisionales). Faltan recursos/cofres por piso, misiones opcionales y jefes propios de los tiers 2-10.
 
+> **Recoleccion y crafting:** ver Fase 6 (hecho el primer corte).
+
 **Hecho cuando:** se sube del piso 1 al 10 (tier 1), se sale, se vuelve a entrar y el piso conserva su estado con enemigos respawneados.
 
 ### Fase 6 — Recolección y crafting (3 semanas)

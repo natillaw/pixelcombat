@@ -13,6 +13,7 @@ var arena: Arena
 var hud: GameHud
 var loadout_panel: LoadoutPanel
 var inventory_panel: InventoryPanel
+var crafting_panel: CraftingPanel
 
 var _was_dead: bool = false
 ## Hasta soltar el boton, el clic que recogio algo no ataca.
@@ -52,6 +53,10 @@ func _ready() -> void:
 	inventory_panel.name = "InventoryPanel"
 	loadout_layer.add_child(inventory_panel)
 	inventory_panel.bind(world)
+	crafting_panel = CraftingPanel.new()
+	crafting_panel.name = "CraftingPanel"
+	loadout_layer.add_child(crafting_panel)
+	crafting_panel.bind(world, session)
 
 	var debug_overlay: CanvasLayer = DebugOverlayScene.instantiate()
 	debug_overlay.name = "DebugOverlay"

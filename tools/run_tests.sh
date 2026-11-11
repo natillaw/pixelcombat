@@ -50,6 +50,7 @@ SUITES=(
     "tests/test_tower.gd"
     "tests/test_items.gd"
     "tests/test_gathering.gd"
+    "tests/test_crafting.gd"
     "tests/test_scene_smoke.tscn"
 )
 

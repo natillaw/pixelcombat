@@ -247,9 +247,9 @@ func _test_session_gating_and_completion() -> void:
 	session.select_floor(-5)
 	_check(session.selected_floor == 1, "se puede elegir un piso ya completado")
 
-	# Edificios: aun sin funcion, avisan.
+	# Edificios sin recetas (la taberna) avisan sin cambiar de escenario.
 	messages.clear()
-	_walk_to(session, "door_blacksmith")
+	_walk_to(session, "door_tavern")
 	session.try_interact()
 	_check(session.layout.kind == FloorLayout.KIND_CITY and messages.size() == 1, "las puertas de oficio avisan sin cambiar de escenario")
 

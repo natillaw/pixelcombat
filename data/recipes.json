@@ -1,0 +1,28 @@
+{
+	"_doc": "Estaciones de crafting (edificios de la ciudad) y recetas. Esquema en combat/recipe_catalog.gd. El coste son unidades de material del tier elegido.",
+	"stations": [
+		{"id": "blacksmith", "name": "Herreria"},
+		{"id": "alchemist", "name": "Alquimia"},
+		{"id": "carpenter", "name": "Carpinteria"},
+		{"id": "tailor", "name": "Sastreria"},
+		{"id": "tavern", "name": "Taberna"}
+	],
+	"gold_per_tier_scale": true,
+	"recipes": [
+		{"id": "forge_iron_sword", "station": "blacksmith", "item": "iron_sword", "cost": {"ore": 6, "wood": 1}, "gold": 20, "quality_bonus": 1.0},
+		{"id": "forge_worn_boots", "station": "blacksmith", "item": "worn_boots", "cost": {"ore": 3, "hide": 2}, "gold": 10, "quality_bonus": 1.0},
+		{"id": "forge_copper_ring", "station": "blacksmith", "item": "copper_ring", "cost": {"ore": 4}, "gold": 15, "quality_bonus": 1.0},
+		{"id": "carve_short_bow", "station": "carpenter", "item": "short_bow", "cost": {"wood": 6, "hide": 1}, "gold": 20, "quality_bonus": 1.0},
+		{"id": "carve_oak_staff", "station": "carpenter", "item": "oak_staff", "cost": {"wood": 6, "herb": 1}, "gold": 20, "quality_bonus": 1.0},
+		{"id": "forge_hunting_knife", "station": "carpenter", "item": "hunting_knife", "cost": {"wood": 2, "ore": 3}, "gold": 20, "quality_bonus": 1.0},
+		{"id": "sew_leather_cap", "station": "tailor", "item": "leather_cap", "cost": {"hide": 3}, "gold": 8, "quality_bonus": 1.0},
+		{"id": "sew_leather_vest", "station": "tailor", "item": "leather_vest", "cost": {"hide": 6}, "gold": 14, "quality_bonus": 1.0},
+		{"id": "sew_leather_pants", "station": "tailor", "item": "leather_pants", "cost": {"hide": 4}, "gold": 10, "quality_bonus": 1.0},
+		{"id": "sew_cloth_hood", "station": "tailor", "item": "cloth_hood", "cost": {"herb": 3, "hide": 1}, "gold": 8, "quality_bonus": 1.0},
+		{"id": "sew_padded_robe", "station": "tailor", "item": "padded_robe", "cost": {"herb": 4, "hide": 3}, "gold": 14, "quality_bonus": 1.0},
+		{"id": "sew_cloth_trousers", "station": "tailor", "item": "cloth_trousers", "cost": {"herb": 3, "hide": 2}, "gold": 10, "quality_bonus": 1.0},
+		{"id": "sew_traveler_shoes", "station": "tailor", "item": "traveler_shoes", "cost": {"hide": 2, "herb": 1}, "gold": 8, "quality_bonus": 1.0},
+		{"id": "brew_mystic_ring", "station": "alchemist", "item": "mystic_ring", "cost": {"herb": 4, "ore": 1}, "gold": 15, "quality_bonus": 1.0},
+		{"id": "brew_bone_ring", "station": "alchemist", "item": "bone_ring", "cost": {"chitin": 4, "herb": 1}, "gold": 15, "quality_bonus": 1.0}
+	]
+}

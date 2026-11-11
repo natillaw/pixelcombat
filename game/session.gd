@@ -11,6 +11,8 @@ extends RefCounted
 signal location_changed(layout: FloorLayout)
 signal floor_completed(floor_number: int, xp: int)
 signal chest_opened(item: Dictionary)
+## Se usa la puerta de un edificio con recetas (la UI abre su taller).
+signal building_opened(station: String)
 signal message(text: String)
 
 ## Ticks que pasan tras morir en un piso antes de volver a la ciudad (2,5 s).
@@ -126,7 +128,24 @@ func try_interact() -> void:
 			go_to_floor(layout.floor_number + 1)
 		_:
 			if action.begins_with("building:"):
-				message.emit("%s: proximamente." % String(portal["label"]))
+				var station := action.substr("building:".length())
+				if RecipeCatalog.recipes_for(station).is_empty():
+					message.emit("%s: proximamente." % String(portal["label"]))
+				else:
+					building_opened.emit(station)
+
+
+## Tier mas alto con el que se puede fabricar: el del piso mas alto abierto en la torre.
+func max_craft_tier() -> int:
+	return TowerCatalog.tier_of_floor(tower.highest_unlocked())
+
+
+## Fabrica una receta en un tier (ver Crafting.craft) y guarda la partida si sale bien.
+func craft(recipe_id: String, tier: int) -> Dictionary:
+	var result := Crafting.craft(world.player, world.loot_rng, recipe_id, tier, max_craft_tier())
+	if bool(result["ok"]):
+		autosave()
+	return result
 
 
 func objective_text() -> String:
