@@ -1,0 +1,58 @@
+{
+ "name": "pista-d_ab_loot",
+ "floors": [
+  3,
+  9
+ ],
+ "runs": 5,
+ "seed": 2000,
+ "max_time": 1200,
+ "party": [
+  {
+   "master": true,
+   "class": "warrior",
+   "level": 1,
+   "gear": "kit_blanco"
+  },
+  {
+   "class": "cleric",
+   "level": 1,
+   "stars": 2,
+   "gear": "kit_blanco"
+  },
+  {
+   "class": "ranger",
+   "level": 1,
+   "stars": 2,
+   "gear": "kit_blanco"
+  },
+  {
+   "class": "mage",
+   "level": 1,
+   "stars": 2,
+   "gear": "kit_blanco"
+  },
+  {
+   "class": "rogue",
+   "level": 1,
+   "stars": 2,
+   "gear": "kit_blanco"
+  }
+ ],
+ "compare": [
+  {
+   "label": "tactico_saquea",
+   "bot": {
+    "style": "tactico",
+    "loot": true
+   }
+  },
+  {
+   "label": "tactico_sin_saquear",
+   "bot": {
+    "style": "tactico",
+    "loot": false
+   }
+  }
+ ]
+}

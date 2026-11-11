@@ -1,0 +1,475 @@
+{
+ "tiles": {
+  "tile_size": 16,
+  "mask_bits": {
+   "top_left": 1,
+   "top_right": 2,
+   "bottom_left": 4,
+   "bottom_right": 8
+  },
+  "blocks": [
+   {
+    "name": "pasto_tierra",
+    "origin": [
+     0,
+     0
+    ],
+    "terrain_a": 0,
+    "terrain_b": 1
+   },
+   {
+    "name": "pasto_agua",
+    "origin": [
+     4,
+     0
+    ],
+    "terrain_a": 0,
+    "terrain_b": 2
+   }
+  ],
+  "variants": [
+   {
+    "coords": [
+     8,
+     0
+    ],
+    "terrain": 0
+   },
+   {
+    "coords": [
+     9,
+     0
+    ],
+    "terrain": 0
+   },
+   {
+    "coords": [
+     10,
+     0
+    ],
+    "terrain": 0
+   },
+   {
+    "coords": [
+     11,
+     0
+    ],
+    "terrain": 0
+   },
+   {
+    "coords": [
+     8,
+     1
+    ],
+    "terrain": 1
+   },
+   {
+    "coords": [
+     9,
+     1
+    ],
+    "terrain": 1
+   },
+   {
+    "coords": [
+     8,
+     2
+    ],
+    "terrain": 2
+   },
+   {
+    "coords": [
+     9,
+     2
+    ],
+    "terrain": 2
+   }
+  ]
+ },
+ "props": {
+  "roble_grande_a": {
+   "rect": [
+    0,
+    0,
+    52,
+    62
+   ],
+   "origin": [
+    26,
+    59
+   ]
+  },
+  "roble_grande_b": {
+   "rect": [
+    53,
+    0,
+    52,
+    62
+   ],
+   "origin": [
+    26,
+    59
+   ]
+  },
+  "pino_grande": {
+   "rect": [
+    106,
+    0,
+    30,
+    54
+   ],
+   "origin": [
+    15,
+    51
+   ]
+  },
+  "roble_mediano": {
+   "rect": [
+    137,
+    0,
+    40,
+    48
+   ],
+   "origin": [
+    20,
+    45
+   ]
+  },
+  "pino_chico": {
+   "rect": [
+    178,
+    0,
+    22,
+    38
+   ],
+   "origin": [
+    11,
+    35
+   ]
+  },
+  "arbol_joven": {
+   "rect": [
+    201,
+    0,
+    28,
+    36
+   ],
+   "origin": [
+    14,
+    33
+   ]
+  },
+  "juncos": {
+   "rect": [
+    230,
+    0,
+    13,
+    26
+   ],
+   "origin": [
+    6,
+    25
+   ]
+  },
+  "altar": {
+   "rect": [
+    0,
+    63,
+    30,
+    21
+   ],
+   "origin": [
+    15,
+    18
+   ]
+  },
+  "menhir": {
+   "rect": [
+    31,
+    63,
+    11,
+    19
+   ],
+   "origin": [
+    5,
+    17
+   ]
+  },
+  "menhir_runa": {
+   "rect": [
+    43,
+    63,
+    11,
+    19
+   ],
+   "origin": [
+    5,
+    17
+   ]
+  },
+  "roca_grande": {
+   "rect": [
+    55,
+    63,
+    22,
+    16
+   ],
+   "origin": [
+    11,
+    15
+   ]
+  },
+  "arbusto": {
+   "rect": [
+    78,
+    63,
+    22,
+    15
+   ],
+   "origin": [
+    11,
+    14
+   ]
+  },
+  "tronco_caido": {
+   "rect": [
+    101,
+    63,
+    36,
+    15
+   ],
+   "origin": [
+    18,
+    13
+   ]
+  },
+  "tocon": {
+   "rect": [
+    138,
+    63,
+    18,
+    15
+   ],
+   "origin": [
+    9,
+    13
+   ]
+  },
+  "arbusto_bayas": {
+   "rect": [
+    157,
+    63,
+    20,
+    14
+   ],
+   "origin": [
+    10,
+    13
+   ]
+  },
+  "hongos": {
+   "rect": [
+    178,
+    63,
+    16,
+    13
+   ],
+   "origin": [
+    8,
+    12
+   ]
+  },
+  "helecho": {
+   "rect": [
+    195,
+    63,
+    18,
+    12
+   ],
+   "origin": [
+    9,
+    11
+   ]
+  },
+  "roca_mediana": {
+   "rect": [
+    214,
+    63,
+    14,
+    11
+   ],
+   "origin": [
+    7,
+    10
+   ]
+  },
+  "flores_blancas": {
+   "rect": [
+    229,
+    63,
+    16,
+    11
+   ],
+   "origin": [
+    8,
+    10
+   ]
+  },
+  "flores_moradas": {
+   "rect": [
+    0,
+    85,
+    16,
+    11
+   ],
+   "origin": [
+    8,
+    10
+   ]
+  },
+  "flores_rosas": {
+   "rect": [
+    17,
+    85,
+    16,
+    11
+   ],
+   "origin": [
+    8,
+    10
+   ]
+  },
+  "flores_amarillas": {
+   "rect": [
+    34,
+    85,
+    16,
+    11
+   ],
+   "origin": [
+    8,
+    10
+   ]
+  },
+  "sombra_grande": {
+   "rect": [
+    51,
+    85,
+    33,
+    11
+   ],
+   "origin": [
+    16,
+    5
+   ]
+  },
+  "arbusto_chico": {
+   "rect": [
+    85,
+    85,
+    14,
+    10
+   ],
+   "origin": [
+    7,
+    9
+   ]
+  },
+  "sombra_mediana": {
+   "rect": [
+    100,
+    85,
+    21,
+    9
+   ],
+   "origin": [
+    10,
+    4
+   ]
+  },
+  "mata_a": {
+   "rect": [
+    122,
+    85,
+    9,
+    8
+   ],
+   "origin": [
+    4,
+    7
+   ]
+  },
+  "mata_b": {
+   "rect": [
+    132,
+    85,
+    9,
+    8
+   ],
+   "origin": [
+    4,
+    7
+   ]
+  },
+  "mata_c": {
+   "rect": [
+    142,
+    85,
+    9,
+    8
+   ],
+   "origin": [
+    4,
+    7
+   ]
+  },
+  "nenufar": {
+   "rect": [
+    152,
+    85,
+    11,
+    8
+   ],
+   "origin": [
+    5,
+    4
+   ]
+  },
+  "nenufar_flor": {
+   "rect": [
+    164,
+    85,
+    11,
+    8
+   ],
+   "origin": [
+    5,
+    4
+   ]
+  },
+  "roca_chica": {
+   "rect": [
+    176,
+    85,
+    8,
+    6
+   ],
+   "origin": [
+    4,
+    5
+   ]
+  },
+  "sombra_chica": {
+   "rect": [
+    185,
+    85,
+    13,
+    6
+   ],
+   "origin": [
+    6,
+    3
+   ]
+  }
+ }
+}

@@ -1,0 +1,14 @@
+// D-084: how far a player's town got by each floor (index 0 = floor 1). The level and the gear tier depend
+// on the player; these three profiles are guesses to test against (slow progression: a floor never gives a
+// full level). With "gear_style" def/atk the preset becomes tierN_def / tierN_atk.
+{
+    "lento": {"levels": [1, 1, 1, 2, 2, 2, 3, 3, 3, 4],
+              "gear": ["kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "tier1", "tier1", "tier1", "tier1", "tier1"]},
+    "medio": {"levels": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
+              "gear": ["kit_blanco", "kit_blanco", "tier1", "tier1", "tier1", "tier1", "tier2", "tier2", "tier2", "tier2"]},
+    "rapido": {"levels": [1, 2, 2, 3, 4, 4, 5, 6, 6, 7],
+               "gear": ["tier1", "tier1", "tier1", "tier2", "tier2", "tier2", "tier2", "tier3", "tier3", "tier3"]},
+    "medio_sin_equipo": {"_comment": "same levels as medio, white kit only: measures what gear adds",
+              "levels": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
+              "gear": ["kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco", "kit_blanco"]}
+}

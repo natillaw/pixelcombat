@@ -1,0 +1,311 @@
+variant,floor,seed,hero,class,master,level,damage,healing,shield,taken,kills,downs,dead,killed_by
+loco,1,2000,Sim Master,warrior,1,1,1922,0,306,168,20,0,0,
+loco,1,2001,Sim Master,warrior,1,1,1070,0,204,171,10,0,0,
+loco,1,2002,Sim Master,warrior,1,1,827,0,128,182,8,1,0,
+loco,1,2003,Sim Master,warrior,1,1,230,0,26,173,1,0,0,
+loco,1,2004,Sim Master,warrior,1,1,1712,0,281,171,17,0,0,
+loco,2,2000,Sim Master,warrior,1,1,2075,0,485,249,16,0,0,
+loco,2,2000,Yorin Greymane,cleric,0,1,1184,893,0,715,8,0,0,
+loco,2,2001,Sim Master,warrior,1,1,2541,0,536,213,17,0,0,
+loco,2,2001,Yorin Greymane,cleric,0,1,1490,1038,0,828,11,0,0,
+loco,2,2002,Sim Master,warrior,1,1,2479,0,536,186,17,0,0,
+loco,2,2002,Yorin Greymane,cleric,0,1,1699,1038,0,940,11,0,0,
+loco,2,2003,Sim Master,warrior,1,1,2688,0,536,306,26,0,0,
+loco,2,2003,Yorin Greymane,cleric,0,1,1390,1152,0,886,7,0,0,
+loco,2,2004,Sim Master,warrior,1,1,2007,0,383,445,16,0,0,
+loco,2,2004,Yorin Greymane,cleric,0,1,1370,1097,0,667,7,0,0,
+loco,3,2000,Sim Master,warrior,1,1,287,0,51,184,3,0,0,
+loco,3,2000,Yorin Greymane,cleric,0,1,230,365,0,453,3,1,1,left behind
+loco,3,2000,Zelen Stonebrook,ranger,0,1,490,0,0,151,7,1,1,left behind
+loco,3,2001,Sim Master,warrior,1,1,338,0,77,177,3,1,0,
+loco,3,2001,Yorin Greymane,cleric,0,1,356,232,0,206,5,1,1,left behind
+loco,3,2001,Zelen Stonebrook,ranger,0,1,761,0,0,284,10,0,1,left behind
+loco,3,2002,Sim Master,warrior,1,1,570,0,128,196,8,0,0,
+loco,3,2002,Yorin Greymane,cleric,0,1,722,774,0,673,12,1,0,
+loco,3,2002,Zelen Stonebrook,ranger,0,1,809,0,0,98,6,0,0,
+loco,3,2003,Sim Master,warrior,1,1,557,0,128,103,8,0,0,
+loco,3,2003,Yorin Greymane,cleric,0,1,694,768,0,748,4,0,0,
+loco,3,2003,Zelen Stonebrook,ranger,0,1,881,0,0,0,12,0,0,
+loco,3,2004,Sim Master,warrior,1,1,710,0,179,234,14,0,0,
+loco,3,2004,Yorin Greymane,cleric,0,1,775,1123,0,959,6,1,0,
+loco,3,2004,Zelen Stonebrook,ranger,0,1,656,0,0,132,6,0,0,
+loco,4,2000,Sim Master,warrior,1,1,2115,0,434,331,12,0,0,
+loco,4,2000,Yorin Greymane,cleric,0,1,1720,1256,0,968,17,0,0,
+loco,4,2001,Sim Master,warrior,1,1,1228,0,230,317,3,1,0,
+loco,4,2001,Yorin Greymane,cleric,0,1,1057,826,0,812,12,1,1,left behind
+loco,4,2002,Sim Master,warrior,1,1,308,0,26,262,2,0,0,
+loco,4,2002,Yorin Greymane,cleric,0,1,118,72,0,140,1,1,1,left behind
+loco,4,2003,Sim Master,warrior,1,1,130,0,26,188,0,1,0,
+loco,4,2003,Yorin Greymane,cleric,0,1,52,0,0,155,1,1,1,left behind
+loco,4,2004,Sim Master,warrior,1,1,90,0,26,192,0,0,0,
+loco,4,2004,Yorin Greymane,cleric,0,1,49,0,0,142,0,1,1,left behind
+loco,5,2000,Sim Master,warrior,1,1,269,0,51,311,1,0,0,
+loco,5,2000,Yorin Greymane,cleric,0,1,23,399,0,217,0,1,1,left behind
+loco,5,2000,Zelen Stonebrook,ranger,0,1,115,0,0,217,1,1,1,left behind
+loco,5,2000,Quinar Blackmoor,mage,0,1,322,0,0,217,4,2,1,left behind
+loco,5,2000,Brenin Whitlock,rogue,0,1,141,0,0,222,0,2,1,left behind
+loco,5,2001,Sim Master,warrior,1,1,173,0,26,174,0,1,0,
+loco,5,2001,Yorin Greymane,cleric,0,1,33,190,0,254,0,1,1,left behind
+loco,5,2001,Zelen Stonebrook,ranger,0,1,134,0,0,269,1,0,1,left behind
+loco,5,2001,Quinar Blackmoor,mage,0,1,133,0,0,180,2,1,1,left behind
+loco,5,2001,Brenin Whitlock,rogue,0,1,153,0,0,121,1,1,1,left behind
+loco,5,2002,Sim Master,warrior,1,1,830,0,153,255,5,0,0,
+loco,5,2002,Yorin Greymane,cleric,0,1,68,258,0,137,2,1,1,left behind
+loco,5,2002,Zelen Stonebrook,ranger,0,1,364,0,0,204,1,1,1,left behind
+loco,5,2002,Quinar Blackmoor,mage,0,1,645,0,0,121,6,1,1,left behind
+loco,5,2002,Brenin Whitlock,rogue,0,1,397,0,0,310,3,2,1,left behind
+loco,5,2003,Sim Master,warrior,1,1,1278,0,255,251,6,0,0,
+loco,5,2003,Yorin Greymane,cleric,0,1,202,1096,0,262,2,1,1,Grunt
+loco,5,2003,Zelen Stonebrook,ranger,0,1,508,0,0,498,3,2,1,Grunt
+loco,5,2003,Quinar Blackmoor,mage,0,1,1054,0,0,263,8,2,1,Grunt
+loco,5,2003,Brenin Whitlock,rogue,0,1,650,0,0,735,8,3,1,Grunt
+loco,5,2004,Sim Master,warrior,1,1,359,0,77,621,2,1,0,
+loco,5,2004,Yorin Greymane,cleric,0,1,33,417,0,396,0,0,1,left behind
+loco,5,2004,Zelen Stonebrook,ranger,0,1,647,0,0,463,6,1,1,left behind
+loco,5,2004,Quinar Blackmoor,mage,0,1,652,0,0,198,7,1,1,left behind
+loco,5,2004,Brenin Whitlock,rogue,0,1,650,0,0,755,5,1,1,left behind
+loco,6,2000,Sim Master,warrior,1,1,430,0,71,236,3,1,0,
+loco,6,2000,Yorin Greymane,cleric,0,1,39,0,0,150,0,1,1,Grunt
+loco,6,2000,Zelen Stonebrook,ranger,0,1,394,0,0,125,2,1,1,left behind
+loco,6,2001,Sim Master,warrior,1,1,908,0,179,208,7,0,0,
+loco,6,2001,Yorin Greymane,cleric,0,1,247,0,0,180,1,1,1,left behind
+loco,6,2001,Zelen Stonebrook,ranger,0,1,389,0,0,256,1,3,1,left behind
+loco,6,2002,Sim Master,warrior,1,1,149,0,26,180,0,0,0,
+loco,6,2002,Yorin Greymane,cleric,0,1,69,0,0,187,1,1,1,left behind
+loco,6,2002,Zelen Stonebrook,ranger,0,1,103,0,0,173,2,1,1,left behind
+loco,6,2003,Sim Master,warrior,1,1,421,0,102,236,3,1,0,
+loco,6,2003,Yorin Greymane,cleric,0,1,193,0,0,132,1,1,1,left behind
+loco,6,2003,Zelen Stonebrook,ranger,0,1,310,0,0,150,1,0,1,left behind
+loco,6,2004,Sim Master,warrior,1,1,149,0,26,193,0,1,0,
+loco,6,2004,Yorin Greymane,cleric,0,1,66,0,0,134,0,1,1,left behind
+loco,6,2004,Zelen Stonebrook,ranger,0,1,100,0,0,165,0,0,1,left behind
+loco,7,2000,Sim Master,warrior,1,1,199,0,26,179,1,0,0,
+loco,7,2000,Yorin Greymane,cleric,0,1,0,0,0,175,0,1,1,left behind
+loco,7,2000,Zelen Stonebrook,ranger,0,1,37,0,0,135,0,1,1,left behind
+loco,7,2000,Quinar Blackmoor,mage,0,1,0,0,0,135,0,1,1,left behind
+loco,7,2001,Sim Master,warrior,1,1,460,0,77,228,5,0,0,
+loco,7,2001,Yorin Greymane,cleric,0,1,292,269,0,214,5,0,1,left behind
+loco,7,2001,Zelen Stonebrook,ranger,0,1,371,0,0,313,0,0,1,left behind
+loco,7,2001,Quinar Blackmoor,mage,0,1,560,0,0,287,4,0,1,left behind
+loco,7,2002,Sim Master,warrior,1,1,190,0,26,203,1,1,0,
+loco,7,2002,Yorin Greymane,cleric,0,1,112,65,0,233,1,1,1,left behind
+loco,7,2002,Zelen Stonebrook,ranger,0,1,37,0,0,123,0,1,1,left behind
+loco,7,2002,Quinar Blackmoor,mage,0,1,349,0,0,105,3,0,1,left behind
+loco,7,2003,Sim Master,warrior,1,1,864,0,128,332,8,1,0,
+loco,7,2003,Yorin Greymane,cleric,0,1,117,479,0,210,2,1,1,Grunt
+loco,7,2003,Zelen Stonebrook,ranger,0,1,739,0,0,319,3,0,1,left behind
+loco,7,2003,Quinar Blackmoor,mage,0,1,502,0,0,164,5,1,1,Grunt
+loco,7,2004,Sim Master,warrior,1,1,160,0,26,281,0,1,0,
+loco,7,2004,Yorin Greymane,cleric,0,1,46,72,0,154,0,0,1,left behind
+loco,7,2004,Zelen Stonebrook,ranger,0,1,62,0,0,109,1,1,1,left behind
+loco,7,2004,Quinar Blackmoor,mage,0,1,305,0,0,96,2,1,1,left behind
+loco,8,2000,Sim Master,warrior,1,1,297,0,26,187,2,0,0,
+loco,8,2001,Sim Master,warrior,1,1,332,0,51,180,1,0,0,
+loco,8,2002,Sim Master,warrior,1,1,224,0,26,179,0,0,0,
+loco,8,2003,Sim Master,warrior,1,1,66,0,26,183,0,0,0,
+loco,8,2004,Sim Master,warrior,1,1,344,0,51,174,1,0,0,
+loco,9,2000,Sim Master,warrior,1,1,221,0,51,196,1,0,0,
+loco,9,2000,Yorin Greymane,cleric,0,1,115,204,0,285,1,1,1,left behind
+loco,9,2000,Zelen Stonebrook,ranger,0,1,117,0,0,218,1,2,1,left behind
+loco,9,2000,Quinar Blackmoor,mage,0,1,265,0,0,109,1,1,1,left behind
+loco,9,2000,Brenin Whitlock,rogue,0,1,310,0,0,110,5,1,1,left behind
+loco,9,2001,Sim Master,warrior,1,1,221,0,51,172,0,0,0,
+loco,9,2001,Yorin Greymane,cleric,0,1,81,204,0,277,0,1,1,left behind
+loco,9,2001,Zelen Stonebrook,ranger,0,1,94,0,0,417,2,2,1,left behind
+loco,9,2001,Quinar Blackmoor,mage,0,1,381,0,0,184,2,1,1,left behind
+loco,9,2001,Brenin Whitlock,rogue,0,1,181,0,0,201,2,1,1,left behind
+loco,9,2002,Sim Master,warrior,1,1,80,0,26,337,0,1,0,
+loco,9,2002,Yorin Greymane,cleric,0,1,18,471,0,215,0,0,1,left behind
+loco,9,2002,Zelen Stonebrook,ranger,0,1,79,0,0,337,0,2,1,left behind
+loco,9,2002,Quinar Blackmoor,mage,0,1,91,0,0,326,1,1,1,left behind
+loco,9,2002,Brenin Whitlock,rogue,0,1,197,0,0,241,4,1,1,left behind
+loco,9,2003,Sim Master,warrior,1,1,269,0,51,181,2,1,0,
+loco,9,2003,Yorin Greymane,cleric,0,1,189,124,0,279,1,1,1,left behind
+loco,9,2003,Zelen Stonebrook,ranger,0,1,82,0,0,193,0,1,1,left behind
+loco,9,2003,Quinar Blackmoor,mage,0,1,101,0,0,193,1,1,1,left behind
+loco,9,2003,Brenin Whitlock,rogue,0,1,92,0,0,193,1,1,1,left behind
+loco,9,2004,Sim Master,warrior,1,1,101,0,26,271,0,0,0,
+loco,9,2004,Yorin Greymane,cleric,0,1,21,144,0,161,0,1,1,left behind
+loco,9,2004,Zelen Stonebrook,ranger,0,1,28,0,0,337,1,1,1,left behind
+loco,9,2004,Quinar Blackmoor,mage,0,1,134,0,0,161,2,1,1,left behind
+loco,9,2004,Brenin Whitlock,rogue,0,1,159,0,0,160,1,0,1,left behind
+loco,10,2000,Sim Master,warrior,1,1,153,0,26,177,0,0,0,
+loco,10,2000,Yorin Greymane,cleric,0,1,95,178,0,295,0,0,1,left behind
+loco,10,2000,Zelen Stonebrook,ranger,0,1,36,0,0,154,0,1,1,left behind
+loco,10,2000,Quinar Blackmoor,mage,0,1,30,0,0,102,1,1,1,left behind
+loco,10,2000,Brenin Whitlock,rogue,0,1,49,0,0,102,0,1,1,left behind
+loco,10,2001,Sim Master,warrior,1,1,278,0,51,250,0,0,0,
+loco,10,2001,Yorin Greymane,cleric,0,1,76,192,0,138,0,1,1,left behind
+loco,10,2001,Zelen Stonebrook,ranger,0,1,75,0,0,204,1,2,1,left behind
+loco,10,2001,Quinar Blackmoor,mage,0,1,238,0,0,102,2,1,1,left behind
+loco,10,2001,Brenin Whitlock,rogue,0,1,78,0,0,204,0,2,1,left behind
+loco,10,2002,Sim Master,warrior,1,1,476,0,102,296,0,0,0,
+loco,10,2002,Yorin Greymane,cleric,0,1,173,388,0,280,0,1,1,left behind
+loco,10,2002,Zelen Stonebrook,ranger,0,1,164,0,0,256,2,2,1,left behind
+loco,10,2002,Quinar Blackmoor,mage,0,1,303,0,0,204,1,2,1,left behind
+loco,10,2002,Brenin Whitlock,rogue,0,1,574,0,0,191,5,1,1,left behind
+loco,10,2003,Sim Master,warrior,1,1,86,0,26,212,0,1,0,
+loco,10,2003,Yorin Greymane,cleric,0,1,80,124,0,204,0,1,1,left behind
+loco,10,2003,Zelen Stonebrook,ranger,0,1,67,0,0,134,0,0,1,left behind
+loco,10,2003,Quinar Blackmoor,mage,0,1,83,0,0,102,1,1,1,left behind
+loco,10,2003,Brenin Whitlock,rogue,0,1,63,0,0,154,0,1,1,left behind
+loco,10,2004,Sim Master,warrior,1,1,55,0,26,209,0,0,0,
+loco,10,2004,Yorin Greymane,cleric,0,1,22,52,0,157,0,0,1,left behind
+loco,10,2004,Zelen Stonebrook,ranger,0,1,94,0,0,157,0,0,1,left behind
+loco,10,2004,Quinar Blackmoor,mage,0,1,124,0,0,202,1,0,1,left behind
+loco,10,2004,Brenin Whitlock,rogue,0,1,85,0,0,209,0,0,1,left behind
+tactico,1,2000,Sim Master,warrior,1,1,1881,0,332,7,20,0,0,
+tactico,1,2001,Sim Master,warrior,1,1,1816,0,357,26,19,0,0,
+tactico,1,2002,Sim Master,warrior,1,1,1778,0,332,21,19,0,0,
+tactico,1,2003,Sim Master,warrior,1,2,2156,0,357,2,22,0,0,
+tactico,1,2004,Sim Master,warrior,1,1,1723,0,281,13,18,0,0,
+tactico,2,2000,Sim Master,warrior,1,1,1724,0,408,17,11,0,0,
+tactico,2,2000,Yorin Greymane,cleric,0,1,2112,963,0,964,18,0,0,
+tactico,2,2001,Sim Master,warrior,1,1,1670,0,485,4,13,0,0,
+tactico,2,2001,Yorin Greymane,cleric,0,1,2040,852,0,855,13,0,0,
+tactico,2,2002,Sim Master,warrior,1,1,1553,0,434,5,7,0,0,
+tactico,2,2002,Yorin Greymane,cleric,0,1,2153,720,0,720,17,0,0,
+tactico,2,2003,Sim Master,warrior,1,1,1506,0,357,0,12,0,0,
+tactico,2,2003,Yorin Greymane,cleric,0,1,1780,787,0,822,14,0,0,
+tactico,2,2004,Sim Master,warrior,1,1,1443,0,332,78,9,0,0,
+tactico,2,2004,Yorin Greymane,cleric,0,1,1828,939,0,951,14,1,0,
+tactico,3,2000,Sim Master,warrior,1,1,353,0,77,172,4,0,0,
+tactico,3,2000,Yorin Greymane,cleric,0,1,632,770,0,796,10,1,1,left behind
+tactico,3,2000,Zelen Stonebrook,ranger,0,1,736,0,0,227,7,1,1,left behind
+tactico,3,2001,Sim Master,warrior,1,1,1873,0,255,252,20,0,0,
+tactico,3,2001,Yorin Greymane,cleric,0,1,518,402,0,347,9,1,1,Grunt
+tactico,3,2001,Zelen Stonebrook,ranger,0,1,693,0,0,221,7,1,1,Grunt
+tactico,3,2002,Sim Master,warrior,1,1,432,0,102,172,4,0,0,
+tactico,3,2002,Yorin Greymane,cleric,0,1,141,193,0,352,2,2,1,Grunt
+tactico,3,2002,Zelen Stonebrook,ranger,0,1,170,0,0,155,2,1,1,Grunt
+tactico,3,2003,Sim Master,warrior,1,1,372,0,128,251,5,0,0,
+tactico,3,2003,Yorin Greymane,cleric,0,1,847,745,0,632,8,1,1,Grunt
+tactico,3,2003,Zelen Stonebrook,ranger,0,1,789,0,0,318,10,1,1,Grunt
+tactico,3,2004,Sim Master,warrior,1,1,401,0,26,285,6,1,0,
+tactico,3,2004,Yorin Greymane,cleric,0,1,734,776,0,774,9,1,1,Grunt
+tactico,3,2004,Zelen Stonebrook,ranger,0,1,698,0,0,203,5,1,1,Grunt
+tactico,4,2000,Sim Master,warrior,1,1,71,0,26,180,0,0,0,
+tactico,4,2000,Yorin Greymane,cleric,0,1,66,72,0,207,0,1,1,left behind
+tactico,4,2001,Sim Master,warrior,1,1,758,0,128,172,5,0,0,
+tactico,4,2001,Yorin Greymane,cleric,0,1,498,272,0,432,3,1,1,Grunt
+tactico,4,2002,Sim Master,warrior,1,1,1270,0,255,207,9,0,0,
+tactico,4,2002,Yorin Greymane,cleric,0,1,46,0,0,147,0,1,1,Grunt
+tactico,4,2003,Sim Master,warrior,1,1,354,0,26,179,1,0,0,
+tactico,4,2003,Yorin Greymane,cleric,0,1,75,0,0,160,0,1,1,Grunt
+tactico,4,2004,Sim Master,warrior,1,1,164,0,51,174,0,0,0,
+tactico,4,2004,Yorin Greymane,cleric,0,1,118,134,0,295,1,1,1,left behind
+tactico,5,2000,Sim Master,warrior,1,1,0,0,0,253,0,0,0,
+tactico,5,2000,Yorin Greymane,cleric,0,1,0,72,0,212,0,1,1,left behind
+tactico,5,2000,Zelen Stonebrook,ranger,0,1,22,0,0,121,0,1,1,left behind
+tactico,5,2000,Quinar Blackmoor,mage,0,1,39,0,0,121,0,1,1,left behind
+tactico,5,2000,Brenin Whitlock,rogue,0,1,0,0,0,121,0,1,1,left behind
+tactico,5,2001,Sim Master,warrior,1,1,161,0,51,177,0,0,0,
+tactico,5,2001,Yorin Greymane,cleric,0,1,60,455,0,379,1,3,1,Grunt
+tactico,5,2001,Zelen Stonebrook,ranger,0,1,152,0,0,298,2,2,1,Grunt
+tactico,5,2001,Quinar Blackmoor,mage,0,1,353,0,0,142,3,1,1,Grunt
+tactico,5,2001,Brenin Whitlock,rogue,0,1,193,0,0,355,1,3,1,Grunt
+tactico,5,2002,Sim Master,warrior,1,1,44,0,0,0,0,0,0,
+tactico,5,2002,Yorin Greymane,cleric,0,1,26,131,0,136,1,1,1,Grunt
+tactico,5,2002,Zelen Stonebrook,ranger,0,1,61,0,0,180,0,1,1,Grunt
+tactico,5,2002,Quinar Blackmoor,mage,0,1,268,0,0,334,3,3,0,
+tactico,5,2002,Brenin Whitlock,rogue,0,1,114,0,0,360,0,2,0,
+tactico,5,2003,Sim Master,warrior,1,1,313,0,77,0,1,0,0,
+tactico,5,2003,Yorin Greymane,cleric,0,1,148,903,0,447,3,3,1,Grunt
+tactico,5,2003,Zelen Stonebrook,ranger,0,1,391,0,0,616,2,4,1,Grunt
+tactico,5,2003,Quinar Blackmoor,mage,0,1,583,0,0,477,4,4,1,Grunt
+tactico,5,2003,Brenin Whitlock,rogue,0,1,675,0,0,506,4,3,1,Grunt
+tactico,5,2004,Sim Master,warrior,1,1,496,0,102,190,2,1,0,
+tactico,5,2004,Yorin Greymane,cleric,0,1,163,671,0,542,1,2,1,left behind
+tactico,5,2004,Zelen Stonebrook,ranger,0,1,484,0,0,321,2,0,1,left behind
+tactico,5,2004,Quinar Blackmoor,mage,0,1,741,0,0,396,7,1,1,left behind
+tactico,5,2004,Brenin Whitlock,rogue,0,1,716,0,0,406,9,1,1,left behind
+tactico,6,2000,Sim Master,warrior,1,1,1223,0,204,236,11,0,0,
+tactico,6,2000,Yorin Greymane,cleric,0,1,320,0,0,199,2,3,1,Grunt
+tactico,6,2000,Zelen Stonebrook,ranger,0,1,734,0,0,364,3,5,1,left behind
+tactico,6,2001,Sim Master,warrior,1,1,1041,0,153,172,7,1,0,
+tactico,6,2001,Yorin Greymane,cleric,0,1,22,0,0,145,0,1,1,Grunt
+tactico,6,2001,Zelen Stonebrook,ranger,0,1,292,0,0,192,1,2,1,Grunt
+tactico,6,2002,Sim Master,warrior,1,1,456,0,51,233,1,0,0,
+tactico,6,2002,Yorin Greymane,cleric,0,1,72,0,0,138,1,1,1,Grunt
+tactico,6,2002,Zelen Stonebrook,ranger,0,1,112,0,0,128,0,1,1,Grunt
+tactico,6,2003,Sim Master,warrior,1,1,759,0,153,205,5,0,0,
+tactico,6,2003,Yorin Greymane,cleric,0,1,157,0,0,153,1,1,1,Grunt
+tactico,6,2003,Zelen Stonebrook,ranger,0,1,120,0,0,182,1,2,1,Grunt
+tactico,6,2004,Sim Master,warrior,1,1,433,0,51,176,3,0,0,
+tactico,6,2004,Yorin Greymane,cleric,0,1,234,0,0,266,1,3,1,left behind
+tactico,6,2004,Zelen Stonebrook,ranger,0,1,503,0,0,236,3,3,1,left behind
+tactico,7,2000,Sim Master,warrior,1,1,519,0,77,51,5,0,0,
+tactico,7,2000,Yorin Greymane,cleric,0,1,310,319,0,394,1,1,1,left behind
+tactico,7,2000,Zelen Stonebrook,ranger,0,1,467,0,0,173,2,1,0,
+tactico,7,2000,Quinar Blackmoor,mage,0,1,448,0,0,203,4,1,1,left behind
+tactico,7,2001,Sim Master,warrior,1,1,387,0,51,303,4,0,0,
+tactico,7,2001,Yorin Greymane,cleric,0,1,218,257,0,298,2,1,1,left behind
+tactico,7,2001,Zelen Stonebrook,ranger,0,1,400,0,0,250,3,1,1,left behind
+tactico,7,2001,Quinar Blackmoor,mage,0,1,537,0,0,148,4,2,1,left behind
+tactico,7,2002,Sim Master,warrior,1,1,22,0,0,257,0,0,0,
+tactico,7,2002,Yorin Greymane,cleric,0,1,0,0,0,182,0,1,1,Grunt
+tactico,7,2002,Zelen Stonebrook,ranger,0,1,95,0,0,125,1,1,1,left behind
+tactico,7,2002,Quinar Blackmoor,mage,0,1,146,0,0,110,0,1,1,left behind
+tactico,7,2003,Sim Master,warrior,1,1,64,0,0,207,1,0,0,
+tactico,7,2003,Yorin Greymane,cleric,0,1,0,216,0,427,0,2,1,left behind
+tactico,7,2003,Zelen Stonebrook,ranger,0,1,140,0,0,184,1,1,1,left behind
+tactico,7,2003,Quinar Blackmoor,mage,0,1,161,0,0,301,1,1,1,left behind
+tactico,7,2004,Sim Master,warrior,1,1,82,0,0,358,1,0,0,
+tactico,7,2004,Yorin Greymane,cleric,0,1,46,0,0,154,0,1,1,left behind
+tactico,7,2004,Zelen Stonebrook,ranger,0,1,130,0,0,123,1,1,1,left behind
+tactico,7,2004,Quinar Blackmoor,mage,0,1,180,0,0,123,1,1,1,left behind
+tactico,8,2000,Sim Master,warrior,1,1,877,0,102,173,6,0,0,
+tactico,8,2001,Sim Master,warrior,1,1,440,0,77,177,2,0,0,
+tactico,8,2002,Sim Master,warrior,1,1,1147,0,179,188,5,0,0,
+tactico,8,2003,Sim Master,warrior,1,1,683,0,128,174,5,0,0,
+tactico,8,2004,Sim Master,warrior,1,1,1369,0,230,206,7,0,0,
+tactico,9,2000,Sim Master,warrior,1,1,20,0,0,283,0,0,0,
+tactico,9,2000,Yorin Greymane,cleric,0,1,21,276,0,281,0,1,1,left behind
+tactico,9,2000,Zelen Stonebrook,ranger,0,1,82,0,0,298,1,2,1,left behind
+tactico,9,2000,Quinar Blackmoor,mage,0,1,262,0,0,238,2,1,1,left behind
+tactico,9,2000,Brenin Whitlock,rogue,0,1,74,0,0,115,2,1,1,left behind
+tactico,9,2001,Sim Master,warrior,1,1,73,0,26,261,0,1,0,
+tactico,9,2001,Yorin Greymane,cleric,0,1,128,216,0,311,0,1,1,left behind
+tactico,9,2001,Zelen Stonebrook,ranger,0,1,110,0,0,257,2,1,1,left behind
+tactico,9,2001,Quinar Blackmoor,mage,0,1,134,0,0,96,0,1,1,left behind
+tactico,9,2001,Brenin Whitlock,rogue,0,1,128,0,0,191,1,1,1,left behind
+tactico,9,2002,Sim Master,warrior,1,1,0,0,0,261,0,0,0,
+tactico,9,2002,Yorin Greymane,cleric,0,1,0,204,0,269,0,1,1,left behind
+tactico,9,2002,Zelen Stonebrook,ranger,0,1,61,0,0,337,0,2,1,left behind
+tactico,9,2002,Quinar Blackmoor,mage,0,1,54,0,0,92,0,1,1,left behind
+tactico,9,2002,Brenin Whitlock,rogue,0,1,38,0,0,322,1,2,1,left behind
+tactico,9,2003,Sim Master,warrior,1,1,0,0,0,208,0,1,0,
+tactico,9,2003,Yorin Greymane,cleric,0,1,0,72,0,322,0,2,1,left behind
+tactico,9,2003,Zelen Stonebrook,ranger,0,1,113,0,0,161,0,1,1,left behind
+tactico,9,2003,Quinar Blackmoor,mage,0,1,43,0,0,161,0,1,1,left behind
+tactico,9,2003,Brenin Whitlock,rogue,0,1,56,0,0,109,1,1,1,left behind
+tactico,9,2004,Sim Master,warrior,1,1,42,0,26,392,0,0,0,
+tactico,9,2004,Yorin Greymane,cleric,0,1,42,144,0,304,0,2,1,left behind
+tactico,9,2004,Zelen Stonebrook,ranger,0,1,73,0,0,236,1,1,1,left behind
+tactico,9,2004,Quinar Blackmoor,mage,0,1,111,0,0,241,1,1,1,left behind
+tactico,9,2004,Brenin Whitlock,rogue,0,1,101,0,0,120,1,1,1,left behind
+tactico,10,2000,Sim Master,warrior,1,1,109,0,26,186,2,0,0,
+tactico,10,2000,Yorin Greymane,cleric,0,1,82,196,0,172,0,1,1,left behind
+tactico,10,2000,Zelen Stonebrook,ranger,0,1,74,0,0,164,0,1,1,left behind
+tactico,10,2000,Quinar Blackmoor,mage,0,1,111,0,0,174,1,1,1,left behind
+tactico,10,2000,Brenin Whitlock,rogue,0,1,149,0,0,228,1,1,1,left behind
+tactico,10,2001,Sim Master,warrior,1,1,19,0,0,0,0,0,0,
+tactico,10,2001,Yorin Greymane,cleric,0,1,42,124,0,216,0,1,1,Grunt
+tactico,10,2001,Zelen Stonebrook,ranger,0,1,55,0,0,270,0,2,1,Grunt
+tactico,10,2001,Quinar Blackmoor,mage,0,1,30,0,0,102,0,1,1,Grunt
+tactico,10,2001,Brenin Whitlock,rogue,0,1,65,0,0,102,1,1,1,left behind
+tactico,10,2002,Sim Master,warrior,1,1,538,0,153,0,3,0,0,
+tactico,10,2002,Yorin Greymane,cleric,0,1,358,883,0,501,1,1,1,left behind
+tactico,10,2002,Zelen Stonebrook,ranger,0,1,465,0,0,606,3,4,1,Grunt
+tactico,10,2002,Quinar Blackmoor,mage,0,1,928,0,0,343,5,3,1,Grunt
+tactico,10,2002,Brenin Whitlock,rogue,0,1,755,0,0,356,3,2,1,left behind
+tactico,10,2003,Sim Master,warrior,1,1,98,0,26,0,0,0,0,
+tactico,10,2003,Yorin Greymane,cleric,0,1,153,244,0,309,2,1,1,Grunt
+tactico,10,2003,Zelen Stonebrook,ranger,0,1,199,0,0,187,1,1,1,Grunt
+tactico,10,2003,Quinar Blackmoor,mage,0,1,378,0,0,194,0,2,1,Grunt
+tactico,10,2003,Brenin Whitlock,rogue,0,1,207,0,0,261,2,1,1,Grunt
+tactico,10,2004,Sim Master,warrior,1,1,86,0,26,274,0,1,0,
+tactico,10,2004,Yorin Greymane,cleric,0,1,57,72,0,144,0,1,1,left behind
+tactico,10,2004,Zelen Stonebrook,ranger,0,1,29,0,0,129,0,1,1,left behind
+tactico,10,2004,Quinar Blackmoor,mage,0,1,182,0,0,121,0,0,1,left behind
+tactico,10,2004,Brenin Whitlock,rogue,0,1,94,0,0,102,0,1,1,left behind

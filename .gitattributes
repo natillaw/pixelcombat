@@ -1,0 +1,15 @@
+# Line endings: LF in the repository for every text file (Linux CI and Godot both expect it).
+# Windows-only scripts keep CRLF in the working copy.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+# Binary assets
+*.png binary
+*.jpg binary
+*.ogg binary
+*.wav binary
+*.mp3 binary
+*.ttf binary
+*.otf binary
+*.zip binary
+*.import -text

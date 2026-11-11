@@ -1,0 +1,13 @@
+description = "End a session: report evidence and update the implementation status"
+prompt = """
+Finish this session following AGENTS.md:
+1. List the files you changed.
+2. List every command you ran and its result (PASS/FAIL lines). Anything not run is NOT VERIFIED.
+3. Update docs/IMPLEMENTATION_STATUS.md only for what you verified. Do not edit docs/archive/.
+4. If you found a contradiction with docs/DECISIONS.md, report it; do not resolve it silently.
+Do not run git push; I will do that.
+"""
+cat >> .geminiignore <<'EOF'
+docs/archive/
+assets/
+audit/AUDIT_FINDINGS.json

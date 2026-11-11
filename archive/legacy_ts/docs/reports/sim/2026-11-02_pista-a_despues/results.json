@@ -1,0 +1,7509 @@
+{
+  "config": {
+    "compare": [
+      {
+        "bot": {
+          "style": "tactico"
+        },
+        "label": "tactico"
+      },
+      {
+        "bot": {
+          "style": "loco"
+        },
+        "label": "loco"
+      }
+    ],
+    "floors": "1-10",
+    "max_time": 1200.0,
+    "name": "floors1-10_kit_blanco",
+    "party": [
+      {
+        "class": "warrior",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "master": true
+      },
+      {
+        "class": "cleric",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      },
+      {
+        "class": "ranger",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      },
+      {
+        "class": "mage",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      },
+      {
+        "class": "rogue",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      }
+    ],
+    "runs": 2,
+    "seed": 2000.0
+  },
+  "name": "floors1-10_kit_blanco",
+  "overrides_applied": {},
+  "runs": [
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 0.0,
+        "pings": 120.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 13.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 20.0,
+      "first_contact": 23.8,
+      "floor": 1.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1902.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 20.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 332.0,
+          "taken": 117.0
+        }
+      ],
+      "index": 0.0,
+      "kept": {},
+      "kill_xp": 324.0,
+      "killed": 20.0,
+      "lost": {},
+      "mission": "combat",
+      "outcome": "SUCCESS",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 0.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 75.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 1.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2000.0,
+      "stash_items": 2.0,
+      "time": 481.13,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 15120.688,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 0.0,
+        "pings": 85.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 10.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 1.0,
+      "enemies": 19.0,
+      "first_contact": 23.0,
+      "floor": 1.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1410.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 14.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 255.0,
+          "taken": 180.0
+        }
+      ],
+      "index": 1.0,
+      "kept": {},
+      "kill_xp": 238.0,
+      "killed": 14.0,
+      "lost": {},
+      "mission": "combat",
+      "outcome": "FAILED",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 398.97,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 8268.819,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 8.0,
+        "dashes": 0.0,
+        "pings": 180.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 18.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 33.0,
+      "first_contact": 31.8,
+      "floor": 2.0,
+      "gathered": {
+        "essence": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 2451.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 21.0,
+          "level": 2.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 459.0,
+          "taken": 150.0
+        },
+        {
+          "class": "cleric",
+          "damage": 1336.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 1025.0,
+          "killed_by": "",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 899.0
+        }
+      ],
+      "index": 2.0,
+      "kept": {
+        "essence": 2.0
+      },
+      "kill_xp": 700.0,
+      "killed": 28.0,
+      "lost": {},
+      "mission": "exploration",
+      "outcome": "SUCCESS",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 1.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 90.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2000.0,
+      "stash_items": 2.0,
+      "time": 804.9,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 38837.257,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 12.0,
+        "dashes": 0.0,
+        "pings": 208.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 22.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 32.0,
+      "first_contact": 83.2,
+      "floor": 2.0,
+      "gathered": {
+        "essence": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 2622.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 20.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 561.0,
+          "taken": 337.0
+        },
+        {
+          "class": "cleric",
+          "damage": 1650.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 1150.0,
+          "killed_by": "",
+          "kills": 10.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 894.0
+        }
+      ],
+      "index": 3.0,
+      "kept": {
+        "essence": 1.0
+      },
+      "kill_xp": 781.0,
+      "killed": 30.0,
+      "lost": {},
+      "mission": "exploration",
+      "outcome": "SUCCESS",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 1.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 90.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2001.0,
+      "stash_items": 2.0,
+      "time": 1154.57,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 58003.991,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 25.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 58.0,
+      "first_contact": 43.8,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 206.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 257.0
+        },
+        {
+          "class": "cleric",
+          "damage": 408.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 470.0,
+          "killed_by": "left behind",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 413.0
+        },
+        {
+          "class": "ranger",
+          "damage": 665.0,
+          "dead": true,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 6.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 227.0
+        }
+      ],
+      "index": 4.0,
+      "kept": {},
+      "kill_xp": 213.0,
+      "killed": 14.0,
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 46.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_back_to_back": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 178.57,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 38548.495,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 34.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 66.0,
+      "first_contact": 48.0,
+      "floor": 3.0,
+      "gathered": {
+        "essence": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 360.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 174.0
+        },
+        {
+          "class": "cleric",
+          "damage": 339.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 357.0,
+          "killed_by": "left behind",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 427.0
+        },
+        {
+          "class": "ranger",
+          "damage": 764.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 6.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 173.0
+        }
+      ],
+      "index": 5.0,
+      "kept": {},
+      "kill_xp": 240.0,
+      "killed": 18.0,
+      "lost": {
+        "essence": 2.0
+      },
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 42.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 197.7,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 42090.38,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 4.0,
+        "dashes": 0.0,
+        "pings": 57.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 7.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 40.0,
+      "first_contact": 72.3,
+      "floor": 4.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 698.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 5.0,
+          "level": 2.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 179.0,
+          "taken": 196.0
+        },
+        {
+          "class": "cleric",
+          "damage": 588.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 427.0,
+          "killed_by": "",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 299.0
+        }
+      ],
+      "index": 6.0,
+      "kept": {},
+      "kill_xp": 242.0,
+      "killed": 9.0,
+      "lost": {},
+      "mission": "escape",
+      "outcome": "SUCCESS",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 3.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 1.0,
+        "essence": 2.0,
+        "food": 0.0,
+        "gems": 120.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 3.0,
+        "stones": 2.0
+      },
+      "reward_items": 3.0,
+      "seed": 2000.0,
+      "stash_items": 3.0,
+      "time": 288.5,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 26110.69,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.0,
+        "dashes": 0.0,
+        "pings": 35.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 1.0,
+      "downs": 1.0,
+      "enemies": 36.0,
+      "first_contact": 67.5,
+      "floor": 4.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 514.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 389.0
+        },
+        {
+          "class": "cleric",
+          "damage": 293.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 504.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 429.0
+        }
+      ],
+      "index": 7.0,
+      "kept": {},
+      "kill_xp": 128.0,
+      "killed": 5.0,
+      "lost": {},
+      "mission": "escape",
+      "outcome": "FAILED",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 121.7,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 9263.433,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 32.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 46.0,
+      "first_contact": 46.4,
+      "floor": 5.0,
+      "gathered": {
+        "essence": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 370.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 171.0
+        },
+        {
+          "class": "cleric",
+          "damage": 34.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 168.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 212.0
+        },
+        {
+          "class": "ranger",
+          "damage": 123.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 169.0
+        },
+        {
+          "class": "mage",
+          "damage": 124.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 169.0
+        },
+        {
+          "class": "rogue",
+          "damage": 180.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 161.0
+        }
+      ],
+      "index": 8.0,
+      "kept": {},
+      "kill_xp": 131.0,
+      "killed": 6.0,
+      "lost": {
+        "essence": 1.0
+      },
+      "mission": "boss",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 58.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 5.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 136.57,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 20488.554,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 6.0,
+        "dashes": 0.0,
+        "pings": 72.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 7.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 8.0,
+      "enemies": 44.0,
+      "first_contact": 72.8,
+      "floor": 5.0,
+      "gathered": {
+        "essence": 1.0,
+        "mat_enchanted_cloth": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 662.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 6.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 179.0,
+          "taken": 179.0
+        },
+        {
+          "class": "cleric",
+          "damage": 207.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 499.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 299.0
+        },
+        {
+          "class": "ranger",
+          "damage": 407.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 326.0
+        },
+        {
+          "class": "mage",
+          "damage": 519.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 302.0
+        },
+        {
+          "class": "rogue",
+          "damage": 767.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 473.0
+        }
+      ],
+      "index": 9.0,
+      "kept": {},
+      "kill_xp": 455.0,
+      "killed": 18.0,
+      "lost": {
+        "essence": 1.0,
+        "mat_enchanted_cloth": 1.0
+      },
+      "mission": "boss",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 49.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 5.0,
+        "syn_shared_sight": 1.0,
+        "syn_trap_sense": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 447.87,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 41739.904,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 26.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 40.0,
+      "first_contact": 68.8,
+      "floor": 6.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 309.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 183.0
+        },
+        {
+          "class": "cleric",
+          "damage": 187.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 130.0
+        },
+        {
+          "class": "ranger",
+          "damage": 163.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 120.0
+        }
+      ],
+      "index": 10.0,
+      "kept": {},
+      "kill_xp": 107.0,
+      "killed": 3.0,
+      "lost": {},
+      "mission": "rescue",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 53.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 142.0,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 17706.684,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 37.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 34.0,
+      "first_contact": 46.4,
+      "floor": 6.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 406.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 171.0
+        },
+        {
+          "class": "cleric",
+          "damage": 139.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 132.0
+        },
+        {
+          "class": "ranger",
+          "damage": 297.0,
+          "dead": true,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 130.0
+        }
+      ],
+      "index": 11.0,
+      "kept": {},
+      "kill_xp": 124.0,
+      "killed": 4.0,
+      "lost": {},
+      "mission": "rescue",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 33.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 3.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 174.2,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 18623.404,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 4.0,
+        "dashes": 0.0,
+        "pings": 44.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 5.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 3.0,
+      "downs": 5.0,
+      "enemies": 63.0,
+      "first_contact": 111.8,
+      "floor": 7.0,
+      "gathered": {
+        "mat_iron_ore": 1.0,
+        "mat_resonant_crystal": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 547.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 128.0,
+          "taken": 176.0
+        },
+        {
+          "class": "cleric",
+          "damage": 189.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 194.0,
+          "killed_by": "left behind",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 197.0
+        },
+        {
+          "class": "ranger",
+          "damage": 408.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 369.0
+        },
+        {
+          "class": "mage",
+          "damage": 667.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 214.0
+        }
+      ],
+      "index": 12.0,
+      "kept": {},
+      "kill_xp": 250.0,
+      "killed": 12.0,
+      "lost": {
+        "mat_iron_ore": 1.0,
+        "mat_resonant_crystal": 2.0
+      },
+      "mission": "sabotage",
+      "outcome": "FAILED",
+      "party": 4.0,
+      "pista_a": {
+        "arrows_left": 52.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_back_to_back": 2.0,
+        "syn_flank": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 430.17,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 64148.192,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 32.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 3.0,
+      "downs": 2.0,
+      "enemies": 64.0,
+      "first_contact": 193.4,
+      "floor": 7.0,
+      "gathered": {
+        "mat_resonant_crystal": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 439.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 245.0
+        },
+        {
+          "class": "cleric",
+          "damage": 158.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 270.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 168.0
+        },
+        {
+          "class": "ranger",
+          "damage": 364.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 258.0
+        },
+        {
+          "class": "mage",
+          "damage": 639.0,
+          "dead": true,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 228.0
+        }
+      ],
+      "index": 13.0,
+      "kept": {},
+      "kill_xp": 290.0,
+      "killed": 14.0,
+      "lost": {
+        "mat_resonant_crystal": 1.0
+      },
+      "mission": "sabotage",
+      "outcome": "FAILED",
+      "party": 4.0,
+      "pista_a": {
+        "arrows_left": 57.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 3.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 295.03,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 31822.958,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 0.0,
+        "pings": 14.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 13.0,
+      "first_contact": 55.2,
+      "floor": 8.0,
+      "gathered": {
+        "mat_moon_flower": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 297.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 178.0
+        }
+      ],
+      "index": 14.0,
+      "kept": {},
+      "kill_xp": 38.0,
+      "killed": 2.0,
+      "lost": {
+        "mat_moon_flower": 1.0
+      },
+      "mission": "combat",
+      "outcome": "FAILED",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 73.87,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 1409.128,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 0.0,
+        "pings": 27.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 2.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 10.0,
+      "first_contact": 36.8,
+      "floor": 8.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 332.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 51.0,
+          "taken": 180.0
+        }
+      ],
+      "index": 15.0,
+      "kept": {},
+      "kill_xp": 51.0,
+      "killed": 1.0,
+      "lost": {},
+      "mission": "combat",
+      "outcome": "FAILED",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 73.77,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 1895.715,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 3.0,
+        "dashes": 0.0,
+        "pings": 24.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 2.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 7.0,
+      "enemies": 68.0,
+      "first_contact": 49.4,
+      "floor": 9.0,
+      "gathered": {
+        "mat_rune_plate": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 118.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 51.0,
+          "taken": 189.0
+        },
+        {
+          "class": "cleric",
+          "damage": 154.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 324.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 201.0
+        },
+        {
+          "class": "ranger",
+          "damage": 122.0,
+          "dead": true,
+          "downs": 3.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 615.0
+        },
+        {
+          "class": "mage",
+          "damage": 400.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 241.0
+        },
+        {
+          "class": "rogue",
+          "damage": 272.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 161.0
+        }
+      ],
+      "index": 16.0,
+      "kept": {},
+      "kill_xp": 201.0,
+      "killed": 9.0,
+      "lost": {
+        "mat_rune_plate": 1.0
+      },
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 54.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 195.5,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 42506.255,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 39.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 75.0,
+      "first_contact": 83.0,
+      "floor": 9.0,
+      "gathered": {
+        "mat_rune_plate": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 390.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 526.0
+        },
+        {
+          "class": "cleric",
+          "damage": 207.0,
+          "dead": true,
+          "downs": 0.0,
+          "healing": 492.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 134.0
+        },
+        {
+          "class": "ranger",
+          "damage": 351.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 241.0
+        },
+        {
+          "class": "mage",
+          "damage": 440.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 161.0
+        },
+        {
+          "class": "rogue",
+          "damage": 493.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 254.0
+        }
+      ],
+      "index": 17.0,
+      "kept": {},
+      "kill_xp": 357.0,
+      "killed": 12.0,
+      "lost": {
+        "mat_rune_plate": 2.0
+      },
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 52.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 5.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 200.87,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 46261.175,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 4.0,
+        "dashes": 0.0,
+        "pings": 47.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 4.0,
+      "enemies": 27.0,
+      "first_contact": 61.4,
+      "floor": 10.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 376.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 183.0
+        },
+        {
+          "class": "cleric",
+          "damage": 136.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 72.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 209.0
+        },
+        {
+          "class": "ranger",
+          "damage": 285.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 182.0
+        },
+        {
+          "class": "mage",
+          "damage": 506.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 157.0
+        },
+        {
+          "class": "rogue",
+          "damage": 300.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 185.0
+        }
+      ],
+      "index": 18.0,
+      "kept": {},
+      "kill_xp": 255.0,
+      "killed": 7.0,
+      "lost": {},
+      "mission": "boss",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 53.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 14.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 288.67,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 16823.917,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 4.0,
+        "dashes": 0.0,
+        "pings": 74.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 5.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 6.0,
+      "enemies": 30.0,
+      "first_contact": 38.4,
+      "floor": 10.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 594.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 128.0,
+          "taken": 291.0
+        },
+        {
+          "class": "cleric",
+          "damage": 274.0,
+          "dead": true,
+          "downs": 0.0,
+          "healing": 665.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 423.0
+        },
+        {
+          "class": "ranger",
+          "damage": 332.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 230.0
+        },
+        {
+          "class": "mage",
+          "damage": 864.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 204.0
+        },
+        {
+          "class": "rogue",
+          "damage": 660.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 417.0
+        }
+      ],
+      "index": 19.0,
+      "kept": {},
+      "kill_xp": 468.0,
+      "killed": 12.0,
+      "lost": {},
+      "mission": "boss",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 45.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 28.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 252.5,
+      "unique": "",
+      "variant": "loco",
+      "wall_ms": 20956.197,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 30.0,
+        "pings": 89.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 13.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 20.0,
+      "first_contact": 23.8,
+      "floor": 1.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1891.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 20.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 332.0,
+          "taken": 0.0
+        }
+      ],
+      "index": 0.0,
+      "kept": {},
+      "kill_xp": 324.0,
+      "killed": 20.0,
+      "lost": {},
+      "mission": "combat",
+      "outcome": "SUCCESS",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 0.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 75.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 1.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2000.0,
+      "stash_items": 2.0,
+      "time": 491.27,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 20829.816,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 31.0,
+        "pings": 94.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 15.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 19.0,
+      "first_contact": 23.0,
+      "floor": 1.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1816.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 19.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 383.0,
+          "taken": 15.0
+        }
+      ],
+      "index": 1.0,
+      "kept": {},
+      "kill_xp": 315.0,
+      "killed": 19.0,
+      "lost": {},
+      "mission": "combat",
+      "outcome": "SUCCESS",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 0.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 75.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 1.0,
+        "stones": 1.0
+      },
+      "reward_items": 2.0,
+      "seed": 2001.0,
+      "stash_items": 2.0,
+      "time": 543.53,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 15033.299,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 9.0,
+        "dashes": 63.0,
+        "pings": 148.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 22.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 33.0,
+      "first_contact": 31.5,
+      "floor": 2.0,
+      "gathered": {
+        "essence": 3.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1852.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 13.0,
+          "level": 2.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 561.0,
+          "taken": 5.0
+        },
+        {
+          "class": "cleric",
+          "damage": 2333.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 1189.0,
+          "killed_by": "",
+          "kills": 17.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 1244.0
+        }
+      ],
+      "index": 2.0,
+      "kept": {
+        "essence": 3.0
+      },
+      "kill_xp": 766.0,
+      "killed": 30.0,
+      "lost": {},
+      "mission": "exploration",
+      "outcome": "SUCCESS",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 1.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_cook": 1.0,
+        "syn_flank": 28.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 1.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 90.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2000.0,
+      "stash_items": 2.0,
+      "time": 1034.53,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 46096.023,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 3.0,
+        "dashes": 69.0,
+        "pings": 108.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 21.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 1.0,
+      "downs": 1.0,
+      "enemies": 32.0,
+      "first_contact": 61.9,
+      "floor": 2.0,
+      "gathered": {
+        "essence": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1732.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 14.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 536.0,
+          "taken": 54.0
+        },
+        {
+          "class": "cleric",
+          "damage": 1051.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 448.0,
+          "killed_by": "Grunt",
+          "kills": 6.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 583.0
+        }
+      ],
+      "index": 3.0,
+      "kept": {
+        "essence": 1.0
+      },
+      "kill_xp": 502.0,
+      "killed": 20.0,
+      "lost": {},
+      "mission": "exploration",
+      "outcome": "SUCCESS",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 13.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 1.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 90.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2001.0,
+      "stash_items": 2.0,
+      "time": 600.27,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 45271.682,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 2.0,
+        "dashes": 16.0,
+        "pings": 29.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 64.0,
+      "first_contact": 43.8,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 171.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 251.0
+        },
+        {
+          "class": "cleric",
+          "damage": 439.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 573.0,
+          "killed_by": "Grunt",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 511.0
+        },
+        {
+          "class": "ranger",
+          "damage": 657.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 276.0
+        }
+      ],
+      "index": 4.0,
+      "kept": {},
+      "kill_xp": 203.0,
+      "killed": 14.0,
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 45.0,
+        "camps": 1.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 216.9,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 54332.863,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 4.0,
+        "dashes": 21.0,
+        "pings": 59.0,
+        "retreats": 3.0,
+        "revives": 2.0,
+        "skills": 5.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 4.0,
+      "enemies": 79.0,
+      "first_contact": 48.0,
+      "floor": 3.0,
+      "gathered": {
+        "essence": 3.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 372.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 128.0,
+          "taken": 185.0
+        },
+        {
+          "class": "cleric",
+          "damage": 922.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 667.0,
+          "killed_by": "left behind",
+          "kills": 13.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 547.0
+        },
+        {
+          "class": "ranger",
+          "damage": 845.0,
+          "dead": true,
+          "downs": 3.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 8.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 520.0
+        }
+      ],
+      "index": 5.0,
+      "kept": {},
+      "kill_xp": 359.0,
+      "killed": 28.0,
+      "lost": {
+        "essence": 3.0
+      },
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 44.0,
+        "camps": 1.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 5.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 281.43,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 68325.5,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.0,
+        "dashes": 38.0,
+        "pings": 38.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 1.0,
+      "downs": 1.0,
+      "enemies": 49.0,
+      "first_contact": 89.4,
+      "floor": 4.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 526.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 172.0
+        },
+        {
+          "class": "cleric",
+          "damage": 132.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 72.0,
+          "killed_by": "Grunt",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 206.0
+        }
+      ],
+      "index": 6.0,
+      "kept": {},
+      "kill_xp": 55.0,
+      "killed": 4.0,
+      "lost": {},
+      "mission": "escape",
+      "outcome": "FAILED",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 173.57,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 20947.058,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 33.0,
+        "pings": 30.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 1.0,
+      "downs": 1.0,
+      "enemies": 36.0,
+      "first_contact": 131.2,
+      "floor": 4.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 317.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 172.0
+        },
+        {
+          "class": "cleric",
+          "damage": 110.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 64.0,
+          "killed_by": "Grunt",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 218.0
+        }
+      ],
+      "index": 7.0,
+      "kept": {},
+      "kill_xp": 53.0,
+      "killed": 2.0,
+      "lost": {},
+      "mission": "escape",
+      "outcome": "FAILED",
+      "party": 2.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 2.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 207.73,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 20839.051,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.0,
+        "dashes": 4.0,
+        "pings": 8.0,
+        "retreats": 42.0,
+        "revives": 0.0,
+        "skills": 0.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 4.0,
+      "enemies": 46.0,
+      "first_contact": 27.2,
+      "floor": 5.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 0.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 0.0,
+          "taken": 174.0
+        },
+        {
+          "class": "cleric",
+          "damage": 0.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 242.0
+        },
+        {
+          "class": "ranger",
+          "damage": 25.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 121.0
+        },
+        {
+          "class": "mage",
+          "damage": 0.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 121.0
+        },
+        {
+          "class": "rogue",
+          "damage": 73.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 121.0
+        }
+      ],
+      "index": 8.0,
+      "kept": {},
+      "kill_xp": 0.0,
+      "killed": 0.0,
+      "lost": {},
+      "mission": "boss",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 58.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 41.23,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 9274.729,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.0,
+        "dashes": 19.0,
+        "pings": 29.0,
+        "retreats": 84.0,
+        "revives": 0.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 4.0,
+      "enemies": 47.0,
+      "first_contact": 62.7,
+      "floor": 5.0,
+      "gathered": {
+        "essence": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 209.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 171.0
+        },
+        {
+          "class": "cleric",
+          "damage": 90.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 203.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 334.0
+        },
+        {
+          "class": "ranger",
+          "damage": 176.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 114.0
+        },
+        {
+          "class": "mage",
+          "damage": 302.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 160.0
+        },
+        {
+          "class": "rogue",
+          "damage": 81.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 100.0
+        }
+      ],
+      "index": 9.0,
+      "kept": {},
+      "kill_xp": 135.0,
+      "killed": 6.0,
+      "lost": {
+        "essence": 1.0
+      },
+      "mission": "boss",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 52.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 4.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 162.67,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 26782.021,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 2.0,
+        "dashes": 52.0,
+        "pings": 55.0,
+        "retreats": 0.0,
+        "revives": 1.0,
+        "skills": 7.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 3.0,
+      "enemies": 40.0,
+      "first_contact": 80.3,
+      "floor": 6.0,
+      "gathered": {
+        "mat_enchanted_cloth": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 522.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 179.0,
+          "taken": 242.0
+        },
+        {
+          "class": "cleric",
+          "damage": 161.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 231.0
+        },
+        {
+          "class": "ranger",
+          "damage": 332.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 130.0
+        }
+      ],
+      "index": 10.0,
+      "kept": {},
+      "kill_xp": 186.0,
+      "killed": 6.0,
+      "lost": {
+        "mat_enchanted_cloth": 1.0
+      },
+      "mission": "rescue",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 45.0,
+        "camps": 1.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_cook": 1.0,
+        "syn_flank": 3.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 350.37,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 44107.119,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 4.0,
+        "dashes": 82.0,
+        "pings": 98.0,
+        "retreats": 0.0,
+        "revives": 6.0,
+        "skills": 13.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 8.0,
+      "enemies": 34.0,
+      "first_contact": 48.0,
+      "floor": 6.0,
+      "gathered": {
+        "mat_enchanted_cloth": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1075.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 332.0,
+          "taken": 175.0
+        },
+        {
+          "class": "cleric",
+          "damage": 284.0,
+          "dead": true,
+          "downs": 3.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 250.0
+        },
+        {
+          "class": "ranger",
+          "damage": 499.0,
+          "dead": true,
+          "downs": 5.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 358.0
+        }
+      ],
+      "index": 11.0,
+      "kept": {},
+      "kill_xp": 344.0,
+      "killed": 12.0,
+      "lost": {
+        "mat_enchanted_cloth": 1.0
+      },
+      "mission": "rescue",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "pista_a": {
+        "arrows_left": 41.0,
+        "camps": 1.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_cook": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 638.63,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 54154.507,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 34.0,
+        "pings": 42.0,
+        "retreats": 424.0,
+        "revives": 1.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 3.0,
+      "downs": 4.0,
+      "enemies": 67.0,
+      "first_contact": 100.8,
+      "floor": 7.0,
+      "gathered": {
+        "mat_iron_ore": 1.0,
+        "mat_resonant_crystal": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 440.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 0.0
+        },
+        {
+          "class": "cleric",
+          "damage": 190.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 494.0,
+          "killed_by": "Grunt",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 477.0
+        },
+        {
+          "class": "ranger",
+          "damage": 552.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 120.0
+        },
+        {
+          "class": "mage",
+          "damage": 816.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 334.0
+        }
+      ],
+      "index": 12.0,
+      "kept": {
+        "mat_iron_ore": 1.0,
+        "mat_resonant_crystal": 2.0
+      },
+      "kill_xp": 309.0,
+      "killed": 13.0,
+      "lost": {},
+      "mission": "sabotage",
+      "outcome": "ESCAPED",
+      "party": 4.0,
+      "pista_a": {
+        "arrows_left": 31.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 4.0
+      },
+      "reason": "retreat",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 305.37,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 66861.822,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 17.0,
+        "pings": 30.0,
+        "retreats": 143.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 3.0,
+      "downs": 3.0,
+      "enemies": 67.0,
+      "first_contact": 85.9,
+      "floor": 7.0,
+      "gathered": {
+        "mat_resonant_crystal": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 420.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 203.0
+        },
+        {
+          "class": "cleric",
+          "damage": 166.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 206.0,
+          "killed_by": "Grunt",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 262.0
+        },
+        {
+          "class": "ranger",
+          "damage": 299.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 248.0
+        },
+        {
+          "class": "mage",
+          "damage": 516.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 214.0
+        }
+      ],
+      "index": 13.0,
+      "kept": {},
+      "kill_xp": 232.0,
+      "killed": 11.0,
+      "lost": {
+        "mat_resonant_crystal": 1.0
+      },
+      "mission": "sabotage",
+      "outcome": "FAILED",
+      "party": 4.0,
+      "pista_a": {
+        "arrows_left": 57.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 2.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 208.93,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 28671.41,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 86.0,
+        "pings": 92.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 13.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 13.0,
+      "first_contact": 55.2,
+      "floor": 8.0,
+      "gathered": {
+        "mat_moon_flower": 2.0,
+        "mat_resonant_crystal": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1705.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 13.0,
+          "level": 2.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 332.0,
+          "taken": 146.0
+        }
+      ],
+      "index": 14.0,
+      "kept": {
+        "mat_moon_flower": 2.0,
+        "mat_resonant_crystal": 1.0
+      },
+      "kill_xp": 311.0,
+      "killed": 13.0,
+      "lost": {},
+      "mission": "combat",
+      "outcome": "SUCCESS",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "",
+      "reward": {
+        "books": 1.0,
+        "essence": 3.0,
+        "food": 0.0,
+        "gems": 180.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 5.0,
+        "stones": 3.0
+      },
+      "reward_items": 4.0,
+      "seed": 2000.0,
+      "stash_items": 4.0,
+      "time": 385.93,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 5489.972,
+      "win": true
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 21.0,
+        "pings": 22.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 10.0,
+      "first_contact": 36.8,
+      "floor": 8.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 432.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 185.0
+        }
+      ],
+      "index": 15.0,
+      "kept": {},
+      "kill_xp": 70.0,
+      "killed": 2.0,
+      "lost": {},
+      "mission": "combat",
+      "outcome": "FAILED",
+      "party": 1.0,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 112.6,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 2716.352,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 1.0,
+        "dashes": 4.0,
+        "pings": 19.0,
+        "retreats": 12.0,
+        "revives": 2.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 6.0,
+      "enemies": 63.0,
+      "first_contact": 49.4,
+      "floor": 9.0,
+      "gathered": {
+        "mat_rune_plate": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 38.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 277.0
+        },
+        {
+          "class": "cleric",
+          "damage": 21.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 479.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 352.0
+        },
+        {
+          "class": "ranger",
+          "damage": 165.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 298.0
+        },
+        {
+          "class": "mage",
+          "damage": 124.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 285.0
+        },
+        {
+          "class": "rogue",
+          "damage": 193.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 180.0
+        }
+      ],
+      "index": 16.0,
+      "kept": {},
+      "kill_xp": 64.0,
+      "killed": 4.0,
+      "lost": {
+        "mat_rune_plate": 1.0
+      },
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 52.0,
+        "camps": 0.0,
+        "camps_interrupted": 1.0,
+        "combo_finishers": 0.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 110.37,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 42668.051,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.0,
+        "dashes": 13.0,
+        "pings": 11.0,
+        "retreats": 87.0,
+        "revives": 0.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 4.0,
+      "enemies": 64.0,
+      "first_contact": 83.0,
+      "floor": 9.0,
+      "gathered": {
+        "mat_rune_plate": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 33.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 204.0
+        },
+        {
+          "class": "cleric",
+          "damage": 54.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 72.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 161.0
+        },
+        {
+          "class": "ranger",
+          "damage": 121.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 257.0
+        },
+        {
+          "class": "mage",
+          "damage": 167.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 96.0
+        },
+        {
+          "class": "rogue",
+          "damage": 77.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 161.0
+        }
+      ],
+      "index": 17.0,
+      "kept": {},
+      "kill_xp": 65.0,
+      "killed": 3.0,
+      "lost": {
+        "mat_rune_plate": 1.0
+      },
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 57.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_back_to_back": 1.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 144.37,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 53915.407,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 32.0,
+        "pings": 39.0,
+        "retreats": 414.0,
+        "revives": 2.0,
+        "skills": 2.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 6.0,
+      "enemies": 27.0,
+      "first_contact": 37.6,
+      "floor": 10.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 145.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 51.0,
+          "taken": 42.0
+        },
+        {
+          "class": "cleric",
+          "damage": 101.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 313.0,
+          "killed_by": "Grunt",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 400.0
+        },
+        {
+          "class": "ranger",
+          "damage": 199.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 311.0
+        },
+        {
+          "class": "mage",
+          "damage": 458.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 277.0
+        },
+        {
+          "class": "rogue",
+          "damage": 344.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 116.0
+        }
+      ],
+      "index": 18.0,
+      "kept": {},
+      "kill_xp": 198.0,
+      "killed": 8.0,
+      "lost": {},
+      "mission": "boss",
+      "outcome": "ESCAPED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 50.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 7.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "retreat",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 272.83,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 16107.577,
+      "win": false
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.0,
+        "dashes": 12.0,
+        "pings": 20.0,
+        "retreats": 178.0,
+        "revives": 1.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 30.0,
+      "first_contact": 68.8,
+      "floor": 10.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 165.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 0.0
+        },
+        {
+          "class": "cleric",
+          "damage": 77.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 124.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 268.0
+        },
+        {
+          "class": "ranger",
+          "damage": 134.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 204.0
+        },
+        {
+          "class": "mage",
+          "damage": 353.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 154.0
+        },
+        {
+          "class": "rogue",
+          "damage": 207.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 102.0
+        }
+      ],
+      "index": 19.0,
+      "kept": {},
+      "kill_xp": 141.0,
+      "killed": 5.0,
+      "lost": {},
+      "mission": "boss",
+      "outcome": "ESCAPED",
+      "party": 5.0,
+      "pista_a": {
+        "arrows_left": 54.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 5.0,
+        "syn_shared_sight": 1.0
+      },
+      "reason": "retreat",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 174.7,
+      "unique": "",
+      "variant": "tactico",
+      "wall_ms": 17148.405,
+      "win": false
+    }
+  ],
+  "speed": {
+    "cpu_s": 1220.1985,
+    "runs": 40,
+    "sim_s": 12794.29,
+    "wall_s": 154.657,
+    "workers": 11,
+    "x_per_process": 10.4854169219189,
+    "x_total": 82.7268730157704
+  },
+  "summary": [
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 30.5,
+        "pings": 91.5,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 14.0
+      },
+      "classes": {
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 1853.5,
+            "n": 2,
+            "sd": 53.033
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 19.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 7.5,
+            "n": 2,
+            "sd": 10.607
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 1,
+      "gathered": {},
+      "kept": {},
+      "killed": {
+        "mean": 19.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "killers": {},
+      "mission": "combat",
+      "pair": "",
+      "party": 1,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reasons": {},
+      "reward": {
+        "books": 0.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 75.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 1.0,
+        "stones": 1.0
+      },
+      "reward_items": {
+        "mean": 2.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 517.4,
+        "n": 2,
+        "sd": 36.953
+      },
+      "time_win": {
+        "mean": 517.4,
+        "n": 2,
+        "sd": 36.953
+      },
+      "variant": "tactico",
+      "win_rate": 1.0
+    },
+    {
+      "bot": {
+        "camps": 0.5,
+        "commands": 6.0,
+        "dashes": 66.0,
+        "pings": 128.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 21.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 1692.0,
+            "n": 2,
+            "sd": 906.511
+          },
+          "deaths": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 818.5,
+            "n": 2,
+            "sd": 523.966
+          },
+          "kills": {
+            "mean": 11.5,
+            "n": 2,
+            "sd": 7.778
+          },
+          "taken": {
+            "mean": 913.5,
+            "n": 2,
+            "sd": 467.398
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 1792.0,
+            "n": 2,
+            "sd": 84.853
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 13.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 29.5,
+            "n": 2,
+            "sd": 34.648
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 0.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "dims": {},
+      "downs": {
+        "mean": 0.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "floor": 2,
+      "gathered": {
+        "essence": 2.0
+      },
+      "kept": {
+        "essence": 2.0
+      },
+      "killed": {
+        "mean": 25.0,
+        "n": 2,
+        "sd": 7.071
+      },
+      "killers": {
+        "Grunt": 1
+      },
+      "mission": "exploration",
+      "pair": "",
+      "party": 2,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.5,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_cook": 0.5,
+        "syn_flank": 20.5
+      },
+      "reasons": {},
+      "reward": {
+        "books": 1.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 90.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": {
+        "mean": 3.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 817.4,
+        "n": 2,
+        "sd": 307.068
+      },
+      "time_win": {
+        "mean": 817.4,
+        "n": 2,
+        "sd": 307.068
+      },
+      "variant": "tactico",
+      "win_rate": 1.0
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 3.0,
+        "dashes": 18.5,
+        "pings": 44.0,
+        "retreats": 1.5,
+        "revives": 1.0,
+        "skills": 4.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 680.5,
+            "n": 2,
+            "sd": 341.533
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 620.0,
+            "n": 2,
+            "sd": 66.468
+          },
+          "kills": {
+            "mean": 9.0,
+            "n": 2,
+            "sd": 5.657
+          },
+          "taken": {
+            "mean": 529.0,
+            "n": 2,
+            "sd": 25.456
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 751.0,
+            "n": 2,
+            "sd": 132.936
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 7.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 398.0,
+            "n": 2,
+            "sd": 172.534
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 271.5,
+            "n": 2,
+            "sd": 142.128
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 4.5,
+            "n": 2,
+            "sd": 3.536
+          },
+          "taken": {
+            "mean": 218.0,
+            "n": 2,
+            "sd": 46.669
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 2.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 3.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "floor": 3,
+      "gathered": {
+        "essence": 1.5
+      },
+      "kept": {},
+      "killed": {
+        "mean": 21.0,
+        "n": 2,
+        "sd": 9.899
+      },
+      "killers": {
+        "Grunt": 2,
+        "left behind": 2
+      },
+      "mission": "defense",
+      "pair": "",
+      "party": 3,
+      "pista_a": {
+        "arrows_left": 44.5,
+        "camps": 1.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 3.0
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 249.165,
+        "n": 2,
+        "sd": 45.63
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.5,
+        "dashes": 35.5,
+        "pings": 34.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 121.0,
+            "n": 2,
+            "sd": 15.556
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 68.0,
+            "n": 2,
+            "sd": 5.657
+          },
+          "kills": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 212.0,
+            "n": 2,
+            "sd": 8.485
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 421.5,
+            "n": 2,
+            "sd": 147.785
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 172.0,
+            "n": 2,
+            "sd": 0.0
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 1.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 1.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 4,
+      "gathered": {},
+      "kept": {},
+      "killed": {
+        "mean": 3.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "killers": {
+        "Grunt": 2
+      },
+      "mission": "escape",
+      "pair": "",
+      "party": 2,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 1.5
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 190.65,
+        "n": 2,
+        "sd": 24.155
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.0,
+        "dashes": 11.5,
+        "pings": 18.5,
+        "retreats": 63.0,
+        "revives": 0.0,
+        "skills": 0.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 45.0,
+            "n": 2,
+            "sd": 63.64
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 101.5,
+            "n": 2,
+            "sd": 143.543
+          },
+          "kills": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 288.0,
+            "n": 2,
+            "sd": 65.054
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 151.0,
+            "n": 2,
+            "sd": 213.546
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 140.5,
+            "n": 2,
+            "sd": 27.577
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 100.5,
+            "n": 2,
+            "sd": 106.773
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 117.5,
+            "n": 2,
+            "sd": 4.95
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 77.0,
+            "n": 2,
+            "sd": 5.657
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 110.5,
+            "n": 2,
+            "sd": 14.849
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 104.5,
+            "n": 2,
+            "sd": 147.785
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 172.5,
+            "n": 2,
+            "sd": 2.121
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 4.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 4.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 5,
+      "gathered": {
+        "essence": 0.5
+      },
+      "kept": {},
+      "killed": {
+        "mean": 3.0,
+        "n": 2,
+        "sd": 4.243
+      },
+      "killers": {
+        "Grunt": 2,
+        "left behind": 6
+      },
+      "mission": "boss",
+      "pair": "",
+      "party": 5,
+      "pista_a": {
+        "arrows_left": 55.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 2.0,
+        "syn_shared_sight": 1.0
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 101.95,
+        "n": 2,
+        "sd": 85.871
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 1.0,
+        "commands": 3.0,
+        "dashes": 67.0,
+        "pings": 76.5,
+        "retreats": 0.0,
+        "revives": 3.5,
+        "skills": 10.0
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 222.5,
+            "n": 2,
+            "sd": 86.974
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 240.5,
+            "n": 2,
+            "sd": 13.435
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 415.5,
+            "n": 2,
+            "sd": 118.087
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 3.0,
+            "n": 2,
+            "sd": 2.828
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 2.828
+          },
+          "taken": {
+            "mean": 244.0,
+            "n": 2,
+            "sd": 161.22
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 798.5,
+            "n": 2,
+            "sd": 391.03
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 5.0,
+            "n": 2,
+            "sd": 2.828
+          },
+          "taken": {
+            "mean": 208.5,
+            "n": 2,
+            "sd": 47.376
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 2.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 5.5,
+        "n": 2,
+        "sd": 3.536
+      },
+      "floor": 6,
+      "gathered": {
+        "mat_enchanted_cloth": 1.0
+      },
+      "kept": {},
+      "killed": {
+        "mean": 9.0,
+        "n": 2,
+        "sd": 4.243
+      },
+      "killers": {
+        "Grunt": 4
+      },
+      "mission": "rescue",
+      "pair": "",
+      "party": 3,
+      "pista_a": {
+        "arrows_left": 43.0,
+        "camps": 1.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_cook": 1.0,
+        "syn_flank": 1.5
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 494.5,
+        "n": 2,
+        "sd": 203.831
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 25.5,
+        "pings": 36.0,
+        "retreats": 283.5,
+        "revives": 0.5,
+        "skills": 3.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 178.0,
+            "n": 2,
+            "sd": 16.971
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 350.0,
+            "n": 2,
+            "sd": 203.647
+          },
+          "kills": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 369.5,
+            "n": 2,
+            "sd": 152.028
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 666.0,
+            "n": 2,
+            "sd": 212.132
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 4.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 274.0,
+            "n": 2,
+            "sd": 84.853
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 425.5,
+            "n": 2,
+            "sd": 178.898
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 4.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 184.0,
+            "n": 2,
+            "sd": 90.51
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 430.0,
+            "n": 2,
+            "sd": 14.142
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 101.5,
+            "n": 2,
+            "sd": 143.543
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 3.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 3.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "floor": 7,
+      "gathered": {
+        "mat_iron_ore": 0.5,
+        "mat_resonant_crystal": 1.5
+      },
+      "kept": {
+        "mat_iron_ore": 0.5,
+        "mat_resonant_crystal": 1.0
+      },
+      "killed": {
+        "mean": 12.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "killers": {
+        "Grunt": 5,
+        "left behind": 1
+      },
+      "mission": "sabotage",
+      "pair": "",
+      "party": 4,
+      "pista_a": {
+        "arrows_left": 44.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 3.0
+      },
+      "reasons": {
+        "master_lost": 1,
+        "retreat": 1
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 257.15,
+        "n": 2,
+        "sd": 68.193
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 53.5,
+        "pings": 57.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 8.5
+      },
+      "classes": {
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 1068.5,
+            "n": 2,
+            "sd": 900.147
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 7.5,
+            "n": 2,
+            "sd": 7.778
+          },
+          "taken": {
+            "mean": 165.5,
+            "n": 2,
+            "sd": 27.577
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 8,
+      "gathered": {
+        "mat_moon_flower": 1.0,
+        "mat_resonant_crystal": 0.5
+      },
+      "kept": {
+        "mat_moon_flower": 1.0,
+        "mat_resonant_crystal": 0.5
+      },
+      "killed": {
+        "mean": 7.5,
+        "n": 2,
+        "sd": 7.778
+      },
+      "killers": {},
+      "mission": "combat",
+      "pair": "",
+      "party": 1,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reasons": {
+        "master_lost": 1
+      },
+      "reward": {
+        "books": 0.5,
+        "essence": 1.5,
+        "food": 0.0,
+        "gems": 90.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.5,
+        "stones": 1.5
+      },
+      "reward_items": {
+        "mean": 2.0,
+        "n": 2,
+        "sd": 2.828
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 249.265,
+        "n": 2,
+        "sd": 193.273
+      },
+      "time_win": {
+        "mean": 385.93,
+        "n": 1,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.5
+    },
+    {
+      "bot": {
+        "camps": 0.5,
+        "commands": 1.0,
+        "dashes": 8.5,
+        "pings": 15.0,
+        "retreats": 49.5,
+        "revives": 1.0,
+        "skills": 1.0
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 37.5,
+            "n": 2,
+            "sd": 23.335
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 275.5,
+            "n": 2,
+            "sd": 287.792
+          },
+          "kills": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 256.5,
+            "n": 2,
+            "sd": 135.057
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 145.5,
+            "n": 2,
+            "sd": 30.406
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 190.5,
+            "n": 2,
+            "sd": 133.643
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 143.0,
+            "n": 2,
+            "sd": 31.113
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 277.5,
+            "n": 2,
+            "sd": 28.991
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 135.0,
+            "n": 2,
+            "sd": 82.024
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 170.5,
+            "n": 2,
+            "sd": 13.435
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 35.5,
+            "n": 2,
+            "sd": 3.536
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 240.5,
+            "n": 2,
+            "sd": 51.619
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 4.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 5.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "floor": 9,
+      "gathered": {
+        "mat_rune_plate": 1.0
+      },
+      "kept": {},
+      "killed": {
+        "mean": 3.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "killers": {
+        "left behind": 8
+      },
+      "mission": "survival",
+      "pair": "",
+      "party": 5,
+      "pista_a": {
+        "arrows_left": 54.5,
+        "camps": 0.0,
+        "camps_interrupted": 0.5,
+        "combo_finishers": 0.0,
+        "syn_back_to_back": 0.5,
+        "syn_shared_sight": 1.0
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 127.37,
+        "n": 2,
+        "sd": 24.042
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 1.5,
+        "dashes": 22.0,
+        "pings": 29.5,
+        "retreats": 296.0,
+        "revives": 1.5,
+        "skills": 2.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 89.0,
+            "n": 2,
+            "sd": 16.971
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 218.5,
+            "n": 2,
+            "sd": 133.643
+          },
+          "kills": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 334.0,
+            "n": 2,
+            "sd": 93.338
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 405.5,
+            "n": 2,
+            "sd": 74.246
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 215.5,
+            "n": 2,
+            "sd": 86.974
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 166.5,
+            "n": 2,
+            "sd": 45.962
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 257.5,
+            "n": 2,
+            "sd": 75.66
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 275.5,
+            "n": 2,
+            "sd": 96.874
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 109.0,
+            "n": 2,
+            "sd": 9.899
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 155.0,
+            "n": 2,
+            "sd": 14.142
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 21.0,
+            "n": 2,
+            "sd": 29.698
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 4.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 5.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "floor": 10,
+      "gathered": {},
+      "kept": {},
+      "killed": {
+        "mean": 6.5,
+        "n": 2,
+        "sd": 2.121
+      },
+      "killers": {
+        "Grunt": 4,
+        "left behind": 4
+      },
+      "mission": "boss",
+      "pair": "",
+      "party": 5,
+      "pista_a": {
+        "arrows_left": 52.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 6.0,
+        "syn_shared_sight": 1.0
+      },
+      "reasons": {
+        "retreat": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 223.765,
+        "n": 2,
+        "sd": 69.388
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 0.0,
+        "pings": 102.5,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 11.5
+      },
+      "classes": {
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 1656.0,
+            "n": 2,
+            "sd": 347.897
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 17.0,
+            "n": 2,
+            "sd": 4.243
+          },
+          "taken": {
+            "mean": 148.5,
+            "n": 2,
+            "sd": 44.548
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 0.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "floor": 1,
+      "gathered": {},
+      "kept": {},
+      "killed": {
+        "mean": 17.0,
+        "n": 2,
+        "sd": 4.243
+      },
+      "killers": {},
+      "mission": "combat",
+      "pair": "",
+      "party": 1,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reasons": {
+        "master_lost": 1
+      },
+      "reward": {
+        "books": 0.0,
+        "essence": 0.5,
+        "food": 0.0,
+        "gems": 37.5,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 0.5,
+        "stones": 0.5
+      },
+      "reward_items": {
+        "mean": 1.5,
+        "n": 2,
+        "sd": 2.121
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 440.05,
+        "n": 2,
+        "sd": 58.096
+      },
+      "time_win": {
+        "mean": 481.13,
+        "n": 1,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.5
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 10.0,
+        "dashes": 0.0,
+        "pings": 194.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 20.0
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 1493.0,
+            "n": 2,
+            "sd": 222.032
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 1087.5,
+            "n": 2,
+            "sd": 88.388
+          },
+          "kills": {
+            "mean": 8.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 896.5,
+            "n": 2,
+            "sd": 3.536
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 2536.5,
+            "n": 2,
+            "sd": 120.915
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 20.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 243.5,
+            "n": 2,
+            "sd": 132.229
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 2,
+      "gathered": {
+        "essence": 1.5
+      },
+      "kept": {
+        "essence": 1.5
+      },
+      "killed": {
+        "mean": 29.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "killers": {},
+      "mission": "exploration",
+      "pair": "",
+      "party": 2,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reasons": {},
+      "reward": {
+        "books": 1.0,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 90.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": {
+        "mean": 3.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 979.735,
+        "n": 2,
+        "sd": 247.254
+      },
+      "time_win": {
+        "mean": 979.735,
+        "n": 2,
+        "sd": 247.254
+      },
+      "variant": "loco",
+      "win_rate": 1.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 29.5,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 373.5,
+            "n": 2,
+            "sd": 48.79
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 413.5,
+            "n": 2,
+            "sd": 79.903
+          },
+          "kills": {
+            "mean": 6.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 420.0,
+            "n": 2,
+            "sd": 9.899
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 714.5,
+            "n": 2,
+            "sd": 70.004
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 6.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 200.0,
+            "n": 2,
+            "sd": 38.184
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 283.0,
+            "n": 2,
+            "sd": 108.894
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 4.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 215.5,
+            "n": 2,
+            "sd": 58.69
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 2.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 2.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 3,
+      "gathered": {
+        "essence": 1.0
+      },
+      "kept": {},
+      "killed": {
+        "mean": 16.0,
+        "n": 2,
+        "sd": 2.828
+      },
+      "killers": {
+        "left behind": 4
+      },
+      "mission": "defense",
+      "pair": "",
+      "party": 3,
+      "pista_a": {
+        "arrows_left": 44.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_back_to_back": 0.5
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 188.135,
+        "n": 2,
+        "sd": 13.527
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.5,
+        "dashes": 0.0,
+        "pings": 46.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 5.0
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 440.5,
+            "n": 2,
+            "sd": 208.597
+          },
+          "deaths": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 465.5,
+            "n": 2,
+            "sd": 54.447
+          },
+          "kills": {
+            "mean": 3.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 364.0,
+            "n": 2,
+            "sd": 91.924
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 606.0,
+            "n": 2,
+            "sd": 130.108
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 3.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 292.5,
+            "n": 2,
+            "sd": 136.472
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 0.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "dims": {},
+      "downs": {
+        "mean": 0.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "floor": 4,
+      "gathered": {},
+      "kept": {},
+      "killed": {
+        "mean": 7.0,
+        "n": 2,
+        "sd": 2.828
+      },
+      "killers": {
+        "left behind": 1
+      },
+      "mission": "escape",
+      "pair": "",
+      "party": 2,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 1.5
+      },
+      "reasons": {
+        "master_lost": 1
+      },
+      "reward": {
+        "books": 0.5,
+        "essence": 1.0,
+        "food": 0.0,
+        "gems": 60.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 1.5,
+        "stones": 1.0
+      },
+      "reward_items": {
+        "mean": 1.5,
+        "n": 2,
+        "sd": 2.121
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 205.1,
+        "n": 2,
+        "sd": 117.945
+      },
+      "time_win": {
+        "mean": 288.5,
+        "n": 1,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.5
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 4.0,
+        "dashes": 0.0,
+        "pings": 52.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 5.0
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 120.5,
+            "n": 2,
+            "sd": 122.329
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 333.5,
+            "n": 2,
+            "sd": 234.052
+          },
+          "kills": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 255.5,
+            "n": 2,
+            "sd": 61.518
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 321.5,
+            "n": 2,
+            "sd": 279.307
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 235.5,
+            "n": 2,
+            "sd": 94.045
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 265.0,
+            "n": 2,
+            "sd": 200.818
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 247.5,
+            "n": 2,
+            "sd": 111.016
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 473.5,
+            "n": 2,
+            "sd": 415.072
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 317.0,
+            "n": 2,
+            "sd": 220.617
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 516.0,
+            "n": 2,
+            "sd": 206.475
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 4.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 175.0,
+            "n": 2,
+            "sd": 5.657
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 4.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 6.5,
+        "n": 2,
+        "sd": 2.121
+      },
+      "floor": 5,
+      "gathered": {
+        "essence": 1.0,
+        "mat_enchanted_cloth": 0.5
+      },
+      "kept": {},
+      "killed": {
+        "mean": 12.0,
+        "n": 2,
+        "sd": 8.485
+      },
+      "killers": {
+        "left behind": 8
+      },
+      "mission": "boss",
+      "pair": "",
+      "party": 5,
+      "pista_a": {
+        "arrows_left": 53.5,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 5.0,
+        "syn_shared_sight": 1.0,
+        "syn_trap_sense": 0.5
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 292.22,
+        "n": 2,
+        "sd": 220.122
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.0,
+        "dashes": 0.0,
+        "pings": 31.5,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 163.0,
+            "n": 2,
+            "sd": 33.941
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 131.0,
+            "n": 2,
+            "sd": 1.414
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 230.0,
+            "n": 2,
+            "sd": 94.752
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 125.0,
+            "n": 2,
+            "sd": 7.071
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 357.5,
+            "n": 2,
+            "sd": 68.589
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 177.0,
+            "n": 2,
+            "sd": 8.485
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 2.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 2.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 6,
+      "gathered": {},
+      "kept": {},
+      "killed": {
+        "mean": 3.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "killers": {
+        "left behind": 4
+      },
+      "mission": "rescue",
+      "pair": "",
+      "party": 3,
+      "pista_a": {
+        "arrows_left": 43.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 1.5
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 158.1,
+        "n": 2,
+        "sd": 22.769
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 3.0,
+        "dashes": 0.0,
+        "pings": 38.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 173.5,
+            "n": 2,
+            "sd": 21.92
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 232.0,
+            "n": 2,
+            "sd": 53.74
+          },
+          "kills": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 2.121
+          },
+          "taken": {
+            "mean": 182.5,
+            "n": 2,
+            "sd": 20.506
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 653.0,
+            "n": 2,
+            "sd": 19.799
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 6.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 221.0,
+            "n": 2,
+            "sd": 9.899
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 386.0,
+            "n": 2,
+            "sd": 31.113
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 313.5,
+            "n": 2,
+            "sd": 78.489
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 493.0,
+            "n": 2,
+            "sd": 76.368
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 210.5,
+            "n": 2,
+            "sd": 48.79
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 3.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 3.5,
+        "n": 2,
+        "sd": 2.121
+      },
+      "floor": 7,
+      "gathered": {
+        "mat_iron_ore": 0.5,
+        "mat_resonant_crystal": 1.5
+      },
+      "kept": {},
+      "killed": {
+        "mean": 13.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "killers": {
+        "left behind": 6
+      },
+      "mission": "sabotage",
+      "pair": "",
+      "party": 4,
+      "pista_a": {
+        "arrows_left": 54.5,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_back_to_back": 1.0,
+        "syn_flank": 2.0
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 362.6,
+        "n": 2,
+        "sd": 95.558
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 0.0,
+        "dashes": 0.0,
+        "pings": 20.5,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 1.5
+      },
+      "classes": {
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 314.5,
+            "n": 2,
+            "sd": 24.749
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 179.0,
+            "n": 2,
+            "sd": 1.414
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "floor": 8,
+      "gathered": {
+        "mat_moon_flower": 0.5
+      },
+      "kept": {},
+      "killed": {
+        "mean": 1.5,
+        "n": 2,
+        "sd": 0.707
+      },
+      "killers": {},
+      "mission": "combat",
+      "pair": "",
+      "party": 1,
+      "pista_a": {
+        "arrows_left": 0.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 73.82,
+        "n": 2,
+        "sd": 0.071
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 2.5,
+        "dashes": 0.0,
+        "pings": 31.5,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 2.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 180.5,
+            "n": 2,
+            "sd": 37.477
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 408.0,
+            "n": 2,
+            "sd": 118.794
+          },
+          "kills": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 167.5,
+            "n": 2,
+            "sd": 47.376
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 420.0,
+            "n": 2,
+            "sd": 28.284
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 201.0,
+            "n": 2,
+            "sd": 56.569
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 236.5,
+            "n": 2,
+            "sd": 161.927
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 428.0,
+            "n": 2,
+            "sd": 264.458
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 382.5,
+            "n": 2,
+            "sd": 156.271
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 4.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 207.5,
+            "n": 2,
+            "sd": 65.761
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 254.0,
+            "n": 2,
+            "sd": 192.333
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 357.5,
+            "n": 2,
+            "sd": 238.295
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 4.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 6.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "floor": 9,
+      "gathered": {
+        "mat_rune_plate": 1.5
+      },
+      "kept": {},
+      "killed": {
+        "mean": 10.5,
+        "n": 2,
+        "sd": 2.121
+      },
+      "killers": {
+        "left behind": 8
+      },
+      "mission": "survival",
+      "pair": "",
+      "party": 5,
+      "pista_a": {
+        "arrows_left": 53.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 2.5,
+        "syn_shared_sight": 1.0
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 198.185,
+        "n": 2,
+        "sd": 3.797
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "camps": 0.0,
+        "commands": 4.0,
+        "dashes": 0.0,
+        "pings": 60.5,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.5
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 205.0,
+            "n": 2,
+            "sd": 97.581
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 368.5,
+            "n": 2,
+            "sd": 419.314
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 316.0,
+            "n": 2,
+            "sd": 151.321
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 685.0,
+            "n": 2,
+            "sd": 253.144
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "taken": {
+            "mean": 180.5,
+            "n": 2,
+            "sd": 33.234
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 308.5,
+            "n": 2,
+            "sd": 33.234
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 206.0,
+            "n": 2,
+            "sd": 33.941
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 480.0,
+            "n": 2,
+            "sd": 254.558
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.5,
+            "n": 2,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 1.414
+          },
+          "taken": {
+            "mean": 301.0,
+            "n": 2,
+            "sd": 164.049
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 485.0,
+            "n": 2,
+            "sd": 154.149
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.0,
+            "n": 2,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 237.0,
+            "n": 2,
+            "sd": 76.368
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 4.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 5.0,
+        "n": 2,
+        "sd": 1.414
+      },
+      "floor": 10,
+      "gathered": {},
+      "kept": {},
+      "killed": {
+        "mean": 9.5,
+        "n": 2,
+        "sd": 3.536
+      },
+      "killers": {
+        "left behind": 8
+      },
+      "mission": "boss",
+      "pair": "",
+      "party": 5,
+      "pista_a": {
+        "arrows_left": 49.0,
+        "camps": 0.0,
+        "camps_interrupted": 0.0,
+        "combo_finishers": 0.0,
+        "syn_flank": 21.0,
+        "syn_shared_sight": 1.0
+      },
+      "reasons": {
+        "master_lost": 2
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 2,
+        "sd": 0.0
+      },
+      "runs": 2,
+      "style": "loco",
+      "sweep": {},
+      "time": {
+        "mean": 270.585,
+        "n": 2,
+        "sd": 25.576
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "loco",
+      "win_rate": 0.0
+    }
+  ],
+  "variants": [
+    {
+      "config": {
+        "alerts": {
+          "impossible": 0.1,
+          "trivial": 0.95
+        },
+        "bot": {
+          "aim_error_mult": 1.0,
+          "camp": true,
+          "camp_below": 0.55,
+          "engage": 320.0,
+          "gather": true,
+          "knows_map": false,
+          "ping_every": -1.0,
+          "regroup_wait": 3.0,
+          "retreat_hp": 0.3,
+          "retreat_standing": 1,
+          "revive": true,
+          "style": "tactical",
+          "think_every": 0.25,
+          "use_commands": true,
+          "use_skills": true
+        },
+        "enemies": {
+          "count": 1.0,
+          "damage": 1.0,
+          "hp": 1.0
+        },
+        "floors": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "gear_seed": 1,
+        "gear_style": "mix",
+        "max_time": 1200.0,
+        "name": "floors1-10_kit_blanco",
+        "overrides": {},
+        "party": [
+          {
+            "class": "warrior",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "master": true
+          },
+          {
+            "class": "cleric",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "ranger",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "mage",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "rogue",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          }
+        ],
+        "party_seed": 1,
+        "progress": "",
+        "runs": 2,
+        "seed": 2000.0,
+        "tick_hz": 30
+      },
+      "dims": {},
+      "label": "tactico",
+      "pair": "",
+      "sweep": {}
+    },
+    {
+      "config": {
+        "alerts": {
+          "impossible": 0.1,
+          "trivial": 0.95
+        },
+        "bot": {
+          "aim_error_mult": 1.0,
+          "camp": true,
+          "camp_below": 0.55,
+          "engage": 320.0,
+          "gather": true,
+          "knows_map": false,
+          "ping_every": -1.0,
+          "regroup_wait": 3.0,
+          "retreat_hp": 0.3,
+          "retreat_standing": 1,
+          "revive": true,
+          "style": "loco",
+          "think_every": 0.25,
+          "use_commands": true,
+          "use_skills": true
+        },
+        "enemies": {
+          "count": 1.0,
+          "damage": 1.0,
+          "hp": 1.0
+        },
+        "floors": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "gear_seed": 1,
+        "gear_style": "mix",
+        "max_time": 1200.0,
+        "name": "floors1-10_kit_blanco",
+        "overrides": {},
+        "party": [
+          {
+            "class": "warrior",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "master": true
+          },
+          {
+            "class": "cleric",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "ranger",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "mage",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "rogue",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          }
+        ],
+        "party_seed": 1,
+        "progress": "",
+        "runs": 2,
+        "seed": 2000.0,
+        "tick_hz": 30
+      },
+      "dims": {},
+      "label": "loco",
+      "pair": "",
+      "sweep": {}
+    }
+  ]
+}

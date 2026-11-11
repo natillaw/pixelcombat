@@ -1,0 +1,11 @@
+# Keep the context small and fast. Same syntax as .gitignore.
+.godot/
+*.zip
+*.png
+*.import
+CONTEXT_BUNDLE.md
+tools/last_test_run.txt
+
+docs/archive/
+assets/
+audit/AUDIT_FINDINGS.json

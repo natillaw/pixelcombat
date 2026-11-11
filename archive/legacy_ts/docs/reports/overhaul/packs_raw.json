@@ -1,0 +1,2566 @@
+{
+ "Armor[16x16].zip": {
+  "pngs": 1,
+  "common_sizes": [
+   [
+    [
+     128,
+     96
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": []
+ },
+ "CharGen_v0.9.3.zip": {
+  "pngs": 0,
+  "common_sizes": [],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": []
+ },
+ "RPG Icons.zip": {
+  "pngs": 400,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    400
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 400,
+  "license": []
+ },
+ "craftpix-780987-free-rpg-loot-icons-pixel-art.zip": {
+  "pngs": 96,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    96
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 96,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-881716-free-pixel-art-sci-fi-icons-pack.zip": {
+  "pngs": 20,
+  "common_sizes": [
+   [
+    [
+     128,
+     128
+    ],
+    20
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/viper.font"
+   ]
+  ]
+ },
+ "craftpix-net-106469-top-down-crystals-pixel-art.zip": {
+  "pngs": 165,
+  "common_sizes": [
+   [
+    [
+     64,
+     64
+    ],
+    79
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    40
+   ],
+   [
+    [
+     16,
+     16
+    ],
+    40
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 160,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-127812-free-clothing-32x32-pixel-icons.zip": {
+  "pngs": 41,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    40
+   ],
+   [
+    [
+     1840,
+     1148
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 40,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-141354-free-top-down-bushes-pixel-art.zip": {
+  "pngs": 165,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    68
+   ],
+   [
+    [
+     16,
+     16
+    ],
+    56
+   ],
+   [
+    [
+     64,
+     64
+    ],
+    36
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 160,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-160005-free-ruined-temple-top-down-location-pixel-art.zip": {
+  "pngs": 163,
+  "common_sizes": [
+   [
+    [
+     384,
+     128
+    ],
+    48
+   ],
+   [
+    [
+     192,
+     128
+    ],
+    26
+   ],
+   [
+    [
+     96,
+     32
+    ],
+    11
+   ]
+  ],
+  "tilesets": [
+   [
+    "Tiles_exterior.png",
+    [
+     432,
+     256
+    ]
+   ],
+   [
+    "Spots.png",
+    [
+     336,
+     128
+    ]
+   ],
+   [
+    "Discoverer2_exploring_without_shadow.png",
+    [
+     160,
+     64
+    ]
+   ],
+   [
+    "Discoverer1_writing.png",
+    [
+     192,
+     48
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 8,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;6a2bde19;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-168228-free-tree-pixel-art-asset-pack.zip": {
+  "pngs": 71,
+  "common_sizes": [
+   [
+    [
+     41,
+     48
+    ],
+    2
+   ],
+   [
+    [
+     178,
+     206
+    ],
+    1
+   ],
+   [
+    [
+     24,
+     44
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 24,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-169442-free-2d-top-down-pixel-dungeon-asset-pack.zip": {
+  "pngs": 23,
+  "common_sizes": [
+   [
+    [
+     128,
+     512
+    ],
+    2
+   ],
+   [
+    [
+     176,
+     288
+    ],
+    2
+   ],
+   [
+    [
+     96,
+     192
+    ],
+    2
+   ]
+  ],
+  "tilesets": [
+   [
+    "decorative_cracks_walls.png",
+    [
+     128,
+     512
+    ]
+   ],
+   [
+    "doors_lever_chest_animation.png",
+    [
+     160,
+     240
+    ]
+   ],
+   [
+    "decorative_cracks_coasts_animation.png",
+    [
+     304,
+     400
+    ]
+   ],
+   [
+    "Objects.png",
+    [
+     384,
+     144
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 0,
+  "license": [
+   [
+    "license.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-189780-free-top-down-pixel-art-guild-hall-asset-pack.zip": {
+  "pngs": 101,
+  "common_sizes": [
+   [
+    [
+     448,
+     208
+    ],
+    16
+   ],
+   [
+    [
+     384,
+     128
+    ],
+    14
+   ],
+   [
+    [
+     128,
+     128
+    ],
+    12
+   ]
+  ],
+  "tilesets": [
+   [
+    "Attacked_Manequin3_without_shadow.png",
+    [
+     128,
+     128
+    ]
+   ],
+   [
+    "Decorative_cracks.png",
+    [
+     304,
+     240
+    ]
+   ],
+   [
+    "Talking_person1_without_shadow.png",
+    [
+     384,
+     32
+    ]
+   ],
+   [
+    "Walls_street.png",
+    [
+     336,
+     288
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 10,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;695b7df3;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-200380-free-pixel-art-plants-for-farm.zip": {
+  "pngs": 3,
+  "common_sizes": [
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ],
+   [
+    [
+     288,
+     224
+    ],
+    1
+   ],
+   [
+    [
+     768,
+     432
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "license.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-208004-free-vampire-4-direction-pixel-character-sprite-pack.zip": {
+  "pngs": 195,
+  "common_sizes": [
+   [
+    [
+     256,
+     256
+    ],
+    60
+   ],
+   [
+    [
+     704,
+     256
+    ],
+    39
+   ],
+   [
+    [
+     768,
+     256
+    ],
+    33
+   ]
+  ],
+  "tilesets": [
+   [
+    "Vampires2_Attack_without_shadow.png",
+    [
+     768,
+     256
+    ]
+   ],
+   [
+    "Vampires2_Idle_head.png",
+    [
+     256,
+     256
+    ]
+   ],
+   [
+    "Vampires1_Hurt_red.png",
+    [
+     256,
+     256
+    ]
+   ],
+   [
+    "Vampires3_Idle_body.png",
+    [
+     256,
+     256
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 8,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000}\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0015com.apple.quarantine\u0000q/0081;6899df23;Opera;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-218281-free-pixel-art-dungeon-objects-asset-pack.zip": {
+  "pngs": 15,
+  "common_sizes": [
+   [
+    [
+     1840,
+     2445
+    ],
+    2
+   ],
+   [
+    [
+     1008,
+     128
+    ],
+    2
+   ],
+   [
+    [
+     352,
+     112
+    ],
+    1
+   ]
+  ],
+  "tilesets": [
+   [
+    "Other_objects.png",
+    [
+     368,
+     128
+    ]
+   ],
+   [
+    "fire_trap.png",
+    [
+     1008,
+     128
+    ]
+   ],
+   [
+    "trap_saw.png",
+    [
+     416,
+     272
+    ]
+   ],
+   [
+    "supplies_objects.png",
+    [
+     240,
+     592
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;67c93b03;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-253495-free-paint-pixel-art-icon-pack.zip": {
+  "pngs": 96,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    96
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 96,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-255216-free-basic-pixel-art-ui-for-rpg.zip": {
+  "pngs": 20,
+  "common_sizes": [
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ],
+   [
+    [
+     384,
+     208
+    ],
+    1
+   ],
+   [
+    [
+     192,
+     96
+    ],
+    1
+   ]
+  ],
+  "tilesets": [
+   [
+    "Main_tiles.png",
+    [
+     384,
+     304
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;68e85be2;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-256745-free-summer-pixel-art-backgrounds.zip": {
+  "pngs": 41,
+  "common_sizes": [
+   [
+    [
+     576,
+     324
+    ],
+    32
+   ],
+   [
+    [
+     2304,
+     1296
+    ],
+    8
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-266622-free-top-down-pixel-art-cave-objects.zip": {
+  "pngs": 103,
+  "common_sizes": [
+   [
+    [
+     64,
+     64
+    ],
+    44
+   ],
+   [
+    [
+     128,
+     128
+    ],
+    31
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    14
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 62,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-284465-free-predator-plant-mobs-pixel-art-pack.zip": {
+  "pngs": 189,
+  "common_sizes": [
+   [
+    [
+     448,
+     256
+    ],
+    33
+   ],
+   [
+    [
+     320,
+     256
+    ],
+    33
+   ],
+   [
+    [
+     640,
+     256
+    ],
+    33
+   ]
+  ],
+  "tilesets": [
+   [
+    "Plant3_Death_body.png",
+    [
+     640,
+     256
+    ]
+   ],
+   [
+    "Plant3_Run_head.png",
+    [
+     512,
+     256
+    ]
+   ],
+   [
+    "Plant1_Walk_without_shadow.png",
+    [
+     384,
+     256
+    ]
+   ],
+   [
+    "Plant2_Hurt_red.png",
+    [
+     320,
+     256
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 4,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000}\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0015com.apple.quarantine\u0000q/0081;6899df23;Opera;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-291971-free-top-down-animals-farm-pixel-art-sprites.zip": {
+  "pngs": 49,
+  "common_sizes": [
+   [
+    [
+     192,
+     256
+    ],
+    20
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    10
+   ],
+   [
+    [
+     384,
+     512
+    ],
+    8
+   ]
+  ],
+  "tilesets": [
+   [
+    "turkey_shadow.png",
+    [
+     32,
+     32
+    ]
+   ],
+   [
+    "chick_shadow.png",
+    [
+     16,
+     16
+    ]
+   ],
+   [
+    "Bull_animation_without_shadow.png",
+    [
+     384,
+     512
+    ]
+   ],
+   [
+    "Calf_animation_with_shadow.png",
+    [
+     384,
+     512
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 16,
+  "license": [
+   [
+    "license.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-363992-free-top-down-orc-game-character-pixel-art.zip": {
+  "pngs": 336,
+  "common_sizes": [
+   [
+    [
+     512,
+     256
+    ],
+    166
+   ],
+   [
+    [
+     384,
+     256
+    ],
+    124
+   ],
+   [
+    [
+     256,
+     256
+    ],
+    37
+   ]
+  ],
+  "tilesets": [
+   [
+    "orc2_walk_attack_orc2_walk_attack_swing.png",
+    [
+     384,
+     256
+    ]
+   ],
+   [
+    "orc2_death_sword_front.png",
+    [
+     512,
+     256
+    ]
+   ],
+   [
+    "orc2_attack_head.png",
+    [
+     512,
+     256
+    ]
+   ],
+   [
+    "orc1_run_without_shadow.png",
+    [
+     512,
+     256
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 4,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000}\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0015com.apple.quarantine\u0000q/0081;6899df23;Opera;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-385863-free-top-down-trees-pixel-art.zip": {
+  "pngs": 165,
+  "common_sizes": [
+   [
+    [
+     64,
+     64
+    ],
+    79
+   ],
+   [
+    [
+     128,
+     128
+    ],
+    53
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    20
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 107,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-477438-free-chapel-pixel-art-top-down-asset-pack.zip": {
+  "pngs": 240,
+  "common_sizes": [
+   [
+    [
+     96,
+     96
+    ],
+    57
+   ],
+   [
+    [
+     96,
+     64
+    ],
+    42
+   ],
+   [
+    [
+     384,
+     128
+    ],
+    32
+   ]
+  ],
+  "tilesets": [
+   [
+    "Statues.png",
+    [
+     336,
+     80
+    ]
+   ],
+   [
+    "Mon4k_Pray.png",
+    [
+     384,
+     128
+    ]
+   ],
+   [
+    "Candles.png",
+    [
+     96,
+     96
+    ]
+   ],
+   [
+    "Decorative_cracks.png",
+    [
+     304,
+     240
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 13,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;69a80722;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-495817-free-swordsman-skills-pixel-art-icons.zip": {
+  "pngs": 48,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    48
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 48,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-504452-free-village-pixel-tileset-for-top-down-defense.zip": {
+  "pngs": 187,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    128
+   ],
+   [
+    [
+     23,
+     21
+    ],
+    4
+   ],
+   [
+    [
+     256,
+     256
+    ],
+    3
+   ]
+  ],
+  "tilesets": [
+   [
+    "FieldsTileset.png",
+    [
+     256,
+     256
+    ]
+   ],
+   [
+    "FieldsTilesetTest.png",
+    [
+     256,
+     256
+    ]
+   ],
+   [
+    "FieldsTile_01.png",
+    [
+     32,
+     32
+    ]
+   ],
+   [
+    "FieldsTile_02.png",
+    [
+     32,
+     32
+    ]
+   ]
+  ],
+  "grid_guess": 32,
+  "small_icons": 170,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-505052-free-forest-objects-top-down-pixel-art.zip": {
+  "pngs": 82,
+  "common_sizes": [
+   [
+    [
+     128,
+     128
+    ],
+    42
+   ],
+   [
+    [
+     64,
+     64
+    ],
+    24
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    10
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 34,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-547388-32x32-pixel-art-weapons-free-collection.zip": {
+  "pngs": 71,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    70
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 70,
+  "license": [
+   [
+    "license.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._license.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000}\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0015com.apple.quarantine\u0000q/0081;6915982e;Opera;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-558275-free-sky-with-clouds-background-pixel-art-set.zip": {
+  "pngs": 38,
+  "common_sizes": [
+   [
+    [
+     576,
+     324
+    ],
+    37
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-574220-free-path-and-road-top-down-pixel-tileset.zip": {
+  "pngs": 17,
+  "common_sizes": [
+   [
+    [
+     240,
+     416
+    ],
+    9
+   ],
+   [
+    [
+     240,
+     480
+    ],
+    6
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [
+   [
+    "Road4_ground.png",
+    [
+     240,
+     480
+    ]
+   ],
+   [
+    "Road1_grass.png",
+    [
+     240,
+     416
+    ]
+   ],
+   [
+    "Road1_ground.png",
+    [
+     240,
+     416
+    ]
+   ],
+   [
+    "Ground_grass.png",
+    [
+     272,
+     496
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 0,
+  "license": [
+   [
+    "license.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-639143-free-rocky-area-objects-pixel-art.zip": {
+  "pngs": 83,
+  "common_sizes": [
+   [
+    [
+     128,
+     128
+    ],
+    32
+   ],
+   [
+    [
+     64,
+     64
+    ],
+    28
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    15
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 43,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-654184-main-characters-home-free-top-down-pixel-art-asset.zip": {
+  "pngs": 22,
+  "common_sizes": [
+   [
+    [
+     336,
+     288
+    ],
+    2
+   ],
+   [
+    [
+     432,
+     1024
+    ],
+    2
+   ],
+   [
+    [
+     288,
+     48
+    ],
+    2
+   ]
+  ],
+  "tilesets": [
+   [
+    "Interior.png",
+    [
+     224,
+     432
+    ]
+   ],
+   [
+    "ground_grass_details.png",
+    [
+     336,
+     288
+    ]
+   ],
+   [
+    "bird_fly_animation.png",
+    [
+     432,
+     1024
+    ]
+   ],
+   [
+    "exterior.png",
+    [
+     272,
+     912
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 0,
+  "license": []
+ },
+ "craftpix-net-665895-free-pixel-dungeon-props-and-objects-asset-pack.zip": {
+  "pngs": 21,
+  "common_sizes": [
+   [
+    [
+     576,
+     48
+    ],
+    4
+   ],
+   [
+    [
+     160,
+     640
+    ],
+    2
+   ],
+   [
+    [
+     592,
+     192
+    ],
+    2
+   ]
+  ],
+  "tilesets": [
+   [
+    "Bomb.png",
+    [
+     576,
+     48
+    ]
+   ],
+   [
+    "Cannon_main.png",
+    [
+     160,
+     640
+    ]
+   ],
+   [
+    "Arrow.png",
+    [
+     592,
+     192
+    ]
+   ],
+   [
+    "scull.png",
+    [
+     96,
+     144
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;681a5976;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-668008-free-bridges-top-down-pixel-art-asset-pack.zip": {
+  "pngs": 15,
+  "common_sizes": [
+   [
+    [
+     688,
+     192
+    ],
+    13
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ],
+   [
+    [
+     656,
+     672
+    ],
+    1
+   ]
+  ],
+  "tilesets": [
+   [
+    "Bridges.png",
+    [
+     656,
+     672
+    ]
+   ],
+   [
+    "Water_animation9.png",
+    [
+     688,
+     192
+    ]
+   ],
+   [
+    "Water_animation8.png",
+    [
+     688,
+     192
+    ]
+   ],
+   [
+    "Water_animation.png",
+    [
+     688,
+     192
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;68b03640;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-675652-free-rocks-pixel-art-asset-pack.zip": {
+  "pngs": 41,
+  "common_sizes": [
+   [
+    [
+     119,
+     157
+    ],
+    1
+   ],
+   [
+    [
+     85,
+     123
+    ],
+    1
+   ],
+   [
+    [
+     46,
+     66
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 14,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-688754-free-minerals-pixel-art-icons.zip": {
+  "pngs": 96,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    96
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 96,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-692491-free-glassblowers-workshop-top-down-pixel-art-asset.zip": {
+  "pngs": 46,
+  "common_sizes": [
+   [
+    [
+     384,
+     32
+    ],
+    6
+   ],
+   [
+    [
+     384,
+     480
+    ],
+    6
+   ],
+   [
+    [
+     768,
+     80
+    ],
+    4
+   ]
+  ],
+  "tilesets": [
+   [
+    "Light_animation.png",
+    [
+     128,
+     288
+    ]
+   ],
+   [
+    "Decorative_cracks.png",
+    [
+     304,
+     240
+    ]
+   ],
+   [
+    "Walls_street.png",
+    [
+     336,
+     288
+    ]
+   ],
+   [
+    "Master_Idle_shadow.png",
+    [
+     64,
+     48
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 6,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;695a2a8d;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-694865-free-top-down-seabed-objects-pixel-art.zip": {
+  "pngs": 242,
+  "common_sizes": [
+   [
+    [
+     64,
+     64
+    ],
+    54
+   ],
+   [
+    [
+     128,
+     128
+    ],
+    30
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    21
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 150,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-695666-free-undead-tileset-top-down-pixel-art.zip": {
+  "pngs": 262,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    103
+   ],
+   [
+    [
+     64,
+     64
+    ],
+    89
+   ],
+   [
+    [
+     128,
+     128
+    ],
+    30
+   ]
+  ],
+  "tilesets": [
+   [
+    "details.png",
+    [
+     640,
+     224
+    ]
+   ],
+   [
+    "Ground_rocks.png",
+    [
+     416,
+     1392
+    ]
+   ],
+   [
+    "Objects.png",
+    [
+     1200,
+     768
+    ]
+   ],
+   [
+    "Objects_animated.png",
+    [
+     704,
+     624
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 207,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-703342-free-pixel-art-icons-for-mine-location.zip": {
+  "pngs": 80,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    80
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 80,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-724983-ocean-and-clouds-free-pixel-art-backgrounds.zip": {
+  "pngs": 41,
+  "common_sizes": [
+   [
+    [
+     576,
+     324
+    ],
+    32
+   ],
+   [
+    [
+     2304,
+     1296
+    ],
+    8
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-726257-free-halloween-icons-pixel-art.zip": {
+  "pngs": 48,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    48
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 48,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-776320-free-pixel-art-fantasy-2d-battlegrounds.zip": {
+  "pngs": 69,
+  "common_sizes": [
+   [
+    [
+     1920,
+     1080
+    ],
+    68
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-788364-free-slime-mobs-pixel-art-top-down-sprite-pack.zip": {
+  "pngs": 159,
+  "common_sizes": [
+   [
+    [
+     512,
+     256
+    ],
+    42
+   ],
+   [
+    [
+     640,
+     256
+    ],
+    34
+   ],
+   [
+    [
+     320,
+     256
+    ],
+    27
+   ]
+  ],
+  "tilesets": [
+   [
+    "Slime1_Walk_with_shadow.png",
+    [
+     512,
+     256
+    ]
+   ],
+   [
+    "Slime3_Attack_body.png",
+    [
+     576,
+     256
+    ]
+   ],
+   [
+    "Slime1_Run_body.png",
+    [
+     512,
+     256
+    ]
+   ],
+   [
+    "Slime1_Death_without_shadow.png",
+    [
+     640,
+     256
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 4,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000}\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000\u0017\u0000\u0000\u0015com.apple.quarantine\u0000q/0081;6899df23;Opera;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-789196-free-top-down-hunt-animals-pixel-sprite-pack.zip": {
+  "pngs": 114,
+  "common_sizes": [
+   [
+    [
+     192,
+     128
+    ],
+    48
+   ],
+   [
+    [
+     128,
+     128
+    ],
+    40
+   ],
+   [
+    [
+     160,
+     128
+    ],
+    12
+   ]
+  ],
+  "tilesets": [
+   [
+    "Boar_Run.png",
+    [
+     160,
+     128
+    ]
+   ],
+   [
+    "Hare_Idle_with_shadow.png",
+    [
+     128,
+     128
+    ]
+   ],
+   [
+    "Fox_Death_with_shadow.png",
+    [
+     192,
+     128
+    ]
+   ],
+   [
+    "Black_grouse_Walk_with_shadow.png",
+    [
+     192,
+     128
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 4,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;694781a4;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-809047-free-animated-magic-book-pixel-art-asset-pack.zip": {
+  "pngs": 76,
+  "common_sizes": [
+   [
+    [
+     16,
+     16
+    ],
+    20
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    20
+   ],
+   [
+    [
+     384,
+     144
+    ],
+    6
+   ]
+  ],
+  "tilesets": [
+   [
+    "info_tileset.png",
+    [
+     128,
+     336
+    ]
+   ],
+   [
+    "Open_book_bookmarks2.png",
+    [
+     384,
+     144
+    ]
+   ],
+   [
+    "book_content.png",
+    [
+     336,
+     448
+    ]
+   ],
+   [
+    "Open_book_bookmarks1.png",
+    [
+     384,
+     144
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 40,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;69b66023;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-812442-free-fantasy-medieval-village-buildings-asset-pack.zip": {
+  "pngs": 16,
+  "common_sizes": [
+   [
+    [
+     440,
+     580
+    ],
+    4
+   ],
+   [
+    [
+     320,
+     400
+    ],
+    4
+   ],
+   [
+    [
+     340,
+     440
+    ],
+    4
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "license.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-823949-free-nature-backgrounds-pixel-art.zip": {
+  "pngs": 48,
+  "common_sizes": [
+   [
+    [
+     576,
+     324
+    ],
+    40
+   ],
+   [
+    [
+     2304,
+     1296
+    ],
+    7
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 0,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-856304-free-goblin-loot-icons-32x32-pixel-art.zip": {
+  "pngs": 101,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    100
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 100,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-872324-free-belt-rpg-pixel-art-icons.zip": {
+  "pngs": 96,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    96
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 96,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-883583-free-shield-and-amulet-rpg-icons.zip": {
+  "pngs": 96,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    96
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 96,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-909691-free-paladin-pixel-art-skill-icons.zip": {
+  "pngs": 49,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    48
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 48,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-934618-free-top-down-ruins-pixel-art.zip": {
+  "pngs": 165,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    32
+   ],
+   [
+    [
+     48,
+     48
+    ],
+    30
+   ],
+   [
+    [
+     64,
+     64
+    ],
+    24
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 96,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-958568-free-cursed-land-top-down-pixel-art-tileset.zip": {
+  "pngs": 144,
+  "common_sizes": [
+   [
+    [
+     64,
+     64
+    ],
+    56
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    28
+   ],
+   [
+    [
+     128,
+     128
+    ],
+    27
+   ]
+  ],
+  "tilesets": [
+   [
+    "Bridges.png",
+    [
+     416,
+     592
+    ]
+   ],
+   [
+    "details.png",
+    [
+     176,
+     144
+    ]
+   ],
+   [
+    "Ground.png",
+    [
+     640,
+     896
+    ]
+   ],
+   [
+    "Objects.png",
+    [
+     816,
+     1120
+    ]
+   ]
+  ],
+  "grid_guess": 16,
+  "small_icons": 88,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-972304-free-40-loot-icons-pixel-art.zip": {
+  "pngs": 80,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    80
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 80,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ]
+  ]
+ },
+ "craftpix-net-974061-free-rocks-and-stones-top-down-pixel-art.zip": {
+  "pngs": 165,
+  "common_sizes": [
+   [
+    [
+     64,
+     64
+    ],
+    64
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    64
+   ],
+   [
+    [
+     16,
+     16
+    ],
+    32
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 160,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the background of the preview:\r https://www.dafont.com/digital-disco.font"
+   ]
+  ]
+ },
+ "craftpix-net-986554-free-undead-loot-pixel-art-icons.zip": {
+  "pngs": 101,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    100
+   ],
+   [
+    [
+     1840,
+     2445
+    ],
+    1
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 100,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ },
+ "craftpix-net-994534-free-basic-pixel-art-fantasy-icons-16x16-for-ui.zip": {
+  "pngs": 259,
+  "common_sizes": [
+   [
+    [
+     16,
+     16
+    ],
+    135
+   ],
+   [
+    [
+     32,
+     32
+    ],
+    120
+   ],
+   [
+    [
+     384,
+     320
+    ],
+    2
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 255,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "__MACOSX/._License.txt",
+    "\u0000\u0005\u0016\u0007\u0000\u0002\u0000\u0000Mac OS X        \u0000\u0002\u0000\u0000\u0000\t\u0000\u0000\u00002\u0000\u0000\u0000�\u0000\u0000\u0000\u0002\u0000\u0000\u0000�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000ATTR\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000#\u0000\u0000\u0015com.apple.quarantine\u0000q/0082;6a2bd886;The\\x20Unarchiver;\u0000"
+   ]
+  ]
+ },
+ "craftpix-net-996288-free-bow-and-crossbow-pixel-art-icons.zip": {
+  "pngs": 156,
+  "common_sizes": [
+   [
+    [
+     32,
+     32
+    ],
+    156
+   ]
+  ],
+  "tilesets": [],
+  "grid_guess": null,
+  "small_icons": 156,
+  "license": [
+   [
+    "License.txt",
+    "https://craftpix.net/file-licenses/"
+   ],
+   [
+    "readme.txt",
+    "Font that was used for the preview:\r https://www.dafont.com/highway-gothic.font\r Texture that was used for the background of the preview:\r https://texturehaven.com/tex/?t=castle_brick_02_red"
+   ]
+  ]
+ }
+}

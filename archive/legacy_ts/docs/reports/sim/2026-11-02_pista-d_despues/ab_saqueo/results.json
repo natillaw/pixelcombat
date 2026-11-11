@@ -1,0 +1,3188 @@
+{
+  "config": {
+    "compare": [
+      {
+        "bot": {
+          "loot": true,
+          "style": "tactico"
+        },
+        "label": "tactico_saquea"
+      },
+      {
+        "bot": {
+          "loot": false,
+          "style": "tactico"
+        },
+        "label": "tactico_sin_saquear"
+      }
+    ],
+    "floors": [
+      3.0,
+      9.0
+    ],
+    "max_time": 1200.0,
+    "name": "pista-d_ab_loot",
+    "party": [
+      {
+        "class": "warrior",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "master": true
+      },
+      {
+        "class": "cleric",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      },
+      {
+        "class": "ranger",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      },
+      {
+        "class": "mage",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      },
+      {
+        "class": "rogue",
+        "gear": "kit_blanco",
+        "level": 1.0,
+        "stars": 2.0
+      }
+    ],
+    "runs": 5.0,
+    "seed": 2000.0
+  },
+  "name": "pista-d_ab_loot",
+  "overrides_applied": {},
+  "runs": [
+    {
+      "bot": {
+        "commands": 3.0,
+        "dashes": 19.0,
+        "loots": 2.0,
+        "pings": 33.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 3.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 70.0,
+      "first_contact": 43.8,
+      "floor": 3.0,
+      "gathered": {
+        "essence": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 353.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 77.0,
+          "taken": 172.0
+        },
+        {
+          "class": "cleric",
+          "damage": 632.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 770.0,
+          "killed_by": "left behind",
+          "kills": 10.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 796.0
+        },
+        {
+          "class": "ranger",
+          "damage": 736.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 227.0
+        }
+      ],
+      "index": 0.0,
+      "kept": {},
+      "kill_xp": 299.0,
+      "killed": 21.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {
+        "essence": 2.0
+      },
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 249.87,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 55470.45,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 2.0,
+        "dashes": 56.0,
+        "loots": 4.0,
+        "pings": 81.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 10.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 86.0,
+      "first_contact": 48.0,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 1873.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 20.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 255.0,
+          "taken": 252.0
+        },
+        {
+          "class": "cleric",
+          "damage": 518.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 402.0,
+          "killed_by": "Grunt",
+          "kills": 9.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 347.0
+        },
+        {
+          "class": "ranger",
+          "damage": 693.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 7.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 221.0
+        }
+      ],
+      "index": 1.0,
+      "kept": {},
+      "kill_xp": 510.0,
+      "killed": 36.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 2.0,
+        "junk": 0.0,
+        "looted": 3.0,
+        "lost": 2.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 388.8,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 89689.817,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 35.0,
+        "loots": 1.0,
+        "pings": 26.0,
+        "retreats": 0.0,
+        "revives": 1.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 3.0,
+      "enemies": 57.0,
+      "first_contact": 51.5,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 432.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 4.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 172.0
+        },
+        {
+          "class": "cleric",
+          "damage": 141.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 193.0,
+          "killed_by": "Grunt",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 352.0
+        },
+        {
+          "class": "ranger",
+          "damage": 170.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 155.0
+        }
+      ],
+      "index": 2.0,
+      "kept": {},
+      "kill_xp": 96.0,
+      "killed": 8.0,
+      "loot": {
+        "bodies": 1.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 1.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 1.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2002.0,
+      "stash_items": 0.0,
+      "time": 162.6,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 34463.935,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 3.0,
+        "dashes": 21.0,
+        "loots": 5.0,
+        "pings": 31.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 5.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 74.0,
+      "first_contact": 57.9,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 372.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 128.0,
+          "taken": 251.0
+        },
+        {
+          "class": "cleric",
+          "damage": 847.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 745.0,
+          "killed_by": "Grunt",
+          "kills": 8.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 632.0
+        },
+        {
+          "class": "ranger",
+          "damage": 789.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 10.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 318.0
+        }
+      ],
+      "index": 3.0,
+      "kept": {},
+      "kill_xp": 331.0,
+      "killed": 23.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 2.0,
+        "junk": 0.0,
+        "looted": 2.0,
+        "lost": 2.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2003.0,
+      "stash_items": 0.0,
+      "time": 275.07,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 80107.484,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 3.0,
+        "dashes": 23.0,
+        "loots": 3.0,
+        "pings": 33.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 3.0,
+      "enemies": 70.0,
+      "first_contact": 58.4,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 401.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 6.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 285.0
+        },
+        {
+          "class": "cleric",
+          "damage": 734.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 776.0,
+          "killed_by": "Grunt",
+          "kills": 9.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 774.0
+        },
+        {
+          "class": "ranger",
+          "damage": 698.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "Grunt",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 203.0
+        }
+      ],
+      "index": 4.0,
+      "kept": {},
+      "kill_xp": 278.0,
+      "killed": 20.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 2.0,
+        "junk": 1.0,
+        "looted": 2.0,
+        "lost": 2.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2004.0,
+      "stash_items": 0.0,
+      "time": 243.77,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 59760.208,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 12.0,
+        "loots": 2.0,
+        "pings": 17.0,
+        "retreats": 102.0,
+        "revives": 1.0,
+        "skills": 0.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 63.0,
+      "first_contact": 49.4,
+      "floor": 9.0,
+      "gathered": {
+        "mat_rune_plate": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 20.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 0.0,
+          "taken": 283.0
+        },
+        {
+          "class": "cleric",
+          "damage": 21.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 276.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 281.0
+        },
+        {
+          "class": "ranger",
+          "damage": 82.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 298.0
+        },
+        {
+          "class": "mage",
+          "damage": 262.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 238.0
+        },
+        {
+          "class": "rogue",
+          "damage": 74.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 115.0
+        }
+      ],
+      "index": 5.0,
+      "kept": {},
+      "kill_xp": 80.0,
+      "killed": 5.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 1.0,
+        "junk": 1.0,
+        "looted": 1.0,
+        "lost": 1.0
+      },
+      "lost": {
+        "mat_rune_plate": 1.0
+      },
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 131.17,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 44608.367,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 11.0,
+        "loots": 2.0,
+        "pings": 16.0,
+        "retreats": 82.0,
+        "revives": 0.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 64.0,
+      "first_contact": 83.0,
+      "floor": 9.0,
+      "gathered": {
+        "mat_rune_plate": 1.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 73.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 261.0
+        },
+        {
+          "class": "cleric",
+          "damage": 128.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 216.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 311.0
+        },
+        {
+          "class": "ranger",
+          "damage": 110.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 257.0
+        },
+        {
+          "class": "mage",
+          "damage": 134.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 96.0
+        },
+        {
+          "class": "rogue",
+          "damage": 128.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 191.0
+        }
+      ],
+      "index": 6.0,
+      "kept": {},
+      "kill_xp": 65.0,
+      "killed": 3.0,
+      "loot": {
+        "bodies": 1.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {
+        "mat_rune_plate": 1.0
+      },
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 150.43,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 49824.168,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 10.0,
+        "loots": 0.0,
+        "pings": 11.0,
+        "retreats": 62.0,
+        "revives": 2.0,
+        "skills": 0.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 6.0,
+      "enemies": 65.0,
+      "first_contact": 56.6,
+      "floor": 9.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 0.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 0.0,
+          "taken": 261.0
+        },
+        {
+          "class": "cleric",
+          "damage": 0.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 204.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 269.0
+        },
+        {
+          "class": "ranger",
+          "damage": 61.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 337.0
+        },
+        {
+          "class": "mage",
+          "damage": 54.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 92.0
+        },
+        {
+          "class": "rogue",
+          "damage": 38.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 322.0
+        }
+      ],
+      "index": 7.0,
+      "kept": {},
+      "kill_xp": 20.0,
+      "killed": 1.0,
+      "loot": {
+        "bodies": 0.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2002.0,
+      "stash_items": 0.0,
+      "time": 104.33,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 37779.11,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 2.0,
+        "loots": 0.0,
+        "pings": 8.0,
+        "retreats": 50.0,
+        "revives": 1.0,
+        "skills": 0.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 6.0,
+      "enemies": 53.0,
+      "first_contact": 105.4,
+      "floor": 9.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 0.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 0.0,
+          "taken": 208.0
+        },
+        {
+          "class": "cleric",
+          "damage": 0.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 72.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 322.0
+        },
+        {
+          "class": "ranger",
+          "damage": 113.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 161.0
+        },
+        {
+          "class": "mage",
+          "damage": 43.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 161.0
+        },
+        {
+          "class": "rogue",
+          "damage": 56.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 109.0
+        }
+      ],
+      "index": 8.0,
+      "kept": {},
+      "kill_xp": 31.0,
+      "killed": 1.0,
+      "loot": {
+        "bodies": 0.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2003.0,
+      "stash_items": 0.0,
+      "time": 133.1,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 53829.235,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 4.0,
+        "loots": 0.0,
+        "pings": 15.0,
+        "retreats": 27.0,
+        "revives": 1.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 68.0,
+      "first_contact": 40.8,
+      "floor": 9.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 42.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 392.0
+        },
+        {
+          "class": "cleric",
+          "damage": 42.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 144.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 304.0
+        },
+        {
+          "class": "ranger",
+          "damage": 73.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 236.0
+        },
+        {
+          "class": "mage",
+          "damage": 111.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 241.0
+        },
+        {
+          "class": "rogue",
+          "damage": 101.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 120.0
+        }
+      ],
+      "index": 9.0,
+      "kept": {},
+      "kill_xp": 54.0,
+      "killed": 3.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 1.0,
+        "junk": 1.0,
+        "looted": 0.0,
+        "lost": 1.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2004.0,
+      "stash_items": 0.0,
+      "time": 103.03,
+      "unique": "",
+      "variant": "tactico_saquea",
+      "wall_ms": 32092.065,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 3.0,
+        "dashes": 19.0,
+        "loots": 0.0,
+        "pings": 37.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 2.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 3.0,
+      "enemies": 70.0,
+      "first_contact": 43.8,
+      "floor": 3.0,
+      "gathered": {
+        "essence": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 269.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 51.0,
+          "taken": 195.0
+        },
+        {
+          "class": "cleric",
+          "damage": 700.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 797.0,
+          "killed_by": "Grunt",
+          "kills": 11.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 750.0
+        },
+        {
+          "class": "ranger",
+          "damage": 756.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 9.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 313.0
+        }
+      ],
+      "index": 0.0,
+      "kept": {},
+      "kill_xp": 299.0,
+      "killed": 21.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {
+        "essence": 2.0
+      },
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2000.0,
+      "stash_items": 0.0,
+      "time": 245.63,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 55933.901,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 2.0,
+        "dashes": 14.0,
+        "loots": 0.0,
+        "pings": 21.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 0.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 60.0,
+      "first_contact": 48.0,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 96.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 0.0,
+          "taken": 178.0
+        },
+        {
+          "class": "cleric",
+          "damage": 418.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 347.0,
+          "killed_by": "left behind",
+          "kills": 9.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 363.0
+        },
+        {
+          "class": "ranger",
+          "damage": 562.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 250.0
+        }
+      ],
+      "index": 1.0,
+      "kept": {},
+      "kill_xp": 177.0,
+      "killed": 13.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 2.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 2.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 201.3,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 38717.732,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 7.0,
+        "loots": 0.0,
+        "pings": 7.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 2.0,
+      "downs": 2.0,
+      "enemies": 57.0,
+      "first_contact": 51.5,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 65.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 176.0
+        },
+        {
+          "class": "cleric",
+          "damage": 95.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 50.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 150.0
+        },
+        {
+          "class": "ranger",
+          "damage": 219.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 158.0
+        }
+      ],
+      "index": 2.0,
+      "kept": {},
+      "kill_xp": 52.0,
+      "killed": 4.0,
+      "loot": {
+        "bodies": 1.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 1.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 1.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "FAILED",
+      "party": 3.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2002.0,
+      "stash_items": 0.0,
+      "time": 98.5,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 22674.648,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 3.0,
+        "dashes": 6.0,
+        "loots": 0.0,
+        "pings": 20.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 2.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 74.0,
+      "first_contact": 57.9,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 221.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 51.0,
+          "taken": 51.0
+        },
+        {
+          "class": "cleric",
+          "damage": 824.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 729.0,
+          "killed_by": "",
+          "kills": 8.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 628.0
+        },
+        {
+          "class": "ranger",
+          "damage": 754.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 11.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 129.0
+        }
+      ],
+      "index": 3.0,
+      "kept": {},
+      "kill_xp": 305.0,
+      "killed": 21.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 1.0,
+        "items": 2.0,
+        "junk": 0.0,
+        "looted": 1.0,
+        "lost": 1.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "SUCCESS",
+      "party": 3.0,
+      "reason": "",
+      "reward": {
+        "books": 0.0,
+        "essence": 2.0,
+        "food": 0.0,
+        "gems": 105.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2003.0,
+      "stash_items": 4.0,
+      "time": 218.23,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 68050.979,
+      "win": true
+    },
+    {
+      "bot": {
+        "commands": 3.0,
+        "dashes": 7.0,
+        "loots": 0.0,
+        "pings": 31.0,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 4.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 0.0,
+      "enemies": 70.0,
+      "first_contact": 58.4,
+      "floor": 3.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 569.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 9.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 102.0,
+          "taken": 21.0
+        },
+        {
+          "class": "cleric",
+          "damage": 879.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 975.0,
+          "killed_by": "",
+          "kills": 8.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 893.0
+        },
+        {
+          "class": "ranger",
+          "damage": 767.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 9.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 94.0
+        }
+      ],
+      "index": 4.0,
+      "kept": {},
+      "kill_xp": 356.0,
+      "killed": 26.0,
+      "loot": {
+        "bodies": 4.0,
+        "greedy_kept": 0.0,
+        "home": 4.0,
+        "items": 4.0,
+        "junk": 2.0,
+        "looted": 4.0,
+        "lost": 0.0
+      },
+      "lost": {},
+      "mission": "defense",
+      "outcome": "SUCCESS",
+      "party": 3.0,
+      "reason": "",
+      "reward": {
+        "books": 0.0,
+        "essence": 2.0,
+        "food": 0.0,
+        "gems": 105.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 2.0,
+        "stones": 1.0
+      },
+      "reward_items": 3.0,
+      "seed": 2004.0,
+      "stash_items": 7.0,
+      "time": 247.7,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 66673.372,
+      "win": true
+    },
+    {
+      "bot": {
+        "commands": 3.0,
+        "dashes": 1.0,
+        "loots": 0.0,
+        "pings": 23.0,
+        "retreats": 0.0,
+        "revives": 4.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 0.0,
+      "downs": 4.0,
+      "enemies": 68.0,
+      "first_contact": 49.4,
+      "floor": 9.0,
+      "gathered": {
+        "mat_rune_plate": 2.0
+      },
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 138.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 2.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 80.0
+        },
+        {
+          "class": "cleric",
+          "damage": 88.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 528.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 276.0
+        },
+        {
+          "class": "ranger",
+          "damage": 108.0,
+          "dead": false,
+          "downs": 3.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 324.0
+        },
+        {
+          "class": "mage",
+          "damage": 503.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 3.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 52.0
+        },
+        {
+          "class": "rogue",
+          "damage": 259.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 0.0
+        }
+      ],
+      "index": 5.0,
+      "kept": {
+        "mat_rune_plate": 2.0
+      },
+      "kill_xp": 196.0,
+      "killed": 10.0,
+      "loot": {
+        "bodies": 3.0,
+        "greedy_kept": 0.0,
+        "home": 1.0,
+        "items": 2.0,
+        "junk": 1.0,
+        "looted": 1.0,
+        "lost": 1.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "SUCCESS",
+      "party": 5.0,
+      "reason": "",
+      "reward": {
+        "books": 0.0,
+        "essence": 4.0,
+        "food": 0.0,
+        "gems": 195.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 5.0,
+        "stones": 3.0
+      },
+      "reward_items": 5.0,
+      "seed": 2000.0,
+      "stash_items": 6.0,
+      "time": 300.0,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 77866.095,
+      "win": true
+    },
+    {
+      "bot": {
+        "commands": 2.0,
+        "dashes": 9.0,
+        "loots": 0.0,
+        "pings": 25.0,
+        "retreats": 45.0,
+        "revives": 1.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 69.0,
+      "first_contact": 83.0,
+      "floor": 9.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 125.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 253.0
+        },
+        {
+          "class": "cleric",
+          "damage": 161.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 216.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 143.0
+        },
+        {
+          "class": "ranger",
+          "damage": 265.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 341.0
+        },
+        {
+          "class": "mage",
+          "damage": 599.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 92.0
+        },
+        {
+          "class": "rogue",
+          "damage": 222.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 5.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 216.0
+        }
+      ],
+      "index": 6.0,
+      "kept": {},
+      "kill_xp": 238.0,
+      "killed": 8.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2001.0,
+      "stash_items": 0.0,
+      "time": 180.87,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 66639.003,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 10.0,
+        "loots": 0.0,
+        "pings": 11.0,
+        "retreats": 62.0,
+        "revives": 2.0,
+        "skills": 0.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 6.0,
+      "enemies": 65.0,
+      "first_contact": 56.6,
+      "floor": 9.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 0.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 0.0,
+          "taken": 261.0
+        },
+        {
+          "class": "cleric",
+          "damage": 0.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 204.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 269.0
+        },
+        {
+          "class": "ranger",
+          "damage": 61.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 337.0
+        },
+        {
+          "class": "mage",
+          "damage": 54.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 92.0
+        },
+        {
+          "class": "rogue",
+          "damage": 38.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 322.0
+        }
+      ],
+      "index": 7.0,
+      "kept": {},
+      "kill_xp": 20.0,
+      "killed": 1.0,
+      "loot": {
+        "bodies": 0.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2002.0,
+      "stash_items": 0.0,
+      "time": 104.33,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 41031.198,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 2.0,
+        "loots": 0.0,
+        "pings": 8.0,
+        "retreats": 50.0,
+        "revives": 1.0,
+        "skills": 0.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 6.0,
+      "enemies": 53.0,
+      "first_contact": 105.4,
+      "floor": 9.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 0.0,
+          "dead": false,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 0.0,
+          "taken": 208.0
+        },
+        {
+          "class": "cleric",
+          "damage": 0.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 72.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 322.0
+        },
+        {
+          "class": "ranger",
+          "damage": 113.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 161.0
+        },
+        {
+          "class": "mage",
+          "damage": 43.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 161.0
+        },
+        {
+          "class": "rogue",
+          "damage": 56.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 109.0
+        }
+      ],
+      "index": 8.0,
+      "kept": {},
+      "kill_xp": 31.0,
+      "killed": 1.0,
+      "loot": {
+        "bodies": 0.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.0,
+        "junk": 0.0,
+        "looted": 0.0,
+        "lost": 0.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2003.0,
+      "stash_items": 0.0,
+      "time": 133.1,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 55122.61,
+      "win": false
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 4.0,
+        "loots": 0.0,
+        "pings": 15.0,
+        "retreats": 27.0,
+        "revives": 1.0,
+        "skills": 1.0
+      },
+      "consumables_used": 0.0,
+      "deaths": 4.0,
+      "downs": 5.0,
+      "enemies": 68.0,
+      "first_contact": 40.8,
+      "floor": 9.0,
+      "gathered": {},
+      "heroes": [
+        {
+          "class": "warrior",
+          "damage": 42.0,
+          "dead": false,
+          "downs": 0.0,
+          "healing": 0.0,
+          "killed_by": "",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": true,
+          "name": "Sim Master",
+          "shield": 26.0,
+          "taken": 392.0
+        },
+        {
+          "class": "cleric",
+          "damage": 42.0,
+          "dead": true,
+          "downs": 2.0,
+          "healing": 144.0,
+          "killed_by": "left behind",
+          "kills": 0.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Yorin Greymane",
+          "shield": 0.0,
+          "taken": 304.0
+        },
+        {
+          "class": "ranger",
+          "damage": 73.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Zelen Stonebrook",
+          "shield": 0.0,
+          "taken": 236.0
+        },
+        {
+          "class": "mage",
+          "damage": 111.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Quinar Blackmoor",
+          "shield": 0.0,
+          "taken": 241.0
+        },
+        {
+          "class": "rogue",
+          "damage": 101.0,
+          "dead": true,
+          "downs": 1.0,
+          "healing": 0.0,
+          "killed_by": "left behind",
+          "kills": 1.0,
+          "level": 1.0,
+          "master": false,
+          "name": "Brenin Whitlock",
+          "shield": 0.0,
+          "taken": 120.0
+        }
+      ],
+      "index": 9.0,
+      "kept": {},
+      "kill_xp": 54.0,
+      "killed": 3.0,
+      "loot": {
+        "bodies": 2.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 1.0,
+        "junk": 1.0,
+        "looted": 0.0,
+        "lost": 1.0
+      },
+      "lost": {},
+      "mission": "survival",
+      "outcome": "FAILED",
+      "party": 5.0,
+      "reason": "master_lost",
+      "reward": {},
+      "reward_items": 0.0,
+      "seed": 2004.0,
+      "stash_items": 0.0,
+      "time": 103.03,
+      "unique": "",
+      "variant": "tactico_sin_saquear",
+      "wall_ms": 32143.877,
+      "win": false
+    }
+  ],
+  "speed": {
+    "cpu_s": 1062.478254,
+    "runs": 20,
+    "sim_s": 3774.86,
+    "wall_s": 207.393,
+    "workers": 6,
+    "x_per_process": 3.55288212797624,
+    "x_total": 18.2014822101035
+  },
+  "summary": [
+    {
+      "bot": {
+        "commands": 2.4,
+        "dashes": 30.8,
+        "loots": 3.0,
+        "pings": 40.8,
+        "retreats": 0.0,
+        "revives": 0.2,
+        "skills": 4.6
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 574.4,
+            "n": 5,
+            "sd": 271.163
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.2,
+            "n": 5,
+            "sd": 0.447
+          },
+          "healing": {
+            "mean": 577.2,
+            "n": 5,
+            "sd": 266.061
+          },
+          "kills": {
+            "mean": 7.6,
+            "n": 5,
+            "sd": 3.209
+          },
+          "taken": {
+            "mean": 580.2,
+            "n": 5,
+            "sd": 219.812
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 617.2,
+            "n": 5,
+            "sd": 252.928
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 6.2,
+            "n": 5,
+            "sd": 2.95
+          },
+          "taken": {
+            "mean": 224.8,
+            "n": 5,
+            "sd": 59.272
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 686.2,
+            "n": 5,
+            "sd": 664.115
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.2,
+            "n": 5,
+            "sd": 0.447
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 7.8,
+            "n": 5,
+            "sd": 6.87
+          },
+          "taken": {
+            "mean": 226.4,
+            "n": 5,
+            "sd": 51.51
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 2.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 2.4,
+        "n": 5,
+        "sd": 0.548
+      },
+      "floor": 3,
+      "gathered": {
+        "essence": 0.4
+      },
+      "kept": {},
+      "killed": {
+        "mean": 21.6,
+        "n": 5,
+        "sd": 9.965
+      },
+      "killers": {
+        "Grunt": 8,
+        "left behind": 2
+      },
+      "loot": {
+        "bodies": 1.8,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 1.4,
+        "junk": 0.2,
+        "looted": 1.4,
+        "lost": 1.4
+      },
+      "mission": "defense",
+      "pair": "tactico_saquea",
+      "party": 3,
+      "reasons": {
+        "master_lost": 5
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "runs": 5,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 264.022,
+        "n": 5,
+        "sd": 81.53
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico_saquea",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "commands": 1.0,
+        "dashes": 7.8,
+        "loots": 0.8,
+        "pings": 13.4,
+        "retreats": 64.6,
+        "revives": 1.0,
+        "skills": 0.4
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 38.2,
+            "n": 5,
+            "sd": 53.134
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.4,
+            "n": 5,
+            "sd": 0.548
+          },
+          "healing": {
+            "mean": 182.4,
+            "n": 5,
+            "sd": 77.491
+          },
+          "kills": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 297.4,
+            "n": 5,
+            "sd": 21.847
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 120.8,
+            "n": 5,
+            "sd": 87.64
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.6,
+            "n": 5,
+            "sd": 0.894
+          },
+          "taken": {
+            "mean": 165.6,
+            "n": 5,
+            "sd": 72.817
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 87.8,
+            "n": 5,
+            "sd": 22.906
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.4,
+            "n": 5,
+            "sd": 0.548
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.8,
+            "n": 5,
+            "sd": 0.837
+          },
+          "taken": {
+            "mean": 257.8,
+            "n": 5,
+            "sd": 66.586
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 79.4,
+            "n": 5,
+            "sd": 35.774
+          },
+          "deaths": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 1.2,
+            "n": 5,
+            "sd": 0.447
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.2,
+            "n": 5,
+            "sd": 0.447
+          },
+          "taken": {
+            "mean": 171.4,
+            "n": 5,
+            "sd": 90.528
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 27.0,
+            "n": 5,
+            "sd": 31.016
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.4,
+            "n": 5,
+            "sd": 0.548
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "taken": {
+            "mean": 281.0,
+            "n": 5,
+            "sd": 67.923
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 4.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "dims": {},
+      "downs": {
+        "mean": 5.4,
+        "n": 5,
+        "sd": 0.548
+      },
+      "floor": 9,
+      "gathered": {
+        "mat_rune_plate": 0.4
+      },
+      "kept": {},
+      "killed": {
+        "mean": 2.6,
+        "n": 5,
+        "sd": 1.673
+      },
+      "killers": {
+        "left behind": 20
+      },
+      "loot": {
+        "bodies": 1.0,
+        "greedy_kept": 0.0,
+        "home": 0.0,
+        "items": 0.4,
+        "junk": 0.4,
+        "looted": 0.2,
+        "lost": 0.4
+      },
+      "mission": "survival",
+      "pair": "tactico_saquea",
+      "party": 5,
+      "reasons": {
+        "master_lost": 5
+      },
+      "reward": {},
+      "reward_items": {
+        "mean": 0.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "runs": 5,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 124.412,
+        "n": 5,
+        "sd": 20.363
+      },
+      "time_win": {
+        "mean": 0.0,
+        "n": 0,
+        "sd": 0.0
+      },
+      "variant": "tactico_saquea",
+      "win_rate": 0.0
+    },
+    {
+      "bot": {
+        "commands": 2.4,
+        "dashes": 10.6,
+        "loots": 0.0,
+        "pings": 23.2,
+        "retreats": 0.0,
+        "revives": 0.0,
+        "skills": 1.8
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 583.2,
+            "n": 5,
+            "sd": 325.866
+          },
+          "deaths": {
+            "mean": 0.6,
+            "n": 5,
+            "sd": 0.548
+          },
+          "downs": {
+            "mean": 0.6,
+            "n": 5,
+            "sd": 0.548
+          },
+          "healing": {
+            "mean": 579.6,
+            "n": 5,
+            "sd": 374.334
+          },
+          "kills": {
+            "mean": 7.6,
+            "n": 5,
+            "sd": 3.362
+          },
+          "taken": {
+            "mean": 556.8,
+            "n": 5,
+            "sd": 299.362
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 611.6,
+            "n": 5,
+            "sd": 235.517
+          },
+          "deaths": {
+            "mean": 0.6,
+            "n": 5,
+            "sd": 0.548
+          },
+          "downs": {
+            "mean": 0.6,
+            "n": 5,
+            "sd": 0.548
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 6.8,
+            "n": 5,
+            "sd": 4.025
+          },
+          "taken": {
+            "mean": 188.8,
+            "n": 5,
+            "sd": 90.392
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 244.0,
+            "n": 5,
+            "sd": 200.452
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.2,
+            "n": 5,
+            "sd": 0.447
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.6,
+            "n": 5,
+            "sd": 3.647
+          },
+          "taken": {
+            "mean": 124.2,
+            "n": 5,
+            "sd": 81.546
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 1.2,
+        "n": 5,
+        "sd": 1.095
+      },
+      "dims": {},
+      "downs": {
+        "mean": 1.4,
+        "n": 5,
+        "sd": 1.342
+      },
+      "floor": 3,
+      "gathered": {
+        "essence": 0.4
+      },
+      "kept": {},
+      "killed": {
+        "mean": 17.0,
+        "n": 5,
+        "sd": 8.631
+      },
+      "killers": {
+        "Grunt": 1,
+        "left behind": 5
+      },
+      "loot": {
+        "bodies": 2.2,
+        "greedy_kept": 0.0,
+        "home": 1.0,
+        "items": 1.8,
+        "junk": 0.4,
+        "looted": 1.0,
+        "lost": 0.8
+      },
+      "mission": "defense",
+      "pair": "tactico_sin_saquear",
+      "party": 3,
+      "reasons": {
+        "master_lost": 3
+      },
+      "reward": {
+        "books": 0.0,
+        "essence": 0.8,
+        "food": 0.0,
+        "gems": 42.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 0.8,
+        "stones": 0.4
+      },
+      "reward_items": {
+        "mean": 1.2,
+        "n": 5,
+        "sd": 1.643
+      },
+      "runs": 5,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 202.272,
+        "n": 5,
+        "sd": 61.172
+      },
+      "time_win": {
+        "mean": 232.965,
+        "n": 2,
+        "sd": 20.838
+      },
+      "variant": "tactico_sin_saquear",
+      "win_rate": 0.4
+    },
+    {
+      "bot": {
+        "commands": 1.6,
+        "dashes": 5.2,
+        "loots": 0.0,
+        "pings": 16.4,
+        "retreats": 36.8,
+        "revives": 1.8,
+        "skills": 0.6
+      },
+      "classes": {
+        "cleric": {
+          "damage": {
+            "mean": 58.2,
+            "n": 5,
+            "sd": 67.994
+          },
+          "deaths": {
+            "mean": 0.8,
+            "n": 5,
+            "sd": 0.447
+          },
+          "downs": {
+            "mean": 1.4,
+            "n": 5,
+            "sd": 0.548
+          },
+          "healing": {
+            "mean": 232.8,
+            "n": 5,
+            "sd": 174.64
+          },
+          "kills": {
+            "mean": 0.2,
+            "n": 5,
+            "sd": 0.447
+          },
+          "taken": {
+            "mean": 262.8,
+            "n": 5,
+            "sd": 70.297
+          }
+        },
+        "mage": {
+          "damage": {
+            "mean": 262.0,
+            "n": 5,
+            "sd": 267.243
+          },
+          "deaths": {
+            "mean": 0.8,
+            "n": 5,
+            "sd": 0.447
+          },
+          "downs": {
+            "mean": 0.8,
+            "n": 5,
+            "sd": 0.447
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 1.225
+          },
+          "taken": {
+            "mean": 127.6,
+            "n": 5,
+            "sd": 74.541
+          }
+        },
+        "ranger": {
+          "damage": {
+            "mean": 124.0,
+            "n": 5,
+            "sd": 81.896
+          },
+          "deaths": {
+            "mean": 0.8,
+            "n": 5,
+            "sd": 0.447
+          },
+          "downs": {
+            "mean": 1.8,
+            "n": 5,
+            "sd": 0.837
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.4,
+            "n": 5,
+            "sd": 0.548
+          },
+          "taken": {
+            "mean": 279.8,
+            "n": 5,
+            "sd": 79.061
+          }
+        },
+        "rogue": {
+          "damage": {
+            "mean": 135.2,
+            "n": 5,
+            "sd": 99.688
+          },
+          "deaths": {
+            "mean": 0.8,
+            "n": 5,
+            "sd": 0.447
+          },
+          "downs": {
+            "mean": 1.0,
+            "n": 5,
+            "sd": 0.707
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 2.6,
+            "n": 5,
+            "sd": 2.191
+          },
+          "taken": {
+            "mean": 153.4,
+            "n": 5,
+            "sd": 121.412
+          }
+        },
+        "warrior (Máster)": {
+          "damage": {
+            "mean": 61.0,
+            "n": 5,
+            "sd": 66.761
+          },
+          "deaths": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "downs": {
+            "mean": 0.2,
+            "n": 5,
+            "sd": 0.447
+          },
+          "healing": {
+            "mean": 0.0,
+            "n": 5,
+            "sd": 0.0
+          },
+          "kills": {
+            "mean": 0.4,
+            "n": 5,
+            "sd": 0.894
+          },
+          "taken": {
+            "mean": 238.8,
+            "n": 5,
+            "sd": 112.173
+          }
+        }
+      },
+      "consumables_used": {
+        "mean": 0.0,
+        "n": 5,
+        "sd": 0.0
+      },
+      "deaths": {
+        "mean": 3.2,
+        "n": 5,
+        "sd": 1.789
+      },
+      "dims": {},
+      "downs": {
+        "mean": 5.2,
+        "n": 5,
+        "sd": 0.837
+      },
+      "floor": 9,
+      "gathered": {
+        "mat_rune_plate": 0.4
+      },
+      "kept": {
+        "mat_rune_plate": 0.4
+      },
+      "killed": {
+        "mean": 4.6,
+        "n": 5,
+        "sd": 4.159
+      },
+      "killers": {
+        "left behind": 16
+      },
+      "loot": {
+        "bodies": 1.4,
+        "greedy_kept": 0.0,
+        "home": 0.2,
+        "items": 0.6,
+        "junk": 0.4,
+        "looted": 0.2,
+        "lost": 0.4
+      },
+      "mission": "survival",
+      "pair": "tactico_sin_saquear",
+      "party": 5,
+      "reasons": {
+        "master_lost": 4
+      },
+      "reward": {
+        "books": 0.0,
+        "essence": 0.8,
+        "food": 0.0,
+        "gems": 39.0,
+        "left_behind": 0.0,
+        "materials": 0.0,
+        "starsteel": 1.0,
+        "stones": 0.6
+      },
+      "reward_items": {
+        "mean": 1.0,
+        "n": 5,
+        "sd": 2.236
+      },
+      "runs": 5,
+      "style": "tactical",
+      "sweep": {},
+      "time": {
+        "mean": 164.266,
+        "n": 5,
+        "sd": 82.178
+      },
+      "time_win": {
+        "mean": 300.0,
+        "n": 1,
+        "sd": 0.0
+      },
+      "variant": "tactico_sin_saquear",
+      "win_rate": 0.2
+    }
+  ],
+  "variants": [
+    {
+      "config": {
+        "alerts": {
+          "impossible": 0.1,
+          "trivial": 0.95
+        },
+        "bot": {
+          "aim_error_mult": 1.0,
+          "engage": 320.0,
+          "gather": true,
+          "knows_map": false,
+          "loot": true,
+          "ping_every": -1.0,
+          "regroup_wait": 3.0,
+          "retreat_hp": 0.3,
+          "retreat_standing": 1,
+          "revive": true,
+          "style": "tactical",
+          "think_every": 0.25,
+          "use_commands": true,
+          "use_skills": true
+        },
+        "enemies": {
+          "count": 1.0,
+          "damage": 1.0,
+          "hp": 1.0
+        },
+        "floors": [
+          3,
+          9
+        ],
+        "gear_seed": 1,
+        "gear_style": "mix",
+        "max_time": 1200.0,
+        "name": "pista-d_ab_loot",
+        "overrides": {},
+        "party": [
+          {
+            "class": "warrior",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "master": true
+          },
+          {
+            "class": "cleric",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "ranger",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "mage",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "rogue",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          }
+        ],
+        "party_seed": 1,
+        "progress": "",
+        "runs": 5.0,
+        "seed": 2000.0,
+        "tick_hz": 30
+      },
+      "dims": {},
+      "label": "tactico_saquea",
+      "pair": "tactico_saquea",
+      "sweep": {}
+    },
+    {
+      "config": {
+        "alerts": {
+          "impossible": 0.1,
+          "trivial": 0.95
+        },
+        "bot": {
+          "aim_error_mult": 1.0,
+          "engage": 320.0,
+          "gather": true,
+          "knows_map": false,
+          "loot": false,
+          "ping_every": -1.0,
+          "regroup_wait": 3.0,
+          "retreat_hp": 0.3,
+          "retreat_standing": 1,
+          "revive": true,
+          "style": "tactical",
+          "think_every": 0.25,
+          "use_commands": true,
+          "use_skills": true
+        },
+        "enemies": {
+          "count": 1.0,
+          "damage": 1.0,
+          "hp": 1.0
+        },
+        "floors": [
+          3,
+          9
+        ],
+        "gear_seed": 1,
+        "gear_style": "mix",
+        "max_time": 1200.0,
+        "name": "pista-d_ab_loot",
+        "overrides": {},
+        "party": [
+          {
+            "class": "warrior",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "master": true
+          },
+          {
+            "class": "cleric",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "ranger",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "mage",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          },
+          {
+            "class": "rogue",
+            "gear": "kit_blanco",
+            "level": 1.0,
+            "stars": 2.0
+          }
+        ],
+        "party_seed": 1,
+        "progress": "",
+        "runs": 5.0,
+        "seed": 2000.0,
+        "tick_hz": 30
+      },
+      "dims": {},
+      "label": "tactico_sin_saquear",
+      "pair": "tactico_sin_saquear",
+      "sweep": {}
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+description = "Start a Tactical Summoners session: read the index, state the task and a 5-line plan"
+prompt = """
+Read CLAUDE.md (index section only) and the relevant row of docs/IMPLEMENTATION_STATUS.md. Do not read docs/archive/ or other docs unless the task needs one (name the exact file).
+Then reply with ONLY:
+1. The single task you will work on{{args}} (if no task was given, pick the first unchecked item of docs/DEVELOPMENT_ROADMAP.md and say why).
+2. Whether it touches any PENDIENTE item (P-xx) in docs/DECISIONS.md; if so, ask the owner first.
+3. A 5-line plan.
+Then stop and wait for my OK. Do not edit any file yet.
+"""

@@ -1,0 +1,6 @@
+description = "Add or change skills in the skill library (edits the generator, never the generated files)"
+prompt = """
+Task: {{args}}
+Rules: edit ONLY tools/gen_skill_library.py (the S(...) table), then run python tools/gen_skill_library.py. Never hand-edit scripts/data/skill_library_data.gd, docs/SKILL_LIBRARY.md or docs/SKILL_LIST.txt.
+Keep these invariants: every skill has what/rts/synergy text, valid enemy tags, min_level 1-70, and every combat class can still learn at least 30 skills with at least 20 class-only. Then run /ts:test's skill library suite (tests/test_skill_library.gd) and report the result.
+"""

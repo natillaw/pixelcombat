@@ -1,0 +1,21 @@
+// D-084: every Master class x party archetype x gear style x bot, on the given floors, with the "medio" town.
+// It is big (5 x 4 x 3 x 2 = 120 combinations per floor): start with a few floors and few runs.
+{
+    "name": "matriz_builds",
+    "floors": [1, 5, 10],
+    "runs": 3,
+    "seed": 5000,
+    "max_time": 1500,
+    "progress": "medio",
+    "matrix": {
+        "master": ["warrior", "rogue", "archer", "mage", "cleric"],
+        "party": {
+            "equilibrado": [{"class": "warrior", "stars": 2}, {"class": "cleric", "stars": 2}, {"class": "archer", "stars": 2}, {"class": "mage", "stars": 2}],
+            "canon": [{"class": "rogue", "stars": 2}, {"class": "archer", "stars": 2}, {"class": "mage", "stars": 2}, {"class": "mage", "stars": 2}],
+            "tortuga": [{"class": "warrior", "stars": 2}, {"class": "warrior", "stars": 2}, {"class": "cleric", "stars": 2}, {"class": "cleric", "stars": 2}],
+            "sin_healer": [{"class": "warrior", "stars": 2}, {"class": "rogue", "stars": 2}, {"class": "archer", "stars": 2}, {"class": "mage", "stars": 2}]
+        },
+        "gear_style": ["mix", "def", "atk"],
+        "bot": ["tactico", "loco"]
+    }
+}

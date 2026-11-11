@@ -1,0 +1,12 @@
+{
+ "source": "craftpix-net-169442-free-2d-top-down-pixel-dungeon-asset-pack.zip",
+ "tmx": "Tiled_files/Dungeon1.tmx",
+ "tile": [
+  16,
+  16
+ ],
+ "size": [
+  608,
+  448
+ ]
+}

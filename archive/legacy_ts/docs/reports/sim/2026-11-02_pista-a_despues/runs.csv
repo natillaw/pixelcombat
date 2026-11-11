@@ -1,0 +1,41 @@
+variant,floor,seed,mission,outcome,win,reason,time_s,first_contact_s,party,downs,deaths,killed,enemies,damage,healing,taken,pings,commands,skills,revives,gathered,kept,lost,reward,reward_items,consumables_used,wall_ms
+loco,1,2000,combat,SUCCESS,1,,481.1,23.8,1,0,0,20,20,1902,0,117,120,0,13,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",3,0,15121
+loco,1,2001,combat,FAILED,0,master_lost,399.0,23.0,1,1,0,14,19,1410,0,180,85,0,10,0,,,,,0,0,8269
+loco,2,2000,exploration,SUCCESS,1,,804.9,31.8,2,0,0,28,33,3787,1025,1049,180,8,18,0,essence 2.0,essence 2.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,38837
+loco,2,2001,exploration,SUCCESS,1,,1154.6,83.2,2,0,0,30,32,4272,1150,1231,208,12,22,0,essence 1.0,essence 1.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,58004
+loco,3,2000,defense,FAILED,0,master_lost,178.6,43.8,3,2,2,14,58,1279,470,897,25,2,3,0,,,,,0,0,38548
+loco,3,2001,defense,FAILED,0,master_lost,197.7,48.0,3,2,2,18,66,1463,357,774,34,2,3,0,essence 2.0,,essence 2.0,,0,0,42090
+loco,4,2000,escape,SUCCESS,1,,288.5,72.3,2,0,0,9,40,1286,427,495,57,4,7,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,26111
+loco,4,2001,escape,FAILED,0,master_lost,121.7,67.5,2,1,1,5,36,807,504,818,35,1,3,0,,,,,0,0,9263
+loco,5,2000,boss,FAILED,0,master_lost,136.6,46.4,5,5,4,6,46,831,168,882,32,2,3,0,essence 1.0,,essence 1.0,,0,0,20489
+loco,5,2001,boss,FAILED,0,master_lost,447.9,72.8,5,8,4,18,44,2562,499,1579,72,6,7,0,"essence 1.0;mat_enchanted_cloth 1.0",,"essence 1.0;mat_enchanted_cloth 1.0",,0,0,41740
+loco,6,2000,rescue,FAILED,0,master_lost,142.0,68.8,3,2,2,3,40,659,0,433,26,2,3,0,,,,,0,0,17707
+loco,6,2001,rescue,FAILED,0,master_lost,174.2,46.4,3,2,2,4,34,842,0,433,37,2,4,0,,,,,0,0,18623
+loco,7,2000,sabotage,FAILED,0,master_lost,430.2,111.8,4,5,3,12,63,1811,194,956,44,4,5,0,"mat_iron_ore 1.0;mat_resonant_crystal 2.0",,"mat_iron_ore 1.0;mat_resonant_crystal 2.0",,0,0,64148
+loco,7,2001,sabotage,FAILED,0,master_lost,295.0,193.4,4,2,3,14,64,1600,270,899,32,2,4,0,mat_resonant_crystal 1.0,,mat_resonant_crystal 1.0,,0,0,31823
+loco,8,2000,combat,FAILED,0,master_lost,73.9,55.2,1,0,0,2,13,297,0,178,14,0,1,0,mat_moon_flower 1.0,,mat_moon_flower 1.0,,0,0,1409
+loco,8,2001,combat,FAILED,0,master_lost,73.8,36.8,1,0,0,1,10,332,0,180,27,0,2,0,,,,,0,0,1896
+loco,9,2000,survival,FAILED,0,master_lost,195.5,49.4,5,7,4,9,68,1066,324,1407,24,3,2,0,mat_rune_plate 1.0,,mat_rune_plate 1.0,,0,0,42506
+loco,9,2001,survival,FAILED,0,master_lost,200.9,83.0,5,5,4,12,75,1881,492,1316,39,2,3,0,mat_rune_plate 2.0,,mat_rune_plate 2.0,,0,0,46261
+loco,10,2000,boss,FAILED,0,master_lost,288.7,61.4,5,4,4,7,27,1603,72,916,47,4,4,0,,,,,0,0,16824
+loco,10,2001,boss,FAILED,0,master_lost,252.5,38.4,5,6,4,12,30,2724,665,1565,74,4,5,0,,,,,0,0,20956
+tactico,1,2000,combat,SUCCESS,1,,491.3,23.8,1,0,0,20,20,1891,0,0,89,0,13,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",3,0,20830
+tactico,1,2001,combat,SUCCESS,1,,543.5,23.0,1,0,0,19,19,1816,0,15,94,0,15,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,15033
+tactico,2,2000,exploration,SUCCESS,1,,1034.5,31.5,2,0,0,30,33,4185,1189,1249,148,9,22,0,essence 3.0,essence 3.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,46096
+tactico,2,2001,exploration,SUCCESS,1,,600.3,61.9,2,1,1,20,32,2783,448,637,108,3,21,0,essence 1.0,essence 1.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,45272
+tactico,3,2000,defense,FAILED,0,master_lost,216.9,43.8,3,2,2,14,64,1267,573,1038,29,2,4,0,,,,,0,0,54333
+tactico,3,2001,defense,FAILED,0,master_lost,281.4,48.0,3,4,2,28,79,2139,667,1252,59,4,5,2,essence 3.0,,essence 3.0,,0,0,68326
+tactico,4,2000,escape,FAILED,0,master_lost,173.6,89.4,2,1,1,4,49,658,72,378,38,1,4,0,,,,,0,0,20947
+tactico,4,2001,escape,FAILED,0,master_lost,207.7,131.2,2,1,1,2,36,427,64,390,30,0,3,0,,,,,0,0,20839
+tactico,5,2000,boss,FAILED,0,master_lost,41.2,27.2,5,4,4,0,46,98,0,779,8,1,0,0,,,,,0,0,9275
+tactico,5,2001,boss,FAILED,0,master_lost,162.7,62.7,5,4,4,6,47,858,203,879,29,1,1,0,essence 1.0,,essence 1.0,,0,0,26782
+tactico,6,2000,rescue,FAILED,0,master_lost,350.4,80.3,3,3,2,6,40,1015,0,603,55,2,7,1,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,44107
+tactico,6,2001,rescue,FAILED,0,master_lost,638.6,48.0,3,8,2,12,34,1858,0,783,98,4,13,6,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,54155
+tactico,7,2000,sabotage,ESCAPED,0,retreat,305.4,100.8,4,4,3,13,67,1998,494,931,42,2,3,1,"mat_iron_ore 1.0;mat_resonant_crystal 2.0","mat_iron_ore 1.0;mat_resonant_crystal 2.0",,,0,0,66862
+tactico,7,2001,sabotage,FAILED,0,master_lost,208.9,85.9,4,3,3,11,67,1401,206,927,30,2,4,0,mat_resonant_crystal 1.0,,mat_resonant_crystal 1.0,,0,0,28671
+tactico,8,2000,combat,SUCCESS,1,,385.9,55.2,1,0,0,13,13,1705,0,146,92,0,13,0,"mat_moon_flower 2.0;mat_resonant_crystal 1.0","mat_moon_flower 2.0;mat_resonant_crystal 1.0",,"books 1.0;essence 3.0;food 0.0;gems 180.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",4,0,5490
+tactico,8,2001,combat,FAILED,0,master_lost,112.6,36.8,1,0,0,2,10,432,0,185,22,0,4,0,,,,,0,0,2716
+tactico,9,2000,survival,FAILED,0,master_lost,110.4,49.4,5,6,4,4,63,541,479,1392,19,1,1,2,mat_rune_plate 1.0,,mat_rune_plate 1.0,,0,0,42668
+tactico,9,2001,survival,FAILED,0,master_lost,144.4,83.0,5,4,4,3,64,452,72,879,11,1,1,0,mat_rune_plate 1.0,,mat_rune_plate 1.0,,0,0,53915
+tactico,10,2000,boss,ESCAPED,0,retreat,272.8,37.6,5,6,4,8,27,1247,313,1146,39,2,2,2,,,,,0,0,16108
+tactico,10,2001,boss,ESCAPED,0,retreat,174.7,68.8,5,5,4,5,30,936,124,728,20,1,3,1,,,,,0,0,17148

@@ -1,0 +1,101 @@
+# Registro de assets y licencias
+
+Vista humana de los assets de **Reflections**. Los datos completos por pack
+siguen en `assets/ASSET_REGISTRY.json` y `assets/CREDITS.md`; los créditos
+archivo por archivo del LPC están en `assets/pixel/lpc/CREDITS.csv`.
+
+## Reglas
+
+1. **Solo se usa un asset con licencia leída y registrada aquí antes de
+   incorporarlo al juego.**
+2. Que un pack sea gratuito no lo hace de dominio público: hay que leer la
+   licencia del pack concreto.
+3. Los PNG originales del LPC no se editan. `LpcComposer` compone capas en
+   memoria y cachea el resultado.
+4. Los packs crudos de `new assets/` no forman parte del juego: están ignorados
+   por git y por Godot (`.gdignore`). No se referencian desde el código.
+5. No se redistribuyen packs crudos como biblioteca independiente.
+6. Antes de publicar el repositorio, revisar las licencias marcadas
+   **REVISAR**.
+
+## En uso — corte Warrior
+
+| Asset | Ruta | Uso | Licencia | Estado |
+|---|---|---|---|---|
+| **Universal LPC Spritesheet Character Generator** | `assets/pixel/lpc/` | Cuerpo, cabeza, pelo, barba y equipo del Warrior vía `LpcComposer` / `LpcWardrobe` | CC0 / CC-BY / OGA-BY / CC-BY-SA según archivo (ver `CREDITS.csv`) | En uso |
+| Fuente **m5x7** (Daniel Linssen) | `assets/fonts/m5x7.ttf` | HUD y números de daño | CC0 | En uso |
+| **Ninja Adventure Asset Pack** (pixel-boy & AAA) | `assets/audio/sfx/ninja/` | Tajos, impactos, alerta del muñeco, muerte | CC0 1.0 | En uso |
+
+### Capas LPC del Warrior
+
+Definidas en `game/art/warrior_look.gd`:
+
+| Capa | Pieza | Variante |
+|---|---|---|
+| Cuerpo | `body` (male) | skin `light` |
+| Cabeza | `head_human_male` | — |
+| Pelo | `hair_buzzcut` | `dark_brown` |
+| Barba | `beard_trimmed` | — |
+| Pecho | `armour_plate` | `steel` |
+| Piernas | `legs_plate` | `steel` |
+| Manos | `gloves` | `steel` |
+| Pies | `boots_basic` | `leather` |
+| Cabeza | `helmet_barbuta` | `steel` |
+| Arma | `weapon_longsword` | `default` |
+
+Los frames son de 64×64; las filas son arriba, izquierda, abajo, derecha.
+
+### SFX usados
+
+| Archivo | Uso |
+|---|---|
+| `Whoosh_Slash/Slash2.wav` | M1 |
+| `Whoosh_Slash/Sword2.wav` | M2 |
+| `Whoosh_Slash/Whoosh.wav` | fallo del muñeco |
+| `Hit_Impact/Hit2.wav` | impacto de M1 |
+| `Hit_Impact/Impact3.wav` | impacto de M2 |
+| `Hit_Impact/Impact.wav` | daño recibido |
+| `Hit_Impact/Impact5.wav` | muerte |
+| `Hit_Impact/Impact2.wav` | golpe del muñeco |
+| `Alert/Alert2.wav` | telegráfico del muñeco |
+
+## Disponible para futuros cortes
+
+| Pack | Ruta | Uso previsto | Licencia | Nota |
+|---|---|---|---|---|
+| SpritePilot (combat, magic, effects, environment) | `assets/pixel/` | VFX de habilidades | CC0 | Sin integrar |
+| KILN FX Free Sampler | `assets/pixel/fx/` | Tajos, chispas, explosiones | Uso en juegos sí; no redistribuir como pack | Sin integrar |
+| Enemy Animations Set | `assets/pixel/enemies/enemy_animations_set/` | Enemigos reales | Licencia del dueño (D-063) | Sin integrar |
+| Pixel Crawler (Anokolisa) | `assets/pixel/tilesets/`, `assets/pixel/enemies/pixel-crawler/` | Tiles y mobs | Términos del autor: uso comercial, no revender | Sin integrar |
+| Iconos de habilidad (Kurai, Caz, Raven) | `assets/pixel/icons/` | UI del Skill Book | Mixta (CC0 / CC BY 4.0 / términos del autor) | Revisar por icono |
+| Kenney Interface Sounds | `assets/audio/ui/` | Clics y UI | CC0 1.0 | Sin integrar |
+| XDeviruchi music | `assets/audio/music/` | Música | CC BY-SA 4.0 | **No integrada**: verificar antes de usar |
+| Tileset y props de bosque | `assets/tiles/bosque/`, `assets/props/` | Mapas futuros | Hecho por el dueño / CraftPix | Sin integrar |
+
+## Fuera del juego
+
+| Ruta | Qué es |
+|---|---|
+| `new assets/` | Packs crudos descargados (~588 MB). Ignorados por git y Godot. |
+| `archive/legacy_ts/` | Código, escenas y assets del proyecto anterior. Histórico, no se importa. |
+
+## Atribución mínima
+
+Si se publica una build, incluir:
+
+- Universal LPC Spritesheet Character Generator y los autores listados en
+  `assets/pixel/lpc/CREDITS.csv` (varía por capa).
+- Daniel Linssen por m5x7 (CC0, atribución no obligatoria pero apreciada).
+- pixel-boy & AAA por Ninja Adventure (CC0).
+- Cualquier pack adicional que se integre, según su licencia.
+
+## Pendientes de licencia
+
+- **Música**: no se ha añadido al juego. `assets/audio/music/` tiene pistas
+  CC BY-SA 4.0, pero falta confirmar que el pack completo lo sea y decidir la
+  atribución antes de reproducirla.
+- **Iconos**: la colección mezcla CC0, CC BY 4.0 y términos del autor; revisar
+  caso por caso antes de usarlos en el Skill Book.
+- **Packs marcados REVISAR** en `assets/ASSET_REGISTRY.json` (RPG icons, pixel
+  weapons, armor16): uso autorizado por el dueño como excepción, pero sin
+  licencia clara. No usar en builds públicas hasta resolverlo.

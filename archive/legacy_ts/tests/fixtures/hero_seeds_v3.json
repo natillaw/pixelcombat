@@ -1,0 +1,5802 @@
+[
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_2",
+   "hat": "Hat/4_4",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_3"
+  },
+  "name": "Tamon Frostwick",
+  "obedience": 46,
+  "passives": [
+   "passive.pessimist",
+   "passive.second_wind"
+  ],
+  "seed": 7932,
+  "stars": 3,
+  "traits": [
+   "trait.lazy",
+   "trait.gloomy"
+  ],
+  "trust": 39
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_4",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_4"
+  },
+  "name": "Garon Kestrel",
+  "obedience": 47,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 15851,
+  "stars": 2,
+  "traits": [
+   "trait.stubborn",
+   "trait.cautious"
+  ],
+  "trust": 50
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/2_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_2"
+  },
+  "name": "Caelan Pinecrest",
+  "obedience": 42,
+  "passives": [
+   "passive.fortune"
+  ],
+  "seed": 23770,
+  "stars": 1,
+  "traits": [
+   "trait.greedy"
+  ],
+  "trust": 47
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_1"
+  },
+  "name": "Vexis Valemont",
+  "obedience": 35,
+  "passives": [
+   "passive.berserk",
+   "passive.fortune",
+   "passive.evasive"
+  ],
+  "seed": 31689,
+  "stars": 5,
+  "traits": [
+   "trait.cautious",
+   "trait.greedy",
+   "trait.reckless"
+  ],
+  "trust": 32
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/3_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_4"
+  },
+  "name": "Fenyn Jadewood",
+  "obedience": 38,
+  "passives": [
+   "passive.berserk",
+   "passive.inspiring"
+  ],
+  "seed": 39608,
+  "stars": 4,
+  "traits": [
+   "trait.reckless",
+   "trait.cheerful",
+   "trait.curious"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_4"
+  },
+  "name": "Pyryn Thornfield",
+  "obedience": 41,
+  "passives": [
+   "passive.first_strike",
+   "passive.pessimist"
+  ],
+  "seed": 47527,
+  "stars": 3,
+  "traits": [
+   "trait.gloomy",
+   "trait.hot_headed"
+  ],
+  "trust": 48
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_5",
+   "hat": "Hat/2_4",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/7_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_4"
+  },
+  "name": "Caelis Coldwater",
+  "obedience": 43,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 55446,
+  "stars": 2,
+  "traits": [
+   "trait.cautious",
+   "trait.hot_headed"
+  ],
+  "trust": 45
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_3"
+  },
+  "name": "Ulin Jadewood",
+  "obedience": 50,
+  "passives": [
+   "passive.evasive"
+  ],
+  "seed": 63365,
+  "stars": 1,
+  "traits": [
+   "trait.cautious"
+  ],
+  "trust": 41
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "Hat/4_3",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/7_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_2"
+  },
+  "name": "Daran Emberfall",
+  "obedience": 60,
+  "passives": [
+   "passive.inspiring",
+   "passive.duelist",
+   "passive.analyst"
+  ],
+  "seed": 71284,
+  "stars": 5,
+  "traits": [
+   "trait.honorable",
+   "trait.cheerful",
+   "trait.curious"
+  ],
+  "trust": 62
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_2",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "Hat/5_3",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_4"
+  },
+  "name": "Ulen Quillfeather",
+  "obedience": 35,
+  "passives": [
+   "passive.first_strike",
+   "passive.analyst"
+  ],
+  "seed": 79203,
+  "stars": 4,
+  "traits": [
+   "trait.lazy",
+   "trait.hot_headed",
+   "trait.curious"
+  ],
+  "trust": 44
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "Hat/5_3",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_4"
+  },
+  "name": "Tamia Quillfeather",
+  "obedience": 47,
+  "passives": [
+   "passive.duelist",
+   "passive.showoff"
+  ],
+  "seed": 87122,
+  "stars": 3,
+  "traits": [
+   "trait.honorable",
+   "trait.arrogant"
+  ],
+  "trust": 58
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/1_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_3"
+  },
+  "name": "Elus Ashford",
+  "obedience": 54,
+  "passives": [
+   "passive.vanguard"
+  ],
+  "seed": 95041,
+  "stars": 2,
+  "traits": [
+   "trait.curious",
+   "trait.brave"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/2_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Nyxira Frostwick",
+  "obedience": 59,
+  "passives": [
+   "passive.inspiring"
+  ],
+  "seed": 102960,
+  "stars": 1,
+  "traits": [
+   "trait.cheerful"
+  ],
+  "trust": 68
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Pyrek Oakheart",
+  "obedience": 37,
+  "passives": [
+   "passive.opportunist",
+   "passive.vanguard",
+   "passive.second_wind"
+  ],
+  "seed": 110879,
+  "stars": 5,
+  "traits": [
+   "trait.cunning",
+   "trait.brave",
+   "trait.lazy"
+  ],
+  "trust": 46
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_3",
+   "hat": "Hat/4_2",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Halar Ashford",
+  "obedience": 42,
+  "passives": [
+   "passive.opportunist",
+   "passive.field_medic"
+  ],
+  "seed": 118798,
+  "stars": 4,
+  "traits": [
+   "trait.stubborn",
+   "trait.cunning",
+   "trait.kind"
+  ],
+  "trust": 69
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Kelus Whitlock",
+  "obedience": 30,
+  "passives": [
+   "passive.second_wind",
+   "passive.iron_will"
+  ],
+  "seed": 126717,
+  "stars": 3,
+  "traits": [
+   "trait.stubborn",
+   "trait.lazy"
+  ],
+  "trust": 45
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "Hat/2_2",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_5"
+  },
+  "name": "Elira Northwind",
+  "obedience": 26,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 134636,
+  "stars": 2,
+  "traits": [
+   "trait.arrogant",
+   "trait.greedy"
+  ],
+  "trust": 40
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_5"
+  },
+  "name": "Quinyn Whitlock",
+  "obedience": 56,
+  "passives": [
+   "passive.evasive"
+  ],
+  "seed": 142555,
+  "stars": 1,
+  "traits": [
+   "trait.cautious"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/3_3",
+   "front_hair": "",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_3"
+  },
+  "name": "Pyrira Ravenscar",
+  "obedience": 47,
+  "passives": [
+   "passive.pessimist",
+   "passive.evasive",
+   "passive.berserk"
+  ],
+  "seed": 150474,
+  "stars": 5,
+  "traits": [
+   "trait.reckless",
+   "trait.cautious",
+   "trait.gloomy"
+  ],
+  "trust": 45
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_5"
+  },
+  "name": "Garis Dunmere",
+  "obedience": 59,
+  "passives": [
+   "passive.bodyguard",
+   "passive.berserk"
+  ],
+  "seed": 158393,
+  "stars": 4,
+  "traits": [
+   "trait.loyal",
+   "trait.reckless",
+   "trait.cheerful"
+  ],
+  "trust": 63
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_4",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/4_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_2"
+  },
+  "name": "Joreth Ashford",
+  "obedience": 41,
+  "passives": [
+   "passive.berserk",
+   "passive.opportunist"
+  ],
+  "seed": 166312,
+  "stars": 3,
+  "traits": [
+   "trait.reckless",
+   "trait.cunning"
+  ],
+  "trust": 40
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "Front_Hair/2_3",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_4"
+  },
+  "name": "Darin Emberfall",
+  "obedience": 60,
+  "passives": [
+   "passive.bodyguard"
+  ],
+  "seed": 174231,
+  "stars": 2,
+  "traits": [
+   "trait.loyal",
+   "trait.curious"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_2"
+  },
+  "name": "Quina Underhill",
+  "obedience": 59,
+  "passives": [
+   "passive.bodyguard"
+  ],
+  "seed": 182150,
+  "stars": 1,
+  "traits": [
+   "trait.loyal"
+  ],
+  "trust": 57
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/4_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_1"
+  },
+  "name": "Ulyn Thornfield",
+  "obedience": 51,
+  "passives": [
+   "passive.opportunist",
+   "passive.fortune",
+   "passive.evasive"
+  ],
+  "seed": 190069,
+  "stars": 5,
+  "traits": [
+   "trait.cunning",
+   "trait.greedy",
+   "trait.cautious"
+  ],
+  "trust": 32
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "Hat/4_3",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Pyria Thornfield",
+  "obedience": 51,
+  "passives": [
+   "passive.analyst",
+   "passive.inspiring"
+  ],
+  "seed": 197988,
+  "stars": 4,
+  "traits": [
+   "trait.brave",
+   "trait.cheerful",
+   "trait.curious"
+  ],
+  "trust": 73
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/3_1",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_3"
+  },
+  "name": "Quineth Hollowell",
+  "obedience": 49,
+  "passives": [
+   "passive.duelist",
+   "passive.fortune"
+  ],
+  "seed": 205907,
+  "stars": 3,
+  "traits": [
+   "trait.greedy",
+   "trait.honorable"
+  ],
+  "trust": 58
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_4",
+   "front_hair": "Front_Hair/4_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_1"
+  },
+  "name": "Kelis Lowmarsh",
+  "obedience": 50,
+  "passives": [
+   "passive.pessimist"
+  ],
+  "seed": 213826,
+  "stars": 2,
+  "traits": [
+   "trait.stoic",
+   "trait.gloomy"
+  ],
+  "trust": 42
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/1_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_1"
+  },
+  "name": "Rheyn Pinecrest",
+  "obedience": 57,
+  "passives": [
+   "passive.resolute"
+  ],
+  "seed": 221745,
+  "stars": 1,
+  "traits": [
+   "trait.stoic"
+  ],
+  "trust": 57
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_5",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_3"
+  },
+  "name": "Garen Stonebrook",
+  "obedience": 39,
+  "passives": [
+   "passive.first_strike",
+   "passive.opportunist",
+   "passive.analyst"
+  ],
+  "seed": 229664,
+  "stars": 5,
+  "traits": [
+   "trait.cunning",
+   "trait.hot_headed",
+   "trait.curious"
+  ],
+  "trust": 49
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/2_2",
+   "front_hair": "Front_Hair/5_2",
+   "hat": "Hat/4_3",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_2"
+  },
+  "name": "Ison Valemont",
+  "obedience": 33,
+  "passives": [
+   "passive.vanguard",
+   "passive.second_wind"
+  ],
+  "seed": 237583,
+  "stars": 4,
+  "traits": [
+   "trait.brave",
+   "trait.hot_headed",
+   "trait.lazy"
+  ],
+  "trust": 46
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/4_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_5"
+  },
+  "name": "Tamor Valemont",
+  "obedience": 45,
+  "passives": [
+   "passive.pessimist",
+   "passive.first_strike"
+  ],
+  "seed": 245502,
+  "stars": 3,
+  "traits": [
+   "trait.gloomy",
+   "trait.hot_headed"
+  ],
+  "trust": 53
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_2"
+  },
+  "name": "Eleth Lowmarsh",
+  "obedience": 61,
+  "passives": [
+   "passive.bodyguard"
+  ],
+  "seed": 253421,
+  "stars": 2,
+  "traits": [
+   "trait.loyal",
+   "trait.gloomy"
+  ],
+  "trust": 67
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/1_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_2"
+  },
+  "name": "Oryn Frostwick",
+  "obedience": 58,
+  "passives": [
+   "passive.resolute"
+  ],
+  "seed": 261340,
+  "stars": 1,
+  "traits": [
+   "trait.stoic"
+  ],
+  "trust": 58
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/4_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/4_2",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_2"
+  },
+  "name": "Vexin Lowmarsh",
+  "obedience": 49,
+  "passives": [
+   "passive.first_strike",
+   "passive.bodyguard",
+   "passive.opportunist"
+  ],
+  "seed": 269259,
+  "stars": 5,
+  "traits": [
+   "trait.cunning",
+   "trait.hot_headed",
+   "trait.loyal"
+  ],
+  "trust": 66
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "Hat/2_3",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_4"
+  },
+  "name": "Vexek Northwind",
+  "obedience": 57,
+  "passives": [
+   "passive.second_wind",
+   "passive.vanguard"
+  ],
+  "seed": 277178,
+  "stars": 4,
+  "traits": [
+   "trait.lazy",
+   "trait.stoic",
+   "trait.brave"
+  ],
+  "trust": 51
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/3_3",
+   "front_hair": "Front_Hair/3_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_4"
+  },
+  "name": "Yorira Ashford",
+  "obedience": 57,
+  "passives": [
+   "passive.field_medic",
+   "passive.vanguard"
+  ],
+  "seed": 285097,
+  "stars": 3,
+  "traits": [
+   "trait.kind",
+   "trait.brave"
+  ],
+  "trust": 58
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/2_1",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_3"
+  },
+  "name": "Elis Hollowell",
+  "obedience": 30,
+  "passives": [
+   "passive.opportunist"
+  ],
+  "seed": 293016,
+  "stars": 2,
+  "traits": [
+   "trait.cunning",
+   "trait.reckless"
+  ],
+  "trust": 40
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_3"
+  },
+  "name": "Caelin Coldwater",
+  "obedience": 48,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 300935,
+  "stars": 1,
+  "traits": [
+   "trait.stubborn"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Ulira Frostwick",
+  "obedience": 51,
+  "passives": [
+   "passive.inspiring",
+   "passive.first_strike",
+   "passive.resolute"
+  ],
+  "seed": 308854,
+  "stars": 5,
+  "traits": [
+   "trait.hot_headed",
+   "trait.stoic",
+   "trait.cheerful"
+  ],
+  "trust": 51
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/3_3",
+   "front_hair": "Front_Hair/4_3",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_1"
+  },
+  "name": "Oran Coldwater",
+  "obedience": 59,
+  "passives": [
+   "passive.analyst",
+   "passive.duelist"
+  ],
+  "seed": 316773,
+  "stars": 4,
+  "traits": [
+   "trait.curious",
+   "trait.honorable",
+   "trait.stoic"
+  ],
+  "trust": 61
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_1"
+  },
+  "name": "Pyrin Blackmoor",
+  "obedience": 45,
+  "passives": [
+   "passive.resolute",
+   "passive.opportunist"
+  ],
+  "seed": 324692,
+  "stars": 3,
+  "traits": [
+   "trait.cunning",
+   "trait.stoic"
+  ],
+  "trust": 57
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/2_5",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_1"
+  },
+  "name": "Fenan Oakheart",
+  "obedience": 41,
+  "passives": [
+   "passive.opportunist"
+  ],
+  "seed": 332611,
+  "stars": 2,
+  "traits": [
+   "trait.kind",
+   "trait.cunning"
+  ],
+  "trust": 53
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_1"
+  },
+  "name": "Pyris Stonebrook",
+  "obedience": 46,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 340530,
+  "stars": 1,
+  "traits": [
+   "trait.curious"
+  ],
+  "trust": 43
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/3_2",
+   "front_hair": "Front_Hair/5_2",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/6_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_4"
+  },
+  "name": "Yoryn Jadewood",
+  "obedience": 55,
+  "passives": [
+   "passive.evasive",
+   "passive.inspiring",
+   "passive.fortune"
+  ],
+  "seed": 348449,
+  "stars": 5,
+  "traits": [
+   "trait.cautious",
+   "trait.greedy",
+   "trait.cheerful"
+  ],
+  "trust": 50
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/1_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "Hat/4_3",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_1"
+  },
+  "name": "Wynin Stonebrook",
+  "obedience": 43,
+  "passives": [
+   "passive.second_wind",
+   "passive.analyst"
+  ],
+  "seed": 356368,
+  "stars": 4,
+  "traits": [
+   "trait.curious",
+   "trait.lazy",
+   "trait.cunning"
+  ],
+  "trust": 52
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Tamus Valemont",
+  "obedience": 33,
+  "passives": [
+   "passive.analyst",
+   "passive.berserk"
+  ],
+  "seed": 364287,
+  "stars": 3,
+  "traits": [
+   "trait.reckless",
+   "trait.curious"
+  ],
+  "trust": 40
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/4_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_3",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/2_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_5"
+  },
+  "name": "Alan Yarrow",
+  "obedience": 47,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 372206,
+  "stars": 2,
+  "traits": [
+   "trait.cheerful",
+   "trait.curious"
+  ],
+  "trust": 65
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/1_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_1"
+  },
+  "name": "Fenus Thornfield",
+  "obedience": 37,
+  "passives": [
+   "passive.second_wind"
+  ],
+  "seed": 380125,
+  "stars": 1,
+  "traits": [
+   "trait.lazy"
+  ],
+  "trust": 50
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "Hat/4_4",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/7_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Moror Underhill",
+  "obedience": 36,
+  "passives": [
+   "passive.showoff",
+   "passive.vanguard",
+   "passive.iron_will"
+  ],
+  "seed": 388044,
+  "stars": 5,
+  "traits": [
+   "trait.arrogant",
+   "trait.stubborn",
+   "trait.brave"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/2_5",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "Hat/5_1",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Darek Coldwater",
+  "obedience": 72,
+  "passives": [
+   "passive.pessimist",
+   "passive.bodyguard"
+  ],
+  "seed": 395963,
+  "stars": 4,
+  "traits": [
+   "trait.gloomy",
+   "trait.loyal",
+   "trait.stoic"
+  ],
+  "trust": 72
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/3_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_1"
+  },
+  "name": "Moris Coldwater",
+  "obedience": 60,
+  "passives": [
+   "passive.bodyguard",
+   "passive.resolute"
+  ],
+  "seed": 403882,
+  "stars": 3,
+  "traits": [
+   "trait.loyal",
+   "trait.stoic"
+  ],
+  "trust": 64
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/1_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/7_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_3"
+  },
+  "name": "Jorin Greymane",
+  "obedience": 48,
+  "passives": [
+   "passive.second_wind"
+  ],
+  "seed": 411801,
+  "stars": 2,
+  "traits": [
+   "trait.lazy",
+   "trait.cheerful"
+  ],
+  "trust": 48
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/1_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/4_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_4"
+  },
+  "name": "Yoror Kestrel",
+  "obedience": 45,
+  "passives": [
+   "passive.opportunist"
+  ],
+  "seed": 419720,
+  "stars": 1,
+  "traits": [
+   "trait.cunning"
+  ],
+  "trust": 57
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Yorek Quillfeather",
+  "obedience": 51,
+  "passives": [
+   "passive.duelist",
+   "passive.showoff",
+   "passive.bodyguard"
+  ],
+  "seed": 427639,
+  "stars": 5,
+  "traits": [
+   "trait.arrogant",
+   "trait.honorable",
+   "trait.loyal"
+  ],
+  "trust": 74
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/1_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/4_2",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "Hat/5_1",
+   "held": "Held_Item/6",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Isek Oakheart",
+  "obedience": 49,
+  "passives": [
+   "passive.pessimist",
+   "passive.first_strike"
+  ],
+  "seed": 435558,
+  "stars": 4,
+  "traits": [
+   "trait.gloomy",
+   "trait.hot_headed",
+   "trait.cautious"
+  ],
+  "trust": 51
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_1",
+   "hat": "Hat/4_4",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_1"
+  },
+  "name": "Isan Ironvale",
+  "obedience": 65,
+  "passives": [
+   "passive.duelist",
+   "passive.evasive"
+  ],
+  "seed": 443477,
+  "stars": 3,
+  "traits": [
+   "trait.honorable",
+   "trait.cautious"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/2_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_1"
+  },
+  "name": "Zelus Blackmoor",
+  "obedience": 50,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 451396,
+  "stars": 2,
+  "traits": [
+   "trait.curious",
+   "trait.cunning"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/1_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_2"
+  },
+  "name": "Nyxia Ashford",
+  "obedience": 50,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 459315,
+  "stars": 1,
+  "traits": [
+   "trait.stubborn"
+  ],
+  "trust": 53
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Haleth Coldwater",
+  "obedience": 44,
+  "passives": [
+   "passive.fortune",
+   "passive.evasive",
+   "passive.analyst"
+  ],
+  "seed": 467234,
+  "stars": 5,
+  "traits": [
+   "trait.cautious",
+   "trait.curious",
+   "trait.greedy"
+  ],
+  "trust": 52
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/4_4",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Isin Mistral",
+  "obedience": 46,
+  "passives": [
+   "passive.second_wind",
+   "passive.opportunist"
+  ],
+  "seed": 475153,
+  "stars": 4,
+  "traits": [
+   "trait.cheerful",
+   "trait.lazy",
+   "trait.cunning"
+  ],
+  "trust": 48
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/5_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Zelar Oakheart",
+  "obedience": 54,
+  "passives": [
+   "passive.evasive",
+   "passive.pessimist"
+  ],
+  "seed": 483072,
+  "stars": 3,
+  "traits": [
+   "trait.gloomy",
+   "trait.cautious"
+  ],
+  "trust": 38
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/2_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/3_4",
+   "front_hair": "Front_Hair/2_4",
+   "hat": "Hat/4_2",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_1"
+  },
+  "name": "Lysus Pinecrest",
+  "obedience": 48,
+  "passives": [
+   "passive.pessimist"
+  ],
+  "seed": 490991,
+  "stars": 2,
+  "traits": [
+   "trait.arrogant",
+   "trait.gloomy"
+  ],
+  "trust": 33
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/2_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_1"
+  },
+  "name": "Tamon Ironvale",
+  "obedience": 45,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 498910,
+  "stars": 1,
+  "traits": [
+   "trait.curious"
+  ],
+  "trust": 58
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/3_2",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_4"
+  },
+  "name": "Nyxyn Pinecrest",
+  "obedience": 34,
+  "passives": [
+   "passive.analyst",
+   "passive.fortune",
+   "passive.showoff"
+  ],
+  "seed": 506829,
+  "stars": 5,
+  "traits": [
+   "trait.greedy",
+   "trait.arrogant",
+   "trait.curious"
+  ],
+  "trust": 32
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_5"
+  },
+  "name": "Rheeth Emberfall",
+  "obedience": 50,
+  "passives": [
+   "passive.berserk",
+   "passive.field_medic"
+  ],
+  "seed": 514748,
+  "stars": 4,
+  "traits": [
+   "trait.kind",
+   "trait.reckless",
+   "trait.cheerful"
+  ],
+  "trust": 60
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "Hat/5_1",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_1"
+  },
+  "name": "Caeleth Emberfall",
+  "obedience": 51,
+  "passives": [
+   "passive.pessimist",
+   "passive.analyst"
+  ],
+  "seed": 522667,
+  "stars": 3,
+  "traits": [
+   "trait.curious",
+   "trait.gloomy"
+  ],
+  "trust": 46
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/3_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/2_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_1"
+  },
+  "name": "Quinor Dunmere",
+  "obedience": 41,
+  "passives": [
+   "passive.fortune"
+  ],
+  "seed": 530586,
+  "stars": 2,
+  "traits": [
+   "trait.greedy",
+   "trait.curious"
+  ],
+  "trust": 51
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Elor Coldwater",
+  "obedience": 42,
+  "passives": [
+   "passive.second_wind"
+  ],
+  "seed": 538505,
+  "stars": 1,
+  "traits": [
+   "trait.lazy"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_2",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_5"
+  },
+  "name": "Vexira Blackmoor",
+  "obedience": 55,
+  "passives": [
+   "passive.duelist",
+   "passive.second_wind",
+   "passive.evasive"
+  ],
+  "seed": 546424,
+  "stars": 5,
+  "traits": [
+   "trait.lazy",
+   "trait.honorable",
+   "trait.cautious"
+  ],
+  "trust": 60
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/2_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_3",
+   "hat": "Hat/5_1",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Lysan Stonebrook",
+  "obedience": 49,
+  "passives": [
+   "passive.iron_will",
+   "passive.duelist"
+  ],
+  "seed": 554343,
+  "stars": 4,
+  "traits": [
+   "trait.stubborn",
+   "trait.cheerful",
+   "trait.honorable"
+  ],
+  "trust": 62
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_5"
+  },
+  "name": "Rhear Frostwick",
+  "obedience": 36,
+  "passives": [
+   "passive.opportunist",
+   "passive.analyst"
+  ],
+  "seed": 562262,
+  "stars": 3,
+  "traits": [
+   "trait.cunning",
+   "trait.curious"
+  ],
+  "trust": 57
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/4_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_3"
+  },
+  "name": "Orus Hollowell",
+  "obedience": 55,
+  "passives": [
+   "passive.bodyguard"
+  ],
+  "seed": 570181,
+  "stars": 2,
+  "traits": [
+   "trait.loyal",
+   "trait.cautious"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/2_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/4_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_4"
+  },
+  "name": "Lyson Quillfeather",
+  "obedience": 56,
+  "passives": [
+   "passive.pessimist"
+  ],
+  "seed": 578100,
+  "stars": 1,
+  "traits": [
+   "trait.gloomy"
+  ],
+  "trust": 39
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/4_4",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Halira Ironvale",
+  "obedience": 44,
+  "passives": [
+   "passive.field_medic",
+   "passive.first_strike",
+   "passive.bodyguard"
+  ],
+  "seed": 586019,
+  "stars": 5,
+  "traits": [
+   "trait.hot_headed",
+   "trait.loyal",
+   "trait.kind"
+  ],
+  "trust": 70
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_1",
+   "hat": "Hat/5_3",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Kelyn Yarrow",
+  "obedience": 48,
+  "passives": [
+   "passive.pessimist",
+   "passive.field_medic"
+  ],
+  "seed": 593938,
+  "stars": 4,
+  "traits": [
+   "trait.lazy",
+   "trait.gloomy",
+   "trait.kind"
+  ],
+  "trust": 47
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/4_2",
+   "front_hair": "",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_2"
+  },
+  "name": "Ulia Frostwick",
+  "obedience": 62,
+  "passives": [
+   "passive.bodyguard",
+   "passive.duelist"
+  ],
+  "seed": 601857,
+  "stars": 3,
+  "traits": [
+   "trait.honorable",
+   "trait.loyal"
+  ],
+  "trust": 86
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_4"
+  },
+  "name": "Alar Ironvale",
+  "obedience": 63,
+  "passives": [
+   "passive.evasive"
+  ],
+  "seed": 609776,
+  "stars": 2,
+  "traits": [
+   "trait.loyal",
+   "trait.cautious"
+  ],
+  "trust": 64
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_2"
+  },
+  "name": "Pyran Yarrow",
+  "obedience": 36,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 617695,
+  "stars": 1,
+  "traits": [
+   "trait.hot_headed"
+  ],
+  "trust": 49
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/2_2",
+   "front_hair": "Front_Hair/5_2",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_2"
+  },
+  "name": "Zelon Ironvale",
+  "obedience": 58,
+  "passives": [
+   "passive.second_wind",
+   "passive.evasive",
+   "passive.bodyguard"
+  ],
+  "seed": 625614,
+  "stars": 5,
+  "traits": [
+   "trait.lazy",
+   "trait.loyal",
+   "trait.cautious"
+  ],
+  "trust": 50
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "Hat/3_3",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_4"
+  },
+  "name": "Nyxon Frostwick",
+  "obedience": 26,
+  "passives": [
+   "passive.showoff",
+   "passive.second_wind"
+  ],
+  "seed": 633533,
+  "stars": 4,
+  "traits": [
+   "trait.lazy",
+   "trait.curious",
+   "trait.arrogant"
+  ],
+  "trust": 38
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/2_5",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_2"
+  },
+  "name": "Alor Greymane",
+  "obedience": 44,
+  "passives": [
+   "passive.iron_will",
+   "passive.opportunist"
+  ],
+  "seed": 641452,
+  "stars": 3,
+  "traits": [
+   "trait.cunning",
+   "trait.stubborn"
+  ],
+  "trust": 57
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/3_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_2"
+  },
+  "name": "Oran Frostwick",
+  "obedience": 25,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 649371,
+  "stars": 2,
+  "traits": [
+   "trait.hot_headed",
+   "trait.reckless"
+  ],
+  "trust": 35
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Zela Ravenscar",
+  "obedience": 47,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 657290,
+  "stars": 1,
+  "traits": [
+   "trait.stubborn"
+  ],
+  "trust": 62
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/7_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Halar Greymane",
+  "obedience": 37,
+  "passives": [
+   "passive.iron_will",
+   "passive.vanguard",
+   "passive.fortune"
+  ],
+  "seed": 665209,
+  "stars": 5,
+  "traits": [
+   "trait.stubborn",
+   "trait.brave",
+   "trait.greedy"
+  ],
+  "trust": 41
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_5",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "Hat/3_5",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_5"
+  },
+  "name": "Garen Yarrow",
+  "obedience": 41,
+  "passives": [
+   "passive.opportunist",
+   "passive.pessimist"
+  ],
+  "seed": 673128,
+  "stars": 4,
+  "traits": [
+   "trait.kind",
+   "trait.gloomy",
+   "trait.cunning"
+  ],
+  "trust": 53
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Yorin Frostwick",
+  "obedience": 26,
+  "passives": [
+   "passive.first_strike",
+   "passive.iron_will"
+  ],
+  "seed": 681047,
+  "stars": 3,
+  "traits": [
+   "trait.hot_headed",
+   "trait.stubborn"
+  ],
+  "trust": 46
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/3_1",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_3"
+  },
+  "name": "Joreth Northwind",
+  "obedience": 39,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 688966,
+  "stars": 2,
+  "traits": [
+   "trait.arrogant",
+   "trait.gloomy"
+  ],
+  "trust": 40
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_5"
+  },
+  "name": "Yoreth Greymane",
+  "obedience": 42,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 696885,
+  "stars": 1,
+  "traits": [
+   "trait.arrogant"
+  ],
+  "trust": 37
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_1"
+  },
+  "name": "Moror Underhill",
+  "obedience": 47,
+  "passives": [
+   "passive.pessimist",
+   "passive.berserk",
+   "passive.bodyguard"
+  ],
+  "seed": 704804,
+  "stars": 5,
+  "traits": [
+   "trait.gloomy",
+   "trait.loyal",
+   "trait.reckless"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_4"
+  },
+  "name": "Morar Ravenscar",
+  "obedience": 55,
+  "passives": [
+   "passive.evasive",
+   "passive.second_wind"
+  ],
+  "seed": 712723,
+  "stars": 4,
+  "traits": [
+   "trait.cheerful",
+   "trait.cautious",
+   "trait.lazy"
+  ],
+  "trust": 59
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/2_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "Hat/4_5",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_4"
+  },
+  "name": "Oren Ironvale",
+  "obedience": 72,
+  "passives": [
+   "passive.resolute",
+   "passive.bodyguard"
+  ],
+  "seed": 720642,
+  "stars": 3,
+  "traits": [
+   "trait.loyal",
+   "trait.stoic"
+  ],
+  "trust": 64
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_1"
+  },
+  "name": "Fenin Thornfield",
+  "obedience": 47,
+  "passives": [
+   "passive.field_medic"
+  ],
+  "seed": 728561,
+  "stars": 2,
+  "traits": [
+   "trait.kind",
+   "trait.cunning"
+  ],
+  "trust": 48
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_3"
+  },
+  "name": "Keleth Thornfield",
+  "obedience": 47,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 736480,
+  "stars": 1,
+  "traits": [
+   "trait.stubborn"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/3_5",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/7_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_3"
+  },
+  "name": "Isen Underhill",
+  "obedience": 21,
+  "passives": [
+   "passive.first_strike",
+   "passive.fortune",
+   "passive.second_wind"
+  ],
+  "seed": 744399,
+  "stars": 5,
+  "traits": [
+   "trait.greedy",
+   "trait.hot_headed",
+   "trait.lazy"
+  ],
+  "trust": 25
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/2_4",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_5"
+  },
+  "name": "Taman Lowmarsh",
+  "obedience": 37,
+  "passives": [
+   "passive.fortune",
+   "passive.vanguard"
+  ],
+  "seed": 752318,
+  "stars": 4,
+  "traits": [
+   "trait.greedy",
+   "trait.brave",
+   "trait.lazy"
+  ],
+  "trust": 45
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_1"
+  },
+  "name": "Halor Mistral",
+  "obedience": 43,
+  "passives": [
+   "passive.showoff",
+   "passive.duelist"
+  ],
+  "seed": 760237,
+  "stars": 3,
+  "traits": [
+   "trait.honorable",
+   "trait.arrogant"
+  ],
+  "trust": 51
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/1_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/2_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_3"
+  },
+  "name": "Vexus Valemont",
+  "obedience": 42,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 768156,
+  "stars": 2,
+  "traits": [
+   "trait.arrogant",
+   "trait.cheerful"
+  ],
+  "trust": 47
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/4_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_1"
+  },
+  "name": "Fenis Thornfield",
+  "obedience": 48,
+  "passives": [
+   "passive.inspiring"
+  ],
+  "seed": 776075,
+  "stars": 1,
+  "traits": [
+   "trait.cheerful"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "Hat/5_1",
+   "held": "Held_Item/6",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_5"
+  },
+  "name": "Brenus Oakheart",
+  "obedience": 47,
+  "passives": [
+   "passive.pessimist",
+   "passive.resolute",
+   "passive.first_strike"
+  ],
+  "seed": 783994,
+  "stars": 5,
+  "traits": [
+   "trait.gloomy",
+   "trait.hot_headed",
+   "trait.stoic"
+  ],
+  "trust": 38
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/7_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_2"
+  },
+  "name": "Ora Frostwick",
+  "obedience": 32,
+  "passives": [
+   "passive.showoff",
+   "passive.berserk"
+  ],
+  "seed": 791913,
+  "stars": 4,
+  "traits": [
+   "trait.reckless",
+   "trait.arrogant",
+   "trait.cautious"
+  ],
+  "trust": 36
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/5_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_4"
+  },
+  "name": "Fenyn Lowmarsh",
+  "obedience": 41,
+  "passives": [
+   "passive.evasive",
+   "passive.showoff"
+  ],
+  "seed": 799832,
+  "stars": 3,
+  "traits": [
+   "trait.arrogant",
+   "trait.cautious"
+  ],
+  "trust": 41
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_2"
+  },
+  "name": "Isira Ravenscar",
+  "obedience": 41,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 807751,
+  "stars": 2,
+  "traits": [
+   "trait.reckless",
+   "trait.curious"
+  ],
+  "trust": 37
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_1"
+  },
+  "name": "Ulon Ironvale",
+  "obedience": 48,
+  "passives": [
+   "passive.field_medic"
+  ],
+  "seed": 815670,
+  "stars": 1,
+  "traits": [
+   "trait.kind"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "Hat/3_1",
+   "held": "Held_Item/6",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Oren Oakheart",
+  "obedience": 37,
+  "passives": [
+   "passive.berserk",
+   "passive.showoff",
+   "passive.resolute"
+  ],
+  "seed": 823589,
+  "stars": 5,
+  "traits": [
+   "trait.reckless",
+   "trait.stoic",
+   "trait.arrogant"
+  ],
+  "trust": 36
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_1",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_1"
+  },
+  "name": "Elin Oakheart",
+  "obedience": 41,
+  "passives": [
+   "passive.inspiring",
+   "passive.iron_will"
+  ],
+  "seed": 831508,
+  "stars": 4,
+  "traits": [
+   "trait.stubborn",
+   "trait.cheerful",
+   "trait.brave"
+  ],
+  "trust": 72
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_3",
+   "hat": "Hat/4_5",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_4"
+  },
+  "name": "Tama Greymane",
+  "obedience": 52,
+  "passives": [
+   "passive.berserk",
+   "passive.resolute"
+  ],
+  "seed": 839427,
+  "stars": 3,
+  "traits": [
+   "trait.reckless",
+   "trait.stoic"
+  ],
+  "trust": 45
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "Hat/5_2",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_4"
+  },
+  "name": "Wynin Coldwater",
+  "obedience": 43,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 847346,
+  "stars": 2,
+  "traits": [
+   "trait.hot_headed",
+   "trait.brave"
+  ],
+  "trust": 53
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_2",
+   "hat": "Hat/3_3",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_4"
+  },
+  "name": "Wynen Blackmoor",
+  "obedience": 43,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 855265,
+  "stars": 1,
+  "traits": [
+   "trait.arrogant"
+  ],
+  "trust": 50
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/5_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_3"
+  },
+  "name": "Brenia Coldwater",
+  "obedience": 42,
+  "passives": [
+   "passive.second_wind",
+   "passive.field_medic",
+   "passive.iron_will"
+  ],
+  "seed": 863184,
+  "stars": 5,
+  "traits": [
+   "trait.lazy",
+   "trait.kind",
+   "trait.stubborn"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/6",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_2"
+  },
+  "name": "Quinira Oakheart",
+  "obedience": 55,
+  "passives": [
+   "passive.resolute",
+   "passive.inspiring"
+  ],
+  "seed": 871103,
+  "stars": 4,
+  "traits": [
+   "trait.stubborn",
+   "trait.cheerful",
+   "trait.stoic"
+  ],
+  "trust": 64
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/3_1",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_4"
+  },
+  "name": "Elira Blackmoor",
+  "obedience": 45,
+  "passives": [
+   "passive.resolute",
+   "passive.fortune"
+  ],
+  "seed": 879022,
+  "stars": 3,
+  "traits": [
+   "trait.greedy",
+   "trait.stoic"
+  ],
+  "trust": 41
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/2_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_4"
+  },
+  "name": "Yorus Stonebrook",
+  "obedience": 29,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 886941,
+  "stars": 2,
+  "traits": [
+   "trait.cunning",
+   "trait.arrogant"
+  ],
+  "trust": 34
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_4"
+  },
+  "name": "Quinor Oakheart",
+  "obedience": 45,
+  "passives": [
+   "passive.vanguard"
+  ],
+  "seed": 894860,
+  "stars": 1,
+  "traits": [
+   "trait.brave"
+  ],
+  "trust": 65
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/4_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_2"
+  },
+  "name": "Brenyn Valemont",
+  "obedience": 44,
+  "passives": [
+   "passive.opportunist",
+   "passive.inspiring",
+   "passive.analyst"
+  ],
+  "seed": 902779,
+  "stars": 5,
+  "traits": [
+   "trait.cheerful",
+   "trait.curious",
+   "trait.cunning"
+  ],
+  "trust": 59
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/4_5",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "Hat/3_3",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/7_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_2"
+  },
+  "name": "Oron Lowmarsh",
+  "obedience": 47,
+  "passives": [
+   "passive.duelist",
+   "passive.vanguard"
+  ],
+  "seed": 910698,
+  "stars": 4,
+  "traits": [
+   "trait.honorable",
+   "trait.brave",
+   "trait.reckless"
+  ],
+  "trust": 67
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/2_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_2",
+   "front_hair": "Front_Hair/5_2",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/7_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_1"
+  },
+  "name": "Tameth Stonebrook",
+  "obedience": 42,
+  "passives": [
+   "passive.analyst",
+   "passive.opportunist"
+  ],
+  "seed": 918617,
+  "stars": 3,
+  "traits": [
+   "trait.cunning",
+   "trait.curious"
+  ],
+  "trust": 42
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_2"
+  },
+  "name": "Rheek Yarrow",
+  "obedience": 49,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 926536,
+  "stars": 2,
+  "traits": [
+   "trait.loyal",
+   "trait.hot_headed"
+  ],
+  "trust": 52
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_5"
+  },
+  "name": "Quinin Coldwater",
+  "obedience": 51,
+  "passives": [
+   "passive.resolute"
+  ],
+  "seed": 934455,
+  "stars": 1,
+  "traits": [
+   "trait.stoic"
+  ],
+  "trust": 50
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/3_1",
+   "front_hair": "",
+   "hat": "Hat/5_3",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_1"
+  },
+  "name": "Kelek Pinecrest",
+  "obedience": 54,
+  "passives": [
+   "passive.berserk",
+   "passive.duelist",
+   "passive.vanguard"
+  ],
+  "seed": 942374,
+  "stars": 5,
+  "traits": [
+   "trait.brave",
+   "trait.honorable",
+   "trait.reckless"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/6",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Halis Emberfall",
+  "obedience": 58,
+  "passives": [
+   "passive.resolute",
+   "passive.bodyguard"
+  ],
+  "seed": 950293,
+  "stars": 4,
+  "traits": [
+   "trait.loyal",
+   "trait.arrogant",
+   "trait.stoic"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/2_2",
+   "front_hair": "Front_Hair/2_2",
+   "hat": "Hat/4_2",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Fenen Emberfall",
+  "obedience": 41,
+  "passives": [
+   "passive.iron_will",
+   "passive.evasive"
+  ],
+  "seed": 958212,
+  "stars": 3,
+  "traits": [
+   "trait.cautious",
+   "trait.stubborn"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/4_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_1"
+  },
+  "name": "Caelon Oakheart",
+  "obedience": 44,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 966131,
+  "stars": 2,
+  "traits": [
+   "trait.loyal",
+   "trait.hot_headed"
+  ],
+  "trust": 67
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/1_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_4",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/6_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_3"
+  },
+  "name": "Rheis Whitlock",
+  "obedience": 63,
+  "passives": [
+   "passive.bodyguard"
+  ],
+  "seed": 974050,
+  "stars": 1,
+  "traits": [
+   "trait.loyal"
+  ],
+  "trust": 68
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_3"
+  },
+  "name": "Caelia Mistral",
+  "obedience": 44,
+  "passives": [
+   "passive.first_strike",
+   "passive.pessimist",
+   "passive.evasive"
+  ],
+  "seed": 981969,
+  "stars": 5,
+  "traits": [
+   "trait.hot_headed",
+   "trait.gloomy",
+   "trait.cautious"
+  ],
+  "trust": 51
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_3"
+  },
+  "name": "Tamis Yarrow",
+  "obedience": 34,
+  "passives": [
+   "passive.first_strike",
+   "passive.vanguard"
+  ],
+  "seed": 989888,
+  "stars": 4,
+  "traits": [
+   "trait.hot_headed",
+   "trait.brave",
+   "trait.greedy"
+  ],
+  "trust": 47
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/1_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/7_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_3"
+  },
+  "name": "Elia Oakheart",
+  "obedience": 55,
+  "passives": [
+   "passive.duelist",
+   "passive.fortune"
+  ],
+  "seed": 997807,
+  "stars": 3,
+  "traits": [
+   "trait.greedy",
+   "trait.honorable"
+  ],
+  "trust": 48
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/2_2",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_2",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_4"
+  },
+  "name": "Daren Jadewood",
+  "obedience": 50,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 1005726,
+  "stars": 2,
+  "traits": [
+   "trait.stoic",
+   "trait.curious"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_2"
+  },
+  "name": "Quina Ironvale",
+  "obedience": 44,
+  "passives": [
+   "passive.fortune"
+  ],
+  "seed": 1013645,
+  "stars": 1,
+  "traits": [
+   "trait.greedy"
+  ],
+  "trust": 37
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "Hat/3_4",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_5"
+  },
+  "name": "Brenen Ashford",
+  "obedience": 48,
+  "passives": [
+   "passive.pessimist",
+   "passive.evasive",
+   "passive.opportunist"
+  ],
+  "seed": 1021564,
+  "stars": 5,
+  "traits": [
+   "trait.cunning",
+   "trait.gloomy",
+   "trait.cautious"
+  ],
+  "trust": 37
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_1",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_2"
+  },
+  "name": "Halon Frostwick",
+  "obedience": 48,
+  "passives": [
+   "passive.fortune",
+   "passive.analyst"
+  ],
+  "seed": 1029483,
+  "stars": 4,
+  "traits": [
+   "trait.greedy",
+   "trait.curious",
+   "trait.honorable"
+  ],
+  "trust": 49
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "Hat/5_4",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_4"
+  },
+  "name": "Rheor Quillfeather",
+  "obedience": 50,
+  "passives": [
+   "passive.berserk",
+   "passive.duelist"
+  ],
+  "seed": 1037402,
+  "stars": 3,
+  "traits": [
+   "trait.honorable",
+   "trait.reckless"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/4_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/4_2",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/3_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_2"
+  },
+  "name": "Daror Dunmere",
+  "obedience": 67,
+  "passives": [
+   "passive.vanguard"
+  ],
+  "seed": 1045321,
+  "stars": 2,
+  "traits": [
+   "trait.brave",
+   "trait.loyal"
+  ],
+  "trust": 72
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/2_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_5"
+  },
+  "name": "Ulin Jadewood",
+  "obedience": 43,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 1053240,
+  "stars": 1,
+  "traits": [
+   "trait.stubborn"
+  ],
+  "trust": 59
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "Hat/5_1",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/7_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Solen Jadewood",
+  "obedience": 55,
+  "passives": [
+   "passive.vanguard",
+   "passive.pessimist",
+   "passive.opportunist"
+  ],
+  "seed": 1061159,
+  "stars": 5,
+  "traits": [
+   "trait.gloomy",
+   "trait.cunning",
+   "trait.brave"
+  ],
+  "trust": 59
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_5",
+   "hat": "Hat/3_3",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Kelus Jadewood",
+  "obedience": 29,
+  "passives": [
+   "passive.pessimist",
+   "passive.iron_will"
+  ],
+  "seed": 1069078,
+  "stars": 4,
+  "traits": [
+   "trait.stubborn",
+   "trait.greedy",
+   "trait.gloomy"
+  ],
+  "trust": 46
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_2"
+  },
+  "name": "Wynin Dunmere",
+  "obedience": 51,
+  "passives": [
+   "passive.second_wind",
+   "passive.resolute"
+  ],
+  "seed": 1076997,
+  "stars": 3,
+  "traits": [
+   "trait.stoic",
+   "trait.lazy"
+  ],
+  "trust": 38
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/1_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/4_5",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/5_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_3"
+  },
+  "name": "Zelin Coldwater",
+  "obedience": 52,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 1084916,
+  "stars": 2,
+  "traits": [
+   "trait.curious",
+   "trait.honorable"
+  ],
+  "trust": 60
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_5"
+  },
+  "name": "Fenor Oakheart",
+  "obedience": 42,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 1092835,
+  "stars": 1,
+  "traits": [
+   "trait.arrogant"
+  ],
+  "trust": 46
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "Hat/4_5",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_2"
+  },
+  "name": "Moren Yarrow",
+  "obedience": 59,
+  "passives": [
+   "passive.bodyguard",
+   "passive.evasive",
+   "passive.field_medic"
+  ],
+  "seed": 1100754,
+  "stars": 5,
+  "traits": [
+   "trait.kind",
+   "trait.cautious",
+   "trait.loyal"
+  ],
+  "trust": 79
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_1"
+  },
+  "name": "Ulis Mistral",
+  "obedience": 65,
+  "passives": [
+   "passive.duelist",
+   "passive.iron_will"
+  ],
+  "seed": 1108673,
+  "stars": 4,
+  "traits": [
+   "trait.cautious",
+   "trait.honorable",
+   "trait.stubborn"
+  ],
+  "trust": 61
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/3_2",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "Hat/3_2",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/4_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_2"
+  },
+  "name": "Moryn Mistral",
+  "obedience": 50,
+  "passives": [
+   "passive.analyst",
+   "passive.duelist"
+  ],
+  "seed": 1116592,
+  "stars": 3,
+  "traits": [
+   "trait.honorable",
+   "trait.curious"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/1_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_3"
+  },
+  "name": "Brenon Kestrel",
+  "obedience": 39,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 1124511,
+  "stars": 2,
+  "traits": [
+   "trait.cheerful",
+   "trait.stubborn"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_4"
+  },
+  "name": "Zelen Ironvale",
+  "obedience": 35,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 1132430,
+  "stars": 1,
+  "traits": [
+   "trait.hot_headed"
+  ],
+  "trust": 38
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_3",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/6_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_1"
+  },
+  "name": "Yoror Blackmoor",
+  "obedience": 54,
+  "passives": [
+   "passive.fortune",
+   "passive.vanguard",
+   "passive.duelist"
+  ],
+  "seed": 1140349,
+  "stars": 5,
+  "traits": [
+   "trait.honorable",
+   "trait.greedy",
+   "trait.brave"
+  ],
+  "trust": 60
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/4_2",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "Hat/3_3",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/5_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_2"
+  },
+  "name": "Alus Mistral",
+  "obedience": 64,
+  "passives": [
+   "passive.evasive",
+   "passive.resolute"
+  ],
+  "seed": 1148268,
+  "stars": 4,
+  "traits": [
+   "trait.curious",
+   "trait.stoic",
+   "trait.cautious"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_3"
+  },
+  "name": "Moron Yarrow",
+  "obedience": 48,
+  "passives": [
+   "passive.berserk",
+   "passive.field_medic"
+  ],
+  "seed": 1156187,
+  "stars": 3,
+  "traits": [
+   "trait.reckless",
+   "trait.kind"
+  ],
+  "trust": 52
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/2_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_2"
+  },
+  "name": "Nyxa Jadewood",
+  "obedience": 52,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 1164106,
+  "stars": 2,
+  "traits": [
+   "trait.loyal",
+   "trait.hot_headed"
+  ],
+  "trust": 55
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_3"
+  },
+  "name": "Ulus Stonebrook",
+  "obedience": 56,
+  "passives": [
+   "passive.inspiring"
+  ],
+  "seed": 1172025,
+  "stars": 1,
+  "traits": [
+   "trait.cheerful"
+  ],
+  "trust": 53
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/3_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_3"
+  },
+  "name": "Sola Lowmarsh",
+  "obedience": 51,
+  "passives": [
+   "passive.pessimist",
+   "passive.resolute",
+   "passive.second_wind"
+  ],
+  "seed": 1179944,
+  "stars": 5,
+  "traits": [
+   "trait.stoic",
+   "trait.lazy",
+   "trait.gloomy"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "Hat/2_2",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_4"
+  },
+  "name": "Caelon Northwind",
+  "obedience": 42,
+  "passives": [
+   "passive.pessimist",
+   "passive.evasive"
+  ],
+  "seed": 1187863,
+  "stars": 4,
+  "traits": [
+   "trait.gloomy",
+   "trait.cautious",
+   "trait.lazy"
+  ],
+  "trust": 42
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/8_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_3"
+  },
+  "name": "Fenin Hollowell",
+  "obedience": 37,
+  "passives": [
+   "passive.berserk",
+   "passive.iron_will"
+  ],
+  "seed": 1195782,
+  "stars": 3,
+  "traits": [
+   "trait.stubborn",
+   "trait.reckless"
+  ],
+  "trust": 52
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_3",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_4"
+  },
+  "name": "Tamia Jadewood",
+  "obedience": 44,
+  "passives": [
+   "passive.pessimist"
+  ],
+  "seed": 1203701,
+  "stars": 2,
+  "traits": [
+   "trait.gloomy",
+   "trait.kind"
+  ],
+  "trust": 60
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/5_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_1"
+  },
+  "name": "Elon Mistral",
+  "obedience": 40,
+  "passives": [
+   "passive.berserk"
+  ],
+  "seed": 1211620,
+  "stars": 1,
+  "traits": [
+   "trait.reckless"
+  ],
+  "trust": 52
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/5_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_2"
+  },
+  "name": "Alon Mistral",
+  "obedience": 55,
+  "passives": [
+   "passive.field_medic",
+   "passive.pessimist",
+   "passive.resolute"
+  ],
+  "seed": 1219539,
+  "stars": 5,
+  "traits": [
+   "trait.gloomy",
+   "trait.stoic",
+   "trait.kind"
+  ],
+  "trust": 69
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "Hat/5_4",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_4"
+  },
+  "name": "Ulon Ashford",
+  "obedience": 52,
+  "passives": [
+   "passive.first_strike",
+   "passive.duelist"
+  ],
+  "seed": 1227458,
+  "stars": 4,
+  "traits": [
+   "trait.honorable",
+   "trait.kind",
+   "trait.hot_headed"
+  ],
+  "trust": 73
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/4_3",
+   "front_hair": "Front_Hair/6_3",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/7_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_3"
+  },
+  "name": "Quina Valemont",
+  "obedience": 39,
+  "passives": [
+   "passive.showoff",
+   "passive.analyst"
+  ],
+  "seed": 1235377,
+  "stars": 3,
+  "traits": [
+   "trait.curious",
+   "trait.arrogant"
+  ],
+  "trust": 44
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/4_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_5"
+  },
+  "name": "Tamek Oakheart",
+  "obedience": 45,
+  "passives": [
+   "passive.berserk"
+  ],
+  "seed": 1243296,
+  "stars": 2,
+  "traits": [
+   "trait.reckless",
+   "trait.cheerful"
+  ],
+  "trust": 45
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_1"
+  },
+  "name": "Wynar Underhill",
+  "obedience": 55,
+  "passives": [
+   "passive.pessimist"
+  ],
+  "seed": 1251215,
+  "stars": 1,
+  "traits": [
+   "trait.gloomy"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/3_4",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Feneth Greymane",
+  "obedience": 42,
+  "passives": [
+   "passive.fortune",
+   "passive.pessimist",
+   "passive.evasive"
+  ],
+  "seed": 1259134,
+  "stars": 5,
+  "traits": [
+   "trait.cautious",
+   "trait.gloomy",
+   "trait.greedy"
+  ],
+  "trust": 41
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/3_4",
+   "front_hair": "Front_Hair/6_4",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/6_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_2"
+  },
+  "name": "Kelek Stonebrook",
+  "obedience": 49,
+  "passives": [
+   "passive.analyst",
+   "passive.vanguard"
+  ],
+  "seed": 1267053,
+  "stars": 4,
+  "traits": [
+   "trait.curious",
+   "trait.brave",
+   "trait.cunning"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/2_3",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/4_5",
+   "front_hair": "Front_Hair/3_5",
+   "hat": "",
+   "held": "Held_Item/2",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_1"
+  },
+  "name": "Solon Underhill",
+  "obedience": 39,
+  "passives": [
+   "passive.iron_will",
+   "passive.field_medic"
+  ],
+  "seed": 1274972,
+  "stars": 3,
+  "traits": [
+   "trait.kind",
+   "trait.stubborn"
+  ],
+  "trust": 67
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/4_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_3"
+  },
+  "name": "Zelis Ravenscar",
+  "obedience": 43,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 1282891,
+  "stars": 2,
+  "traits": [
+   "trait.lazy",
+   "trait.stubborn"
+  ],
+  "trust": 39
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/6_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_1"
+  },
+  "name": "Rheia Underhill",
+  "obedience": 52,
+  "passives": [
+   "passive.inspiring"
+  ],
+  "seed": 1290810,
+  "stars": 1,
+  "traits": [
+   "trait.cheerful"
+  ],
+  "trust": 67
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "Facial_Hair/4_1",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_5"
+  },
+  "name": "Wyneth Lowmarsh",
+  "obedience": 66,
+  "passives": [
+   "passive.bodyguard",
+   "passive.vanguard",
+   "passive.inspiring"
+  ],
+  "seed": 1298729,
+  "stars": 5,
+  "traits": [
+   "trait.loyal",
+   "trait.brave",
+   "trait.cheerful"
+  ],
+  "trust": 74
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/3_5",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/3_5",
+   "front_hair": "Front_Hair/5_5",
+   "hat": "Hat/4_1",
+   "held": "Held_Item/4",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_1"
+  },
+  "name": "Rheis Northwind",
+  "obedience": 35,
+  "passives": [
+   "passive.evasive",
+   "passive.second_wind"
+  ],
+  "seed": 1306648,
+  "stars": 4,
+  "traits": [
+   "trait.arrogant",
+   "trait.lazy",
+   "trait.cautious"
+  ],
+  "trust": 29
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_5"
+  },
+  "name": "Tamia Ashford",
+  "obedience": 75,
+  "passives": [
+   "passive.duelist",
+   "passive.bodyguard"
+  ],
+  "seed": 1314567,
+  "stars": 3,
+  "traits": [
+   "trait.honorable",
+   "trait.loyal"
+  ],
+  "trust": 86
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/1_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_2"
+  },
+  "name": "Rheus Emberfall",
+  "obedience": 45,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 1322486,
+  "stars": 2,
+  "traits": [
+   "trait.cautious",
+   "trait.arrogant"
+  ],
+  "trust": 43
+ },
+ {
+  "class": "class.mage",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_2"
+  },
+  "name": "Moria Lowmarsh",
+  "obedience": 36,
+  "passives": [
+   "passive.fortune"
+  ],
+  "seed": 1330405,
+  "stars": 1,
+  "traits": [
+   "trait.greedy"
+  ],
+  "trust": 37
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_1",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/2",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_3"
+  },
+  "name": "Rheor Ashford",
+  "obedience": 66,
+  "passives": [
+   "passive.pessimist",
+   "passive.duelist",
+   "passive.analyst"
+  ],
+  "seed": 1338324,
+  "stars": 5,
+  "traits": [
+   "trait.gloomy",
+   "trait.honorable",
+   "trait.curious"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/2_1",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "Hat/4_3",
+   "held": "",
+   "rear_hair": "Rear_Hair/5_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_5"
+  },
+  "name": "Kelek Coldwater",
+  "obedience": 47,
+  "passives": [
+   "passive.duelist",
+   "passive.first_strike"
+  ],
+  "seed": 1346243,
+  "stars": 4,
+  "traits": [
+   "trait.greedy",
+   "trait.honorable",
+   "trait.hot_headed"
+  ],
+  "trust": 42
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/4_4",
+   "front_hair": "Front_Hair/5_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_2"
+  },
+  "name": "Pyren Ashford",
+  "obedience": 41,
+  "passives": [
+   "passive.second_wind",
+   "passive.vanguard"
+  ],
+  "seed": 1354162,
+  "stars": 3,
+  "traits": [
+   "trait.brave",
+   "trait.lazy"
+  ],
+  "trust": 48
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/4_1",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_2",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/6_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_4"
+  },
+  "name": "Rheira Underhill",
+  "obedience": 66,
+  "passives": [
+   "passive.duelist"
+  ],
+  "seed": 1362081,
+  "stars": 2,
+  "traits": [
+   "trait.curious",
+   "trait.honorable"
+  ],
+  "trust": 62
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/2_1"
+  },
+  "name": "Kelyn Ashford",
+  "obedience": 43,
+  "passives": [
+   "passive.opportunist"
+  ],
+  "seed": 1370000,
+  "stars": 1,
+  "traits": [
+   "trait.cunning"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "Hat/5_2",
+   "held": "Held_Item/2",
+   "rear_hair": "Rear_Hair/7_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_3"
+  },
+  "name": "Joris Underhill",
+  "obedience": 49,
+  "passives": [
+   "passive.opportunist",
+   "passive.vanguard",
+   "passive.resolute"
+  ],
+  "seed": 1377919,
+  "stars": 5,
+  "traits": [
+   "trait.stoic",
+   "trait.cunning",
+   "trait.brave"
+  ],
+  "trust": 59
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "Hat/5_4",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/6_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_1"
+  },
+  "name": "Nyxan Hollowell",
+  "obedience": 41,
+  "passives": [
+   "passive.analyst",
+   "passive.berserk"
+  ],
+  "seed": 1385838,
+  "stars": 4,
+  "traits": [
+   "trait.curious",
+   "trait.reckless",
+   "trait.cheerful"
+  ],
+  "trust": 61
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_3",
+   "hat": "Hat/5_2",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_4"
+  },
+  "name": "Ulor Yarrow",
+  "obedience": 53,
+  "passives": [
+   "passive.evasive",
+   "passive.showoff"
+  ],
+  "seed": 1393757,
+  "stars": 3,
+  "traits": [
+   "trait.cautious",
+   "trait.arrogant"
+  ],
+  "trust": 42
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/1_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/3_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_3"
+  },
+  "name": "Rheor Ravenscar",
+  "obedience": 54,
+  "passives": [
+   "passive.duelist"
+  ],
+  "seed": 1401676,
+  "stars": 2,
+  "traits": [
+   "trait.reckless",
+   "trait.honorable"
+  ],
+  "trust": 64
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/1_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/4_4"
+  },
+  "name": "Brenek Valemont",
+  "obedience": 47,
+  "passives": [
+   "passive.second_wind"
+  ],
+  "seed": 1409595,
+  "stars": 1,
+  "traits": [
+   "trait.lazy"
+  ],
+  "trust": 49
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/2_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/6_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_1"
+  },
+  "name": "Joria Hollowell",
+  "obedience": 50,
+  "passives": [
+   "passive.field_medic",
+   "passive.berserk",
+   "passive.evasive"
+  ],
+  "seed": 1417514,
+  "stars": 5,
+  "traits": [
+   "trait.kind",
+   "trait.reckless",
+   "trait.cautious"
+  ],
+  "trust": 57
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/5_5",
+   "hat": "",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_2"
+  },
+  "name": "Moris Emberfall",
+  "obedience": 63,
+  "passives": [
+   "passive.duelist",
+   "passive.bodyguard"
+  ],
+  "seed": 1425433,
+  "stars": 4,
+  "traits": [
+   "trait.arrogant",
+   "trait.loyal",
+   "trait.honorable"
+  ],
+  "trust": 67
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_2",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_4"
+  },
+  "name": "Caelen Hollowell",
+  "obedience": 39,
+  "passives": [
+   "passive.vanguard",
+   "passive.iron_will"
+  ],
+  "seed": 1433352,
+  "stars": 3,
+  "traits": [
+   "trait.brave",
+   "trait.stubborn"
+  ],
+  "trust": 63
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_3"
+  },
+  "name": "Lysis Ravenscar",
+  "obedience": 64,
+  "passives": [
+   "passive.duelist"
+  ],
+  "seed": 1441271,
+  "stars": 2,
+  "traits": [
+   "trait.honorable",
+   "trait.loyal"
+  ],
+  "trust": 69
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_4",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/7_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_4"
+  },
+  "name": "Yoryn Ashford",
+  "obedience": 57,
+  "passives": [
+   "passive.field_medic"
+  ],
+  "seed": 1449190,
+  "stars": 1,
+  "traits": [
+   "trait.kind"
+  ],
+  "trust": 54
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "Hat/4_5",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/7_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_1"
+  },
+  "name": "Fenia Northwind",
+  "obedience": 22,
+  "passives": [
+   "passive.berserk",
+   "passive.analyst",
+   "passive.showoff"
+  ],
+  "seed": 1457109,
+  "stars": 5,
+  "traits": [
+   "trait.arrogant",
+   "trait.curious",
+   "trait.reckless"
+  ],
+  "trust": 37
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/2_1",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "Hat/4_4",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/6_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_1"
+  },
+  "name": "Lysia Underhill",
+  "obedience": 34,
+  "passives": [
+   "passive.first_strike",
+   "passive.showoff"
+  ],
+  "seed": 1465028,
+  "stars": 4,
+  "traits": [
+   "trait.arrogant",
+   "trait.loyal",
+   "trait.hot_headed"
+  ],
+  "trust": 44
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/3_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/4_1",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/10_2"
+  },
+  "name": "Nyxyn Northwind",
+  "obedience": 36,
+  "passives": [
+   "passive.first_strike",
+   "passive.iron_will"
+  ],
+  "seed": 1472947,
+  "stars": 3,
+  "traits": [
+   "trait.hot_headed",
+   "trait.stubborn"
+  ],
+  "trust": 39
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/2_1",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/3_1",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/7_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_1"
+  },
+  "name": "Fenek Lowmarsh",
+  "obedience": 56,
+  "passives": [
+   "passive.iron_will"
+  ],
+  "seed": 1480866,
+  "stars": 2,
+  "traits": [
+   "trait.honorable",
+   "trait.stubborn"
+  ],
+  "trust": 74
+ },
+ {
+  "class": "class.cleric",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/3_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "Facial_Hair/2_2",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/2_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_1"
+  },
+  "name": "Yoris Mistral",
+  "obedience": 33,
+  "passives": [
+   "passive.first_strike"
+  ],
+  "seed": 1488785,
+  "stars": 1,
+  "traits": [
+   "trait.hot_headed"
+  ],
+  "trust": 50
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_4",
+   "eyes": "Eyes/3",
+   "facial_hair": "Facial_Hair/4_1",
+   "front_hair": "Front_Hair/5_1",
+   "hat": "Hat/5_5",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_1",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/9_1"
+  },
+  "name": "Orek Stonebrook",
+  "obedience": 39,
+  "passives": [
+   "passive.first_strike",
+   "passive.analyst",
+   "passive.evasive"
+  ],
+  "seed": 1496704,
+  "stars": 5,
+  "traits": [
+   "trait.curious",
+   "trait.hot_headed",
+   "trait.cautious"
+  ],
+  "trust": 52
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/4",
+   "bottom": "Bottom/4_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/4_1",
+   "front_hair": "Front_Hair/6_1",
+   "hat": "Hat/4_2",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_4"
+  },
+  "name": "Lysyn Quillfeather",
+  "obedience": 63,
+  "passives": [
+   "passive.resolute",
+   "passive.opportunist"
+  ],
+  "seed": 1504623,
+  "stars": 4,
+  "traits": [
+   "trait.stoic",
+   "trait.loyal",
+   "trait.cunning"
+  ],
+  "trust": 75
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/1_2",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/2_3",
+   "front_hair": "Front_Hair/5_3",
+   "hat": "Hat/5_3",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/2_3",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/5_4"
+  },
+  "name": "Garen Frostwick",
+  "obedience": 33,
+  "passives": [
+   "passive.opportunist",
+   "passive.showoff"
+  ],
+  "seed": 1512542,
+  "stars": 3,
+  "traits": [
+   "trait.cunning",
+   "trait.arrogant"
+  ],
+  "trust": 40
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/4",
+   "facial_hair": "Facial_Hair/2_5",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/2_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_2"
+  },
+  "name": "Halin Mistral",
+  "obedience": 36,
+  "passives": [
+   "passive.showoff"
+  ],
+  "seed": 1520461,
+  "stars": 2,
+  "traits": [
+   "trait.arrogant",
+   "trait.lazy"
+  ],
+  "trust": 30
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/2",
+   "bottom": "Bottom/5_2",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "",
+   "rear_hair": "Rear_Hair/2_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/3_5"
+  },
+  "name": "Lysar Coldwater",
+  "obedience": 51,
+  "passives": [
+   "passive.inspiring"
+  ],
+  "seed": 1528380,
+  "stars": 1,
+  "traits": [
+   "trait.cheerful"
+  ],
+  "trust": 64
+ },
+ {
+  "class": "class.rogue",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_5",
+   "hat": "",
+   "held": "Held_Item/5",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_3"
+  },
+  "name": "Lyson Kestrel",
+  "obedience": 30,
+  "passives": [
+   "passive.iron_will",
+   "passive.berserk",
+   "passive.opportunist"
+  ],
+  "seed": 1536299,
+  "stars": 5,
+  "traits": [
+   "trait.reckless",
+   "trait.cunning",
+   "trait.stubborn"
+  ],
+  "trust": 51
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/3_4",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/6_2",
+   "hat": "Hat/5_3",
+   "held": "Held_Item/3",
+   "rear_hair": "Rear_Hair/8_2",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/11_4"
+  },
+  "name": "Vexar Pinecrest",
+  "obedience": 40,
+  "passives": [
+   "passive.evasive",
+   "passive.second_wind"
+  ],
+  "seed": 1544218,
+  "stars": 4,
+  "traits": [
+   "trait.greedy",
+   "trait.cautious",
+   "trait.lazy"
+  ],
+  "trust": 29
+ },
+ {
+  "class": "class.commoner",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_1",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/4_1",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/6_3"
+  },
+  "name": "Daror Whitlock",
+  "obedience": 34,
+  "passives": [
+   "passive.first_strike",
+   "passive.pessimist"
+  ],
+  "seed": 1552137,
+  "stars": 3,
+  "traits": [
+   "trait.hot_headed",
+   "trait.gloomy"
+  ],
+  "trust": 42
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/1",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/3",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/4_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_2"
+  },
+  "name": "Garan Emberfall",
+  "obedience": 50,
+  "passives": [
+   "passive.vanguard"
+  ],
+  "seed": 1560056,
+  "stars": 2,
+  "traits": [
+   "trait.brave",
+   "trait.lazy"
+  ],
+  "trust": 58
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/5",
+   "bottom": "Bottom/1_2",
+   "eyes": "Eyes/1",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "",
+   "held": "",
+   "rear_hair": "",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_2"
+  },
+  "name": "Garar Yarrow",
+  "obedience": 50,
+  "passives": [
+   "passive.analyst"
+  ],
+  "seed": 1567975,
+  "stars": 1,
+  "traits": [
+   "trait.curious"
+  ],
+  "trust": 56
+ },
+ {
+  "class": "class.archer",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/5_5",
+   "eyes": "Eyes/2",
+   "facial_hair": "",
+   "front_hair": "Front_Hair/2_5",
+   "hat": "Hat/3_2",
+   "held": "Held_Item/4",
+   "rear_hair": "Rear_Hair/8_5",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/8_3"
+  },
+  "name": "Halan Northwind",
+  "obedience": 61,
+  "passives": [
+   "passive.second_wind",
+   "passive.bodyguard",
+   "passive.evasive"
+  ],
+  "seed": 1575894,
+  "stars": 5,
+  "traits": [
+   "trait.lazy",
+   "trait.cautious",
+   "trait.loyal"
+  ],
+  "trust": 63
+ },
+ {
+  "class": "class.warrior",
+  "composure": 100,
+  "look_v3": {
+   "body": "Body/3",
+   "bottom": "Bottom/4_3",
+   "eyes": "Eyes/4",
+   "facial_hair": "",
+   "front_hair": "",
+   "hat": "",
+   "held": "Held_Item/6",
+   "rear_hair": "Rear_Hair/6_4",
+   "shoes": "Bottom/Shoes_Layer",
+   "top": "Top/7_5"
+  },
+  "name": "Halek Kestrel",
+  "obedience": 51,
+  "passives": [
+   "passive.resolute",
+   "passive.berserk"
+  ],
+  "seed": 1583813,
+  "stars": 4,
+  "traits": [
+   "trait.reckless",
+   "trait.stoic",
+   "trait.cautious"
+  ],
+  "trust": 52
+ }
+]

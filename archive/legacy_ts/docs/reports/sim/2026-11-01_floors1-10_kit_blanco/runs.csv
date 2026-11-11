@@ -1,0 +1,201 @@
+variant,floor,seed,mission,outcome,win,reason,time_s,first_contact_s,party,downs,deaths,killed,enemies,damage,healing,taken,pings,commands,skills,revives,gathered,kept,lost,reward,reward_items,consumables_used,wall_ms
+loco,1,2000,combat,SUCCESS,1,,329.1,17.9,1,0,0,20,20,1912,0,24,162,0,13,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",3,0,6314
+loco,1,2001,combat,SUCCESS,1,,327.5,12.8,1,0,0,19,19,1836,0,11,144,0,12,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,4479
+loco,1,2002,combat,SUCCESS,1,,352.6,17.9,1,0,0,19,19,1767,0,13,158,0,12,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,6026
+loco,1,2003,combat,SUCCESS,1,,387.3,18.4,1,0,0,22,22,2176,0,11,167,0,14,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,5845
+loco,1,2004,combat,SUCCESS,1,,315.5,16.0,1,0,0,18,18,1681,0,6,139,0,11,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,5110
+loco,1,2005,combat,SUCCESS,1,,357.4,19.5,1,0,0,19,19,1856,0,22,141,0,11,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,4760
+loco,1,2006,combat,SUCCESS,1,,334.7,16.0,1,0,0,20,20,1933,0,163,139,0,12,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,4514
+loco,1,2007,combat,SUCCESS,1,,313.7,17.4,1,0,0,20,20,1814,0,0,144,0,12,0,essence 2.0,essence 2.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",3,0,6810
+loco,1,2008,combat,SUCCESS,1,,367.5,16.3,1,0,0,20,20,1936,0,39,151,0,14,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,4725
+loco,1,2009,combat,SUCCESS,1,,335.5,18.2,1,0,0,20,20,1902,0,22,154,0,12,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,5217
+loco,2,2000,exploration,SUCCESS,1,,235.5,22.4,2,0,0,13,33,1812,290,330,85,0,8,0,essence 1.0,essence 1.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,9488
+loco,2,2001,exploration,SUCCESS,1,,249.0,36.3,2,0,0,12,32,1709,404,453,86,3,7,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,12840
+loco,2,2002,exploration,SUCCESS,1,,228.0,18.2,2,0,0,11,30,1620,228,266,77,1,7,0,essence 2.0,essence 2.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,9465
+loco,2,2003,exploration,SUCCESS,1,,233.8,22.2,2,0,0,11,35,1515,457,555,72,1,6,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,9475
+loco,2,2004,exploration,SUCCESS,1,,190.2,25.6,2,0,0,10,29,1439,346,355,57,1,5,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,10656
+loco,2,2005,exploration,SUCCESS,1,,198.2,55.5,2,0,0,10,33,1150,171,201,48,1,5,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,11809
+loco,2,2006,exploration,SUCCESS,1,,199.7,44.6,2,0,0,5,29,842,58,105,46,2,4,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,10716
+loco,2,2007,exploration,SUCCESS,1,,183.0,24.6,2,0,0,6,30,711,166,168,37,0,4,0,essence 1.0,essence 1.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,9660
+loco,2,2008,exploration,SUCCESS,1,,208.2,26.2,2,0,0,11,31,1344,232,243,58,2,6,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,10107
+loco,2,2009,exploration,SUCCESS,1,,276.7,32.3,2,0,0,16,29,2277,634,665,110,3,8,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,7798
+loco,3,2000,defense,SUCCESS,1,,168.6,55.8,3,2,0,10,55,791,289,549,29,2,0,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,22195
+loco,3,2001,defense,SUCCESS,1,,164.9,60.3,3,1,0,10,57,787,116,282,14,2,1,0,essence 1.0,essence 1.0,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,21706
+loco,3,2002,defense,SUCCESS,1,,159.4,51.5,3,0,0,9,59,661,210,214,21,2,0,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,24400
+loco,3,2003,defense,SUCCESS,1,,166.4,57.9,3,0,0,9,55,848,114,220,26,2,0,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,32916
+loco,3,2004,defense,SUCCESS,1,,159.1,58.4,3,0,0,12,55,1057,522,564,31,2,0,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,24682
+loco,3,2005,defense,SUCCESS,1,,165.6,33.9,3,0,0,13,54,1063,519,632,33,3,2,0,essence 1.0,essence 1.0,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,21555
+loco,3,2006,defense,SUCCESS,1,,160.7,78.4,3,1,0,6,55,541,516,765,14,2,1,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,22294
+loco,3,2007,defense,SUCCESS,1,,157.0,53.4,3,0,0,10,57,729,406,440,21,2,1,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,29614
+loco,3,2008,defense,SUCCESS,1,,158.2,57.9,3,0,0,9,59,686,274,317,17,2,1,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,23872
+loco,3,2009,defense,SUCCESS,1,,158.4,63.0,3,0,0,8,52,653,507,546,18,2,0,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,37100
+loco,4,2000,escape,SUCCESS,1,,120.3,19.0,2,0,0,4,46,546,54,78,31,2,1,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,9244
+loco,4,2001,escape,SUCCESS,1,,149.2,25.1,2,0,0,7,36,1056,290,328,46,2,4,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,8795
+loco,4,2002,escape,SUCCESS,1,,222.4,28.0,2,1,1,9,46,1060,58,331,96,0,7,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",4,0,16906
+loco,4,2003,escape,SUCCESS,1,,116.8,45.1,2,1,0,4,44,435,116,281,26,0,2,0,essence 1.0,essence 1.0,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,14960
+loco,4,2004,escape,SUCCESS,1,,154.2,45.4,2,0,0,8,38,1095,288,336,51,1,4,0,mat_enchanted_cloth 1.0,mat_enchanted_cloth 1.0,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,9427
+loco,4,2005,escape,SUCCESS,1,,344.7,25.6,2,1,1,13,45,1701,58,286,189,0,12,0,essence 2.0,essence 2.0,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",4,0,17593
+loco,4,2006,escape,SUCCESS,1,,126.3,35.5,2,0,0,5,37,715,58,90,37,0,3,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,13315
+loco,4,2007,escape,SUCCESS,1,,159.5,43.2,2,0,0,10,40,1237,174,197,52,1,5,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",4,0,8952
+loco,4,2008,escape,FAILED,0,master_lost,98.0,23.8,2,1,1,2,48,733,58,396,49,1,4,0,,,,,0,0,8128
+loco,4,2009,escape,SUCCESS,1,,138.9,30.4,2,0,0,7,40,1040,290,345,46,0,5,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,6749
+loco,5,2000,boss,FAILED,0,master_lost,180.6,29.4,5,6,4,7,48,1332,166,1092,61,2,5,0,essence 1.0,,essence 1.0,,0,0,18167
+loco,5,2001,boss,FAILED,0,master_lost,146.9,33.6,5,4,4,5,50,836,108,798,65,1,5,0,,,,,0,0,13122
+loco,5,2002,boss,FAILED,0,master_lost,202.2,25.4,5,5,4,10,48,1772,342,1021,83,2,6,0,essence 1.0,,essence 1.0,,0,0,17787
+loco,5,2003,boss,FAILED,0,master_lost,167.4,36.6,5,5,4,8,49,1318,359,1121,65,2,5,0,"essence 1.0;mat_enchanted_cloth 1.0",,"essence 1.0;mat_enchanted_cloth 1.0",,0,0,12619
+loco,5,2004,boss,FAILED,0,master_lost,130.3,35.5,5,4,4,6,52,654,157,1378,16,2,0,0,mat_enchanted_cloth 3.0,,mat_enchanted_cloth 3.0,,0,0,14729
+loco,5,2005,boss,FAILED,0,master_lost,145.2,22.4,5,6,4,14,48,1925,337,1628,49,2,2,0,mat_enchanted_cloth 2.0,,mat_enchanted_cloth 2.0,,0,0,12452
+loco,5,2006,boss,FAILED,0,master_lost,191.5,49.9,5,5,4,10,46,1134,110,1700,70,2,3,0,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,23249
+loco,5,2007,boss,FAILED,0,master_lost,123.5,24.0,5,3,4,12,48,1398,340,1941,30,2,1,0,"essence 1.0;mat_enchanted_cloth 1.0",,"essence 1.0;mat_enchanted_cloth 1.0",,0,0,10230
+loco,5,2008,boss,FAILED,0,master_lost,151.1,28.3,5,7,4,9,48,1243,573,1632,40,1,2,0,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,20073
+loco,5,2009,boss,FAILED,0,master_lost,218.0,42.4,5,4,4,11,52,1472,0,1623,80,2,4,0,essence 1.0,,essence 1.0,,0,0,24583
+loco,6,2000,rescue,FAILED,0,master_lost,196.1,33.9,3,2,2,8,37,1345,0,656,71,2,5,0,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,14028
+loco,6,2001,rescue,FAILED,0,master_lost,69.1,26.7,3,2,2,4,37,470,0,411,28,1,2,0,,,,,0,0,7534
+loco,6,2002,rescue,FAILED,0,master_lost,221.7,28.3,3,2,2,10,42,1022,0,456,82,1,5,0,mat_iron_ore 3.0,,mat_iron_ore 3.0,,0,0,16905
+loco,6,2003,rescue,FAILED,0,master_lost,190.0,35.2,3,2,2,6,36,1075,0,423,58,2,4,0,"mat_enchanted_cloth 1.0;mat_iron_ore 1.0",,"mat_enchanted_cloth 1.0;mat_iron_ore 1.0",,0,0,13845
+loco,6,2004,rescue,ESCAPED,0,time_limit,420.0,39.5,3,2,1,11,35,1434,0,188,68,2,5,0,"mat_enchanted_cloth 2.0;mat_iron_ore 3.0","mat_enchanted_cloth 2.0;mat_iron_ore 3.0",,,0,0,25414
+loco,6,2005,rescue,FAILED,0,master_lost,198.6,42.4,3,2,2,6,38,1245,0,420,66,2,4,0,mat_iron_ore 1.0,,mat_iron_ore 1.0,,0,0,14216
+loco,6,2006,rescue,FAILED,0,master_lost,320.0,36.3,3,4,2,11,37,1811,0,577,95,3,7,0,"mat_enchanted_cloth 1.0;mat_iron_ore 1.0",,"mat_enchanted_cloth 1.0;mat_iron_ore 1.0",,0,0,18560
+loco,6,2007,rescue,FAILED,0,master_lost,197.3,26.7,3,2,2,8,38,1185,0,463,89,1,6,0,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,16020
+loco,6,2008,rescue,FAILED,0,master_lost,350.4,24.6,3,2,2,9,36,2032,0,518,194,1,16,0,mat_iron_ore 1.0,,mat_iron_ore 1.0,,0,0,15327
+loco,6,2009,rescue,FAILED,0,master_lost,307.8,32.6,3,3,2,9,40,1497,0,425,154,1,9,0,"mat_enchanted_cloth 2.0;mat_iron_ore 2.0",,"mat_enchanted_cloth 2.0;mat_iron_ore 2.0",,0,0,21303
+loco,7,2000,sabotage,TIMEOUT,0,timeout,1200.0,43.2,4,3,3,7,65,13150,346,713,1059,2,64,0,mat_resonant_crystal 1.0,,,,0,0,174615
+loco,7,2001,sabotage,FAILED,0,master_lost,84.1,33.6,4,3,3,1,65,463,0,592,31,1,3,0,,,,,0,0,8831
+loco,7,2002,sabotage,FAILED,0,master_lost,387.7,37.6,4,3,3,0,66,3435,116,750,305,1,19,0,,,,,0,0,66152
+loco,7,2003,sabotage,FAILED,0,master_lost,342.1,42.4,4,5,3,26,70,4961,746,1392,126,4,9,0,mat_resonant_crystal 4.0,,mat_resonant_crystal 4.0,,0,0,41597
+loco,7,2004,sabotage,FAILED,0,master_lost,77.8,32.0,4,3,3,2,70,630,58,597,28,1,2,0,mat_resonant_crystal 1.0,,mat_resonant_crystal 1.0,,0,0,7686
+loco,7,2005,sabotage,FAILED,0,master_lost,182.1,46.7,4,3,3,6,70,1913,116,734,93,1,8,0,,,,,0,0,13552
+loco,7,2006,sabotage,FAILED,0,master_lost,132.8,42.7,4,4,3,3,67,1153,58,612,59,1,5,0,,,,,0,0,21039
+loco,7,2007,sabotage,FAILED,0,master_lost,474.6,29.1,4,3,3,26,74,5182,174,764,279,1,22,0,"mat_iron_ore 3.0;mat_resonant_crystal 2.0",,"mat_iron_ore 3.0;mat_resonant_crystal 2.0",,0,0,30481
+loco,7,2008,sabotage,FAILED,0,master_lost,49.9,33.9,4,3,3,3,69,367,58,671,13,1,1,0,mat_resonant_crystal 1.0,,mat_resonant_crystal 1.0,,0,0,4847
+loco,7,2009,sabotage,FAILED,0,master_lost,130.6,26.2,4,3,3,2,65,869,58,572,72,1,5,0,mat_iron_ore 1.0,,mat_iron_ore 1.0,,0,0,11971
+loco,8,2000,combat,SUCCESS,1,,291.5,18.4,1,0,0,13,13,1711,0,86,133,0,11,0,"mat_moon_flower 2.0;mat_resonant_crystal 1.0","mat_moon_flower 2.0;mat_resonant_crystal 1.0",,"books 1.0;essence 3.0;food 0.0;gems 180.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",4,0,3224
+loco,8,2001,combat,FAILED,0,master_lost,220.1,9.4,1,0,0,5,10,1116,0,215,118,0,10,0,mat_moon_flower 1.0,,mat_moon_flower 1.0,,0,0,2432
+loco,8,2002,combat,SUCCESS,1,,332.9,17.1,1,0,0,9,9,1743,0,132,183,0,11,0,mat_moon_flower 1.0,mat_moon_flower 1.0,,"books 1.0;essence 3.0;food 0.0;gems 180.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,3133
+loco,8,2003,combat,FAILED,0,master_lost,133.0,21.1,1,0,0,3,11,631,0,206,74,0,6,0,,,,,0,0,1398
+loco,8,2004,combat,FAILED,0,master_lost,230.9,7.8,1,0,0,5,11,1250,0,206,124,0,9,0,,,,,0,0,2451
+loco,8,2005,combat,FAILED,0,master_lost,115.9,10.7,1,0,0,3,12,544,0,185,65,0,4,0,mat_moon_flower 1.0,,mat_moon_flower 1.0,,0,0,1331
+loco,8,2006,combat,SUCCESS,1,,380.1,11.5,1,0,0,11,11,1938,0,168,202,0,15,0,mat_resonant_crystal 1.0,mat_resonant_crystal 1.0,,"books 1.0;essence 3.0;food 0.0;gems 180.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",4,0,3286
+loco,8,2007,combat,FAILED,0,master_lost,143.0,9.1,1,0,0,4,11,597,0,203,73,0,6,0,mat_moon_flower 2.0,,mat_moon_flower 2.0,,0,0,1448
+loco,8,2008,combat,FAILED,0,master_lost,187.8,11.8,1,1,0,5,12,1029,0,185,102,0,8,0,mat_resonant_crystal 1.0,,mat_resonant_crystal 1.0,,0,0,1746
+loco,8,2009,combat,FAILED,0,master_lost,109.8,18.4,1,0,0,6,11,729,0,202,52,0,5,0,,,,,0,0,1275
+loco,9,2000,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,59,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,8287
+loco,9,2001,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,60,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,11765
+loco,9,2002,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,66,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,11360
+loco,9,2003,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,54,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,6392
+loco,9,2004,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,64,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,7427
+loco,9,2005,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,64,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,13225
+loco,9,2006,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,58,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,7737
+loco,9,2007,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,62,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,9227
+loco,9,2008,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,62,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,8861
+loco,9,2009,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,60,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,12336
+loco,10,2000,boss,FAILED,0,master_lost,153.4,20.3,5,7,4,5,35,851,337,1244,54,2,3,0,,,,,0,0,7904
+loco,10,2001,boss,FAILED,0,master_lost,107.4,35.2,5,4,4,2,34,607,155,1424,18,1,1,0,,,,,0,0,9336
+loco,10,2002,boss,FAILED,0,master_lost,150.4,35.8,5,4,4,7,39,1167,86,919,43,2,4,0,,,,,0,0,10896
+loco,10,2003,boss,FAILED,0,master_lost,124.6,27.8,5,4,4,4,34,740,58,831,30,2,3,0,,,,,0,0,9669
+loco,10,2004,boss,FAILED,0,master_lost,205.6,23.5,5,5,4,10,41,1542,167,1080,75,2,7,0,,,,,0,0,8240
+loco,10,2005,boss,FAILED,0,master_lost,84.6,19.8,5,5,4,3,30,530,58,736,35,1,3,0,,,,,0,0,4328
+loco,10,2006,boss,FAILED,0,master_lost,182.2,34.4,5,7,4,4,33,933,170,951,63,1,5,0,,,,,0,0,6737
+loco,10,2007,boss,FAILED,0,master_lost,136.1,21.1,5,5,4,5,34,964,102,1279,45,1,2,0,mat_rune_plate 1.0,,mat_rune_plate 1.0,,0,0,7345
+loco,10,2008,boss,FAILED,0,master_lost,189.6,27.5,5,9,4,4,39,1265,515,1708,67,3,6,0,,,,,0,0,9096
+loco,10,2009,boss,FAILED,0,master_lost,201.8,20.8,5,4,4,8,43,1030,348,1028,82,2,7,0,,,,,0,0,12709
+tactico,1,2000,combat,SUCCESS,1,,338.7,17.9,1,0,0,20,20,1871,0,2,83,0,11,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",3,0,6004
+tactico,1,2001,combat,SUCCESS,1,,315.8,12.8,1,0,0,19,19,1816,0,0,71,0,10,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,3897
+tactico,1,2002,combat,SUCCESS,1,,349.9,17.9,1,0,0,19,19,1768,0,35,81,0,12,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,5122
+tactico,1,2003,combat,SUCCESS,1,,392.6,18.4,1,0,0,22,22,2116,0,11,89,0,13,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,5684
+tactico,1,2004,combat,SUCCESS,1,,325.7,16.0,1,0,0,18,18,1681,0,21,78,0,13,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,5105
+tactico,1,2005,combat,SUCCESS,1,,363.0,19.5,1,0,0,19,19,1836,0,11,77,0,11,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,4796
+tactico,1,2006,combat,SUCCESS,1,,339.5,16.0,1,0,0,20,20,1891,0,101,82,0,13,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,4443
+tactico,1,2007,combat,SUCCESS,1,,347.3,17.4,1,0,0,20,20,1853,0,6,81,0,13,0,essence 2.0,essence 2.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",3,0,8024
+tactico,1,2008,combat,SUCCESS,1,,389.1,16.3,1,0,0,20,20,1976,0,24,88,0,13,0,,,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,5094
+tactico,1,2009,combat,SUCCESS,1,,331.5,18.2,1,0,0,20,20,1882,0,13,77,0,13,0,essence 1.0,essence 1.0,,"books 0.0;essence 1.0;food 0.0;gems 75.0;left_behind 0.0;materials 0.0;starsteel 1.0;stones 1.0",2,0,4781
+tactico,2,2000,exploration,SUCCESS,1,,234.8,27.2,2,0,0,12,33,1672,288,288,50,1,7,0,essence 1.0,essence 1.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,8974
+tactico,2,2001,exploration,SUCCESS,1,,250.2,36.6,2,0,0,12,32,1651,290,318,53,2,6,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,11409
+tactico,2,2002,exploration,SUCCESS,1,,243.2,18.2,2,0,0,12,30,1758,287,298,50,2,6,0,essence 2.0,essence 2.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,8399
+tactico,2,2003,exploration,SUCCESS,1,,260.4,24.3,2,0,0,14,35,1756,464,521,56,1,7,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,10358
+tactico,2,2004,exploration,SUCCESS,1,,222.7,25.9,2,0,0,10,29,1427,288,339,44,1,5,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,11886
+tactico,2,2005,exploration,SUCCESS,1,,203.5,55.5,2,0,0,10,33,1149,174,217,38,0,5,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,11422
+tactico,2,2006,exploration,SUCCESS,1,,202.2,44.6,2,0,0,4,29,710,0,0,34,1,3,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,10856
+tactico,2,2007,exploration,SUCCESS,1,,184.6,24.6,2,0,0,6,30,689,58,89,30,0,4,0,essence 1.0,essence 1.0,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,9563
+tactico,2,2008,exploration,SUCCESS,1,,218.6,26.2,2,0,0,11,31,1377,174,211,43,1,5,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,9687
+tactico,2,2009,exploration,SUCCESS,1,,276.0,32.3,2,0,0,15,29,2150,580,598,61,1,8,0,,,,"books 1.0;essence 1.0;food 0.0;gems 90.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,7144
+tactico,3,2000,defense,FAILED,0,master_lost,322.6,55.8,3,2,2,17,64,1606,57,506,155,1,9,0,,,,,0,0,38573
+tactico,3,2001,defense,SUCCESS,1,,154.6,60.3,3,0,0,8,53,638,174,266,13,2,0,0,essence 1.0,essence 1.0,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,19345
+tactico,3,2002,defense,SUCCESS,1,,157.6,51.5,3,0,0,9,59,644,271,329,10,2,1,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,22876
+tactico,3,2003,defense,SUCCESS,1,,152.5,57.9,3,1,0,5,55,664,174,329,10,2,1,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,29448
+tactico,3,2004,defense,SUCCESS,1,,182.8,58.4,3,0,0,14,59,1177,390,452,20,2,1,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,28577
+tactico,3,2005,defense,SUCCESS,1,,157.2,33.9,3,3,0,9,54,672,402,840,20,2,1,1,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,18218
+tactico,3,2006,defense,SUCCESS,1,,166.0,78.4,3,0,0,11,55,805,348,434,13,2,0,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,22320
+tactico,3,2007,defense,SUCCESS,1,,159.1,53.4,3,0,0,10,57,731,215,293,12,2,0,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,28650
+tactico,3,2008,defense,SUCCESS,1,,154.9,57.9,3,0,0,9,55,679,383,388,14,2,1,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",4,0,24125
+tactico,3,2009,defense,SUCCESS,1,,163.2,63.0,3,0,0,10,52,810,389,484,11,2,2,0,,,,"books 0.0;essence 2.0;food 0.0;gems 105.0;left_behind 0.0;materials 0.0;starsteel 2.0;stones 1.0",3,0,38027
+tactico,4,2000,escape,SUCCESS,1,,149.5,19.0,2,0,0,8,46,856,58,116,34,1,3,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,10295
+tactico,4,2001,escape,SUCCESS,1,,146.6,25.4,2,0,0,6,36,866,288,433,31,0,2,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,9594
+tactico,4,2002,escape,FAILED,0,master_lost,211.5,30.2,2,1,1,3,46,637,116,421,439,0,2,0,,,,,0,0,17562
+tactico,4,2003,escape,SUCCESS,1,,177.6,45.4,2,1,1,7,44,908,232,493,37,0,5,0,essence 1.0,essence 1.0,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,20702
+tactico,4,2004,escape,TIMEOUT,0,timeout,1200.0,46.7,2,0,0,10,38,1359,404,442,36,1,5,0,mat_enchanted_cloth 1.0,,,,0,0,57837
+tactico,4,2005,escape,SUCCESS,1,,235.9,25.9,2,1,1,8,45,1111,114,362,55,0,8,0,essence 1.0,essence 1.0,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",4,0,13756
+tactico,4,2006,escape,TIMEOUT,0,timeout,1200.0,35.5,2,0,0,10,37,1136,230,291,30,1,4,0,essence 2.0,,,,0,0,84310
+tactico,4,2007,escape,SUCCESS,1,,174.1,44.6,2,0,0,11,40,1301,230,244,33,1,4,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",4,0,10504
+tactico,4,2008,escape,FAILED,0,master_lost,138.0,23.8,2,1,1,2,48,430,58,388,172,0,3,0,,,,,0,0,11323
+tactico,4,2009,escape,SUCCESS,1,,192.3,31.0,2,0,0,11,40,1649,518,561,45,0,6,0,,,,"books 1.0;essence 2.0;food 0.0;gems 120.0;left_behind 0.0;materials 0.0;starsteel 3.0;stones 2.0",3,0,10018
+tactico,5,2000,boss,FAILED,0,master_lost,138.5,39.2,5,4,4,7,48,743,44,1087,29,1,1,0,essence 1.0,,essence 1.0,,0,0,17581
+tactico,5,2001,boss,FAILED,0,master_lost,68.4,37.1,5,4,4,2,53,596,50,802,14,1,1,0,,,,,0,0,8666
+tactico,5,2002,boss,FAILED,0,master_lost,168.2,28.3,5,5,4,12,48,1794,210,1587,40,0,4,1,essence 1.0,,essence 1.0,,0,0,16601
+tactico,5,2003,boss,FAILED,0,master_lost,164.5,39.5,5,6,4,7,49,1004,94,1527,32,1,3,2,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,14701
+tactico,5,2004,boss,FAILED,0,master_lost,152.2,37.6,5,5,4,7,52,713,116,1217,43,1,1,1,mat_enchanted_cloth 3.0,,mat_enchanted_cloth 3.0,,0,0,15982
+tactico,5,2005,boss,ESCAPED,0,retreat,83.0,25.4,5,4,4,2,48,291,0,652,16,0,1,0,,,,,0,0,8407
+tactico,5,2006,boss,FAILED,0,master_lost,132.9,53.6,5,4,4,9,46,897,50,1763,26,2,1,0,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,21385
+tactico,5,2007,boss,FAILED,0,master_lost,106.4,25.6,5,4,4,2,51,372,58,806,19,0,0,0,,,,,0,0,9104
+tactico,5,2008,boss,FAILED,0,master_lost,166.3,28.3,5,5,4,11,48,1451,422,1516,37,2,2,1,mat_enchanted_cloth 2.0,,mat_enchanted_cloth 2.0,,0,0,23097
+tactico,5,2009,boss,ESCAPED,0,retreat,327.8,36.6,5,5,4,6,49,839,153,1773,33,2,1,1,essence 1.0,essence 1.0,,,0,0,36835
+tactico,6,2000,rescue,FAILED,0,master_lost,301.2,34.2,3,6,2,7,37,1192,0,675,372,3,4,4,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,19967
+tactico,6,2001,rescue,FAILED,0,master_lost,97.1,27.2,3,2,2,1,37,241,0,413,78,1,1,0,,,,,0,0,9937
+tactico,6,2002,rescue,FAILED,0,master_lost,62.7,28.0,3,2,2,2,42,194,0,420,10,1,0,0,,,,,0,0,7822
+tactico,6,2003,rescue,FAILED,0,master_lost,187.4,35.2,3,3,2,4,36,805,0,457,31,1,3,1,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,14392
+tactico,6,2004,rescue,FAILED,0,master_lost,219.4,40.8,3,5,2,7,35,948,0,741,49,1,2,3,"mat_enchanted_cloth 1.0;mat_iron_ore 3.0",,"mat_enchanted_cloth 1.0;mat_iron_ore 3.0",,0,0,14930
+tactico,6,2005,rescue,FAILED,0,master_lost,165.7,42.4,3,2,2,5,38,952,0,428,33,1,2,0,,,,,0,0,13215
+tactico,6,2006,rescue,SUCCESS,1,,416.3,39.8,3,3,0,11,37,1687,0,447,138,3,5,3,"mat_enchanted_cloth 1.0;mat_iron_ore 1.0","mat_enchanted_cloth 1.0;mat_iron_ore 1.0",,"books 1.0;essence 3.0;food 0.0;gems 150.0;left_behind 0.0;materials 0.0;starsteel 4.0;stones 2.0",5,0,28558
+tactico,6,2007,rescue,FAILED,0,master_lost,70.1,30.4,3,2,2,3,38,320,0,421,12,0,0,0,mat_enchanted_cloth 1.0,,mat_enchanted_cloth 1.0,,0,0,8133
+tactico,6,2008,rescue,FAILED,0,master_lost,62.1,32.6,3,2,2,0,36,127,0,471,13,0,0,0,,,,,0,0,4405
+tactico,6,2009,rescue,FAILED,0,master_lost,143.1,32.0,3,2,2,5,40,951,0,474,29,1,4,0,"mat_enchanted_cloth 1.0;mat_iron_ore 2.0",,"mat_enchanted_cloth 1.0;mat_iron_ore 2.0",,0,0,11817
+tactico,7,2000,sabotage,FAILED,0,master_lost,207.0,46.7,4,4,3,14,67,2202,454,1049,39,1,5,0,"mat_iron_ore 1.0;mat_resonant_crystal 2.0",,"mat_iron_ore 1.0;mat_resonant_crystal 2.0",,0,0,35100
+tactico,7,2001,sabotage,FAILED,0,master_lost,51.5,34.4,4,3,3,1,65,187,0,539,16,0,1,0,,,,,0,0,5961
+tactico,7,2002,sabotage,FAILED,0,master_lost,132.0,47.0,4,3,3,9,73,1949,174,742,37,1,4,0,,,,,0,0,26502
+tactico,7,2003,sabotage,FAILED,0,master_lost,267.0,35.8,4,4,3,12,72,1828,174,721,32,2,2,0,mat_resonant_crystal 2.0,,mat_resonant_crystal 2.0,,0,0,38953
+tactico,7,2004,sabotage,ESCAPED,0,retreat,88.3,32.3,4,3,3,9,75,1087,42,565,17,0,1,0,mat_resonant_crystal 2.0,mat_resonant_crystal 2.0,,,0,0,9979
+tactico,7,2005,sabotage,FAILED,0,master_lost,112.2,49.6,4,3,3,1,68,538,47,640,18,0,1,0,,,,,0,0,9365
+tactico,7,2006,sabotage,ESCAPED,0,retreat,135.8,42.2,4,3,3,3,64,386,116,615,16,1,1,0,,,,,0,0,21445
+tactico,7,2007,sabotage,ESCAPED,0,retreat,75.5,28.0,4,2,2,2,64,509,0,420,11,1,0,0,mat_iron_ore 1.0,mat_iron_ore 1.0,,,0,0,7615
+tactico,7,2008,sabotage,FAILED,0,master_lost,84.1,34.4,4,3,3,3,69,368,58,674,15,1,1,0,mat_resonant_crystal 1.0,,mat_resonant_crystal 1.0,,0,0,7819
+tactico,7,2009,sabotage,FAILED,0,master_lost,74.5,27.5,4,3,3,5,66,612,0,584,23,0,2,0,mat_iron_ore 1.0,,mat_iron_ore 1.0,,0,0,7234
+tactico,8,2000,combat,FAILED,0,master_lost,297.7,18.4,1,0,0,10,13,1567,0,170,147,0,11,0,mat_moon_flower 2.0,,mat_moon_flower 2.0,,0,0,3319
+tactico,8,2001,combat,FAILED,0,master_lost,170.7,9.4,1,0,0,4,10,797,0,182,48,0,8,0,mat_moon_flower 1.0,,mat_moon_flower 1.0,,0,0,2003
+tactico,8,2002,combat,FAILED,0,master_lost,218.5,17.1,1,0,0,5,9,1033,0,197,70,0,5,0,,,,,0,0,2401
+tactico,8,2003,combat,TIMEOUT,0,timeout,1200.0,21.1,1,0,0,1,11,403,0,125,2226,0,3,0,,,,,0,0,13804
+tactico,8,2004,combat,FAILED,0,master_lost,230.9,7.8,1,0,0,5,11,1250,0,206,61,0,9,0,,,,,0,0,2521
+tactico,8,2005,combat,FAILED,0,master_lost,211.5,10.7,1,0,0,4,12,919,0,173,62,0,5,0,mat_moon_flower 2.0,,mat_moon_flower 2.0,,0,0,2499
+tactico,8,2006,combat,FAILED,0,master_lost,305.1,11.5,1,1,0,5,11,987,0,184,391,0,8,0,mat_resonant_crystal 1.0,,mat_resonant_crystal 1.0,,0,0,3092
+tactico,8,2007,combat,TIMEOUT,0,timeout,1200.0,9.1,1,0,0,3,11,467,0,121,2213,0,4,0,mat_moon_flower 2.0,,,,0,0,12947
+tactico,8,2008,combat,FAILED,0,master_lost,103.4,11.8,1,0,0,0,12,266,0,200,98,0,3,0,,,,,0,0,1210
+tactico,8,2009,combat,FAILED,0,master_lost,112.8,18.4,1,0,0,6,11,677,0,170,31,0,5,0,,,,,0,0,1200
+tactico,9,2000,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,59,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,8638
+tactico,9,2001,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,60,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,11660
+tactico,9,2002,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,66,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,10880
+tactico,9,2003,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,54,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,6375
+tactico,9,2004,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,64,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,7098
+tactico,9,2005,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,64,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,13073
+tactico,9,2006,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,58,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,8161
+tactico,9,2007,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,62,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,8965
+tactico,9,2008,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,62,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",6,0,8300
+tactico,9,2009,survival,SUCCESS,1,,75.0,-1.0,5,0,0,0,60,0,0,0,0,0,0,0,,,,"books 0.0;essence 4.0;food 0.0;gems 195.0;left_behind 0.0;materials 0.0;starsteel 5.0;stones 3.0",5,0,10212
+tactico,10,2000,boss,FAILED,0,master_lost,145.0,22.2,5,5,4,6,31,1258,113,1561,31,0,4,1,,,,,0,0,7514
+tactico,10,2001,boss,FAILED,0,master_lost,152.8,51.2,5,5,4,3,38,588,109,1144,24,1,1,0,,,,,0,0,13360
+tactico,10,2002,boss,FAILED,0,master_lost,168.8,41.1,5,5,4,6,39,892,198,1091,25,1,2,0,,,,,0,0,11883
+tactico,10,2003,boss,FAILED,0,master_lost,130.6,31.0,5,4,4,3,34,631,55,1285,25,1,1,0,,,,,0,0,11022
+tactico,10,2004,boss,ESCAPED,0,retreat,161.6,25.1,5,4,0,7,31,978,337,696,26,0,3,4,,,,,0,0,8182
+tactico,10,2005,boss,FAILED,0,master_lost,44.1,21.6,5,4,4,1,30,158,0,872,10,0,0,0,,,,,0,0,3058
+tactico,10,2006,boss,FAILED,0,master_lost,133.8,41.4,5,6,4,4,31,704,290,1594,24,1,2,1,,,,,0,0,6302
+tactico,10,2007,boss,FAILED,0,master_lost,122.9,23.0,5,4,4,5,34,848,112,1382,29,2,2,0,mat_rune_plate 1.0,,mat_rune_plate 1.0,,0,0,7343
+tactico,10,2008,boss,FAILED,0,master_lost,144.8,33.1,5,5,4,5,35,990,440,1656,32,0,2,1,,,,,0,0,9084
+tactico,10,2009,boss,FAILED,0,master_lost,179.1,29.9,5,4,4,5,41,730,91,1177,31,1,1,0,,,,,0,0,12663

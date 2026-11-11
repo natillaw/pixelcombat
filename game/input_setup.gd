@@ -1,0 +1,52 @@
+## Registers the input map at runtime (before the main scene loads).
+##
+## Keeping the map in code means the game and the headless suites share the
+## exact same actions, and the project does not depend on editor-generated
+## [input] blocks. Actions are never rebuilt twice (hot reload safe).
+extends Node
+
+const ACTIONS := {
+	"move_up": [KEY_W, KEY_UP],
+	"move_down": [KEY_S, KEY_DOWN],
+	"move_left": [KEY_A, KEY_LEFT],
+	"move_right": [KEY_D, KEY_RIGHT],
+	"attack_m1": [],
+	"attack_m2": [],
+	"dodge": [KEY_SPACE],
+	"special": [KEY_Q],
+	"ultimate": [KEY_F],
+	"toggle_debug_overlay": [KEY_F3],
+	"restart_training": [KEY_R],
+	"quit_game": [KEY_ESCAPE],
+}
+
+
+func _enter_tree() -> void:
+	for action: String in ACTIONS:
+		if not InputMap.has_action(action):
+			InputMap.add_action(action, 0.2)
+		for key: int in ACTIONS[action]:
+			_add_key(action, key)
+	_add_mouse_button("attack_m1", MOUSE_BUTTON_LEFT)
+	_add_mouse_button("attack_m2", MOUSE_BUTTON_RIGHT)
+
+
+func _add_key(action: String, keycode: int) -> void:
+	var event := InputEventKey.new()
+	event.physical_keycode = keycode
+	if not _has_event(action, event):
+		InputMap.action_add_event(action, event)
+
+
+func _add_mouse_button(action: String, button: int) -> void:
+	var event := InputEventMouseButton.new()
+	event.button_index = button
+	if not _has_event(action, event):
+		InputMap.action_add_event(action, event)
+
+
+func _has_event(action: String, event: InputEvent) -> bool:
+	for existing: InputEvent in InputMap.action_get_events(action):
+		if existing.is_match(event):
+			return true
+	return false

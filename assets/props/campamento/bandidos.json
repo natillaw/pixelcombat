@@ -1,0 +1,1047 @@
+{
+ "enemies": {
+  "bandido_maton": {
+   "frame_size": 32,
+   "desc": "Básico. Garrote, golpea fuerte y lento.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "bandido_arquero": {
+   "frame_size": 32,
+   "desc": "Artillero. Dispara a distancia, huye si lo alcanzan.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "bandido_degollador": {
+   "frame_size": 32,
+   "desc": "Asesino. Salta a la retaguardia con dos dagas.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "bandido_bruto": {
+   "frame_size": 32,
+   "desc": "Tanque. Escudo y hacha, bloquea el paso.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "bandido_mago": {
+   "frame_size": 32,
+   "desc": "Mago. Bolas de fuego en área, frágil.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "bandido_chaman": {
+   "frame_size": 32,
+   "desc": "Sanador. Cura a los aliados cercanos, prioridad para matar.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "capitan_bandido": {
+   "frame_size": 32,
+   "desc": "Miniboss del piso 5. Espada y capa, más vida y daño.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "rey_bandido": {
+   "frame_size": 48,
+   "desc": "Jefe del piso 10. Mandoble, corona robada, escudo del altar.",
+   "animations": {
+    "idle_down": {
+     "row": 0,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_left": {
+     "row": 1,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_right": {
+     "row": 2,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "idle_up": {
+     "row": 3,
+     "frames": 4,
+     "fps": 6,
+     "loop": true
+    },
+    "walk_down": {
+     "row": 4,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_left": {
+     "row": 5,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_right": {
+     "row": 6,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "walk_up": {
+     "row": 7,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "attack_down": {
+     "row": 8,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_left": {
+     "row": 9,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_right": {
+     "row": 10,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "attack_up": {
+     "row": 11,
+     "frames": 6,
+     "fps": 12,
+     "loop": false
+    },
+    "death_down": {
+     "row": 12,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_left": {
+     "row": 13,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_right": {
+     "row": 14,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    },
+    "death_up": {
+     "row": 15,
+     "frames": 6,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  }
+ },
+ "fx": {
+  "flecha": {
+   "frame_size": [
+    10,
+    3
+   ],
+   "frames": 1
+  },
+  "bola_fuego": {
+   "frame_size": [
+    14,
+    12
+   ],
+   "frames": 4
+  },
+  "explosion": {
+   "frame_size": [
+    20,
+    20
+   ],
+   "frames": 5
+  },
+  "curacion": {
+   "frame_size": [
+    16,
+    16
+   ],
+   "frames": 4
+  },
+  "escudo_altar": {
+   "frame_size": [
+    48,
+    48
+   ],
+   "frames": 4
+  }
+ },
+ "props": {
+  "tienda": {
+   "size": [
+    34,
+    30
+   ],
+   "origin": [
+    17,
+    27
+   ],
+   "rect": [
+    48,
+    0,
+    34,
+    30
+   ]
+  },
+  "fogata_anim": {
+   "frame_size": [
+    16,
+    18
+   ],
+   "frames": 4,
+   "fps": 8,
+   "origin": [
+    8,
+    16
+   ]
+  },
+  "empalizada": {
+   "size": [
+    16,
+    26
+   ],
+   "origin": [
+    8,
+    25
+   ],
+   "rect": [
+    83,
+    0,
+    16,
+    26
+   ]
+  },
+  "caja": {
+   "size": [
+    14,
+    14
+   ],
+   "origin": [
+    7,
+    13
+   ],
+   "rect": [
+    34,
+    53,
+    14,
+    14
+   ]
+  },
+  "barril": {
+   "size": [
+    12,
+    15
+   ],
+   "origin": [
+    6,
+    14
+   ],
+   "rect": [
+    21,
+    53,
+    12,
+    15
+   ]
+  },
+  "saco_botin": {
+   "size": [
+    14,
+    12
+   ],
+   "origin": [
+    7,
+    11
+   ],
+   "rect": [
+    49,
+    53,
+    14,
+    12
+   ]
+  },
+  "carreta": {
+   "size": [
+    36,
+    24
+   ],
+   "origin": [
+    17,
+    22
+   ],
+   "rect": [
+    100,
+    0,
+    36,
+    24
+   ]
+  },
+  "estandarte": {
+   "size": [
+    14,
+    32
+   ],
+   "origin": [
+    4,
+    31
+   ],
+   "rect": [
+    33,
+    0,
+    14,
+    32
+   ]
+  },
+  "jaula": {
+   "size": [
+    22,
+    24
+   ],
+   "origin": [
+    11,
+    23
+   ],
+   "rect": [
+    137,
+    0,
+    22,
+    24
+   ]
+  },
+  "torre_vigia": {
+   "size": [
+    32,
+    52
+   ],
+   "origin": [
+    16,
+    51
+   ],
+   "rect": [
+    0,
+    0,
+    32,
+    52
+   ]
+  },
+  "armero": {
+   "size": [
+    20,
+    18
+   ],
+   "origin": [
+    10,
+    17
+   ],
+   "rect": [
+    0,
+    53,
+    20,
+    18
+   ]
+  },
+  "saco_dormir": {
+   "size": [
+    18,
+    9
+   ],
+   "origin": [
+    9,
+    8
+   ],
+   "rect": [
+    64,
+    53,
+    18,
+    9
+   ]
+  }
+ }
+}

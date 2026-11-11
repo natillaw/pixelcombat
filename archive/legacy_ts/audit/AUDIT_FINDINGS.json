@@ -1,0 +1,522 @@
+{
+  "audit": "Tactical Summoners Phase 1",
+  "date": "2026-10-30",
+  "commit": "509218b",
+  "branch": "claude/tactical-summoners-audit-b3sqpo",
+  "method": "static analysis only; Godot not available",
+  "counts": {
+    "HIGH": 14,
+    "MEDIUM": 16,
+    "LOW": 8,
+    "INFO": 2
+  },
+  "total": 40,
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "HIGH",
+      "system": "HQ / UI",
+      "location": "scripts/sandbox/hq_world.gd:26-30; scripts/main.gd:69",
+      "evidence": "composer.compose(h.appearance) on SpriteComposer, which has no compose() method",
+      "problem": "Compile error in HQWorld; main.gd references HQWorld",
+      "consequence": "HQ explore unusable; main scene may fail to load (would be CRITICAL)",
+      "dependencies": [],
+      "recommended_solution": "Use SpriteComposer.build_frames/pose_texture; add boot smoke test",
+      "verification": "CONFIRMED_STATIC; runtime impact on main.gd NOT VERIFIED",
+      "status_2026_10_30": "FIXED v2; runtime error (not compile), game booted"
+    },
+    {
+      "id": "F-002",
+      "severity": "HIGH",
+      "system": "Tower / Map",
+      "location": "scripts/sandbox/sandbox_screen.gd:60-68; sandbox_hero.gd:251; sandbox_enemy.gd:89,120; sandbox_map_view.gd:9; map_tiles.gd:268,273",
+      "evidence": "ProceduralMap passed to parameters typed SandboxMap; no common base class; UI never opens floor>0",
+      "problem": "Tower floors cannot run; tower mode unreachable",
+      "consequence": "Floors 1-10 are effectively dead code",
+      "dependencies": [
+        "F-013"
+      ],
+      "recommended_solution": "Common NavMap interface; floor selection UI; tower smoke test",
+      "verification": "CONFIRMED_STATIC",
+      "status_2026_10_30": "FIXED v2"
+    },
+    {
+      "id": "F-003",
+      "severity": "HIGH",
+      "system": "Missions",
+      "location": "scripts/sandbox/sandbox_screen.gd:19,89,300; sandbox_map.gd:34,41",
+      "evidence": "Relic placed at map.goal_cell == GOAL_CELL == extraction; RELIC_CELL unused",
+      "problem": "Picking up the relic instantly completes the mission",
+      "consequence": "Mission objective trivial; smoke_mission and smoke_sandbox fail",
+      "dependencies": [],
+      "recommended_solution": "Place relic at RELIC_CELL / objective cell distinct from extraction",
+      "verification": "CONFIRMED_STATIC",
+      "status_2026_10_30": "FIXED v2"
+    },
+    {
+      "id": "F-004",
+      "severity": "HIGH",
+      "system": "Tests",
+      "location": "tests/smoke_combat.gd:28",
+      "evidence": "SandboxScreen.ENEMY_CELLS does not exist (SandboxMap.ENEMY_CELLS)",
+      "problem": "Compile error in combat suite",
+      "consequence": "combat suite cannot pass",
+      "dependencies": [],
+      "recommended_solution": "Reference sb.map.enemy_spawn_cells",
+      "verification": "CONFIRMED_STATIC",
+      "status_2026_10_30": "FIXED v2"
+    },
+    {
+      "id": "F-005",
+      "severity": "HIGH",
+      "system": "Tests",
+      "location": "tests/test_deep_systems.gd:58; scripts/autoload/game.gd:179-192",
+      "evidence": "memorial[0]['id'] but entries use 'hero_id'",
+      "problem": "Runtime error on missing Dictionary key",
+      "consequence": "deep systems suite cannot pass",
+      "dependencies": [],
+      "recommended_solution": "Use 'hero_id'",
+      "verification": "CONFIRMED_STATIC",
+      "status_2026_10_30": "FIXED v2"
+    },
+    {
+      "id": "F-006",
+      "severity": "HIGH",
+      "system": "Documentation",
+      "location": "infos/SESSION_SUMMARY.md; infos/docs/ai-context/CURRENT_STATE.md:85,91; HANDOFF_LOG.md",
+      "evidence": "Claims 9/10/11/12 suites ALL PASS without attached output; F-003..F-005 make 4 suites fail",
+      "problem": "Unverified PASS claims",
+      "consequence": "Agents build on false state",
+      "dependencies": [
+        "F-003",
+        "F-004",
+        "F-005"
+      ],
+      "recommended_solution": "Re-run tests; store output; mark claims unverified",
+      "verification": "CONFIRMED_STATIC",
+      "status_2026_10_30": "CONFIRMED_RUNTIME: v1 = 6/12 PASS"
+    },
+    {
+      "id": "F-007",
+      "severity": "HIGH",
+      "system": "Classes / Promotion",
+      "location": "scripts/data/hero_tables.gd:69; scripts/core/hero_generator.gd:58-60; scripts/core/hero_data.gd:286-287",
+      "evidence": "PROMOTION_CLASS_POOL = [] and modulo by pool.size(); unknown legacy classes become class.none",
+      "problem": "Integer modulo by zero when a class.none hero reaches 3 stars",
+      "consequence": "Crash on promotion for migrated heroes",
+      "dependencies": [],
+      "recommended_solution": "Guard empty pool; define advanced classes; migrate old class ids",
+      "verification": "CONFIRMED_STATIC",
+      "status_2026_10_30": "FIXED v2"
+    },
+    {
+      "id": "F-008",
+      "severity": "HIGH",
+      "system": "Hero generation",
+      "location": "scripts/core/hero_generator.gd:8,33-34,39-49; tests/test_summons.gd:150-152",
+      "evidence": "profession roll inserted before variance/trust; class tables changed; VERSION still 2; reproducibility test reduced to version check",
+      "problem": "Same seed no longer reproduces the same hero; summon_log promise broken silently",
+      "consequence": "Loss of auditability of summons",
+      "dependencies": [],
+      "recommended_solution": "Bump VERSION, record version per log entry, golden fixture test",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-009",
+      "severity": "HIGH",
+      "system": "HQ / Economy",
+      "location": "scripts/autoload/game.gd:26-28,222-302",
+      "evidence": "Production ignores hero.profession; hq_facilities levels unused; town_buildings parallel model; upgrade_building has no caller",
+      "problem": "Docs claim occupation-based production that does not exist; duplicated building systems",
+      "consequence": "Wrong design assumptions; data divergence",
+      "dependencies": [],
+      "recommended_solution": "Single building model; profession-based production per approved spec",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-010",
+      "severity": "HIGH",
+      "system": "Skills",
+      "location": "DECISIONS.md D-022; GEMINI.md; .gemini/commands/ts/skill.toml; infos/docs/ai-context/SKILL_LIBRARY.md",
+      "evidence": "gen_skill_library.py, skill_library_data.gd, SkillLibrary, test_skill_library.gd absent; library uses other class names",
+      "problem": "Approved decision describes non-existent code",
+      "consequence": "Agents follow broken instructions",
+      "dependencies": [
+        "F-033"
+      ],
+      "recommended_solution": "Decide: regenerate library for current classes or archive D-022 artifacts",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-011",
+      "severity": "HIGH",
+      "system": "Agent tooling",
+      "location": "infos/CLAUDE.md; infos/AGENTS.md; infos/.github/copilot-instructions.md",
+      "evidence": "Agent instruction files live under infos/ but reference repo-root paths (AGENTS.md, tools/sync, docs/ai-context)",
+      "problem": "Claude Code does not auto-load project rules; commands in docs fail",
+      "consequence": "Rules ignored; wasted context",
+      "dependencies": [],
+      "recommended_solution": "Root CLAUDE.md + reorganized docs/",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-012",
+      "severity": "MEDIUM",
+      "system": "VFX / Assets",
+      "location": "scripts/sandbox/sandbox_hero.gd:150; scripts/sandbox/combat_vfx.gd:9-11",
+      "evidence": "Path assets/packs/spritepilot-combat-pack/16px/... does not exist (nested folder)",
+      "problem": "VFX silently never spawns; SpriteFrames rebuilt per attack",
+      "consequence": "No combat VFX",
+      "dependencies": [
+        "F-021"
+      ],
+      "recommended_solution": "Fix path after dedup; cache frames",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-013",
+      "severity": "MEDIUM",
+      "system": "Map",
+      "location": "scripts/sandbox/sandbox_screen.gd:300; scripts/sandbox/sandbox_map_view.gd:52",
+      "evidence": "SandboxMap.GOAL_CELL constant used instead of map.goal_cell",
+      "problem": "Wrong extraction point on any non-fixed map",
+      "consequence": "",
+      "dependencies": [
+        "F-002"
+      ],
+      "recommended_solution": "Use map data",
+      "verification": "CONFIRMED_STATIC",
+      "status_2026_10_30": "FIXED v2"
+    },
+    {
+      "id": "F-014",
+      "severity": "MEDIUM",
+      "system": "Persistence / Performance",
+      "location": "scripts/autoload/game.gd:246-263; scripts/sandbox/map_tiles.gd:281",
+      "evidence": "Tower maps regenerated from seed (grid_rows saved but ignored, no generator version); maps up to 160x160 cells -> 7680x7680 baked image",
+      "problem": "Violates D-004; heavy memory/draw cost",
+      "consequence": "Saved floors change when generator changes",
+      "dependencies": [],
+      "recommended_solution": "Load grid_rows snapshot + version; chunked baking",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-015",
+      "severity": "MEDIUM",
+      "system": "Summoning UI",
+      "location": "scripts/autoload/game.gd:50,230; scripts/ui/summon_screen.gd:86",
+      "evidence": "pull() returns [] on capacity limit; UI says 'Not enough gems.'",
+      "problem": "Misleading message; second x10 pull fails with gems available",
+      "consequence": "Player confusion",
+      "dependencies": [],
+      "recommended_solution": "Return reason code; show capacity",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-016",
+      "severity": "MEDIUM",
+      "system": "Combat design",
+      "location": "scripts/ui/party_screen.gd:3,68-72; scripts/data/hero_tables.gd:121-138; game.gd:9",
+      "evidence": "Front/back row UI and turn/row passives",
+      "problem": "Contradicts D-010; passives have no effect",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Remove rows; rewrite passives for real time",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-017",
+      "severity": "MEDIUM",
+      "system": "Stats",
+      "location": "scripts/data/hero_tables.gd:8; hero_data.gd:222-238",
+      "evidence": "Stats hp/atk/mag/def/spd instead of FUE/AGI/VIT/INT/TEM",
+      "problem": "D-012 not implemented",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Implement D-012 with migration",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-018",
+      "severity": "MEDIUM",
+      "system": "Control",
+      "location": "scripts/sandbox/sandbox_screen.gd:200-262,444-460",
+      "evidence": "Only move/stop/skill; dead-slot key silent",
+      "problem": "CTRL spec and D-015 feedback unmet",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Order state machine + feedback",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-019",
+      "severity": "MEDIUM",
+      "system": "Social simulation",
+      "location": "hero_data.gd:99-112,152; game.gd:197-201",
+      "evidence": "Composure never changes; rescue/cooperate/secrets only called from tests",
+      "problem": "Systems exist only as data",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Hook to mission events",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-020",
+      "severity": "MEDIUM",
+      "system": "Missions / Tower",
+      "location": "scripts/core/tower_expedition.gd:7-18; sandbox_screen.gd:18; hero_chatter.gd",
+      "evidence": "Floor mission types unused; always relic mission",
+      "problem": "Mission variety not implemented",
+      "consequence": "",
+      "dependencies": [
+        "F-002"
+      ],
+      "recommended_solution": "Data-driven mission controller",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-021",
+      "severity": "MEDIUM",
+      "system": "Assets",
+      "location": "assets/packs; assets/source_packs; assets/*.zip",
+      "evidence": "10,093 files each, same 4,439 PNG contents (hash-verified) + zips",
+      "problem": "~117 MB redundant; double import",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Keep one copy; .gdignore unused; zips out of repo/LFS",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-022",
+      "severity": "MEDIUM",
+      "system": "Licensing",
+      "location": "assets/ASSET_REGISTRY.json; assets/CREDITS.md; assets/sprites/EULA_READ_ME.txt; infos/docs/ai-context/ASSET_MANIFEST.md",
+      "evidence": "Only Pixel Crawler registered; Caz EULA text not stored; KILN/Sprite Kitchen forbid standalone redistribution",
+      "problem": "Unclear legal status; possible breach if repo public",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Register all packs; store EULA; confirm repo visibility",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-023",
+      "severity": "MEDIUM",
+      "system": "Design references",
+      "location": "infos/IMAGEN DE REFERENCIA DE COMO DEBERIA VERSE HEADQUARTERS INGAME Y NO UN SIMPLE MENU.jpg",
+      "evidence": "Screenshot of a third-party commercial game",
+      "problem": "Must remain inspiration only (D-002)",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Label as internal reference; never ship",
+      "verification": "CONFIRMED_VISUAL"
+    },
+    {
+      "id": "F-024",
+      "severity": "LOW",
+      "system": "Code style",
+      "location": "9 .gd files with tabs (see CODE_AUDIT)",
+      "evidence": "Mixed tabs/spaces",
+      "problem": "Inconsistent style vs GEMINI.md rule",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Normalize in a dedicated commit",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-025",
+      "severity": "LOW",
+      "system": "Hero data",
+      "location": "scripts/core/hero_data.gd:45-79",
+      "evidence": "Memory id uses ticks; time=event_seq; duplicate relationship branch; 'unfamiliar' unreachable",
+      "problem": "Non-deterministic ids; inaccurate status",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Sequence-based ids; fix thresholds",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-026",
+      "severity": "LOW",
+      "system": "Procedural map",
+      "location": "scripts/core/procedural_map.gd:106,116,197-209",
+      "evidence": "objective_cells not cleared on retry; validation grid diagonal mode differs; depends on Game autoload",
+      "problem": "Minor correctness/coupling",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Clear state; pass party size as parameter",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-027",
+      "severity": "LOW",
+      "system": "Determinism",
+      "location": "scripts/sandbox/hero_chatter.gd:56-57; hq_world.gd:79-84",
+      "evidence": "Global randi()/randf()",
+      "problem": "Non-reproducible behavior",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Inject seeded RNG",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-028",
+      "severity": "LOW",
+      "system": "Performance",
+      "location": "scripts/sandbox/sandbox_screen.gd:386-396,465-498",
+      "evidence": "Panel text and get_stats() rebuilt every frame",
+      "problem": "Avoidable per-frame cost",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Cache/update on change",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-029",
+      "severity": "LOW",
+      "system": "Versions",
+      "location": "project.godot; README.md; GEMINI.md; SESSION_SUMMARY.md",
+      "evidence": "Godot 4.4/4.4.1/4.6.2/4.7; suites 7/8/9/10/11/12",
+      "problem": "Ambiguous engine target",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Record verified version once",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-030",
+      "severity": "LOW",
+      "system": "Tooling",
+      "location": "Apply-DropD.ps1; tools/Update-Project.ps1; tools/manifest.json; infos/tools/audit/Audit-GodotProject.ps1",
+      "evidence": "ZIP-drop installers from pre-Git workflow",
+      "problem": "Dead tooling",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Archive",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-031",
+      "severity": "INFO",
+      "system": "Documentation",
+      "location": "infos/docs/ai-context/DESIGN_GAPS.md",
+      "evidence": "Item number 20 duplicated",
+      "problem": "Cosmetic",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Renumber",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-032",
+      "severity": "HIGH",
+      "system": "Design governance",
+      "location": "DECISIONS.md D-003/D-014; scripts/core/procedural_map.gd; tower_expedition.gd; hq_world.gd; user master prompt 2026-10-30",
+      "evidence": "Procedural tower/HQ implemented from an un-versioned 'Mega Prompt' while decisions say procedural worlds are deferred",
+      "problem": "No authoritative design for tower, HQ, professions, crafting, loot",
+      "consequence": "Agents act on contradictory rules",
+      "dependencies": [],
+      "recommended_solution": "User approves new D-entries (DESIGN_TRUTH section 3)",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-033",
+      "severity": "MEDIUM",
+      "system": "Progression",
+      "location": "hero_tables.gd:7,22-28; summon_config.gd:184; DECISIONS D-022",
+      "evidence": "5 stars/80 levels in code vs 7 stars/70 levels by owner",
+      "problem": "Open conflict since 2026-10-28",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Owner decision, then migration",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-034",
+      "severity": "MEDIUM",
+      "system": "Missions",
+      "location": "scripts/sandbox/sandbox_screen.gd:105-111",
+      "evidence": "Party <5 silently replaced by fixed test squad",
+      "problem": "Player may think real heroes deployed",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Explicit warning / block deployment",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-035",
+      "severity": "MEDIUM",
+      "system": "Tests",
+      "location": "tests/test_procedural.gd:30,48; tests/test_summons.gd:150-152",
+      "evidence": "Tautological or weak checks; no tests for main scene, tower mode, HQWorld, promotion edge cases",
+      "problem": "PASS does not prove behavior",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Add tests listed in GODOT_TEST_REPORT section 4",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-036",
+      "severity": "INFO",
+      "system": "Environment",
+      "location": "container",
+      "evidence": "Godot not installed; portable download denied by permission system",
+      "problem": "No tests executed in this audit",
+      "consequence": "",
+      "dependencies": [],
+      "recommended_solution": "Run commands from GODOT_TEST_REPORT on Windows or enable Godot in cloud env",
+      "verification": "CONFIRMED"
+    },
+    {
+      "id": "F-037",
+      "severity": "HIGH",
+      "system": "Documentation",
+      "location": "infos/SESSION_SUMMARY.md sections 2-3",
+      "evidence": "Describes agony timer, enemy roles, tower expedition mode, attack orders, occupation-based production; none exist in code (grep-verified)",
+      "problem": "Feature claims without implementation",
+      "consequence": "Misleads planning",
+      "dependencies": [
+        "F-006"
+      ],
+      "recommended_solution": "Retract claims in new STATE.md",
+      "verification": "CONFIRMED_STATIC"
+    },
+    {
+      "id": "F-038",
+      "severity": "HIGH",
+      "system": "Map / Sandbox",
+      "location": "scripts/sandbox/sandbox_map.gd:40 (v1)",
+      "evidence": "Godot 4.7.1 CI run 41113420228: 'Trying to assign an array of type Array to a variable of type Array[Vector2i]' then 'Modulo by zero' in SandboxScreen._build_squad",
+      "problem": "Typed member initialized from an untyped const array fails at runtime in Godot 4.7",
+      "consequence": "Sandbox spawned no heroes; sandbox/mission/animation/art suites failed",
+      "dependencies": [],
+      "recommended_solution": "Use Array.assign() (done in v2 via NavMap)",
+      "verification": "CONFIRMED_RUNTIME; FIXED in v2 (fb3ee7c)"
+    },
+    {
+      "id": "F-039",
+      "severity": "MEDIUM",
+      "system": "HQ / Visual",
+      "location": "scripts/sandbox/hq_world.gd",
+      "evidence": "CI screenshots, branch ci-screenshots",
+      "problem": "Heroes stack on 5 spawn cells, no floor/walls drawn, HUD overlaps the top bar (CI screenshot 06_hq_world.png)",
+      "consequence": "Poor readability",
+      "dependencies": [
+        "P-04"
+      ],
+      "recommended_solution": "Design HQ in-game (P-04)",
+      "verification": "CONFIRMED_VISUAL"
+    },
+    {
+      "id": "F-040",
+      "severity": "LOW",
+      "system": "Sandbox / Visual",
+      "location": "scripts/sandbox/sandbox_hero.gd:_draw",
+      "evidence": "CI screenshots, branch ci-screenshots",
+      "problem": "Slot numbers and HP bars of neighbouring heroes overlap in tight formation (CI screenshots 04/05)",
+      "consequence": "Poor readability",
+      "dependencies": [],
+      "recommended_solution": "Offset labels / draw only for selected hero",
+      "verification": "CONFIRMED_VISUAL"
+    }
+  ]
+}

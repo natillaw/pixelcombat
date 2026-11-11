@@ -1,0 +1,97 @@
+name: Godot tests and screenshots
+
+on:
+  push:
+    branches-ignore: ["ci-screenshots"]    # every work branch is tested (the screenshot branch only holds images)
+    tags: ["v*"]
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: "4.7.2"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot
+        run: |
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip -d "$HOME/godot"
+          echo "GODOT=$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Run all suites
+        id: run
+        continue-on-error: true
+        run: bash tools/run_tests.sh
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Godot ${GODOT_VERSION} — resultado de pruebas"
+            echo '```'
+            cat tools/last_test_run.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            tools/last_test_run.txt
+            tools/import_log.txt
+      - name: Fail the job if any suite failed
+        if: steps.run.outcome == 'failure'
+        run: exit 1
+
+  screenshots:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot and a virtual display
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri libgl1 > /dev/null
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip -d "$HOME/godot"
+          echo "GODOT=$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Import
+        run: timeout 300 "$GODOT" --headless --path . --import || true
+      - name: Capture screens
+        continue-on-error: true
+        run: |
+          mkdir -p screenshots
+          CAPTURE_DIR="$PWD/screenshots" timeout 180 xvfb-run -a -s "-screen 0 1280x720x24" \
+            "$GODOT" --path . --rendering-driver opengl3 --resolution 1280x720 res://tests/capture_screens.tscn 2>&1 | tee screenshots/capture_log.txt
+      - name: Publish screenshots to the ci-screenshots branch (viewable on GitHub)
+        if: always()
+        run: |
+          src="$PWD/screenshots"
+          ls "$src"/*.png > /dev/null 2>&1 || exit 0
+          dest="$(mktemp -d)"
+          dir="${GITHUB_REF_NAME//\//_}"
+          git clone --depth 1 --branch ci-screenshots "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$dest" 2>/dev/null \
+            || { git init -q "$dest"; git -C "$dest" checkout -q --orphan ci-screenshots; }
+          rm -rf "$dest/$dir"; mkdir -p "$dest/$dir"
+          cp "$src"/*.png "$src"/capture_log.txt "$dest/$dir/" 2>/dev/null || true
+          {
+            echo "# Capturas de $GITHUB_REF_NAME"
+            echo "Commit \`${GITHUB_SHA::7}\` — $(date -u '+%Y-%m-%d %H:%M UTC')"
+            for f in "$dest/$dir"/*.png; do n=$(basename "$f"); echo; echo "## $n"; echo "![]($n)"; done
+          } > "$dest/$dir/README.md"
+          cd "$dest"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Screenshots for $GITHUB_REF_NAME @ ${GITHUB_SHA::7}" || exit 0
+          git push -q "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:ci-screenshots
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: screenshots/

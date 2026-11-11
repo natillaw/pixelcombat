@@ -1,0 +1,6 @@
+description = "Run all headless tests and summarize PASS/FAIL"
+prompt = """
+Run: powershell -ExecutionPolicy Bypass -File tools\\Run-Tests.ps1
+If Godot is not found, ask me for its path and re-run with -Godot "path".
+Then read tools\\last_test_run.txt and report: one line per suite (PASS/FAIL), and for every FAIL the exact failing check and your diagnosis. Do not change code unless I ask.
+"""
