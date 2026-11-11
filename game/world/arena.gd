@@ -31,12 +31,22 @@ const DUMMY_SPAWNS := [
 	{"position": Vector2(300, 410), "auto_attack": false},
 ]
 
+## Enemigos del arenero (data/enemies). Acampan lejos del centro hasta que el
+## jugador entra en su rango de aggro.
+const ENEMY_SPAWNS := [
+	{"id": &"slime", "position": Vector2(820, 560)},
+	{"id": &"bat", "position": Vector2(110, 575)},
+	{"id": &"spider", "position": Vector2(840, 80)},
+	{"id": &"beetle", "position": Vector2(480, 590)},
+]
+
 var world: CombatWorld
 var camera: Camera2D
 var entities: Node2D
 var fx: Node2D
 var warrior_actor: WarriorActor
 var dummy_actors: Array[DummyActor] = []
+var enemy_actors: Array[EnemyActor] = []
 
 var _tiles: Array = []
 var _wall_bricks: Array = []
@@ -111,6 +121,15 @@ func _spawn_actors() -> void:
 		dummy.setup(dummy_sim, self)
 		entities.add_child(dummy)
 		dummy_actors.append(dummy)
+
+	for spawn: Dictionary in ENEMY_SPAWNS:
+		var enemy_sim := world.add_enemy(spawn["id"], spawn["position"])
+		var enemy := EnemyActor.new()
+		enemy.name = String(spawn["id"]).capitalize()
+		enemy.position = enemy_sim.position
+		enemy.setup(enemy_sim, self)
+		entities.add_child(enemy)
+		enemy_actors.append(enemy)
 
 
 func _process(delta: float) -> void:

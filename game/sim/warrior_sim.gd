@@ -473,7 +473,7 @@ func _start_attack(slot: String) -> void:
 func _resolve_attack_hit() -> void:
 	if current_skill.is_empty() or world == null:
 		return
-	var targets: Array = _targets_in_shape(world.get_living_dummies())
+	var targets: Array = _targets_in_shape(world.get_living_targets())
 
 	for target: Object in targets:
 		var critical: bool = _rng.randf() < stats.get_crit_chance()

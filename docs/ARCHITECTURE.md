@@ -57,6 +57,9 @@ TickManager (60 Hz)
 | `core/tickable.gd` | Interfaz `_on_tick` / `_on_register` / `_on_unregister` | Núcleo |
 | `game/sim/combat_world.gd` | Único Tickable; bounds, obstáculos, dummies, snapshots | Simulación |
 | `game/sim/warrior_sim.gd` | Ataques, Rage, pasiva, movimiento, muerte, reset | Simulación |
+| `game/sim/enemy_sim.gd` | Enemigo por datos: persigue, avisa (TELEGRAPH), golpea una vez al caer, dash, cooldown por ataque, respawn | Simulación |
+| `combat/enemy_catalog.gd` | Carga y valida `data/enemies/*.json` | Datos |
+| `game/actors/enemy_actor.gd` | Sprite CC0 y zona del telegraph (la misma forma que usa la sim) | Presentación |
 | `game/sim/dummy_sim.gd` | Telegráfico, ataque, vida, respawn | Simulación |
 | `game/actors/warrior_actor.gd` | Sprite LPC, animación, VFX y SFX del Warrior | Presentación |
 | `game/actors/dummy_actor.gd` | Dibujo procedural, cono de telegráfico, barra de vida | Presentación |

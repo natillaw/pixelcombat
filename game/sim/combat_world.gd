@@ -20,6 +20,7 @@ var bounds: Rect2 = DEFAULT_BOUNDS
 var obstacles: Array = []
 var warrior: WarriorSim
 var dummies: Array = []
+var enemies: Array = []
 var pending_input: InputMessage = null
 
 
@@ -43,6 +44,14 @@ func add_dummy(spawn: Vector2, auto_attack: bool = true) -> DummySim:
 	return dummy
 
 
+## Crea un enemigo definido en data/enemies. Cada uno tiene su propio RNG, derivado
+## de la semilla del mundo y de su orden de creacion (determinista).
+func add_enemy(def_id: StringName, spawn: Vector2) -> EnemySim:
+	var enemy := EnemySim.new(self, def_id, spawn, int(rng.seed) + (enemies.size() + 1) * 7919)
+	enemies.append(enemy)
+	return enemy
+
+
 func submit_input(input: InputMessage) -> void:
 	pending_input = input
 
@@ -56,6 +65,8 @@ func step(delta: float, tick_number: int = -1) -> void:
 	warrior.step(tick, delta, pending_input)
 	for dummy: DummySim in dummies:
 		dummy.step(tick, delta, warrior)
+	for enemy: EnemySim in enemies:
+		enemy.step(tick, delta, warrior)
 
 	pending_input = null
 	tick_advanced.emit(tick)
@@ -73,7 +84,18 @@ func get_living_dummies() -> Array:
 	return living
 
 
-func resolve_position(desired: Vector2, radius: float) -> Vector2:
+## Todo lo que el Warrior puede golpear: muñecos y enemigos vivos.
+func get_living_targets() -> Array:
+	var living: Array = get_living_dummies()
+	for enemy: EnemySim in enemies:
+		if enemy.alive:
+			living.append(enemy)
+	return living
+
+
+## Empuja `desired` fuera de limites, obstaculos, muñecos y enemigos vivos.
+## `ignore` es quien se mueve (para no chocar consigo mismo).
+func resolve_position(desired: Vector2, radius: float, ignore: Object = null) -> Vector2:
 	var pos := desired
 	pos.x = clampf(pos.x, bounds.position.x + radius, bounds.end.x - radius)
 	pos.y = clampf(pos.y, bounds.position.y + radius, bounds.end.y - radius)
@@ -98,6 +120,16 @@ func resolve_position(desired: Vector2, radius: float) -> Vector2:
 				diff = Vector2.RIGHT
 			pos = dummy.position + diff.normalized() * min_distance
 
+	for enemy: EnemySim in enemies:
+		if not enemy.alive or enemy == ignore:
+			continue
+		var diff := pos - enemy.position
+		var min_distance := radius + enemy.radius
+		if diff.length_squared() < min_distance * min_distance:
+			if diff.length_squared() < 0.0001:
+				diff = Vector2.RIGHT
+			pos = enemy.position + diff.normalized() * min_distance
+
 	return pos
 
 
@@ -108,14 +140,20 @@ func reset() -> void:
 	for dummy: DummySim in dummies:
 		dummy.position = dummy.spawn_position
 		dummy.revive()
+	for enemy: EnemySim in enemies:
+		enemy.revive()
 
 
 func snapshot() -> Dictionary:
 	var dummy_states: Array = []
 	for dummy: DummySim in dummies:
 		dummy_states.append(dummy.snapshot())
+	var enemy_states: Array = []
+	for enemy: EnemySim in enemies:
+		enemy_states.append(enemy.snapshot())
 	return {
 		"tick": tick,
 		"warrior": warrior.snapshot(),
 		"dummies": dummy_states,
+		"enemies": enemy_states,
 	}

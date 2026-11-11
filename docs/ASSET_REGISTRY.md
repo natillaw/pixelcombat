@@ -66,7 +66,7 @@ Veredicto de licencia pack por pack en
 
 | Asset | Ruta | Uso | Licencia | Estado |
 |---|---|---|---|---|
-| **SpritePilot Creatures Pack** | `assets/pixel/enemies/spritepilot_creatures/` | Primeros enemigos (murciélago, slime, fantasma, araña, escarabajo...) | CC0 1.0 | Importado, sin integrar en escena |
+| **SpritePilot Creatures Pack** | `assets/pixel/enemies/spritepilot_creatures/` | Enemigos del tier 1: Slime, Bat, Spider y Beetle (32 px); fantasma, abeja, pez y pájaro sin usar | CC0 1.0 | **En uso** (`data/enemies/tier1.json`) |
 
 ## Disponible para futuros cortes
 

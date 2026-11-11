@@ -56,6 +56,17 @@ func _ready() -> void:
 		Input.action_release("ultimate")
 		await _shot("04c_ultimate_impact", 0.45)
 		await _wait(0.9)
+
+		# Enemigos: el telegraph de cada tipo (cono, linea, circulo, cono pesado).
+		await _enemy_telegraph(world, 0, 0, "04d_enemy_slime_cone")
+		await _enemy_telegraph(world, 1, 0, "04e_enemy_bat_line")
+		await _enemy_telegraph(world, 2, 0, "04f_enemy_spider_circle")
+		await _enemy_telegraph(world, 3, 0, "04g_enemy_beetle_cone")
+		world.warrior.health = world.warrior.max_health
+		world.warrior.reset(world.bounds.get_center())
+		for enemy: EnemySim in world.enemies:
+			enemy.revive()
+		await _wait(0.5)
 		world.warrior.take_damage(25.0, Vector2.ZERO, false)
 		_aim_up()
 		Input.action_press("attack_m2")
@@ -66,6 +77,21 @@ func _ready() -> void:
 
 	print("CAPTURE DONE -> ", _dir)
 	get_tree().quit(0)
+
+
+## Coloca al Warrior junto al enemigo `index`, fuerza el ataque `attack_index` y
+## hace la captura a mitad del aviso (el relleno del telegraph a medias).
+func _enemy_telegraph(world: CombatWorld, index: int, attack_index: int, shot_name: String) -> void:
+	var enemy: EnemySim = world.enemies[index]
+	var attack: Dictionary = enemy.data["attacks"][attack_index]
+	var distance := float(attack["trigger_range"]) * 0.6 + 10.0
+	world.warrior.reset(enemy.position + Vector2(-distance, -10.0))
+	world.warrior.health = world.warrior.max_health
+	enemy.facing = (world.warrior.position - enemy.position).normalized()
+	enemy.state = EnemySim.State.CHASE
+	enemy._start_telegraph(attack)
+	await _shot(shot_name, float(attack["windup"]) * 0.6)
+	await _wait(float(attack["windup"]) + 0.3)
 
 
 func _aim_up() -> void:

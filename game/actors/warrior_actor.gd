@@ -368,7 +368,7 @@ func _draw_telegraph() -> void:
 	var radius := float(sim.current_skill["range"])
 	var t := clampf(sim.state_time / maxf(float(sim.current_skill["windup"]), 0.001), 0.0, 1.0)
 	var red := Color(1.0, 0.25, 0.15, 1.0)
-	draw_set_transform(center, 0.0, Vector2(1.0, 0.55))
+	draw_set_transform(center, 0.0, Vector2.ONE)
 	draw_circle(Vector2.ZERO, radius * t, Color(red.r, red.g, red.b, 0.16 + 0.12 * t))
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color(red.r, red.g, red.b, 0.85), 2.0)
 	var inner := float(sim.current_skill.get("center_radius", 0.0))

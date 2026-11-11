@@ -76,7 +76,7 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - Slots de loadout: M1, M2, S1–S5, Special, Ultimate. *Hecho 10 nov: M1, M2, S1–S5 y Ultimate; falta Special y el panel para equipar.*
 - [x] Ultimate con Charge por golpes (War God's Descent). *Hecho 10 nov: `tests/test_ultimate.gd`.*
 - Estados: stun, slow, empuje, sangrado, escudo, silencio. Prioridad y duración centralizadas.
-- IA de enemigos básica con telegraph (melee, rango, carga) y una sala de combate real.
+- [x] IA de enemigos con telegraph (cono, línea con embestida, círculo) dirigida por datos: `data/enemies/tier1.json`, `EnemyCatalog`, `EnemySim`, `EnemyActor`; 4 enemigos (Slime, Bat, Spider, Beetle). *Hecho 10 nov: `tests/test_enemies.gd`.* Pendiente: enemigos a distancia (proyectiles), estados (stun, slow...), grupos y jefes por fases.
 - "Game feel": hit-stop, screen shake, números de daño, SFX, trails (hoy hay `SlashArc`, `ImpactBurst`, `DamageNumber`).
 - Panel de loadout simple (Tab) para equipar skills.
 
