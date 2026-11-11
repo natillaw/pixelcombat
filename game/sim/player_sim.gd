@@ -118,6 +118,9 @@ var class_id: String = "warrior"
 var class_def: Dictionary = {}
 var resource_kind: String = "rage"
 var progress: Dictionary = {}
+## En zona segura (ciudad, patio) se puede cambiar de clase y de loadout; en un
+## piso de la torre no. Lo fija la sesion; los mundos de test son seguros.
+var safe_zone: bool = true
 
 ## Mejora del siguiente ataque (Special de Mage/Archer, evasion del Rogue).
 ## Estados alterados activos (stun, slow, veneno).
@@ -204,7 +207,7 @@ func slot_accepts(slot: String, skill: Dictionary) -> bool:
 
 ## El loadout solo se edita en reposo (zona segura / entre combates).
 func can_edit_loadout() -> bool:
-	return alive and state == AttackState.IDLE and not dodging
+	return alive and state == AttackState.IDLE and not dodging and safe_zone
 
 
 ## Equipa `id` en `slot`. Devuelve "" si salio bien o el motivo del rechazo (los
@@ -1100,6 +1103,13 @@ func switch_class(new_class_id: String) -> String:
 	if not can_edit_loadout():
 		return "busy"
 	_save_progress()
+	_activate_class(new_class_id)
+	return ""
+
+
+## Deja `new_class_id` como clase activa con su nivel, XP y loadout guardados en
+## `progress` (o los de un personaje nuevo si no hay).
+func _activate_class(new_class_id: String) -> void:
 	_set_class_data(new_class_id)
 	var saved: Dictionary = progress.get(class_id, {})
 	level = int(saved.get("level", 1))
@@ -1120,7 +1130,24 @@ func switch_class(new_class_id: String) -> String:
 	class_changed.emit(class_id)
 	loadout_changed.emit()
 	xp_changed.emit(xp, xp_to_next(), level)
-	return ""
+
+
+## Estado que se guarda en disco: la clase activa y el nivel, XP y loadout de cada
+## clase.
+func export_state() -> Dictionary:
+	_save_progress()
+	return {"class_id": class_id, "progress": progress.duplicate(true)}
+
+
+## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
+func import_state(data: Dictionary) -> void:
+	var saved: Dictionary = data.get("progress", {})
+	progress = {}
+	for id: String in saved:
+		if ClassCatalog.has_class(id):
+			progress[id] = (saved[id] as Dictionary).duplicate(true)
+	var target := String(data.get("class_id", "warrior"))
+	_activate_class(target if ClassCatalog.has_class(target) else "warrior")
 
 
 func _save_progress() -> void:

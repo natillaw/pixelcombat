@@ -8,6 +8,7 @@ extends Node2D
 const DebugOverlayScene := preload("res://ui/debug_overlay.tscn")
 
 var world: CombatWorld
+var session: GameSession
 var arena: Arena
 var hud: GameHud
 var loadout_panel: LoadoutPanel
@@ -17,11 +18,13 @@ var _was_dead: bool = false
 
 func _ready() -> void:
 	world = CombatWorld.new(1337)
+	session = GameSession.new(world, "" if OS.get_environment("PIXELCOMBAT_NO_SAVE") != "" else SaveGame.DEFAULT_PATH)
 
 	arena = Arena.new()
 	arena.name = "Arena"
 	add_child(arena)
 	arena.build(world)
+	arena.session = session
 
 	var hud_layer := CanvasLayer.new()
 	hud_layer.name = "HudLayer"
@@ -31,7 +34,7 @@ func _ready() -> void:
 	hud = GameHud.new()
 	hud.name = "Hud"
 	hud_layer.add_child(hud)
-	hud.bind(world)
+	hud.bind(world, session)
 
 	# Panel de loadout (Tab): capa propia por encima del HUD.
 	var loadout_layer := CanvasLayer.new()
@@ -61,8 +64,14 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	if Input.is_action_just_pressed("restart_training"):
-		world.reset()
+		session.restart()
 		_was_dead = false
+	if Input.is_action_just_pressed("interact"):
+		session.try_interact()
+	if Input.is_action_just_pressed("floor_prev"):
+		session.select_floor(-1)
+	if Input.is_action_just_pressed("floor_next"):
+		session.select_floor(1)
 
 	if world.player.alive and world.player.health <= 0.0:
 		_was_dead = true

@@ -21,8 +21,10 @@ func _ready() -> void:
 		_dir = ProjectSettings.globalize_path("user://captures")
 	DirAccess.make_dir_recursive_absolute(_dir)
 
+	OS.set_environment("PIXELCOMBAT_NO_SAVE", "1")
 	_main = MainScene.instantiate()
 	add_child(_main)
+	_main.get("session").go_to_training()
 
 	await _wait(1.2)
 	await _shot("01_arena")

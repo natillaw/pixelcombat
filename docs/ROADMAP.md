@@ -109,6 +109,8 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - Zona segura: aquí se cambia loadout, clase y equipo.
 - Guardado en disco (versionado desde el día uno).
 
+> **Estado:** hecho el esqueleto (plaza, torre, patio, 5 fachadas con puerta que avisa "proximamente", zona segura, guardado versionado). Faltan tilemaps LPC, NPCs y el interior de los edificios.
+
 **Hecho cuando:** se camina por la ciudad, se entra a cada edificio y se cruza el portal a un piso de prueba.
 
 ### Fase 5 — La torre (4–6 semanas)
@@ -119,6 +121,8 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - Misiones de piso (objetivos procedurales), recompensas y curva de nivel.
 - **Candado de avance (D9):** no se puede subir de piso sin completar el actual; los pisos completados se pueden revisitar y respawnean.
 - Portal de ida/vuelta con pisos ya desbloqueados.
+
+> **Estado:** hecho el generador, el candado, la persistencia por semilla, los pisos 5/10 del tier 1 (Elder Spider / Brood Beetle) y 10 tiers con datos (el 2-10 son provisionales). Faltan recursos/cofres por piso, misiones opcionales y jefes propios de los tiers 2-10.
 
 **Hecho cuando:** se sube del piso 1 al 10 (tier 1), se sale, se vuelve a entrar y el piso conserva su estado con enemigos respawneados.
 

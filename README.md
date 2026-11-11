@@ -50,7 +50,9 @@ La primera vez, o tras cambiar muchos assets, importa:
 | Tab | Panel de loadout: pestañas de clase y skills desbloqueadas (pausa el juego) |
 | F7 | Depuración: pasar a la siguiente clase |
 | F5 / F6 | Depuración: subir un nivel / volver al nivel 1 |
-| R | Reiniciar entrenamiento |
+| E | Interactuar: puertas de la ciudad, entrada de la torre, salidas de piso |
+| , / . | En la ciudad, elegir el piso de la torre (hasta el más alto desbloqueado) |
+| R | Reiniciar el escenario actual (enemigos vivos y vida completa) |
 | F3 | Overlay de debug |
 | Esc | Salir |
 

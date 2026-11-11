@@ -11,6 +11,7 @@ signal tick_advanced(tick_number: int)
 signal projectile_spawned(projectile: ProjectileSim)
 signal projectile_removed(projectile: ProjectileSim)
 signal enemy_spawned(enemy: EnemySim)
+signal layout_loaded(layout: FloorLayout)
 
 const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
@@ -25,6 +26,10 @@ var player: PlayerSim
 var dummies: Array = []
 var enemies: Array = []
 var projectiles: Array = []
+## Escenario cargado (patio, ciudad o piso de la torre); null en mundos de test.
+var layout: FloorLayout = null
+## Verdadero mientras load_layout() crea los enemigos (la arena los dibuja luego).
+var loading_layout: bool = false
 var pending_input: InputMessage = null
 
 
@@ -50,8 +55,9 @@ func add_dummy(spawn: Vector2, auto_attack: bool = true) -> DummySim:
 
 ## Crea un enemigo definido en data/enemies. Cada uno tiene su propio RNG, derivado
 ## de la semilla del mundo y de su orden de creacion (determinista).
-func add_enemy(def_id: StringName, spawn: Vector2) -> EnemySim:
+func add_enemy(def_id: StringName, spawn: Vector2, level_scale: float = 1.0) -> EnemySim:
 	var enemy := EnemySim.new(self, def_id, spawn, int(rng.seed) + (enemies.size() + 1) * 7919)
+	enemy.apply_scale(level_scale)
 	enemies.append(enemy)
 	enemy_spawned.emit(enemy)
 	return enemy
@@ -61,6 +67,32 @@ func add_enemy(def_id: StringName, spawn: Vector2) -> EnemySim:
 func spawn_projectile(projectile: ProjectileSim) -> void:
 	projectiles.append(projectile)
 	projectile_spawned.emit(projectile)
+
+
+## Carga un escenario: limpia enemigos, munecos y proyectiles, fija limites y
+## obstaculos, coloca al jugador en la entrada (con vida y recursos nuevos; su
+## nivel, XP, clase y loadout se conservan) y crea los enemigos del layout con su
+## escala de dificultad.
+func load_layout(new_layout: FloorLayout) -> void:
+	loading_layout = true
+	layout = new_layout
+	for projectile: ProjectileSim in projectiles.duplicate():
+		projectile.alive = false
+		projectile_removed.emit(projectile)
+	projectiles.clear()
+	dummies.clear()
+	enemies.clear()
+	pending_input = null
+	setup_arena(new_layout.bounds(), new_layout.obstacles)
+	player.position = new_layout.player_spawn
+	player.reset(new_layout.player_spawn)
+	for spec: Dictionary in new_layout.dummies:
+		add_dummy(spec["position"], bool(spec["auto_attack"]))
+	for spec: Dictionary in new_layout.enemies:
+		var enemy := add_enemy(StringName(String(spec["id"])), spec["position"], new_layout.enemy_scale)
+		enemy.required = bool(spec.get("required", true))
+	loading_layout = false
+	layout_loaded.emit(new_layout)
 
 
 func submit_input(input: InputMessage) -> void:

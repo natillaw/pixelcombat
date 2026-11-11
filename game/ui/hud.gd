@@ -30,7 +30,12 @@ const SLOT_GAP := 3.0
 const SLOT_Y := 316.0
 
 var world: CombatWorld
+var session: GameSession
 var _damage_flash: float = 0.0
+var _toast: String = ""
+var _toast_time: float = 0.0
+var _banner: String = ""
+var _banner_time: float = 0.0
 
 
 func _ready() -> void:
@@ -40,17 +45,33 @@ func _ready() -> void:
 	queue_redraw()
 
 
-func bind(p_world: CombatWorld) -> void:
+func bind(p_world: CombatWorld, p_session: GameSession = null) -> void:
 	if world == p_world:
 		return
 	world = p_world
+	session = p_session
+	if session != null:
+		session.message.connect(_on_message)
+		session.floor_completed.connect(_on_floor_completed)
 	if world != null and world.player != null:
 		world.player.damage_taken.connect(_on_damage_taken)
 
 
 func _process(delta: float) -> void:
 	_damage_flash = maxf(0.0, _damage_flash - delta * 3.5)
+	_toast_time = maxf(0.0, _toast_time - delta)
+	_banner_time = maxf(0.0, _banner_time - delta)
 	queue_redraw()
+
+
+func _on_message(text: String) -> void:
+	_toast = text
+	_toast_time = 3.0
+
+
+func _on_floor_completed(floor_number: int, xp: int) -> void:
+	_banner = "PISO %d COMPLETADO" % floor_number if xp <= 0 else "PISO %d COMPLETADO  +%d XP" % [floor_number, xp]
+	_banner_time = 4.0
 
 
 func _on_damage_taken(_amount: float, _source_position: Vector2, is_dot: bool) -> void:
@@ -68,6 +89,7 @@ func _draw() -> void:
 	_draw_abilities(warrior)
 	_draw_controls()
 	_draw_boss_bar()
+	_draw_location()
 
 	if warrior.vengeful_active and warrior.alive:
 		_draw_text("M2 EMPOWERED  +30%", Vector2(220, 305), 7, ORANGE, HORIZONTAL_ALIGNMENT_CENTER, 200)
@@ -84,7 +106,7 @@ func _draw_status(warrior: PlayerSim) -> void:
 	_panel(Rect2(10, 6, 246, 78))
 	_draw_text(String(warrior.class_def["name"]).to_upper(), Vector2(16, 24), 14, GOLD)
 	_draw_text("LV %d" % warrior.level, Vector2(16, 24), 14, TEXT, HORIZONTAL_ALIGNMENT_RIGHT, 234)
-	_draw_text("TRAINING GROUNDS", Vector2(84, 23), 7, MUTED)
+	_draw_text(_location_title(), Vector2(84, 23), 7, MUTED)
 
 	var health_ratio: float = warrior.health / maxf(warrior.max_health, 1.0)
 	var health_color := HEALTH if health_ratio > 0.30 else HEALTH_LOW
@@ -355,8 +377,33 @@ func _draw_boss_bar() -> void:
 		return
 
 
+func _location_title() -> String:
+	if session == null or session.layout == null:
+		return "TRAINING GROUNDS"
+	return session.layout.title.to_upper()
+
+
+## Objetivo del piso, aviso de interaccion, mensajes y banner de piso completado.
+func _draw_location() -> void:
+	if session == null or session.layout == null:
+		return
+	var objective := session.objective_text()
+	if not objective.is_empty():
+		_draw_text(objective.to_upper(), Vector2(262, 52), 7, GOLD if session.is_floor_done() else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 230)
+	if world.player.alive:
+		var portal: Variant = session.nearest_portal()
+		if portal != null:
+			var prompt := session.portal_prompt(portal)
+			_panel(Rect2(190, 290, 260, 16))
+			_draw_text(prompt.to_upper(), Vector2(190, 301), 7, TEXT if session.portal_active(portal) else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 260)
+	if _toast_time > 0.0:
+		_draw_text(_toast.to_upper(), Vector2(0, 120), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 640)
+	if _banner_time > 0.0:
+		_draw_text(_banner, Vector2(0, 90), 14, GOLD, HORIZONTAL_ALIGNMENT_CENTER, 640)
+
+
 func _draw_controls() -> void:
-	_panel(Rect2(498, 6, 132, 121))
+	_panel(Rect2(498, 6, 132, 139))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
@@ -367,7 +414,9 @@ func _draw_controls() -> void:
 		"Q      SPECIAL",
 		"F      ULTIMATE",
 		"TAB    LOADOUT",
-		"R      RESET",
+		"E      INTERACT",
+		", .    TOWER FLOOR",
+		"R      RESTART",
 		"F3     DEBUG",
 		"F7     NEXT CLASS",
 	]
@@ -394,6 +443,9 @@ func _draw_damage_flash() -> void:
 func _draw_death() -> void:
 	draw_rect(Rect2(0, 0, 640, 360), Color(0.04, 0.01, 0.02, 0.62))
 	_draw_text("YOU DIED", Vector2(0, 176), 28, RED, HORIZONTAL_ALIGNMENT_CENTER, 640)
+	if session != null and session.layout != null and session.layout.kind == FloorLayout.KIND_FLOOR:
+		_draw_text("RETURNING TO THE CITY...", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
+		return
 	_draw_text("THE TRAINING DUMMY WON THIS ROUND", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
 	_draw_text("PRESS  R  TO RISE AGAIN", Vector2(0, 210), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 640)
 

@@ -26,6 +26,9 @@ const ACTIONS := {
 	"debug_level_reset": [KEY_F6],
 	"debug_class_next": [KEY_F7],
 	"restart_training": [KEY_R],
+	"interact": [KEY_E],
+	"floor_prev": [KEY_COMMA],
+	"floor_next": [KEY_PERIOD],
 	"quit_game": [KEY_ESCAPE],
 }
 

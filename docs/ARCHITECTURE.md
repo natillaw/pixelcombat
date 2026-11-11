@@ -181,3 +181,17 @@ scripts `SceneTree` sin ventana y salen con código 0/1.
   sin tocar la simulación, porque la arena lógica solo depende de `bounds` y
   `obstacles`.
 - La música no se ha añadido: falta verificar la licencia del pack.
+
+## Torre, ciudad y sesión
+
+```
+GameSession (fuera del tick) ── load_layout(FloorLayout) ──▶ CombatWorld
+   ├── TowerState (progreso, guardado por SaveGame)
+   ├── Layouts.city() / Layouts.training()
+   └── TowerGenerator.generate(piso, semilla) ◀── TowerCatalog (data/tower.json)
+Arena ◀── layout_loaded (se reconstruye: suelo, props, portales, actores)
+```
+
+- `FloorLayout` es datos puros y determinista; `CombatWorld.load_layout()` crea los enemigos con su escala y `required`.
+- `GameSession` reacciona a `tick_advanced` (completar piso, volver a la ciudad al morir) y a `try_interact()`; no toca el estado dentro del tick.
+- Tests: `tests/test_tower.gd` (catálogo, generador, estado, sesión, guardado).

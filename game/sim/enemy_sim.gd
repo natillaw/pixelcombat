@@ -54,6 +54,13 @@ var hit_flash_ticks: int = 0
 var phase: int = 0
 ## Invocado por un jefe: no reaparece y desaparece con el reinicio.
 var summoned: bool = false
+## Cuenta para completar el piso (los enemigos normales y el jefe, no las crias).
+var required: bool = true
+## Reaparece solo tras respawn_seconds (patio); en los pisos de la torre no.
+var respawns: bool = true
+## Escala de dificultad del piso (vida, y a medio ritmo dano; la XP sube entera).
+var level_scale: float = 1.0
+var _damage_scale: float = 1.0
 
 ## Estados alterados activos (stun, slow, veneno).
 var statuses: StatusSet = StatusSet.new()
@@ -80,11 +87,20 @@ func _init(p_world: Object, p_def_id: StringName, p_position: Vector2, rng_seed:
 	_rng.seed = rng_seed
 
 
+## Escala al enemigo segun el piso: vida x scale, dano x (1 + (scale - 1) / 2) y
+## XP x scale. Debe llamarse justo despues de crearlo.
+func apply_scale(scale: float) -> void:
+	level_scale = maxf(scale, 0.1)
+	max_health = float(data["stats"]["health"]) * level_scale
+	health = max_health
+	_damage_scale = 1.0 + (level_scale - 1.0) * 0.5
+
+
 func step(_tick_number: int, delta: float, warrior: Object) -> void:
 	if not alive:
 		state_time += delta
 		var respawn := float(data["respawn_seconds"])
-		if respawn > 0.0 and state_time >= respawn:
+		if respawns and respawn > 0.0 and state_time >= respawn:
 			revive()
 		return
 
@@ -229,7 +245,7 @@ func _resolve_hit(warrior: Object) -> void:
 	if warrior == null or not warrior.alive or not _in_zone(warrior.position):
 		attack_missed.emit()
 		return
-	var amount := float(data["stats"]["damage"]) * float(current_attack["damage_mult"])
+	var amount := float(data["stats"]["damage"]) * _damage_scale * float(current_attack["damage_mult"])
 	var dealt: float = warrior.take_damage(amount, position, false)
 	attack_landed.emit(dealt)
 	if dealt > 0.0:
@@ -284,7 +300,7 @@ func _launch_projectiles() -> void:
 	var spec: Dictionary = current_attack["projectile"]
 	var count := int(spec["count"])
 	var spread := float(spec["spread"])
-	var damage := float(data["stats"]["damage"]) * float(current_attack["damage_mult"])
+	var damage := float(data["stats"]["damage"]) * _damage_scale * float(current_attack["damage_mult"])
 	for i: int in range(count):
 		var offset := 0.0 if count == 1 else lerpf(-spread * 0.5, spread * 0.5, float(i) / float(count - 1))
 		var direction := attack_direction.rotated(deg_to_rad(offset))
@@ -436,8 +452,9 @@ func _enter_phase(index: int) -> void:
 				return
 			var angle := _rng.randf() * TAU
 			var spawn_at: Vector2 = world.resolve_position(position + Vector2.from_angle(angle) * (radius + 70.0), 12.0)
-			var minion: EnemySim = world.add_enemy(StringName(String(summon["id"])), spawn_at)
+			var minion: EnemySim = world.add_enemy(StringName(String(summon["id"])), spawn_at, level_scale)
 			minion.summoned = true
+			minion.required = false
 			minion.data["respawn_seconds"] = 0.0
 			minion.state = State.CHASE
 
@@ -476,4 +493,4 @@ func phase_name() -> String:
 
 ## XP que da al morir (dato stats.xp).
 func xp_reward() -> int:
-	return int(data["stats"].get("xp", 0))
+	return int(round(float(data["stats"].get("xp", 0)) * level_scale))

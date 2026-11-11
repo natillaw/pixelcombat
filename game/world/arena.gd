@@ -1,59 +1,35 @@
-## Arena — escenario procedural del primer corte (patio de entrenamiento).
+## Arena — escenario dibujado a partir de un [FloorLayout].
 ##
-## Construye el suelo de piedra, los muros, los pilares con oclusión por
-## y-sort, las antorchas, la cámara, los actores y los helpers de VFX/SFX.
-## Es presentación pura salvo por setup_arena(), que entrega los límites y los
-## obstáculos a [CombatWorld] antes de empezar a simular.
+## Construye el suelo, los muros, los obstaculos con oclusion por y-sort, las
+## antorchas, los edificios y portales de la ciudad, la camara, los actores y los
+## helpers de VFX/SFX. Es presentacion pura: el escenario lo carga
+## `CombatWorld.load_layout()` y la arena se reconstruye al recibir `layout_loaded`.
 class_name Arena
 extends Node2D
 
-const SIZE := Vector2(960.0, 640.0)
-const WALL := 40.0
-const BOUNDS := Rect2(WALL, WALL, SIZE.x - WALL * 2.0, SIZE.y - WALL * 2.0)
 const TILE := 32.0
-const FLOOR_COLOR := Color(0.13, 0.14, 0.18)
-const FLOOR_DARK := Color(0.10, 0.11, 0.145)
-const FLOOR_LIGHT := Color(0.165, 0.175, 0.215)
-const WALL_COLOR := Color(0.17, 0.18, 0.23)
-const WALL_DARK := Color(0.11, 0.12, 0.155)
-const WALL_LIGHT := Color(0.24, 0.25, 0.31)
-const GOLD := Color(0.78, 0.60, 0.28)
-
-const PILLARS := [
-	Vector2(145, 145), Vector2(815, 145),
-	Vector2(145, 495), Vector2(815, 495),
-	Vector2(185, 320), Vector2(775, 320),
-]
-
-const DUMMY_SPAWNS := [
-	{"position": Vector2(480, 196), "auto_attack": true},
-	{"position": Vector2(660, 390), "auto_attack": false},
-	{"position": Vector2(300, 410), "auto_attack": false},
-]
-
-## Enemigos del arenero (data/enemies). Acampan lejos del centro hasta que el
-## jugador entra en su rango de aggro.
-const ENEMY_SPAWNS := [
-	{"id": &"slime", "position": Vector2(820, 560)},
-	{"id": &"bat", "position": Vector2(110, 575)},
-	{"id": &"spider", "position": Vector2(840, 80)},
-	{"id": &"beetle", "position": Vector2(480, 590)},
-	{"id": &"wisp", "position": Vector2(860, 330)},
-	{"id": &"hornet", "position": Vector2(100, 330)},
-	{"id": &"brood_beetle", "position": Vector2(480, 62)},
-]
+const BRICK_H := 20.0
+const BRICK_W := 44.0
 
 var world: CombatWorld
+## Opcional: la sesion decide si un portal esta activo (para colorear su marcador).
+var session: GameSession
 var camera: Camera2D
 var entities: Node2D
 var fx: Node2D
 var player_actor: PlayerActor
 var dummy_actors: Array[DummyActor] = []
 var enemy_actors: Array[EnemyActor] = []
+var portal_markers: Array[PortalMarker] = []
 
+var layout: FloorLayout
+var _theme: Dictionary = {}
+var _size: Vector2 = Vector2(960.0, 640.0)
+var _bounds: Rect2 = Rect2()
 var _tiles: Array = []
 var _wall_bricks: Array = []
 var _cracks: Array = []
+var _static_nodes: Array[Node] = []
 var _sfx_pool: Array[AudioStreamPlayer] = []
 var _sfx_index: int = 0
 
@@ -63,12 +39,11 @@ var _shake_strength: float = 0.0
 var _rng := RandomNumberGenerator.new()
 
 
+## Monta la arena sobre el escenario que el mundo ya tiene cargado.
 func build(p_world: CombatWorld) -> void:
 	world = p_world
-	_rng.seed = 90210
-	world.setup_arena(BOUNDS, _obstacles())
+	assert(world.layout != null, "carga un FloorLayout en el mundo antes de construir la arena")
 
-	_build_floor_data()
 	_build_sfx_pool()
 
 	entities = Node2D.new()
@@ -81,18 +56,58 @@ func build(p_world: CombatWorld) -> void:
 	fx.z_index = 20
 	add_child(fx)
 
-	_build_pillars()
-	_build_torches()
 	_build_camera()
+
+	player_actor = PlayerActor.new()
+	player_actor.name = "Warrior"
+	player_actor.position = world.player.position
+	player_actor.setup(world.player, self)
+	entities.add_child(player_actor)
+
+	world.projectile_spawned.connect(_on_projectile_spawned)
+	# Las crias que invoca un jefe aparecen despues y necesitan su actor.
+	world.enemy_spawned.connect(_on_enemy_spawned)
+	world.layout_loaded.connect(_rebuild)
+	_rebuild(world.layout)
+
+
+## Redibuja todo el escenario: limpia lo del anterior y crea lo del nuevo.
+func _rebuild(new_layout: FloorLayout) -> void:
+	layout = new_layout
+	_theme = new_layout.theme
+	_size = new_layout.size
+	_bounds = new_layout.bounds()
+	_rng.seed = 90210 + int(new_layout.seed_value)
+
+	for node: Node in _static_nodes:
+		node.queue_free()
+	_static_nodes.clear()
+	for actor: Node in dummy_actors:
+		actor.queue_free()
+	dummy_actors.clear()
+	for actor: Node in enemy_actors:
+		actor.queue_free()
+	enemy_actors.clear()
+	portal_markers.clear()
+	for child: Node in fx.get_children():
+		child.queue_free()
+
+	_build_floor_data()
+	_build_props()
+	_build_torches()
+	_build_portals()
 	_spawn_actors()
+
+	camera.limit_right = int(_size.x)
+	camera.limit_bottom = int(_size.y)
+	camera.position = world.player.position
+	camera.reset_smoothing()
+	player_actor.position = world.player.position
 	queue_redraw()
 
 
-func _obstacles() -> Array:
-	var out: Array = []
-	for point: Vector2 in PILLARS:
-		out.append({"position": point, "radius": 21.0})
-	return out
+func _color(key: String) -> Color:
+	return _theme[key]
 
 
 func _build_camera() -> void:
@@ -101,8 +116,6 @@ func _build_camera() -> void:
 	camera.position = world.player.position
 	camera.limit_left = 0
 	camera.limit_top = 0
-	camera.limit_right = int(SIZE.x)
-	camera.limit_bottom = int(SIZE.y)
 	camera.position_smoothing_enabled = true
 	camera.position_smoothing_speed = 9.0
 	add_child(camera)
@@ -110,14 +123,7 @@ func _build_camera() -> void:
 
 
 func _spawn_actors() -> void:
-	player_actor = PlayerActor.new()
-	player_actor.name = "Warrior"
-	player_actor.position = world.player.position
-	player_actor.setup(world.player, self)
-	entities.add_child(player_actor)
-
-	for spawn: Dictionary in DUMMY_SPAWNS:
-		var dummy_sim := world.add_dummy(spawn["position"], bool(spawn["auto_attack"]))
+	for dummy_sim: DummySim in world.dummies:
 		var dummy := DummyActor.new()
 		dummy.name = "Dummy"
 		dummy.position = dummy_sim.position
@@ -125,27 +131,23 @@ func _spawn_actors() -> void:
 		entities.add_child(dummy)
 		dummy_actors.append(dummy)
 
-	world.projectile_spawned.connect(_on_projectile_spawned)
-
-	for spawn: Dictionary in ENEMY_SPAWNS:
-		var enemy_sim := world.add_enemy(spawn["id"], spawn["position"])
-		var enemy := EnemyActor.new()
-		enemy.name = String(spawn["id"]).capitalize()
-		enemy.position = enemy_sim.position
-		enemy.setup(enemy_sim, self)
-		entities.add_child(enemy)
-		enemy_actors.append(enemy)
-	# Las crias que invoca un jefe aparecen despues y necesitan su actor.
-	world.enemy_spawned.connect(_on_enemy_spawned)
+	for enemy_sim: EnemySim in world.enemies:
+		_add_enemy_actor(enemy_sim)
 
 
-func _on_enemy_spawned(enemy_sim: EnemySim) -> void:
+func _add_enemy_actor(enemy_sim: EnemySim) -> void:
 	var enemy := EnemyActor.new()
 	enemy.name = String(enemy_sim.def_id).capitalize()
 	enemy.position = enemy_sim.position
 	enemy.setup(enemy_sim, self)
 	entities.add_child(enemy)
 	enemy_actors.append(enemy)
+
+
+func _on_enemy_spawned(enemy_sim: EnemySim) -> void:
+	if world.loading_layout:
+		return
+	_add_enemy_actor(enemy_sim)
 
 
 ## Cada proyectil de la simulacion tiene su actor, que se libera solo al morir.
@@ -169,6 +171,11 @@ func _process(delta: float) -> void:
 		camera.offset = Vector2(_rng.randf_range(-amount, amount), _rng.randf_range(-amount, amount))
 	else:
 		camera.offset = Vector2.ZERO
+
+	if session != null:
+		for marker: PortalMarker in portal_markers:
+			marker.active = session.portal_active(marker.portal)
+			marker.near = session.nearest_portal() == marker.portal
 
 
 # --- Helpers de presentación ------------------------------------------------
@@ -228,29 +235,36 @@ func _build_sfx_pool() -> void:
 		_sfx_pool.append(player)
 
 
-# --- Geometría procedural ---------------------------------------------------
+# --- Geometria procedural ---------------------------------------------------
+
+
+func _floor_rect() -> Rect2:
+	var wall := layout.wall
+	return Rect2(wall, wall, _size.x - wall * 2.0, _size.y - wall * 2.0)
 
 
 func _build_floor_data() -> void:
 	_tiles.clear()
 	_cracks.clear()
+	_wall_bricks.clear()
 
-	var cols := int(BOUNDS.size.x / TILE)
-	var rows := int(BOUNDS.size.y / TILE)
+	var area := _floor_rect()
+	var cols := int(area.size.x / TILE)
+	var rows := int(area.size.y / TILE)
 	for row: int in range(rows):
 		for col: int in range(cols):
 			var rect := Rect2(
-				BOUNDS.position.x + col * TILE + 1.0,
-				BOUNDS.position.y + row * TILE + 1.0,
+				area.position.x + col * TILE + 1.0,
+				area.position.y + row * TILE + 1.0,
 				TILE - 2.0,
 				TILE - 2.0
 			)
 			var roll := _rng.randf()
-			var color := FLOOR_COLOR
+			var color := _color("floor")
 			if roll < 0.22:
-				color = FLOOR_DARK
+				color = _color("floor_dark")
 			elif roll > 0.82:
-				color = FLOOR_LIGHT
+				color = _color("floor_light")
 			color = color.darkened(_rng.randf_range(-0.02, 0.06))
 			_tiles.append({"rect": rect, "color": color})
 
@@ -259,100 +273,120 @@ func _build_floor_data() -> void:
 				var end := start + Vector2(_rng.randf_range(-9.0, 9.0), _rng.randf_range(6.0, 16.0))
 				_cracks.append({"a": start, "b": end})
 
-	# Ladrillos de los muros: bandas de 20 px a lo largo de cada borde.
-	var brick_h := 20.0
-	var brick_w := 44.0
+	# Ladrillos de los muros: dos bandas de 20 px a lo largo de cada borde.
 	for row: int in range(2):
-		var y := row * brick_h
-		var offset := 22.0 if row % 2 == 1 else 0.0
-		var x := -offset
-		while x < SIZE.x:
-			_tiles_wall(Rect2(x + 2.0, y + 2.0, brick_w - 4.0, brick_h - 4.0))
-			x += brick_w
+		var y := row * BRICK_H
+		var x := -(22.0 if row % 2 == 1 else 0.0)
+		while x < _size.x:
+			_add_brick(Rect2(x + 2.0, y + 2.0, BRICK_W - 4.0, BRICK_H - 4.0))
+			x += BRICK_W
 	for row: int in range(2):
-		var y := SIZE.y - (row + 1) * brick_h
-		var offset := 22.0 if row % 2 == 0 else 0.0
-		var x := -offset
-		while x < SIZE.x:
-			_tiles_wall(Rect2(x + 2.0, y + 2.0, brick_w - 4.0, brick_h - 4.0))
-			x += brick_w
+		var y := _size.y - (row + 1) * BRICK_H
+		var x := -(22.0 if row % 2 == 0 else 0.0)
+		while x < _size.x:
+			_add_brick(Rect2(x + 2.0, y + 2.0, BRICK_W - 4.0, BRICK_H - 4.0))
+			x += BRICK_W
 	for row: int in range(2):
-		var x := row * brick_h
-		var offset := 22.0 if row % 2 == 1 else 0.0
-		var y := -offset
-		while y < SIZE.y:
-			_tiles_wall(Rect2(x + 2.0, y + 2.0, brick_h - 4.0, brick_w - 4.0))
-			y += brick_w
+		var x := row * BRICK_H
+		var y := -(22.0 if row % 2 == 1 else 0.0)
+		while y < _size.y:
+			_add_brick(Rect2(x + 2.0, y + 2.0, BRICK_H - 4.0, BRICK_W - 4.0))
+			y += BRICK_W
 	for row: int in range(2):
-		var x := SIZE.x - (row + 1) * brick_h
-		var offset := 22.0 if row % 2 == 0 else 0.0
-		var y := -offset
-		while y < SIZE.y:
-			_tiles_wall(Rect2(x + 2.0, y + 2.0, brick_h - 4.0, brick_w - 4.0))
-			y += brick_w
+		var x := _size.x - (row + 1) * BRICK_H
+		var y := -(22.0 if row % 2 == 0 else 0.0)
+		while y < _size.y:
+			_add_brick(Rect2(x + 2.0, y + 2.0, BRICK_H - 4.0, BRICK_W - 4.0))
+			y += BRICK_W
 
 
-func _tiles_wall(rect: Rect2) -> void:
+func _add_brick(rect: Rect2) -> void:
 	var shade := _rng.randf_range(-0.015, 0.015)
-	var color := WALL_COLOR.lightened(maxf(shade, 0.0)).darkened(maxf(-shade, 0.0))
+	var color := _color("wall").lightened(maxf(shade, 0.0)).darkened(maxf(-shade, 0.0))
 	_wall_bricks.append({"rect": rect, "color": color})
 
 
-func _build_pillars() -> void:
-	for point: Vector2 in PILLARS:
-		var pillar := Pillar.new()
-		pillar.position = point
-		entities.add_child(pillar)
+func _add_static(node: Node2D, at: Vector2) -> void:
+	node.position = at
+	entities.add_child(node)
+	_static_nodes.append(node)
+
+
+func _build_props() -> void:
+	for obstacle: Dictionary in layout.obstacles:
+		var radius: float = obstacle["radius"]
+		if layout.kind == FloorLayout.KIND_CITY:
+			_add_static(Fountain.new() if radius >= 30.0 else CityTree.new(), obstacle["position"])
+		else:
+			_add_static(Pillar.new(), obstacle["position"])
+	for building: Dictionary in layout.buildings:
+		var facade := Building.new()
+		facade.rect = building["rect"]
+		facade.base_color = building["color"]
+		facade.label = String(building["label"])
+		# El y-sort usa la posicion: la base de la fachada.
+		_add_static(facade, Vector2(0.0, (building["rect"] as Rect2).end.y))
 
 
 func _build_torches() -> void:
-	var spots := [
-		Vector2(WALL + 8.0, 172.0),
-		Vector2(WALL + 8.0, 468.0),
-		Vector2(SIZE.x - WALL - 8.0, 172.0),
-		Vector2(SIZE.x - WALL - 8.0, 468.0),
-	]
-	for i: int in range(spots.size()):
+	for i: int in range(layout.torches.size()):
 		var torch := Torch.new()
-		torch.position = spots[i]
 		torch.phase = float(i) * 1.7
-		entities.add_child(torch)
+		_add_static(torch, layout.torches[i])
+
+
+func _build_portals() -> void:
+	for portal: Dictionary in layout.portals:
+		var marker := PortalMarker.new()
+		marker.portal = portal
+		marker.accent = _color("accent")
+		marker.z_index = -1
+		marker.position = portal["position"]
+		entities.add_child(marker)
+		_static_nodes.append(marker)
+		portal_markers.append(marker)
 
 
 func _draw() -> void:
+	if layout == null:
+		return
+	var bounds := _bounds
 	# Fondo exterior.
-	draw_rect(Rect2(Vector2.ZERO, SIZE), Color(0.045, 0.05, 0.07))
+	draw_rect(Rect2(Vector2.ZERO, _size), _color("background"))
 
-	# Suelo de piedra.
-	draw_rect(BOUNDS, FLOOR_DARK)
+	# Suelo.
+	draw_rect(_floor_rect(), _color("floor_dark"))
 	for tile: Dictionary in _tiles:
 		draw_rect(tile["rect"], tile["color"])
 	for crack: Dictionary in _cracks:
 		draw_line(crack["a"], crack["b"], Color(0.06, 0.07, 0.09, 0.85), 1.0)
 
-	_draw_emblem()
+	if bool(_theme.get("emblem", false)):
+		_draw_emblem()
 
 	# Muros.
 	for brick: Dictionary in _wall_bricks:
 		draw_rect(brick["rect"], brick["color"])
-	draw_rect(Rect2(0, 0, SIZE.x, SIZE.y), WALL_DARK, false, 4.0)
-	draw_rect(BOUNDS, Color(0.0, 0.0, 0.0, 0.35), false, 3.0)
-	draw_rect(BOUNDS.grow(3.0), Color(WALL_LIGHT.r, WALL_LIGHT.g, WALL_LIGHT.b, 0.35), false, 1.0)
+	var wall_light: Color = _color("wall_light")
+	draw_rect(Rect2(Vector2.ZERO, _size), _color("wall_dark"), false, 4.0)
+	draw_rect(bounds, Color(0.0, 0.0, 0.0, 0.35), false, 3.0)
+	draw_rect(bounds.grow(3.0), Color(wall_light.r, wall_light.g, wall_light.b, 0.35), false, 1.0)
 
 
 func _draw_emblem() -> void:
-	var center := BOUNDS.get_center()
-	draw_arc(center, 168.0, 0.0, TAU, 72, Color(GOLD.r, GOLD.g, GOLD.b, 0.10), 2.0)
-	draw_arc(center, 150.0, 0.0, TAU, 72, Color(GOLD.r, GOLD.g, GOLD.b, 0.07), 1.0)
+	var accent: Color = _color("accent")
+	var center := _bounds.get_center()
+	draw_arc(center, 168.0, 0.0, TAU, 72, Color(accent.r, accent.g, accent.b, 0.10), 2.0)
+	draw_arc(center, 150.0, 0.0, TAU, 72, Color(accent.r, accent.g, accent.b, 0.07), 1.0)
 
 	for i: int in range(8):
 		var angle := TAU * float(i) / 8.0
 		var a := center + Vector2(cos(angle), sin(angle)) * 150.0
 		var b := center + Vector2(cos(angle), sin(angle)) * 168.0
-		draw_line(a, b, Color(GOLD.r, GOLD.g, GOLD.b, 0.10), 1.0)
+		draw_line(a, b, Color(accent.r, accent.g, accent.b, 0.10), 1.0)
 
 	# Emblema de espada, muy tenue, en el centro de la arena.
-	var gold := Color(GOLD.r, GOLD.g, GOLD.b, 0.09)
+	var gold := Color(accent.r, accent.g, accent.b, 0.09)
 	var c := center
 	var blade := PackedVector2Array([
 		c + Vector2(0, -78), c + Vector2(7, -52), c + Vector2(7, 38),
@@ -412,3 +446,101 @@ class Torch extends Node2D:
 		draw_circle(Vector2(0, -27), 7.0 * flick, Color(1.0, 0.40, 0.10, 0.92))
 		draw_circle(Vector2(1, -31), 4.8 * flick, Color(1.0, 0.70, 0.22, 0.95))
 		draw_circle(Vector2(-1, -35), 2.4 * flick, Color(1.0, 0.95, 0.72, 0.95))
+
+
+class CityTree extends Node2D:
+	func _draw() -> void:
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.42))
+		draw_circle(Vector2.ZERO, 24.0, Color(0.0, 0.0, 0.0, 0.35))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		draw_rect(Rect2(-4, -34, 8, 34), Color(0.30, 0.20, 0.12))
+		draw_circle(Vector2(0, -52), 24.0, Color(0.16, 0.34, 0.18))
+		draw_circle(Vector2(-12, -44), 16.0, Color(0.20, 0.40, 0.21))
+		draw_circle(Vector2(12, -46), 15.0, Color(0.13, 0.29, 0.16))
+		draw_circle(Vector2(2, -62), 14.0, Color(0.23, 0.44, 0.24))
+
+
+class Fountain extends Node2D:
+	var phase: float = 0.0
+
+	func _process(delta: float) -> void:
+		phase += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.62))
+		draw_circle(Vector2.ZERO, 38.0, Color(0.0, 0.0, 0.0, 0.3))
+		draw_circle(Vector2.ZERO, 34.0, Color(0.36, 0.37, 0.43))
+		draw_circle(Vector2.ZERO, 28.0, Color(0.22, 0.42, 0.55))
+		draw_circle(Vector2.ZERO, 22.0 + sin(phase * 3.0) * 1.5, Color(0.30, 0.55, 0.68))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		draw_rect(Rect2(-5, -30, 10, 28), Color(0.40, 0.41, 0.48))
+		draw_circle(Vector2(0, -34), 6.0 + sin(phase * 5.0), Color(0.55, 0.78, 0.90, 0.9))
+
+
+## Fachada de un edificio de oficio (decoracion; la puerta es un portal).
+class Building extends Node2D:
+	var rect: Rect2 = Rect2()
+	var base_color: Color = Color(0.5, 0.35, 0.25)
+	var label: String = ""
+
+	func _draw() -> void:
+		# Este nodo esta en (0, y_base); dibujamos con coordenadas de mundo.
+		var wall := base_color
+		var dark := base_color.darkened(0.35)
+		var light := base_color.lightened(0.18)
+		var origin := Vector2(0.0, -rect.end.y)
+		var r := Rect2(rect.position + origin, rect.size)
+		draw_rect(Rect2(r.position + Vector2(6, r.size.y - 6), Vector2(r.size.x, 10)), Color(0.0, 0.0, 0.0, 0.3))
+		draw_rect(r, wall)
+		draw_rect(Rect2(r.position, Vector2(r.size.x, 8)), light)
+		for i: int in range(1, 5):
+			draw_line(r.position + Vector2(0, 28 * i), r.position + Vector2(r.size.x, 28 * i), dark, 1.0)
+		# Tejado.
+		var roof := PackedVector2Array([
+			r.position + Vector2(-10, 4), r.position + Vector2(r.size.x * 0.5, -34), r.position + Vector2(r.size.x + 10, 4),
+		])
+		draw_colored_polygon(roof, dark.darkened(0.15))
+		# Puerta y ventanas.
+		var door := Rect2(r.position + Vector2(r.size.x * 0.5 - 16, r.size.y - 46), Vector2(32, 46))
+		draw_rect(door, Color(0.16, 0.10, 0.07))
+		draw_rect(Rect2(door.position + Vector2(2, 2), door.size - Vector2(4, 2)), Color(0.28, 0.18, 0.11))
+		for x: float in [0.18, 0.74]:
+			var win := Rect2(r.position + Vector2(r.size.x * x, 30), Vector2(22, 26))
+			draw_rect(win, Color(0.09, 0.10, 0.14))
+			draw_rect(Rect2(win.position + Vector2(2, 2), win.size - Vector2(4, 4)), Color(0.95, 0.72, 0.35, 0.85))
+		# Cartel.
+		var font := ThemeDB.fallback_font
+		var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
+		var sign_rect := Rect2(r.position + Vector2(r.size.x * 0.5 - size.x * 0.5 - 6, 62), Vector2(size.x + 12, 20))
+		draw_rect(sign_rect, Color(0.12, 0.08, 0.05))
+		draw_string(font, sign_rect.position + Vector2(6, 15), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color(0.95, 0.85, 0.6))
+
+
+## Marcador de un punto de interaccion (puerta de la torre, salidas...).
+class PortalMarker extends Node2D:
+	var portal: Dictionary = {}
+	var accent: Color = Color(0.9, 0.7, 0.3)
+	var active: bool = true
+	var near: bool = false
+	var _time: float = 0.0
+
+	func _process(delta: float) -> void:
+		_time += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		var radius: float = float(portal.get("radius", 34.0))
+		var color := accent if active else Color(0.45, 0.45, 0.5)
+		var pulse := 0.5 + 0.5 * sin(_time * 3.0)
+		var alpha := 0.35 + 0.35 * pulse if near else 0.18 + 0.12 * pulse
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.6))
+		draw_circle(Vector2.ZERO, radius, Color(color.r, color.g, color.b, alpha * 0.45))
+		draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color(color.r, color.g, color.b, alpha + 0.2), 2.0)
+		draw_arc(Vector2.ZERO, radius * 0.62, 0.0, TAU, 36, Color(color.r, color.g, color.b, alpha), 1.0)
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		var font := ThemeDB.fallback_font
+		var label := String(portal.get("label", ""))
+		if label != "" and (near or String(portal.get("action", "")) == "tower"):
+			var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
+			draw_string(font, Vector2(-size.x * 0.5, -radius * 0.6 - 8.0), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color(1, 1, 1, 0.9) if active else Color(0.7, 0.7, 0.75, 0.9))
