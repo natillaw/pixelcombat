@@ -23,10 +23,14 @@ shot 03_heavy_strike -> /home/runner/work/pixelcombat/pixelcombat/screenshots/03
 shot 04_impact -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04_impact.png err=0
 shot 04b_ultimate_telegraph -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04b_ultimate_telegraph.png err=0
 shot 04c_ultimate_impact -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04c_ultimate_impact.png err=0
+shot 04d_enemy_slime_cone -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04d_enemy_slime_cone.png err=0
+shot 04e_enemy_bat_line -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04e_enemy_bat_line.png err=0
+shot 04f_enemy_spider_circle -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04f_enemy_spider_circle.png err=0
+shot 04g_enemy_beetle_cone -> /home/runner/work/pixelcombat/pixelcombat/screenshots/04g_enemy_beetle_cone.png err=0
 shot 05_vengeful_fury -> /home/runner/work/pixelcombat/pixelcombat/screenshots/05_vengeful_fury.png err=0
 shot 06_death -> /home/runner/work/pixelcombat/pixelcombat/screenshots/06_death.png err=0
 CAPTURE DONE -> /home/runner/work/pixelcombat/pixelcombat/screenshots
-WARNING: 33 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+WARNING: 42 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
-ERROR: 10 resources still in use at exit (run with --verbose for details).
+ERROR: 11 resources still in use at exit (run with --verbose for details).
    at: clear (core/io/resource.cpp:822)

@@ -1,5 +1,5 @@
 # Capturas de main
-Commit `a47363c` — 2026-11-11 01:02 UTC
+Commit `05054b9` — 2026-11-11 01:10 UTC
 
 ## 01_arena.png
 ![](01_arena.png)
@@ -18,6 +18,18 @@ Commit `a47363c` — 2026-11-11 01:02 UTC
 
 ## 04c_ultimate_impact.png
 ![](04c_ultimate_impact.png)
+
+## 04d_enemy_slime_cone.png
+![](04d_enemy_slime_cone.png)
+
+## 04e_enemy_bat_line.png
+![](04e_enemy_bat_line.png)
+
+## 04f_enemy_spider_circle.png
+![](04f_enemy_spider_circle.png)
+
+## 04g_enemy_beetle_cone.png
+![](04g_enemy_beetle_cone.png)
 
 ## 05_vengeful_fury.png
 ![](05_vengeful_fury.png)
