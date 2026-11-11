@@ -1,5 +1,5 @@
 class,level,hp,dps,burst_dps,sustained_dps,wave_cleared,wave_time,wave_hp_left,wave_damage_taken,boss_cleared,boss_time,boss_hp_left
-warrior,10,370,68.25,70.33,63.68,true,10.82,0.977,8.6,true,44.47,0.679
-rogue,10,312,60.46,51.83,68.54,true,13.95,1.000,0.0,true,27.68,0.338
-mage,10,283,62.33,64.84,63.16,true,11.03,0.960,11.3,true,33.05,0.309
-archer,10,312,63.25,61.15,65.00,true,10.12,0.964,11.2,true,28.42,0.277
+warrior,10,370,68.89,77.46,63.22,true,9.72,0.977,8.6,true,42.70,0.414
+rogue,10,312,60.46,51.83,68.54,true,13.95,1.000,0.0,true,31.72,0.616
+mage,10,283,62.33,64.84,63.16,true,13.40,1.000,0.0,true,33.53,0.574
+archer,10,312,63.25,61.15,65.00,true,10.03,0.964,11.2,true,38.90,0.609

@@ -77,7 +77,7 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - [x] Special: Iron Counter (postura que bloquea y contraataca). *Hecho 10 nov: `tests/test_special.gd`.*
 - [x] Niveles, XP y skills desbloqueadas por nivel (no todas desde el nivel 1). *Hecho 10 nov: `Progression`, `unlock_level`, `tests/test_progression.gd`.* Pendiente: guardar loadout/nivel en disco y limitar el cambio de loadout a la ciudad.
 - [x] Ultimate con Charge por golpes (War God's Descent). *Hecho 10 nov: `tests/test_ultimate.gd`.*
-- Estados: stun, slow, empuje, sangrado, escudo, silencio. Prioridad y duración centralizadas.
+- [x] Estados: stun, slow y veneno (con tope, resistencia e inmunidad tras un control). *Hecho 10 nov: `data/statuses.json`, `StatusSet`, `tests/test_status.gd`.* Pendiente: silencio, escudo, sangrado y empuje.
 - [x] IA de enemigos con telegraph (cono, línea con embestida, círculo) dirigida por datos: `data/enemies/tier1.json`, `EnemyCatalog`, `EnemySim`, `EnemyActor`; 4 enemigos (Slime, Bat, Spider, Beetle). *Hecho 10 nov: `tests/test_enemies.gd`.* *Ampliado el 10 nov con enemigos a distancia (Wisp, Hornet) y el jefe Brood Beetle de 3 fases (`tests/test_ranged_boss.gd`).* Pendiente: estados (stun, slow...), grupos coordinados y los jefes de los demás tiers.
 - "Game feel": hit-stop, screen shake, números de daño, SFX, trails (hoy hay `SlashArc`, `ImpactBurst`, `DamageNumber`).
 - Panel de loadout simple (Tab) para equipar skills.

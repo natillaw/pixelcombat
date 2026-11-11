@@ -63,6 +63,7 @@ TickManager (60 Hz)
 | `combat/class_catalog.gd` | Carga y valida `data/classes/*.json` | Datos |
 | `game/art/class_look.gd` | Aspecto LPC de cada clase | Presentación |
 | `game/actors/projectile_actor.gd` | Dibujo de flechas, dagas y hechizos | Presentación |
+| `game/sim/status_set.gd`, `combat/status_catalog.gd` | Estados alterados (stun, slow, veneno) de una unidad y su catálogo | Simulación / Datos |
 | `game/sim/enemy_sim.gd` | Enemigo por datos: persigue, avisa (TELEGRAPH), golpea una vez al caer, dash, cooldown por ataque, respawn | Simulación |
 | `combat/enemy_catalog.gd` | Carga y valida `data/enemies/*.json` | Datos |
 | `game/actors/enemy_actor.gd` | Sprite CC0 y zona del telegraph (la misma forma que usa la sim) | Presentación |
