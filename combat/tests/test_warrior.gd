@@ -9,6 +9,11 @@ const SkillScript: GDScript = preload("res://combat/skill.gd")
 const SkillRunnerScript: GDScript = preload("res://combat/skill_runner.gd")
 const StatsScript: GDScript = preload("res://combat/stats.gd")
 
+## Skills del Skill Book jugables hoy (data/skills/warrior.json). Al implementar
+## una nueva, se anade aqui: este contrato fija que nada se marca jugable sin
+## estar en el catalogo.
+const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust"]
+
 var _failures: int = 0
 var _checks: int = 0
 
@@ -106,7 +111,7 @@ func _test_skill_book() -> void:
 		_check(int(entry["cost"]) > 0, "%s costs Rage" % id)
 		_check(int(entry["cost"]) <= int(WarriorKit.MAX_RAGE), "%s is affordable" % id)
 		_check(float(entry["cooldown"]) > 0.0, "%s has a cooldown" % id)
-		_check(not bool(entry["implemented"]), "%s is not implemented yet" % id)
+		_check(bool(entry["implemented"]) == IMPLEMENTED_SKILLS.has(id), "%s implemented flag matches the playable set" % id)
 
 	_check(WarriorKit.all_ids().size() == 15, "all_ids returns the 15 ids")
 

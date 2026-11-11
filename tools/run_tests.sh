@@ -34,6 +34,8 @@ SUITES=(
     "tests/test_asset_licenses.gd"
     "tests/test_facing.gd"
     "tests/test_dodge.gd"
+    "tests/test_skill_catalog.gd"
+    "tests/test_skills.gd"
 )
 
 : >"$SUMMARY"

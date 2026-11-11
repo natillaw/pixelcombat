@@ -63,6 +63,7 @@ func _connect_signals() -> void:
 	sim.dodge_started.connect(_on_dodge_started)
 	sim.dodge_ended.connect(_on_dodge_ended)
 	sim.attack_evaded.connect(_on_attack_evaded)
+	sim.skill_denied.connect(_on_skill_denied)
 
 
 func _process(delta: float) -> void:
@@ -153,7 +154,7 @@ func _on_attack_state_changed(state: int) -> void:
 		return
 
 	var slot := String(_current_skill.get("slot", "M1"))
-	var heavy := slot == "M2"
+	var heavy := slot != "M1"
 	var anim := String(_current_skill.get("anim", "slash"))
 	_facing = _dir_name(sim.attack_aim)
 
@@ -166,7 +167,7 @@ func _on_attack_state_changed(state: int) -> void:
 		sim.position,
 		sim.attack_aim,
 		float(_current_skill.get("range", 78.0)),
-		float(_current_skill.get("arc", 110.0)),
+		visual_arc(_current_skill),
 		heavy
 	)
 	arena.play_sfx(SFX_SLASH_HEAVY if heavy else SFX_SLASH, -7.0, randf_range(0.94, 1.08))
@@ -177,7 +178,7 @@ func _on_attack_state_changed(state: int) -> void:
 func _on_attack_hit(skill: Dictionary, _target: Object, damage: float, critical: bool, hit_position: Vector2) -> void:
 	if arena == null:
 		return
-	var heavy := String(skill.get("slot", "M1")) == "M2"
+	var heavy := String(skill.get("slot", "M1")) != "M1"
 	arena.spawn_damage_number(hit_position, damage, critical)
 	arena.spawn_impact(hit_position, Color(1.0, 0.72, 0.32, 1.0), heavy)
 	arena.play_sfx(SFX_HIT_HEAVY if heavy else SFX_HIT, -5.0, randf_range(0.92, 1.06))
@@ -251,6 +252,24 @@ func _spawn_afterimage() -> void:
 	var tween := ghost.create_tween()
 	tween.tween_property(ghost, "modulate:a", 0.0, AFTERIMAGE_LIFETIME)
 	tween.tween_callback(ghost.queue_free)
+
+
+## Arco que se dibuja para la skill: el del cono, un tajo estrecho para una linea
+## y 360 para un circulo.
+static func visual_arc(skill: Dictionary) -> float:
+	match String(skill.get("shape", "cone")):
+		"line":
+			return 24.0
+		"circle":
+			return 360.0
+		_:
+			return float(skill.get("arc", 110.0))
+
+
+func _on_skill_denied(_slot: String, _reason: String) -> void:
+	if arena == null:
+		return
+	arena.spawn_floating_text(sim.position, "NO RAGE", Color(1.0, 0.45, 0.35, 1.0))
 
 
 func _on_dodge_started(_direction: Vector2) -> void:

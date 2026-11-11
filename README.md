@@ -41,6 +41,7 @@ La primera vez, o tras cambiar muchos assets, importa:
 | Clic izquierdo | M1 · Sword Slash (mantener para encadenar) |
 | Clic derecho | M2 · Heavy Strike |
 | Espacio | Esquiva (i-frames, cancela windup/recovery, cooldown 1,1 s) |
+| 1 / 2 | Skills S1 Cleaving Strike (20 Rage) y S2 Piercing Thrust (15 Rage) |
 | R | Reiniciar entrenamiento |
 | F3 | Overlay de debug |
 | Esc | Salir |

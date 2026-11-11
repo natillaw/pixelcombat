@@ -1,10 +1,11 @@
 ## WarriorKit — datos canónicos de la clase Warrior (documento de clases v2).
 ##
-## Esta clase es la única fuente de verdad de los números provisionales del
-## Warrior. La simulación (game/sim/warrior_sim.gd) lee estos diccionarios; no
-## tiene valores de combate hardcodeados. Los 15 talents del Skill Book están
-## definidos como datos, pero solo M1, M2 y la pasiva están implementados en el
-## primer corte. `implemented` marca lo que ya se puede jugar.
+## Fuente de verdad de los números provisionales del Warrior. Las skills
+## ejecutables (M1, M2, Cleaving Strike, Piercing Thrust) viven en
+## data/skills/warrior.json y se cargan con SkillCatalog; aqui quedan la pasiva,
+## Special, Ultimate, la esquiva y el Skill Book completo (15 habilidades).
+## La simulacion (game/sim/warrior_sim.gd) lee estos datos; no tiene valores de
+## combate hardcodeados. `implemented` marca lo que ya se puede jugar.
 class_name WarriorKit
 extends RefCounted
 
@@ -17,47 +18,11 @@ const MAX_RAGE := 100.0
 const SPECIAL_COST := 30.0
 const ULTIMATE_CHARGE_MAX := 100.0
 
-## M1: rápido, fiable, poca Rage. Sin combo.
-const M1 := {
-	"id": &"warrior_m1",
-	"name": "Sword Slash",
-	"slot": "M1",
-	"kind": "basic",
-	"role": "Daño / presión",
-	"description": "Corte horizontal rápido. Genera poca Rage al acertar.",
-	"windup": 0.12,
-	"active": 0.12,
-	"recovery": 0.18,
-	"cooldown": 0.05,
-	"range": 78.0,
-	"arc": 110.0,
-	"damage_mult": 1.0,
-	"rage_gain": 8.0,
-	"rage_cap": 16.0,
-	"anim": "slash",
-	"implemented": true,
-}
-
-## M2: lento y pesado; más daño y más Rage. Castiga compromisos.
-const M2 := {
-	"id": &"warrior_m2",
-	"name": "Heavy Strike",
-	"slot": "M2",
-	"kind": "basic",
-	"role": "Burst / castigo",
-	"description": "Golpe vertical lento y potente, con recuperación mayor y más Rage.",
-	"windup": 0.30,
-	"active": 0.12,
-	"recovery": 0.35,
-	"cooldown": 0.20,
-	"range": 70.0,
-	"arc": 80.0,
-	"damage_mult": 2.1,
-	"rage_gain": 14.0,
-	"rage_cap": 20.0,
-	"anim": "thrust",
-	"implemented": true,
-}
+## M1 y M2 viven en data/skills/warrior.json (SkillCatalog). Se exponen aqui para
+## que el resto del codigo y los tests sigan leyendolos como WarriorKit.M1/M2.
+## M1: rapido, fiable, poca Rage. M2: lento y pesado; castiga compromisos.
+static var M1: Dictionary = SkillCatalog.skill(&"warrior_m1")
+static var M2: Dictionary = SkillCatalog.skill(&"warrior_m2")
 
 ## Esquiva (accion comun a todas las clases): desplazamiento corto con ventana de
 ## invulnerabilidad. No gasta recurso; solo cooldown. Puede cancelar un ataque
@@ -117,9 +82,9 @@ const ULTIMATE := {
 
 ## Skill Book completo (15 habilidades normales). Costes y cooldowns provisionales.
 const SKILL_BOOK := [
-	{"id": &"cleaving_strike", "name": "Cleaving Strike", "role": "Daño / AoE", "cost": 20, "cooldown": 6.0, "description": "Corte horizontal amplio que daña a todos los enemigos alcanzados.", "implemented": false},
+	{"id": &"cleaving_strike", "name": "Cleaving Strike", "role": "Daño / AoE", "cost": 20, "cooldown": 6.0, "description": "Corte horizontal amplio que daña a todos los enemigos alcanzados.", "implemented": true},
 	{"id": &"crushing_blow", "name": "Crushing Blow", "role": "Burst / castigo", "cost": 25, "cooldown": 10.0, "description": "Golpe descendente muy pesado; interrumpe habilidades canalizadas si conecta.", "implemented": false},
-	{"id": &"piercing_thrust", "name": "Piercing Thrust", "role": "Daño preciso", "cost": 15, "cooldown": 5.0, "description": "Estocada rápida y lineal con más alcance que M1.", "implemented": false},
+	{"id": &"piercing_thrust", "name": "Piercing Thrust", "role": "Daño preciso", "cost": 15, "cooldown": 5.0, "description": "Estocada rápida y lineal con más alcance que M1.", "implemented": true},
 	{"id": &"whirlwind", "name": "Whirlwind", "role": "Daño / AoE", "cost": 30, "cooldown": 9.0, "description": "Giro con la espada extendida que golpea alrededor, con límite de impactos.", "implemented": false},
 	{"id": &"parry", "name": "Parry", "role": "Defensa", "cost": 20, "cooldown": 10.0, "description": "Desvía un ataque frontal en una ventana breve; si acierta, permite contraatacar.", "implemented": false},
 	{"id": &"iron_guard", "name": "Iron Guard", "role": "Defensa / mitigación", "cost": 15, "cooldown": 8.0, "description": "Postura defensiva temporal que reduce el daño frontal y la velocidad de movimiento.", "implemented": false},

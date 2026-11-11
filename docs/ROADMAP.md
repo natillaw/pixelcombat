@@ -71,7 +71,7 @@ Cada una con mi recomendación; marca las que cambies.
 Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - [x] Encarar siempre al cursor (con bloqueo durante ataques/channels). *Hecho 10 nov: `WarriorActor.facing_for`, con histéresis y test.*
 - [x] Esquiva con i-frames cortos y coste/cooldown. *Hecho 10 nov: `WarriorKit.DODGE`, `tests/test_dodge.gd`.*
-- Pipeline de skills genérico y dirigido por datos: windup → activo → recovery, cancel windows, telegraph, hitbox (línea, cono, círculo, proyectil).
+- [x] Pipeline de skills genérico y dirigido por datos: windup → activo → recovery, formas cono/línea/círculo, coste, cooldown, límite de objetivos, movimiento por fase. *Hecho 10 nov: `data/skills/warrior.json`, `SkillCatalog`, S1/S2 jugables.* Pendiente: proyectiles, estados (stun, slow...) y telegraph en enemigos.
 - Slots de loadout: M1, M2, S1–S5, Special, Ultimate. Ultimate con Charge por golpes.
 - Estados: stun, slow, empuje, sangrado, escudo, silencio. Prioridad y duración centralizadas.
 - IA de enemigos básica con telegraph (melee, rango, carga) y una sala de combate real.

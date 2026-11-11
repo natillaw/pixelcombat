@@ -26,9 +26,10 @@ en `docs/DECISIONES.md`.
 4. **Input como comando.** El input del jugador se empaqueta en `InputMessage`
    (`move_dir`, `aim_dir`, `actions`) y se entrega una vez por tick. Esto es lo
    que permite que el netcode futuro reutilice la misma simulación.
-5. **Números de balance en datos.** Los valores del Warrior viven en
-   `combat/warrior_kit.gd`; la simulación los lee, no los duplica. La UI no
-   contiene números de combate.
+5. **Números de balance en datos.** Las skills ejecutables viven en
+   `data/skills/*.json` (cargadas por `SkillCatalog`); el resto de datos del
+   Warrior, en `combat/warrior_kit.gd`. La simulación los lee, no los duplica.
+   La UI no contiene números de combate.
 6. **Contenido dirigido por datos.** Skills, items, recetas, enemigos, pisos y
    tiers nuevos se añaden como datos en `data/` o en los kits, no con código
    específico por contenido.
@@ -55,14 +56,20 @@ Arena / Actors / HUD ◀── leen estado y señales
 
 ## Añadir una habilidad
 
-1. Define el dato en `combat/warrior_kit.gd` (`implemented = false` hasta que
-   esté jugable).
-2. Implementa el estado y la resolución en `WarriorSim` dentro de `step()`.
-3. Expón lo necesario en `snapshot()` si afecta a la red.
-4. Añade VFX/SFX en `Arena` y el actor; el actor solo consume señales.
-5. Añade checks a `tests/test_warrior_sim.gd` (daño, coste, cooldown, borde) y,
-   si cambia el contrato de diseño, a `tests/test_warrior_data.gd`.
-6. Actualiza `docs/design/WARRIOR.md` y `docs/ARCHITECTURE.md` si aplica.
+1. Si usa una forma existente (`cone`, `line`, `circle`), basta con un objeto
+   nuevo en `data/skills/<clase>.json` (esquema en `combat/skill_catalog.gd`).
+   `tests/test_skill_catalog.gd` valida el esquema y que coste/cooldown
+   coincidan con el Skill Book de `combat/warrior_kit.gd`.
+2. Marca `implemented: true` en el JSON **y** en la entrada del Skill Book, y
+   añade su id a `IMPLEMENTED_SKILLS` en `tests/test_warrior_data.gd` y
+   `combat/tests/test_warrior.gd`.
+3. Si necesita una forma o una mecánica nueva (estado, proyectil, canalizado),
+   impleméntala una vez en `WarriorSim` dentro de `step()` y deja que el dato la
+   active; no hagas código por skill.
+4. Expón lo necesario en `snapshot()` si afecta a la red.
+5. VFX/SFX en `Arena` y el actor; el actor solo consume señales.
+6. Checks en `tests/test_skills.gd` (daño, coste, cooldown, forma, borde).
+7. Actualiza `docs/design/WARRIOR.md` y `docs/ARCHITECTURE.md` si aplica.
 
 ## Tests
 

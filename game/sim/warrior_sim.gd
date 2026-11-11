@@ -3,8 +3,9 @@
 ## Solo cambia dentro de step(), que llama CombatWorld una vez por tick fijo.
 ## La presentación lee sus campos y escucha sus señales; nunca escribe estado.
 ##
-## Implementado: M1 Sword Slash, M2 Heavy Strike, esquiva con i-frames, Rage,
-## Vengeful Fury, muerte y reset. El Skill Book completo vive en WarriorKit como datos.
+## Implementado: skills por datos (M1, M2 y S1-S5 desde SkillCatalog, con coste de
+## Rage, cooldown y formas cone/line/circle), esquiva con i-frames, Rage,
+## Vengeful Fury, muerte y reset. El Skill Book completo vive en WarriorKit.
 class_name WarriorSim
 extends RefCounted
 
@@ -20,6 +21,7 @@ signal attack_state_changed(state: int)
 signal dodge_started(direction: Vector2)
 signal dodge_ended()
 signal attack_evaded(source_position: Vector2)
+signal skill_denied(slot: String, reason: String)
 
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
@@ -36,6 +38,13 @@ const RAGE_TAKEN_CAP := 15.0
 const RAGE_TAKEN_MIN := 1.0
 
 const BUFFER_SECONDS := 0.25
+const SKILL_SLOTS := ["S1", "S2", "S3", "S4", "S5"]
+const DEFAULT_LOADOUT := {
+	"M1": &"warrior_m1",
+	"M2": &"warrior_m2",
+	"S1": &"cleaving_strike",
+	"S2": &"piercing_thrust",
+}
 const CRIT_MULTIPLIER := 1.5
 
 var world: Object = null
@@ -55,8 +64,10 @@ var state: int = AttackState.IDLE
 var state_time: float = 0.0
 var current_skill: Dictionary = {}
 var attack_aim: Vector2 = Vector2.RIGHT
-var cooldown_m1: float = 0.0
-var cooldown_m2: float = 0.0
+## slot -> segundos restantes. Un slot sin entrada esta listo.
+var cooldowns: Dictionary = {}
+## slot -> skill (copia del catalogo). Se cambia con set_loadout() en zona segura.
+var loadout: Dictionary = {}
 var buffered_slot: String = ""
 var buffer_timer: float = 0.0
 
@@ -75,6 +86,7 @@ var swing_rage_gained: float = 0.0
 var _attack_damage_mult: float = 1.0
 
 var _m1_held: bool = false
+var _slot_prev: Dictionary = {}
 var _dodge_prev: bool = false
 var _rng: RandomNumberGenerator
 
@@ -84,7 +96,22 @@ func _init(p_world: Object = null) -> void:
 	_rng = _make_rng()
 	_build_stats()
 	resource = WarriorKit.create_rage_resource()
+	set_loadout(DEFAULT_LOADOUT)
 	reset(position)
+
+
+## Equipa skills por slot ({"M1": id, "M2": id, "S1": id, ...}). Ignora ids que
+## no existen o no estan implementados, y slots desconocidos.
+func set_loadout(new_loadout: Dictionary) -> void:
+	loadout = {}
+	for slot: String in new_loadout:
+		if slot != "M1" and slot != "M2" and not SKILL_SLOTS.has(slot):
+			continue
+		var skill: Dictionary = SkillCatalog.skill(StringName(String(new_loadout[slot])))
+		if skill.is_empty() or not bool(skill.get("implemented", false)):
+			continue
+		skill["slot"] = slot
+		loadout[slot] = skill
 
 
 func _make_rng() -> RandomNumberGenerator:
@@ -121,8 +148,8 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	state = AttackState.IDLE
 	state_time = 0.0
 	current_skill = {}
-	cooldown_m1 = 0.0
-	cooldown_m2 = 0.0
+	cooldowns = {}
+	_slot_prev = {}
 	buffered_slot = ""
 	buffer_timer = 0.0
 	dodging = false
@@ -155,6 +182,7 @@ func _read_input(input: Object) -> void:
 		move_input = Vector2.ZERO
 		_m1_held = false
 		_dodge_prev = false
+		_slot_prev = {}
 		return
 	move_input = (input.move_dir as Vector2).limit_length(1.0)
 	var aim: Vector2 = input.aim_dir
@@ -165,14 +193,25 @@ func _read_input(input: Object) -> void:
 	if dodge_pressed and not _dodge_prev:
 		dodge_buffer_timer = float(WarriorKit.DODGE["buffer"])
 	_dodge_prev = dodge_pressed
+	# M2 repite mientras se mantiene; las skills S1-S5 se lanzan al pulsar.
 	if bool(input.actions.get("m2", false)):
 		buffered_slot = "M2"
 		buffer_timer = BUFFER_SECONDS
+	for slot: String in SKILL_SLOTS:
+		var pressed := bool(input.actions.get(slot.to_lower(), false))
+		if pressed and not bool(_slot_prev.get(slot, false)):
+			buffered_slot = slot
+			buffer_timer = BUFFER_SECONDS
+		_slot_prev[slot] = pressed
 
 
 func _tick_timers(delta: float) -> void:
-	cooldown_m1 = maxf(0.0, cooldown_m1 - delta)
-	cooldown_m2 = maxf(0.0, cooldown_m2 - delta)
+	for slot: String in cooldowns.keys():
+		var left := maxf(0.0, float(cooldowns[slot]) - delta)
+		if left <= 0.0:
+			cooldowns.erase(slot)
+		else:
+			cooldowns[slot] = left
 	cooldown_dodge = maxf(0.0, cooldown_dodge - delta)
 	dodge_buffer_timer = maxf(0.0, dodge_buffer_timer - delta)
 	if buffer_timer > 0.0:
@@ -249,39 +288,55 @@ func _update_attack(delta: float) -> void:
 func _try_start_attack() -> void:
 	if not alive or dodging:
 		return
-	if buffered_slot == "M2" and cooldown_m2 <= 0.0:
-		buffered_slot = ""
-		buffer_timer = 0.0
-		_start_attack("M2")
-		return
-	if _m1_held and cooldown_m1 <= 0.0:
+	if buffered_slot != "":
+		var slot := buffered_slot
+		if not loadout.has(slot):
+			buffered_slot = ""
+			buffer_timer = 0.0
+		elif attack_cooldown_left(slot) <= 0.0:
+			buffered_slot = ""
+			buffer_timer = 0.0
+			if _can_afford(slot):
+				_start_attack(slot)
+				return
+			skill_denied.emit(slot, "resource")
+	if _m1_held and loadout.has("M1") and attack_cooldown_left("M1") <= 0.0:
 		_start_attack("M1")
 
 
+func _can_afford(slot: String) -> bool:
+	if not loadout.has(slot):
+		return false
+	return resource.get_current() >= float((loadout[slot] as Dictionary).get("cost", 0.0))
+
+
 func _start_attack(slot: String) -> void:
-	if state != AttackState.IDLE:
-		return
-	if slot != "M1" and slot != "M2":
+	if state != AttackState.IDLE or not loadout.has(slot):
 		return
 
-	current_skill = WarriorKit.M1.duplicate(true) if slot == "M1" else WarriorKit.M2.duplicate(true)
+	current_skill = (loadout[slot] as Dictionary).duplicate(true)
+	var cost := float(current_skill.get("cost", 0.0))
+	if cost > 0.0:
+		resource.consume(cost)
+		rage_changed.emit(resource.get_current(), resource.max_amount)
 	attack_aim = aim_dir
 	state = AttackState.WINDUP
 	state_time = 0.0
 	swing_rage_gained = 0.0
 	_attack_damage_mult = float(current_skill["damage_mult"])
 
-	if slot == "M2" and vengeful_active:
+	if bool(current_skill.get("consumes_vengeful", false)) and vengeful_active:
 		_attack_damage_mult *= 1.0 + float(WarriorKit.PASSIVE["bonus"])
 		vengeful_active = false
 		vengeful_until_tick = 0
 		vengeful_changed.emit(false, 0.0)
 
-	var total := total_attack_duration(current_skill)
-	if slot == "M1":
-		cooldown_m1 = total + float(current_skill["cooldown"])
+	# Los basicos cuentan el cooldown desde que acaba el ataque; las demas skills,
+	# desde que se lanzan.
+	if String(current_skill["kind"]) == "basic":
+		cooldowns[slot] = total_attack_duration(current_skill) + float(current_skill["cooldown"])
 	else:
-		cooldown_m2 = total + float(current_skill["cooldown"])
+		cooldowns[slot] = float(current_skill["cooldown"])
 
 	attack_state_changed.emit(state)
 	attack_started.emit(current_skill, attack_aim)
@@ -290,18 +345,9 @@ func _start_attack(slot: String) -> void:
 func _resolve_attack_hit() -> void:
 	if current_skill.is_empty() or world == null:
 		return
-	var attack_range := float(current_skill["range"])
-	var half_arc := float(current_skill["arc"]) * 0.5
-	var targets: Array = world.get_living_dummies()
+	var targets: Array = _targets_in_shape(world.get_living_dummies())
 
 	for target: Object in targets:
-		var to_target: Vector2 = target.position - position
-		var distance := to_target.length()
-		if distance <= 0.001 or distance > attack_range + target.radius:
-			continue
-		if absf(rad_to_deg(attack_aim.angle_to(to_target))) > half_arc:
-			continue
-
 		var critical: bool = _rng.randf() < stats.get_crit_chance()
 		var damage: float = stats.roll_weapon_damage(_rng) * _attack_damage_mult
 		if critical:
@@ -316,6 +362,37 @@ func _resolve_attack_hit() -> void:
 
 		last_combat_tick = tick
 		attack_hit.emit(current_skill, target, dealt, critical, target.position)
+
+
+## Objetivos dentro de la forma de la skill actual, con el limite max_targets
+## (los mas cercanos primero). Mantiene el orden original si no hay limite.
+func _targets_in_shape(candidates: Array) -> Array:
+	var shape := String(current_skill.get("shape", "cone"))
+	var attack_range := float(current_skill["range"])
+	var hits: Array = []
+	for target: Object in candidates:
+		var to_target: Vector2 = target.position - position
+		var distance := to_target.length()
+		if distance <= 0.001 or distance > attack_range + target.radius:
+			continue
+		if shape == "cone":
+			if absf(rad_to_deg(attack_aim.angle_to(to_target))) > float(current_skill["arc"]) * 0.5:
+				continue
+		elif shape == "line":
+			var along := to_target.dot(attack_aim)
+			var across := absf(to_target.cross(attack_aim))
+			if along < 0.0 or along > attack_range + target.radius:
+				continue
+			if across > float(current_skill["width"]) * 0.5 + target.radius:
+				continue
+		# circle: basta con estar a menos de range + radio.
+		hits.append(target)
+	var limit := int(current_skill.get("max_targets", 0))
+	if limit > 0 and hits.size() > limit:
+		hits.sort_custom(func(a: Object, b: Object) -> bool:
+			return a.position.distance_squared_to(position) < b.position.distance_squared_to(position))
+		hits = hits.slice(0, limit)
+	return hits
 
 
 func _update_movement(delta: float) -> void:
@@ -352,14 +429,14 @@ func _move_dodge(delta: float) -> void:
 
 
 func _movement_factor() -> float:
-	if state == AttackState.IDLE:
+	if state == AttackState.IDLE or current_skill.is_empty():
 		return 1.0
-	var slot := String(current_skill.get("slot", "M1"))
+	var move: Dictionary = current_skill["move"]
 	if state == AttackState.WINDUP:
-		return 0.35 if slot == "M1" else 0.0
+		return float(move["windup"])
 	if state == AttackState.ACTIVE:
-		return 0.15 if slot == "M1" else 0.0
-	return 0.50 if slot == "M1" else 0.20
+		return float(move["active"])
+	return float(move["recovery"])
 
 
 func _gain_rage(amount: float) -> void:
@@ -452,12 +529,16 @@ func total_attack_duration(skill: Dictionary) -> float:
 
 
 func attack_cooldown_left(slot: String) -> float:
-	return cooldown_m1 if slot == "M1" else cooldown_m2
+	return float(cooldowns.get(slot, 0.0))
 
 
 func attack_cooldown_total(slot: String) -> float:
-	var skill := WarriorKit.M1 if slot == "M1" else WarriorKit.M2
-	return total_attack_duration(skill) + float(skill["cooldown"])
+	if not loadout.has(slot):
+		return 0.0
+	var skill: Dictionary = loadout[slot]
+	if String(skill["kind"]) == "basic":
+		return total_attack_duration(skill) + float(skill["cooldown"])
+	return float(skill["cooldown"])
 
 
 func is_attacking() -> bool:
@@ -480,5 +561,6 @@ func snapshot() -> Dictionary:
 		"vengeful": vengeful_active,
 		"dodging": dodging,
 		"dodge_cd": cooldown_dodge,
+		"cooldowns": cooldowns.duplicate(),
 		"alive": alive,
 	}

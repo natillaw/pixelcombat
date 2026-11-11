@@ -117,6 +117,8 @@ func _draw_abilities(warrior: WarriorSim) -> void:
 		warrior.vengeful_active, warrior.state == WarriorSim.AttackState.IDLE
 	)
 	_draw_dodge_slot(Rect2(396, 310, 64, 38), warrior)
+	_draw_skill_slot(Rect2(116, 310, 64, 38), "1", "S1", warrior)
+	_draw_skill_slot(Rect2(186, 310, 64, 38), "2", "S2", warrior)
 
 
 func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: float, total: float, empowered: bool, idle: bool) -> void:
@@ -145,6 +147,35 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 
 	if empowered:
 		_draw_text("!", rect.position + Vector2(rect.size.x - 12, 9), 7, ORANGE)
+
+
+## Hueco de una skill equipada (S1-S5): etiqueta, coste y cooldown. Se vuelve
+## rojo si no hay Rage suficiente.
+func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: WarriorSim) -> void:
+	draw_rect(rect, PANEL)
+	if not warrior.loadout.has(slot):
+		draw_rect(rect, PANEL_EDGE_SOFT, false, 1.0)
+		_draw_text(key, rect.position + Vector2(4, 9), 7, MUTED)
+		_draw_text("EMPTY", Vector2(rect.position.x, rect.position.y + rect.size.y * 0.62), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+		return
+	var skill: Dictionary = warrior.loadout[slot]
+	var cost := float(skill.get("cost", 0.0))
+	var left := warrior.attack_cooldown_left(slot)
+	var total := warrior.attack_cooldown_total(slot)
+	var affordable := warrior.rage() >= cost
+	var edge := PANEL_EDGE if affordable else RED
+	draw_rect(rect, edge, false, 1.0)
+	_draw_text(key, rect.position + Vector2(4, 9), 7, MUTED)
+	_draw_text("%d" % int(cost), Vector2(rect.position.x, rect.position.y + 9), 7, RAGE if affordable else RED, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 4)
+	var icon_color := GOLD if (left <= 0.0 and affordable) else Color(0.62, 0.64, 0.72, 1.0)
+	var c := rect.position + Vector2(rect.size.x * 0.5, 19)
+	draw_circle(c, 8.0, Color(icon_color.r, icon_color.g, icon_color.b, 0.22))
+	draw_arc(c, 8.0, 0.0, TAU, 20, icon_color, 1.5)
+	_draw_text(String(skill.get("hud_label", "")), Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	if left > 0.05:
+		var ratio := clampf(left / maxf(total, 0.001), 0.0, 1.0)
+		draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * ratio)), Color(0.02, 0.02, 0.04, 0.62))
+		_draw_text("%.1f" % left, Vector2(rect.position.x, rect.position.y + rect.size.y * 0.78), 7, Color(0.95, 0.92, 0.85, 0.95), HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 
 
 ## Hueco de la esquiva: tres chevrones y cooldown en el mismo estilo que M1/M2.
@@ -183,18 +214,19 @@ func _draw_sword_icon(center: Vector2, angle: float, color: Color, heavy: bool) 
 
 
 func _draw_controls() -> void:
-	_panel(Rect2(498, 283, 132, 71))
+	_panel(Rect2(498, 274, 132, 80))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
 		"LMB    SWORD SLASH",
 		"RMB    HEAVY STRIKE",
 		"SPACE  DODGE",
+		"1 2    SKILLS",
 		"R      RESET",
 		"F3     DEBUG",
 	]
 	for i: int in range(lines.size()):
-		_draw_text(String(lines[i]), Vector2(504, 294 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
+		_draw_text(String(lines[i]), Vector2(504, 285 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
 
 
 # --- Overlays ---------------------------------------------------------------

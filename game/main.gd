@@ -76,5 +76,10 @@ func _read_input() -> InputMessage:
 		"m1": Input.is_action_pressed("attack_m1"),
 		"m2": Input.is_action_pressed("attack_m2"),
 		"dodge": Input.is_action_pressed("dodge"),
+		"s1": Input.is_action_pressed("skill_1"),
+		"s2": Input.is_action_pressed("skill_2"),
+		"s3": Input.is_action_pressed("skill_3"),
+		"s4": Input.is_action_pressed("skill_4"),
+		"s5": Input.is_action_pressed("skill_5"),
 	}
 	return message
