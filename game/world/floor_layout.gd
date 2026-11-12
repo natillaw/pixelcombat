@@ -37,6 +37,8 @@ var buildings: Array = []
 var torches: Array = []
 ## Nodos de recoleccion: [{kind: "ore"|"herb"|"wood", position: Vector2}]
 var resources: Array = []
+## Mapa de casillas (pisos grandes y ciudad); null = escenario plano de siempre.
+var grid: TileGrid = null
 var player_spawn: Vector2 = Vector2.ZERO
 var floor_number: int = 0
 var tier: int = 0

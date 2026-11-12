@@ -127,7 +127,7 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 	var target_alive: bool = warrior != null and bool(warrior.alive)
 	match state:
 		State.IDLE:
-			if target_alive and position.distance_to(warrior.position) <= float(data["ai"]["aggro_range"]):
+			if target_alive and position.distance_to(warrior.position) <= float(data["ai"]["aggro_range"]) and (world == null or world.line_of_sight(position, warrior.position)):
 				_aggro()
 		State.CHASE:
 			_step_chase(delta, warrior, target_alive)
@@ -172,7 +172,8 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 	if distance > 0.001:
 		facing = to_target / distance
 
-	var attack := _pick_attack(distance)
+	var sees_target: bool = world == null or world.line_of_sight(position, warrior.position)
+	var attack := _pick_attack(distance) if sees_target else {}
 	if not attack.is_empty():
 		_start_telegraph(attack)
 		return
@@ -191,7 +192,13 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 	if distance <= contact:
 		return
 	var step_length := minf(speed * delta, distance - contact)
-	var desired := position + facing * step_length
+	var heading := facing
+	if not sees_target:
+		# Hay un muro por medio: sigue el camino hacia el jugador.
+		var flow: Vector2 = world.path_direction(position)
+		if flow != Vector2.ZERO:
+			heading = flow
+	var desired := position + heading * step_length
 	position = world.resolve_position(desired, radius, self) if world != null else desired
 
 

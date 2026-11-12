@@ -70,6 +70,8 @@ $suites = @(
     "tests/test_items.gd"
     "tests/test_gathering.gd"
     "tests/test_crafting.gd"
+    "tests/test_tilegrid.gd"
+    "tests/test_mapgen.gd"
     "tests/test_scene_smoke.tscn"
 )
 

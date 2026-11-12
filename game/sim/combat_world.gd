@@ -41,6 +41,11 @@ var pending_input: InputMessage = null
 var loot_rng: RandomNumberGenerator
 ## Items en el suelo (se recogen al acercarse).
 var loot_drops: Array = []
+## Mapa de casillas (muros, agua, puertas) de los escenarios grandes; null en los demas.
+var grid: TileGrid = null
+var _flow_field: PackedInt32Array = PackedInt32Array()
+var _flow_cell: Vector2i = Vector2i(-99999, -99999)
+var _flow_version: int = -1
 var _pickup_prev: bool = false
 ## Nodos de recoleccion del escenario (veta, hierba, arbol).
 var resource_nodes: Array = []
@@ -60,9 +65,11 @@ func _init(seed_value: int = 1337) -> void:
 	player.position = Vector2(480, 380)
 
 
-func setup_arena(arena_bounds: Rect2, arena_obstacles: Array = []) -> void:
+func setup_arena(arena_bounds: Rect2, arena_obstacles: Array = [], p_grid: TileGrid = null) -> void:
 	bounds = arena_bounds
 	obstacles = arena_obstacles.duplicate()
+	grid = p_grid
+	_flow_cell = Vector2i(-99999, -99999)
 	player.position = bounds.get_center()
 	player.reset(bounds.get_center())
 
@@ -108,7 +115,7 @@ func load_layout(new_layout: FloorLayout) -> void:
 	resource_nodes.clear()
 	gather_node = null
 	pending_input = null
-	setup_arena(new_layout.bounds(), new_layout.obstacles)
+	setup_arena(new_layout.bounds(), new_layout.obstacles, new_layout.grid)
 	player.position = new_layout.player_spawn
 	player.reset(new_layout.player_spawn)
 	for spec: Dictionary in new_layout.dummies:
@@ -300,7 +307,28 @@ func get_living_dummies() -> Array:
 
 
 ## Si un circulo de `radius` en `point` toca algun obstaculo fijo (pilares).
+## Direccion para acercarse al jugador rodeando muros (campo de flujo desde la casilla
+## del jugador, recalculado solo cuando el jugador cambia de casilla o se abre una
+## puerta). ZERO si no hay mapa de casillas o ya esta en la casilla del jugador.
+func path_direction(from: Vector2) -> Vector2:
+	if grid == null:
+		return Vector2.ZERO
+	var cell := grid.world_to_cell(player.position)
+	if cell != _flow_cell or grid.version != _flow_version:
+		_flow_cell = cell
+		_flow_version = grid.version
+		_flow_field = grid.distance_field(cell)
+	return grid.flow_direction(_flow_field, from)
+
+
+## Si hay paso libre (sin muros) entre dos puntos; siempre true sin mapa de casillas.
+func line_of_sight(a: Vector2, b: Vector2) -> bool:
+	return grid == null or grid.line_clear(a, b)
+
+
 func blocked_by_obstacle(point: Vector2, radius: float) -> bool:
+	if grid != null and grid.shot_blocked(point, radius):
+		return true
 	for obstacle: Dictionary in obstacles:
 		var min_distance := radius + float(obstacle["radius"])
 		if point.distance_squared_to(obstacle["position"]) < min_distance * min_distance:
@@ -323,6 +351,8 @@ func resolve_position(desired: Vector2, radius: float, ignore: Object = null) ->
 	var pos := desired
 	pos.x = clampf(pos.x, bounds.position.x + radius, bounds.end.x - radius)
 	pos.y = clampf(pos.y, bounds.position.y + radius, bounds.end.y - radius)
+	if grid != null:
+		pos = grid.push_out(pos, radius)
 
 	for obstacle: Dictionary in obstacles:
 		var center: Vector2 = obstacle["position"]
