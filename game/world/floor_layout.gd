@@ -39,9 +39,18 @@ var torches: Array = []
 var resources: Array = []
 ## Mapa de casillas (pisos grandes y ciudad); null = escenario plano de siempre.
 var grid: TileGrid = null
+## Objetos de mision: [{kind, position, group, channel, requires, label}]
+var interactables: Array = []
+## Enemigos que aparecen despues (oleadas, jefe tras la prueba): mismas claves que `enemies`.
+var deferred_enemies: Array = []
+## Plan de misiones del piso (ver MissionGen): {missions: [..], time_limit: s}.
+var mission_plan: Dictionary = {}
 var player_spawn: Vector2 = Vector2.ZERO
 var floor_number: int = 0
 var tier: int = 0
+## Bioma (clave del tileset: forest, cave, ruins...) y estilo de mapa (field, caves...).
+var biome: String = "forest"
+var style: String = ""
 ## Escala de vida/dano/XP de los enemigos del piso (1 = base).
 var enemy_scale: float = 1.0
 ## {type: "clear"|"boss", label: String}
@@ -96,10 +105,14 @@ func to_dict() -> Dictionary:
 		"floor": floor_number,
 		"tier": tier,
 		"scale": enemy_scale,
+		"style": style,
+		"biome": biome,
 		"spawn": [player_spawn.x, player_spawn.y],
 		"obstacles": obstacles.map(func(o: Dictionary) -> Array: return [o["position"].x, o["position"].y, o["radius"]]),
 		"enemies": enemies.map(func(e: Dictionary) -> Array: return [String(e["id"]), e["position"].x, e["position"].y, bool(e.get("required", true))]),
-		"resources": resources.map(func(r: Dictionary) -> Array: return [String(r["kind"]), r["position"].x, r["position"].y]),
+		"resources": resources.map(func(r: Dictionary) -> Array: return [String(r["kind"]), r["position"].x, r["position"].y, bool(r.get("rich", false))]),
+		"interactables": interactables.map(func(o: Dictionary) -> Array: return [String(o["kind"]), o["position"].x, o["position"].y, String(o.get("group", ""))]),
+		"missions": mission_plan,
 		"portals": portals.map(func(p: Dictionary) -> Array: return [String(p["id"]), p["position"].x, p["position"].y, String(p["action"])]),
 		"objective": objective,
 	}

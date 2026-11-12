@@ -15,8 +15,10 @@ signal layout_loaded(layout: FloorLayout)
 signal loot_dropped(item: Dictionary, position: Vector2)
 signal loot_spawned(drop: LootDrop)
 signal loot_removed(drop: LootDrop)
-signal gather_started(node: ResourceNode)
-signal gather_interrupted(node: ResourceNode, reason: String)
+signal gather_started(node: Object)
+signal enemy_killed(enemy: EnemySim)
+signal interacted(object: Interactable)
+signal gather_interrupted(node: Object, reason: String)
 signal resource_gathered(node: ResourceNode, material_id: String, amount: int)
 
 const PlayerSimScript := preload("res://game/sim/player_sim.gd")
@@ -41,6 +43,8 @@ var pending_input: InputMessage = null
 var loot_rng: RandomNumberGenerator
 ## Items en el suelo (se recogen al acercarse).
 var loot_drops: Array = []
+## Duracion del ultimo paso (la sesion la usa para los temporizadores).
+var step_delta: float = 1.0 / 60.0
 ## Mapa de casillas (muros, agua, puertas) de los escenarios grandes; null en los demas.
 var grid: TileGrid = null
 var _flow_field: PackedInt32Array = PackedInt32Array()
@@ -50,7 +54,11 @@ var _pickup_prev: bool = false
 ## Nodos de recoleccion del escenario (veta, hierba, arbol).
 var resource_nodes: Array = []
 ## Nodo que se esta recolectando y segundos que faltan.
-var gather_node: ResourceNode = null
+var gather_node: Object = null
+## Objetos de mision (altares, balizas, jaulas...).
+var interactables: Array = []
+## Reliquias que lleva el jugador (mision de reliquia).
+var relics_carried: int = 0
 var gather_left: float = 0.0
 var _gather_from: Vector2 = Vector2.ZERO
 var _gather_health: float = 0.0
@@ -113,6 +121,8 @@ func load_layout(new_layout: FloorLayout) -> void:
 	for drop: LootDrop in loot_drops.duplicate():
 		_remove_drop(drop)
 	resource_nodes.clear()
+	interactables.clear()
+	relics_carried = 0
 	gather_node = null
 	pending_input = null
 	setup_arena(new_layout.bounds(), new_layout.obstacles, new_layout.grid)
@@ -121,11 +131,14 @@ func load_layout(new_layout: FloorLayout) -> void:
 	for spec: Dictionary in new_layout.dummies:
 		add_dummy(spec["position"], bool(spec["auto_attack"]))
 	for spec: Dictionary in new_layout.enemies:
-		var enemy := add_enemy(StringName(String(spec["id"])), spec["position"], new_layout.enemy_scale)
-		enemy.required = bool(spec.get("required", true))
+		spawn_from_spec(spec, new_layout.enemy_scale)
 	var node_tier := maxi(new_layout.tier, 1)
 	for spec: Dictionary in new_layout.resources:
-		resource_nodes.append(ResourceNode.new(String(spec["kind"]), node_tier, spec["position"]))
+		var resource := ResourceNode.new(String(spec["kind"]), node_tier, spec["position"])
+		resource.rich = bool(spec.get("rich", false))
+		resource_nodes.append(resource)
+	for spec: Dictionary in new_layout.interactables:
+		interactables.append(Interactable.new(String(spec["kind"]), spec["position"], String(spec.get("group", "")), float(spec.get("channel", 2.0)), String(spec.get("requires", "")), String(spec.get("label", ""))))
 	loading_layout = false
 	layout_loaded.emit(new_layout)
 
@@ -133,6 +146,7 @@ func load_layout(new_layout: FloorLayout) -> void:
 ## Botin al morir un enemigo (las crias invocadas no sueltan nada). El tier sale del
 ## piso si hay uno cargado y, si no, del propio enemigo.
 func _on_enemy_died(enemy: EnemySim) -> void:
+	enemy_killed.emit(enemy)
 	if enemy.summoned:
 		return
 	var tier: int = layout.tier if layout != null and layout.tier > 0 else int(enemy.data.get("tier", 1))
@@ -146,6 +160,8 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 		if loot_rng.randf() < float(material_table[kind_id]):
 			player.add_material(MaterialCatalog.material_id(kind_id, tier), loot_rng.randi_range(1, 2) + (2 if kind != "normal" else 0))
 	var item := ItemGen.roll_drop(loot_rng, tier, kind, enemy.data.get("loot", {}))
+	if enemy.elite and item.is_empty() and loot_rng.randf() < 0.6:
+		item = ItemGen.roll_item(loot_rng, tier, "", "", "", "", 1.5)
 	if item.is_empty():
 		return
 	var spot := resolve_position(enemy.position + Vector2.from_angle(loot_rng.randf() * TAU) * 14.0, 8.0)
@@ -155,11 +171,26 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	loot_dropped.emit(item, spot)
 
 
+## Crea un enemigo desde la descripcion de un layout: {id, position, required?, group?,
+## elite?, boost?: [vida, dano], invulnerable?, scale_mult?}.
+func spawn_from_spec(spec: Dictionary, base_scale: float) -> EnemySim:
+	var enemy := add_enemy(StringName(String(spec["id"])), spec["position"], base_scale * float(spec.get("scale_mult", 1.0)))
+	enemy.required = bool(spec.get("required", true))
+	enemy.group = String(spec.get("group", ""))
+	if bool(spec.get("elite", false)):
+		enemy.make_elite()
+	if spec.has("boost"):
+		enemy.boost(float(spec["boost"][0]), float(spec["boost"][1]))
+	enemy.invulnerable = bool(spec.get("invulnerable", false))
+	return enemy
+
+
 func submit_input(input: InputMessage) -> void:
 	pending_input = input
 
 
 func step(delta: float, tick_number: int = -1) -> void:
+	step_delta = delta
 	if tick_number >= 0:
 		tick = tick_number
 	else:
@@ -206,6 +237,11 @@ func target_at(point: Vector2) -> Object:
 		if not node.depleted and distance <= ResourceNode.CLICK_RADIUS and distance < best_distance:
 			best = node
 			best_distance = distance
+	for object: Interactable in interactables:
+		var distance := object.position.distance_to(point)
+		if object.clickable() and distance <= Interactable.CLICK_RADIUS and distance < best_distance:
+			best = object
+			best_distance = distance
 	return best
 
 
@@ -215,6 +251,8 @@ func in_reach(target: Object) -> bool:
 		return false
 	if target is LootDrop:
 		return player.position.distance_to((target as LootDrop).position) <= LootDrop.PICKUP_RANGE
+	if target is Interactable:
+		return player.position.distance_to((target as Interactable).position) <= ResourceNode.GATHER_RANGE
 	return player.position.distance_to((target as ResourceNode).position) <= ResourceNode.GATHER_RANGE
 
 
@@ -237,9 +275,11 @@ func try_click(point: Vector2) -> String:
 		player.add_item(drop.item)
 		_remove_drop(drop)
 		return ""
-	var node := target as ResourceNode
+	if target is Interactable and (target as Interactable).requires == "relic" and relics_carried <= 0:
+		return "needs"
 	if gather_node != null or player.state != PlayerSimScript.AttackState.IDLE or player.dodging:
 		return "busy"
+	var node: Object = target
 	gather_node = node
 	gather_left = node.gather_seconds()
 	_gather_from = player.position
@@ -270,13 +310,25 @@ func _step_gather(delta: float) -> void:
 	gather_left -= delta
 	if gather_left > 0.0:
 		return
-	var node := gather_node
+	var finished := gather_node
 	gather_node = null
+	if finished is Interactable:
+		var object := finished as Interactable
+		object.done = true
+		if object.kind == "relic":
+			relics_carried += 1
+		elif object.kind == "relic_altar":
+			relics_carried = maxi(relics_carried - 1, 0)
+		interacted.emit(object)
+		return
+	var node := finished as ResourceNode
 	node.depleted = true
-	var spec := MaterialCatalog.gather_yield()
-	var amount := loot_rng.randi_range(int(spec["min"]), int(spec["max"]))
-	if loot_rng.randf() < float(spec["bonus_chance"]):
-		amount += 1
+	var amount := ResourceNode.RICH_YIELD
+	if not node.rich:
+		var spec := MaterialCatalog.gather_yield()
+		amount = loot_rng.randi_range(int(spec["min"]), int(spec["max"]))
+		if loot_rng.randf() < float(spec["bonus_chance"]):
+			amount += 1
 	player.add_material(node.material_id(), amount)
 	resource_gathered.emit(node, node.material_id(), amount)
 

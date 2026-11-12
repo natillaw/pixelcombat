@@ -11,6 +11,8 @@ extends RefCounted
 signal location_changed(layout: FloorLayout)
 signal floor_completed(floor_number: int, xp: int)
 signal chest_opened(item: Dictionary)
+signal mission_completed(mission: Mission, xp: int)
+signal floor_failed(reason: String)
 ## Se usa la puerta de un edificio con recetas (la UI abre su taller).
 signal building_opened(station: String)
 signal message(text: String)
@@ -25,6 +27,10 @@ var save_path: String = ""
 ## Piso al que lleva la puerta de la torre (se cambia con floor_prev/next).
 var selected_floor: int = 1
 
+var missions: Array = []
+## Segundos que quedan del limite de tiempo del piso (0 = sin limite).
+var time_left: float = 0.0
+var time_limit: float = 0.0
 var _floor_done: bool = false
 var _dead_ticks: int = 0
 
@@ -61,7 +67,7 @@ func go_to_floor(floor_number: int) -> bool:
 		message.emit("Completa el piso %d para subir." % tower.highest_unlocked())
 		return false
 	var visit := tower.visit(floor_number)
-	_enter(TowerGenerator.generate(floor_number, tower.world_seed), false)
+	_enter(TowerGenerator.generate(floor_number, tower.world_seed, visit), false)
 	_floor_done = false
 	if visit > 1:
 		message.emit("Piso %d: los enemigos han vuelto." % floor_number)
@@ -148,12 +154,17 @@ func craft(recipe_id: String, tier: int) -> Dictionary:
 	return result
 
 
+## Lineas de mision para el HUD: [{text, done, optional, ratio}].
+func mission_lines() -> Array:
+	return missions.map(func(m: Mission) -> Dictionary: return m.line())
+
+
 func objective_text() -> String:
 	match layout.kind:
 		FloorLayout.KIND_FLOOR:
 			if _floor_done:
 				return "Piso completado - sube por la salida"
-			return String(layout.objective.get("label", ""))
+			return ""
 		FloorLayout.KIND_CITY:
 			return "Entra a la torre (E) en el centro"
 		_:
@@ -173,9 +184,21 @@ func _enter(new_layout: FloorLayout, safe: bool) -> void:
 	layout = new_layout
 	world.player.safe_zone = safe
 	_dead_ticks = 0
+	for mission: Mission in missions:
+		mission.unbind()
+	missions = []
 	world.load_layout(new_layout)
 	for enemy: EnemySim in world.enemies:
 		enemy.respawns = layout.kind != FloorLayout.KIND_FLOOR
+	time_limit = 0.0
+	time_left = 0.0
+	if layout.kind == FloorLayout.KIND_FLOOR and not layout.mission_plan.is_empty():
+		for spec: Dictionary in layout.mission_plan["missions"]:
+			var mission := Mission.new(spec)
+			mission.bind(world, layout)
+			missions.append(mission)
+		time_limit = float(layout.mission_plan.get("time_limit", 0.0))
+		time_left = time_limit
 	location_changed.emit(new_layout)
 
 
@@ -188,19 +211,53 @@ func _on_tick(_tick_number: int) -> void:
 			message.emit("Has caido: vuelves a la ciudad.")
 			go_to_city()
 		return
+	var delta := world.step_delta
+	var mains_left := 0
+	for mission: Mission in missions:
+		mission.update(delta)
+		if mission.done and not mission.rewarded:
+			mission.rewarded = true
+			_reward_mission(mission)
+		if not mission.optional and not mission.done:
+			mains_left += 1
 	if _floor_done:
 		return
-	for enemy: EnemySim in world.enemies:
-		if enemy.required and not enemy.summoned and enemy.alive:
-			return
-	_complete_floor()
+	if not missions.is_empty() and mains_left == 0:
+		_complete_floor()
+		return
+	if time_limit > 0.0:
+		time_left = maxf(time_left - delta, 0.0)
+		if time_left <= 0.0:
+			message.emit("Se acabo el tiempo: la mision ha fallado.")
+			floor_failed.emit("time")
+			go_to_city()
+
+
+## Recompensa de una mision opcional al cumplirla (las principales se pagan con el piso).
+func _reward_mission(mission: Mission) -> void:
+	var xp := 0
+	if mission.optional:
+		xp = int(round(float(TowerCatalog.completion_xp(layout.floor_number)) * 0.4 * mission.xp_mult()))
+		world.player.grant_xp(xp, world.player.position)
+		world.player.add_gold(8 * layout.floor_number + 10)
+		var bonus := float(MissionCatalog.config("optional")["chest_bonus"])
+		var item := ItemGen.roll_item(world.loot_rng, layout.tier, "", "", "", "", bonus)
+		world.player.add_item(item)
+	mission_completed.emit(mission, xp)
 
 
 func _complete_floor() -> void:
 	_floor_done = true
 	var floor_number := layout.floor_number
 	var first_time := not tower.is_completed(floor_number)
-	var xp := TowerCatalog.completion_xp(floor_number) if first_time else 0
+	var main_mult := 0.0
+	var main_count := 0
+	for mission: Mission in missions:
+		if not mission.optional:
+			main_mult += mission.xp_mult()
+			main_count += 1
+	var mult := main_mult / float(main_count) if main_count > 0 else 1.0
+	var xp := int(round(float(TowerCatalog.completion_xp(floor_number)) * mult)) if first_time else 0
 	tower.complete(floor_number)
 	if xp > 0:
 		world.player.grant_xp(xp, world.player.position)

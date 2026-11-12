@@ -29,6 +29,9 @@ var _theme: Dictionary = {}
 var _size: Vector2 = Vector2(960.0, 640.0)
 var _bounds: Rect2 = Rect2()
 var _tiles: Array = []
+var _grid_floor: Array = []
+var _grid_walls: Array = []
+var _grid_water: Array = []
 var _wall_bricks: Array = []
 var _cracks: Array = []
 var _static_nodes: Array[Node] = []
@@ -95,11 +98,15 @@ func _rebuild(new_layout: FloorLayout) -> void:
 	for child: Node in fx.get_children():
 		child.queue_free()
 
-	_build_floor_data()
+	if layout.grid != null:
+		_build_grid_data()
+	else:
+		_build_floor_data()
 	_build_props()
 	_build_torches()
 	_build_portals()
 	_build_resources()
+	_build_interactables()
 	_spawn_actors()
 
 	camera.limit_right = int(_size.x)
@@ -345,6 +352,47 @@ func _build_torches() -> void:
 		_add_static(torch, layout.torches[i])
 
 
+func _build_interactables() -> void:
+	for object: Interactable in world.interactables:
+		var actor := InteractableActor.new()
+		actor.object = object
+		actor.world = world
+		actor.arena = self
+		_add_static(actor, object.position)
+
+
+## Datos de dibujo de un mapa de casillas: suelo con variacion, muros con cara y agua.
+func _build_grid_data() -> void:
+	_grid_floor.clear()
+	_grid_walls.clear()
+	_grid_water.clear()
+	var grid := layout.grid
+	for r: int in range(grid.rows):
+		for c: int in range(grid.cols):
+			var kind := grid.get_cell(c, r)
+			var rect := Rect2(float(c) * TileGrid.TILE, float(r) * TileGrid.TILE, TileGrid.TILE, TileGrid.TILE)
+			if kind == TileGrid.FLOOR:
+				var roll := _rng.randf()
+				var color := _color("floor")
+				if roll < 0.22:
+					color = _color("floor_dark")
+				elif roll > 0.8:
+					color = _color("floor_light")
+				_grid_floor.append({"rect": rect, "color": color.darkened(_rng.randf_range(-0.02, 0.05))})
+			elif kind == TileGrid.WATER:
+				_grid_water.append(rect)
+			else:
+				# Un muro solo se dibuja si toca suelo (el resto es oscuridad).
+				var visible := false
+				for dy: int in range(-2, 3):
+					for dx: int in range(-2, 3):
+						if grid.get_cell(c + dx, r + dy) == TileGrid.FLOOR:
+							visible = true
+				if visible:
+					var face := grid.get_cell(c, r + 1) == TileGrid.FLOOR
+					_grid_walls.append({"rect": rect, "face": face})
+
+
 func _build_resources() -> void:
 	for node: ResourceNode in world.resource_nodes:
 		var actor := ResourceActor.new()
@@ -366,8 +414,29 @@ func _build_portals() -> void:
 		portal_markers.append(marker)
 
 
+func _draw_grid() -> void:
+	draw_rect(Rect2(Vector2.ZERO, _size), _color("background"))
+	for tile: Dictionary in _grid_floor:
+		draw_rect(tile["rect"], tile["color"])
+	for rect: Rect2 in _grid_water:
+		draw_rect(rect, Color(0.12, 0.25, 0.38))
+		draw_rect(Rect2(rect.position + Vector2(4, 8), Vector2(10, 2)), Color(0.35, 0.55, 0.7, 0.5))
+	var wall: Color = _color("wall")
+	for entry: Dictionary in _grid_walls:
+		var rect: Rect2 = entry["rect"]
+		draw_rect(rect, wall.darkened(0.25))
+		if bool(entry["face"]):
+			draw_rect(Rect2(rect.position, Vector2(TileGrid.TILE, TileGrid.TILE * 0.7)), wall.lightened(0.12))
+			draw_rect(Rect2(rect.position + Vector2(0, TileGrid.TILE * 0.7), Vector2(TileGrid.TILE, TileGrid.TILE * 0.3)), wall.darkened(0.15))
+		else:
+			draw_rect(rect.grow(-1.0), wall)
+
+
 func _draw() -> void:
 	if layout == null:
+		return
+	if layout.grid != null:
+		_draw_grid()
 		return
 	var bounds := _bounds
 	# Fondo exterior.
@@ -672,3 +741,67 @@ class ResourceActor extends Node2D:
 		draw_circle(Vector2(0, -34), 15.0, crown)
 		draw_circle(Vector2(-10, -27), 10.0, crown.lightened(0.1))
 		draw_circle(Vector2(10, -28), 10.0, crown.darkened(0.1))
+
+
+## Objeto de mision: altar, baliza, jaula, sello, reliquia, altar de entrega o waypoint.
+class InteractableActor extends Node2D:
+	var object: Interactable
+	var world: CombatWorld
+	var arena: Arena
+	var _time: float = 0.0
+
+	func _process(delta: float) -> void:
+		_time += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		var done := object.done
+		var pulse := 0.5 + 0.5 * sin(_time * 3.0)
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.45))
+		draw_circle(Vector2.ZERO, 22.0, Color(0.0, 0.0, 0.0, 0.3))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		var base := Color(0.55, 0.62, 0.78)
+		var glow := Color(0.45, 0.8, 1.0)
+		match object.kind:
+			"altar":
+				glow = Color(0.95, 0.75, 0.3)
+			"seal":
+				glow = Color(0.7, 0.45, 1.0)
+			"cage":
+				glow = Color(0.6, 0.9, 0.5)
+			"beacon":
+				glow = Color(1.0, 0.55, 0.25)
+			"relic":
+				glow = Color(0.4, 1.0, 0.9)
+			"relic_altar":
+				glow = Color(1.0, 0.85, 0.35)
+			"waypoint":
+				glow = Color(0.5, 0.9, 1.0)
+		var tone := glow if not done else glow.darkened(0.55)
+		match object.kind:
+			"cage":
+				draw_rect(Rect2(-12, -26, 24, 26), Color(0.25, 0.2, 0.15))
+				for i: int in range(5):
+					draw_line(Vector2(-10 + i * 5, -26), Vector2(-10 + i * 5, 0), tone.darkened(0.2) if not done else Color(0.3, 0.3, 0.3), 2.0)
+				if not done:
+					draw_circle(Vector2(0, -14), 5.0, Color(0.9, 0.8, 0.65))
+			"waypoint":
+				draw_arc(Vector2(0, -2), 16.0 + 3.0 * pulse, 0.0, TAU, 28, Color(tone.r, tone.g, tone.b, 0.8), 2.0)
+				draw_rect(Rect2(-2, -34, 4, 34), tone.darkened(0.3))
+				draw_colored_polygon(PackedVector2Array([Vector2(2, -34), Vector2(16, -29), Vector2(2, -24)]), tone)
+			"relic":
+				if not done:
+					draw_colored_polygon(PackedVector2Array([Vector2(0, -34), Vector2(9, -22), Vector2(0, -10), Vector2(-9, -22)]), tone)
+					draw_circle(Vector2(0, -22), 18.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.12))
+			_:
+				draw_rect(Rect2(-14, -12, 28, 12), base.darkened(0.3))
+				draw_rect(Rect2(-10, -26, 20, 16), base)
+				draw_circle(Vector2(0, -30), 6.0 + (2.0 * pulse if not done else 0.0), tone)
+				if not done:
+					draw_circle(Vector2(0, -30), 16.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.12))
+		if arena != null and arena.hovered_pickable == object:
+			draw_arc(Vector2(0, -14), 24.0, 0.0, TAU, 28, Color(1, 1, 1, 0.9), 1.5)
+		if world != null and world.gather_node == object:
+			var ratio := 1.0 - world.gather_left / maxf(object.channel_seconds, 0.01)
+			draw_rect(Rect2(-16, -46, 32, 5), Color(0.05, 0.05, 0.08, 0.9))
+			draw_rect(Rect2(-15, -45, 30 * clampf(ratio, 0.0, 1.0), 3), Color(0.95, 0.78, 0.35))

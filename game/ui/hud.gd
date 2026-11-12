@@ -20,6 +20,7 @@ const HEALTH := Color(0.42, 0.78, 0.42, 1.0)
 const HEALTH_LOW := Color(0.86, 0.38, 0.24, 1.0)
 const RAGE := Color(0.93, 0.35, 0.20, 1.0)
 const XP := Color(0.45, 0.68, 1.0, 1.0)
+const GREEN_DONE := Color(0.55, 0.82, 0.45, 1.0)
 const ENERGY := Color(0.95, 0.80, 0.25, 1.0)
 const MANA := Color(0.35, 0.55, 1.0, 1.0)
 
@@ -411,6 +412,25 @@ func _draw_boss_bar() -> void:
 		return
 
 
+## Lista de misiones del piso (principales y opcionales) y limite de tiempo.
+func _draw_missions() -> void:
+	var lines := session.mission_lines()
+	if lines.is_empty() and session.time_limit <= 0.0:
+		return
+	var height := 12.0 + float(lines.size()) * 11.0 + (12.0 if session.time_limit > 0.0 else 0.0)
+	_panel(Rect2(10, 90, 246, height))
+	var y := 101.0
+	for line: Dictionary in lines:
+		var color := GREEN_DONE if bool(line["done"]) else (MUTED if bool(line["optional"]) else TEXT)
+		var mark := "[x] " if bool(line["done"]) else "[ ] "
+		_draw_text(mark + String(line["text"]), Vector2(16, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 234)
+		y += 11.0
+	if session.time_limit > 0.0:
+		var left := session.time_left
+		var urgent := left < 60.0
+		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(16, y + 1.0), 7, RED if urgent else GOLD)
+
+
 func _location_title() -> String:
 	if session == null or session.layout == null:
 		return "TRAINING GROUNDS"
@@ -427,6 +447,7 @@ func _draw_location() -> void:
 	var objective := session.objective_text()
 	if not objective.is_empty():
 		_draw_text(objective.to_upper(), Vector2(262, 52), 7, GOLD if session.is_floor_done() else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 230)
+	_draw_missions()
 	if world.player.alive:
 		var portal: Variant = session.nearest_portal()
 		if portal != null:

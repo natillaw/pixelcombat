@@ -61,6 +61,15 @@ var respawns: bool = true
 ## Escala de dificultad del piso (vida, y a medio ritmo dano; la XP sube entera).
 var level_scale: float = 1.0
 var _damage_scale: float = 1.0
+## Etiqueta para las misiones ("target", "nest", "boss", "camp_3"...).
+var group: String = ""
+## Version reforzada de un enemigo normal (mision de caza): mas vida, dano, XP y botin.
+var elite: bool = false
+var xp_mult: float = 1.0
+## Mientras sea true no recibe dano (jefe protegido por sellos).
+var invulnerable: bool = false
+var _spawn_timer: float = 0.0
+var _spawned: Array = []
 
 ## Estados alterados activos (stun, slow, veneno).
 var statuses: StatusSet = StatusSet.new()
@@ -96,7 +105,48 @@ func apply_scale(scale: float) -> void:
 	_damage_scale = 1.0 + (level_scale - 1.0) * 0.5
 
 
+## Convierte al enemigo en elite: x2,5 de vida, x1,3 de dano, x3 de XP y botin mejor.
+func make_elite() -> void:
+	elite = true
+	max_health *= 2.5
+	health = max_health
+	_damage_scale *= 1.3
+	xp_mult = 3.0
+	radius *= 1.2
+
+
+## Refuerza al enemigo (jefes de los pisos x10: mas vida y dano sobre la escala del piso).
+func boost(health_mult: float, damage_mult: float) -> void:
+	max_health *= health_mult
+	health = max_health
+	_damage_scale *= damage_mult
+
+
+## Los nidos (`spawner` en sus datos) generan crias mientras el jugador esta cerca.
+func _step_spawner(delta: float) -> void:
+	var spec: Dictionary = data.get("spawner", {})
+	if spec.is_empty() or world == null or world.player == null or not world.player.alive:
+		return
+	if position.distance_to(world.player.position) > float(spec.get("range", 520.0)):
+		return
+	_spawned = _spawned.filter(func(m: EnemySim) -> bool: return m.alive)
+	_spawn_timer += delta
+	if _spawn_timer < float(spec["interval"]) or _spawned.size() >= int(spec["max_alive"]):
+		return
+	_spawn_timer = 0.0
+	var angle := _rng.randf() * TAU
+	var spot: Vector2 = world.resolve_position(position + Vector2.from_angle(angle) * (radius + 46.0), 12.0)
+	var minion: EnemySim = world.add_enemy(StringName(String(spec["id"])), spot, level_scale)
+	minion.summoned = true
+	minion.required = false
+	minion.respawns = false
+	minion.state = State.CHASE
+	_spawned.append(minion)
+
+
 func step(_tick_number: int, delta: float, warrior: Object) -> void:
+	if alive:
+		_step_spawner(delta)
 	if not alive:
 		state_time += delta
 		var respawn := float(data["respawn_seconds"])
@@ -188,6 +238,8 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 			return
 		if distance <= keep:
 			return
+	if bool(data.get("stationary", false)):
+		return
 	var contact := radius + WARRIOR_RADIUS + CONTACT_GAP
 	if distance <= contact:
 		return
@@ -364,7 +416,7 @@ func _step_dash(delta: float) -> void:
 
 
 func take_damage(amount: float) -> float:
-	if not alive or amount <= 0.0 or state == State.PHASE:
+	if not alive or amount <= 0.0 or state == State.PHASE or invulnerable:
 		return 0.0
 	var armor := float(data["stats"].get("armor", 0.0))
 	var reduced := amount * (1.0 - armor / (armor + 100.0))
@@ -500,4 +552,4 @@ func phase_name() -> String:
 
 ## XP que da al morir (dato stats.xp).
 func xp_reward() -> int:
-	return int(round(float(data["stats"].get("xp", 0)) * level_scale))
+	return int(round(float(data["stats"].get("xp", 0)) * level_scale * xp_mult))

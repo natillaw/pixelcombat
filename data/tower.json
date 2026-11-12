@@ -2,70 +2,857 @@
 	"_doc": "La torre: 100 pisos en 10 tiers de 10. Esquema y validacion en combat/tower_catalog.gd. El tier 1 tiene contenido propio; los tiers 2-10 reutilizan por ahora sus enemigos y jefes con otro tema y mas dificultad (placeholder: true) hasta tener arte y bestiario propios.",
 	"floors": 100,
 	"tier_size": 10,
-	"scaling": {"hp_per_floor": 0.10, "xp_per_floor": 0.08},
-	"spike_positions": {"mid_boss": 5, "boss": 10},
-	"completion_xp": {"per_floor": 40, "boss_multiplier": 3},
+	"scaling": {
+		"hp_per_floor": 0.1,
+		"xp_per_floor": 0.08
+	},
+	"spike_positions": {
+		"mid_boss": 5,
+		"boss": 10
+	},
+	"completion_xp": {
+		"per_floor": 40,
+		"boss_multiplier": 3
+	},
 	"tiers": [
 		{
-			"tier": 1, "name": "Catacumbas de la Nidada", "placeholder": false,
-			"theme": {"floor": [0.13, 0.14, 0.18], "floor_dark": [0.10, 0.11, 0.145], "floor_light": [0.165, 0.175, 0.215], "wall": [0.17, 0.18, 0.23], "wall_dark": [0.11, 0.12, 0.155], "wall_light": [0.24, 0.25, 0.31], "accent": [0.78, 0.60, 0.28]},
-			"pool": [{"id": "slime", "weight": 3}, {"id": "bat", "weight": 3}, {"id": "spider", "weight": 2}, {"id": "beetle", "weight": 1}, {"id": "wisp", "weight": 2}, {"id": "hornet", "weight": 2}],
-			"adds": ["slime", "bat", "hornet"],
-			"mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 1,
+			"name": "Bosque de la Nidada",
+			"placeholder": false,
+			"theme": {
+				"floor": [
+					0.13,
+					0.14,
+					0.18
+				],
+				"floor_dark": [
+					0.1,
+					0.11,
+					0.145
+				],
+				"floor_light": [
+					0.165,
+					0.175,
+					0.215
+				],
+				"wall": [
+					0.17,
+					0.18,
+					0.23
+				],
+				"wall_dark": [
+					0.11,
+					0.12,
+					0.155
+				],
+				"wall_light": [
+					0.24,
+					0.25,
+					0.31
+				],
+				"accent": [
+					0.78,
+					0.6,
+					0.28
+				]
+			},
+			"pool": [
+				{
+					"id": "slime",
+					"weight": 3
+				},
+				{
+					"id": "bat",
+					"weight": 3
+				},
+				{
+					"id": "spider",
+					"weight": 2
+				},
+				{
+					"id": "beetle",
+					"weight": 1
+				},
+				{
+					"id": "wisp",
+					"weight": 2
+				},
+				{
+					"id": "hornet",
+					"weight": 2
+				}
+			],
+			"adds": [
+				"slime",
+				"bat",
+				"hornet"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "forest",
+			"styles": [
+				{
+					"style": "field",
+					"weight": 4
+				},
+				{
+					"style": "mixed",
+					"weight": 3
+				},
+				{
+					"style": "caves",
+					"weight": 1
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 2, "name": "Cripta Hundida", "placeholder": true,
-			"theme": {"floor": [0.12, 0.13, 0.15], "floor_dark": [0.09, 0.10, 0.12], "floor_light": [0.16, 0.17, 0.20], "wall": [0.16, 0.17, 0.20], "wall_dark": [0.10, 0.11, 0.13], "wall_light": [0.24, 0.26, 0.30], "accent": [0.55, 0.75, 0.85]},
-			"pool": [{"id": "slime", "weight": 2}, {"id": "bat", "weight": 3}, {"id": "wisp", "weight": 3}, {"id": "beetle", "weight": 2}],
-			"adds": ["bat", "wisp"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 2,
+			"name": "Cripta Hundida",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.12,
+					0.13,
+					0.15
+				],
+				"floor_dark": [
+					0.09,
+					0.1,
+					0.12
+				],
+				"floor_light": [
+					0.16,
+					0.17,
+					0.2
+				],
+				"wall": [
+					0.16,
+					0.17,
+					0.2
+				],
+				"wall_dark": [
+					0.1,
+					0.11,
+					0.13
+				],
+				"wall_light": [
+					0.24,
+					0.26,
+					0.3
+				],
+				"accent": [
+					0.55,
+					0.75,
+					0.85
+				]
+			},
+			"pool": [
+				{
+					"id": "slime",
+					"weight": 2
+				},
+				{
+					"id": "bat",
+					"weight": 3
+				},
+				{
+					"id": "wisp",
+					"weight": 3
+				},
+				{
+					"id": "beetle",
+					"weight": 2
+				}
+			],
+			"adds": [
+				"bat",
+				"wisp"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "cave",
+			"styles": [
+				{
+					"style": "caves",
+					"weight": 3
+				},
+				{
+					"style": "field",
+					"weight": 2
+				},
+				{
+					"style": "ruins",
+					"weight": 2
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 3, "name": "Pantano Podrido", "placeholder": true,
-			"theme": {"floor": [0.12, 0.16, 0.12], "floor_dark": [0.09, 0.13, 0.09], "floor_light": [0.16, 0.21, 0.15], "wall": [0.14, 0.19, 0.13], "wall_dark": [0.08, 0.12, 0.08], "wall_light": [0.22, 0.30, 0.20], "accent": [0.55, 0.85, 0.40]},
-			"pool": [{"id": "slime", "weight": 4}, {"id": "spider", "weight": 3}, {"id": "hornet", "weight": 3}],
-			"adds": ["slime", "hornet"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 3,
+			"name": "Pantano Podrido",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.12,
+					0.16,
+					0.12
+				],
+				"floor_dark": [
+					0.09,
+					0.13,
+					0.09
+				],
+				"floor_light": [
+					0.16,
+					0.21,
+					0.15
+				],
+				"wall": [
+					0.14,
+					0.19,
+					0.13
+				],
+				"wall_dark": [
+					0.08,
+					0.12,
+					0.08
+				],
+				"wall_light": [
+					0.22,
+					0.3,
+					0.2
+				],
+				"accent": [
+					0.55,
+					0.85,
+					0.4
+				]
+			},
+			"pool": [
+				{
+					"id": "slime",
+					"weight": 4
+				},
+				{
+					"id": "spider",
+					"weight": 3
+				},
+				{
+					"id": "hornet",
+					"weight": 3
+				}
+			],
+			"adds": [
+				"slime",
+				"hornet"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "ruins",
+			"styles": [
+				{
+					"style": "ruins",
+					"weight": 4
+				},
+				{
+					"style": "mixed",
+					"weight": 2
+				},
+				{
+					"style": "caves",
+					"weight": 2
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 4, "name": "Minas Olvidadas", "placeholder": true,
-			"theme": {"floor": [0.16, 0.14, 0.12], "floor_dark": [0.12, 0.10, 0.09], "floor_light": [0.21, 0.18, 0.15], "wall": [0.21, 0.17, 0.14], "wall_dark": [0.13, 0.10, 0.08], "wall_light": [0.31, 0.25, 0.20], "accent": [0.90, 0.65, 0.30]},
-			"pool": [{"id": "beetle", "weight": 3}, {"id": "bat", "weight": 3}, {"id": "spider", "weight": 3}, {"id": "slime", "weight": 1}],
-			"adds": ["bat", "spider"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 4,
+			"name": "Minas Olvidadas",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.16,
+					0.14,
+					0.12
+				],
+				"floor_dark": [
+					0.12,
+					0.1,
+					0.09
+				],
+				"floor_light": [
+					0.21,
+					0.18,
+					0.15
+				],
+				"wall": [
+					0.21,
+					0.17,
+					0.14
+				],
+				"wall_dark": [
+					0.13,
+					0.1,
+					0.08
+				],
+				"wall_light": [
+					0.31,
+					0.25,
+					0.2
+				],
+				"accent": [
+					0.9,
+					0.65,
+					0.3
+				]
+			},
+			"pool": [
+				{
+					"id": "beetle",
+					"weight": 3
+				},
+				{
+					"id": "bat",
+					"weight": 3
+				},
+				{
+					"id": "spider",
+					"weight": 3
+				},
+				{
+					"id": "slime",
+					"weight": 1
+				}
+			],
+			"adds": [
+				"bat",
+				"spider"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "swamp",
+			"styles": [
+				{
+					"style": "field",
+					"weight": 3
+				},
+				{
+					"style": "caves",
+					"weight": 3
+				},
+				{
+					"style": "mixed",
+					"weight": 2
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 5, "name": "Bosque Marchito", "placeholder": true,
-			"theme": {"floor": [0.14, 0.16, 0.11], "floor_dark": [0.10, 0.12, 0.08], "floor_light": [0.19, 0.21, 0.14], "wall": [0.16, 0.17, 0.11], "wall_dark": [0.09, 0.11, 0.07], "wall_light": [0.25, 0.27, 0.18], "accent": [0.80, 0.80, 0.35]},
-			"pool": [{"id": "hornet", "weight": 4}, {"id": "wisp", "weight": 3}, {"id": "spider", "weight": 2}, {"id": "slime", "weight": 2}],
-			"adds": ["hornet", "wisp"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 5,
+			"name": "Bosque Marchito",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.14,
+					0.16,
+					0.11
+				],
+				"floor_dark": [
+					0.1,
+					0.12,
+					0.08
+				],
+				"floor_light": [
+					0.19,
+					0.21,
+					0.14
+				],
+				"wall": [
+					0.16,
+					0.17,
+					0.11
+				],
+				"wall_dark": [
+					0.09,
+					0.11,
+					0.07
+				],
+				"wall_light": [
+					0.25,
+					0.27,
+					0.18
+				],
+				"accent": [
+					0.8,
+					0.8,
+					0.35
+				]
+			},
+			"pool": [
+				{
+					"id": "hornet",
+					"weight": 4
+				},
+				{
+					"id": "wisp",
+					"weight": 3
+				},
+				{
+					"id": "spider",
+					"weight": 2
+				},
+				{
+					"id": "slime",
+					"weight": 2
+				}
+			],
+			"adds": [
+				"hornet",
+				"wisp"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "desert",
+			"styles": [
+				{
+					"style": "field",
+					"weight": 4
+				},
+				{
+					"style": "mixed",
+					"weight": 3
+				},
+				{
+					"style": "ruins",
+					"weight": 1
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 6, "name": "Ruinas del Desierto", "placeholder": true,
-			"theme": {"floor": [0.22, 0.19, 0.13], "floor_dark": [0.17, 0.14, 0.10], "floor_light": [0.28, 0.24, 0.17], "wall": [0.27, 0.22, 0.15], "wall_dark": [0.17, 0.13, 0.09], "wall_light": [0.38, 0.32, 0.22], "accent": [0.95, 0.80, 0.40]},
-			"pool": [{"id": "spider", "weight": 3}, {"id": "beetle", "weight": 3}, {"id": "bat", "weight": 2}, {"id": "wisp", "weight": 2}],
-			"adds": ["bat", "beetle"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 6,
+			"name": "Ruinas del Desierto",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.22,
+					0.19,
+					0.13
+				],
+				"floor_dark": [
+					0.17,
+					0.14,
+					0.1
+				],
+				"floor_light": [
+					0.28,
+					0.24,
+					0.17
+				],
+				"wall": [
+					0.27,
+					0.22,
+					0.15
+				],
+				"wall_dark": [
+					0.17,
+					0.13,
+					0.09
+				],
+				"wall_light": [
+					0.38,
+					0.32,
+					0.22
+				],
+				"accent": [
+					0.95,
+					0.8,
+					0.4
+				]
+			},
+			"pool": [
+				{
+					"id": "spider",
+					"weight": 3
+				},
+				{
+					"id": "beetle",
+					"weight": 3
+				},
+				{
+					"id": "bat",
+					"weight": 2
+				},
+				{
+					"id": "wisp",
+					"weight": 2
+				}
+			],
+			"adds": [
+				"bat",
+				"beetle"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "ice",
+			"styles": [
+				{
+					"style": "caves",
+					"weight": 3
+				},
+				{
+					"style": "field",
+					"weight": 3
+				},
+				{
+					"style": "ruins",
+					"weight": 2
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 7, "name": "Fortaleza de Hielo", "placeholder": true,
-			"theme": {"floor": [0.15, 0.18, 0.22], "floor_dark": [0.11, 0.14, 0.18], "floor_light": [0.20, 0.24, 0.29], "wall": [0.19, 0.23, 0.29], "wall_dark": [0.12, 0.15, 0.20], "wall_light": [0.30, 0.36, 0.44], "accent": [0.65, 0.90, 1.00]},
-			"pool": [{"id": "wisp", "weight": 4}, {"id": "bat", "weight": 3}, {"id": "hornet", "weight": 3}],
-			"adds": ["wisp", "hornet"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 7,
+			"name": "Fortaleza de Hielo",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.15,
+					0.18,
+					0.22
+				],
+				"floor_dark": [
+					0.11,
+					0.14,
+					0.18
+				],
+				"floor_light": [
+					0.2,
+					0.24,
+					0.29
+				],
+				"wall": [
+					0.19,
+					0.23,
+					0.29
+				],
+				"wall_dark": [
+					0.12,
+					0.15,
+					0.2
+				],
+				"wall_light": [
+					0.3,
+					0.36,
+					0.44
+				],
+				"accent": [
+					0.65,
+					0.9,
+					1
+				]
+			},
+			"pool": [
+				{
+					"id": "wisp",
+					"weight": 4
+				},
+				{
+					"id": "bat",
+					"weight": 3
+				},
+				{
+					"id": "hornet",
+					"weight": 3
+				}
+			],
+			"adds": [
+				"wisp",
+				"hornet"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "volcano",
+			"styles": [
+				{
+					"style": "caves",
+					"weight": 4
+				},
+				{
+					"style": "ruins",
+					"weight": 2
+				},
+				{
+					"style": "mixed",
+					"weight": 2
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 8, "name": "Forja Infernal", "placeholder": true,
-			"theme": {"floor": [0.20, 0.12, 0.10], "floor_dark": [0.15, 0.08, 0.07], "floor_light": [0.26, 0.16, 0.13], "wall": [0.25, 0.13, 0.10], "wall_dark": [0.15, 0.07, 0.06], "wall_light": [0.37, 0.20, 0.15], "accent": [1.00, 0.55, 0.20]},
-			"pool": [{"id": "beetle", "weight": 4}, {"id": "spider", "weight": 3}, {"id": "hornet", "weight": 2}],
-			"adds": ["spider", "hornet"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 8,
+			"name": "Forja Infernal",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.2,
+					0.12,
+					0.1
+				],
+				"floor_dark": [
+					0.15,
+					0.08,
+					0.07
+				],
+				"floor_light": [
+					0.26,
+					0.16,
+					0.13
+				],
+				"wall": [
+					0.25,
+					0.13,
+					0.1
+				],
+				"wall_dark": [
+					0.15,
+					0.07,
+					0.06
+				],
+				"wall_light": [
+					0.37,
+					0.2,
+					0.15
+				],
+				"accent": [
+					1,
+					0.55,
+					0.2
+				]
+			},
+			"pool": [
+				{
+					"id": "beetle",
+					"weight": 4
+				},
+				{
+					"id": "spider",
+					"weight": 3
+				},
+				{
+					"id": "hornet",
+					"weight": 2
+				}
+			],
+			"adds": [
+				"spider",
+				"hornet"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "crypt",
+			"styles": [
+				{
+					"style": "ruins",
+					"weight": 5
+				},
+				{
+					"style": "caves",
+					"weight": 2
+				},
+				{
+					"style": "mixed",
+					"weight": 1
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 9, "name": "Jardin Cristalino", "placeholder": true,
-			"theme": {"floor": [0.17, 0.13, 0.21], "floor_dark": [0.13, 0.09, 0.17], "floor_light": [0.23, 0.18, 0.28], "wall": [0.22, 0.16, 0.28], "wall_dark": [0.14, 0.09, 0.19], "wall_light": [0.33, 0.25, 0.41], "accent": [0.85, 0.60, 1.00]},
-			"pool": [{"id": "wisp", "weight": 3}, {"id": "slime", "weight": 2}, {"id": "bat", "weight": 2}, {"id": "spider", "weight": 3}, {"id": "beetle", "weight": 2}],
-			"adds": ["wisp", "spider"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 9,
+			"name": "Jardin Cristalino",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.17,
+					0.13,
+					0.21
+				],
+				"floor_dark": [
+					0.13,
+					0.09,
+					0.17
+				],
+				"floor_light": [
+					0.23,
+					0.18,
+					0.28
+				],
+				"wall": [
+					0.22,
+					0.16,
+					0.28
+				],
+				"wall_dark": [
+					0.14,
+					0.09,
+					0.19
+				],
+				"wall_light": [
+					0.33,
+					0.25,
+					0.41
+				],
+				"accent": [
+					0.85,
+					0.6,
+					1
+				]
+			},
+			"pool": [
+				{
+					"id": "wisp",
+					"weight": 3
+				},
+				{
+					"id": "slime",
+					"weight": 2
+				},
+				{
+					"id": "bat",
+					"weight": 2
+				},
+				{
+					"id": "spider",
+					"weight": 3
+				},
+				{
+					"id": "beetle",
+					"weight": 2
+				}
+			],
+			"adds": [
+				"wisp",
+				"spider"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "sky",
+			"styles": [
+				{
+					"style": "field",
+					"weight": 3
+				},
+				{
+					"style": "mixed",
+					"weight": 3
+				},
+				{
+					"style": "ruins",
+					"weight": 2
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		},
 		{
-			"tier": 10, "name": "Cima Estelar", "placeholder": true,
-			"theme": {"floor": [0.10, 0.10, 0.18], "floor_dark": [0.07, 0.07, 0.14], "floor_light": [0.15, 0.15, 0.25], "wall": [0.13, 0.13, 0.24], "wall_dark": [0.07, 0.07, 0.15], "wall_light": [0.22, 0.22, 0.38], "accent": [1.00, 0.90, 0.50]},
-			"pool": [{"id": "wisp", "weight": 3}, {"id": "hornet", "weight": 3}, {"id": "spider", "weight": 3}, {"id": "beetle", "weight": 3}, {"id": "bat", "weight": 2}],
-			"adds": ["wisp", "hornet", "spider"], "mid_boss": "elder_spider", "boss": "brood_beetle"
+			"tier": 10,
+			"name": "Cima Estelar",
+			"placeholder": true,
+			"theme": {
+				"floor": [
+					0.1,
+					0.1,
+					0.18
+				],
+				"floor_dark": [
+					0.07,
+					0.07,
+					0.14
+				],
+				"floor_light": [
+					0.15,
+					0.15,
+					0.25
+				],
+				"wall": [
+					0.13,
+					0.13,
+					0.24
+				],
+				"wall_dark": [
+					0.07,
+					0.07,
+					0.15
+				],
+				"wall_light": [
+					0.22,
+					0.22,
+					0.38
+				],
+				"accent": [
+					1,
+					0.9,
+					0.5
+				]
+			},
+			"pool": [
+				{
+					"id": "wisp",
+					"weight": 3
+				},
+				{
+					"id": "hornet",
+					"weight": 3
+				},
+				{
+					"id": "spider",
+					"weight": 3
+				},
+				{
+					"id": "beetle",
+					"weight": 3
+				},
+				{
+					"id": "bat",
+					"weight": 2
+				}
+			],
+			"adds": [
+				"wisp",
+				"hornet",
+				"spider"
+			],
+			"mid_boss": "elder_spider",
+			"boss": "brood_beetle",
+			"biome": "void",
+			"styles": [
+				{
+					"style": "ruins",
+					"weight": 3
+				},
+				{
+					"style": "caves",
+					"weight": 3
+				},
+				{
+					"style": "mixed",
+					"weight": 3
+				}
+			],
+			"mid_boss_2": "hornet_queen",
+			"nest": "brood_nest"
 		}
-	]
+	],
+	"map": {
+		"first_medium_floors": 3
+	}
 }

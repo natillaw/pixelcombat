@@ -64,6 +64,16 @@ static func tier(number: int) -> Dictionary:
 	return {}
 
 
+## Estilos de mapa de un tier con su peso: [{style, weight}].
+static func styles(tier_number: int) -> Array:
+	return (tier(tier_number).get("styles", []) as Array).duplicate(true)
+
+
+## Bioma (clave del tileset) de un tier.
+static func biome(tier_number: int) -> String:
+	return String(tier(tier_number).get("biome", "forest"))
+
+
 static func scaling() -> Dictionary:
 	_ensure_loaded()
 	return (_data.get("scaling", {}) as Dictionary).duplicate()
@@ -161,10 +171,21 @@ static func _validate_tier(tier_data: Variant, expected: int) -> Array[String]:
 				problems.append("%s: cada entrada de pool necesita un enemigo conocido y weight > 0" % label)
 			elif bool(EnemyCatalog.enemy(StringName(String(entry["id"]))).get("boss", false)):
 				problems.append("%s: un jefe no puede estar en el pool normal" % label)
-	for field: String in ["mid_boss", "boss"]:
+	for field: String in ["mid_boss", "mid_boss_2", "boss"]:
 		var boss_id := StringName(String(spec.get(field, "")))
 		if not EnemyCatalog.has_enemy(boss_id) or not bool(EnemyCatalog.enemy(boss_id).get("boss", false)):
 			problems.append("%s: %s debe ser un jefe conocido" % [label, field])
+	if String(spec.get("biome", "")).is_empty():
+		problems.append("%s: falta biome" % label)
+	if not (spec.get("styles") is Array) or (spec["styles"] as Array).is_empty():
+		problems.append("%s: faltan styles" % label)
+	else:
+		for entry: Variant in spec["styles"]:
+			if not (entry is Dictionary) or not MapGen.STYLES.has(String((entry as Dictionary).get("style", ""))) or not _is_number((entry as Dictionary).get("weight")) or float(entry["weight"]) <= 0.0:
+				problems.append("%s: estilo invalido %s" % [label, str(entry)])
+	var nest_id := StringName(String(spec.get("nest", "")))
+	if not EnemyCatalog.has_enemy(nest_id) or not EnemyCatalog.enemy(nest_id).has("spawner"):
+		problems.append("%s: nest debe ser un enemigo con spawner" % label)
 	if not (spec.get("adds") is Array) or (spec["adds"] as Array).is_empty():
 		problems.append("%s: falta 'adds' (crias de los pisos de jefe)" % label)
 	else:

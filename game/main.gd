@@ -103,6 +103,9 @@ func _update_pickup_hover() -> void:
 		var verb := "RECOGER"
 		if target is LootDrop:
 			label = ItemCatalog.display_name((target as LootDrop).item)
+		elif target is Interactable:
+			label = (target as Interactable).display_name()
+			verb = "USAR"
 		else:
 			label = (target as ResourceNode).display_name()
 			verb = "RECOLECTAR"

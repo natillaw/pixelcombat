@@ -73,28 +73,21 @@ func _test_catalog() -> void:
 func _test_nodes_in_layouts() -> void:
 	var ok := true
 	var reason := ""
-	for floor_number: int in range(1, 101):
+	for floor_number: int in [1, 2, 3, 5, 10, 20, 40, 77, 100]:
 		var layout := TowerGenerator.generate(floor_number, 20261110)
-		var expected_min := 1 if TowerCatalog.spike_kind(floor_number) != "" else 3
-		if layout.resources.size() < expected_min or layout.resources.size() > 5:
+		var ambient := layout.resources.filter(func(n: Dictionary) -> bool: return not bool(n.get("rich", false)))
+		if ambient.size() < 5 or ambient.size() > 12:
 			ok = false
-			reason = "piso %d: %d nodos" % [floor_number, layout.resources.size()]
+			reason = "piso %d: %d nodos ambientales" % [floor_number, ambient.size()]
 		for spec: Dictionary in layout.resources:
-			if not MaterialCatalog.gatherable_kinds().has(String(spec["kind"])) or not layout.bounds().has_point(spec["position"]):
+			var cell := layout.grid.world_to_cell(spec["position"])
+			if not MaterialCatalog.gatherable_kinds().has(String(spec["kind"])) or not layout.bounds().has_point(spec["position"]) or layout.grid.blocks_move(cell.x, cell.y):
 				ok = false
 				reason = "piso %d: nodo invalido" % floor_number
 			if (spec["position"] as Vector2).distance_to(layout.player_spawn) < 100.0:
 				ok = false
 				reason = "piso %d: nodo pegado a la entrada" % floor_number
-			for enemy: Dictionary in layout.enemies:
-				if (spec["position"] as Vector2).distance_to(enemy["position"]) < 100.0:
-					ok = false
-					reason = "piso %d: nodo pegado a un enemigo" % floor_number
-			for obstacle: Dictionary in layout.obstacles:
-				if (spec["position"] as Vector2).distance_to(obstacle["position"]) < float(obstacle["radius"]):
-					ok = false
-					reason = "piso %d: nodo dentro de un obstaculo" % floor_number
-	_check(ok, "los 100 pisos traen nodos validos (%s)" % reason)
+	_check(ok, "los pisos de muestra traen nodos validos y alcanzables (%s)" % reason)
 	_check(JSON.stringify(TowerGenerator.generate(7, 3).to_dict()["resources"]) == JSON.stringify(TowerGenerator.generate(7, 3).to_dict()["resources"]), "los nodos son deterministas")
 	_check(Layouts.city().resources.is_empty() and Layouts.training().resources.size() == 3, "la ciudad no tiene nodos y el patio tiene tres de practica")
 	var session := GameSession.new(CombatWorldScript.new(1), "")

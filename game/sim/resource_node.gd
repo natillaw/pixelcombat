@@ -11,11 +11,14 @@ extends RefCounted
 const CLICK_RADIUS := 24.0
 ## A que distancia del jugador se puede recolectar.
 const GATHER_RANGE := 60.0
+const RICH_YIELD := 3
 
 var kind: String
 var tier: int
 var position: Vector2
 var depleted: bool = false
+## Nodo rico (misiones de recoleccion): da siempre RICH_YIELD unidades.
+var rich: bool = false
 
 
 func _init(p_kind: String, p_tier: int, p_position: Vector2) -> void:

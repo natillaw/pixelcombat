@@ -124,7 +124,7 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - **Candado de avance (D9):** no se puede subir de piso sin completar el actual; los pisos completados se pueden revisitar y respawnean.
 - Portal de ida/vuelta con pisos ya desbloqueados.
 
-> **Estado:** hecho el generador, el candado, la persistencia por semilla, los pisos 5/10 del tier 1 (Elder Spider / Brood Beetle) y 10 tiers con datos (el 2-10 son provisionales). Faltan recursos/cofres por piso, misiones opcionales y jefes propios de los tiers 2-10.
+> **Estado:** pisos grandes y procedurales (mapa de casillas: campo, cuevas, ruinas y mixto), 10 misiones distintas, mision doble con dos mini-jefes en los x5, pruebas de jefe en los x10 y misiones opcionales. Faltan los tilesets (hoy colores planos), minimapa y jefes propios de los tiers 2-10 (el 2-10 son provisionales).
 
 > **Recoleccion y crafting:** ver Fase 6 (hecho el primer corte).
 

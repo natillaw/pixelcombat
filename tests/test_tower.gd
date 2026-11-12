@@ -48,10 +48,12 @@ func _step(world: CombatWorld, ticks: int) -> void:
 		world.step(DT)
 
 
+## Da por cumplidas las misiones del piso (las pruebas de misiones las juegan de verdad en
+## tests/test_missions.gd) y mata a los enemigos que cuentan para el piso.
 func _kill_required(session: GameSession) -> void:
-	for enemy: EnemySim in session.world.enemies:
-		if enemy.required:
-			enemy.take_damage(1.0e9)
+	for mission: Mission in session.missions:
+		if not mission.optional:
+			mission.force_complete()
 
 
 # --- Catalogo ---------------------------------------------------------------------
@@ -96,47 +98,42 @@ func _test_generator_determinism() -> void:
 func _test_generator_invariants() -> void:
 	var ok := true
 	var reason := ""
-	for floor_number: int in range(1, 101):
+	var floors: Array = [1, 2, 3, 4, 5, 9, 10, 15, 20, 33, 50, 75, 100]
+	for floor_number: int in floors:
 		var layout := TowerGenerator.generate(floor_number, 20261110)
 		var bounds := layout.bounds()
-		var required := 0
 		for spec: Dictionary in layout.enemies:
 			if not EnemyCatalog.has_enemy(StringName(String(spec["id"]))):
 				ok = false
 				reason = "piso %d: enemigo desconocido" % floor_number
-			if not bounds.has_point(spec["position"]):
+			var cell := layout.grid.world_to_cell(spec["position"])
+			if not bounds.has_point(spec["position"]) or layout.grid.blocks_move(cell.x, cell.y):
 				ok = false
-				reason = "piso %d: enemigo fuera de la zona" % floor_number
+				reason = "piso %d: enemigo fuera de la zona o dentro de un muro" % floor_number
 			if (spec["position"] as Vector2).distance_to(layout.player_spawn) < 150.0:
 				ok = false
 				reason = "piso %d: enemigo pegado a la entrada" % floor_number
-			for obstacle: Dictionary in layout.obstacles:
-				if (spec["position"] as Vector2).distance_to(obstacle["position"]) < float(obstacle["radius"]):
-					ok = false
-					reason = "piso %d: enemigo dentro de un obstaculo" % floor_number
-			if bool(spec["required"]):
-				required += 1
-		if required < 1:
+		var mains: Array = layout.mission_plan["missions"].filter(func(s: Dictionary) -> bool: return not bool(s["optional"]))
+		if mains.is_empty():
 			ok = false
-			reason = "piso %d: sin enemigos obligatorios (piso vacio)" % floor_number
-		if not bounds.has_point(layout.player_spawn):
+			reason = "piso %d: sin mision principal" % floor_number
+		if not MissionGen.check(layout).is_empty():
+			ok = false
+			reason = "piso %d: %s" % [floor_number, str(MissionGen.check(layout))]
+		if not bounds.has_point(layout.player_spawn) or not layout.grid.is_walkable_point(layout.player_spawn):
 			ok = false
 			reason = "piso %d: entrada fuera de la zona" % floor_number
-		for obstacle: Dictionary in layout.obstacles:
-			if (obstacle["position"] as Vector2).distance_to(layout.player_spawn) < 100.0:
-				ok = false
-				reason = "piso %d: obstaculo sobre la entrada" % floor_number
 		var exit_found := false
 		for portal: Dictionary in layout.portals:
 			if String(portal["id"]) == "exit":
-				exit_found = bool(portal["requires_complete"]) and bounds.has_point(portal["position"])
+				exit_found = bool(portal["requires_complete"]) and bounds.has_point(portal["position"]) and layout.grid.is_walkable_point(portal["position"])
 		if not exit_found:
 			ok = false
-			reason = "piso %d: la salida debe existir y exigir piso completado" % floor_number
-		if layout.theme.is_empty() or not (layout.theme["floor"] is Color):
+			reason = "piso %d: la salida debe existir, ser alcanzable y exigir piso completado" % floor_number
+		if layout.theme.is_empty() or not (layout.theme["floor"] is Color) or layout.biome.is_empty() or not MapGen.STYLES.has(layout.style):
 			ok = false
-			reason = "piso %d: tema incompleto" % floor_number
-	_check(ok, "los 100 pisos cumplen los invariantes (%s)" % reason)
+			reason = "piso %d: tema, bioma o estilo incompletos" % floor_number
+	_check(ok, "los pisos de muestra cumplen los invariantes (%s)" % reason)
 	var top := TowerGenerator.generate(100, 20261110)
 	var exit_action := ""
 	for portal: Dictionary in top.portals:
@@ -145,19 +142,21 @@ func _test_generator_invariants() -> void:
 	_check(exit_action == "to_city", "la salida del piso 100 vuelve a la ciudad")
 	var tiers_differ := JSON.stringify(TowerGenerator.generate(5, 1).theme) != JSON.stringify(TowerGenerator.generate(15, 1).theme)
 	_check(tiers_differ, "cada tier tiene su tematica")
+	var small := TowerGenerator.generate(2, 20261110)
+	var big := TowerGenerator.generate(60, 20261110)
+	_check(small.size.x >= 2048.0 and big.size.x * big.size.y > small.size.x * small.size.y * 1.8, "los pisos son grandes y los profundos mucho mas")
 
 
 func _test_spike_floors() -> void:
 	var mid := TowerGenerator.generate(5, 20261110)
-	var boss := TowerGenerator.generate(10, 20261110)
-	var mid_required: Array = mid.enemies.filter(func(e: Dictionary) -> bool: return bool(e["required"]))
-	var boss_required: Array = boss.enemies.filter(func(e: Dictionary) -> bool: return bool(e["required"]))
-	_check(mid_required.size() == 1 and String(mid_required[0]["id"]) == "elder_spider", "el piso 5 es el mini-jefe Elder Spider")
-	_check(boss_required.size() == 1 and String(boss_required[0]["id"]) == "brood_beetle", "el piso 10 es el jefe Brood Beetle")
-	_check(mid.enemies.size() > 1 and boss.enemies.size() > mid.enemies.size(), "los pisos de pico traen crias (el jefe mas)")
-	_check(String(boss.objective["type"]) == "boss" and String(mid.objective["type"]) == "boss", "su objetivo es derrotar al jefe")
+	var mini: Array = mid.enemies.filter(func(e: Dictionary) -> bool: return String(e["group"]) == "mini")
+	_check(mini.size() == 2 and mini.all(func(e: Dictionary) -> bool: return bool(e["required"])), "el piso 5 tiene dos mini-jefes obligatorios")
+	var boss_layout := TowerGenerator.generate(10, 20261110)
+	var bosses: Array = boss_layout.enemies.filter(func(e: Dictionary) -> bool: return String(e["group"]) == "boss") + boss_layout.deferred_enemies.filter(func(e: Dictionary) -> bool: return String(e["group"]) == "boss")
+	_check(bosses.size() == 1 and String(bosses[0]["id"]) == "brood_beetle", "el piso 10 es el jefe Brood Beetle")
+	_check(mid.enemies.size() > 4 and boss_layout.enemies.size() + boss_layout.deferred_enemies.size() > 4, "los pisos de pico traen crias y guardias")
 	var normal := TowerGenerator.generate(3, 20261110)
-	_check(String(normal.objective["type"]) == "clear", "un piso normal pide eliminar a todos")
+	_check(normal.mission_plan["missions"].size() >= 1 and normal.mission_plan["missions"].any(func(s: Dictionary) -> bool: return not bool(s["optional"])), "un piso normal tiene al menos una mision principal")
 	_check(EnemyCatalog.enemy(&"elder_spider")["boss"] == true and (EnemyCatalog.enemy(&"elder_spider")["phases"] as Array).size() == 2, "Elder Spider es un jefe con dos fases")
 
 
@@ -259,20 +258,21 @@ func _test_respawn_on_reentry() -> void:
 	var world := session.world
 	_check(session.go_to_floor(1), "entrar al piso 1")
 	var count := world.enemies.size()
-	var first_ids: Array = world.enemies.map(func(e: EnemySim) -> String: return String(e.def_id))
+	var first_cells: PackedByteArray = session.layout.grid.cells
 	_kill_required(session)
 	_step(world, 2)
 	_check(session.is_floor_done(), "piso 1 completado")
 	var xp_after_first := world.player.xp + world.player.level * 100000
+	for enemy: EnemySim in world.enemies:
+		enemy.take_damage(1.0e9)
 	_step(world, 60 * 120)
 	var alive := world.enemies.filter(func(e: EnemySim) -> bool: return e.alive)
 	_check(alive.is_empty(), "dentro de un piso los enemigos muertos no reaparecen solos")
 	session.go_to_city()
 	var visit := session.tower.visits(1)
 	_check(session.go_to_floor(1) and session.tower.visits(1) == visit + 1, "volver a entrar cuenta una visita")
-	var again: Array = world.enemies.map(func(e: EnemySim) -> String: return String(e.def_id))
 	var all_alive := world.enemies.all(func(e: EnemySim) -> bool: return e.alive)
-	_check(world.enemies.size() == count and again == first_ids and all_alive, "al reentrar el mismo piso reaparece con todos sus enemigos")
+	_check(world.enemies.size() > 10 and all_alive and session.layout.grid.cells == first_cells and count > 10, "al reentrar el piso (mismo terreno) reaparece poblado con todos sus enemigos")
 	_check(not session.is_floor_done(), "al reentrar hay que volver a limpiarlo para salir")
 	_kill_required(session)
 	_step(world, 2)

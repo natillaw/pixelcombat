@@ -23,6 +23,7 @@ var sprite: AnimatedSprite2D
 var _sprite_height: float = 32.0
 var _tint: Color = Color.WHITE
 var _was_alive: bool = true
+var _scale_value: float = 1.0
 
 
 func setup(p_sim: EnemySim, p_arena: Arena) -> void:
@@ -55,7 +56,8 @@ func _build_sprite() -> void:
 	if frames.has_animation(&"default"):
 		frames.remove_animation(&"default")
 
-	var sprite_scale := float(sprite_data["scale"])
+	var sprite_scale := float(sprite_data["scale"]) * (1.25 if sim.elite else 1.0)
+	_scale_value = sprite_scale
 	_sprite_height = float(frame_size) * sprite_scale
 	sprite = AnimatedSprite2D.new()
 	sprite.name = "CreatureSprite"
@@ -67,6 +69,9 @@ func _build_sprite() -> void:
 	if sprite_data.has("tint"):
 		var tint: Array = sprite_data["tint"]
 		_tint = Color(float(tint[0]), float(tint[1]), float(tint[2]), float(tint[3]))
+		sprite.modulate = _tint
+	if sim.elite:
+		_tint = Color(_tint.r * 1.2, _tint.g * 1.05, _tint.b * 0.65, _tint.a)
 		sprite.modulate = _tint
 	add_child(sprite)
 	sprite.play(&"move")
@@ -90,7 +95,7 @@ func _process(_delta: float) -> void:
 		if sim.summoned and sim.state_time > 1.2:
 			queue_free()
 			return
-		sprite.scale = Vector2.ONE * float(sim.data["sprite"]["scale"]) * (1.0 - 0.3 * t)
+		sprite.scale = Vector2.ONE * _scale_value * (1.0 - 0.3 * t)
 	queue_redraw()
 
 
@@ -206,6 +211,11 @@ func _draw() -> void:
 	# Sombra.
 	draw_set_transform(Vector2(0, -1), 0.0, Vector2(1.0, 0.42))
 	draw_circle(Vector2.ZERO, sim.radius + 3.0, Color(0.0, 0.0, 0.0, 0.32))
+	if sim.elite and sim.alive:
+		draw_arc(Vector2.ZERO, sim.radius + 6.0, 0.0, TAU, 28, Color(1.0, 0.8, 0.25, 0.85), 2.0)
+	if sim.invulnerable and sim.alive:
+		var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006)
+		draw_arc(Vector2.ZERO, sim.radius + 12.0 + 3.0 * pulse, 0.0, TAU, 32, Color(0.45, 0.75, 1.0, 0.9), 3.0)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 	if sim.alive and not sim.is_boss() and (sim.health < sim.max_health or sim.state != EnemySim.State.IDLE):
