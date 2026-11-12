@@ -114,6 +114,7 @@ func _test_player_stun() -> void:
 	var world := _world()
 	var player: PlayerSim = world.player
 	player.set_level(10)
+	LegacyKit.apply(player)
 	player.resource.current_amount = 100.0
 	_step(world, 1, _input({"m2": true}))
 	_check(player.state != PlayerSim.AttackState.IDLE, "(preparacion) el jugador esta atacando")
@@ -134,6 +135,9 @@ func _test_player_stun() -> void:
 	_check(player.state != PlayerSim.AttackState.IDLE, "y vuelve a poder atacar")
 
 	var world2 := _world()
+	world2.player.safe_zone = true
+	world2.player.switch_class("rogue")
+	world2.player.safe_zone = false
 	world2.player.set_level(2)
 	_step(world2, 1, _input({}, Vector2.RIGHT))
 	_step(world2, 1, _input({"dodge": true}, Vector2.RIGHT))
@@ -158,6 +162,9 @@ func _test_player_slow_and_poison() -> void:
 	_check(is_zero_approx(world2.player.resource_amount()), "y no regala Rage al Warrior")
 	# El veneno ignora los i-frames de la esquiva.
 	var world3 := _world()
+	world3.player.safe_zone = true
+	world3.player.switch_class("rogue")
+	world3.player.safe_zone = false
 	world3.player.apply_status("poison", 4.0, 5.0)
 	_step(world3, 1, _input({"dodge": true}, Vector2.RIGHT))
 	_check(world3.player.is_invulnerable(), "(preparacion) hay i-frames")
@@ -240,6 +247,7 @@ func _test_skills_apply_statuses() -> void:
 	# Crushing Blow: stun al enemigo golpeado.
 	var world := _world()
 	world.player.set_level(10)
+	LegacyKit.apply(world.player)
 	world.player.resource.current_amount = 100.0
 	var slime := world.add_enemy(&"slime", world.player.position + Vector2(50, 0))
 	_step(world, 1, _input({"s3": true}))
@@ -250,6 +258,7 @@ func _test_skills_apply_statuses() -> void:
 	# Ground Stomp: slow en area.
 	var stomp_world := _world()
 	stomp_world.player.set_level(24)
+	LegacyKit.apply(stomp_world.player)
 	stomp_world.player.resource.current_amount = 100.0
 	var near := stomp_world.add_enemy(&"slime", stomp_world.player.position + Vector2(60, 0))
 	var far := stomp_world.add_enemy(&"slime", stomp_world.player.position + Vector2(300, 0))
@@ -267,6 +276,7 @@ func _test_skills_apply_statuses() -> void:
 	var nova_world := _world()
 	nova_world.player.switch_class("mage")
 	nova_world.player.set_level(12)
+	LegacyKit.apply(nova_world.player)
 	nova_world.player.resource.current_amount = 100.0
 	var target := nova_world.add_enemy(&"slime", nova_world.player.position + Vector2(50, 0))
 	var nova_slot := ""
@@ -282,6 +292,7 @@ func _test_skills_apply_statuses() -> void:
 	var arrow_world := _world()
 	arrow_world.player.switch_class("archer")
 	arrow_world.player.set_level(14)
+	LegacyKit.apply(arrow_world.player)
 	arrow_world.player.resource.current_amount = 100.0
 	var arrow_target := arrow_world.add_enemy(&"slime", arrow_world.player.position + Vector2(150, 0))
 	arrow_target.take_damage(1.0)
@@ -297,6 +308,7 @@ func _test_skills_apply_statuses() -> void:
 	var blade_world := _world()
 	blade_world.player.switch_class("rogue")
 	blade_world.player.set_level(16)
+	LegacyKit.apply(blade_world.player)
 	blade_world.player.resource.current_amount = 100.0
 	var poisoned := blade_world.add_enemy(&"beetle", blade_world.player.position + Vector2(50, 0))
 	var blade_slot := ""

@@ -161,7 +161,7 @@ func _test_resource_cap_is_shared_by_a_volley() -> void:
 	_step(world, 80, _input({}))
 	_check(hits.size() == 5, "las cinco flechas aciertan (%d)" % hits.size())
 	var spec := SkillCatalog.skill(&"multishot")
-	_check(is_equal_approx(world.player.ultimate_charge, float(spec["ult_cap"])), "la carga de Ultimate de la salva se limita a ult_cap (%.1f)" % world.player.ultimate_charge)
+	_check(absf(world.player.ultimate_charge - float(spec["ult_cap"]) * float(world.player.class_def["ult_charge"]["hit_scale"])) < 10.0 and world.player.ultimate_charge >= float(spec["ult_cap"]) * float(world.player.class_def["ult_charge"]["hit_scale"]) - 0.01, "la carga de Ultimate de la salva se limita a ult_cap (mas los criticos) (%.1f)" % world.player.ultimate_charge)
 
 
 func _test_does_not_hit_the_dead_or_the_caster() -> void:
@@ -196,6 +196,7 @@ func _volley_snapshot(seed_value: int) -> String:
 	world.setup_arena(Rect2(0, 0, 900, 600))
 	world.player.switch_class("archer")
 	world.player.set_level(10)
+	LegacyKit.apply(world.player)
 	world.player.resource.current_amount = 100.0
 	world.add_dummy(world.player.position + Vector2(120, 10), false)
 	world.add_dummy(world.player.position + Vector2(160, -10), false)
@@ -213,6 +214,7 @@ func _make(class_id: String, level: int, offsets: Array) -> CombatWorld:
 	world.setup_arena(Rect2(0, 0, 900, 600))
 	world.player.switch_class(class_id)
 	world.player.set_level(level)
+	LegacyKit.apply(world.player)
 	for offset: Vector2 in offsets:
 		world.add_dummy(world.player.position + offset, false)
 	return world

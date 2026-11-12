@@ -27,9 +27,7 @@
 	"default_loadout": {
 		"M1": "quick_shot",
 		"M2": "charged_shot",
-		"S1": "multishot",
-		"S2": "explosive_arrow",
-		"S3": "piercing_arrow",
+		"S1": "crippling_arrow",
 		"SPECIAL": "deadeye",
 		"ULTIMATE": "rain_of_arrows"
 	},
@@ -164,5 +162,26 @@
 			"cooldown": 12,
 			"description": "Mejora el siguiente Charged Shot y reduce su tiempo de carga."
 		}
-	]
+	],
+	"mobility": {
+		"name": "Backflip",
+		"kind": "backstep",
+		"description": "Salto atras para tomar distancia.",
+		"dir": "back",
+		"duration": 0.22,
+		"distance": 150,
+		"iframe_start": 0.0,
+		"iframe_end": 0.1,
+		"cooldown": 5.0
+	},
+	"ult_charge": {
+		"hit_scale": 0.25,
+		"far_hit": {
+			"distance": 220,
+			"amount": 3.5
+		},
+		"on_crit": 4.0,
+		"on_kill": 3.0,
+		"_doc": "Acierta de lejos y critica."
+	}
 }

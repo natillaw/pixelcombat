@@ -27,8 +27,7 @@
 	"default_loadout": {
 		"M1": "warrior_m1",
 		"M2": "warrior_m2",
-		"S1": "cleaving_strike",
-		"S2": "piercing_thrust",
+		"S1": "ground_stomp",
 		"SPECIAL": "iron_counter",
 		"ULTIMATE": "war_gods_descent"
 	},
@@ -59,5 +58,24 @@
 			]
 		}
 	},
-	"planned": []
+	"planned": [],
+	"mobility": {
+		"name": "Shield Charge",
+		"kind": "charge",
+		"description": "Carga hacia el cursor; aturde 1 s al primer golpe a cada enemigo.",
+		"dir": "aim",
+		"duration": 0.3,
+		"distance": 150,
+		"iframe_start": 0.0,
+		"iframe_end": 0.0,
+		"cooldown": 9.0,
+		"stun_on_hit": 1.0,
+		"damage_mult": 0.6
+	},
+	"ult_charge": {
+		"hit_scale": 1.0,
+		"on_taken_per_percent": 0.6,
+		"on_taken_cap": 8.0,
+		"_doc": "Golpea y aguanta."
+	}
 }

@@ -128,7 +128,8 @@
 				"recovery": 0.6
 			},
 			"anim": "shoot",
-			"unlock_level": 2
+			"unlock_level": 2,
+			"world": true
 		},
 		{
 			"kind": "skill",
@@ -172,7 +173,8 @@
 				"recovery": 0.5
 			},
 			"anim": "shoot",
-			"unlock_level": 4
+			"unlock_level": 4,
+			"world": true
 		},
 		{
 			"kind": "special",
@@ -207,7 +209,7 @@
 				"recovery": 0.4
 			},
 			"anim": "shoot",
-			"unlock_level": 6
+			"unlock_level": 4
 		},
 		{
 			"kind": "ultimate",
@@ -249,7 +251,7 @@
 				"recovery": 0.4
 			},
 			"anim": "shoot",
-			"unlock_level": 8
+			"unlock_level": 6
 		},
 		{
 			"kind": "skill",
@@ -289,7 +291,8 @@
 				"recovery": 0.5
 			},
 			"anim": "shoot",
-			"unlock_level": 10
+			"unlock_level": 10,
+			"world": true
 		},
 		{
 			"kind": "skill",
@@ -336,7 +339,7 @@
 				"recovery": 0.5
 			},
 			"anim": "shoot",
-			"unlock_level": 14
+			"unlock_level": 2
 		}
 	]
 }

@@ -133,12 +133,12 @@ func _test_progress_is_per_class() -> void:
 	player.grant_xp(30)
 	player.switch_class("warrior")
 	_check(player.level == 6, "el Warrior conserva su nivel (%d)" % player.level)
-	_check(player.loadout.has("S2") and player.loadout.has("SPECIAL") and not player.loadout.has("S1"), "y su loadout, incluido el hueco que vacie")
+	_check(player.loadout.has("SPECIAL") and player.loadout.has("ULTIMATE") and not player.loadout.has("S1"), "y su loadout, incluido el hueco que vacie")
 	player.switch_class("mage")
 	_check(player.level == 1 and player.xp == 30, "el Mage conserva su XP (%d)" % player.xp)
 	player.switch_class("rogue")
 	player.set_level(4)
-	_check(player.loadout.has("S1") and player.loadout["S1"]["id"] == &"ambush" and player.loadout.has("S2") and player.loadout["S2"]["id"] == &"blade_flurry", "las skills del Rogue se desbloquean por nivel (Ambush 2, Blade Flurry 4)")
+	_check(player.loadout.has("S1") and player.loadout["S1"]["id"] == &"fan_of_knives" and player.loadout.has("SPECIAL") and not player.loadout.has("S2"), "las skills del Rogue se desbloquean por nivel (Fan of Knives 2, Perfect Evasion 4)")
 
 
 # --- Recursos ----------------------------------------------------------------------
@@ -243,8 +243,8 @@ func _test_wrong_class_and_unlocks() -> void:
 	player.switch_class("archer")
 	player.set_level(10)
 	_check(player.equip("S3", &"cleaving_strike") == "wrong_class", "ni una del Warrior en el Archer")
-	_check(player.loadout.has("S1") and player.loadout["S1"]["id"] == &"multishot", "el Archer lleva Multishot en S1")
-	_check(player.loadout.has("S3") and player.loadout["S3"]["id"] == &"piercing_arrow", "y Piercing Arrow (nivel 10) en S3")
+	_check(player.loadout.has("S1") and player.loadout["S1"]["id"] == &"crippling_arrow", "el Archer lleva Crippling Arrow en S1")
+	_check(not player.loadout.has("S2") and player.equip("S2", &"multishot") == "not_learned", "Multishot es una skill de mundo: hay que aprenderla")
 	_check(player.loadout.has("SPECIAL") and player.loadout["SPECIAL"]["id"] == &"deadeye", "y Deadeye de Special")
 	_check(player.loadout.has("ULTIMATE") and player.loadout["ULTIMATE"]["id"] == &"rain_of_arrows", "y Rain of Arrows de Ultimate")
 

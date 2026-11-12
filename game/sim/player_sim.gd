@@ -111,6 +111,8 @@ var attack_point: Vector2 = Vector2.ZERO
 
 var dodging: bool = false
 var dodge_time: float = 0.0
+## Enemigos ya golpeados por la carga actual.
+var _dodge_hit: Dictionary = {}
 var dodge_dir: Vector2 = Vector2.DOWN
 var cooldown_dodge: float = 0.0
 var dodge_buffer_timer: float = 0.0
@@ -214,6 +216,8 @@ func _equip_reason(slot: String, id: StringName) -> String:
 		return "wrong_class"
 	if not bool(skill.get("implemented", false)):
 		return "not_implemented"
+	if bool(skill.get("world", false)) and not learned_skills.has(String(id)):
+		return "not_learned"
 	if int(skill["unlock_level"]) > level:
 		return "locked"
 	if not slot_accepts(slot, skill):
@@ -227,6 +231,22 @@ func slot_accepts(slot: String, skill: Dictionary) -> bool:
 	if SKILL_SLOTS.has(slot):
 		return skill_slot == "S"
 	return skill_slot == slot
+
+
+## Skills "de mundo" aprendidas (libros, jefes, maestros): no vienen con la clase; se guardan.
+var learned_skills: Array = []
+
+
+## Aprende una skill de mundo de la clase actual. false si no existe, no es de mundo o ya la tiene.
+func learn_skill(id: StringName) -> bool:
+	var skill: Dictionary = SkillCatalog.skill(id)
+	if skill.is_empty() or String(skill.get("class", "")) != class_id or not bool(skill.get("world", false)) or learned_skills.has(String(id)):
+		return false
+	learned_skills.append(String(id))
+	if level >= int(skill["unlock_level"]):
+		_auto_equip([id])
+	loadout_changed.emit()
+	return true
 
 
 ## El loadout solo se edita en reposo (zona segura / entre combates).
@@ -333,6 +353,8 @@ func _ids_unlocked_between(from_level: int, to_level: int) -> Array:
 	for id: StringName in SkillCatalog.ids_for_class(class_id):
 		var skill: Dictionary = SkillCatalog.skill(id)
 		var unlock_at := int(skill["unlock_level"])
+		if bool(skill.get("world", false)) and not learned_skills.has(String(id)):
+			continue
 		if bool(skill.get("implemented", false)) and unlock_at > from_level and unlock_at <= to_level:
 			found.append({"id": id, "level": unlock_at})
 	found.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a["level"]) < int(b["level"]))
@@ -563,17 +585,35 @@ func _update_dodge(delta: float) -> void:
 	_start_dodge(delta)
 
 
+## Habilidad de movilidad de la clase (barra espaciadora): el esquive base de WarriorKit.DODGE con
+## lo que redefina `mobility` en la clase (rodar, cargar, blink, salto atras).
+func mobility() -> Dictionary:
+	var merged: Dictionary = WarriorKit.DODGE.duplicate()
+	for key: String in class_def.get("mobility", {}):
+		merged[key] = class_def["mobility"][key]
+	return merged
+
+
 func _start_dodge(delta_for_start: float) -> void:
 	dodge_buffer_timer = 0.0
 	if state != AttackState.IDLE:
 		_cancel_attack()
-	if move_input.length_squared() > 0.0001:
+	var mob := mobility()
+	var mode := String(mob.get("dir", "move"))
+	if mode == "aim":
+		dodge_dir = aim_dir
+	elif mode == "back":
+		dodge_dir = -aim_dir
+	elif move_input.length_squared() > 0.0001:
 		dodge_dir = move_input.normalized()
+	elif mode == "move_aim":
+		dodge_dir = aim_dir
 	else:
 		dodge_dir = -aim_dir
 	dodging = true
 	dodge_time = delta_for_start
-	cooldown_dodge = float(WarriorKit.DODGE["cooldown"])
+	_dodge_hit = {}
+	cooldown_dodge = float(mob["cooldown"])
 	dodge_started.emit(dodge_dir)
 
 
@@ -804,6 +844,10 @@ func _start_attack(slot: String) -> void:
 		ultimate_charge = maxf(0.0, ultimate_charge - charge)
 		ultimate_changed.emit(ultimate_charge, WarriorKit.ULTIMATE_CHARGE_MAX)
 
+	var cast_cfg: Dictionary = class_def.get("ult_charge", {}).get("on_cast", {})
+	if not cast_cfg.is_empty() and String(current_skill.get("slot", "")) != "ULTIMATE":
+		_gain_ultimate(float(cast_cfg.get("flat", 0.0)) + cost * float(cast_cfg.get("per_cost", 0.0)))
+
 	attack_aim = aim_dir
 	state = AttackState.WINDUP
 	state_time = 0.0
@@ -880,14 +924,43 @@ func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: D
 		tracker["resource"] = float(tracker["resource"]) + resource_gain
 		_gain_resource(resource_gain)
 
+	var cfg: Dictionary = class_def.get("ult_charge", {})
 	var ult_left: float = float(skill.get("ult_cap", 0.0)) - float(tracker["ult"])
-	var ult_gain := minf(float(skill.get("ult_gain", 0.0)), maxf(ult_left, 0.0))
+	var ult_gain := minf(float(skill.get("ult_gain", 0.0)), maxf(ult_left, 0.0)) * float(cfg.get("hit_scale", 1.0))
 	if ult_gain > 0.0:
 		tracker["ult"] = float(tracker["ult"]) + ult_gain
 		_gain_ultimate(ult_gain)
+	_ult_extras_on_hit(cfg, target, skill, critical)
 
 	last_combat_tick = tick
 	attack_hit.emit(skill, target, dealt, critical, target.position)
+
+
+## Cada clase carga su ultimate a su manera (`ult_charge` en la clase): el guerrero con golpes y
+## castigo recibido, el picaro esquivando y rematando envenenados, el mago lanzando hechizos y el
+## arquero con aciertos a larga distancia y criticos.
+func _ult_extras_on_hit(cfg: Dictionary, target: Object, skill: Dictionary, critical: bool) -> void:
+	if cfg.is_empty() or String(skill.get("slot", "")) == "ULTIMATE":
+		return
+	var extra := 0.0
+	if critical:
+		extra += float(cfg.get("on_crit", 0.0))
+	if target.get("statuses") != null and target.statuses.has("poison"):
+		extra += float(cfg.get("on_poisoned", 0.0))
+	var far: Dictionary = cfg.get("far_hit", {})
+	if not far.is_empty() and target.position.distance_to(position) >= float(far["distance"]):
+		extra += float(far["amount"])
+	if not target.alive:
+		extra += float(cfg.get("on_kill", 0.0))
+	if extra > 0.0:
+		_gain_ultimate(extra)
+
+
+func _gain_ultimate_class(kind: String, base: float) -> void:
+	var cfg: Dictionary = class_def.get("ult_charge", {})
+	var value := base * float(cfg.get("hit_scale", 1.0)) if kind == "hit" else base
+	if value > 0.0:
+		_gain_ultimate(value)
 
 
 ## Impacto de un proyectil (llamado por ProjectileSim). `scale` reduce el dano
@@ -967,16 +1040,37 @@ func _move_leap(delta: float) -> void:
 	velocity = Vector2.ZERO
 
 
+## La carga (guerrero): aturde a cada enemigo que toca durante el desplazamiento.
+func _charge_hits(mob: Dictionary) -> void:
+	for target: Object in world.get_living_targets():
+		if _dodge_hit.has(target.get_instance_id()):
+			continue
+		if target.position.distance_to(position) > RADIUS + float(target.radius) + 8.0:
+			continue
+		_dodge_hit[target.get_instance_id()] = true
+		if target.has_method("apply_status"):
+			target.apply_status("stun", float(mob["stun_on_hit"]), 0.0)
+		var dealt: float = target.take_damage(stats.roll_weapon_damage(_rng) * float(mob.get("damage_mult", 0.6)))
+		if not target.alive and target.has_method("xp_reward"):
+			grant_xp(int(target.xp_reward()), target.position)
+		_gain_ultimate_class("hit", float(mob.get("ult_gain", 4.0)))
+		last_combat_tick = tick
+		attack_hit.emit({"id": "charge", "slot": "MOBILITY", "kind": "skill"}, target, dealt, false, target.position)
+
+
 ## Un paso de la esquiva. Ocupa exactamente `duration` segundos y recorre
 ## `distance` px; el tick que cumple la duracion es el ultimo con movimiento de
 ## esquiva y ahi termina.
 func _move_dodge(delta: float) -> void:
-	var dodge_speed: float = float(WarriorKit.DODGE["distance"]) / float(WarriorKit.DODGE["duration"])
+	var mob := mobility()
+	var dodge_speed: float = float(mob["distance"]) / float(mob["duration"])
 	velocity = dodge_dir * dodge_speed
 	position += velocity * delta
 	if world != null:
 		position = world.resolve_position(position, RADIUS)
-	if dodge_time >= float(WarriorKit.DODGE["duration"]) - 0.0001:
+		if mob.has("stun_on_hit"):
+			_charge_hits(mob)
+	if dodge_time >= float(mob["duration"]) - 0.0001:
 		dodging = false
 		velocity = dodge_dir * MOVE_SPEED if move_input.length_squared() > 0.0001 else Vector2.ZERO
 		dodge_ended.emit()
@@ -1045,6 +1139,7 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 		return 0.0
 	if is_invulnerable() and not is_dot:
 		attack_evaded.emit(source_position)
+		_gain_ultimate(float(class_def.get("ult_charge", {}).get("on_evade", 0.0)))
 		return 0.0
 	if not is_dot and _stance_blocks(source_position):
 		_block_with_stance(source_position)
@@ -1058,6 +1153,9 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 		var percent_lost := (dealt / max_health) * 100.0
 		_gain_resource(clampf(percent_lost, RAGE_TAKEN_MIN, RAGE_TAKEN_CAP))
 	last_combat_tick = tick
+	if not is_dot:
+		var taken_cfg: Dictionary = class_def.get("ult_charge", {})
+		_gain_ultimate(clampf((dealt / max_health) * 100.0 * float(taken_cfg.get("on_taken_per_percent", 0.0)), 0.0, float(taken_cfg.get("on_taken_cap", 10.0))))
 
 	if not is_dot and String(class_def.get("passive", "")) == "vengeful_fury":
 		vengeful_active = true
@@ -1083,7 +1181,8 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 func is_invulnerable() -> bool:
 	if not dodging:
 		return false
-	return dodge_time >= float(WarriorKit.DODGE["iframe_start"]) and dodge_time < float(WarriorKit.DODGE["iframe_end"])
+	var mob := mobility()
+	return dodge_time >= float(mob["iframe_start"]) and dodge_time < float(mob["iframe_end"])
 
 
 func dodge_cooldown_left() -> float:
@@ -1091,7 +1190,7 @@ func dodge_cooldown_left() -> float:
 
 
 func dodge_cooldown_total() -> float:
-	return float(WarriorKit.DODGE["cooldown"])
+	return float(mobility()["cooldown"])
 
 
 ## Verdadero mientras la postura del Special esta abierta (y no ha bloqueado aun).
@@ -1177,7 +1276,7 @@ func _activate_class(new_class_id: String) -> void:
 ## clase.
 func export_state() -> Dictionary:
 	_save_progress()
-	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate(), "character": {"name": character_name, "appearance": appearance.duplicate(), "created": character_created}}
+	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate(), "learned": learned_skills.duplicate(), "character": {"name": character_name, "appearance": appearance.duplicate(), "created": character_created}}
 
 
 ## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
@@ -1188,6 +1287,10 @@ func import_state(data: Dictionary) -> void:
 		if ClassCatalog.has_class(id):
 			progress[id] = (saved[id] as Dictionary).duplicate(true)
 	gold = maxi(int(data.get("gold", 0)), 0)
+	learned_skills = []
+	for id: Variant in data.get("learned", []):
+		if SkillCatalog.skill(StringName(String(id))).get("world", false) and not learned_skills.has(String(id)):
+			learned_skills.append(String(id))
 	var saved_character: Dictionary = data.get("character", {})
 	character_name = String(saved_character.get("name", "Despierto"))
 	appearance = (saved_character.get("appearance", {}) as Dictionary).duplicate()

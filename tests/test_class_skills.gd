@@ -268,6 +268,7 @@ func _make(class_id: String, level: int, offsets: Array) -> CombatWorld:
 	world.setup_arena(Rect2(0, 0, 900, 600))
 	world.player.switch_class(class_id)
 	world.player.set_level(level)
+	LegacyKit.apply(world.player)
 	for offset: Vector2 in offsets:
 		world.add_dummy(world.player.position + offset, false)
 	return world

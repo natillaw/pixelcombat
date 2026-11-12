@@ -108,7 +108,8 @@
 			"ult_cap": 12,
 			"unlock_level": 4,
 			"class": "warrior",
-			"damage_type": "physical"
+			"damage_type": "physical",
+			"world": true
 		},
 		{
 			"id": "piercing_thrust",
@@ -141,7 +142,8 @@
 			"ult_cap": 10,
 			"unlock_level": 2,
 			"class": "warrior",
-			"damage_type": "physical"
+			"damage_type": "physical",
+			"world": true
 		},
 		{
 			"id": "iron_counter",
@@ -175,7 +177,7 @@
 				"counter_recovery": 0.25
 			},
 			"anim": "slash",
-			"unlock_level": 6,
+			"unlock_level": 4,
 			"implemented": true,
 			"class": "warrior",
 			"damage_type": "physical"
@@ -215,7 +217,7 @@
 			"uncancelable": true,
 			"anim": "slash",
 			"implemented": true,
-			"unlock_level": 8,
+			"unlock_level": 6,
 			"class": "warrior",
 			"damage_type": "physical"
 		},
@@ -256,7 +258,8 @@
 				"recovery": 0.3
 			},
 			"anim": "thrust",
-			"unlock_level": 10
+			"unlock_level": 10,
+			"world": true
 		},
 		{
 			"kind": "skill",
@@ -296,7 +299,7 @@
 				"recovery": 0.3
 			},
 			"anim": "slash",
-			"unlock_level": 24
+			"unlock_level": 2
 		}
 	]
 }

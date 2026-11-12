@@ -27,9 +27,7 @@
 	"default_loadout": {
 		"M1": "twin_fang",
 		"M2": "cross_cut",
-		"S1": "ambush",
-		"S2": "blade_flurry",
-		"S3": "fan_of_knives",
+		"S1": "fan_of_knives",
 		"SPECIAL": "perfect_evasion",
 		"ULTIMATE": "death_sentence"
 	},
@@ -159,5 +157,23 @@
 			"cooldown": 14,
 			"description": "Golpe adicional contra objetivos con poca vida."
 		}
-	]
+	],
+	"mobility": {
+		"name": "Roll",
+		"kind": "roll",
+		"description": "Rodar con invulnerabilidad al inicio.",
+		"dir": "move",
+		"duration": 0.25,
+		"distance": 104,
+		"iframe_start": 0.0,
+		"iframe_end": 0.2,
+		"cooldown": 3.5
+	},
+	"ult_charge": {
+		"hit_scale": 0.4,
+		"on_evade": 14.0,
+		"on_poisoned": 3.0,
+		"on_crit": 3.0,
+		"_doc": "Esquiva ataques, remata envenenados y critica."
+	}
 }

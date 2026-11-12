@@ -44,6 +44,7 @@
 ##           counter_recovery s. Si nadie golpea, expira con su recovery normal
 ##   telegraph: dibuja la zona durante el windup
 ##   uncancelable: la esquiva no puede cancelarla
+##   world: skill de mundo (no viene con la clase: se aprende en el libro con learn_skill)
 class_name SkillCatalog
 extends RefCounted
 
@@ -56,7 +57,7 @@ const TIME_FIELDS := ["windup", "active", "recovery", "cooldown"]
 const NUMBER_FIELDS := ["cost", "damage_mult", "resource_gain", "resource_cap", "max_targets"]
 const STRING_FIELDS := ["id", "name", "class", "slot", "kind", "shape", "anim", "hud_label"]
 const OPTIONAL_NUMBERS := ["ult_gain", "ult_cap", "charge", "leap_distance", "center_radius", "center_mult", "point_distance"]
-const OPTIONAL_BOOLS := ["consumes_vengeful", "telegraph", "uncancelable"]
+const OPTIONAL_BOOLS := ["consumes_vengeful", "telegraph", "uncancelable", "world"]
 const ANCHORS := ["self", "aim_leap", "aim_point"]
 
 static var _skills: Dictionary = {}

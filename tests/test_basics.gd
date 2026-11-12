@@ -210,7 +210,9 @@ func _fix_damage(world: CombatWorld, amount: float) -> void:
 
 func _watch_hits(world: CombatWorld) -> Array:
 	var hits: Array = []
-	world.player.attack_hit.connect(func(_s: Dictionary, _t: Object, damage: float, _c: bool, _p: Vector2) -> void: hits.append(damage))
+	world.player.attack_hit.connect(func(s: Dictionary, _t: Object, damage: float, _c: bool, _p: Vector2) -> void:
+		if String(s.get("slot", "")) != "MOBILITY":
+			hits.append(damage))
 	return hits
 
 

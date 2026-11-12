@@ -11,6 +11,8 @@ const DT: float = 1.0 / 60.0
 
 var _failures: int = 0
 var _checks: int = 0
+## Movilidad de la clase probada (el Rogue rueda: el esquive clasico con invulnerabilidad).
+var _mob: Dictionary = {}
 
 
 func _initialize() -> void:
@@ -38,7 +40,7 @@ func _test_moves_along_input() -> void:
 	var start: Vector2 = world.player.position
 	_step_until_dodge_ends(world, Vector2.RIGHT, Vector2.RIGHT)
 	var moved: Vector2 = world.player.position - start
-	var distance := float(WarriorKit.DODGE["distance"])
+	var distance := float(_mob["distance"])
 	_check(absf(moved.x - distance) < 8.0, "dodge covers the configured distance (%.1f vs %.1f)" % [moved.x, distance])
 	_check(absf(moved.y) < 0.5, "dodge keeps the input direction")
 
@@ -59,14 +61,15 @@ func _test_iframes() -> void:
 	_check(world.player.dodging, "pressing dodge starts a dodge")
 	_check(world.player.is_invulnerable(), "the dodge starts invulnerable")
 	var health_before: float = world.player.health
+	var resource_before: float = world.player.resource_amount()
 	var dealt: float = world.player.take_damage(30.0, Vector2.ZERO, false)
 	_check(is_zero_approx(dealt) and is_equal_approx(world.player.health, health_before), "damage during i-frames is ignored")
 	_check(evaded.size() == 1, "an evaded hit emits attack_evaded")
-	_check(is_zero_approx(world.player.resource_amount()), "an evaded hit gives no Rage")
+	_check(is_equal_approx(world.player.resource_amount(), resource_before), "an evaded hit does not change the resource")
 	_check(not world.player.vengeful_active, "an evaded hit does not trigger Vengeful Fury")
 
 	# Pasada la ventana de i-frames, todavia esquivando, vuelve a ser vulnerable.
-	var window := float(WarriorKit.DODGE["iframe_end"])
+	var window := float(_mob["iframe_end"])
 	var ticks := int(ceil(window / DT)) + 1
 	_step(world, ticks, _input(Vector2.RIGHT, Vector2.RIGHT, true))
 	_check(world.player.dodging and not world.player.is_invulnerable(), "i-frames end before the dodge ends")
@@ -90,7 +93,7 @@ func _test_cooldown_and_hold() -> void:
 	_step(world, 1, _input(Vector2.RIGHT, Vector2.RIGHT, true))
 	_check(not world.player.dodging, "no dodge while on cooldown")
 	# Mantener la tecla no encadena esquivas al terminar el cooldown.
-	var wait := int(ceil(float(WarriorKit.DODGE["cooldown"]) / DT)) + 20
+	var wait := int(ceil(float(_mob["cooldown"]) / DT)) + 20
 	_step(world, wait, _input(Vector2.RIGHT, Vector2.RIGHT, true))
 	_check(not world.player.dodging, "holding the key does not retrigger the dodge")
 	_step(world, 2, _input(Vector2.RIGHT, Vector2.RIGHT, false))
@@ -154,6 +157,10 @@ func _make_world() -> CombatWorld:
 	var world: CombatWorld = CombatWorldScript.new(5)
 	world.setup_arena(Rect2(0, 0, 900, 600))
 	world.add_dummy(Vector2(850, 60), false)
+	world.player.safe_zone = true
+	world.player.switch_class("rogue")
+	world.player.safe_zone = false
+	_mob = world.player.mobility()
 	return world
 
 

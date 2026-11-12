@@ -200,3 +200,6 @@ Los enemigos reales de los pisos 1-10 son bandidos LPC (`data/enemies/bandits.js
 ## Botin, materiales y crafteo (tier 1)
 - Los bandidos y jefes sueltan sus propios items con probabilidad (`loot.items` en `data/enemies/bandits.json`; las tiradas van antes del botin generico). Tablas y equipo nuevo: `tools/add_gear.py` (35 items base, 26 recetas).
 - Las bestias son animales sin lore: solo sueltan materiales (cuero, quitina, seda, esencia). 7 tipos de material x 10 tiers = 70: mineral, hierba y madera se recolectan; cuero, quitina, seda y esencia son botin de animales. Un test exige que cada material tenga uso en alguna receta y fuente.
+
+## Kits rediseñados (5 skills por clase)
+Cada clase empieza con 5 skills: M1, M2, S1 (control/utilidad), Special (postura o mejora) y Ultimate; el resto son *skills de mundo* (`"world": true`) que se aprenden con `PlayerSim.learn_skill` (libros, jefes, maestros) y se guardan. Cada clase tiene su movilidad (`mobility` en la clase): guerrero carga (aturde 1 s), picaro rueda, mago blink, arquero salto atras. Cada una carga la ultimate a su manera (`ult_charge`): guerrero golpeando y aguantando, picaro esquivando y rematando envenenados, mago lanzando hechizos, arquero con aciertos lejanos y criticos. `tests/legacy_kit.gd` restaura el kit antiguo para los tests de mecanicas.

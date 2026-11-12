@@ -106,7 +106,8 @@
 				"recovery": 0.4
 			},
 			"anim": "thrust",
-			"unlock_level": 2
+			"unlock_level": 2,
+			"world": true
 		},
 		{
 			"kind": "skill",
@@ -144,7 +145,8 @@
 				"recovery": 0.5
 			},
 			"anim": "slash",
-			"unlock_level": 4
+			"unlock_level": 4,
+			"world": true
 		},
 		{
 			"kind": "special",
@@ -184,7 +186,7 @@
 				"recovery": 0.5
 			},
 			"anim": "slash",
-			"unlock_level": 6
+			"unlock_level": 4
 		},
 		{
 			"kind": "ultimate",
@@ -226,7 +228,7 @@
 				"recovery": 0.3
 			},
 			"anim": "slash",
-			"unlock_level": 8
+			"unlock_level": 6
 		},
 		{
 			"kind": "skill",
@@ -266,7 +268,7 @@
 				"recovery": 0.6
 			},
 			"anim": "slash",
-			"unlock_level": 10
+			"unlock_level": 2
 		},
 		{
 			"kind": "skill",
@@ -306,7 +308,8 @@
 				"recovery": 0.6
 			},
 			"anim": "slash",
-			"unlock_level": 16
+			"unlock_level": 16,
+			"world": true
 		},
 		{
 			"kind": "skill",
@@ -346,7 +349,8 @@
 				"recovery": 0.6
 			},
 			"anim": "slash",
-			"unlock_level": 36
+			"unlock_level": 36,
+			"world": true
 		}
 	]
 }

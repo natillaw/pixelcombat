@@ -93,30 +93,28 @@ func _test_unlocks_by_level() -> void:
 	var unlocked: Array = []
 	warrior.leveled_up.connect(func(_level: int, ids: Array) -> void: unlocked.append(ids))
 	warrior.set_level(2)
-	_check(warrior.loadout.has("S2") and warrior.loadout["S2"]["id"] == &"piercing_thrust", "el nivel 2 desbloquea Piercing Thrust (en su slot S2)")
-	_check(not warrior.loadout.has("S1"), "Cleaving Strike sigue bloqueada en el nivel 2")
+	_check(warrior.loadout.has("S1") and warrior.loadout["S1"]["id"] == &"ground_stomp", "el nivel 2 desbloquea Ground Stomp (S1)")
 	warrior.set_level(4)
-	_check(warrior.loadout.has("S1") and warrior.loadout["S1"]["id"] == &"cleaving_strike", "el nivel 4 desbloquea Cleaving Strike (S1)")
+	_check(warrior.loadout.has("SPECIAL"), "el nivel 4 desbloquea el Special")
+	_check(not warrior.loadout.has("ULTIMATE"), "la Ultimate sigue bloqueada en el nivel 4")
 	warrior.set_level(6)
-	_check(warrior.loadout.has("SPECIAL"), "el nivel 6 desbloquea el Special")
-	_check(not warrior.loadout.has("ULTIMATE"), "la Ultimate sigue bloqueada en el nivel 6")
-	warrior.set_level(8)
-	_check(warrior.loadout.has("ULTIMATE"), "el nivel 8 desbloquea la Ultimate")
-	_check(unlocked.size() == 4, "cada subida emite leveled_up (%d)" % unlocked.size())
-	_check(unlocked[0] == [&"piercing_thrust"] and unlocked[1] == [&"cleaving_strike"], "leveled_up lista las skills nuevas")
+	_check(warrior.loadout.has("ULTIMATE"), "el nivel 6 desbloquea la Ultimate")
+	_check(not warrior.loadout.has("S2") and not warrior.loadout.has("S3"), "las skills de mundo no llegan por nivel")
+	_check(unlocked.size() == 3, "cada subida emite leveled_up (%d)" % unlocked.size())
+	_check(unlocked[0] == [&"ground_stomp"] and unlocked[1] == [&"iron_counter"], "leveled_up lista las skills nuevas")
 
 
 func _test_one_grant_many_levels() -> void:
 	var warrior := _warrior()
 	var events: Array = []
 	warrior.leveled_up.connect(func(level: int, ids: Array) -> void: events.append([level, ids]))
-	warrior.grant_xp(Progression.total_xp_for_level(8) + 10)
-	_check(warrior.level == 8 and warrior.xp == 10, "una gran cantidad de XP sube varios niveles (nivel %d, xp %d)" % [warrior.level, warrior.xp])
-	_check(events.size() == 1 and events[0][0] == 8, "se emite un solo leveled_up con el nivel final")
+	warrior.grant_xp(Progression.total_xp_for_level(6) + 10)
+	_check(warrior.level == 6 and warrior.xp == 10, "una gran cantidad de XP sube varios niveles (nivel %d, xp %d)" % [warrior.level, warrior.xp])
+	_check(events.size() == 1 and events[0][0] == 6, "se emite un solo leveled_up con el nivel final")
 	var ids: Array = events[0][1] if not events.is_empty() else []
-	_check(ids == [&"piercing_thrust", &"cleaving_strike", &"iron_counter", &"war_gods_descent"], "y lista todas las skills desbloqueadas por orden de nivel")
-	_check(warrior.loadout.has("S1") and warrior.loadout.has("S2") and warrior.loadout.has("SPECIAL") and warrior.loadout.has("ULTIMATE"), "todas quedan equipadas")
-	_check(warrior.xp_to_next() == Progression.xp_to_next(8), "xp_to_next refleja el nivel actual")
+	_check(ids == [&"ground_stomp", &"iron_counter", &"war_gods_descent"], "y lista todas las skills desbloqueadas por orden de nivel")
+	_check(warrior.loadout.has("S1") and warrior.loadout.has("SPECIAL") and warrior.loadout.has("ULTIMATE"), "todas quedan equipadas")
+	_check(warrior.xp_to_next() == Progression.xp_to_next(6), "xp_to_next refleja el nivel actual")
 
 
 func _test_stat_growth_and_heal() -> void:
@@ -135,18 +133,18 @@ func _test_level_down() -> void:
 	var warrior := _warrior()
 	warrior.set_level(10)
 	warrior.set_level(3)
-	_check(warrior.loadout.has("S2") and not warrior.loadout.has("S1") and not warrior.loadout.has("SPECIAL") and not warrior.loadout.has("ULTIMATE"), "bajar de nivel retira las skills que dejan de estar desbloqueadas")
+	_check(warrior.loadout.has("S1") and not warrior.loadout.has("SPECIAL") and not warrior.loadout.has("ULTIMATE"), "bajar de nivel retira las skills que dejan de estar desbloqueadas")
 	warrior.reset_progression()
-	_check(warrior.level == 1 and not warrior.loadout.has("S2"), "reset_progression vuelve al nivel 1")
+	_check(warrior.level == 1 and not warrior.loadout.has("S1"), "reset_progression vuelve al nivel 1")
 	_check(is_equal_approx(warrior.stats.get_stat(&"strength"), 20.0), "y a los stats base")
 
 
 func _test_set_loadout_respects_levels() -> void:
 	var warrior := _warrior()
-	warrior.set_loadout({"M1": &"warrior_m1", "S1": &"cleaving_strike", "ULTIMATE": &"war_gods_descent"})
+	warrior.set_loadout({"M1": &"warrior_m1", "S1": &"ground_stomp", "ULTIMATE": &"war_gods_descent"})
 	_check(warrior.loadout.has("M1") and not warrior.loadout.has("S1") and not warrior.loadout.has("ULTIMATE"), "set_loadout ignora skills bloqueadas por nivel")
 	warrior.set_level(10)
-	warrior.set_loadout({"S4": &"cleaving_strike", "S2": &"iron_counter"})
+	warrior.set_loadout({"S4": &"ground_stomp", "S2": &"iron_counter"})
 	_check(warrior.loadout.has("S4") and not warrior.loadout.has("S2"), "set_loadout respeta que la skill quepa en el slot")
 
 
@@ -155,11 +153,11 @@ func _test_set_loadout_respects_levels() -> void:
 
 func _test_equip_reasons() -> void:
 	var warrior := _warrior()
-	_check(warrior.equip("S1", &"cleaving_strike") == "locked", "equipar una skill bloqueada devuelve locked")
+	_check(warrior.equip("S1", &"ground_stomp") == "locked", "equipar una skill bloqueada devuelve locked")
 	_check(warrior.equip("S1", &"no_existe") == "unknown", "una skill inexistente devuelve unknown")
-	_check(warrior.equip("S9", &"piercing_thrust") == "slot", "un slot inexistente devuelve slot")
+	_check(warrior.equip("S9", &"ground_stomp") == "slot", "un slot inexistente devuelve slot")
 	warrior.set_level(10)
-	_check(warrior.equip("SPECIAL", &"cleaving_strike") == "wrong_slot", "una skill normal no cabe en el slot Special")
+	_check(warrior.equip("SPECIAL", &"ground_stomp") == "wrong_slot", "una skill normal no cabe en el slot Special")
 	_check(warrior.equip("S1", &"iron_counter") == "wrong_slot", "el Special no cabe en un slot normal")
 	_check(warrior.equip("M1", &"warrior_m2") == "wrong_slot", "M2 no cabe en el slot M1")
 	var world := _world()
@@ -167,7 +165,7 @@ func _test_equip_reasons() -> void:
 	world.player.resource.current_amount = 50.0
 	_step(world, 1, _input({"s1": true}))
 	_check(world.player.state != PlayerSim.AttackState.IDLE, "(preparacion) la skill esta en curso")
-	_check(world.player.equip("S3", &"piercing_thrust") == "busy", "no se puede equipar mientras se ataca")
+	_check(world.player.equip("S3", &"ground_stomp") == "busy", "no se puede equipar mientras se ataca")
 	_check(not world.player.can_edit_loadout(), "can_edit_loadout es falso en pleno ataque")
 
 
@@ -176,7 +174,7 @@ func _test_equip_moves_and_unequips() -> void:
 	warrior.set_level(10)
 	var changes: Array = []
 	warrior.loadout_changed.connect(func() -> void: changes.append(true))
-	_check(warrior.equip("S3", &"cleaving_strike") == "", "se puede equipar una skill desbloqueada en otro slot")
+	_check(warrior.equip("S3", &"ground_stomp") == "", "se puede equipar una skill desbloqueada en otro slot")
 	_check(warrior.loadout.has("S3") and not warrior.loadout.has("S1"), "una skill ya equipada se mueve de slot, no se duplica")
 	_check(changes.size() == 1, "equipar emite loadout_changed")
 	_check(warrior.unequip("S3") and not warrior.loadout.has("S3"), "unequip vacia el slot")
@@ -193,9 +191,9 @@ func _test_cooldown_follows_the_skill() -> void:
 	_step(world, 60, _input({}))
 	_check(world.player.state == PlayerSim.AttackState.IDLE, "(preparacion) el lanzamiento ha terminado")
 	var left_before: float = world.player.attack_cooldown_left("S1")
-	_check(left_before > 4.0, "Cleaving Strike esta en cooldown (%.1f s)" % left_before)
+	_check(left_before > 4.0, "Ground Stomp esta en cooldown (%.1f s)" % left_before)
 	_check(world.player.unequip("S1"), "se retira de S1")
-	_check(world.player.equip("S4", &"cleaving_strike") == "", "y se equipa en S4")
+	_check(world.player.equip("S4", &"ground_stomp") == "", "y se equipa en S4")
 	_check(world.player.attack_cooldown_left("S4") > 4.0, "el cooldown se conserva al cambiarla de slot (no se puede evadir cambiando el loadout)")
 
 

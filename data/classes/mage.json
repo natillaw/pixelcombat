@@ -27,9 +27,7 @@
 	"default_loadout": {
 		"M1": "arcane_bolt",
 		"M2": "charged_arcane_blast",
-		"S1": "fireball",
-		"S2": "arcane_explosion",
-		"S3": "ice_lance",
+		"S1": "frost_nova",
 		"SPECIAL": "arcane_overload",
 		"ULTIMATE": "cataclysm"
 	},
@@ -160,5 +158,25 @@
 			"cooldown": 15,
 			"description": "Potencia el siguiente hechizo elemental."
 		}
-	]
+	],
+	"mobility": {
+		"name": "Blink",
+		"kind": "blink",
+		"description": "Teletransporte corto hacia donde te mueves (o al cursor).",
+		"dir": "move_aim",
+		"duration": 0.12,
+		"distance": 190,
+		"iframe_start": 0.0,
+		"iframe_end": 0.12,
+		"cooldown": 7.0
+	},
+	"ult_charge": {
+		"hit_scale": 0.0,
+		"on_cast": {
+			"flat": 3.0,
+			"per_cost": 0.25
+		},
+		"on_kill": 6.0,
+		"_doc": "Lanza hechizos (mas cuanto mas mana gastas) y remata."
+	}
 }

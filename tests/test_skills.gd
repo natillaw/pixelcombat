@@ -38,7 +38,7 @@ func _test_default_loadout() -> void:
 	var world := _make_world([])
 	var loadout: Dictionary = world.player.loadout
 	_check(loadout.has("M1") and loadout.has("M2") and loadout.has("S1") and loadout.has("S2"), "default loadout has M1, M2, S1 and S2")
-	_check(not loadout.has("S4"), "empty slots stay empty")
+	_check(not loadout.has("S5"), "empty slots stay empty")
 	_check(loadout["S1"]["id"] == &"cleaving_strike", "S1 is Cleaving Strike")
 	_check(loadout["S2"]["slot"] == "S2", "the loadout stores the slot it was equipped in")
 
@@ -169,6 +169,7 @@ func _make_world(offsets: Array) -> CombatWorld:
 	var world: CombatWorld = CombatWorldScript.new(3)
 	world.setup_arena(Rect2(0, 0, 900, 600))
 	world.player.set_level(10)  # las skills se desbloquean por nivel
+	LegacyKit.apply(world.player)
 	var origin: Vector2 = world.player.position
 	for offset: Vector2 in offsets:
 		world.add_dummy(origin + offset, false)
