@@ -34,6 +34,8 @@ var world: CombatWorld
 var session: GameSession
 var _damage_flash: float = 0.0
 var _toast: String = ""
+var _minimap: ImageTexture = null
+var _minimap_layout: FloorLayout = null
 ## Texto bajo el cursor sobre algo que se puede coger (lo pone main).
 var pickup_prompt: String = ""
 var _toast_time: float = 0.0
@@ -44,6 +46,7 @@ var _banner_time: float = 0.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	queue_redraw()
@@ -124,6 +127,7 @@ func _draw() -> void:
 	_draw_controls()
 	_draw_boss_bar()
 	_draw_location()
+	_draw_minimap()
 
 	if warrior.vengeful_active and warrior.alive:
 		_draw_text("M2 EMPOWERED  +30%", Vector2(220, 305), 7, ORANGE, HORIZONTAL_ALIGNMENT_CENTER, 200)
@@ -431,6 +435,60 @@ func _draw_missions() -> void:
 		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(16, y + 1.0), 7, RED if urgent else GOLD)
 
 
+## Minimapa de los escenarios con mapa de casillas: terreno (una textura de 1 px por
+## casilla, se rehace al cambiar de escenario), la salida, los objetivos de mision sin
+## cumplir, los jefes y elites vivos y la posicion del jugador.
+func _draw_minimap() -> void:
+	if session == null or session.layout == null or session.layout.grid == null:
+		return
+	if _minimap_layout != session.layout:
+		_minimap_layout = session.layout
+		_minimap = _build_minimap(session.layout.grid)
+	var box := Rect2(522, 6, 108, 80)
+	_panel(box)
+	var grid := session.layout.grid
+	var size := grid.pixel_size()
+	var scale := minf((box.size.x - 4.0) / size.x, (box.size.y - 4.0) / size.y)
+	var origin := box.position + (box.size - size * scale) * 0.5
+	draw_texture_rect(_minimap, Rect2(origin, size * scale), false)
+	for portal: Dictionary in session.layout.portals:
+		if String(portal["id"]) in ["exit", "door_tower", "to_training"]:
+			var spot: Vector2 = origin + (portal["position"] as Vector2) * scale
+			var active := session.portal_active(portal)
+			draw_rect(Rect2(spot - Vector2(1.5, 1.5), Vector2(3, 3)), Color(0.35, 0.95, 1.0) if active else Color(0.5, 0.5, 0.55))
+	for object: Interactable in world.interactables:
+		if not object.done:
+			draw_rect(Rect2(origin + object.position * scale - Vector2(1, 1), Vector2(2, 2)), GOLD)
+	for enemy: EnemySim in world.enemies:
+		if enemy.alive and (enemy.is_boss() or enemy.elite):
+			draw_rect(Rect2(origin + enemy.position * scale - Vector2(1, 1), Vector2(2, 2)), RED)
+	var blink := 0.6 + 0.4 * sin(Time.get_ticks_msec() * 0.01)
+	draw_rect(Rect2(origin + world.player.position * scale - Vector2(1.5, 1.5), Vector2(3, 3)), Color(1, 1, 1, blink))
+
+
+func _build_minimap(grid: TileGrid) -> ImageTexture:
+	var image := Image.create(grid.cols, grid.rows, false, Image.FORMAT_RGBA8)
+	image.fill(Color(0.02, 0.02, 0.04, 0.0))
+	for r: int in range(grid.rows):
+		for c: int in range(grid.cols):
+			var color := Color(0, 0, 0, 0)
+			match grid.get_cell(c, r):
+				TileGrid.FLOOR:
+					color = Color(0.22, 0.38, 0.24, 0.95)
+				TileGrid.ROAD:
+					color = Color(0.62, 0.6, 0.56, 0.95)
+				TileGrid.WATER:
+					color = Color(0.2, 0.4, 0.62, 0.95)
+				TileGrid.SOLID:
+					color = Color(0.45, 0.3, 0.2, 0.95)
+				TileGrid.WALL:
+					color = Color(0.05, 0.07, 0.06, 0.9)
+				TileGrid.GATE:
+					color = Color(0.8, 0.5, 0.2, 0.95)
+			image.set_pixel(c, r, color)
+	return ImageTexture.create_from_image(image)
+
+
 func _location_title() -> String:
 	if session == null or session.layout == null:
 		return "TRAINING GROUNDS"
@@ -461,7 +519,7 @@ func _draw_location() -> void:
 
 
 func _draw_controls() -> void:
-	_panel(Rect2(498, 6, 132, 148))
+	_panel(Rect2(498, 92, 132, 148))
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
@@ -480,7 +538,7 @@ func _draw_controls() -> void:
 		"F7     NEXT CLASS",
 	]
 	for i: int in range(lines.size()):
-		_draw_text(String(lines[i]), Vector2(504, 17 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
+		_draw_text(String(lines[i]), Vector2(504, 103 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
 
 
 # --- Overlays ---------------------------------------------------------------

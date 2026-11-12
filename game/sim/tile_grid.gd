@@ -14,6 +14,8 @@ const FLOOR := 0
 const WALL := 1      # bloquea el paso y los tiros
 const WATER := 2     # bloquea el paso, no los tiros
 const GATE := 3      # puerta cerrada: bloquea el paso y los tiros (se abre con una condicion)
+const ROAD := 4      # suelo transitable que se dibuja como adoquin (ciudad)
+const SOLID := 5     # bloque invisible (edificios, fuentes): bloquea paso y tiros, se dibuja como suelo
 
 var cols: int
 var rows: int
@@ -59,12 +61,13 @@ func cell_center(c: int, r: int) -> Vector2:
 
 
 func blocks_move(c: int, r: int) -> bool:
-	return get_cell(c, r) != FLOOR
+	var kind := get_cell(c, r)
+	return kind != FLOOR and kind != ROAD
 
 
 func blocks_shot(c: int, r: int) -> bool:
 	var kind := get_cell(c, r)
-	return kind == WALL or kind == GATE
+	return kind == WALL or kind == GATE or kind == SOLID
 
 
 func is_walkable_point(point: Vector2) -> bool:

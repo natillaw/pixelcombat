@@ -156,9 +156,21 @@ static func look_layer(entry: Dictionary) -> Array:
 	if base.is_empty() or not base.has("look"):
 		return []
 	var look: Dictionary = base["look"]
+	var piece := String(look["piece"])
 	var variants: Array = look["variants"]
+	var by_tier := false
+	var from_tier := 1
+	var tier := int(entry.get("tier", 1))
+	for step: Dictionary in look.get("ladder", []):
+		if tier >= int(step["tier"]):
+			piece = String(step["piece"])
+			variants = step["variants"]
+			by_tier = bool(step.get("by_tier", false))
+			from_tier = int(step["tier"])
 	var pick := mini(variants.size() - 1, maxi(rarity_rank(String(entry.get("rarity", "common"))), 0) / 3)
-	return [String(look["slot"]), [String(look["piece"]), String(variants[pick])]]
+	if by_tier:
+		pick = clampi(tier - from_tier, 0, variants.size() - 1)
+	return [String(look["slot"]), [piece, String(variants[pick])]]
 
 
 ## Un item concreto es valido si su base existe, su rareza existe y solo trae stats conocidos.
@@ -260,6 +272,10 @@ static func validate(data: Dictionary) -> Array[String]:
 			for stat: Variant in (spec["stats"] as Dictionary):
 				if not STATS.has(String(stat)) or not _is_number((spec["stats"] as Dictionary)[stat]) or float((spec["stats"] as Dictionary)[stat]) <= 0.0:
 					problems.append("item %s: stat invalido '%s'" % [id, str(stat)])
+		if spec.has("look") and (spec["look"] as Dictionary).has("ladder"):
+			for step: Variant in (spec["look"] as Dictionary)["ladder"]:
+				if not (step is Dictionary) or not _is_number((step as Dictionary).get("tier")) or String((step as Dictionary).get("piece", "")).is_empty() or not ((step as Dictionary).get("variants") is Array) or ((step as Dictionary)["variants"] as Array).is_empty():
+					problems.append("item %s: peldano de look invalido" % id)
 		if spec.has("look"):
 			var look: Variant = spec["look"]
 			if not (look is Dictionary) or not ["main_hand", "head", "chest", "legs", "feet"].has(String((look as Dictionary).get("slot", ""))) or String((look as Dictionary).get("piece", "")).is_empty() or not ((look as Dictionary).get("variants") is Array) or ((look as Dictionary)["variants"] as Array).is_empty():

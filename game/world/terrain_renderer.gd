@@ -88,6 +88,10 @@ func build(layout: FloorLayout, entities: Node2D) -> void:
 			var kind := grid.get_cell(c, r)
 			if kind == TileGrid.WATER:
 				_draw_water(c, r)
+			elif kind == TileGrid.ROAD:
+				_draw_road(c, r)
+			elif kind == TileGrid.SOLID:
+				pass
 			elif kind != TileGrid.FLOOR:
 				if String(biome["wall_style"]) == "cliffs" and wall_big[r * grid.cols + c]:
 					_draw_cliff(c, r)
@@ -156,7 +160,8 @@ func _visible_cells() -> PackedByteArray:
 	out.resize(grid.cols * grid.rows)
 	for r: int in range(grid.rows):
 		for c: int in range(grid.cols):
-			if grid.get_cell(c, r) == TileGrid.FLOOR or grid.get_cell(c, r) == TileGrid.WATER:
+			var source := grid.get_cell(c, r)
+			if source == TileGrid.FLOOR or source == TileGrid.WATER or source == TileGrid.ROAD or source == TileGrid.SOLID:
 				for dy: int in range(-VISIBLE_RANGE, VISIBLE_RANGE + 1):
 					for dx: int in range(-VISIBLE_RANGE, VISIBLE_RANGE + 1):
 						if grid.in_bounds(c + dx, r + dy):
@@ -266,6 +271,25 @@ func _nine_piece(c: int, r: int, same: Callable, with_inner: bool) -> Vector2i:
 	if (not w and not e) or (not n and not s):
 		return Vector2i(1, 1)
 	return Vector2i(col, row)
+
+
+## Adoquin de la aldea (16 px ampliado x2 a la casilla de 32 px).
+static func _cobble() -> Image:
+	if _images.has("cobble32"):
+		return _images["cobble32"]
+	var texture: Texture2D = load("res://assets/pixel/village/cobblestone.png")
+	var image := texture.get_image()
+	if image.is_compressed():
+		image.decompress()
+	image.convert(Image.FORMAT_RGBA8)
+	image.resize(TILE, TILE, Image.INTERPOLATE_NEAREST)
+	_images["cobble32"] = image
+	return image
+
+
+func _draw_road(c: int, r: int) -> void:
+	var chunk: Image = _chunks[(r / CHUNK) * _chunk_cols + (c / CHUNK)]
+	chunk.blend_rect(_cobble(), Rect2i(0, 0, TILE, TILE), Vector2i((c % CHUNK) * TILE, (r % CHUNK) * TILE))
 
 
 func _draw_water(c: int, r: int) -> void:

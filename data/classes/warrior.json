@@ -42,27 +42,19 @@
 		"beard": "beard_trimmed",
 		"equipment": {
 			"chest": [
-				"armour_plate",
-				"steel"
+				"shirt_longsleeve",
+				"tan"
 			],
 			"legs": [
-				"legs_plate",
-				"steel"
-			],
-			"hands": [
-				"gloves",
-				"steel"
+				"pants",
+				"brown"
 			],
 			"feet": [
-				"boots_basic",
+				"shoes_basic",
 				"leather"
 			],
-			"head": [
-				"helmet_barbuta",
-				"steel"
-			],
 			"main_hand": [
-				"weapon_longsword",
+				"weapon_arming",
 				"default"
 			]
 		}

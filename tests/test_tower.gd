@@ -182,7 +182,19 @@ func _test_tower_state() -> void:
 func _test_city_and_training_layouts() -> void:
 	var city := Layouts.city()
 	var actions: Array = city.portals.map(func(p: Dictionary) -> String: return String(p["action"]))
-	_check(actions.has("tower") and actions.has("to_training") and city.enemies.is_empty() and city.buildings.size() == 5, "la ciudad tiene torre, patio, 5 edificios y ningun enemigo")
+	_check(actions.has("tower") and actions.has("to_training") and city.enemies.is_empty() and city.buildings.size() >= 18, "la ciudad tiene torre, patio, al menos 18 edificios y ningun enemigo")
+	var rows := {}
+	for building: Dictionary in city.buildings:
+		rows[int(round((building["foot"] as Vector2).y / 32.0))] = true
+	_check(rows.size() >= 4, "los edificios forman varias filas (%d), no una sola linea" % rows.size())
+	var seen := city.grid.reachable_from(city.grid.world_to_cell(city.player_spawn))
+	var all_reachable := true
+	for portal: Dictionary in city.portals:
+		var cell := city.grid.world_to_cell(portal["position"])
+		if seen[cell.y * city.grid.cols + cell.x] == 0:
+			all_reachable = false
+	_check(all_reachable, "todas las puertas y portales de la ciudad se alcanzan andando desde la entrada")
+	_check(city.grid.count_of(TileGrid.ROAD) > 600 and city.grid.count_of(TileGrid.SOLID) > 200, "la ciudad tiene calles adoquinadas y edificios solidos")
 	_check(city.bounds().has_point(city.player_spawn), "se entra a la ciudad dentro de la zona jugable")
 	var training := Layouts.training()
 	var training_required := training.enemies.filter(func(e: Dictionary) -> bool: return bool(e["required"]))
@@ -210,7 +222,7 @@ func _test_session_gating_and_completion() -> void:
 
 	_check(session.layout.kind == FloorLayout.KIND_CITY and world.layout == session.layout and world.enemies.is_empty(), "la sesion empieza en la ciudad")
 	_check(not session.go_to_floor(2) and messages.size() == 1 and session.layout.kind == FloorLayout.KIND_CITY, "no se puede entrar al piso 2 sin completar el 1")
-	_walk_to(session, "tower")
+	_walk_to(session, "door_tower")
 	session.try_interact()
 	_check(session.layout.kind == FloorLayout.KIND_FLOOR and session.layout.floor_number == 1, "la puerta de la torre lleva al piso 1")
 	_check(not world.enemies.is_empty() and world.enemies.size() == session.layout.enemies.size(), "el piso nace poblado con los enemigos del layout")

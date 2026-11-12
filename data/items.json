@@ -1,5 +1,5 @@
 {
-	"_doc": "Items, rarezas y botin. Esquema en combat/item_catalog.gd. Numeros provisionales (tier 1, rareza comun). 'look' (opcional): capa LPC que muestra el item: slot (main_hand/head/chest/legs/feet), piece y variants (la rareza elige la variante).",
+	"_doc": "Items, rarezas y botin. Esquema en combat/item_catalog.gd. Numeros provisionales (tier 1, rareza comun). 'look' (opcional): capa LPC que muestra el item: slot (main_hand/head/chest/legs/feet), piece y variants (la rareza elige la variante). look.ladder (opcional): [{tier, piece, variants, by_tier?}] cambia el aspecto a piezas mejores desde ese tier (by_tier: la variante sube con el tier en vez de con la rareza); lo mejor se reserva para los tiers altos.",
 	"bag_size": 40,
 	"tier_scale": 0.3,
 	"rarities": [
@@ -127,6 +127,15 @@
 				"piece": "weapon_arming",
 				"variants": [
 					"default"
+				],
+				"ladder": [
+					{
+						"tier": 5,
+						"piece": "weapon_longsword",
+						"variants": [
+							"default"
+						]
+					}
 				]
 			}
 		},
@@ -169,6 +178,22 @@
 				"piece": "weapon_staff",
 				"variants": [
 					"default"
+				],
+				"ladder": [
+					{
+						"tier": 5,
+						"piece": "weapon_staff_red",
+						"variants": [
+							"default"
+						]
+					},
+					{
+						"tier": 8,
+						"piece": "weapon_staff_green",
+						"variants": [
+							"default"
+						]
+					}
 				]
 			}
 		},
@@ -208,6 +233,20 @@
 				"variants": [
 					"brown",
 					"forest"
+				],
+				"ladder": [
+					{
+						"tier": 5,
+						"piece": "helmet_barbuta",
+						"variants": [
+							"copper",
+							"iron",
+							"steel",
+							"silver",
+							"gold"
+						],
+						"by_tier": true
+					}
 				]
 			}
 		},
@@ -244,6 +283,32 @@
 				"variants": [
 					"walnut_iron",
 					"black_iron"
+				],
+				"ladder": [
+					{
+						"tier": 4,
+						"piece": "chainmail",
+						"variants": [
+							"copper",
+							"iron",
+							"steel",
+							"silver",
+							"gold"
+						],
+						"by_tier": true
+					},
+					{
+						"tier": 8,
+						"piece": "armour_plate",
+						"variants": [
+							"copper",
+							"iron",
+							"steel",
+							"silver",
+							"gold"
+						],
+						"by_tier": true
+					}
 				]
 			}
 		},
@@ -281,6 +346,20 @@
 				"variants": [
 					"brown",
 					"charcoal"
+				],
+				"ladder": [
+					{
+						"tier": 5,
+						"piece": "legs_plate",
+						"variants": [
+							"copper",
+							"iron",
+							"steel",
+							"silver",
+							"gold"
+						],
+						"by_tier": true
+					}
 				]
 			}
 		},

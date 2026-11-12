@@ -3,7 +3,7 @@
 ##
 ##   CAPTURE_DIR=$PWD/screenshots godot --path . res://tests/capture_floors.tscn
 ##
-## FLOORS=1,5,10 elige los pisos (por defecto una muestra de varios tiers y estilos).
+## FLOORS=1,5,10 elige los pisos (0 = la ciudad; por defecto una muestra de varios tiers y estilos).
 extends Node
 
 const MainScene := preload("res://game/main.tscn")
@@ -34,7 +34,10 @@ func _ready() -> void:
 		for n: int in range(1, floor_number):
 			session.tower.complete(n)
 		world.player.set_level(10)
-		session.go_to_floor(floor_number)
+		if floor_number == 0:
+			session.go_to_city()
+		else:
+			session.go_to_floor(floor_number)
 		await _wait(0.6)
 		await _shot("floor_%03d_spawn" % floor_number)
 		var size := session.layout.size

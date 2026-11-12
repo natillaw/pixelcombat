@@ -54,6 +54,7 @@ La primera vez, o tras cambiar muchos assets, importa:
 | , / . | En la ciudad, elegir el piso de la torre (hasta el más alto desbloqueado) |
 | Clic izquierdo sobre un item del suelo o un nodo | Recoger / recolectar (hay que estar cerca; el clic no ataca). Recolectar tarda ~1,5 s y se cancela si te mueves, atacas, esquivas o te golpean |
 | E en una puerta de la ciudad | Herreria, Alquimia, Carpinteria y Sastreria abren su taller (la Taberna aun no): flechas cambian receta y tier, Intro fabrica |
+| (HUD) | Arriba a la derecha: minimapa del piso (salida en cian, objetivos en dorado, jefes y elites en rojo) |
 | I | Inventario: clic equipa, clic derecho vende (solo en zona segura) |
 | R | Reiniciar el escenario actual (enemigos vivos y vida completa) |
 | F3 | Overlay de debug |

@@ -485,11 +485,12 @@ func _test_visible_gear() -> void:
 	_check(ItemCatalog.look_layer(vest) == ["chest", ["armour_leather", "walnut_iron"]] and ItemCatalog.look_layer(epic_vest) == ["chest", ["armour_leather", "black_iron"]], "la rareza elige la variante del aspecto")
 	_check(ItemCatalog.look_layer({"id": "copper_ring", "rarity": "rare", "tier": 1, "stats": {}}).is_empty(), "un anillo no tiene capa visible")
 	var default_look: Dictionary = ClassLook.equipment("warrior")
-	_check(default_look["chest"] == ["armour_plate", "steel"], "sin equipo se ve el atuendo de la clase")
+	_check(default_look["chest"] == ["shirt_longsleeve", "tan"] and default_look["main_hand"][0] == "weapon_arming", "sin equipo se ve el atuendo basico de inicio de la clase")
 	var worn := {"chest": vest, "weapon": {"id": "iron_sword", "rarity": "common", "tier": 1, "stats": {}}, "ring": {"id": "copper_ring", "rarity": "common", "tier": 1, "stats": {}}}
 	var dressed: Dictionary = ClassLook.equipment("warrior", worn)
 	_check(dressed["chest"] == ["armour_leather", "walnut_iron"] and dressed["main_hand"] == ["weapon_arming", "default"], "el item equipado sustituye a la pieza de la clase en su hueco")
-	_check(dressed["legs"] == default_look["legs"] and dressed["head"] == default_look["head"], "los huecos sin item conservan la pieza de la clase")
+	_check(dressed["legs"] == default_look["legs"] and dressed["feet"] == default_look["feet"], "los huecos sin item conservan la pieza de la clase")
+	_test_look_progression()
 	var plain_frames := ClassLook.frames("warrior")
 	var dressed_frames := ClassLook.frames("warrior", worn)
 	_check(plain_frames != dressed_frames and dressed_frames.has_animation("walk_down"), "el equipo recompone el sprite y conserva las animaciones")
@@ -498,6 +499,48 @@ func _test_visible_gear() -> void:
 		var weapon_item: Dictionary = ItemCatalog.items_for("weapon", class_id)[0]
 		var gear := {"weapon": {"id": String(weapon_item["id"]), "rarity": "common", "tier": 1, "stats": {}}}
 		_check(ClassLook.frames(class_id, gear).has_animation("idle_down"), "%s se compone con su arma equipada" % class_id)
+
+
+## Lo mejor de lo visual se reserva para los tiers altos: los primeros pisos son el inicio de
+## un RPG (ropa, cuero y armas basicas), la malla, las placas y el casco cerrado llegan despues.
+func _test_look_progression() -> void:
+	var premium := {"chainmail": 4, "armour_plate": 8, "legs_plate": 5, "helmet_barbuta": 5, "weapon_longsword": 5, "weapon_staff_green": 8}
+	var violations: Array = []
+	for base: Dictionary in ItemCatalog.items():
+		if not base.has("look"):
+			continue
+		for tier: int in range(1, 11):
+			for rarity: String in ItemCatalog.rarity_ids():
+				var layer := ItemCatalog.look_layer({"id": base["id"], "rarity": rarity, "tier": tier, "stats": {}})
+				var piece := String(layer[1][0])
+				if premium.has(piece) and tier < int(premium[piece]):
+					violations.append("%s (tier %d) usa %s" % [base["id"], tier, piece])
+	_check(violations.is_empty(), "ninguna pieza premium aparece antes de su tier (%s)" % str(violations.slice(0, 2)))
+	var early_pieces := {}
+	for base: Dictionary in ItemCatalog.items():
+		if base.has("look"):
+			early_pieces[String(ItemCatalog.look_layer({"id": base["id"], "rarity": "legendary", "tier": 1, "stats": {}})[1][0])] = true
+	_check(not early_pieces.has("armour_plate") and not early_pieces.has("helmet_barbuta") and not early_pieces.has("chainmail"), "en el tier 1 ni un legendario se ve con placas, malla ni casco cerrado")
+	var vest := {"id": "leather_vest", "rarity": "common", "stats": {}}
+	var ladder: Array = []
+	for tier: int in [1, 4, 6, 8, 10]:
+		vest["tier"] = tier
+		ladder.append(ItemCatalog.look_layer(vest)[1].duplicate())
+	_check(ladder[0][0] == "armour_leather" and ladder[1] == ["chainmail", "copper"] and ladder[2] == ["chainmail", "steel"] and ladder[3] == ["armour_plate", "copper"] and ladder[4] == ["armour_plate", "steel"], "el jubon sube de cuero a malla y a placas con el tier: %s" % str(ladder))
+	var starters_ok := true
+	for class_id: String in ClassCatalog.all_ids():
+		for slot: String in ClassLook.equipment(class_id):
+			if slot == "_items":
+				continue
+			if premium.has(String(ClassLook.equipment(class_id)[slot][0])):
+				starters_ok = false
+	_check(starters_ok, "ninguna clase empieza con piezas premium")
+	for tier: int in [1, 5, 9]:
+		for base: Dictionary in ItemCatalog.items():
+			if base.has("look"):
+				var layers := LpcComposer.layers_from([ItemCatalog.look_layer({"id": base["id"], "rarity": "epic", "tier": tier, "stats": {}})[1]], "male")
+				if layers.is_empty():
+					_check(false, "%s a tier %d compone capas LPC" % [base["id"], tier])
 
 
 func _check(condition: bool, label: String) -> void:

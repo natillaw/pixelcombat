@@ -43,8 +43,8 @@
 		"beard": "",
 		"equipment": {
 			"chest": [
-				"armour_leather",
-				"black_iron"
+				"shirt_sleeveless",
+				"charcoal"
 			],
 			"legs": [
 				"pants",
@@ -52,7 +52,7 @@
 			],
 			"feet": [
 				"boots_basic",
-				"black"
+				"leather"
 			],
 			"head": [
 				"hood",

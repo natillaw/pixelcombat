@@ -189,5 +189,24 @@
 			"rocks": 0.02
 		},
 		"water": false
+	},
+	"town": {
+		"season": "summer",
+		"ground": "grass",
+		"grass": 1,
+		"tint": [
+			1,
+			0.97,
+			0.9
+		],
+		"wall_style": "trees",
+		"tree": "generic",
+		"decor": {
+			"flowers": 0.03,
+			"tufts": 0.03,
+			"mushrooms": 0,
+			"rocks": 0.004
+		},
+		"water": false
 	}
 }

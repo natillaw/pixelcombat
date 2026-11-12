@@ -124,7 +124,7 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - **Candado de avance (D9):** no se puede subir de piso sin completar el actual; los pisos completados se pueden revisitar y respawnean.
 - Portal de ida/vuelta con pisos ya desbloqueados.
 
-> **Estado:** pisos grandes y procedurales (mapa de casillas: campo, cuevas, ruinas y mixto), 10 misiones distintas, mision doble con dos mini-jefes en los x5, pruebas de jefe en los x10 y misiones opcionales. Faltan los tilesets (hoy colores planos), minimapa y jefes propios de los tiers 2-10 (el 2-10 son provisionales).
+> **Estado:** pisos grandes y procedurales (mapa de casillas: campo, cuevas, ruinas y mixto), 10 misiones distintas, mision doble con dos mini-jefes en los x5, pruebas de jefe en los x10 y misiones opcionales. Tileset LPC 4-season con biomas, minimapa y ciudad grande de varias filas de edificios. Faltan jefes propios de los tiers 2-10 (provisionales), hojas de terreno propias de los tiers altos y NPCs.
 
 > **Recoleccion y crafting:** ver Fase 6 (hecho el primer corte).
 

@@ -349,6 +349,15 @@ func _build_props() -> void:
 		else:
 			_add_static(Pillar.new(), obstacle["position"])
 	for building: Dictionary in layout.buildings:
+		if building.has("sprite") and ResourceLoader.exists(String(building["sprite"])):
+			var sprite := Sprite2D.new()
+			sprite.texture = load(String(building["sprite"]))
+			sprite.centered = false
+			sprite.offset = Vector2(-40.0, -73.0)
+			sprite.scale = Vector2.ONE * float(building["scale"])
+			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			_add_static(sprite, building["foot"])
+			continue
 		var facade := Building.new()
 		facade.rect = building["rect"]
 		facade.base_color = building["color"]
