@@ -80,6 +80,15 @@ func _test_bandits_are_tier_one_enemies() -> void:
 	for id: String in ["slime", "bat", "spider", "beetle", "wisp", "hornet"]:
 		var beast := EnemyCatalog.enemy(StringName(id))
 		_check(not beast.has("loot") and not (beast["materials"] as Dictionary).is_empty(), "%s solo da materiales (sin equipo)" % id)
+	# Las piezas vistosas se guardan para pisos altos: los bandidos solo llevan ropa corriente y solo el jefe es grande.
+	var reserved := ["armour_plate", "chainmail", "legs_plate", "helmet_barbuta", "helmet_barbarian", "weapon_longsword", "weapon_staff_red", "weapon_staff_green", "shield_spartan", "gloves", "armour_leather"]
+	for id: StringName in EnemyCatalog.all_ids():
+		var sprite: Dictionary = EnemyCatalog.enemy(id)["sprite"]
+		if not String(id).begins_with("bandit_"):
+			continue
+		for slot: String in sprite["lpc"]["equipment"]:
+			_check(not reserved.has(String(sprite["lpc"]["equipment"][slot][0])), "%s: %s es ropa corriente" % [id, slot])
+		_check((float(sprite["scale"]) > 1.2) == (id == &"bandit_garrick"), "%s: solo Garrick es grande" % id)
 	for id: String in ["bandit_thug", "bandit_swordsman", "bandit_archer", "bandit_hexer", "bandit_cutthroat", "bandit_shieldman"]:
 		var bandit := EnemyCatalog.enemy(StringName(id))
 		_check(bandit["sprite"].has("lpc") and (bandit["loot"]["slots"] as Array).size() > 0 and (bandit["attacks"] as Array).size() >= 2, "%s: sprite LPC, kit de 2+ ataques y botin de equipo" % id)

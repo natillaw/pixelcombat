@@ -137,8 +137,8 @@
      },
      "equipment": {
       "chest": [
-       "armour_leather",
-       "walnut_iron"
+       "shirt_longsleeve",
+       "tan"
       ],
       "legs": [
        "pants",
@@ -371,7 +371,7 @@
        "maroon"
       ],
       "main_hand": [
-       "weapon_staff_red",
+       "weapon_staff",
        "default"
       ]
      }
@@ -580,8 +580,8 @@
      },
      "equipment": {
       "chest": [
-       "chainmail",
-       "iron"
+       "shirt_longsleeve",
+       "navy"
       ],
       "legs": [
        "pants",
@@ -592,8 +592,8 @@
        "leather"
       ],
       "head": [
-       "helmet_barbarian",
-       "iron_maroon"
+       "bandana",
+       "maroon"
       ],
       "main_hand": [
        "weapon_arming",
@@ -687,32 +687,32 @@
      },
      "equipment": {
       "chest": [
-       "armour_plate",
-       "iron"
+       "shirt_sleeveless",
+       "charcoal"
       ],
       "legs": [
-       "legs_plate",
-       "iron"
+       "pants",
+       "charcoal"
       ],
       "feet": [
        "boots_basic",
        "black"
       ],
       "head": [
-       "helmet_barbuta",
-       "iron"
+       "bandana",
+       "maroon"
       ],
       "main_hand": [
-       "weapon_longsword",
+       "weapon_mace",
        "default"
       ],
       "off_hand": [
-       "shield_spartan",
+       "shield_round",
        "default"
       ]
      }
     },
-    "scale": 1.5
+    "scale": 1.1
    },
    "attacks": [
     {
@@ -866,12 +866,12 @@
        "maroon"
       ],
       "main_hand": [
-       "weapon_staff_red",
+       "weapon_staff",
        "default"
       ]
      }
     },
-    "scale": 1.4
+    "scale": 1.05
    },
    "attacks": [
     {
@@ -1018,35 +1018,31 @@
      },
      "equipment": {
       "chest": [
-       "armour_plate",
-       "steel"
+       "shirt_longsleeve",
+       "tan"
       ],
       "legs": [
-       "legs_plate",
-       "steel"
+       "pants",
+       "charcoal"
       ],
       "feet": [
        "boots_basic",
        "black"
       ],
       "head": [
-       "helmet_barbuta",
-       "steel"
-      ],
-      "hands": [
-       "gloves",
-       "steel"
+       "bandana",
+       "maroon"
       ],
       "bag": [
        "cape",
        "maroon"
       ],
       "main_hand": [
-       "weapon_longsword",
+       "weapon_arming",
        "default"
       ],
       "off_hand": [
-       "shield_spartan",
+       "shield_round",
        "default"
       ]
      }
