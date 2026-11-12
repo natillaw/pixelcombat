@@ -28,6 +28,7 @@ var layout: FloorLayout
 var _theme: Dictionary = {}
 var _size: Vector2 = Vector2(960.0, 640.0)
 var _bounds: Rect2 = Rect2()
+var terrain: TerrainRenderer = null
 var _tiles: Array = []
 var _grid_floor: Array = []
 var _grid_walls: Array = []
@@ -98,7 +99,18 @@ func _rebuild(new_layout: FloorLayout) -> void:
 	for child: Node in fx.get_children():
 		child.queue_free()
 
-	if layout.grid != null:
+	if terrain != null:
+		terrain.clear()
+		terrain.queue_free()
+		terrain = null
+	if layout.grid != null and TerrainRenderer.available():
+		terrain = TerrainRenderer.new()
+		terrain.name = "Terrain"
+		add_child(terrain)
+		move_child(terrain, 0)
+		terrain.build(layout, entities)
+		RenderingServer.set_default_clear_color(Color(0.03, 0.035, 0.05))
+	elif layout.grid != null:
 		_build_grid_data()
 	else:
 		_build_floor_data()
@@ -436,7 +448,8 @@ func _draw() -> void:
 	if layout == null:
 		return
 	if layout.grid != null:
-		_draw_grid()
+		if terrain == null:
+			_draw_grid()
 		return
 	var bounds := _bounds
 	# Fondo exterior.

@@ -132,3 +132,19 @@ Reglas:
    `tests/test_asset_licenses.gd` falla si el índice vuelve a incluir una.
 3. Antes de publicar, generar la pantalla de créditos a partir de
    `CREDITS.csv` (tarea pendiente, Fase 10).
+
+## Terreno de los pisos (en uso)
+
+| Asset | Ruta | Uso | Licencia | Estado |
+|---|---|---|---|---|
+| **4-Season Terrain (LPC)** — Lanea Zimmerman (Sharm), Eliza Wyatt (DeathsDarling), Hyptosis | `assets/pixel/lpc_terrain/` | Suelo (hierba/tierra), agua, cliffs, arboles, rocas, flores, setas y hierba alta de los pisos, via `TerrainRenderer` y `data/biomes.json` | **OGA-BY 3.0** (atribucion; ver `assets/pixel/lpc_terrain/CREDITS.txt`) | En uso |
+
+Otros packs auditados el 2026-11-11 (Descargas/new assets) y su veredicto:
+
+| Pack | Licencia | Veredicto |
+|---|---|---|
+| Tiny Top-Down Village — 58 Buildings (Pixel-Deck) | Uso comercial OK, modificar OK, atribucion opcional; no revender ni redistribuir el pack completo sin cambios | **Usable** (solo las piezas que se usen se copian al repo; REVISAR antes de publicar) |
+| Free Pixel RPG Starter Kit (Ishihara Asset Forge): bosque 16 px, aldea 16 px, UI, FX | Uso comercial OK, sin credito, editable; no revender ni usar como datos de entrenamiento de IA | Usable (muestra reducida: hierba/tierra, 4 props, aldea basica) |
+| Pixel Spell Magic FX / Magic Spells VFX Lite / PVFX Foundry / Pixel VFX Essentials | Por leer en cada LICENSE | Pendiente de integrar en las skills |
+| Dark World Free Asset Pack | **Sin licencia incluida** | No usar |
+| tiny-dungeon-monsters, tileset.png, ForgoneFantasy basics, animated torch | Sin licencia incluida | No usar hasta verificar la fuente |
