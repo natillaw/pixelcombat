@@ -1,5 +1,5 @@
 {
-	"_doc": "Enemigos del tier 1 (pisos 1-10). Esquema y validacion en combat/enemy_catalog.gd. Numeros provisionales, sin balance final. Sprites: SpritePilot Creatures Pack (CC0).",
+	"_doc": "Enemigos del tier 1 (pisos 1-10). Esquema y validacion en combat/enemy_catalog.gd. Numeros provisionales, sin balance final. Sprites: SpritePilot Creatures Pack (CC0). Las bestias son ahora solo fuente de materiales (cuero y quitina): no sueltan equipo; el equipo lo sueltan los bandidos.",
 	"enemies": [
 		{
 			"id": "slime",
@@ -42,15 +42,8 @@
 					"weight": 1
 				}
 			],
-			"loot": {
-				"chance": 0.22,
-				"slots": [
-					"ring",
-					"feet"
-				]
-			},
 			"materials": {
-				"hide": 0.25
+				"hide": 0.55
 			}
 		},
 		{
@@ -95,15 +88,9 @@
 					"weight": 1
 				}
 			],
-			"loot": {
-				"chance": 0.2,
-				"slots": [
-					"feet",
-					"head"
-				]
-			},
 			"materials": {
-				"hide": 0.55
+				"hide": 1.0,
+				"chitin": 0.5
 			}
 		},
 		{
@@ -166,16 +153,9 @@
 					]
 				}
 			],
-			"loot": {
-				"chance": 0.22,
-				"slots": [
-					"legs",
-					"chest"
-				]
-			},
 			"materials": {
-				"chitin": 0.4,
-				"hide": 0.2
+				"chitin": 0.88,
+				"hide": 0.44
 			}
 		},
 		{
@@ -225,15 +205,8 @@
 					]
 				}
 			],
-			"loot": {
-				"chance": 0.24,
-				"slots": [
-					"chest",
-					"head"
-				]
-			},
 			"materials": {
-				"chitin": 0.65
+				"chitin": 1.0
 			}
 		},
 		{
@@ -292,11 +265,8 @@
 					]
 				}
 			],
-			"loot": {
-				"chance": 0.2,
-				"slots": [
-					"ring"
-				]
+			"materials": {
+				"hide": 1.0
 			}
 		},
 		{
@@ -355,15 +325,8 @@
 					]
 				}
 			],
-			"loot": {
-				"chance": 0.2,
-				"slots": [
-					"ring",
-					"weapon"
-				]
-			},
 			"materials": {
-				"chitin": 0.5
+				"chitin": 1.0
 			}
 		},
 		{

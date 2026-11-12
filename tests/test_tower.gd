@@ -153,7 +153,7 @@ func _test_spike_floors() -> void:
 	_check(mini.size() == 2 and mini.all(func(e: Dictionary) -> bool: return bool(e["required"])), "el piso 5 tiene dos mini-jefes obligatorios")
 	var boss_layout := TowerGenerator.generate(10, 20261110)
 	var bosses: Array = boss_layout.enemies.filter(func(e: Dictionary) -> bool: return String(e["group"]) == "boss") + boss_layout.deferred_enemies.filter(func(e: Dictionary) -> bool: return String(e["group"]) == "boss")
-	_check(bosses.size() == 1 and String(bosses[0]["id"]) == "brood_beetle", "el piso 10 es el jefe Brood Beetle")
+	_check(bosses.size() == 1 and String(bosses[0]["id"]) == "bandit_garrick", "el piso 10 es el jefe Garrick Blackhand")
 	_check(mid.enemies.size() > 4 and boss_layout.enemies.size() + boss_layout.deferred_enemies.size() > 4, "los pisos de pico traen crias y guardias")
 	var normal := TowerGenerator.generate(3, 20261110)
 	_check(normal.mission_plan["missions"].size() >= 1 and normal.mission_plan["missions"].any(func(s: Dictionary) -> bool: return not bool(s["optional"])), "un piso normal tiene al menos una mision principal")

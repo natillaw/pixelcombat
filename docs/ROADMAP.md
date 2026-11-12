@@ -193,3 +193,6 @@ Un bot (FloorBot) recorre los pisos con el mismo input que una persona. Resultad
 - Pisos x5 y x10 (picos): 300-500 % de la vida perdida, 1-4 muertes del bot; son el pico de dificultad buscado, no hace falta bajar la escala (+10 %/piso).
 - La vida no se regeneraba: ahora regenera 1,5 %/s tras 5 s sin recibir dano (`PlayerSim.regen_per_second`).
 - Pendiente: el bot aun se atasca a veces (piso 7, ~1600 s), y no recoge items con la mochila llena.
+
+## Bandidos del Cuervo (tier 1)
+Los enemigos reales de los pisos 1-10 son bandidos LPC (`data/enemies/bandits.json`, generado por `tools/gen_bandits.py`): matón, espadachín, arquero, hechicero, degollador y escudero, con su kit de ataques; mini-jefes Rask y Veyra y jefe del piso 10 Garrick Blackhand (escala 2.3, 8 ataques elegidos por distancia, 4 fases con refuerzos mixtos). Las bestias (slime, bat, spider, beetle, wisp, hornet) son minoría en la mezcla y ya no sueltan equipo, solo cuero y quitina. Lore y nombre del tier: Bosque del Cuervo. Captura: `tests/capture_bandits.tscn`.

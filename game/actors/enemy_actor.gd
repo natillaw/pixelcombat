@@ -24,6 +24,7 @@ var _sprite_height: float = 32.0
 var _tint: Color = Color.WHITE
 var _was_alive: bool = true
 var _scale_value: float = 1.0
+var _is_lpc: bool = false
 
 
 func setup(p_sim: EnemySim, p_arena: Arena) -> void:
@@ -42,6 +43,9 @@ func setup(p_sim: EnemySim, p_arena: Arena) -> void:
 
 func _build_sprite() -> void:
 	var sprite_data: Dictionary = sim.data["sprite"]
+	if sprite_data.has("lpc"):
+		_build_lpc_sprite(sprite_data)
+		return
 	var frame_size := int(sprite_data["frame"])
 	var texture: Texture2D = load(String(sprite_data["sheet"]))
 	var frames := SpriteFrames.new()
@@ -77,11 +81,63 @@ func _build_sprite() -> void:
 	sprite.play(&"move")
 
 
+## Enemigo humano: personaje LPC compuesto (cuerpo, ropa, arma) con las animaciones del
+## jugador; el sprite no se voltea, se elige la fila de la direccion.
+func _build_lpc_sprite(sprite_data: Dictionary) -> void:
+	var lpc: Dictionary = sprite_data["lpc"]
+	var equipment: Dictionary = {"_items": true}
+	for slot: String in lpc.get("equipment", {}):
+		equipment[slot] = lpc["equipment"][slot]
+	_is_lpc = true
+	var frames := LpcComposer.build_frames_for(lpc["look"], "enemy." + String(sim.data["id"]), equipment)
+	var sprite_scale := float(sprite_data["scale"]) * (1.25 if sim.elite else 1.0)
+	_scale_value = sprite_scale
+	_sprite_height = 50.0 * sprite_scale
+	sprite = AnimatedSprite2D.new()
+	sprite.name = "LpcSprite"
+	sprite.sprite_frames = frames
+	sprite.centered = true
+	sprite.scale = Vector2.ONE * sprite_scale
+	sprite.position = LpcComposer.FEET_OFFSET * sprite_scale
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	if sprite_data.has("tint"):
+		var tint: Array = sprite_data["tint"]
+		_tint = Color(float(tint[0]), float(tint[1]), float(tint[2]), float(tint[3]))
+	if sim.elite:
+		_tint = Color(_tint.r * 1.2, _tint.g * 1.05, _tint.b * 0.65, _tint.a)
+	sprite.modulate = _tint
+	add_child(sprite)
+	sprite.play(&"combat_idle_down")
+
+
+func _lpc_animation() -> void:
+	var direction := "down"
+	if absf(sim.facing.x) > absf(sim.facing.y) * 1.15:
+		direction = "right" if sim.facing.x > 0.0 else "left"
+	else:
+		direction = "down" if sim.facing.y >= 0.0 else "up"
+	var anim := "combat_idle"
+	match sim.state:
+		EnemySim.State.CHASE:
+			anim = "walk"
+		EnemySim.State.ACTIVE:
+			anim = String(sim.current_attack.get("anim", "slash"))
+		EnemySim.State.STUN, EnemySim.State.DEAD:
+			anim = "hurt"
+	var full := "%s_%s" % [anim, direction]
+	if not sprite.sprite_frames.has_animation(full):
+		full = "combat_idle_" + direction
+	if sprite.animation != full or not sprite.is_playing():
+		sprite.play(full)
+
+
 func _process(_delta: float) -> void:
 	if sim == null:
 		return
 	position = sim.position
-	if absf(sim.facing.x) > 0.05:
+	if _is_lpc:
+		_lpc_animation()
+	elif absf(sim.facing.x) > 0.05:
 		sprite.flip_h = sim.facing.x < 0.0
 
 	if sim.alive:
@@ -120,7 +176,7 @@ func _apply_state_visual() -> void:
 func _restore_visual() -> void:
 	_was_alive = true
 	sprite.modulate = _tint
-	sprite.scale = Vector2.ONE * float(sim.data["sprite"]["scale"])
+	sprite.scale = Vector2.ONE * _scale_value
 
 
 func _on_telegraph_started(_attack: Dictionary, _direction: Vector2) -> void:

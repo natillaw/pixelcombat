@@ -138,7 +138,7 @@ func _test_plan_shapes() -> void:
 	var mid_ids: Array = mid.mission_plan["missions"].map(func(s: Dictionary) -> String: return String(s["id"]))
 	_check(mid_ids.has("bosses") and mid.mission_plan["missions"].filter(func(s: Dictionary) -> bool: return not bool(s["optional"])).size() == 2, "el piso 5 es una mision doble con los dos mini-jefes")
 	var mini_ids: Array = mid.enemies.filter(func(e: Dictionary) -> bool: return String(e["group"]) == "mini").map(func(e: Dictionary) -> String: return String(e["id"]))
-	_check(mini_ids.size() == 2 and mini_ids.has("elder_spider") and mini_ids.has("hornet_queen"), "los dos mini-jefes son distintos (Elder Spider y Hornet Queen)")
+	_check(mini_ids.size() == 2 and mini_ids.has("bandit_rask") and mini_ids.has("bandit_veyra"), "los dos mini-jefes son distintos (Rask y Veyra)")
 	var time_limited := 0
 	var optional_seen := 0
 	for visit: int in range(1, 31):
@@ -256,7 +256,7 @@ func _test_spike_mid_floor() -> void:
 	_kill(session, func(e: EnemySim) -> bool: return e.group == "hunt")
 	_tick(session, 2)
 	_check(hunt.done and not session.is_floor_done(), "cumplir solo una no completa el piso")
-	_kill(session, func(e: EnemySim) -> bool: return e.group == "mini" and String(e.def_id) == "elder_spider")
+	_kill(session, func(e: EnemySim) -> bool: return e.group == "mini" and String(e.def_id) == "bandit_rask")
 	_tick(session, 2)
 	_check(bosses.progress == 1 and not session.is_floor_done(), "con un mini-jefe muerto aun falta el otro")
 	_kill(session, func(e: EnemySim) -> bool: return e.group == "mini")

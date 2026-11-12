@@ -13,7 +13,7 @@
 ##   ai:     aggro_range, leash (multiplo de aggro_range a partir del cual deja
 ##           de perseguir), keep_distance (opcional: si el jugador se acerca
 ##           mas que el 70 % de esa distancia, retrocede; para tiradores)
-##   sprite: sheet (tira horizontal de frames cuadrados), frame, frames, fps, scale,
+##   sprite: lpc {look, equipment} (humano LPC) o bien sheet (tira horizontal de frames cuadrados), frame, frames, fps, scale,
 ##           tint (opcional, [r, g, b, a])
 ##   resist (opcional): {estado: 0..1} resistencia a estados; 1 = inmune (jefes), 0,5
 ##           = duracion a la mitad
@@ -159,11 +159,18 @@ static func validate(entry: Dictionary) -> Array[String]:
 	if not (sprite is Dictionary):
 		problems.append("falta 'sprite'")
 	else:
-		if not _is_text((sprite as Dictionary).get("sheet")) or String(sprite["sheet"]).is_empty():
-			problems.append("sprite.sheet es obligatorio")
-		for field: String in ["frame", "frames", "fps", "scale"]:
-			if not _is_number((sprite as Dictionary).get(field)) or float(sprite[field]) <= 0.0:
-				problems.append("sprite.%s debe ser > 0" % field)
+		if (sprite as Dictionary).has("lpc"):
+			var lpc: Variant = sprite["lpc"]
+			if not (lpc is Dictionary) or not ((lpc as Dictionary).get("look") is Dictionary) or not ((lpc as Dictionary).get("equipment") is Dictionary):
+				problems.append("sprite.lpc necesita 'look' y 'equipment'")
+			if not _is_number((sprite as Dictionary).get("scale")) or float(sprite["scale"]) <= 0.0:
+				problems.append("sprite.scale debe ser > 0")
+		else:
+			if not _is_text((sprite as Dictionary).get("sheet")) or String(sprite["sheet"]).is_empty():
+				problems.append("sprite.sheet es obligatorio")
+			for field: String in ["frame", "frames", "fps", "scale"]:
+				if not _is_number((sprite as Dictionary).get(field)) or float(sprite[field]) <= 0.0:
+					problems.append("sprite.%s debe ser > 0" % field)
 		if (sprite as Dictionary).has("tint") and (not (sprite["tint"] is Array) or (sprite["tint"] as Array).size() != 4):
 			problems.append("sprite.tint debe ser [r, g, b, a]")
 

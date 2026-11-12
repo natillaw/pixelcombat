@@ -17,7 +17,7 @@
 	"tiers": [
 		{
 			"tier": 1,
-			"name": "Bosque de la Nidada",
+			"name": "Bosque del Cuervo",
 			"placeholder": false,
 			"theme": {
 				"floor": [
@@ -58,37 +58,49 @@
 			},
 			"pool": [
 				{
-					"id": "slime",
+					"id": "bandit_thug",
 					"weight": 3
 				},
 				{
-					"id": "bat",
+					"id": "bandit_swordsman",
 					"weight": 3
 				},
 				{
-					"id": "spider",
+					"id": "bandit_archer",
 					"weight": 2
 				},
 				{
-					"id": "beetle",
+					"id": "bandit_hexer",
+					"weight": 2
+				},
+				{
+					"id": "bandit_cutthroat",
+					"weight": 2
+				},
+				{
+					"id": "bandit_shieldman",
 					"weight": 1
 				},
 				{
-					"id": "wisp",
-					"weight": 2
+					"id": "slime",
+					"weight": 1
+				},
+				{
+					"id": "spider",
+					"weight": 1
 				},
 				{
 					"id": "hornet",
-					"weight": 2
+					"weight": 1
 				}
 			],
 			"adds": [
-				"slime",
-				"bat",
-				"hornet"
+				"bandit_thug",
+				"bandit_cutthroat",
+				"bandit_archer"
 			],
-			"mid_boss": "elder_spider",
-			"boss": "brood_beetle",
+			"mid_boss": "bandit_rask",
+			"boss": "bandit_garrick",
 			"biome": "forest",
 			"styles": [
 				{
@@ -104,7 +116,7 @@
 					"weight": 1
 				}
 			],
-			"mid_boss_2": "hornet_queen",
+			"mid_boss_2": "bandit_veyra",
 			"nest": "brood_nest"
 		},
 		{

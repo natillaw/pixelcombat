@@ -22,6 +22,7 @@ func _initialize() -> void:
 func _run() -> void:
 	print("== test_enemies (enemigos con telegraph) ==")
 	_test_catalog_loads_and_is_valid()
+	_test_bandits_are_tier_one_enemies()
 	_test_validator_rejects_bad_data()
 	_test_idle_outside_aggro()
 	_test_chase_and_leash()
@@ -44,6 +45,46 @@ func _run() -> void:
 # --- Catalogo ----------------------------------------------------------------
 
 
+## Un enemigo LPC: cada pieza y variante existe en el indice y se compone con todas las animaciones.
+func _check_lpc_sprite(id: StringName, lpc: Dictionary) -> void:
+	var pieces: Dictionary = LpcComposer.index()["pieces"]
+	var ok := true
+	for slot: String in lpc["equipment"]:
+		var pair: Array = lpc["equipment"][slot]
+		var layers: Array = pieces.get(String(pair[0]), {}).get("layers", [])
+		var found := false
+		for layer: Dictionary in layers:
+			if (layer["files"] as Dictionary).get(String(lpc["look"].get("body", "male")), {}).has(String(pair[1])):
+				found = true
+		ok = ok and found
+	_check(ok, "%s: todas las piezas LPC existen" % id)
+	var frames := LpcComposer.build_frames_for(lpc["look"], "enemy." + String(id), lpc["equipment"])
+	var anims_ok := true
+	for anim: String in ["combat_idle", "walk", "slash", "thrust", "shoot", "spellcast", "hurt"]:
+		for dir: String in ["up", "down", "left", "right"]:
+			anims_ok = anims_ok and frames.has_animation("%s_%s" % [anim, dir])
+	_check(anims_ok, "%s: el sprite LPC tiene todas las animaciones" % id)
+
+
+func _test_bandits_are_tier_one_enemies() -> void:
+	var tier := TowerCatalog.tier(1)
+	var bandit_weight := 0.0
+	var beast_weight := 0.0
+	for entry: Dictionary in tier["pool"]:
+		if String(entry["id"]).begins_with("bandit_"):
+			bandit_weight += float(entry["weight"])
+		else:
+			beast_weight += float(entry["weight"])
+	_check(bandit_weight > beast_weight * 3.0, "en el tier 1 los bandidos son la mayoria (%.0f vs %.0f)" % [bandit_weight, beast_weight])
+	_check(String(tier["boss"]).begins_with("bandit_") and String(tier["mid_boss"]).begins_with("bandit_") and String(tier["mid_boss_2"]).begins_with("bandit_"), "los jefes del tier 1 son bandidos")
+	for id: String in ["slime", "bat", "spider", "beetle", "wisp", "hornet"]:
+		var beast := EnemyCatalog.enemy(StringName(id))
+		_check(not beast.has("loot") and not (beast["materials"] as Dictionary).is_empty(), "%s solo da materiales (sin equipo)" % id)
+	for id: String in ["bandit_thug", "bandit_swordsman", "bandit_archer", "bandit_hexer", "bandit_cutthroat", "bandit_shieldman"]:
+		var bandit := EnemyCatalog.enemy(StringName(id))
+		_check(bandit["sprite"].has("lpc") and (bandit["loot"]["slots"] as Array).size() > 0 and (bandit["attacks"] as Array).size() >= 2, "%s: sprite LPC, kit de 2+ ataques y botin de equipo" % id)
+
+
 func _test_catalog_loads_and_is_valid() -> void:
 	for error: String in EnemyCatalog.errors():
 		print("   error de carga: %s" % error)
@@ -52,7 +93,10 @@ func _test_catalog_loads_and_is_valid() -> void:
 	for id: StringName in EnemyCatalog.all_ids():
 		var data := EnemyCatalog.enemy(id)
 		_check(EnemyCatalog.validate(data).is_empty(), "%s cumple el esquema" % id)
-		_check(ResourceLoader.exists(String(data["sprite"]["sheet"])), "%s: la hoja de sprites existe" % id)
+		if data["sprite"].has("lpc"):
+			_check_lpc_sprite(id, data["sprite"]["lpc"])
+		else:
+			_check(ResourceLoader.exists(String(data["sprite"]["sheet"])), "%s: la hoja de sprites existe" % id)
 		for attack: Dictionary in data["attacks"]:
 			_check(float(attack["windup"]) >= MIN_READABLE_WINDUP, "%s/%s: el telegraph dura al menos %.2f s" % [id, attack["id"], MIN_READABLE_WINDUP])
 		# La copia es independiente del catalogo.

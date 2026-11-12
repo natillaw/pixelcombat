@@ -6,33 +6,90 @@
 		"people": "los Despiertos"
 	},
 	"intro": [
-		{"title": "La Aguja Negra", "text": "Hace trescientos anos el cielo sobre el valle de Valdoria se resquebrajo como un cristal y de la grieta cayo una aguja de piedra negra. Nadie la construyo. La llamaron la Torre de las Cien Puertas, porque cada piso se abre a un mundo distinto: bosques que no existen en ningun mapa, cuevas que respiran, cienagas, desiertos de ceniza... y cada diez pisos, el mundo entero cambia."},
-		{"title": "Albor", "text": "A sus pies crecio Albor, una ciudad de herreros, alquimistas y valientes. Los habitantes viven de lo que la Torre escupe: metales que no se funden dos veces igual, hierbas que solo florecen entre sus muros, cuero y quitina de las criaturas que la habitan. La Torre cambia cada vez que se cruza una puerta: ningun piso se repite, y por eso nadie ha llegado a la cima."},
-		{"title": "Los Despiertos", "text": "Hay quien dice que la Torre nos elige. Cuando alguien cae dentro, no muere: despierta junto a la fuente de Albor, sin heridas y sin recuerdos de su vida anterior, con el nombre que se elija esa manana. Los llaman los Despiertos. La Torre los deja volver porque aun no ha terminado con ellos."},
-		{"title": "La Nidada", "text": "Algo se agita en los primeros pisos. Una plaga de insectos y limos —la Nidada— lleva anos sembrando huevos en el Bosque y nadie sabe de donde sale. El Gremio de Aventureros paga bien a quien los limpie, y el herrero Brann, la alquimista Mira, el carpintero Tomas y la sastre Lena fabricaran lo que haga falta para el que traiga materiales. Es lo unico que piden a cambio de una oportunidad."},
-		{"title": "Tu historia", "text": "Despiertas. Hueles a hierba mojada y a humo. Tienes ropa sencilla, un arma vieja y un nombre que aun no has dicho en voz alta. Los pisos del 5 y el 10 guardan guardianes que nadie ha vencido; mas alla, la Torre promete respuestas. Elige quien eres: la Torre ya te esta esperando."}
+		{
+			"title": "La Aguja Negra",
+			"text": "Hace trescientos anos el cielo sobre el valle de Valdoria se resquebrajo como un cristal y de la grieta cayo una aguja de piedra negra. Nadie la construyo. La llamaron la Torre de las Cien Puertas, porque cada piso se abre a un mundo distinto: bosques que no existen en ningun mapa, cuevas que respiran, cienagas, desiertos de ceniza... y cada diez pisos, el mundo entero cambia."
+		},
+		{
+			"title": "Albor",
+			"text": "A sus pies crecio Albor, una ciudad de herreros, alquimistas y valientes. Los habitantes viven de lo que la Torre escupe: metales que no se funden dos veces igual, hierbas que solo florecen entre sus muros, cuero y quitina de las criaturas que la habitan. La Torre cambia cada vez que se cruza una puerta: ningun piso se repite, y por eso nadie ha llegado a la cima."
+		},
+		{
+			"title": "Los Despiertos",
+			"text": "Hay quien dice que la Torre nos elige. Cuando alguien cae dentro, no muere: despierta junto a la fuente de Albor, sin heridas y sin recuerdos de su vida anterior, con el nombre que se elija esa manana. Los llaman los Despiertos. La Torre los deja volver porque aun no ha terminado con ellos."
+		},
+		{
+			"title": "El Cuervo",
+			"text": "Algo se agita en los primeros pisos. Una banda de saqueadores —el Cuervo— lleva anos acampando en el Bosque, con el mando de un antiguo soldado llamado Garrick Mano Negra. Asaltan a los Despiertos, roban lo que la Torre escupe y se visten con el granate de su estandarte. Las bestias del Bosque huyen de ellos o los siguen. El Gremio de Aventureros paga bien a quien los detenga, y el herrero Brann, la alquimista Mira, el carpintero Tomas y la sastre Lena fabricaran lo que haga falta para el que traiga materiales."
+		},
+		{
+			"title": "Tu historia",
+			"text": "Despiertas. Hueles a hierba mojada y a humo. Tienes ropa sencilla, un arma vieja y un nombre que aun no has dicho en voz alta. Los pisos del 5 y el 10 guardan guardianes que nadie ha vencido; mas alla, la Torre promete respuestas. Elige quien eres: la Torre ya te esta esperando."
+		}
 	],
 	"classes": {
-		"warrior": {"tagline": "El muro del Gremio", "text": "Acero, rabia y paciencia. El Guerrero aguanta lo que los demas no resisten y devuelve el golpe con furia creciente. Su Rage aumenta al golpear y al ser golpeado."},
-		"rogue": {"tagline": "Sombra entre piso y piso", "text": "Rapido, preciso y cruel con el descuido. El Picaro vive de la Energia y de golpes que castigan al que baja la guardia: veneno, filos gemelos y esquivas imposibles."},
-		"mage": {"tagline": "La Torre tambien se puede leer", "text": "Los magos estudian las grietas de la Torre. El Mago lanza hechizos a distancia y controla el campo con escarcha y aturdimientos, pero cada error cuesta caro."},
-		"archer": {"tagline": "Cada flecha, un plan", "text": "Paciencia y punteria. El Arquero castiga desde lejos con flechas que frenan, perforan y llueven del cielo, y sabe cuando retroceder para no ser alcanzado."}
+		"warrior": {
+			"tagline": "El muro del Gremio",
+			"text": "Acero, rabia y paciencia. El Guerrero aguanta lo que los demas no resisten y devuelve el golpe con furia creciente. Su Rage aumenta al golpear y al ser golpeado."
+		},
+		"rogue": {
+			"tagline": "Sombra entre piso y piso",
+			"text": "Rapido, preciso y cruel con el descuido. El Picaro vive de la Energia y de golpes que castigan al que baja la guardia: veneno, filos gemelos y esquivas imposibles."
+		},
+		"mage": {
+			"tagline": "La Torre tambien se puede leer",
+			"text": "Los magos estudian las grietas de la Torre. El Mago lanza hechizos a distancia y controla el campo con escarcha y aturdimientos, pero cada error cuesta caro."
+		},
+		"archer": {
+			"tagline": "Cada flecha, un plan",
+			"text": "Paciencia y punteria. El Arquero castiga desde lejos con flechas que frenan, perforan y llueven del cielo, y sabe cuando retroceder para no ser alcanzado."
+		}
 	},
 	"tiers": [
-		{"name": "Bosque de la Nidada", "text": "Un bosque oscuro y humedo donde la Nidada anida entre raices y rios. Lo mas facil de la Torre... si no te rodean."},
-		{"name": "Cuevas Susurrantes", "text": "Galerias de piedra que respiran. Hongos luminosos y ecos que no son tuyos."},
-		{"name": "Ruinas Olvidadas", "text": "Alguien mas intento subir. Sus muros siguen en pie, y sus guardianes tambien."},
-		{"name": "Cienaga Hundida", "text": "Aguas quietas, niebla y criaturas que no se ven hasta que muerden."},
-		{"name": "Desierto de Ceniza", "text": "Dunas de ceniza fria. El sol de la Torre no calienta, pero quema."},
-		{"name": "Tundra Cristalina", "text": "Pinos helados y lagos de hielo vivo. El frio aqui tiene intencion."},
-		{"name": "Cauce Volcanico", "text": "La Torre sangra fuego. El suelo cede y las rocas laten."},
-		{"name": "Cripta Vacia", "text": "Una ciudad de tumbas sin muertos... todavia."},
-		{"name": "Jardines del Cielo", "text": "Jardines flotantes sobre la nada. Demasiado bonitos para ser seguros."},
-		{"name": "El Vacio", "text": "Donde la Torre termina de ser piedra. Lo que hay arriba te conoce."}
+		{
+			"name": "Bosque del Cuervo",
+			"text": "Un bosque oscuro y humedo donde el Cuervo ha montado sus campamentos. Bandidos con espada, arco y hechizo; las bestias solo te darán cuero y quitina. Dos tenientes y Garrick guardan el camino."
+		},
+		{
+			"name": "Cuevas Susurrantes",
+			"text": "Galerias de piedra que respiran. Hongos luminosos y ecos que no son tuyos."
+		},
+		{
+			"name": "Ruinas Olvidadas",
+			"text": "Alguien mas intento subir. Sus muros siguen en pie, y sus guardianes tambien."
+		},
+		{
+			"name": "Cienaga Hundida",
+			"text": "Aguas quietas, niebla y criaturas que no se ven hasta que muerden."
+		},
+		{
+			"name": "Desierto de Ceniza",
+			"text": "Dunas de ceniza fria. El sol de la Torre no calienta, pero quema."
+		},
+		{
+			"name": "Tundra Cristalina",
+			"text": "Pinos helados y lagos de hielo vivo. El frio aqui tiene intencion."
+		},
+		{
+			"name": "Cauce Volcanico",
+			"text": "La Torre sangra fuego. El suelo cede y las rocas laten."
+		},
+		{
+			"name": "Cripta Vacia",
+			"text": "Una ciudad de tumbas sin muertos... todavia."
+		},
+		{
+			"name": "Jardines del Cielo",
+			"text": "Jardines flotantes sobre la nada. Demasiado bonitos para ser seguros."
+		},
+		{
+			"name": "El Vacio",
+			"text": "Donde la Torre termina de ser piedra. Lo que hay arriba te conoce."
+		}
 	],
 	"npcs": {
 		"blacksmith": "Brann: \"Traeme mineral y madera y te hago un arma que no se rompa a la primera. Eso si, la Torre no me debe nada.\"",
-		"alchemist": "Mira: \"Hierba de la Nidada, cuarzo y paciencia. No toques lo verde... o no lo toques dos veces.\"",
+		"alchemist": "Mira: \"Hierba del Bosque, cuarzo y paciencia. No toques lo verde... o no lo toques dos veces.\"",
 		"carpenter": "Tomas: \"Arcos, bastones, cuchillos. Madera que aguanta la Torre es madera que ha visto cosas.\"",
 		"tailor": "Lena: \"Cuero curtido y tela limpia. Que tu ropa sea lo unico sencillo de tu vida, Despierto.\"",
 		"tavern": "Ottis: \"Aqui se cuenta todo, pero la cerveza llega mas tarde. Vuelve cuando la Torre te deje respirar.\"",
