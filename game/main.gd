@@ -17,6 +17,7 @@ var loadout_panel: LoadoutPanel
 var inventory_panel: InventoryPanel
 var crafting_panel: CraftingPanel
 var service_panel: ServicePanel
+var character_sheet: CharacterSheet
 var main_menu: MainMenu
 var pause_menu: PauseMenu
 ## Con menu principal: la partida se elige ahi (sin menu en tests y capturas).
@@ -79,6 +80,10 @@ func _ready() -> void:
 	crafting_panel.name = "CraftingPanel"
 	loadout_layer.add_child(crafting_panel)
 	crafting_panel.bind(world, session)
+	character_sheet = CharacterSheet.new()
+	character_sheet.name = "CharacterSheet"
+	loadout_layer.add_child(character_sheet)
+	character_sheet.bind(world)
 	service_panel = ServicePanel.new()
 	service_panel.name = "ServicePanel"
 	loadout_layer.add_child(service_panel)
@@ -138,7 +143,7 @@ func _on_main_menu_requested() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("quit_game") and world != null and not creator.visible and not main_menu.visible and not pause_menu.visible and not service_panel.is_open:
+	if event.is_action_pressed("quit_game") and world != null and not creator.visible and not main_menu.visible and not pause_menu.visible and not service_panel.is_open and not character_sheet.is_open:
 		pause_menu.open()
 		get_viewport().set_input_as_handled()
 
@@ -160,7 +165,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if world == null or (creator != null and creator.visible) or (main_menu != null and main_menu.visible) or (pause_menu != null and pause_menu.visible) or (service_panel != null and service_panel.is_open):
+	if world == null or (creator != null and creator.visible) or (main_menu != null and main_menu.visible) or (pause_menu != null and pause_menu.visible) or (service_panel != null and service_panel.is_open) or (character_sheet != null and character_sheet.is_open):
 		return
 
 	if Input.is_action_just_pressed("restart_training"):

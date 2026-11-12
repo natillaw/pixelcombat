@@ -609,6 +609,7 @@ func _draw_controls() -> void:
 		"%s  ULTIMATE" % Settings.short_label("ultimate"),
 		"%s  SKILL BOOK" % Settings.short_label("toggle_loadout"),
 		"%s  INVENTORY" % Settings.short_label("toggle_inventory"),
+		"%s  CHARACTER" % Settings.short_label("toggle_character"),
 		"%s  INTERACT" % Settings.short_label("interact"),
 		", .    TOWER FLOOR",
 		"%s  RESTART" % Settings.short_label("restart_training"),

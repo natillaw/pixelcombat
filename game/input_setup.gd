@@ -23,6 +23,7 @@ const ACTIONS := {
 	"toggle_debug_overlay": [KEY_F3],
 	"toggle_loadout": [KEY_TAB],
 	"toggle_inventory": [KEY_I],
+	"toggle_character": [KEY_C],
 	"debug_level_up": [KEY_F5],
 	"debug_level_reset": [KEY_F6],
 	"debug_class_next": [KEY_F7],

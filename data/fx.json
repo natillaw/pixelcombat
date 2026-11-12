@@ -2019,12 +2019,6 @@
 					"id": "melee/shadow-claw",
 					"scale": 1,
 					"ahead": 0.5
-				},
-				{
-					"id": "status/poisoned",
-					"scale": 0.8,
-					"up": 18,
-					"seconds": 0.8
 				}
 			],
 			"hit": "nature/acid-splash"
@@ -2074,10 +2068,9 @@
 		"fireball": {
 			"cast": [
 				{
-					"id": "fire/ground-flames",
+					"id": "kit/burst_fire",
 					"scale": 0.5,
-					"at": "self",
-					"seconds": 0.5
+					"ahead": 0.3
 				}
 			],
 			"hit": "fire/fireball-impact"
@@ -2122,9 +2115,9 @@
 		"ice_lance": {
 			"cast": [
 				{
-					"id": "ice/ice-spike",
-					"scale": 0.5,
-					"at": "self"
+					"id": "kit/thrust_thunder",
+					"scale": 0.4,
+					"ahead": 0.3
 				}
 			],
 			"hit": "ice/ice-spike"
@@ -2178,10 +2171,9 @@
 		"explosive_arrow": {
 			"cast": [
 				{
-					"id": "fire/ground-flames",
+					"id": "kit/burst_fire",
 					"scale": 0.4,
-					"ahead": 0.2,
-					"seconds": 0.4
+					"ahead": 0.25
 				}
 			],
 			"hit": "explosions/small-explosion",
@@ -2225,14 +2217,7 @@
 			"crit": "impacts/crit-hit"
 		},
 		"crippling_arrow": {
-			"cast": [
-				{
-					"id": "ice/frost-breath",
-					"scale": 0.45,
-					"ahead": 0.25,
-					"seconds": 0.4
-				}
-			],
+			"cast": [],
 			"hit": "ice/snowball-impact"
 		}
 	},
