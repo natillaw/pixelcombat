@@ -24,6 +24,7 @@ func _run() -> void:
 	_test_craft_result()
 	_test_tiers_and_session()
 	_test_buildings()
+	_test_npcs()
 	_test_save()
 	SaveGame.delete(SAVE_PATH)
 	print("== %d checks, %d failed ==" % [_checks, _failures])
@@ -174,6 +175,48 @@ func _test_buildings() -> void:
 		if RecipeCatalog.recipes_for(station).is_empty():
 			stations_ok = false
 	_check(stations_ok, "los cuatro talleres tienen recetas")
+
+
+## Cada taller tiene su PNJ delante: nombre, aspecto LPC que compone, posicion alcanzable y
+## un portal sobre el que abre el taller al hablar con el.
+func _test_npcs() -> void:
+	var city := Layouts.city()
+	var by_station := {}
+	for npc: Dictionary in city.npcs:
+		by_station[String(npc["station"])] = npc
+	_check(by_station.size() == 5 and by_station.has("blacksmith") and by_station.has("alchemist") and by_station.has("carpenter") and by_station.has("tailor") and by_station.has("tavern"), "hay un PNJ por cada taller de la ciudad")
+	var names := {}
+	var seen := city.grid.reachable_from(city.grid.world_to_cell(city.player_spawn))
+	var composed := true
+	var reachable := true
+	var portal_on_npc := true
+	for npc: Dictionary in city.npcs:
+		names[String(npc["name"])] = true
+		var cell := city.grid.world_to_cell(npc["position"])
+		if seen[cell.y * city.grid.cols + cell.x] == 0:
+			reachable = false
+		var equipment: Dictionary = {"_items": true}
+		for slot: String in npc["equipment"]:
+			equipment[slot] = npc["equipment"][slot]
+		var frames := LpcComposer.build_frames_for(npc["look"], "class.npc", equipment)
+		if not frames.has_animation("idle_down"):
+			composed = false
+		var found := false
+		for portal: Dictionary in city.portals:
+			if String(portal["action"]) == "building:" + String(npc["station"]) and (portal["position"] as Vector2) == (npc["position"] as Vector2):
+				found = true
+		if not found:
+			portal_on_npc = false
+	_check(names.size() == 5 and composed and reachable and portal_on_npc, "los PNJ tienen nombre propio, se componen con capas LPC, se alcanzan y hablar con ellos abre el taller")
+	var session := GameSession.new(CombatWorldScript.new(8), "")
+	var opened: Array = []
+	session.building_opened.connect(func(station: String) -> void: opened.append(station))
+	var smith: Dictionary = by_station["blacksmith"]
+	session.world.player.position = (smith["position"] as Vector2) + Vector2(30, 24)
+	session.try_interact()
+	_check(opened == ["blacksmith"], "acercarse al herrero y pulsar E abre la herreria")
+	var blocked := session.world.resolve_position(smith["position"], 14.0)
+	_check(blocked.distance_to(smith["position"]) > 8.0, "no se puede atravesar a un PNJ")
 
 
 func _test_save() -> void:

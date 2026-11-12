@@ -22,7 +22,7 @@
 	"cave": {
 		"season": "autumn",
 		"ground": "dirt",
-		"grass": 0,
+		"grass": 0.22,
 		"tint": [
 			0.44,
 			0.44,
@@ -34,14 +34,14 @@
 			"flowers": 0,
 			"tufts": 0,
 			"mushrooms": 0.012,
-			"rocks": 0.02
+			"rocks": 0.03
 		},
 		"water": true
 	},
 	"ruins": {
 		"season": "summer",
 		"ground": "grass",
-		"grass": 0.45,
+		"grass": 0.5,
 		"tint": [
 			0.55,
 			0.54,
@@ -53,7 +53,7 @@
 			"flowers": 0.004,
 			"tufts": 0.02,
 			"mushrooms": 0.004,
-			"rocks": 0.015
+			"rocks": 0.025
 		},
 		"water": true
 	},
@@ -136,7 +136,7 @@
 	"crypt": {
 		"season": "winter",
 		"ground": "dirt",
-		"grass": 0,
+		"grass": 0.14,
 		"tint": [
 			0.46,
 			0.42,
@@ -148,7 +148,7 @@
 			"flowers": 0,
 			"tufts": 0,
 			"mushrooms": 0.014,
-			"rocks": 0.015
+			"rocks": 0.025
 		},
 		"water": true
 	},
@@ -174,7 +174,7 @@
 	"void": {
 		"season": "winter",
 		"ground": "dirt",
-		"grass": 0,
+		"grass": 0.1,
 		"tint": [
 			0.42,
 			0.35,

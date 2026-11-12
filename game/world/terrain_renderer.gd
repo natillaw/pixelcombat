@@ -23,6 +23,7 @@ static var _images: Dictionary = {}
 static var _biomes: Dictionary = {}
 
 var grid: TileGrid
+var layout: FloorLayout
 var biome: Dictionary = {}
 var _rng := RandomNumberGenerator.new()
 var _grass: PackedByteArray = PackedByteArray()
@@ -31,6 +32,7 @@ var _chunk_cols: int = 0
 var _chunk_rows: int = 0
 var _prop_nodes: Array[Node] = []
 var _season: String = "summer"
+var _entities: Node2D
 
 
 static func available() -> bool:
@@ -59,8 +61,9 @@ static func _img(file: String) -> Image:
 
 ## Dibuja el mapa de `layout`. Los arboles y rocas altos se añaden a `entities`
 ## (ordenado por Y); todo lo demas queda en este nodo, debajo.
-func build(layout: FloorLayout, entities: Node2D) -> void:
+func build(p_layout: FloorLayout, entities: Node2D) -> void:
 	clear()
+	layout = p_layout
 	grid = layout.grid
 	biome = biome_config(layout.biome)
 	_season = String(biome["season"])
@@ -75,6 +78,7 @@ func build(layout: FloorLayout, entities: Node2D) -> void:
 	_build_grass_mask()
 
 	var visible := _visible_cells()
+	_entities = entities
 	var wall_big := _large_wall_cells(visible)
 	for r: int in range(grid.rows):
 		for c: int in range(grid.cols):
@@ -89,7 +93,7 @@ func build(layout: FloorLayout, entities: Node2D) -> void:
 			if kind == TileGrid.WATER:
 				_draw_water(c, r)
 			elif kind == TileGrid.ROAD:
-				_draw_road(c, r)
+				pass
 			elif kind == TileGrid.SOLID:
 				pass
 			elif kind != TileGrid.FLOOR:
@@ -99,6 +103,7 @@ func build(layout: FloorLayout, entities: Node2D) -> void:
 					_add_wall_prop(entities, c, r)
 			else:
 				_decorate(c, r)
+	_spawn_decor()
 	for index: int in range(_chunks.size()):
 		var sprite := Sprite2D.new()
 		sprite.centered = false
@@ -126,7 +131,7 @@ func clear() -> void:
 func _build_grass_mask() -> void:
 	_grass = PackedByteArray()
 	_grass.resize(grid.cols * grid.rows)
-	if String(biome["ground"]) != "grass":
+	if float(biome["grass"]) <= 0.0:
 		return
 	var step := 7
 	var lattice_cols := grid.cols / step + 3
@@ -147,6 +152,73 @@ func _build_grass_mask() -> void:
 			var a := lerpf(lattice[iy * lattice_cols + ix], lattice[iy * lattice_cols + ix + 1], tx)
 			var b := lerpf(lattice[(iy + 1) * lattice_cols + ix], lattice[(iy + 1) * lattice_cols + ix + 1], tx)
 			_grass[r * grid.cols + c] = 1 if lerpf(a, b, ty) < fraction else 0
+	# Calles, cimientos de edificios y el sendero de entrada a salida son tierra.
+	for r: int in range(grid.rows):
+		for c: int in range(grid.cols):
+			if grid.get_cell(c, r) == TileGrid.ROAD:
+				_grass[r * grid.cols + c] = 0
+	for cell: Vector2i in layout.footprints:
+		_grass[cell.y * grid.cols + cell.x] = 0
+	for cell: Vector2i in _trail_cells():
+		_grass[cell.y * grid.cols + cell.x] = 0
+	_despeckle()
+
+
+## Sendero de tierra que va de la entrada a la salida del piso (3 casillas de ancho con
+## algo de ondulacion): guia al jugador y rompe la monotonia de la hierba.
+func _trail_cells() -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	if layout.kind != FloorLayout.KIND_FLOOR:
+		return cells
+	var exit_position := Vector2.ZERO
+	for portal: Dictionary in layout.portals:
+		if String(portal["id"]) == "exit":
+			exit_position = portal["position"]
+	var target := grid.world_to_cell(exit_position)
+	var field := grid.distance_field(target, 100000)
+	var cell := grid.world_to_cell(layout.player_spawn)
+	var guard := 0
+	while field[cell.y * grid.cols + cell.x] > 0 and guard < 4000:
+		guard += 1
+		var best := cell
+		var best_value: int = field[cell.y * grid.cols + cell.x]
+		for dy: int in range(-1, 2):
+			for dx: int in range(-1, 2):
+				var n := Vector2i(cell.x + dx, cell.y + dy)
+				if grid.in_bounds(n.x, n.y) and field[n.y * grid.cols + n.x] >= 0 and field[n.y * grid.cols + n.x] < best_value:
+					best_value = field[n.y * grid.cols + n.x]
+					best = n
+		if best == cell:
+			break
+		cell = best
+		var wobble := _rng.randi_range(-1, 1) if guard % 5 == 0 else 0
+		for dy: int in range(-1, 2):
+			for dx: int in range(-1, 2):
+				var n := Vector2i(cell.x + dx + (wobble if dx == 0 else 0), cell.y + dy)
+				if grid.in_bounds(n.x, n.y) and not grid.blocks_move(n.x, n.y):
+					cells.append(n)
+	return cells
+
+
+## Quita motas: una casilla de hierba con menos de 3 vecinos de hierba pasa a tierra y una de
+## tierra rodeada de hierba pasa a hierba (el autotile solo sabe dibujar formas limpias).
+func _despeckle() -> void:
+	for pass_index: int in range(3):
+		# Primero se quitan las motas de hierba y despues se tapan los agujeros (sin mezclar
+		# ambas cosas en la misma pasada, que oscilaba en un patron de ajedrez).
+		var copy := _grass.duplicate()
+		for r: int in range(grid.rows):
+			for c: int in range(grid.cols):
+				var count := 0
+				for offset: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+					var n := Vector2i(c + offset.x, r + offset.y)
+					if not grid.in_bounds(n.x, n.y) or copy[n.y * grid.cols + n.x] == 1:
+						count += 1
+				var here := copy[r * grid.cols + c] == 1
+				if here and count < 3:
+					_grass[r * grid.cols + c] = 0
+				elif not here and count == 4 and grid.get_cell(c, r) != TileGrid.ROAD and not layout.footprints.has(Vector2i(c, r)):
+					_grass[r * grid.cols + c] = 1
 
 
 func _is_grass(c: int, r: int) -> bool:
@@ -224,7 +296,7 @@ func _ground_sheet() -> String:
 
 
 func _dirt_sheet() -> String:
-	return "dirt_winter.png" if _season == "winter" else "dirt_nonwinter.png"
+	return "dirt_nonwinter.png"
 
 
 func _water_sheet() -> String:
@@ -234,10 +306,15 @@ func _water_sheet() -> String:
 
 
 func _draw_ground(c: int, r: int) -> void:
-	if not _is_grass(c, r) or String(biome["ground"]) != "grass":
+	if not _is_grass(c, r) or float(biome["grass"]) <= 0.0:
 		_blit(_dirt_sheet(), Vector2i(_rng.randi_range(0, 2), _rng.randi_range(0, 1)), c, r)
 		return
-	_blit(_ground_sheet(), _nine_piece(c, r, func(x: int, y: int) -> bool: return _is_grass(x, y), true), c, r)
+	var piece := _nine_piece(c, r, func(x: int, y: int) -> bool: return _is_grass(x, y), true)
+	var enclosed := _is_grass(c, r - 1) and _is_grass(c + 1, r) and _is_grass(c, r + 1) and _is_grass(c - 1, r)
+	if piece == Vector2i(1, 1) and not enclosed:
+		_blit(_dirt_sheet(), Vector2i(_rng.randi_range(0, 2), _rng.randi_range(0, 1)), c, r)
+		return
+	_blit(_ground_sheet(), piece, c, r)
 
 
 ## Pieza del conjunto 3x3 (+ esquinas interiores en las filas 3-4) segun los vecinos.
@@ -317,6 +394,15 @@ func _draw_cliff(c: int, r: int) -> void:
 	else:
 		var row := 0 if not _is_wall(c, r - 1) else 1
 		_blit(sheet, Vector2i(col, row), c, r)
+		# La meseta se oscurece hacia dentro: solo el borde se ve claro; el interior es roca
+		# en sombra, asi las masas gruesas no se ven como una mancha lisa y palida.
+		var depth := 0
+		for step: int in range(1, 4):
+			if _is_wall(c - step, r) and _is_wall(c + step, r) and _is_wall(c, r - step):
+				depth = step
+		_stamp(_dark(0.55 + 0.14 * float(depth)), Vector2i(c * TILE, r * TILE))
+	if below < 2:
+		_stamp(_dark(0.18), Vector2i(c * TILE, r * TILE))
 
 
 ## Muros que no son cliffs: un arbol (o una roca en los biomas sin arboles) por casilla
@@ -347,6 +433,7 @@ func _spawn_prop(entities: Node2D, prop: Dictionary, foot: Vector2) -> void:
 	sprite.offset = Vector2(-texture.get_width() * 0.5, -float(texture.get_height()))
 	sprite.position = foot
 	sprite.modulate = modulate
+	_stamp(_shadow(int(texture.get_width() * 0.6), maxi(8, int(texture.get_width() * 0.16))), Vector2i(int(foot.x) - int(texture.get_width() * 0.3), int(foot.y) - maxi(8, int(texture.get_width() * 0.16)) / 2 - 3))
 	entities.add_child(sprite)
 	_prop_nodes.append(sprite)
 
@@ -369,12 +456,101 @@ func _decorate(c: int, r: int) -> void:
 		return
 	threshold += float(decor["mushrooms"])
 	if roll < threshold:
-		_blit_region("mushrooms.png", Rect2i(_rng.randi_range(0, 5) * 32, _rng.randi_range(0, 4) * 32, 32, 32), Vector2i(c * TILE, r * TILE))
+		var cell := Vector2i(_rng.randi_range(0, 5), _rng.randi_range(0, 4))
+		if cell.y == 2 and cell.x >= 3:
+			_stamp(_glow(26), Vector2i(c * TILE + 16 - 26, r * TILE + 22 - 26))
+		_blit_region("mushrooms.png", Rect2i(cell.x * 32, cell.y * 32, 32, 32), Vector2i(c * TILE, r * TILE))
 		return
 	threshold += float(decor["rocks"])
 	if roll < threshold:
-		var small := Rect2i(_rng.randi_range(0, 2) * 64, 128, 64, 64)
-		_blit_region("rocks_grasslands.png", small, Vector2i(c * TILE - 16, r * TILE - 16))
+		var smalls := [Rect2i(0, 97, 61, 31), Rect2i(64, 64, 58, 32), Rect2i(64, 96, 56, 32), Rect2i(128, 96, 32, 31)]
+		var small: Rect2i = smalls[_rng.randi_range(0, smalls.size() - 1)]
+		_blit_region("rocks_grasslands.png", small, Vector2i(c * TILE - 8, r * TILE))
+
+
+# --- Sombras, brillos y decorado ------------------------------------------------------
+
+
+## Mezcla una imagen pequena (sombra, brillo) en el trozo que contiene `at` (px del mapa).
+func _stamp(image: Image, at: Vector2i) -> void:
+	var cell := Vector2i(clampi(at.x / TILE, 0, grid.cols - 1), clampi(at.y / TILE, 0, grid.rows - 1))
+	var chunk: Image = _chunks[(cell.y / CHUNK) * _chunk_cols + (cell.x / CHUNK)]
+	var local := Vector2i(at.x - (cell.x / CHUNK) * CHUNK * TILE, at.y - (cell.y / CHUNK) * CHUNK * TILE)
+	chunk.blend_rect(image, Rect2i(Vector2i.ZERO, image.get_size()), local)
+
+
+static func _shadow(width: int, height: int) -> Image:
+	var key := "shadow:%d:%d" % [width, height]
+	if _images.has(key):
+		return _images[key]
+	var image := Image.create(width, height, false, Image.FORMAT_RGBA8)
+	for y: int in range(height):
+		for x: int in range(width):
+			var nx := (float(x) + 0.5) / float(width) * 2.0 - 1.0
+			var ny := (float(y) + 0.5) / float(height) * 2.0 - 1.0
+			var d := nx * nx + ny * ny
+			if d <= 1.0:
+				image.set_pixel(x, y, Color(0.0, 0.0, 0.03, 0.42 * (1.0 - d * 0.5)))
+	_images[key] = image
+	return image
+
+
+static func _dark(alpha: float) -> Image:
+	var key := "dark:%d" % int(alpha * 100.0)
+	if _images.has(key):
+		return _images[key]
+	var image := Image.create(TILE, TILE, false, Image.FORMAT_RGBA8)
+	image.fill(Color(0.02, 0.02, 0.06, minf(alpha, 0.92)))
+	_images[key] = image
+	return image
+
+
+static func _glow(radius: int) -> Image:
+	var key := "glow:%d" % radius
+	if _images.has(key):
+		return _images[key]
+	var image := Image.create(radius * 2, radius * 2, false, Image.FORMAT_RGBA8)
+	for y: int in range(radius * 2):
+		for x: int in range(radius * 2):
+			var d := Vector2(float(x) - float(radius) + 0.5, float(y) - float(radius) + 0.5).length() / float(radius)
+			if d < 1.0:
+				image.set_pixel(x, y, Color(0.45, 0.85, 1.0, 0.30 * (1.0 - d) * (1.0 - d)))
+	_images[key] = image
+	return image
+
+
+## Imagen de la aldea ampliada x2 (los props de 16 px de la hoja de aldea).
+static func _village_prop(name: String) -> Dictionary:
+	var key := "village:" + name
+	if _images.has(key):
+		return _images[key]
+	var texture: Texture2D = load("res://assets/pixel/village/%s.png" % name)
+	var image := texture.get_image()
+	if image.is_compressed():
+		image.decompress()
+	image.convert(Image.FORMAT_RGBA8)
+	image.resize(image.get_width() * 2, image.get_height() * 2, Image.INTERPOLATE_NEAREST)
+	var result := {"texture": ImageTexture.create_from_image(image)}
+	_images[key] = result
+	return result
+
+
+## Decorado del layout (arboles, arbustos, barriles, cajas, rocas) como sprites ordenados
+## por Y. Su colision ya esta reservada en el mapa (casillas SOLID).
+func _spawn_decor() -> void:
+	for spec: Dictionary in layout.decor:
+		var foot: Vector2 = spec["position"]
+		match String(spec["kind"]):
+			"tree":
+				_spawn_prop(_entities, _tree_sprite(String(biome["tree"]) if String(biome["tree"]) != "none" else "generic"), foot)
+			"bush":
+				_spawn_prop(_entities, _trim("bush_seasonal.png", Rect2i(0, 0, 32, 32 + 32 * (_rng.randi_range(0, 2) * 0))), foot)
+			"barrel":
+				_spawn_prop(_entities, _village_prop("barrel"), foot)
+			"crate":
+				_spawn_prop(_entities, _village_prop("crate"), foot)
+			"rock":
+				_spawn_prop(_entities, _rock_sprite(), foot)
 
 
 # --- Sprites de objetos -------------------------------------------------------------
@@ -404,5 +580,5 @@ func _tree_sprite(kind: String) -> Dictionary:
 
 
 func _rock_sprite() -> Dictionary:
-	var regions := [Rect2i(0, 0, 64, 128), Rect2i(64, 0, 64, 128), Rect2i(128, 0, 64, 128)]
+	var regions := [Rect2i(0, 0, 64, 92), Rect2i(68, 0, 50, 64), Rect2i(130, 0, 60, 58)]
 	return _trim("rocks_grasslands.png", regions[_rng.randi_range(0, regions.size() - 1)])

@@ -117,8 +117,10 @@ func _rebuild(new_layout: FloorLayout) -> void:
 	_build_props()
 	_build_torches()
 	_build_portals()
+	_build_dungeon_torches()
 	_build_resources()
 	_build_interactables()
+	_build_npcs()
 	_spawn_actors()
 
 	camera.limit_right = int(_size.x)
@@ -344,6 +346,8 @@ func _add_static(node: Node2D, at: Vector2) -> void:
 func _build_props() -> void:
 	for obstacle: Dictionary in layout.obstacles:
 		var radius: float = obstacle["radius"]
+		if bool(obstacle.get("hidden", false)):
+			continue
 		if layout.kind == FloorLayout.KIND_CITY:
 			_add_static(Fountain.new() if radius >= 30.0 else CityTree.new(), obstacle["position"])
 		else:
@@ -371,6 +375,35 @@ func _build_torches() -> void:
 		var torch := Torch.new()
 		torch.phase = float(i) * 1.7
 		_add_static(torch, layout.torches[i])
+
+
+## Antorchas en las caras de los cliffs de los biomas de cueva y mazmorra: luz calida que
+## rompe la oscuridad y marca el camino.
+func _build_dungeon_torches() -> void:
+	if layout.kind != FloorLayout.KIND_FLOOR or layout.grid == null or terrain == null or String(terrain.biome.get("wall_style", "")) != "cliffs":
+		return
+	var grid := layout.grid
+	var placed: Array[Vector2i] = []
+	for r: int in range(2, grid.rows - 2):
+		for c: int in range(2, grid.cols - 2):
+			if grid.get_cell(c, r) != TileGrid.WALL or grid.get_cell(c, r + 1) != TileGrid.FLOOR or _rng.randf() > 0.06:
+				continue
+			var spaced := true
+			for other: Vector2i in placed:
+				if absi(other.x - c) < 7 and absi(other.y - r) < 7:
+					spaced = false
+			if spaced:
+				placed.append(Vector2i(c, r))
+				var torch := Torch.new()
+				torch.phase = float(placed.size()) * 1.3
+				_add_static(torch, Vector2((float(c) + 0.5) * TileGrid.TILE, float(r + 1) * TileGrid.TILE - 4.0))
+
+
+func _build_npcs() -> void:
+	for spec: Dictionary in layout.npcs:
+		var npc := NpcActor.new()
+		npc.setup(spec)
+		_add_static(npc, spec["position"])
 
 
 func _build_interactables() -> void:

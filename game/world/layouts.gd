@@ -103,6 +103,7 @@ static func city() -> FloorLayout:
 		var has_door := functional.has(id)
 		_building(layout, grid, {"id": id, "sprite": String(slot[3]), "label": String(slot[4]), "scale": 2.0, "cx": int(slot[0]), "base": int(slot[1]), "half": 2, "door": has_door, "action": "building:" + id})
 	layout.portals.append({"id": "to_training", "position": Vector2(77.0 * 32.0, 31.5 * 32.0), "radius": 38.0, "label": "Patio de entrenamiento", "action": "to_training", "requires_complete": false})
+	_decorate_city(layout, grid)
 	layout.torches = []
 	for y: int in [20, 25, 36, 41, 52, 57]:
 		layout.torches.append(Vector2(39.0 * 32.0, float(y) * 32.0))
@@ -117,8 +118,25 @@ static func _road(grid: TileGrid, x: int, y: int, width: int, height: int) -> vo
 				grid.set_cell(c, r, TileGrid.ROAD)
 
 
-## Coloca un edificio: bloquea sus 4 filas inferiores y, si tiene puerta, crea el portal
-## justo debajo del centro. `cx`/`base` son la casilla del centro y la fila de la base.
+## PNJ de los talleres: aspecto LPC (cuerpo, piel, pelo...) y la ropa que llevan.
+const NPCS := {
+	"blacksmith": {"name": "Brann, el herrero", "look": {"body": "male", "skin": "amber", "eyes": "brown", "head": "head_human_male", "hair": "hair_buzzcut", "hair_color": "black", "beard": "beard_trimmed"},
+		"equipment": {"chest": ["shirt_sleeveless", "charcoal"], "legs": ["pants", "charcoal"], "feet": ["boots_basic", "black"], "main_hand": ["weapon_mace", "default"]}},
+	"alchemist": {"name": "Mira, la alquimista", "look": {"body": "female", "skin": "light", "eyes": "green", "head": "head_human_female", "hair": "hair_bob", "hair_color": "ginger", "beard": ""},
+		"equipment": {"chest": ["shirt_longsleeve", "navy"], "legs": ["pants_dyed", "navy"], "feet": ["shoes_basic", "leather"], "main_hand": ["weapon_wand", "default"]}},
+	"carpenter": {"name": "Tomas, el carpintero", "look": {"body": "male", "skin": "olive", "eyes": "brown", "head": "head_human_male", "hair": "hair_plain", "hair_color": "dark_brown", "beard": ""},
+		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants", "brown"], "feet": ["shoes_basic", "leather"]}},
+	"tailor": {"name": "Lena, la sastre", "look": {"body": "female", "skin": "taupe", "eyes": "blue", "head": "head_human_female", "hair": "hair_plain", "hair_color": "blonde", "beard": ""},
+		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants_dyed", "walnut"], "feet": ["boots_basic", "leather"]}},
+	"tavern": {"name": "Ottis, el tabernero", "look": {"body": "male", "skin": "bronze", "eyes": "gray", "head": "head_human_male", "hair": "hair_buzzcut", "hair_color": "gray", "beard": "beard_trimmed"},
+		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants", "brown"], "feet": ["shoes_basic", "leather"]}},
+}
+
+
+## Coloca un edificio: bloquea sus 4 filas inferiores (y las marca como cimientos) y, si
+## tiene puerta, crea el portal justo debajo del centro. Los edificios con taller llevan
+## a su PNJ delante de la puerta: hablar con el abre el taller. `cx`/`base` son la casilla
+## del centro y la fila de la base.
 static func _building(layout: FloorLayout, grid: TileGrid, spec: Dictionary) -> void:
 	var cx: int = spec["cx"]
 	var base: int = spec["base"]
@@ -126,6 +144,7 @@ static func _building(layout: FloorLayout, grid: TileGrid, spec: Dictionary) -> 
 	for r: int in range(base - 3, base + 1):
 		for c: int in range(cx - half, cx + half + 1):
 			grid.set_cell(c, r, TileGrid.SOLID)
+			layout.footprints.append(Vector2i(c, r))
 	var foot := Vector2((float(cx) + 0.5) * 32.0, float(base + 1) * 32.0 - 2.0)
 	var scale: float = spec["scale"]
 	layout.buildings.append({
@@ -133,8 +152,68 @@ static func _building(layout: FloorLayout, grid: TileGrid, spec: Dictionary) -> 
 		"foot": foot, "scale": scale, "label": String(spec["label"]),
 		"rect": Rect2(foot.x - 40.0 * scale, foot.y - 73.0 * scale, 80.0 * scale, 73.0 * scale), "color": Color(0.5, 0.35, 0.25),
 	})
-	if bool(spec["door"]):
-		layout.portals.append({"id": "door_" + String(spec["id"]), "position": foot + Vector2(0.0, 26.0), "radius": 40.0 if String(spec["id"]) != "tower" else 60.0, "label": String(spec["label"]), "action": String(spec["action"]), "requires_complete": false})
+	var id := String(spec["id"])
+	if NPCS.has(id):
+		var npc: Dictionary = NPCS[id]
+		var spot := foot + Vector2(-34.0, 40.0)
+		layout.npcs.append({"id": "npc_" + id, "name": String(npc["name"]), "station": id, "position": spot, "look": npc["look"], "equipment": npc["equipment"]})
+		layout.obstacles.append({"position": spot, "radius": 13.0, "hidden": true})
+		layout.portals.append({"id": "door_" + id, "position": spot, "radius": 46.0, "label": "Hablar con " + String(npc["name"]), "action": String(spec["action"]), "requires_complete": false})
+	elif bool(spec["door"]):
+		layout.portals.append({"id": "door_" + id, "position": foot + Vector2(0.0, 26.0), "radius": 40.0 if id != "tower" else 60.0, "label": String(spec["label"]), "action": String(spec["action"]), "requires_complete": false})
+
+
+## Adorna la ciudad: dos estanques, barriles y cajas junto a los talleres, arboles sueltos
+## por las zonas verdes (con colision) y arbustos (solo decoracion). Todo es determinista.
+static func _decorate_city(layout: FloorLayout, grid: TileGrid) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 424242
+	for pond: Vector2i in [Vector2i(30, 37), Vector2i(54, 37), Vector2i(30, 52), Vector2i(54, 52)]:
+		for dy: int in range(-3, 4):
+			for dx: int in range(-3, 4):
+				if dx * dx + dy * dy <= 8:
+					grid.set_cell(pond.x + dx, pond.y + dy, TileGrid.WATER)
+	for building: Dictionary in layout.buildings:
+		if not NPCS.has(String(building["id"])):
+			continue
+		var foot: Vector2 = building["foot"]
+		for entry: Array in [[Vector2(78.0, 22.0), "barrel"], [Vector2(104.0, 20.0), "crate"], [Vector2(-96.0, 22.0), "barrel"]]:
+			var spot := foot + (entry[0] as Vector2)
+			var cell := grid.world_to_cell(spot)
+			if grid.get_cell(cell.x, cell.y) == TileGrid.FLOOR:
+				grid.set_cell(cell.x, cell.y, TileGrid.SOLID)
+				layout.decor.append({"kind": String(entry[1]), "position": grid.cell_center(cell.x, cell.y) + Vector2(0.0, 12.0)})
+	var trees: Array[Vector2i] = []
+	for attempt: int in range(900):
+		var cell := Vector2i(rng.randi_range(5, grid.cols - 6), rng.randi_range(5, grid.rows - 6))
+		if grid.get_cell(cell.x, cell.y) != TileGrid.FLOOR or not _clear_of_paths(grid, cell, 3):
+			continue
+		var spaced := true
+		for other: Vector2i in trees:
+			if absi(other.x - cell.x) < 5 and absi(other.y - cell.y) < 5:
+				spaced = false
+		var near_portal := false
+		for portal: Dictionary in layout.portals:
+			if (portal["position"] as Vector2).distance_to(grid.cell_center(cell.x, cell.y)) < 120.0:
+				near_portal = true
+		if spaced and not near_portal and grid.cell_center(cell.x, cell.y).distance_to(layout.player_spawn) > 160.0:
+			trees.append(cell)
+			grid.set_cell(cell.x, cell.y, TileGrid.SOLID)
+			layout.decor.append({"kind": "tree", "position": grid.cell_center(cell.x, cell.y) + Vector2(0.0, 12.0)})
+	for attempt: int in range(500):
+		var cell := Vector2i(rng.randi_range(5, grid.cols - 6), rng.randi_range(5, grid.rows - 6))
+		if grid.get_cell(cell.x, cell.y) == TileGrid.FLOOR and _clear_of_paths(grid, cell, 1):
+			layout.decor.append({"kind": "bush", "position": grid.cell_center(cell.x, cell.y) + Vector2(rng.randf_range(-8.0, 8.0), 12.0)})
+
+
+## Si no hay calle, edificio ni agua a `distance` casillas de `cell`.
+static func _clear_of_paths(grid: TileGrid, cell: Vector2i, distance: int) -> bool:
+	for dy: int in range(-distance, distance + 1):
+		for dx: int in range(-distance, distance + 1):
+			var kind := grid.get_cell(cell.x + dx, cell.y + dy)
+			if kind == TileGrid.ROAD or kind == TileGrid.SOLID or kind == TileGrid.WATER:
+				return false
+	return true
 
 
 static func _torches(layout: FloorLayout) -> Array:

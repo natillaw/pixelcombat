@@ -41,6 +41,12 @@ var resources: Array = []
 var grid: TileGrid = null
 ## Objetos de mision: [{kind, position, group, channel, requires, label}]
 var interactables: Array = []
+## Decorado con colision ya reservada en el mapa (arboles, barriles...): [{kind, position}].
+var decor: Array = []
+## Personajes no jugadores: [{id, name, station, position, look, equipment}].
+var npcs: Array = []
+## Casillas de edificio (se dibujan como suelo pavimentado): [Vector2i].
+var footprints: Array = []
 ## Enemigos que aparecen despues (oleadas, jefe tras la prueba): mismas claves que `enemies`.
 var deferred_enemies: Array = []
 ## Plan de misiones del piso (ver MissionGen): {missions: [..], time_limit: s}.

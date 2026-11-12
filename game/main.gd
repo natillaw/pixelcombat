@@ -11,6 +11,7 @@ var world: CombatWorld
 var session: GameSession
 var arena: Arena
 var hud: GameHud
+var vignette: Vignette
 var loadout_panel: LoadoutPanel
 var inventory_panel: InventoryPanel
 var crafting_panel: CraftingPanel
@@ -39,6 +40,15 @@ func _ready() -> void:
 	hud.name = "Hud"
 	hud_layer.add_child(hud)
 	hud.bind(world, session)
+	var vignette_layer := CanvasLayer.new()
+	vignette_layer.name = "VignetteLayer"
+	vignette_layer.layer = 5
+	add_child(vignette_layer)
+	vignette = Vignette.new()
+	vignette.name = "Vignette"
+	vignette_layer.add_child(vignette)
+	vignette.apply_layout(session.layout)
+	session.location_changed.connect(vignette.apply_layout)
 
 	# Panel de loadout (Tab): capa propia por encima del HUD.
 	var loadout_layer := CanvasLayer.new()

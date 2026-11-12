@@ -40,6 +40,12 @@ func _ready() -> void:
 			session.go_to_floor(floor_number)
 		await _wait(0.6)
 		await _shot("floor_%03d_spawn" % floor_number)
+		if floor_number == 0:
+			for portal: Dictionary in session.layout.portals:
+				if String(portal["id"]) == "door_blacksmith":
+					world.player.position = (portal["position"] as Vector2) + Vector2(60, 40)
+			await _wait(0.8)
+			await _shot("floor_000_blacksmith")
 		var size := session.layout.size
 		var view := get_viewport().get_visible_rect().size
 		var zoom := minf(view.x / size.x, view.y / size.y)
