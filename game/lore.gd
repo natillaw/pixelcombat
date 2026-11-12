@@ -46,6 +46,15 @@ static func npc_line(station: String) -> String:
 	return String((_data.get("npcs", {}) as Dictionary).get(station, ""))
 
 
+## Un rumor de la taberna (el indice da vueltas por la lista).
+static func rumor(index: int) -> String:
+	_ensure()
+	var rumors: Array = _data.get("rumors", [])
+	if rumors.is_empty():
+		return ""
+	return String(rumors[posmod(index, rumors.size())])
+
+
 static func text(key: String) -> String:
 	_ensure()
 	return String(_data.get(key, ""))

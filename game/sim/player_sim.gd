@@ -236,6 +236,75 @@ func slot_accepts(slot: String, skill: Dictionary) -> bool:
 ## Skills "de mundo" aprendidas (libros, jefes, maestros): no vienen con la clase; se guardan.
 var learned_skills: Array = []
 
+## Consumibles (pociones y comida) por id; no ocupan la mochila. Enfriamiento compartido de pociones.
+var consumables: Dictionary = {}
+var potion_cooldown_left: float = 0.0
+signal consumable_used(id: String)
+## Encargos del Gremio aceptados, contador del tablon y total cobrados.
+var bounties: Array = []
+var bounty_serial: int = 0
+var bounties_done: int = 0
+## Alijo del banco (items guardados en la ciudad).
+var bank: Array = []
+const BANK_SIZE := 30
+
+
+func consumable_count(id: String) -> int:
+	return int(consumables.get(id, 0))
+
+
+## Anade `count` unidades (hasta el tope de pila); devuelve cuantas entraron.
+func add_consumable(id: String, count: int = 1) -> int:
+	if not ConsumableCatalog.has(id) or count <= 0:
+		return 0
+	var room := ConsumableCatalog.max_stack() - consumable_count(id)
+	var added := mini(count, maxi(room, 0))
+	if added > 0:
+		consumables[id] = consumable_count(id) + added
+		inventory_changed.emit()
+	return added
+
+
+## Usa un consumible: "" si se uso o el motivo ("none", "dead", "cooldown", "full").
+func use_consumable(id: String) -> String:
+	if not alive:
+		return "dead"
+	if consumable_count(id) <= 0 or not ConsumableCatalog.has(id):
+		return "none"
+	var spec: Dictionary = ConsumableCatalog.item(id)
+	var effect: Dictionary = spec["effect"]
+	if String(spec["kind"]) == "potion":
+		if potion_cooldown_left > 0.0:
+			return "cooldown"
+		var heal := float(effect.get("heal_pct", 0.0)) * max_health
+		var restore := float(effect.get("resource_pct", 0.0)) * resource.max_amount
+		var can_heal := heal > 0.0 and health < max_health
+		var can_restore := restore > 0.0 and resource.get_current() < resource.max_amount
+		if not can_heal and not can_restore:
+			return "full"
+		if can_heal:
+			health = minf(max_health, health + heal)
+			health_changed.emit(health, max_health)
+		if can_restore:
+			_gain_resource(restore)
+		potion_cooldown_left = ConsumableCatalog.potion_cooldown()
+	else:
+		statuses.apply(String(effect["status"]), float(effect["duration"]), float(effect["strength"]))
+	consumables[id] = consumable_count(id) - 1
+	if consumables[id] <= 0:
+		consumables.erase(id)
+	inventory_changed.emit()
+	consumable_used.emit(id)
+	return ""
+
+
+## Tecla rapida: usa el mejor consumible de `quick` ("health" | "resource") que tengas.
+func use_quick(quick: String) -> String:
+	for id: String in ConsumableCatalog.quick_ids(quick):
+		if consumable_count(id) > 0:
+			return use_consumable(id)
+	return "none"
+
 
 ## Aprende una skill de mundo de la clase actual. false si no existe, no es de mundo o ya la tiene.
 func learn_skill(id: StringName) -> bool:
@@ -451,7 +520,7 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	empower_until_tick = 0
 	_strike_index = 0
 	hold_time = 0.0
-	statuses.clear()
+	statuses.clear(true)
 	_range_mult = 1.0
 	_refill_charges()
 	ultimate_charge = 0.0
@@ -467,6 +536,7 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 	tick = tick_number
 	_read_input(input)
 	_tick_timers(delta)
+	potion_cooldown_left = maxf(0.0, potion_cooldown_left - delta)
 	_update_statuses(delta)
 	_update_dodge(delta)
 	_update_attack(delta)
@@ -476,11 +546,11 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 
 
 func _update_regen(delta: float) -> void:
-	if regen_per_second <= 0.0 or not alive or health >= max_health:
+	if (regen_per_second <= 0.0 and not statuses.has("fed")) or not alive or health >= max_health:
 		return
 	if tick - last_combat_tick < int(REGEN_DELAY * 60.0):
 		return
-	health = minf(max_health, health + max_health * regen_per_second * delta)
+	health = minf(max_health, health + max_health * (regen_per_second + statuses.strength("fed")) * delta)
 
 
 func _read_input(input: Object) -> void:
@@ -507,6 +577,11 @@ func _read_input(input: Object) -> void:
 			buffered_slot = slot
 			buffer_timer = BUFFER_SECONDS
 		_slot_prev[slot] = pressed
+	for quick: String in ["quick_health", "quick_resource"]:
+		var held := bool(input.actions.get(quick, false))
+		if held and not bool(_slot_prev.get(quick, false)):
+			use_quick(quick.trim_prefix("quick_"))
+		_slot_prev[quick] = held
 	# Atajos de depuracion (F5 sube un nivel, F6 vuelve al nivel 1): son acciones
 	# del input para que sigan siendo deterministas.
 	for action: String in ["debug_level_up", "debug_level_reset", "debug_class_next"]:
@@ -922,7 +997,7 @@ func _resolve_attack_hit(strike_mult: float = 1.0) -> void:
 func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: Dictionary) -> void:
 	var critical: bool = _rng.randf() < stats.get_crit_chance()
 	var roll: float = stats.roll_spell_damage(_rng) if String(skill.get("damage_type", "physical")) == "magic" else stats.roll_weapon_damage(_rng)
-	var damage: float = roll * mult
+	var damage: float = roll * mult * (1.0 + statuses.strength("might"))
 	if critical:
 		damage *= CRIT_MULTIPLIER
 	var dealt: float = target.take_damage(damage)
@@ -1292,7 +1367,7 @@ func _activate_class(new_class_id: String) -> void:
 ## clase.
 func export_state() -> Dictionary:
 	_save_progress()
-	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate(), "learned": learned_skills.duplicate(), "character": {"name": character_name, "appearance": appearance.duplicate(), "created": character_created}}
+	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate(), "consumables": consumables.duplicate(), "bank": bank.duplicate(true), "bounties": bounties.duplicate(true), "bounty_serial": bounty_serial, "bounties_done": bounties_done, "learned": learned_skills.duplicate(), "character": {"name": character_name, "appearance": appearance.duplicate(), "created": character_created}}
 
 
 ## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
@@ -1303,6 +1378,22 @@ func import_state(data: Dictionary) -> void:
 		if ClassCatalog.has_class(id):
 			progress[id] = (saved[id] as Dictionary).duplicate(true)
 	gold = maxi(int(data.get("gold", 0)), 0)
+	consumables = {}
+	var saved_consumables: Dictionary = data.get("consumables", {})
+	for id: String in saved_consumables:
+		if ConsumableCatalog.has(id) and int(saved_consumables[id]) > 0:
+			consumables[id] = mini(int(saved_consumables[id]), ConsumableCatalog.max_stack())
+	bank = []
+	for piece: Variant in data.get("bank", []):
+		if ItemCatalog.is_valid_item(piece) and bank.size() < BANK_SIZE:
+			bank.append(ItemCatalog.normalized(piece))
+	potion_cooldown_left = 0.0
+	bounties = []
+	for entry: Variant in data.get("bounties", []):
+		if entry is Dictionary and (entry as Dictionary).has("template") and (entry as Dictionary).has("count") and (entry as Dictionary).has("progress"):
+			bounties.append((entry as Dictionary).duplicate(true))
+	bounty_serial = maxi(int(data.get("bounty_serial", 0)), 0)
+	bounties_done = maxi(int(data.get("bounties_done", 0)), 0)
 	learned_skills = []
 	for id: Variant in data.get("learned", []):
 		if SkillCatalog.skill(StringName(String(id))).get("world", false) and not learned_skills.has(String(id)):

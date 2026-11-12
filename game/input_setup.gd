@@ -30,6 +30,8 @@ const ACTIONS := {
 	"interact": [KEY_E],
 	"floor_prev": [KEY_COMMA],
 	"floor_next": [KEY_PERIOD],
+	"quick_health": [KEY_H],
+	"quick_resource": [KEY_J],
 	"quit_game": [KEY_ESCAPE],
 }
 

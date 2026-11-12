@@ -1,0 +1,19 @@
+{
+	"_doc": "Encargos del Gremio (tablon). Cada visita al tablon ofrece 3 encargos distintos, sorteados con la semilla del mundo y el contador de encargos. kinds: kill_group (prefijo de id de enemigo bandit_ o el grupo beast), kill_type (un tipo concreto), collect (un tipo de material), clear_floors (pisos completados). Recompensas: oro, XP y a veces consumibles; suben con el tier. Numeros provisionales.",
+	"max_active": 3,
+	"templates": [
+		{"id": "road_clearing", "kind": "kill_group", "name": "Despejar el camino", "text": "Derrota a {count} bandidos del Cuervo.", "group": "bandit_", "count": [8, 14], "gold": 70, "xp": 90},
+		{"id": "beast_cull", "kind": "kill_group", "name": "Plaga del bosque", "text": "Caza {count} bestias del bosque (limos, murcielagos, aranas, escarabajos, avispas y fuegos fatuos).", "group": "beast", "count": [8, 12], "gold": 55, "xp": 70, "consumable": "health_potion"},
+		{"id": "hunt_swordsmen", "kind": "kill_type", "name": "Cazar espadachines", "text": "Derrota a {count} espadachines del Cuervo.", "enemy": "bandit_swordsman", "count": [5, 8], "gold": 65, "xp": 80},
+		{"id": "hunt_archers", "kind": "kill_type", "name": "Silenciar arqueros", "text": "Derrota a {count} arqueros del Cuervo.", "enemy": "bandit_archer", "count": [5, 8], "gold": 65, "xp": 80},
+		{"id": "hunt_hexers", "kind": "kill_type", "name": "Romper hechizos", "text": "Derrota a {count} hechiceros del Cuervo.", "enemy": "bandit_hexer", "count": [4, 7], "gold": 75, "xp": 95, "consumable": "resource_potion"},
+		{"id": "hunt_cutthroats", "kind": "kill_type", "name": "Cuchillos en la sombra", "text": "Derrota a {count} degolladores del Cuervo.", "enemy": "bandit_cutthroat", "count": [5, 8], "gold": 70, "xp": 85},
+		{"id": "hunt_shieldmen", "kind": "kill_type", "name": "Romper el muro", "text": "Derrota a {count} escuderos del Cuervo.", "enemy": "bandit_shieldman", "count": [3, 5], "gold": 80, "xp": 100},
+		{"id": "supply_ore", "kind": "collect", "name": "Suministro de mineral", "text": "Reune {count} de mineral.", "material": "ore", "count": [10, 16], "gold": 60, "xp": 60},
+		{"id": "supply_herb", "kind": "collect", "name": "Suministro de hierbas", "text": "Reune {count} de hierba.", "material": "herb", "count": [10, 16], "gold": 55, "xp": 60, "consumable": "herb_bread"},
+		{"id": "supply_wood", "kind": "collect", "name": "Suministro de madera", "text": "Reune {count} de madera.", "material": "wood", "count": [10, 16], "gold": 55, "xp": 60},
+		{"id": "supply_silk", "kind": "collect", "name": "Seda para el gremio", "text": "Reune {count} de seda de arana.", "material": "silk", "count": [4, 7], "gold": 70, "xp": 70},
+		{"id": "supply_essence", "kind": "collect", "name": "Esencia para el gremio", "text": "Reune {count} de esencia.", "material": "essence", "count": [4, 7], "gold": 70, "xp": 70, "consumable": "silk_tea"},
+		{"id": "climb_floors", "kind": "clear_floors", "name": "Subir la Torre", "text": "Completa {count} pisos de la Torre.", "count": [2, 3], "gold": 110, "xp": 160, "consumable": "greater_health_potion"}
+	]
+}

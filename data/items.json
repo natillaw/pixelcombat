@@ -885,6 +885,8 @@
 			"floor_chest_mid_boss": 1.5,
 			"floor_chest_boss": 3
 		},
-		"gold_per_xp": 0.35
+		"gold_per_xp": 0.35,
+		"potion_chance": 0.07,
+		"resource_potion_chance": 0.04
 	}
 }

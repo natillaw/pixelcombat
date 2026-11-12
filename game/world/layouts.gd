@@ -94,16 +94,17 @@ static func city() -> FloorLayout:
 		[8, 43, "cottage_a", "cottage", "Casa"], [15, 43, "carpenter", "carpenter", "Carpinteria"], [22, 43, "alchemist", "herbalist", "Alquimia"],
 		[62, 43, "tavern", "tavern", "Taberna"], [69, 43, "guild", "guild", "Gremio de aventureros"], [76, 43, "merchant", "merchant_house", "Mercader"],
 		# Fila sur.
-		[8, 58, "town_house", "town_house", "Casa"], [15, 58, "bakery", "bakery", "Panaderia"], [22, 58, "noble", "noble_house", "Casa noble"],
+		[8, 58, "town_house", "town_house", "Casa"], [15, 58, "bakery", "bakery", "Panaderia"], [22, 58, "bank", "noble_house", "Banco"],
 		[62, 58, "guard", "guard_house", "Guardia"], [69, 58, "hall", "town_hall", "Ayuntamiento"], [76, 58, "wizard", "wizard_hut", "Mago"],
 	]
-	var functional := ["blacksmith", "tailor", "carpenter", "alchemist", "tavern", "guild"]
+	var functional := ["blacksmith", "tailor", "carpenter", "alchemist", "tavern", "guild", "merchant", "bank"]
 	for slot: Array in slots:
 		var id := String(slot[2])
 		var has_door := functional.has(id)
 		_building(layout, grid, {"id": id, "sprite": String(slot[3]), "label": String(slot[4]), "scale": 2.0, "cx": int(slot[0]), "base": int(slot[1]), "half": 2, "door": has_door, "action": "building:" + id})
 	layout.portals.append({"id": "to_training", "position": Vector2(77.0 * 32.0, 31.5 * 32.0), "radius": 38.0, "label": "Patio de entrenamiento", "action": "to_training", "requires_complete": false})
 	_decorate_city(layout, grid)
+	_townsfolk(layout)
 	layout.torches = []
 	for y: int in [20, 25, 36, 41, 52, 57]:
 		layout.torches.append(Vector2(39.0 * 32.0, float(y) * 32.0))
@@ -128,9 +129,39 @@ const NPCS := {
 		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants", "brown"], "feet": ["shoes_basic", "leather"]}},
 	"tailor": {"name": "Lena, la sastre", "look": {"body": "female", "skin": "taupe", "eyes": "blue", "head": "head_human_female", "hair": "hair_plain", "hair_color": "blonde", "beard": ""},
 		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants_dyed", "walnut"], "feet": ["boots_basic", "leather"]}},
+	"guild": {"name": "Dara, capitana del gremio", "look": {"body": "female", "skin": "olive", "eyes": "brown", "head": "head_human_female", "hair": "hair_plain", "hair_color": "black", "beard": ""},
+		"equipment": {"chest": ["shirt_sleeveless", "charcoal"], "legs": ["pants", "charcoal"], "feet": ["boots_basic", "black"], "head": ["bandana", "maroon"], "main_hand": ["weapon_arming", "default"]}},
+	"merchant": {"name": "Orla, la mercader", "look": {"body": "female", "skin": "amber", "eyes": "green", "head": "head_human_female", "hair": "hair_bob", "hair_color": "chestnut", "beard": ""},
+		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants_dyed", "walnut"], "feet": ["shoes_basic", "leather"], "bag": ["cape", "maroon"]}},
+	"bank": {"name": "Tessin, el banquero", "look": {"body": "male", "skin": "light", "eyes": "gray", "head": "head_human_male", "hair": "hair_plain", "hair_color": "white", "beard": "beard_trimmed"},
+		"equipment": {"chest": ["shirt_longsleeve", "navy"], "legs": ["pants", "charcoal"], "feet": ["shoes_basic", "leather"]}},
 	"tavern": {"name": "Ottis, el tabernero", "look": {"body": "male", "skin": "bronze", "eyes": "gray", "head": "head_human_male", "hair": "hair_buzzcut", "hair_color": "gray", "beard": "beard_trimmed"},
 		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants", "brown"], "feet": ["shoes_basic", "leather"]}},
 }
+
+
+## Gente que pasea por la avenida (solo ambiente: van y vienen entre dos puntos, sin colision ni dialogo).
+const TOWNSFOLK := [
+	["Aldeano", Vector2(40.5, 21.0), Vector2(45.0, 21.0)], ["Viajera", Vector2(41.0, 37.0), Vector2(41.0, 47.0)],
+	["Aldeano", Vector2(44.5, 38.0), Vector2(44.5, 55.0)], ["Peregrina", Vector2(40.5, 56.0), Vector2(45.5, 50.0)],
+	["Aldeano", Vector2(43.0, 24.0), Vector2(43.0, 27.5)], ["Viajero", Vector2(45.5, 44.0), Vector2(40.5, 44.0)],
+]
+
+
+static func _townsfolk(layout: FloorLayout) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 31337
+	var outfits := [
+		{"chest": ["shirt_longsleeve", "tan"], "legs": ["pants", "brown"], "feet": ["shoes_basic", "leather"]},
+		{"chest": ["shirt_sleeveless", "charcoal"], "legs": ["pants", "charcoal"], "feet": ["boots_basic", "black"]},
+		{"chest": ["shirt_longsleeve", "navy"], "legs": ["pants_dyed", "navy"], "feet": ["shoes_basic", "leather"]},
+	]
+	for i: int in range(TOWNSFOLK.size()):
+		var entry: Array = TOWNSFOLK[i]
+		var from: Vector2 = (entry[1] as Vector2) * 32.0
+		var to: Vector2 = (entry[2] as Vector2) * 32.0
+		layout.npcs.append({"id": "folk_%d" % i, "name": String(entry[0]), "position": from, "look": LpcWardrobe.random_look(rng), "equipment": outfits[i % outfits.size()],
+			"wander": {"from": from, "to": to, "speed": rng.randf_range(16.0, 26.0)}})
 
 
 ## La Torre de las Cien Puertas: una aguja gigantesca que domina el norte de la ciudad y se

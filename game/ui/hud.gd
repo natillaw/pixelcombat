@@ -127,6 +127,7 @@ func _draw() -> void:
 	_draw_status(warrior)
 	_draw_statuses(warrior)
 	_draw_abilities(warrior)
+	_draw_quick_items(warrior)
 	if show_controls:
 		_draw_controls()
 	else:
@@ -236,6 +237,26 @@ func _draw_abilities(warrior: PlayerSim) -> void:
 		_draw_skill_slot(_slot_rect(3 + i), Settings.short_label("skill_%d" % (i + 1)) if InputMap.has_action("skill_%d" % (i + 1)) else str(i + 1), "S%d" % (i + 1), warrior)
 	_draw_skill_slot(_slot_rect(8), Settings.short_label("special"), "SPECIAL", warrior)
 	_draw_ultimate_slot(_slot_rect(9), warrior)
+
+
+## Pociones rapidas (vida y energia) a la izquierda de la barra: tecla, cantidad y enfriamiento.
+func _draw_quick_items(player: PlayerSim) -> void:
+	var colors := {"health": Color(0.85, 0.25, 0.28), "resource": Color(0.3, 0.55, 0.95)}
+	var index := 0
+	for quick: String in ["health", "resource"]:
+		var total := 0
+		for id: String in ConsumableCatalog.quick_ids(quick):
+			total += player.consumable_count(id)
+		var rect := Rect2(3.0, SLOT_Y + float(index) * 20.0, 31.0, 18.0)
+		UiStyle.draw_slot_bg(self, rect)
+		var color: Color = colors[quick]
+		draw_circle(rect.position + Vector2(8, 9), 4.0, color if total > 0 else color.darkened(0.6))
+		_draw_text(Settings.short_label("quick_" + quick), rect.position + Vector2(14, 7), 7, TEXT)
+		_draw_text("x%d" % total, rect.position + Vector2(14, 15), 7, MUTED if total > 0 else Color(0.5, 0.45, 0.38))
+		if player.potion_cooldown_left > 0.0 and total > 0:
+			var fraction := clampf(player.potion_cooldown_left / ConsumableCatalog.potion_cooldown(), 0.0, 1.0)
+			draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * fraction)), Color(0, 0, 0, 0.55))
+		index += 1
 
 
 func _slot_rect(index: int) -> Rect2:

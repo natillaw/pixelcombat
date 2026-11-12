@@ -203,15 +203,22 @@ func _test_buildings() -> void:
 func _test_npcs() -> void:
 	var city := Layouts.city()
 	var by_station := {}
+	var folk := 0
 	for npc: Dictionary in city.npcs:
-		by_station[String(npc["station"])] = npc
-	_check(by_station.size() == 5 and by_station.has("blacksmith") and by_station.has("alchemist") and by_station.has("carpenter") and by_station.has("tailor") and by_station.has("tavern"), "hay un PNJ por cada taller de la ciudad")
+		if npc.has("station"):
+			by_station[String(npc["station"])] = npc
+		else:
+			folk += 1
+	_check(by_station.size() == 8 and by_station.has("blacksmith") and by_station.has("alchemist") and by_station.has("carpenter") and by_station.has("tailor") and by_station.has("tavern") and by_station.has("guild") and by_station.has("merchant") and by_station.has("bank"), "hay un PNJ por cada taller y servicio de la ciudad")
+	_check(folk >= 5, "y gente que pasea por la avenida (%d)" % folk)
 	var names := {}
 	var seen := city.grid.reachable_from(city.grid.world_to_cell(city.player_spawn))
 	var composed := true
 	var reachable := true
 	var portal_on_npc := true
 	for npc: Dictionary in city.npcs:
+		if not npc.has("station"):
+			continue
 		names[String(npc["name"])] = true
 		var cell := city.grid.world_to_cell(npc["position"])
 		if seen[cell.y * city.grid.cols + cell.x] == 0:
@@ -228,7 +235,7 @@ func _test_npcs() -> void:
 				found = true
 		if not found:
 			portal_on_npc = false
-	_check(names.size() == 5 and composed and reachable and portal_on_npc, "los PNJ tienen nombre propio, se componen con capas LPC, se alcanzan y hablar con ellos abre el taller")
+	_check(names.size() == 8 and composed and reachable and portal_on_npc, "los PNJ tienen nombre propio, se componen con capas LPC, se alcanzan y hablar con ellos abre el taller")
 	var session := GameSession.new(CombatWorldScript.new(8), "")
 	var opened: Array = []
 	session.building_opened.connect(func(station: String) -> void: opened.append(station))

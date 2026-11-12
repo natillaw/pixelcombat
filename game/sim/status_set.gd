@@ -108,9 +108,10 @@ func is_stunned() -> bool:
 func speed_mult() -> float:
 	if is_stunned():
 		return 0.0
+	var mult := 1.0 + strength("haste")
 	if _active.has("slow"):
-		return 1.0 - strength("slow")
-	return 1.0
+		mult *= 1.0 - strength("slow")
+	return mult
 
 
 ## Ids activos (para dibujar los iconos).
@@ -121,11 +122,19 @@ func active_ids() -> Array[String]:
 	return ids
 
 
-func clear() -> void:
+const FOOD_IDS := ["fed", "might", "haste"]
+
+
+## Quita todos los estados; con `keep_food` conserva la comida (fed, might, haste), que dura
+## aunque se cambie de piso o se muera.
+func clear(keep_food: bool = false) -> void:
 	for id: String in _active.keys():
+		if keep_food and FOOD_IDS.has(id):
+			continue
+		_active.erase(id)
 		expired.emit(id)
-	_active = {}
-	_immune = {}
+	if not keep_food:
+		_immune = {}
 
 
 func snapshot() -> Dictionary:

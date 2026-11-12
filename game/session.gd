@@ -15,6 +15,8 @@ signal mission_completed(mission: Mission, xp: int)
 signal floor_failed(reason: String)
 ## Se usa la puerta de un edificio con recetas (la UI abre su taller).
 signal building_opened(station: String)
+## Edificios de servicio (taberna, gremio, mercader, banco): abren su propia ventana.
+signal service_opened(station: String)
 signal message(text: String)
 
 ## Ticks que pasan tras morir en un piso antes de volver a la ciudad (2,5 s).
@@ -49,6 +51,7 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
 	world.tick_advanced.connect(_on_tick)
 	world.enemy_killed.connect(_on_enemy_killed)
+	world.player.material_gained.connect(_on_material_gained)
 	go_to_city()
 
 
@@ -69,6 +72,10 @@ func load_slot(path: String, fresh: bool = false) -> void:
 	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
 	_floor_done = false
 	go_to_city()
+
+
+## Estaciones que no fabrican: tienen su propia ventana de servicio.
+const SERVICE_STATIONS := ["tavern", "guild", "merchant", "bank"]
 
 
 ## Si hay que pasar por el creador de personaje (partida nueva).
@@ -173,7 +180,12 @@ func try_interact() -> void:
 		_:
 			if action.begins_with("building:"):
 				var station := action.substr("building:".length())
-				if RecipeCatalog.recipes_for(station).is_empty():
+				if SERVICE_STATIONS.has(station):
+					var service_line := Lore.npc_line(station)
+					if not service_line.is_empty():
+						message.emit(service_line)
+					service_opened.emit(station)
+				elif RecipeCatalog.recipes_for(station).is_empty():
 					message.emit("%s: proximamente." % String(portal["label"]))
 				else:
 					var line := Lore.npc_line(station)
@@ -214,11 +226,23 @@ func objective_text() -> String:
 
 ## El mini-jefe elite errante cae: no vuelve a aparecer en esta partida.
 func _on_enemy_killed(enemy: EnemySim) -> void:
+	if not enemy.summoned:
+		_bounty_event("kill", String(enemy.def_id))
 	var config := TowerCatalog.elite_boss()
 	if not config.is_empty() and String(enemy.def_id) == String(config["id"]) and not enemy.summoned and not tower.elite_defeated:
 		tower.elite_defeated = true
 		message.emit("%s ha caido. No volvera a cruzarse en tu camino." % String(enemy.data["name"]))
 		autosave()
+
+
+## Avanza los encargos del Gremio con un evento y avisa de los que quedan listos para cobrar.
+func _bounty_event(event: String, subject: String, amount: int = 1) -> void:
+	for bounty: Dictionary in Bounties.progress(world.player, event, subject, amount):
+		message.emit("Encargo completado: %s. Vuelve al Gremio a cobrarlo." % String(bounty["name"]))
+
+
+func _on_material_gained(id: String, amount: int) -> void:
+	_bounty_event("material", id, amount)
 
 
 func is_floor_done() -> bool:
@@ -309,6 +333,7 @@ func _complete_floor() -> void:
 	var mult := main_mult / float(main_count) if main_count > 0 else 1.0
 	var xp := int(round(float(TowerCatalog.completion_xp(floor_number)) * mult)) if first_time else 0
 	tower.complete(floor_number)
+	_bounty_event("floor", str(floor_number))
 	if xp > 0:
 		world.player.grant_xp(xp, world.player.position)
 	floor_completed.emit(floor_number, xp)

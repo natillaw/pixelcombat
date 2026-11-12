@@ -92,9 +92,21 @@
 		"alchemist": "Mira: \"Hierba del Bosque, cuarzo y paciencia. No toques lo verde... o no lo toques dos veces.\"",
 		"carpenter": "Tomas: \"Arcos, bastones, cuchillos. Madera que aguanta la Torre es madera que ha visto cosas.\"",
 		"tailor": "Lena: \"Cuero curtido y tela limpia. Que tu ropa sea lo unico sencillo de tu vida, Despierto.\"",
-		"tavern": "Ottis: \"Aqui se cuenta todo, pero la cerveza llega mas tarde. Vuelve cuando la Torre te deje respirar.\"",
-		"guild": "El Gremio aun no abre sus puertas: los carteles de misiones estan en la Torre, no en este tablon."
+		"tavern": "Ottis: \"Pasa, siéntate. Comida caliente, pociones y una cama. La Torre te lo cobra todo, yo solo te cobro lo justo.\"",
+		"guild": "Dara: \"El tablon es de todos, Despiertos. Un encargo cobrado es un nombre mas en la pared... y un trago pagado. Y si buscas habilidades nuevas, tengo con que ensenarte.\"",
+		"merchant": "Orla: \"Equipo de segunda mano y de primera necesidad. Lo que la Torre escupe lo vendo yo. Mira, mira.\"",
+		"bank": "Tessin: \"Guardo lo que no cabe en tu mochila. Ni la Torre me roba nada, y mira que lo intenta.\""
 	},
 	"death": "La Torre te suelta de nuevo en la fuente de Albor. Sin heridas... y con mas ganas de volver.",
-	"tower_door": "La Puerta de la Torre te espera. Cada piso que cruces cambiara cuando vuelvas a entrar."
+	"tower_door": "La Puerta de la Torre te espera. Cada piso que cruces cambiara cuando vuelvas a entrar.",
+	"rumors": [
+		"Ottis: dicen que un antiguo capitan huyo del Cuervo y vaga por el Bosque... aparece una vez y no vuelve.",
+		"Ottis: los escuderos del Cuervo levantan escudos para todo su grupo. Matalos primero o te comeras todo el acero.",
+		"Ottis: las bestias no llevan nada de valor, pero su seda y su esencia pagan buenas pociones.",
+		"Ottis: el sangrado duele mas que el veneno. Una pocion a tiempo salva una vida.",
+		"Ottis: Garrick Mano Negra salta sobre quien huye. No corras en linea recta.",
+		"Ottis: en el Gremio se cobran encargos por oro y experiencia. La instructora ensena habilidades que no se encuentran en el camino.",
+		"Ottis: los hechiceros del Cuervo callan a quien se acerca: lleva un buen basico para cuando no puedas usar habilidades.",
+		"Ottis: cada oficio de Albor necesita lo suyo: cuero, quitina, seda, esencia... ningun material sobra."
+	]
 }

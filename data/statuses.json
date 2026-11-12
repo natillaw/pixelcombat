@@ -103,6 +103,51 @@
 				0.2,
 				1.0
 			]
+		},
+		{
+			"id": "fed",
+			"name": "Well fed",
+			"kind": "buff",
+			"description": "Regeneracion de vida extra fuera de combate (strength = fraccion de la vida maxima por segundo).",
+			"max_duration": 900.0,
+			"max_strength": 0.05,
+			"immune_after": 0.0,
+			"color": [
+				0.9,
+				0.75,
+				0.35,
+				1.0
+			]
+		},
+		{
+			"id": "might",
+			"name": "Might",
+			"kind": "buff",
+			"description": "Dano aumentado (strength = fraccion extra).",
+			"max_duration": 900.0,
+			"max_strength": 0.4,
+			"immune_after": 0.0,
+			"color": [
+				1.0,
+				0.45,
+				0.3,
+				1.0
+			]
+		},
+		{
+			"id": "haste",
+			"name": "Haste",
+			"kind": "buff",
+			"description": "Velocidad de movimiento aumentada (strength = fraccion extra).",
+			"max_duration": 900.0,
+			"max_strength": 0.4,
+			"immune_after": 0.0,
+			"color": [
+				0.6,
+				1.0,
+				0.7,
+				1.0
+			]
 		}
 	]
 }

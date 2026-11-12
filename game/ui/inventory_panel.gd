@@ -88,6 +88,12 @@ func _gui_input(event: InputEvent) -> void:
 				_report(world.player.unequip_gear(String(slots[i])), "Guardado en la mochila.")
 			accept_event()
 			return
+	if button == MOUSE_BUTTON_LEFT:
+		for entry: Dictionary in _consumable_rects():
+			if (entry["rect"] as Rect2).has_point(position):
+				_use_consumable(String(entry["id"]))
+				accept_event()
+				return
 	var index := _bag_index_at(position)
 	if index >= 0 and index < world.player.bag.size():
 		if button == MOUSE_BUTTON_LEFT:
@@ -99,6 +105,28 @@ func _gui_input(event: InputEvent) -> void:
 			else:
 				_say("Vendido por %d de oro." % gained, GOLD)
 		accept_event()
+
+
+## Zonas clicables de los consumibles (fila bajo los materiales): [{rect, id}].
+func _consumable_rects() -> Array:
+	var out: Array = []
+	var x := EQUIP_X
+	for id: String in ConsumableCatalog.ids():
+		if world.player.consumable_count(id) <= 0:
+			continue
+		var width := 112.0
+		out.append({"rect": Rect2(x, 337.0, width - 4.0, 11.0), "id": id})
+		x += width
+	return out
+
+
+func _use_consumable(id: String) -> void:
+	var reasons := {"none": "No te queda.", "dead": "No puedes ahora.", "cooldown": "Las pociones estan en enfriamiento.", "full": "No lo necesitas ahora."}
+	var reason := world.player.use_consumable(id)
+	if reason.is_empty():
+		_say("Usado: %s." % String(ConsumableCatalog.item(id)["name"]), GOLD)
+	else:
+		_say(String(reasons.get(reason, "No se puede.")), RED)
 
 
 func _report(reason: String, success: String) -> void:
@@ -195,6 +223,12 @@ func _draw_materials(player: PlayerSim) -> void:
 	for id: String in ids:
 		parts.append("%s x%d" % [MaterialCatalog.display_name(id), int(player.materials[id])])
 	_text("MATERIALES  " + ("-" if parts.is_empty() else "   ".join(parts)), Vector2(EQUIP_X, 326 + 10), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 544)
+	var rects := _consumable_rects()
+	if rects.is_empty():
+		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource")], Vector2(EQUIP_X, 346), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
+	for entry: Dictionary in rects:
+		var spec := ConsumableCatalog.item(String(entry["id"]))
+		_text("%s x%d" % [spec["name"], player.consumable_count(String(entry["id"]))], (entry["rect"] as Rect2).position + Vector2(0, 8), 7, GREEN, HORIZONTAL_ALIGNMENT_LEFT, 108.0)
 
 
 func _draw_detail(player: PlayerSim) -> void:

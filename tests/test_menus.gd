@@ -23,6 +23,7 @@ func _run() -> void:
 	_test_slots()
 	_test_settings()
 	await _test_menu_screens()
+	await _test_service_panel()
 	for index: int in range(1, SaveGame.SLOT_COUNT + 1):
 		SaveGame.delete(SaveGame.slot_path(index))
 	SaveGame.delete(Settings.path())
@@ -119,6 +120,39 @@ func _test_menu_screens() -> void:
 	_check(not pause.visible and not TickManager.is_paused(), "continuar reanuda")
 	menu.queue_free()
 	pause.queue_free()
+
+
+func _test_service_panel() -> void:
+	var world := CombatWorld.new(9)
+	var session := GameSession.new(world, "")
+	var panel := ServicePanel.new()
+	add_child(panel)
+	panel.bind(world, session)
+	world.player.add_gold(500)
+	world.player.add_material("herb_t1", 6)
+	var opened := 0
+	for station: String in ["tavern", "merchant", "bank", "guild"]:
+		session.service_opened.emit(station)
+		await get_tree().process_frame
+		var tabs: Array = ServicePanel.TABS[station]
+		var rows_ok := true
+		for index: int in range(tabs.size()):
+			panel._select(index)
+			await get_tree().process_frame
+			rows_ok = rows_ok and panel._list.get_child_count() >= 1
+		opened += 1 if panel.is_open and rows_ok else 0
+		_check(panel.is_open and TickManager.is_paused() and rows_ok, "%s: la ventana abre y todas sus pestanas tienen filas" % station)
+		panel.close()
+		_check(not panel.is_open and not TickManager.is_paused(), "%s: cerrar reanuda" % station)
+	# Taberna: comprar una pocion desde la fila.
+	session.service_opened.emit("tavern")
+	await get_tree().process_frame
+	var before := world.player.consumable_count("health_potion")
+	panel._after(Services.buy_consumable(world.player, "health_potion"), "ok")
+	await get_tree().process_frame
+	_check(world.player.consumable_count("health_potion") == before + 1, "comprar en la taberna da la pocion")
+	panel.close()
+	panel.queue_free()
 
 
 func _check(condition: bool, label: String) -> void:

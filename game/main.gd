@@ -16,6 +16,7 @@ var creator: CharacterCreator
 var loadout_panel: LoadoutPanel
 var inventory_panel: InventoryPanel
 var crafting_panel: CraftingPanel
+var service_panel: ServicePanel
 var main_menu: MainMenu
 var pause_menu: PauseMenu
 ## Con menu principal: la partida se elige ahi (sin menu en tests y capturas).
@@ -78,6 +79,10 @@ func _ready() -> void:
 	crafting_panel.name = "CraftingPanel"
 	loadout_layer.add_child(crafting_panel)
 	crafting_panel.bind(world, session)
+	service_panel = ServicePanel.new()
+	service_panel.name = "ServicePanel"
+	loadout_layer.add_child(service_panel)
+	service_panel.bind(world, session)
 
 	var debug_overlay: CanvasLayer = DebugOverlayScene.instantiate()
 	debug_overlay.name = "DebugOverlay"
@@ -133,7 +138,7 @@ func _on_main_menu_requested() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("quit_game") and world != null and not creator.visible and not main_menu.visible and not pause_menu.visible:
+	if event.is_action_pressed("quit_game") and world != null and not creator.visible and not main_menu.visible and not pause_menu.visible and not service_panel.is_open:
 		pause_menu.open()
 		get_viewport().set_input_as_handled()
 
@@ -155,7 +160,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if world == null or (creator != null and creator.visible) or (main_menu != null and main_menu.visible) or (pause_menu != null and pause_menu.visible):
+	if world == null or (creator != null and creator.visible) or (main_menu != null and main_menu.visible) or (pause_menu != null and pause_menu.visible) or (service_panel != null and service_panel.is_open):
 		return
 
 	if Input.is_action_just_pressed("restart_training"):
@@ -224,6 +229,8 @@ func _read_input() -> InputMessage:
 		"s5": Input.is_action_pressed("skill_5"),
 		"ultimate": Input.is_action_pressed("ultimate"),
 		"special": Input.is_action_pressed("special"),
+		"quick_health": Input.is_action_pressed("quick_health"),
+		"quick_resource": Input.is_action_pressed("quick_resource"),
 		"debug_level_up": Input.is_action_pressed("debug_level_up"),
 		"debug_level_reset": Input.is_action_pressed("debug_level_reset"),
 		"debug_class_next": Input.is_action_pressed("debug_class_next"),

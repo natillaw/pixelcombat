@@ -179,6 +179,13 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	for kind_id: String in material_table:
 		if loot_rng.randf() < float(material_table[kind_id]):
 			player.add_material(MaterialCatalog.material_id(kind_id, tier), loot_rng.randi_range(1, 2) + (2 if kind != "normal" else 0))
+	# Pociones sueltas: raras en enemigos normales, seguras en jefes.
+	var loot_config := ItemCatalog.loot()
+	var boss_kill := kind != "normal"
+	if boss_kill or loot_rng.randf() < float(loot_config.get("potion_chance", 0.0)):
+		player.add_consumable("health_potion", 2 if boss_kill else 1)
+	if boss_kill or loot_rng.randf() < float(loot_config.get("resource_potion_chance", 0.0)):
+		player.add_consumable("resource_potion", 1)
 	var item := ItemGen.roll_drop(loot_rng, tier, kind, enemy.data.get("loot", {}))
 	if enemy.elite and item.is_empty() and loot_rng.randf() < 0.6:
 		item = ItemGen.roll_item(loot_rng, tier, "", "", "", "", 1.5)

@@ -213,3 +213,8 @@ Cada clase empieza con 5 skills: M1, M2, S1 (control/utilidad), Special (postura
 ## Menus, ajustes y varios personajes
 - Menu principal (Continuar, Personajes, Ajustes, Salir), pausa con Esc (Continuar, Ajustes, Personajes, Salir) y 3 ranuras de guardado (`SaveGame.slot_path`), con su personaje cada una; el guardado antiguo se copia a la ranura 1. `GameSession.load_slot` carga o crea una partida; sin menu en tests (headless) y capturas.
 - Ajustes (`Settings`, user://settings.json): volumen general y de efectos (bus `SFX`), pantalla completa y reasignacion de 15 acciones (teclas o botones del raton, con intercambio si chocan). El HUD y el panel F1 muestran las teclas actuales.
+
+## Consumibles, taberna, gremio, mercader, banco y ciudad viva
+- Consumibles (`data/consumables.json`, `ConsumableCatalog`): pociones de vida y energia (teclas H/J, enfriamiento compartido de 14 s) y comida de 10 minutos (pan = regeneracion, estofado = +8 % dano, infusion = +8 % velocidad); se guardan fuera de la mochila y se usan tambien desde el inventario. Los enemigos sueltan pociones a veces y los jefes siempre.
+- Servicios (`Services`, ventana `ServicePanel`): la **taberna** cocina (materiales -> comida y pociones), vende y deja descansar (cura todo + comida + rumores); el **mercader** vende equipo (existencias fijas por piso completado) y pociones; el **banco** guarda 30 items; el **gremio** tiene el tablon de encargos (`Bounties`, 3 ofertas deterministas, hasta 3 aceptados, progreso por muertes, materiales y pisos) y la instructora que ensena las skills de mundo por oro.
+- Ciudad: PNJ nuevos (Dara del gremio, Orla la mercader, Tessin el banquero) y 6 paseantes que van y vienen por la avenida.

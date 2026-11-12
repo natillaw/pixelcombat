@@ -33,7 +33,31 @@ func setup(p_spec: Dictionary) -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
+	if spec.has("wander"):
+		_wander()
 	queue_redraw()
+
+
+## Los paseantes van y vienen entre dos puntos (ping-pong determinista por tiempo).
+func _wander() -> void:
+	var wander: Dictionary = spec["wander"]
+	var from: Vector2 = wander["from"]
+	var to: Vector2 = wander["to"]
+	var length := maxf(from.distance_to(to), 1.0)
+	var cycle := 2.0 * length / float(wander["speed"])
+	var phase := fposmod(_time, cycle) / cycle
+	var t := phase * 2.0 if phase < 0.5 else 2.0 - phase * 2.0
+	var heading := (to - from).normalized() * (1.0 if phase < 0.5 else -1.0)
+	var pause := t <= 0.02 or t >= 0.98
+	position = from.lerp(to, t)
+	var direction := "down"
+	if absf(heading.x) > absf(heading.y):
+		direction = "right" if heading.x > 0.0 else "left"
+	else:
+		direction = "down" if heading.y > 0.0 else "up"
+	var animation := ("idle_" if pause else "walk_") + direction
+	if sprite.sprite_frames.has_animation(animation) and sprite.animation != animation:
+		sprite.play(animation)
 
 
 func _draw() -> void:
