@@ -8,8 +8,11 @@ extends RefCounted
 
 
 ## Rasgos del personaje (cuerpo, piel, ojos, cabeza, pelo, barba).
-static func look(class_id: String) -> Dictionary:
-	var spec: Dictionary = ClassCatalog.class_def(class_id).get("look", {})
+static func look(class_id: String, appearance: Dictionary = {}) -> Dictionary:
+	var spec: Dictionary = ClassCatalog.class_def(class_id).get("look", {}).duplicate()
+	for key: String in ["body", "skin", "eyes", "head", "hair", "hair_color", "beard"]:
+		if appearance.has(key):
+			spec[key] = appearance[key]
 	return {
 		"body": spec.get("body", "male"),
 		"skin": spec.get("skin", "light"),
@@ -37,9 +40,9 @@ static func equipment(class_id: String, worn: Dictionary = {}) -> Dictionary:
 	return out
 
 
-static func frames(class_id: String, worn: Dictionary = {}) -> SpriteFrames:
-	return LpcComposer.build_frames_for(look(class_id), "class." + class_id, equipment(class_id, worn))
+static func frames(class_id: String, worn: Dictionary = {}, appearance: Dictionary = {}) -> SpriteFrames:
+	return LpcComposer.build_frames_for(look(class_id, appearance), "class." + class_id, equipment(class_id, worn))
 
 
-static func portrait(class_id: String) -> Texture2D:
-	return LpcComposer.pose_texture_for(look(class_id), "class." + class_id, "idle", equipment(class_id))
+static func portrait(class_id: String, appearance: Dictionary = {}, worn: Dictionary = {}) -> Texture2D:
+	return LpcComposer.pose_texture_for(look(class_id, appearance), "class." + class_id, "idle", equipment(class_id, worn))

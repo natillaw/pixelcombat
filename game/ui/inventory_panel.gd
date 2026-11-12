@@ -48,7 +48,7 @@ func bind(p_world: CombatWorld) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if world == null:
+	if world == null or get_viewport().gui_get_focus_owner() is LineEdit:
 		return
 	if event.is_action_pressed("toggle_inventory"):
 		_toggle()
@@ -153,8 +153,7 @@ func _draw() -> void:
 	if not is_open or world == null:
 		return
 	draw_rect(Rect2(0, 0, 640, 360), Color(0.0, 0.0, 0.0, 0.5))
-	draw_rect(PANEL_RECT, PANEL)
-	draw_rect(PANEL_RECT, EDGE, false, 1.0)
+	UiStyle.draw_panel(self, PANEL_RECT)
 	var player := world.player
 	_text("INVENTARIO  -  %s" % String(player.class_def["name"]).to_upper(), Vector2(48, 36), 14, GOLD)
 	_text("I / ESC  CERRAR", Vector2(0, 36), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 592)

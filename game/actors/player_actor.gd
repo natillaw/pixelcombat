@@ -48,8 +48,8 @@ func setup(p_sim: PlayerSim, p_arena: Arena) -> void:
 func _build_sprite() -> void:
 	sprite = AnimatedSprite2D.new()
 	sprite.name = "LpcSprite"
-	_look_key = str(ClassLook.equipment(sim.class_id, sim.equipment).hash())
-	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment)
+	_look_key = str([ClassLook.equipment(sim.class_id, sim.equipment), sim.appearance].hash())
+	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment, sim.appearance)
 	sprite.position = LpcComposer.FEET_OFFSET
 	sprite.centered = true
 	sprite.z_index = 1
@@ -76,6 +76,7 @@ func _connect_signals() -> void:
 	sim.leveled_up.connect(_on_leveled_up)
 	sim.class_changed.connect(_on_class_changed)
 	sim.inventory_changed.connect(_refresh_look)
+	sim.appearance_changed.connect(_refresh_look)
 	sim.buff_changed.connect(_on_buff_changed)
 	sim.projectiles_launched.connect(_on_projectiles_launched)
 	sim.status_applied.connect(_on_status_applied)
@@ -172,6 +173,8 @@ func _on_attack_state_changed(state: int) -> void:
 	var slot := String(_current_skill.get("slot", "M1"))
 	var heavy := slot != "M1"
 	var anim := String(_current_skill.get("anim", "slash"))
+	if arena != null:
+		arena.play_cast_fx(_current_skill, sim.position, sim.attack_aim, sim.attack_point, sim.attack_range_now())
 	_facing = _dir_name(sim.attack_aim)
 
 	sprite.speed_scale = 0.85 if heavy else 1.55
@@ -205,6 +208,7 @@ func _on_attack_hit(skill: Dictionary, _target: Object, damage: float, critical:
 	var heavy := String(skill.get("slot", "M1")) != "M1"
 	arena.spawn_damage_number(hit_position, damage, critical)
 	arena.spawn_impact(hit_position, Color(1.0, 0.72, 0.32, 1.0), heavy)
+	arena.play_hit_fx(skill, hit_position, critical)
 	arena.play_sfx(SFX_HIT_HEAVY if heavy else SFX_HIT, -5.0, randf_range(0.92, 1.06))
 	arena.shake(2.0 if not heavy else 3.0, 0.12)
 
@@ -313,13 +317,13 @@ func _on_attack_blocked(source_position: Vector2) -> void:
 ## Cambio de clase: nuevo aspecto LPC (otro equipo y otra arma).
 ## El equipo cambio: recompone el sprite si cambia lo que se ve (conserva la animacion).
 func _refresh_look() -> void:
-	var worn_key := str(ClassLook.equipment(sim.class_id, sim.equipment).hash())
+	var worn_key := str([ClassLook.equipment(sim.class_id, sim.equipment), sim.appearance].hash())
 	if worn_key == _look_key:
 		return
 	_look_key = worn_key
 	var animation := sprite.animation
 	var frame := sprite.frame
-	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment)
+	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment, sim.appearance)
 	if sprite.sprite_frames.has_animation(animation):
 		sprite.animation = animation
 		sprite.frame = frame
@@ -327,8 +331,8 @@ func _refresh_look() -> void:
 
 
 func _on_class_changed(_new_class_id: String) -> void:
-	_look_key = str(ClassLook.equipment(sim.class_id, sim.equipment).hash())
-	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment)
+	_look_key = str([ClassLook.equipment(sim.class_id, sim.equipment), sim.appearance].hash())
+	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment, sim.appearance)
 	sprite.play("combat_idle_%s" % _facing)
 	_current_skill = {}
 	if arena != null:
@@ -351,6 +355,7 @@ func _on_projectiles_launched(skill: Dictionary, direction: Vector2) -> void:
 		return
 	var heavy := String(skill.get("slot", "M1")) != "M1"
 	arena.spawn_impact(sim.position + direction * 18.0 + Vector2(0.0, -12.0), Color(1.0, 0.95, 0.8, 1.0), false)
+	arena.play_cast_fx(skill, sim.position, direction, sim.attack_point, sim.attack_range_now())
 	arena.play_sfx(SFX_SLASH_HEAVY if heavy else SFX_SLASH, -8.0, randf_range(1.15, 1.35))
 
 
@@ -360,6 +365,7 @@ func _on_status_applied(id: String) -> void:
 		return
 	var definition := StatusCatalog.status(id)
 	var color_data: Array = definition["color"]
+	arena.play_event("status_" + id, sim.position)
 	arena.spawn_floating_text(sim.position + Vector2(0.0, -34.0), String(definition["name"]).to_upper() + "!", Color(float(color_data[0]), float(color_data[1]), float(color_data[2]), 1.0))
 	arena.play_sfx(SFX_HURT, -10.0, 1.4)
 
@@ -372,7 +378,7 @@ func _on_xp_gained(amount: int, _source_position: Vector2) -> void:
 func _on_leveled_up(new_level: int, unlocked: Array) -> void:
 	if arena == null:
 		return
-	arena.spawn_impact(sim.position, GOLD_TEXT, true)
+	arena.play_event("level_up", sim.position)
 	arena.spawn_floating_text(sim.position + Vector2(0.0, -26.0), "LEVEL UP  %d" % new_level, GOLD_TEXT)
 	var row := 0
 	for id: StringName in unlocked:
@@ -407,7 +413,7 @@ func _on_dodge_started(_direction: Vector2) -> void:
 	sprite.speed_scale = 1.8
 	if arena == null:
 		return
-	arena.spawn_impact(sim.position + Vector2(0.0, 6.0), Color(0.82, 0.86, 0.95, 0.9), false)
+	arena.play_event("dodge", sim.position)
 	arena.play_sfx(SFX_DODGE, -10.0, randf_range(1.05, 1.2))
 
 

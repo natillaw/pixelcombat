@@ -283,12 +283,21 @@ func _blit(file: String, tile: Vector2i, c: int, r: int) -> void:
 
 
 func _blit_region(file: String, region: Rect2i, chunk_pos: Vector2i) -> void:
-	var cell := Vector2i(chunk_pos.x / TILE, chunk_pos.y / TILE)
-	if not grid.in_bounds(cell.x, cell.y):
-		return
-	var chunk: Image = _chunks[(cell.y / CHUNK) * _chunk_cols + (cell.x / CHUNK)]
-	var local := Vector2i(chunk_pos.x % (CHUNK * TILE), chunk_pos.y % (CHUNK * TILE))
-	chunk.blend_rect(_img(file), region, local)
+	_stamp_rect(_img(file), region, chunk_pos)
+
+
+## Mezcla `region` de `source` en `at` (px del mapa) en TODOS los trozos que toque, asi un
+## objeto que cruza el borde de un trozo no se corta a la mitad.
+func _stamp_rect(source: Image, region: Rect2i, at: Vector2i) -> void:
+	var span := CHUNK * TILE
+	var first_x := maxi(0, int(floor(float(at.x) / float(span))))
+	var first_y := maxi(0, int(floor(float(at.y) / float(span))))
+	var last_x := mini(_chunk_cols - 1, int(floor(float(at.x + region.size.x - 1) / float(span))))
+	var last_y := mini(_chunk_rows - 1, int(floor(float(at.y + region.size.y - 1) / float(span))))
+	for cy: int in range(first_y, last_y + 1):
+		for cx: int in range(first_x, last_x + 1):
+			var chunk: Image = _chunks[cy * _chunk_cols + cx]
+			chunk.blend_rect(source, region, Vector2i(at.x - cx * span, at.y - cy * span))
 
 
 func _ground_sheet() -> String:
@@ -432,6 +441,7 @@ func _spawn_prop(entities: Node2D, prop: Dictionary, foot: Vector2) -> void:
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	sprite.offset = Vector2(-texture.get_width() * 0.5, -float(texture.get_height()))
 	sprite.position = foot
+	sprite.scale = Vector2.ONE * float(prop.get("scale", 1.0))
 	sprite.modulate = modulate
 	_stamp(_shadow(int(texture.get_width() * 0.6), maxi(8, int(texture.get_width() * 0.16))), Vector2i(int(foot.x) - int(texture.get_width() * 0.3), int(foot.y) - maxi(8, int(texture.get_width() * 0.16)) / 2 - 3))
 	entities.add_child(sprite)
@@ -473,10 +483,7 @@ func _decorate(c: int, r: int) -> void:
 
 ## Mezcla una imagen pequena (sombra, brillo) en el trozo que contiene `at` (px del mapa).
 func _stamp(image: Image, at: Vector2i) -> void:
-	var cell := Vector2i(clampi(at.x / TILE, 0, grid.cols - 1), clampi(at.y / TILE, 0, grid.rows - 1))
-	var chunk: Image = _chunks[(cell.y / CHUNK) * _chunk_cols + (cell.x / CHUNK)]
-	var local := Vector2i(at.x - (cell.x / CHUNK) * CHUNK * TILE, at.y - (cell.y / CHUNK) * CHUNK * TILE)
-	chunk.blend_rect(image, Rect2i(Vector2i.ZERO, image.get_size()), local)
+	_stamp_rect(image, Rect2i(Vector2i.ZERO, image.get_size()), at)
 
 
 static func _shadow(width: int, height: int) -> Image:
@@ -567,7 +574,7 @@ static func _trim(file: String, region: Rect2i) -> Dictionary:
 	var used := part.get_used_rect()
 	var result: Dictionary = {}
 	if used.size.x > 2 and used.size.y > 2:
-		result = {"texture": ImageTexture.create_from_image(part.get_region(used))}
+		result = {"texture": ImageTexture.create_from_image(part.get_region(used)), "scale": 1.0}
 	_images[key] = result
 	return result
 
@@ -575,8 +582,12 @@ static func _trim(file: String, region: Rect2i) -> Dictionary:
 func _tree_sprite(kind: String) -> Dictionary:
 	if kind == "pine":
 		return _trim("trees_pine.png", Rect2i(0, 0, 96, 160))
+	var tree_scale := 0.8
 	var rows := {"spring": Rect2i(32, 0, 96, 160), "summer": Rect2i(32, 160, 96, 160), "autumn": Rect2i(288, 0, 100, 160), "winter": Rect2i(32, 320, 96, 160)}
-	return _trim("trees_generic.png", rows[_season])
+	var tree: Dictionary = _trim("trees_generic.png", rows[_season]).duplicate()
+	if not tree.is_empty():
+		tree["scale"] = tree_scale
+	return tree
 
 
 func _rock_sprite() -> Dictionary:

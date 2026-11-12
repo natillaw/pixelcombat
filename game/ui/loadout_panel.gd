@@ -52,7 +52,7 @@ func bind(p_world: CombatWorld) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if world == null:
+	if world == null or get_viewport().gui_get_focus_owner() is LineEdit:
 		return
 	if event.is_action_pressed("toggle_loadout"):
 		_toggle()
@@ -231,8 +231,7 @@ func _draw() -> void:
 		return
 	var warrior := world.player
 	draw_rect(Rect2(Vector2.ZERO, size), Color(0.0, 0.0, 0.0, 0.55))
-	draw_rect(PANEL_RECT, PANEL)
-	draw_rect(PANEL_RECT, EDGE, false, 1.0)
+	UiStyle.draw_panel(self, PANEL_RECT)
 	_text("LOADOUT", PANEL_RECT.position + Vector2(14, 20), 14, GOLD)
 	_text("LV %d   XP %d / %d" % [warrior.level, warrior.xp, warrior.xp_to_next()], PANEL_RECT.position + Vector2(100, 19), 7, TEXT)
 	_draw_tabs(warrior)
@@ -273,7 +272,10 @@ func _draw_slot_row(index: int, slot: String, warrior: PlayerSim) -> void:
 	_text(slot, rect.position + Vector2(30, 15), 7, MUTED)
 	if warrior.loadout.has(slot):
 		var skill: Dictionary = warrior.loadout[slot]
-		_text(String(skill["name"]), rect.position + Vector2(62, 15), 7, TEXT)
+		var icon := SkillIcons.texture(String(skill["id"]))
+		if icon != null:
+			draw_texture_rect(icon, Rect2(rect.position + Vector2(62, 2), Vector2(20, 20)), false)
+		_text(String(skill["name"]), rect.position + Vector2(88, 15), 7, TEXT)
 		var cost := "%d" % int(skill.get("cost", 0.0)) if float(skill.get("cost", 0.0)) > 0.0 else ""
 		_text(cost, Vector2(rect.position.x, rect.position.y + 15), 7, GOLD, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 6.0)
 	else:
@@ -300,7 +302,10 @@ func _draw_book_row(index: int, skill: Dictionary, warrior: PlayerSim) -> void:
 	if rect.has_point(get_local_mouse_position()):
 		draw_rect(rect, Color(1, 1, 1, 0.07))
 	_text("LV %2d" % unlock_at, rect.position + Vector2(2, 10), 7, GREEN if unlock_at <= warrior.level else RED)
-	_text(String(skill["name"]), rect.position + Vector2(34, 10), 7, color)
+	var book_icon := SkillIcons.texture(String(skill["id"]))
+	if book_icon != null:
+		draw_texture_rect(book_icon, Rect2(rect.position + Vector2(30, 1), Vector2(12, 12)), false, Color(1, 1, 1, 1.0 if color != DIM else 0.45))
+	_text(String(skill["name"]), rect.position + Vector2(46, 10), 7, color)
 	var kind := String(skill.get("slot", ""))
 	if kind == "SPECIAL" or kind == "ULTIMATE":
 		_text(kind, rect.position + Vector2(150, 10), 7, MUTED)

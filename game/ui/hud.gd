@@ -34,6 +34,9 @@ var world: CombatWorld
 var session: GameSession
 var _damage_flash: float = 0.0
 var _toast: String = ""
+var _portrait: Texture2D = null
+var _portrait_key: String = ""
+var show_controls: bool = false
 var _minimap: ImageTexture = null
 var _minimap_layout: FloorLayout = null
 ## Texto bajo el cursor sobre algo que se puede coger (lo pone main).
@@ -79,7 +82,7 @@ func _process(delta: float) -> void:
 func _on_message(text: String) -> void:
 	_toast = text
 	_toast_color = TEXT
-	_toast_time = 3.0
+	_toast_time = 2.5 + float(text.length()) * 0.045
 
 
 func _on_item_gained(item: Dictionary) -> void:
@@ -124,7 +127,10 @@ func _draw() -> void:
 	_draw_status(warrior)
 	_draw_statuses(warrior)
 	_draw_abilities(warrior)
-	_draw_controls()
+	if show_controls:
+		_draw_controls()
+	else:
+		_draw_text("F1  AYUDA", Vector2(520, 354), 7, MUTED)
 	_draw_boss_bar()
 	_draw_location()
 	_draw_minimap()
@@ -141,51 +147,56 @@ func _draw() -> void:
 
 
 func _draw_status(warrior: PlayerSim) -> void:
-	_panel(Rect2(10, 6, 246, 78))
-	_draw_text(String(warrior.class_def["name"]).to_upper(), Vector2(16, 24), 14, GOLD)
-	_draw_text("LV %d" % warrior.level, Vector2(16, 24), 14, TEXT, HORIZONTAL_ALIGNMENT_RIGHT, 234)
-	_draw_text(_location_title(), Vector2(84, 23), 7, MUTED)
+	_panel(Rect2(6, 6, 256, 70))
+	# Retrato (cara del personaje con su equipo) en marco dorado y chapa de nivel.
+	var key := str([warrior.class_id, warrior.equipment, warrior.appearance].hash())
+	if key != _portrait_key:
+		_portrait_key = key
+		_portrait = ClassLook.portrait(warrior.class_id, warrior.appearance, warrior.equipment)
+	var frame := Rect2(13, 13, 52, 52)
+	draw_rect(frame.grow(2.0), Color(0.0, 0.0, 0.02, 0.95))
+	draw_rect(frame, Color(0.10, 0.13, 0.20, 1.0))
+	if _portrait != null:
+		draw_texture_rect_region(_portrait, frame, Rect2(10, 2, 44, 44))
+	draw_rect(frame.grow(2.0), UiStyle.GOLD, false, 1.0)
+	draw_circle(frame.end - Vector2(4, 4), 9.0, Color(0.05, 0.06, 0.1, 1.0))
+	draw_arc(frame.end - Vector2(4, 4), 9.0, 0.0, TAU, 20, UiStyle.GOLD, 1.0)
+	_draw_text(str(warrior.level), frame.end - Vector2(13, 1), 8, UiStyle.GOLD_LIGHT, HORIZONTAL_ALIGNMENT_CENTER, 18)
+
+	var x := 72.0
+	_draw_text(warrior.character_name.to_upper(), Vector2(x, 19), 8, GOLD)
+	_draw_text("%s  -  %s" % [String(warrior.class_def["name"]).to_upper(), _location_title()], Vector2(x, 19), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 184)
 
 	var health_ratio: float = warrior.health / maxf(warrior.max_health, 1.0)
-	var health_color := HEALTH if health_ratio > 0.30 else HEALTH_LOW
-	_bar(Rect2(16, 30, 234, 11), health_ratio, health_color)
-	_draw_text(
-		"HP  %d / %d" % [ceili(warrior.health), ceili(warrior.max_health)],
-		Vector2(16, 39), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 234
-	)
+	var health_color := Color(0.80, 0.18, 0.18, 1.0) if health_ratio > 0.30 else Color(0.95, 0.35, 0.15, 1.0)
+	_bar(Rect2(x, 24, 184, 12), health_ratio, health_color)
+	_draw_text("%d / %d" % [ceili(warrior.health), ceili(warrior.max_health)], Vector2(x, 34), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 184)
 
 	var rage_ratio: float = warrior.resource.get_current() / maxf(warrior.resource.max_amount, 1.0)
-	_bar(Rect2(16, 45, 234, 8), rage_ratio, _resource_color(warrior))
+	_bar(Rect2(x, 40, 184, 9), rage_ratio, _resource_color(warrior))
 	if warrior.resource.is_full() and warrior.resource_kind == "rage":
-		draw_rect(Rect2(16, 45, 234, 8), GOLD, false, 1.0)
-	_draw_text(
-		"%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)],
-		Vector2(16, 52), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 234
-	)
-
+		draw_rect(Rect2(x, 40, 184, 9), GOLD, false, 1.0)
+	_draw_text("%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)], Vector2(x, 47), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 184)
 	# Marca del coste del Special (30 Rage) para que la barra ya se lea.
-	var special_mark := 16.0 + 234.0 * (WarriorKit.SPECIAL_COST / WarriorKit.MAX_RAGE)
-	draw_line(Vector2(special_mark, 45), Vector2(special_mark, 52), Color(1, 1, 1, 0.35), 1.0)
+	var special_mark := x + 184.0 * (WarriorKit.SPECIAL_COST / WarriorKit.MAX_RAGE)
+	draw_line(Vector2(special_mark, 40), Vector2(special_mark, 49), Color(1, 1, 1, 0.35), 1.0)
 
 	var passive := String(warrior.class_def["role"]).to_upper()
 	var passive_color := MUTED
 	if String(warrior.class_def["passive"]) == "vengeful_fury":
-		passive = "PASSIVE  VENGEFUL FURY"
+		passive = "VENGEFUL FURY"
 		passive_color = GOLD
 		if warrior.vengeful_active:
-			passive += "  ACTIVE %.1fs" % warrior.vengeful_seconds_left()
+			passive += "  %.1fs" % warrior.vengeful_seconds_left()
 			passive_color = ORANGE
 	if warrior.empower_mult > 1.0:
 		passive = "EMPOWERED  x%.1f  %.1fs" % [warrior.empower_mult, warrior.empower_seconds_left()]
 		passive_color = Color(0.65, 0.88, 1.0, 1.0)
-	_draw_text(passive, Vector2(16, 66), 7, passive_color)
-
-	# XP del nivel actual.
+	_draw_text(passive, Vector2(x, 59), 7, passive_color)
 	var to_next := warrior.xp_to_next()
 	var xp_ratio := 1.0 if to_next <= 0 else float(warrior.xp) / float(to_next)
-	_bar(Rect2(16, 70, 234, 5), xp_ratio, XP)
-	_draw_text("GOLD  %d" % warrior.gold, Vector2(16, 82), 7, GOLD)
-	_draw_text("MAX LEVEL" if to_next <= 0 else "XP  %d / %d" % [warrior.xp, to_next], Vector2(16, 82), 7, XP, HORIZONTAL_ALIGNMENT_RIGHT, 234)
+	_bar(Rect2(x, 62, 184, 4), xp_ratio, XP)
+	_draw_text("ORO %d" % warrior.gold, Vector2(x, 59), 7, GOLD, HORIZONTAL_ALIGNMENT_RIGHT, 184)
 
 
 ## Barra inferior: M1, M2, esquiva, S1-S5, Special y Ultimate (10 huecos).
@@ -218,8 +229,8 @@ func _slot_rect(index: int) -> Rect2:
 
 func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: float, total: float, empowered: bool, idle: bool) -> void:
 	var edge := ORANGE if empowered else PANEL_EDGE
-	draw_rect(rect, PANEL)
-	draw_rect(rect, edge, false, 1.0)
+	UiStyle.draw_slot_bg(self, rect)
+	UiStyle.draw_slot_edge(self, rect, edge)
 
 	_draw_text(key, rect.position + Vector2(4, 9), 7, MUTED)
 	_draw_text(slot, Vector2(rect.position.x, rect.position.y + 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 4)
@@ -227,7 +238,10 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 	var icon_color := ORANGE if empowered else (GOLD if left <= 0.0 else Color(0.62, 0.64, 0.72, 1.0))
 	var icon_center := rect.position + Vector2(rect.size.x * 0.5, 17)
 	var shape := String(world.player.loadout.get(slot, {}).get("shape", "cone"))
-	if shape == "projectile":
+	var icon := SkillIcons.texture(String(world.player.loadout.get(slot, {}).get("id", "")))
+	if icon != null:
+		_draw_icon(icon, rect, left <= 0.0)
+	elif shape == "projectile":
 		_draw_arrow_icon(icon_center, icon_color, slot == "M2")
 	elif slot == "M1":
 		_draw_sword_icon(icon_center, -0.65, icon_color, false)
@@ -245,6 +259,14 @@ func _draw_ability(rect: Rect2, key: String, label: String, slot: String, left: 
 
 	if empowered:
 		_draw_text("!", rect.position + Vector2(rect.size.x - 12, 9), 7, ORANGE)
+
+
+## Icono de habilidad centrado en el hueco; apagado mientras esta en enfriamiento.
+func _draw_icon(icon: Texture2D, rect: Rect2, active: bool) -> void:
+	var side := 26.0
+	var dst := Rect2(rect.position + Vector2((rect.size.x - side) * 0.5, 5.0), Vector2(side, side))
+	draw_texture_rect(icon, dst, false, Color(1, 1, 1, 1.0) if active else Color(0.55, 0.55, 0.62, 0.9))
+	draw_rect(dst, Color(0.0, 0.0, 0.02, 0.7), false, 1.0)
 
 
 ## Cargas de M1 como tres barras sobre el hueco; la que se esta recargando se va
@@ -281,8 +303,11 @@ func _draw_ultimate_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	var ready := warrior.ultimate_ready_now()
 	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.01)
 	var edge := Color(GOLD.r, GOLD.g, GOLD.b, 0.65 + 0.35 * pulse) if ready else PANEL_EDGE
-	draw_rect(rect, PANEL)
-	var fill := Color(GOLD.r, GOLD.g, GOLD.b, 0.55 if ready else 0.35)
+	UiStyle.draw_slot_bg(self, rect)
+	var ultimate_icon := SkillIcons.texture(String(warrior.loadout.get("ULTIMATE", {}).get("id", "")))
+	if ultimate_icon != null:
+		_draw_icon(ultimate_icon, rect, ready)
+	var fill := Color(GOLD.r, GOLD.g, GOLD.b, 0.40 if ready else 0.22)
 	draw_rect(Rect2(rect.position.x, rect.position.y + rect.size.y * (1.0 - ratio), rect.size.x, rect.size.y * ratio), fill)
 	draw_rect(rect, edge, false, 1.0)
 	_draw_text("F", rect.position + Vector2(4, 9), 7, MUTED)
@@ -294,7 +319,7 @@ func _draw_ultimate_slot(rect: Rect2, warrior: PlayerSim) -> void:
 ## Hueco de una skill equipada (S1-S5): etiqueta, coste y cooldown. Se vuelve
 ## rojo si no hay Rage suficiente.
 func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: PlayerSim) -> void:
-	draw_rect(rect, PANEL)
+	UiStyle.draw_slot_bg(self, rect)
 	if not warrior.loadout.has(slot):
 		draw_rect(rect, PANEL_EDGE_SOFT, false, 1.0)
 		_draw_text(key, rect.position + Vector2(4, 9), 7, MUTED)
@@ -311,8 +336,12 @@ func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: PlayerSim
 	_draw_text("%d" % int(cost), Vector2(rect.position.x, rect.position.y + 9), 7, RAGE if affordable else RED, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 4)
 	var icon_color := GOLD if (left <= 0.0 and affordable) else Color(0.62, 0.64, 0.72, 1.0)
 	var c := rect.position + Vector2(rect.size.x * 0.5, 19)
-	draw_circle(c, 8.0, Color(icon_color.r, icon_color.g, icon_color.b, 0.22))
-	draw_arc(c, 8.0, 0.0, TAU, 20, icon_color, 1.5)
+	var skill_icon := SkillIcons.texture(String(skill.get("id", "")))
+	if skill_icon != null:
+		_draw_icon(skill_icon, rect, left <= 0.0 and affordable)
+	else:
+		draw_circle(c, 8.0, Color(icon_color.r, icon_color.g, icon_color.b, 0.22))
+		draw_arc(c, 8.0, 0.0, TAU, 20, icon_color, 1.5)
 	_draw_text(String(skill.get("hud_label", "")), Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 	if left > 0.05:
 		var ratio := clampf(left / maxf(total, 0.001), 0.0, 1.0)
@@ -326,15 +355,19 @@ func _draw_dodge_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	var total := warrior.dodge_cooldown_total()
 	var ready := left <= 0.0
 	var edge := Color(0.55, 0.82, 1.0, 1.0) if warrior.dodging else PANEL_EDGE
-	draw_rect(rect, PANEL)
-	draw_rect(rect, edge, false, 1.0)
+	UiStyle.draw_slot_bg(self, rect)
+	UiStyle.draw_slot_edge(self, rect, edge)
 	_draw_text("SPACE", rect.position + Vector2(4, 9), 7, MUTED)
 	var icon_color := Color(0.6, 0.85, 1.0, 1.0) if ready else Color(0.62, 0.64, 0.72, 1.0)
 	var c := rect.position + Vector2(rect.size.x * 0.5, 18)
-	for i: int in range(3):
-		var x := -8.0 + i * 8.0
-		draw_line(Vector2(c.x + x - 2, c.y - 6), Vector2(c.x + x + 2, c.y), icon_color, 2.0)
-		draw_line(Vector2(c.x + x + 2, c.y), Vector2(c.x + x - 2, c.y + 6), icon_color, 2.0)
+	var dodge_icon := SkillIcons.texture("dodge")
+	if dodge_icon != null:
+		_draw_icon(dodge_icon, rect, ready)
+	else:
+		for i: int in range(3):
+			var x := -8.0 + i * 8.0
+			draw_line(Vector2(c.x + x - 2, c.y - 6), Vector2(c.x + x + 2, c.y), icon_color, 2.0)
+			draw_line(Vector2(c.x + x + 2, c.y), Vector2(c.x + x - 2, c.y + 6), icon_color, 2.0)
 	_draw_text("DODGE", Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 	if left > 0.05:
 		var ratio := clampf(left / maxf(total, 0.001), 0.0, 1.0)
@@ -421,18 +454,21 @@ func _draw_missions() -> void:
 	var lines := session.mission_lines()
 	if lines.is_empty() and session.time_limit <= 0.0:
 		return
-	var height := 12.0 + float(lines.size()) * 11.0 + (12.0 if session.time_limit > 0.0 else 0.0)
-	_panel(Rect2(10, 90, 246, height))
-	var y := 101.0
+	var height := 22.0 + float(lines.size()) * 11.0 + (12.0 if session.time_limit > 0.0 else 0.0)
+	_panel(Rect2(488, 92, 142, height), "OBJETIVOS")
+	var y := 107.0
 	for line: Dictionary in lines:
 		var color := GREEN_DONE if bool(line["done"]) else (MUTED if bool(line["optional"]) else TEXT)
 		var mark := "[x] " if bool(line["done"]) else "[ ] "
-		_draw_text(mark + String(line["text"]), Vector2(16, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 234)
+		var shown := mark + String(line["text"])
+		if shown.length() > 38:
+			shown = shown.substr(0, 36) + ".."
+		_draw_text(shown, Vector2(494, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 130)
 		y += 11.0
 	if session.time_limit > 0.0:
 		var left := session.time_left
 		var urgent := left < 60.0
-		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(16, y + 1.0), 7, RED if urgent else GOLD)
+		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(494, y + 1.0), 7, RED if urgent else GOLD)
 
 
 ## Minimapa de los escenarios con mapa de casillas: terreno (una textura de 1 px por
@@ -518,8 +554,13 @@ func _draw_location() -> void:
 		_draw_text(_banner, Vector2(0, 90), 14, GOLD, HORIZONTAL_ALIGNMENT_CENTER, 640)
 
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F1:
+		show_controls = not show_controls
+
+
 func _draw_controls() -> void:
-	_panel(Rect2(498, 92, 132, 148))
+	_panel(Rect2(10, 84, 132, 148), "CONTROLES")
 	var lines := [
 		"WASD   MOVE",
 		"MOUSE  AIM",
@@ -538,7 +579,7 @@ func _draw_controls() -> void:
 		"F7     NEXT CLASS",
 	]
 	for i: int in range(lines.size()):
-		_draw_text(String(lines[i]), Vector2(504, 103 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
+		_draw_text(String(lines[i]), Vector2(16, 100 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
 
 
 # --- Overlays ---------------------------------------------------------------
@@ -570,20 +611,12 @@ func _draw_death() -> void:
 # --- Primitivas -------------------------------------------------------------
 
 
-func _panel(rect: Rect2) -> void:
-	draw_rect(rect, PANEL)
-	draw_rect(rect, PANEL_EDGE_SOFT, false, 1.0)
-	draw_line(rect.position + Vector2(1, 1), Vector2(rect.end.x - 1, rect.position.y + 1), Color(PANEL_EDGE.r, PANEL_EDGE.g, PANEL_EDGE.b, 0.55), 1.0)
+func _panel(rect: Rect2, title: String = "") -> void:
+	UiStyle.draw_panel(self, rect, title)
 
 
 func _bar(rect: Rect2, ratio: float, color: Color) -> void:
-	draw_rect(rect, Color(0.08, 0.09, 0.12, 0.95))
-	var clamped := clampf(ratio, 0.0, 1.0)
-	if clamped > 0.0:
-		var fill := Rect2(rect.position, Vector2(rect.size.x * clamped, rect.size.y))
-		draw_rect(fill, color)
-		draw_rect(Rect2(fill.position, Vector2(fill.size.x, 1.0)), color.lightened(0.35))
-	draw_rect(rect, Color(0.02, 0.03, 0.05, 0.9), false, 1.0)
+	UiStyle.draw_bar(self, rect, ratio, color)
 
 
 func _draw_text(text: String, at: Vector2, font_size: int, color: Color, alignment: int = HORIZONTAL_ALIGNMENT_LEFT, width: float = -1.0) -> void:

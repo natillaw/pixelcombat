@@ -18,6 +18,7 @@ func _ready() -> void:
 		_dir = ProjectSettings.globalize_path("user://captures")
 	DirAccess.make_dir_recursive_absolute(_dir)
 	OS.set_environment("PIXELCOMBAT_NO_SAVE", "1")
+	OS.set_environment("PIXELCOMBAT_NO_CREATOR", "1")
 	_main = MainScene.instantiate()
 	add_child(_main)
 	await _wait(0.5)
@@ -46,6 +47,9 @@ func _ready() -> void:
 					world.player.position = (portal["position"] as Vector2) + Vector2(60, 40)
 			await _wait(0.8)
 			await _shot("floor_000_blacksmith")
+			world.player.position = Vector2(42.5 * 32.0, 17.0 * 32.0)
+			await _wait(0.8)
+			await _shot("floor_000_tower")
 		var size := session.layout.size
 		var view := get_viewport().get_visible_rect().size
 		var zoom := minf(view.x / size.x, view.y / size.y)

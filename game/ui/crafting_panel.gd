@@ -165,8 +165,7 @@ func _draw() -> void:
 	if not is_open or world == null:
 		return
 	draw_rect(Rect2(0, 0, 640, 360), Color(0.0, 0.0, 0.0, 0.5))
-	draw_rect(PANEL_RECT, PANEL)
-	draw_rect(PANEL_RECT, EDGE, false, 1.0)
+	UiStyle.draw_panel(self, PANEL_RECT)
 	var player := world.player
 	_text(RecipeCatalog.station_name(_station).to_upper(), Vector2(48, 36), 14, GOLD)
 	_text("ESC  CERRAR", Vector2(0, 36), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 592)

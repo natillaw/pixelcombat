@@ -51,6 +51,21 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 	go_to_city()
 
 
+## Si hay que pasar por el creador de personaje (partida nueva).
+func needs_character() -> bool:
+	return not world.player.character_created
+
+
+## Crea al personaje: nombre, clase y aspecto (la ropa es la basica de la clase). Guarda.
+func create_character(new_name: String, class_id: String, appearance: Dictionary) -> void:
+	world.player.safe_zone = true
+	world.player.set_character(new_name, appearance)
+	if ClassCatalog.has_class(class_id) and class_id != world.player.class_id:
+		world.player.switch_class(class_id)
+	autosave()
+	message.emit("Despiertas en Albor, %s." % world.player.character_name)
+
+
 func go_to_city() -> void:
 	_enter(Layouts.city(), true)
 	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
@@ -67,6 +82,9 @@ func go_to_floor(floor_number: int) -> bool:
 		message.emit("Completa el piso %d para subir." % tower.highest_unlocked())
 		return false
 	var visit := tower.visit(floor_number)
+	if TowerCatalog.position_in_tier(floor_number) == 1 and visit == 1:
+		var blurb := Lore.tier_blurb(TowerCatalog.tier_of_floor(floor_number))
+		message.emit("%s: %s" % [blurb["name"], blurb["text"]])
 	_enter(TowerGenerator.generate(floor_number, tower.world_seed, visit), false)
 	_floor_done = false
 	if visit > 1:
@@ -138,6 +156,9 @@ func try_interact() -> void:
 				if RecipeCatalog.recipes_for(station).is_empty():
 					message.emit("%s: proximamente." % String(portal["label"]))
 				else:
+					var line := Lore.npc_line(station)
+					if not line.is_empty():
+						message.emit(line)
 					building_opened.emit(station)
 
 
@@ -208,7 +229,7 @@ func _on_tick(_tick_number: int) -> void:
 	if not world.player.alive:
 		_dead_ticks += 1
 		if _dead_ticks >= DEATH_RETURN_TICKS:
-			message.emit("Has caido: vuelves a la ciudad.")
+			message.emit(Lore.text("death"))
 			go_to_city()
 		return
 	var delta := world.step_delta

@@ -186,7 +186,7 @@ func _test_city_and_training_layouts() -> void:
 	var rows := {}
 	for building: Dictionary in city.buildings:
 		rows[int(round((building["foot"] as Vector2).y / 32.0))] = true
-	_check(rows.size() >= 4, "los edificios forman varias filas (%d), no una sola linea" % rows.size())
+	_check(rows.size() >= 3, "los edificios forman varias filas (%d), no una sola linea" % rows.size())
 	var seen := city.grid.reachable_from(city.grid.world_to_cell(city.player_spawn))
 	var all_reachable := true
 	for portal: Dictionary in city.portals:

@@ -85,7 +85,7 @@ static func city() -> FloorLayout:
 	layout.obstacles = [{"position": Vector2(42.5 * 32.0, 31.5 * 32.0), "radius": 34.0}]
 
 	# Torre: cierra el norte de la avenida.
-	_building(layout, grid, {"id": "tower", "sprite": "clock_tower", "label": "Torre", "scale": 3.2, "cx": 42, "base": 14, "half": 3, "door": true, "action": "tower"})
+	_giant_tower(layout, grid)
 	var slots := [
 		# Fila norte (puertas hacia la calle de la plaza).
 		[8, 27, "house", "stone_house", "Casa"], [15, 27, "store", "general_store", "Tienda"], [22, 27, "blacksmith", "blacksmith", "Herreria"],
@@ -131,6 +131,19 @@ const NPCS := {
 	"tavern": {"name": "Ottis, el tabernero", "look": {"body": "male", "skin": "bronze", "eyes": "gray", "head": "head_human_male", "hair": "hair_buzzcut", "hair_color": "gray", "beard": "beard_trimmed"},
 		"equipment": {"chest": ["shirt_longsleeve", "tan"], "legs": ["pants", "brown"], "feet": ["shoes_basic", "leather"]}},
 }
+
+
+## La Torre de las Cien Puertas: una aguja gigantesca que domina el norte de la ciudad y se
+## pierde entre las nubes (no se ve su cima). Ocupa un bloque solido de 23 x 12 casillas; su
+## puerta, al pie, es el portal de entrada a la torre.
+static func _giant_tower(layout: FloorLayout, grid: TileGrid) -> void:
+	for r: int in range(3, 15):
+		for c: int in range(35, 51):
+			grid.set_cell(c, r, TileGrid.SOLID)
+			layout.footprints.append(Vector2i(c, r))
+	var foot := Vector2(42.5 * 32.0, 15.0 * 32.0)
+	layout.landmarks.append({"kind": "giant_tower", "position": foot, "width": 15.0 * 32.0})
+	layout.portals.append({"id": "door_tower", "position": foot + Vector2(0.0, 22.0), "radius": 64.0, "label": "Torre de las Cien Puertas", "action": "tower", "requires_complete": false})
 
 
 ## Coloca un edificio: bloquea sus 4 filas inferiores (y las marca como cimientos) y, si
@@ -198,7 +211,7 @@ static func _decorate_city(layout: FloorLayout, grid: TileGrid) -> void:
 				near_portal = true
 		if spaced and not near_portal and grid.cell_center(cell.x, cell.y).distance_to(layout.player_spawn) > 160.0:
 			trees.append(cell)
-			grid.set_cell(cell.x, cell.y, TileGrid.SOLID)
+			layout.obstacles.append({"position": grid.cell_center(cell.x, cell.y) + Vector2(0.0, 6.0), "radius": 24.0, "hidden": true})
 			layout.decor.append({"kind": "tree", "position": grid.cell_center(cell.x, cell.y) + Vector2(0.0, 12.0)})
 	for attempt: int in range(500):
 		var cell := Vector2i(rng.randi_range(5, grid.cols - 6), rng.randi_range(5, grid.rows - 6))

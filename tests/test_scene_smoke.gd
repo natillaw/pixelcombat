@@ -19,6 +19,7 @@ func _ready() -> void:
 func _run() -> void:
 	print("== test_scene_smoke (escena principal) ==")
 	OS.set_environment("PIXELCOMBAT_NO_SAVE", "1")
+	OS.set_environment("PIXELCOMBAT_NO_CREATOR", "1")
 	var main: Node2D = MainScene.instantiate()
 	add_child(main)
 	await _frames(5)
@@ -44,7 +45,7 @@ func _run() -> void:
 		enemy.take_damage(1.0e9)
 	var reasons: Array = []
 	world.gather_interrupted.connect(func(_n: ResourceNode, why: String) -> void: reasons.append(why))
-	world.player.position = node.position + Vector2(20, 0)
+	world.player.position = node.position + Vector2(44, 0)
 	_check(world.try_click(node.position) == "", "se puede empezar a recolectar un nodo del piso")
 	for i: int in range(150):
 		world.step(1.0 / 60.0)

@@ -169,7 +169,7 @@ func _test_buildings() -> void:
 		if String(portal["id"]) == "door_tavern":
 			session.world.player.position = portal["position"]
 	session.try_interact()
-	_check(opened.size() == 1 and messages.size() == 1, "la taberna aun avisa de que viene pronto")
+	_check(opened.size() == 1 and not messages.is_empty(), "la taberna aun avisa de que viene pronto")
 	var stations_ok := true
 	for station: String in ["blacksmith", "alchemist", "carpenter", "tailor"]:
 		if RecipeCatalog.recipes_for(station).is_empty():

@@ -70,12 +70,18 @@ func _use(session: GameSession, point: Vector2) -> String:
 	for enemy: EnemySim in world.enemies.duplicate():
 		if enemy.alive and enemy.group != "boss" and enemy.group != "mini" and enemy.position.distance_to(point) < 700.0:
 			enemy.take_damage(1.0e9)
-	world.player.position = point + Vector2(24, 0)
-	var result := world.try_click(point)
-	var guard := 0
-	while world.gather_node != null and guard < 1000:
+	var result := ""
+	# Prueba varios lados: junto a muros u otros obstaculos el jugador puede quedar empujado.
+	for offset: Vector2 in [Vector2(44, 0), Vector2(-44, 0), Vector2(0, 44), Vector2(0, -44)]:
+		world.player.position = point + offset
 		_tick(session)
-		guard += 1
+		result = world.try_click(point)
+		var guard := 0
+		while world.gather_node != null and guard < 1000:
+			_tick(session)
+			guard += 1
+		if result != "" or world.target_at(point) == null:
+			break
 	return result
 
 

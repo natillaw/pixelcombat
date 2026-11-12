@@ -1,0 +1,2 @@
+PVFX Foundry 1.0 (hojas de sprites): CC0 1.0 (PVFX Foundry asset scope).
+Pixel Spell & Combat FX (Free Pixel RPG Starter Kit, Ishihara Asset Forge): uso comercial OK, sin credito; no revender ni usar como datos de entrenamiento de IA.

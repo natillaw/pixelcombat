@@ -139,6 +139,13 @@ func load_layout(new_layout: FloorLayout) -> void:
 		resource_nodes.append(resource)
 	for spec: Dictionary in new_layout.interactables:
 		interactables.append(Interactable.new(String(spec["kind"]), spec["position"], String(spec.get("group", "")), float(spec.get("channel", 2.0)), String(spec.get("requires", "")), String(spec.get("label", ""))))
+	# Altares, jaulas, sellos y las vetas/arboles no se atraviesan.
+	for object: Interactable in interactables:
+		if ["altar", "seal", "cage", "relic_altar"].has(object.kind):
+			obstacles.append({"position": object.position, "radius": 16.0, "hidden": true})
+	for node: ResourceNode in resource_nodes:
+		if node.kind != "herb":
+			obstacles.append({"position": node.position, "radius": 14.0, "hidden": true})
 	loading_layout = false
 	layout_loaded.emit(new_layout)
 

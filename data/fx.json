@@ -1,0 +1,2342 @@
+{
+	"_doc": "Biblioteca de efectos visuales. Esquema en game/fx/fx_library.gd. Generada con PVFX Foundry (CC0) y Pixel Spell & Combat FX (starter kit); `skills` y `events` dicen que efecto usa cada habilidad y cada suceso.",
+	"effects": {
+		"arcane/arcane-beam": {
+			"file": "res://assets/pixel/fx/vfx/arcane__arcane-beam.png",
+			"w": 168,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 75,
+			"pivot": [
+				18,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/arcane-orb-projectile": {
+			"file": "res://assets/pixel/fx/vfx/arcane__arcane-orb-projectile.png",
+			"w": 128,
+			"h": 52,
+			"cols": 8,
+			"count": 23,
+			"ms": 60,
+			"pivot": [
+				104,
+				26
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/blink-dash": {
+			"file": "res://assets/pixel/fx/vfx/arcane__blink-dash.png",
+			"w": 128,
+			"h": 48,
+			"cols": 8,
+			"count": 22,
+			"ms": 60,
+			"pivot": [
+				64,
+				24
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/blink-out": {
+			"file": "res://assets/pixel/fx/vfx/arcane__blink-out.png",
+			"w": 64,
+			"h": 80,
+			"cols": 8,
+			"count": 19,
+			"ms": 60,
+			"pivot": [
+				32,
+				72
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/magic-circle": {
+			"file": "res://assets/pixel/fx/vfx/arcane__magic-circle.png",
+			"w": 96,
+			"h": 64,
+			"cols": 8,
+			"count": 20,
+			"ms": 80,
+			"pivot": [
+				48,
+				47
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/portal-summon": {
+			"file": "res://assets/pixel/fx/vfx/arcane__portal-summon.png",
+			"w": 108,
+			"h": 128,
+			"cols": 8,
+			"count": 22,
+			"ms": 80,
+			"pivot": [
+				54,
+				108
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/rune-trap": {
+			"file": "res://assets/pixel/fx/vfx/arcane__rune-trap.png",
+			"w": 64,
+			"h": 48,
+			"cols": 8,
+			"count": 19,
+			"ms": 65,
+			"pivot": [
+				32,
+				39
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/shield-shatter": {
+			"file": "res://assets/pixel/fx/vfx/arcane__shield-shatter.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 17,
+			"ms": 60,
+			"pivot": [
+				0,
+				0
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"arcane/teleport-in": {
+			"file": "res://assets/pixel/fx/vfx/arcane__teleport-in.png",
+			"w": 40,
+			"h": 64,
+			"cols": 8,
+			"count": 19,
+			"ms": 60,
+			"pivot": [
+				20,
+				57
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"explosions/arcane-burst": {
+			"file": "res://assets/pixel/fx/vfx/explosions__arcane-burst.png",
+			"w": 72,
+			"h": 72,
+			"cols": 8,
+			"count": 20,
+			"ms": 65,
+			"pivot": [
+				36,
+				38
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"explosions/big-explosion": {
+			"file": "res://assets/pixel/fx/vfx/explosions__big-explosion.png",
+			"w": 128,
+			"h": 128,
+			"cols": 8,
+			"count": 18,
+			"ms": 70,
+			"pivot": [
+				64,
+				113
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"explosions/fire-nova": {
+			"file": "res://assets/pixel/fx/vfx/explosions__fire-nova.png",
+			"w": 96,
+			"h": 64,
+			"cols": 8,
+			"count": 19,
+			"ms": 60,
+			"pivot": [
+				48,
+				44
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"explosions/firework-burst": {
+			"file": "res://assets/pixel/fx/vfx/explosions__firework-burst.png",
+			"w": 64,
+			"h": 80,
+			"cols": 8,
+			"count": 23,
+			"ms": 65,
+			"pivot": [
+				32,
+				30
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"explosions/implosion": {
+			"file": "res://assets/pixel/fx/vfx/explosions__implosion.png",
+			"w": 96,
+			"h": 96,
+			"cols": 8,
+			"count": 28,
+			"ms": 70,
+			"pivot": [
+				48,
+				48
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"explosions/small-explosion": {
+			"file": "res://assets/pixel/fx/vfx/explosions__small-explosion.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 14,
+			"ms": 60,
+			"pivot": [
+				32,
+				57
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/campfire": {
+			"file": "res://assets/pixel/fx/vfx/fire__campfire.png",
+			"w": 40,
+			"h": 56,
+			"cols": 8,
+			"count": 12,
+			"ms": 75,
+			"pivot": [
+				20,
+				50
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/fire-pillar": {
+			"file": "res://assets/pixel/fx/vfx/fire__fire-pillar.png",
+			"w": 64,
+			"h": 112,
+			"cols": 8,
+			"count": 24,
+			"ms": 70,
+			"pivot": [
+				32,
+				102
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/fire-tornado": {
+			"file": "res://assets/pixel/fx/vfx/fire__fire-tornado.png",
+			"w": 48,
+			"h": 80,
+			"cols": 8,
+			"count": 16,
+			"ms": 70,
+			"pivot": [
+				24,
+				74
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/fireball-impact": {
+			"file": "res://assets/pixel/fx/vfx/fire__fireball-impact.png",
+			"w": 96,
+			"h": 64,
+			"cols": 8,
+			"count": 15,
+			"ms": 70,
+			"pivot": [
+				72,
+				38
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/flamethrower": {
+			"file": "res://assets/pixel/fx/vfx/fire__flamethrower.png",
+			"w": 128,
+			"h": 48,
+			"cols": 8,
+			"count": 16,
+			"ms": 60,
+			"pivot": [
+				6,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/ground-flames": {
+			"file": "res://assets/pixel/fx/vfx/fire__ground-flames.png",
+			"w": 64,
+			"h": 40,
+			"cols": 8,
+			"count": 16,
+			"ms": 75,
+			"pivot": [
+				32,
+				33
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/lava-burst": {
+			"file": "res://assets/pixel/fx/vfx/fire__lava-burst.png",
+			"w": 64,
+			"h": 72,
+			"cols": 8,
+			"count": 23,
+			"ms": 70,
+			"pivot": [
+				32,
+				62
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"fire/meteor-strike": {
+			"file": "res://assets/pixel/fx/vfx/fire__meteor-strike.png",
+			"w": 96,
+			"h": 96,
+			"cols": 8,
+			"count": 26,
+			"ms": 60,
+			"pivot": [
+				47,
+				82
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/angel-feathers": {
+			"file": "res://assets/pixel/fx/vfx/holy__angel-feathers.png",
+			"w": 56,
+			"h": 72,
+			"cols": 8,
+			"count": 21,
+			"ms": 70,
+			"pivot": [
+				28,
+				17
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/barrier-block": {
+			"file": "res://assets/pixel/fx/vfx/holy__barrier-block.png",
+			"w": 40,
+			"h": 56,
+			"cols": 8,
+			"count": 16,
+			"ms": 55,
+			"pivot": [
+				0,
+				0
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/divine-beam": {
+			"file": "res://assets/pixel/fx/vfx/holy__divine-beam.png",
+			"w": 48,
+			"h": 96,
+			"cols": 8,
+			"count": 19,
+			"ms": 70,
+			"pivot": [
+				24,
+				88
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/holy-heal": {
+			"file": "res://assets/pixel/fx/vfx/holy__holy-heal.png",
+			"w": 64,
+			"h": 96,
+			"cols": 8,
+			"count": 21,
+			"ms": 80,
+			"pivot": [
+				32,
+				86
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/holy-smite": {
+			"file": "res://assets/pixel/fx/vfx/holy__holy-smite.png",
+			"w": 80,
+			"h": 120,
+			"cols": 8,
+			"count": 14,
+			"ms": 80,
+			"pivot": [
+				40,
+				108
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/regen-aura": {
+			"file": "res://assets/pixel/fx/vfx/holy__regen-aura.png",
+			"w": 48,
+			"h": 64,
+			"cols": 8,
+			"count": 16,
+			"ms": 80,
+			"pivot": [
+				24,
+				57
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/resurrect": {
+			"file": "res://assets/pixel/fx/vfx/holy__resurrect.png",
+			"w": 48,
+			"h": 80,
+			"cols": 8,
+			"count": 21,
+			"ms": 70,
+			"pivot": [
+				24,
+				72
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"holy/shield-bubble": {
+			"file": "res://assets/pixel/fx/vfx/holy__shield-bubble.png",
+			"w": 72,
+			"h": 88,
+			"cols": 8,
+			"count": 16,
+			"ms": 75,
+			"pivot": [
+				36,
+				84
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ice/blizzard": {
+			"file": "res://assets/pixel/fx/vfx/ice__blizzard.png",
+			"w": 80,
+			"h": 56,
+			"cols": 8,
+			"count": 16,
+			"ms": 70,
+			"pivot": [
+				40,
+				50
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ice/freeze-encase": {
+			"file": "res://assets/pixel/fx/vfx/ice__freeze-encase.png",
+			"w": 56,
+			"h": 64,
+			"cols": 8,
+			"count": 20,
+			"ms": 70,
+			"pivot": [
+				28,
+				57
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ice/frost-breath": {
+			"file": "res://assets/pixel/fx/vfx/ice__frost-breath.png",
+			"w": 96,
+			"h": 40,
+			"cols": 8,
+			"count": 14,
+			"ms": 65,
+			"pivot": [
+				4,
+				21
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ice/frost-nova": {
+			"file": "res://assets/pixel/fx/vfx/ice__frost-nova.png",
+			"w": 120,
+			"h": 76,
+			"cols": 8,
+			"count": 18,
+			"ms": 80,
+			"pivot": [
+				60,
+				50
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ice/ice-spike": {
+			"file": "res://assets/pixel/fx/vfx/ice__ice-spike.png",
+			"w": 96,
+			"h": 80,
+			"cols": 8,
+			"count": 26,
+			"ms": 70,
+			"pivot": [
+				46,
+				68
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ice/ice-wall": {
+			"file": "res://assets/pixel/fx/vfx/ice__ice-wall.png",
+			"w": 80,
+			"h": 56,
+			"cols": 8,
+			"count": 21,
+			"ms": 70,
+			"pivot": [
+				40,
+				48
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ice/snowball-impact": {
+			"file": "res://assets/pixel/fx/vfx/ice__snowball-impact.png",
+			"w": 80,
+			"h": 48,
+			"cols": 8,
+			"count": 20,
+			"ms": 65,
+			"pivot": [
+				62,
+				26
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/blood-splat": {
+			"file": "res://assets/pixel/fx/vfx/impacts__blood-splat.png",
+			"w": 128,
+			"h": 120,
+			"cols": 8,
+			"count": 16,
+			"ms": 70,
+			"pivot": [
+				28,
+				62
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/crit-hit": {
+			"file": "res://assets/pixel/fx/vfx/impacts__crit-hit.png",
+			"w": 96,
+			"h": 80,
+			"cols": 8,
+			"count": 11,
+			"ms": 70,
+			"pivot": [
+				48,
+				40
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/ground-slam": {
+			"file": "res://assets/pixel/fx/vfx/impacts__ground-slam.png",
+			"w": 128,
+			"h": 64,
+			"cols": 8,
+			"count": 19,
+			"ms": 70,
+			"pivot": [
+				64,
+				44
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/hit-spark": {
+			"file": "res://assets/pixel/fx/vfx/impacts__hit-spark.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 80,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/parry": {
+			"file": "res://assets/pixel/fx/vfx/impacts__parry.png",
+			"w": 96,
+			"h": 80,
+			"cols": 8,
+			"count": 13,
+			"ms": 60,
+			"pivot": [
+				48,
+				38
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/punch-hit": {
+			"file": "res://assets/pixel/fx/vfx/impacts__punch-hit.png",
+			"w": 48,
+			"h": 40,
+			"cols": 8,
+			"count": 11,
+			"ms": 60,
+			"pivot": [
+				17,
+				21
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/rock-shatter": {
+			"file": "res://assets/pixel/fx/vfx/impacts__rock-shatter.png",
+			"w": 64,
+			"h": 56,
+			"cols": 8,
+			"count": 18,
+			"ms": 60,
+			"pivot": [
+				30,
+				44
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"impacts/shockwave-ring": {
+			"file": "res://assets/pixel/fx/vfx/impacts__shockwave-ring.png",
+			"w": 120,
+			"h": 52,
+			"cols": 8,
+			"count": 16,
+			"ms": 70,
+			"pivot": [
+				60,
+				30
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"lightning/ball-lightning": {
+			"file": "res://assets/pixel/fx/vfx/lightning__ball-lightning.png",
+			"w": 96,
+			"h": 48,
+			"cols": 8,
+			"count": 20,
+			"ms": 60,
+			"pivot": [
+				0,
+				24
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"lightning/chain-lightning": {
+			"file": "res://assets/pixel/fx/vfx/lightning__chain-lightning.png",
+			"w": 180,
+			"h": 72,
+			"cols": 8,
+			"count": 14,
+			"ms": 70,
+			"pivot": [
+				10,
+				40
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"lightning/lightning-strike": {
+			"file": "res://assets/pixel/fx/vfx/lightning__lightning-strike.png",
+			"w": 96,
+			"h": 128,
+			"cols": 8,
+			"count": 18,
+			"ms": 80,
+			"pivot": [
+				38,
+				118
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"lightning/static-burst": {
+			"file": "res://assets/pixel/fx/vfx/lightning__static-burst.png",
+			"w": 112,
+			"h": 112,
+			"cols": 8,
+			"count": 13,
+			"ms": 60,
+			"pivot": [
+				56,
+				58
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"lightning/thunder-cloud": {
+			"file": "res://assets/pixel/fx/vfx/lightning__thunder-cloud.png",
+			"w": 56,
+			"h": 72,
+			"cols": 8,
+			"count": 24,
+			"ms": 70,
+			"pivot": [
+				28,
+				69
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"melee/axe-smear": {
+			"file": "res://assets/pixel/fx/vfx/melee__axe-smear.png",
+			"w": 128,
+			"h": 104,
+			"cols": 8,
+			"count": 9,
+			"ms": 80,
+			"pivot": [
+				66,
+				50
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"melee/hammer-smash": {
+			"file": "res://assets/pixel/fx/vfx/melee__hammer-smash.png",
+			"w": 84,
+			"h": 56,
+			"cols": 8,
+			"count": 15,
+			"ms": 60,
+			"pivot": [
+				44,
+				44
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"melee/shadow-claw": {
+			"file": "res://assets/pixel/fx/vfx/melee__shadow-claw.png",
+			"w": 56,
+			"h": 56,
+			"cols": 8,
+			"count": 12,
+			"ms": 50,
+			"pivot": [
+				28,
+				28
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"melee/spear-thrust": {
+			"file": "res://assets/pixel/fx/vfx/melee__spear-thrust.png",
+			"w": 72,
+			"h": 32,
+			"cols": 8,
+			"count": 10,
+			"ms": 60,
+			"pivot": [
+				12,
+				16
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"melee/sword-combo": {
+			"file": "res://assets/pixel/fx/vfx/melee__sword-combo.png",
+			"w": 104,
+			"h": 64,
+			"cols": 8,
+			"count": 14,
+			"ms": 70,
+			"pivot": [
+				52,
+				30
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/acid-spit": {
+			"file": "res://assets/pixel/fx/vfx/nature__acid-spit.png",
+			"w": 80,
+			"h": 40,
+			"cols": 8,
+			"count": 20,
+			"ms": 60,
+			"pivot": [
+				74,
+				26
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/acid-splash": {
+			"file": "res://assets/pixel/fx/vfx/nature__acid-splash.png",
+			"w": 96,
+			"h": 72,
+			"cols": 8,
+			"count": 27,
+			"ms": 70,
+			"pivot": [
+				48,
+				64
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/bloom-heal": {
+			"file": "res://assets/pixel/fx/vfx/nature__bloom-heal.png",
+			"w": 56,
+			"h": 64,
+			"cols": 8,
+			"count": 22,
+			"ms": 70,
+			"pivot": [
+				28,
+				55
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/boulder-toss": {
+			"file": "res://assets/pixel/fx/vfx/nature__boulder-toss.png",
+			"w": 80,
+			"h": 56,
+			"cols": 8,
+			"count": 22,
+			"ms": 65,
+			"pivot": [
+				50,
+				46
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/earth-spike": {
+			"file": "res://assets/pixel/fx/vfx/nature__earth-spike.png",
+			"w": 128,
+			"h": 64,
+			"cols": 8,
+			"count": 22,
+			"ms": 70,
+			"pivot": [
+				62,
+				54
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/fissure": {
+			"file": "res://assets/pixel/fx/vfx/nature__fissure.png",
+			"w": 112,
+			"h": 40,
+			"cols": 8,
+			"count": 21,
+			"ms": 60,
+			"pivot": [
+				8,
+				27
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/leaf-storm": {
+			"file": "res://assets/pixel/fx/vfx/nature__leaf-storm.png",
+			"w": 80,
+			"h": 56,
+			"cols": 8,
+			"count": 18,
+			"ms": 65,
+			"pivot": [
+				0,
+				0
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/poison-cloud": {
+			"file": "res://assets/pixel/fx/vfx/nature__poison-cloud.png",
+			"w": 64,
+			"h": 48,
+			"cols": 8,
+			"count": 24,
+			"ms": 80,
+			"pivot": [
+				32,
+				45
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/spore-burst": {
+			"file": "res://assets/pixel/fx/vfx/nature__spore-burst.png",
+			"w": 64,
+			"h": 56,
+			"cols": 8,
+			"count": 20,
+			"ms": 70,
+			"pivot": [
+				32,
+				52
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"nature/vine-snare": {
+			"file": "res://assets/pixel/fx/vfx/nature__vine-snare.png",
+			"w": 56,
+			"h": 56,
+			"cols": 8,
+			"count": 19,
+			"ms": 70,
+			"pivot": [
+				28,
+				46
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"projectiles/arrow-impact": {
+			"file": "res://assets/pixel/fx/vfx/projectiles__arrow-impact.png",
+			"w": 64,
+			"h": 32,
+			"cols": 8,
+			"count": 17,
+			"ms": 60,
+			"pivot": [
+				50,
+				17
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"projectiles/ice-shard": {
+			"file": "res://assets/pixel/fx/vfx/projectiles__ice-shard.png",
+			"w": 112,
+			"h": 48,
+			"cols": 8,
+			"count": 19,
+			"ms": 70,
+			"pivot": [
+				92,
+				24
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"projectiles/magic-missile": {
+			"file": "res://assets/pixel/fx/vfx/projectiles__magic-missile.png",
+			"w": 156,
+			"h": 60,
+			"cols": 8,
+			"count": 28,
+			"ms": 70,
+			"pivot": [
+				128,
+				30
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"projectiles/poison-dart": {
+			"file": "res://assets/pixel/fx/vfx/projectiles__poison-dart.png",
+			"w": 96,
+			"h": 40,
+			"cols": 8,
+			"count": 18,
+			"ms": 60,
+			"pivot": [
+				80,
+				18
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"shadow/curse": {
+			"file": "res://assets/pixel/fx/vfx/shadow__curse.png",
+			"w": 96,
+			"h": 112,
+			"cols": 8,
+			"count": 27,
+			"ms": 80,
+			"pivot": [
+				48,
+				66
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"shadow/shadow-bolt": {
+			"file": "res://assets/pixel/fx/vfx/shadow__shadow-bolt.png",
+			"w": 112,
+			"h": 56,
+			"cols": 8,
+			"count": 19,
+			"ms": 70,
+			"pivot": [
+				86,
+				30
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"shadow/shadow-tendrils": {
+			"file": "res://assets/pixel/fx/vfx/shadow__shadow-tendrils.png",
+			"w": 64,
+			"h": 56,
+			"cols": 8,
+			"count": 21,
+			"ms": 70,
+			"pivot": [
+				32,
+				46
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"shadow/soul-drain": {
+			"file": "res://assets/pixel/fx/vfx/shadow__soul-drain.png",
+			"w": 96,
+			"h": 48,
+			"cols": 8,
+			"count": 23,
+			"ms": 65,
+			"pivot": [
+				0,
+				0
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"shadow/void-implosion": {
+			"file": "res://assets/pixel/fx/vfx/shadow__void-implosion.png",
+			"w": 96,
+			"h": 96,
+			"cols": 8,
+			"count": 21,
+			"ms": 70,
+			"pivot": [
+				48,
+				48
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"smoke/dash-dust": {
+			"file": "res://assets/pixel/fx/vfx/smoke__dash-dust.png",
+			"w": 68,
+			"h": 32,
+			"cols": 8,
+			"count": 13,
+			"ms": 60,
+			"pivot": [
+				24,
+				28
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"smoke/dust-puff": {
+			"file": "res://assets/pixel/fx/vfx/smoke__dust-puff.png",
+			"w": 72,
+			"h": 40,
+			"cols": 8,
+			"count": 14,
+			"ms": 70,
+			"pivot": [
+				36,
+				33
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"smoke/smoke-bomb": {
+			"file": "res://assets/pixel/fx/vfx/smoke__smoke-bomb.png",
+			"w": 64,
+			"h": 56,
+			"cols": 8,
+			"count": 21,
+			"ms": 70,
+			"pivot": [
+				32,
+				50
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"smoke/steam-vent": {
+			"file": "res://assets/pixel/fx/vfx/smoke__steam-vent.png",
+			"w": 48,
+			"h": 72,
+			"cols": 8,
+			"count": 30,
+			"ms": 80,
+			"pivot": [
+				14,
+				68
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/bleeding": {
+			"file": "res://assets/pixel/fx/vfx/status__bleeding.png",
+			"w": 40,
+			"h": 56,
+			"cols": 8,
+			"count": 20,
+			"ms": 80,
+			"pivot": [
+				20,
+				49
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/burning-aura": {
+			"file": "res://assets/pixel/fx/vfx/status__burning-aura.png",
+			"w": 48,
+			"h": 64,
+			"cols": 8,
+			"count": 12,
+			"ms": 75,
+			"pivot": [
+				24,
+				54
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/charm-hearts": {
+			"file": "res://assets/pixel/fx/vfx/status__charm-hearts.png",
+			"w": 40,
+			"h": 40,
+			"cols": 8,
+			"count": 20,
+			"ms": 80,
+			"pivot": [
+				20,
+				23
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/electrified": {
+			"file": "res://assets/pixel/fx/vfx/status__electrified.png",
+			"w": 48,
+			"h": 56,
+			"cols": 8,
+			"count": 14,
+			"ms": 65,
+			"pivot": [
+				24,
+				47
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/frozen-chill": {
+			"file": "res://assets/pixel/fx/vfx/status__frozen-chill.png",
+			"w": 40,
+			"h": 48,
+			"cols": 8,
+			"count": 14,
+			"ms": 70,
+			"pivot": [
+				20,
+				42
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/poisoned": {
+			"file": "res://assets/pixel/fx/vfx/status__poisoned.png",
+			"w": 64,
+			"h": 80,
+			"cols": 8,
+			"count": 18,
+			"ms": 80,
+			"pivot": [
+				32,
+				72
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/power-up-aura": {
+			"file": "res://assets/pixel/fx/vfx/status__power-up-aura.png",
+			"w": 56,
+			"h": 56,
+			"cols": 8,
+			"count": 14,
+			"ms": 70,
+			"pivot": [
+				28,
+				50
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/sleep": {
+			"file": "res://assets/pixel/fx/vfx/status__sleep.png",
+			"w": 40,
+			"h": 48,
+			"cols": 8,
+			"count": 30,
+			"ms": 80,
+			"pivot": [
+				12,
+				46
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"status/stun-stars": {
+			"file": "res://assets/pixel/fx/vfx/status__stun-stars.png",
+			"w": 48,
+			"h": 32,
+			"cols": 8,
+			"count": 16,
+			"ms": 75,
+			"pivot": [
+				24,
+				16
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ui/coin-pickup": {
+			"file": "res://assets/pixel/fx/vfx/ui__coin-pickup.png",
+			"w": 32,
+			"h": 32,
+			"cols": 8,
+			"count": 10,
+			"ms": 60,
+			"pivot": [
+				16,
+				16
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ui/heart-pickup": {
+			"file": "res://assets/pixel/fx/vfx/ui__heart-pickup.png",
+			"w": 32,
+			"h": 40,
+			"cols": 8,
+			"count": 10,
+			"ms": 70,
+			"pivot": [
+				16,
+				27
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ui/level-up": {
+			"file": "res://assets/pixel/fx/vfx/ui__level-up.png",
+			"w": 64,
+			"h": 96,
+			"cols": 8,
+			"count": 20,
+			"ms": 70,
+			"pivot": [
+				32,
+				88
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ui/star-burst-pickup": {
+			"file": "res://assets/pixel/fx/vfx/ui__star-burst-pickup.png",
+			"w": 40,
+			"h": 40,
+			"cols": 8,
+			"count": 13,
+			"ms": 60,
+			"pivot": [
+				20,
+				26
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"ui/treasure-glint": {
+			"file": "res://assets/pixel/fx/vfx/ui__treasure-glint.png",
+			"w": 48,
+			"h": 48,
+			"cols": 8,
+			"count": 16,
+			"ms": 75,
+			"pivot": [
+				24,
+				24
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"water/bubble-burst": {
+			"file": "res://assets/pixel/fx/vfx/water__bubble-burst.png",
+			"w": 48,
+			"h": 48,
+			"cols": 8,
+			"count": 12,
+			"ms": 60,
+			"pivot": [
+				24,
+				24
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"water/tidal-wave": {
+			"file": "res://assets/pixel/fx/vfx/water__tidal-wave.png",
+			"w": 96,
+			"h": 56,
+			"cols": 8,
+			"count": 20,
+			"ms": 70,
+			"pivot": [
+				48,
+				47
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"water/water-geyser": {
+			"file": "res://assets/pixel/fx/vfx/water__water-geyser.png",
+			"w": 48,
+			"h": 88,
+			"cols": 8,
+			"count": 21,
+			"ms": 65,
+			"pivot": [
+				24,
+				80
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"water/water-splash": {
+			"file": "res://assets/pixel/fx/vfx/water__water-splash.png",
+			"w": 112,
+			"h": 80,
+			"cols": 8,
+			"count": 22,
+			"ms": 70,
+			"pivot": [
+				56,
+				66
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"water/whirlpool": {
+			"file": "res://assets/pixel/fx/vfx/water__whirlpool.png",
+			"w": 72,
+			"h": 48,
+			"cols": 8,
+			"count": 20,
+			"ms": 70,
+			"pivot": [
+				36,
+				25
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"wind/whirlwind": {
+			"file": "res://assets/pixel/fx/vfx/wind__whirlwind.png",
+			"w": 48,
+			"h": 72,
+			"cols": 8,
+			"count": 14,
+			"ms": 65,
+			"pivot": [
+				24,
+				68
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"wind/wind-blade": {
+			"file": "res://assets/pixel/fx/vfx/wind__wind-blade.png",
+			"w": 96,
+			"h": 44,
+			"cols": 8,
+			"count": 16,
+			"ms": 60,
+			"pivot": [
+				0,
+				22
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"wind/wind-gust": {
+			"file": "res://assets/pixel/fx/vfx/wind__wind-gust.png",
+			"w": 96,
+			"h": 48,
+			"cols": 8,
+			"count": 9,
+			"ms": 70,
+			"pivot": [
+				48,
+				24
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "pvfx"
+		},
+		"kit/burst_fire": {
+			"file": "res://assets/pixel/fx/vfx/kit_burst_fire.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/hit_steel": {
+			"file": "res://assets/pixel/fx/vfx/kit_hit_steel.png",
+			"w": 64,
+			"h": 64,
+			"cols": 5,
+			"count": 5,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/slash_steel": {
+			"file": "res://assets/pixel/fx/vfx/kit_slash_steel.png",
+			"w": 64,
+			"h": 64,
+			"cols": 6,
+			"count": 6,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/thrust_thunder": {
+			"file": "res://assets/pixel/fx/vfx/kit_thrust_thunder.png",
+			"w": 64,
+			"h": 64,
+			"cols": 6,
+			"count": 6,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/xslash_steel": {
+			"file": "res://assets/pixel/fx/vfx/kit_xslash_steel.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/explosion_fire": {
+			"file": "res://assets/pixel/fx/vfx/kit_explosion_fire.png",
+			"w": 64,
+			"h": 64,
+			"cols": 10,
+			"count": 10,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/shockwave_arcane": {
+			"file": "res://assets/pixel/fx/vfx/kit_shockwave_arcane.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/circle_arcane": {
+			"file": "res://assets/pixel/fx/vfx/kit_circle_arcane.png",
+			"w": 64,
+			"h": 64,
+			"cols": 12,
+			"count": 12,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/lightning_thunder": {
+			"file": "res://assets/pixel/fx/vfx/kit_lightning_thunder.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/heal_nature": {
+			"file": "res://assets/pixel/fx/vfx/kit_heal_nature.png",
+			"w": 64,
+			"h": 64,
+			"cols": 12,
+			"count": 12,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/orb_ice": {
+			"file": "res://assets/pixel/fx/vfx/kit_orb_ice.png",
+			"w": 64,
+			"h": 64,
+			"cols": 6,
+			"count": 6,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/pillar_holy": {
+			"file": "res://assets/pixel/fx/vfx/kit_pillar_holy.png",
+			"w": 64,
+			"h": 64,
+			"cols": 10,
+			"count": 10,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/campfire_fire": {
+			"file": "res://assets/pixel/fx/vfx/kit_campfire_fire.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/rain_rain": {
+			"file": "res://assets/pixel/fx/vfx/kit_rain_rain.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/snow_ice": {
+			"file": "res://assets/pixel/fx/vfx/kit_snow_ice.png",
+			"w": 64,
+			"h": 64,
+			"cols": 12,
+			"count": 12,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/splash_water": {
+			"file": "res://assets/pixel/fx/vfx/kit_splash_water.png",
+			"w": 64,
+			"h": 64,
+			"cols": 7,
+			"count": 7,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/dust_earth": {
+			"file": "res://assets/pixel/fx/vfx/kit_dust_earth.png",
+			"w": 64,
+			"h": 64,
+			"cols": 6,
+			"count": 6,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/levelup_gold": {
+			"file": "res://assets/pixel/fx/vfx/kit_levelup_gold.png",
+			"w": 64,
+			"h": 64,
+			"cols": 12,
+			"count": 12,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/pickup_gold": {
+			"file": "res://assets/pixel/fx/vfx/kit_pickup_gold.png",
+			"w": 64,
+			"h": 64,
+			"cols": 8,
+			"count": 8,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": false,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/stun_gold": {
+			"file": "res://assets/pixel/fx/vfx/kit_stun_gold.png",
+			"w": 64,
+			"h": 64,
+			"cols": 12,
+			"count": 12,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/sleep_ice": {
+			"file": "res://assets/pixel/fx/vfx/kit_sleep_ice.png",
+			"w": 64,
+			"h": 64,
+			"cols": 12,
+			"count": 12,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		},
+		"kit/shield_ice": {
+			"file": "res://assets/pixel/fx/vfx/kit_shield_ice.png",
+			"w": 64,
+			"h": 64,
+			"cols": 10,
+			"count": 10,
+			"ms": 83,
+			"pivot": [
+				32,
+				32
+			],
+			"loop": true,
+			"blend": "add",
+			"source": "kit"
+		}
+	},
+	"skills": {
+		"warrior_m1": {
+			"cast": [
+				{
+					"id": "melee/sword-combo",
+					"scale": 0.9,
+					"ahead": 0.55
+				}
+			],
+			"hit": "impacts/hit-spark",
+			"crit": "impacts/crit-hit"
+		},
+		"warrior_m2": {
+			"cast": [
+				{
+					"id": "melee/axe-smear",
+					"scale": 1.2,
+					"ahead": 0.55
+				}
+			],
+			"hit": "impacts/punch-hit",
+			"crit": "impacts/crit-hit"
+		},
+		"cleaving_strike": {
+			"cast": [
+				{
+					"id": "melee/axe-smear",
+					"scale": 1.5,
+					"ahead": 0.5
+				}
+			],
+			"hit": "impacts/hit-spark",
+			"crit": "impacts/crit-hit"
+		},
+		"piercing_thrust": {
+			"cast": [
+				{
+					"id": "melee/spear-thrust",
+					"scale": 1.2,
+					"ahead": 0.55
+				}
+			],
+			"hit": "impacts/hit-spark",
+			"crit": "impacts/crit-hit"
+		},
+		"iron_counter": {
+			"cast": [
+				{
+					"id": "kit/shield_ice",
+					"scale": 1.1,
+					"up": 12,
+					"seconds": 0.9
+				}
+			],
+			"hit": "impacts/parry"
+		},
+		"war_gods_descent": {
+			"cast": [
+				{
+					"id": "impacts/ground-slam",
+					"scale": 1.8,
+					"at": "aim"
+				},
+				{
+					"id": "impacts/shockwave-ring",
+					"scale": 2,
+					"at": "aim"
+				}
+			],
+			"hit": "impacts/crit-hit"
+		},
+		"crushing_blow": {
+			"cast": [
+				{
+					"id": "melee/hammer-smash",
+					"scale": 1.3,
+					"ahead": 0.55
+				}
+			],
+			"hit": "impacts/rock-shatter",
+			"crit": "impacts/crit-hit"
+		},
+		"ground_stomp": {
+			"cast": [
+				{
+					"id": "impacts/ground-slam",
+					"scale": 1.3,
+					"at": "self"
+				},
+				{
+					"id": "smoke/dust-puff",
+					"scale": 1.5,
+					"at": "self"
+				}
+			],
+			"hit": "impacts/rock-shatter"
+		},
+		"twin_fang": {
+			"cast": [
+				{
+					"id": "melee/shadow-claw",
+					"scale": 0.9,
+					"ahead": 0.5
+				}
+			],
+			"hit": "impacts/hit-spark",
+			"crit": "impacts/crit-hit"
+		},
+		"cross_cut": {
+			"cast": [
+				{
+					"id": "melee/shadow-claw",
+					"scale": 1.1,
+					"ahead": 0.5
+				}
+			],
+			"hit": "impacts/hit-spark",
+			"crit": "impacts/crit-hit"
+		},
+		"ambush": {
+			"cast": [
+				{
+					"id": "melee/shadow-claw",
+					"scale": 1.3,
+					"ahead": 0.55
+				}
+			],
+			"hit": "impacts/blood-splat",
+			"crit": "impacts/crit-hit"
+		},
+		"blade_flurry": {
+			"cast": [
+				{
+					"id": "melee/sword-combo",
+					"scale": 1.5,
+					"at": "self"
+				}
+			],
+			"hit": "impacts/hit-spark"
+		},
+		"perfect_evasion": {
+			"cast": [
+				{
+					"id": "arcane/blink-dash",
+					"scale": 1,
+					"at": "self"
+				}
+			],
+			"hit": "impacts/parry"
+		},
+		"death_sentence": {
+			"cast": [
+				{
+					"id": "shadow/curse",
+					"scale": 1.4,
+					"at": "self"
+				},
+				{
+					"id": "melee/shadow-claw",
+					"scale": 1.8,
+					"at": "self"
+				}
+			],
+			"hit": "impacts/blood-splat",
+			"crit": "impacts/crit-hit"
+		},
+		"poisoned_blades": {
+			"cast": [
+				{
+					"id": "melee/shadow-claw",
+					"scale": 1,
+					"ahead": 0.5
+				},
+				{
+					"id": "status/poisoned",
+					"scale": 0.8,
+					"up": 18,
+					"seconds": 0.8
+				}
+			],
+			"hit": "nature/acid-splash"
+		},
+		"crippling_strike": {
+			"cast": [
+				{
+					"id": "melee/shadow-claw",
+					"scale": 1,
+					"ahead": 0.5
+				}
+			],
+			"hit": "ice/snowball-impact",
+			"crit": "impacts/crit-hit"
+		},
+		"fan_of_knives": {
+			"cast": [
+				{
+					"id": "smoke/dash-dust",
+					"scale": 0.8,
+					"at": "self"
+				}
+			],
+			"hit": "projectiles/arrow-impact"
+		},
+		"arcane_bolt": {
+			"cast": [
+				{
+					"id": "arcane/magic-circle",
+					"scale": 0.5,
+					"at": "self"
+				}
+			],
+			"hit": "explosions/arcane-burst"
+		},
+		"charged_arcane_blast": {
+			"cast": [
+				{
+					"id": "arcane/magic-circle",
+					"scale": 0.8,
+					"at": "self"
+				}
+			],
+			"hit": "explosions/arcane-burst",
+			"crit": "explosions/small-explosion"
+		},
+		"fireball": {
+			"cast": [
+				{
+					"id": "fire/ground-flames",
+					"scale": 0.5,
+					"at": "self",
+					"seconds": 0.5
+				}
+			],
+			"hit": "fire/fireball-impact"
+		},
+		"arcane_explosion": {
+			"cast": [
+				{
+					"id": "explosions/arcane-burst",
+					"scale": 1.6,
+					"at": "self"
+				}
+			],
+			"hit": "explosions/arcane-burst"
+		},
+		"arcane_overload": {
+			"cast": [
+				{
+					"id": "status/power-up-aura",
+					"scale": 1.2,
+					"at": "self",
+					"seconds": 1.2
+				}
+			],
+			"hit": "explosions/arcane-burst"
+		},
+		"cataclysm": {
+			"cast": [
+				{
+					"id": "fire/meteor-strike",
+					"scale": 1.8,
+					"at": "aim"
+				},
+				{
+					"id": "explosions/big-explosion",
+					"scale": 1.6,
+					"at": "aim"
+				}
+			],
+			"hit": "explosions/small-explosion",
+			"crit": "explosions/big-explosion"
+		},
+		"ice_lance": {
+			"cast": [
+				{
+					"id": "ice/ice-spike",
+					"scale": 0.5,
+					"at": "self"
+				}
+			],
+			"hit": "ice/ice-spike"
+		},
+		"frost_nova": {
+			"cast": [
+				{
+					"id": "ice/frost-nova",
+					"scale": 1.5,
+					"at": "self"
+				}
+			],
+			"hit": "ice/snowball-impact"
+		},
+		"quick_shot": {
+			"cast": [],
+			"hit": "projectiles/arrow-impact"
+		},
+		"charged_shot": {
+			"cast": [
+				{
+					"id": "kit/burst_fire",
+					"scale": 0.6,
+					"ahead": 0.2
+				}
+			],
+			"hit": "projectiles/arrow-impact",
+			"crit": "impacts/crit-hit"
+		},
+		"multishot": {
+			"cast": [],
+			"hit": "projectiles/arrow-impact"
+		},
+		"explosive_arrow": {
+			"cast": [],
+			"hit": "explosions/small-explosion",
+			"crit": "fire/fireball-impact"
+		},
+		"deadeye": {
+			"cast": [
+				{
+					"id": "status/power-up-aura",
+					"scale": 1,
+					"at": "self",
+					"seconds": 1.2
+				}
+			],
+			"hit": "projectiles/arrow-impact"
+		},
+		"rain_of_arrows": {
+			"cast": [
+				{
+					"id": "arcane/rune-trap",
+					"scale": 1.8,
+					"at": "aim"
+				},
+				{
+					"id": "projectiles/arrow-impact",
+					"scale": 1.6,
+					"at": "aim"
+				}
+			],
+			"hit": "projectiles/arrow-impact"
+		},
+		"piercing_arrow": {
+			"cast": [],
+			"hit": "projectiles/arrow-impact",
+			"crit": "impacts/crit-hit"
+		},
+		"crippling_arrow": {
+			"cast": [],
+			"hit": "ice/snowball-impact"
+		}
+	},
+	"events": {
+		"level_up": [
+			{
+				"id": "kit/levelup_gold",
+				"scale": 1.3,
+				"up": 6
+			},
+			{
+				"id": "status/power-up-aura",
+				"scale": 1.1,
+				"up": 4
+			}
+		],
+		"dodge": [
+			{
+				"id": "smoke/dash-dust",
+				"scale": 1,
+				"up": -4
+			}
+		],
+		"pickup": [
+			{
+				"id": "ui/coin-pickup",
+				"scale": 1,
+				"up": 18
+			}
+		],
+		"gather": [
+			{
+				"id": "kit/pickup_gold",
+				"scale": 1,
+				"up": 8
+			},
+			{
+				"id": "smoke/dust-puff",
+				"scale": 0.8
+			}
+		],
+		"boss_phase": [
+			{
+				"id": "explosions/arcane-burst",
+				"scale": 2,
+				"up": 20
+			}
+		],
+		"enemy_death": [
+			{
+				"id": "impacts/blood-splat",
+				"scale": 0.8,
+				"up": 8
+			}
+		],
+		"boss_death": [
+			{
+				"id": "explosions/big-explosion",
+				"scale": 2,
+				"up": 16
+			},
+			{
+				"id": "holy/angel-feathers",
+				"scale": 1.6,
+				"up": 20
+			}
+		],
+		"status_stun": [
+			{
+				"id": "status/stun-stars",
+				"scale": 1,
+				"up": 4,
+				"seconds": 1.2
+			}
+		],
+		"status_slow": [
+			{
+				"id": "status/frozen-chill",
+				"scale": 0.9,
+				"up": 6,
+				"seconds": 1
+			}
+		],
+		"status_poison": [
+			{
+				"id": "status/poisoned",
+				"scale": 0.9,
+				"up": 6,
+				"seconds": 1
+			}
+		],
+		"interact_altar": [
+			{
+				"id": "arcane/magic-circle",
+				"scale": 1
+			},
+			{
+				"id": "kit/pillar_holy",
+				"scale": 1,
+				"up": 4
+			}
+		],
+		"interact_seal": [
+			{
+				"id": "arcane/shield-shatter",
+				"scale": 1.4,
+				"up": 10
+			}
+		],
+		"interact_cage": [
+			{
+				"id": "holy/holy-heal",
+				"scale": 1,
+				"up": 6
+			}
+		],
+		"interact_relic": [
+			{
+				"id": "holy/angel-feathers",
+				"scale": 1,
+				"up": 10
+			}
+		],
+		"interact_relic_altar": [
+			{
+				"id": "holy/resurrect",
+				"scale": 1.1,
+				"up": 6
+			}
+		],
+		"interact_beacon": [
+			{
+				"id": "fire/fire-pillar",
+				"scale": 1
+			}
+		],
+		"interact_waypoint": [
+			{
+				"id": "arcane/teleport-in",
+				"scale": 1
+			}
+		]
+	}
+}

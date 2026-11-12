@@ -12,6 +12,7 @@ var session: GameSession
 var arena: Arena
 var hud: GameHud
 var vignette: Vignette
+var creator: CharacterCreator
 var loadout_panel: LoadoutPanel
 var inventory_panel: InventoryPanel
 var crafting_panel: CraftingPanel
@@ -23,7 +24,12 @@ var _click_consumed: bool = false
 
 func _ready() -> void:
 	world = CombatWorld.new(1337)
-	session = GameSession.new(world, "" if OS.get_environment("PIXELCOMBAT_NO_SAVE") != "" else SaveGame.DEFAULT_PATH)
+	var save_path := SaveGame.DEFAULT_PATH
+	if not OS.get_environment("PIXELCOMBAT_SAVE_PATH").is_empty():
+		save_path = OS.get_environment("PIXELCOMBAT_SAVE_PATH")
+	if not OS.get_environment("PIXELCOMBAT_NO_SAVE").is_empty():
+		save_path = ""
+	session = GameSession.new(world, save_path)
 
 	arena = Arena.new()
 	arena.name = "Arena"
@@ -72,8 +78,23 @@ func _ready() -> void:
 	debug_overlay.name = "DebugOverlay"
 	add_child(debug_overlay)
 
+	var creator_layer := CanvasLayer.new()
+	creator_layer.name = "CreatorLayer"
+	creator_layer.layer = 40
+	add_child(creator_layer)
+	creator = CharacterCreator.new()
+	creator.name = "CharacterCreator"
+	creator_layer.add_child(creator)
+	creator.created.connect(_on_character_created)
+
 	TickManager.register(world)
 	_was_dead = false
+	if session.needs_character() and OS.get_environment("PIXELCOMBAT_NO_CREATOR").is_empty():
+		creator.start()
+
+
+func _on_character_created(character_name: String, class_id: String, appearance: Dictionary) -> void:
+	session.create_character(character_name, class_id, appearance)
 
 
 func _exit_tree() -> void:
@@ -82,7 +103,7 @@ func _exit_tree() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if world == null:
+	if world == null or (creator != null and creator.visible):
 		return
 
 	if Input.is_action_just_pressed("restart_training"):

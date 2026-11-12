@@ -150,6 +150,7 @@ func _on_phase_changed(index: int, phase_name: String) -> void:
 		return
 	arena.spawn_floating_text(sim.position + Vector2(0.0, -_sprite_height - 12.0), phase_name.to_upper(), Color(1.0, 0.82, 0.3, 1.0))
 	arena.spawn_impact(sim.position, Color(1.0, 0.6, 0.2, 1.0), true)
+	arena.play_event("boss_phase", sim.position)
 	arena.play_sfx(SFX_IMPACT, -2.0, 0.55)
 	arena.shake(6.0, 0.5)
 
@@ -160,6 +161,7 @@ func _on_status_applied(id: String) -> void:
 		return
 	var definition := StatusCatalog.status(id)
 	var color_data: Array = definition["color"]
+	arena.play_event("status_" + id, sim.position + Vector2(0.0, -_sprite_height * 0.6))
 	arena.spawn_floating_text(sim.position + Vector2(0.0, -_sprite_height - 6.0), String(definition["name"]).to_upper(), Color(float(color_data[0]), float(color_data[1]), float(color_data[2]), 1.0))
 
 
@@ -194,6 +196,7 @@ func _draw_status_icons() -> void:
 func _on_died() -> void:
 	if arena != null:
 		arena.play_sfx(SFX_IMPACT, -9.0, 0.7)
+		arena.play_event("boss_death" if sim.is_boss() else "enemy_death", sim.position)
 
 
 func _on_revived() -> void:

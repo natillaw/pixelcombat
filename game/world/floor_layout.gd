@@ -47,6 +47,8 @@ var decor: Array = []
 var npcs: Array = []
 ## Casillas de edificio (se dibujan como suelo pavimentado): [Vector2i].
 var footprints: Array = []
+## Elementos gigantes de fondo (la Torre): [{kind, position (pie), width}].
+var landmarks: Array = []
 ## Enemigos que aparecen despues (oleadas, jefe tras la prueba): mismas claves que `enemies`.
 var deferred_enemies: Array = []
 ## Plan de misiones del piso (ver MissionGen): {missions: [..], time_limit: s}.

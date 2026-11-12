@@ -34,6 +34,7 @@ signal item_gained(item: Dictionary)
 signal bag_full(item: Dictionary)
 signal inventory_changed()
 signal gold_changed(total: int)
+signal appearance_changed()
 signal materials_changed()
 signal material_gained(id: String, amount: int)
 signal xp_changed(xp: int, to_next: int, level: int)
@@ -130,6 +131,10 @@ var bag: Array = []
 var equipment: Dictionary = {}
 ## Oro compartido por todas las clases.
 var gold: int = 0
+## Personaje: nombre, aspecto (cuerpo, piel, pelo...) elegido al crearlo y si ya se creo.
+var character_name: String = "Despierto"
+var appearance: Dictionary = {}
+var character_created: bool = false
 ## Materiales (id -> cantidad), compartidos por las clases. No ocupan mochila.
 var materials: Dictionary = {}
 ## En zona segura (ciudad, patio) se puede cambiar de clase y de loadout; en un
@@ -1158,7 +1163,7 @@ func _activate_class(new_class_id: String) -> void:
 ## clase.
 func export_state() -> Dictionary:
 	_save_progress()
-	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate()}
+	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate(), "character": {"name": character_name, "appearance": appearance.duplicate(), "created": character_created}}
 
 
 ## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
@@ -1169,6 +1174,10 @@ func import_state(data: Dictionary) -> void:
 		if ClassCatalog.has_class(id):
 			progress[id] = (saved[id] as Dictionary).duplicate(true)
 	gold = maxi(int(data.get("gold", 0)), 0)
+	var saved_character: Dictionary = data.get("character", {})
+	character_name = String(saved_character.get("name", "Despierto"))
+	appearance = (saved_character.get("appearance", {}) as Dictionary).duplicate()
+	character_created = bool(saved_character.get("created", false))
 	materials = {}
 	var saved_materials: Dictionary = data.get("materials", {})
 	for id: String in saved_materials:
@@ -1294,6 +1303,14 @@ func spend_gold(amount: int) -> bool:
 	gold -= amount
 	gold_changed.emit(gold)
 	return true
+
+
+## Fija el nombre y el aspecto del personaje (el creador); la ropa no se elige: sale del equipo.
+func set_character(new_name: String, new_appearance: Dictionary) -> void:
+	character_name = new_name.strip_edges() if not new_name.strip_edges().is_empty() else "Despierto"
+	appearance = new_appearance.duplicate()
+	character_created = true
+	appearance_changed.emit()
 
 
 func add_gold(amount: int) -> void:

@@ -74,6 +74,9 @@ func build(p_world: CombatWorld) -> void:
 	# Las crias que invoca un jefe aparecen despues y necesitan su actor.
 	world.enemy_spawned.connect(_on_enemy_spawned)
 	world.layout_loaded.connect(_rebuild)
+	world.interacted.connect(_on_world_interacted)
+	world.resource_gathered.connect(_on_resource_gathered)
+	world.player.item_gained.connect(func(_item: Dictionary) -> void: play_event("pickup", world.player.position))
 	world.loot_spawned.connect(_on_loot_spawned)
 	_rebuild(world.layout)
 
@@ -125,6 +128,7 @@ func _rebuild(new_layout: FloorLayout) -> void:
 
 	camera.limit_right = int(_size.x)
 	camera.limit_bottom = int(_size.y)
+	camera.limit_top = -520 if layout.kind == FloorLayout.KIND_CITY else 0
 	camera.position = world.player.position
 	camera.reset_smoothing()
 	player_actor.position = world.player.position
@@ -210,6 +214,51 @@ func _process(delta: float) -> void:
 
 
 # --- Helpers de presentación ------------------------------------------------
+
+
+## Reproduce un efecto de la biblioteca (FxLibrary) en `at`.
+func fx_at(id: String, at: Vector2, rotation: float = 0.0, fx_scale: float = 1.0, tint: Color = Color.WHITE, seconds: float = 0.0) -> FxSprite:
+	if fx == null or not FxLibrary.has_effect(id):
+		return null
+	var sprite := FxSprite.new()
+	sprite.position = at
+	fx.add_child(sprite)
+	sprite.setup(id, fx_scale, rotation, tint, seconds)
+	return sprite
+
+
+## Efectos de un suceso (data/fx.json "events"): subir de nivel, esquiva, estados...
+func play_event(name: String, at: Vector2, extra_scale: float = 1.0) -> void:
+	for entry: Dictionary in FxLibrary.event_fx(name):
+		fx_at(String(entry["id"]), at + Vector2(0.0, -float(entry.get("up", 0.0))), 0.0, float(entry.get("scale", 1.0)) * extra_scale, Color.WHITE, float(entry.get("seconds", 0.0)))
+
+
+## Efectos de lanzar una habilidad: delante del jugador (`ahead` x su alcance), sobre el
+## mismo (`at: self`) o sobre el punto marcado (`at: aim`).
+func play_cast_fx(skill: Dictionary, origin: Vector2, direction: Vector2, aim_point: Vector2, reach: float) -> void:
+	for entry: Dictionary in FxLibrary.skill_fx(String(skill.get("id", ""))).get("cast", []):
+		var at := origin + direction * reach * float(entry.get("ahead", 0.0))
+		if String(entry.get("at", "")) == "aim":
+			at = aim_point
+		elif String(entry.get("at", "")) == "self":
+			at = origin
+		at += Vector2(0.0, -float(entry.get("up", 0.0)))
+		fx_at(String(entry["id"]), at, direction.angle() if entry.has("ahead") else 0.0, float(entry.get("scale", 1.0)), Color.WHITE, float(entry.get("seconds", 0.0)))
+
+
+## Efecto del golpe de una habilidad (o el generico de chispa/critico).
+func play_hit_fx(skill: Dictionary, at: Vector2, critical: bool) -> void:
+	var entry := FxLibrary.skill_fx(String(skill.get("id", "")))
+	var id := String(entry.get("crit", "impacts/crit-hit")) if critical else String(entry.get("hit", "impacts/hit-spark"))
+	fx_at(id, at + Vector2(0.0, -10.0), randf() * TAU if id.begins_with("explosions") else 0.0, 0.8 if not critical else 1.0)
+
+
+func _on_world_interacted(object: Interactable) -> void:
+	play_event("interact_" + object.kind, object.position)
+
+
+func _on_resource_gathered(node: ResourceNode, _material_id: String, _amount: int) -> void:
+	play_event("gather", node.position)
 
 
 func spawn_slash(at: Vector2, direction: Vector2, radius: float, arc: float, heavy: bool) -> void:
@@ -352,6 +401,14 @@ func _build_props() -> void:
 			_add_static(Fountain.new() if radius >= 30.0 else CityTree.new(), obstacle["position"])
 		else:
 			_add_static(Pillar.new(), obstacle["position"])
+	for landmark: Dictionary in layout.landmarks:
+		if String(landmark["kind"]) == "giant_tower":
+			var tower := GiantTower.new()
+			tower.width = float(landmark["width"])
+			tower.z_index = -40
+			tower.position = landmark["position"]
+			add_child(tower)
+			_static_nodes.append(tower)
 	for building: Dictionary in layout.buildings:
 		if building.has("sprite") and ResourceLoader.exists(String(building["sprite"])):
 			var sprite := Sprite2D.new()
@@ -565,30 +622,44 @@ class Pillar extends Node2D:
 
 
 class Torch extends Node2D:
+	const SHEET := preload("res://assets/pixel/fx/torch_sheet.png")
+	const FRAMES := 9
+	const SIZE := 48
+
 	var phase: float = 0.0
+	var _sprite: AnimatedSprite2D
+
+	func _ready() -> void:
+		var frames := SpriteFrames.new()
+		frames.add_animation(&"burn")
+		frames.set_animation_speed(&"burn", 6.6)
+		frames.set_animation_loop(&"burn", true)
+		if frames.has_animation(&"default"):
+			frames.remove_animation(&"default")
+		for i: int in range(FRAMES):
+			var atlas := AtlasTexture.new()
+			atlas.atlas = SHEET
+			atlas.region = Rect2(i * SIZE, 0, SIZE, SIZE)
+			frames.add_frame(&"burn", atlas)
+		_sprite = AnimatedSprite2D.new()
+		_sprite.sprite_frames = frames
+		_sprite.centered = false
+		_sprite.offset = Vector2(-SIZE * 0.5, -SIZE + 2.0)
+		_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		add_child(_sprite)
+		_sprite.frame = int(abs(phase * 3.0)) % FRAMES
+		_sprite.play(&"burn")
 
 	func _process(delta: float) -> void:
 		phase += delta
 		queue_redraw()
 
 	func _draw() -> void:
-		var flick := 0.8 + 0.2 * sin(phase * 11.0) + 0.06 * sin(phase * 23.0)
-		var glow := 0.7 + 0.3 * sin(phase * 7.0)
-
-		# Soporte metálico.
-		draw_rect(Rect2(-2, -12, 4, 18), Color(0.12, 0.12, 0.15))
-		draw_rect(Rect2(-8, -20, 16, 7), Color(0.23, 0.24, 0.29))
-		draw_rect(Rect2(-8, -20, 16, 2), Color(0.39, 0.40, 0.47))
-
-		# Resplandor cálido.
-		draw_circle(Vector2(0, -30), 58.0 * glow, Color(1.0, 0.55, 0.18, 0.035))
-		draw_circle(Vector2(0, -30), 36.0 * glow, Color(1.0, 0.62, 0.22, 0.05))
-		draw_circle(Vector2(0, -30), 20.0 * glow, Color(1.0, 0.72, 0.30, 0.08))
-
-		# Llama.
-		draw_circle(Vector2(0, -27), 7.0 * flick, Color(1.0, 0.40, 0.10, 0.92))
-		draw_circle(Vector2(1, -31), 4.8 * flick, Color(1.0, 0.70, 0.22, 0.95))
-		draw_circle(Vector2(-1, -35), 2.4 * flick, Color(1.0, 0.95, 0.72, 0.95))
+		# Resplandor calido que parpadea alrededor de la llama.
+		var glow := 0.75 + 0.25 * sin(phase * 7.0) + 0.06 * sin(phase * 19.0)
+		draw_circle(Vector2(0, -30), 64.0 * glow, Color(1.0, 0.55, 0.18, 0.035))
+		draw_circle(Vector2(0, -30), 40.0 * glow, Color(1.0, 0.62, 0.22, 0.05))
+		draw_circle(Vector2(0, -30), 22.0 * glow, Color(1.0, 0.72, 0.30, 0.08))
 
 
 class CityTree extends Node2D:
@@ -860,3 +931,105 @@ class InteractableActor extends Node2D:
 			var ratio := 1.0 - world.gather_left / maxf(object.channel_seconds, 0.01)
 			draw_rect(Rect2(-16, -46, 32, 5), Color(0.05, 0.05, 0.08, 0.9))
 			draw_rect(Rect2(-15, -45, 30 * clampf(ratio, 0.0, 1.0), 3), Color(0.95, 0.78, 0.35))
+
+
+## La Torre de las Cien Puertas, vista de frente: un fuste de piedra oscura que sube mas alla del
+## borde del mapa y se disuelve en la niebla (nunca se ve la cima). El nodo esta en el pie de la
+## torre; el fuste crece hacia arriba (Y negativa). Se dibuja una vez: sillares, contrafuertes,
+## ventanas con luz, bandas de runas, un arco de entrada y capas de niebla que lo oscurecen con
+## la altura.
+class GiantTower extends Node2D:
+	const HEIGHT := 3400.0
+	var width: float = 736.0
+
+	func _draw() -> void:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = 90210
+		var half := width * 0.5
+		var stone := Color(0.17, 0.18, 0.24)
+		var stone_dark := Color(0.09, 0.10, 0.15)
+		var stone_light := Color(0.27, 0.28, 0.36)
+		# Fuste: se estrecha un poco con la altura.
+		draw_colored_polygon(PackedVector2Array([Vector2(-half, 0), Vector2(half, 0), Vector2(half * 0.84, -HEIGHT), Vector2(-half * 0.84, -HEIGHT)]), stone)
+		draw_colored_polygon(PackedVector2Array([Vector2(-half, 0), Vector2(-half * 0.55, 0), Vector2(-half * 0.5, -HEIGHT), Vector2(-half * 0.84, -HEIGHT)]), stone_dark)
+		draw_colored_polygon(PackedVector2Array([Vector2(half * 0.55, 0), Vector2(half, 0), Vector2(half * 0.84, -HEIGHT), Vector2(half * 0.5, -HEIGHT)]), stone_dark)
+		# Textura de piedra: la cara de los cliffs LPC (Mountain, invierno) en filas de 32 px.
+		var face: Texture2D = load("res://assets/pixel/lpc_terrain/mountain_winter.png")
+		var stone_y := 0.0
+		var stone_row := 0
+		while stone_y > -HEIGHT:
+			var t_row := -stone_y / HEIGHT
+			var shaft_w := lerpf(width, width * 0.84, t_row)
+			var cols := int(ceil(shaft_w / 32.0))
+			for ci: int in range(cols):
+				var tile_x := -shaft_w * 0.5 + float(ci) * 32.0
+				var src := Rect2(32.0 + float((ci + stone_row) % 2) * 0.0, 3.0 * 32.0 if stone_row % 2 == 0 else 4.0 * 32.0, 32.0, 32.0)
+				draw_texture_rect_region(face, Rect2(tile_x, stone_y - 32.0, minf(32.0, -shaft_w * 0.5 + shaft_w - (tile_x + shaft_w * 0.5) + 32.0), 32.0), src, Color(0.55, 0.56, 0.7, 0.92))
+			stone_y -= 32.0
+			stone_row += 1
+		# Hiladas de sillares.
+		var y := 0.0
+		var row := 0
+		while y > -HEIGHT:
+			var t := -y / HEIGHT
+			var shaft_half := lerpf(half, half * 0.84, t)
+			draw_line(Vector2(-shaft_half, y), Vector2(shaft_half, y), Color(0, 0, 0.02, 0.45), 1.0)
+			var x := -shaft_half + float(row % 2) * 24.0
+			while x < shaft_half:
+				draw_line(Vector2(x, y), Vector2(x, y - 24.0), Color(0, 0, 0.02, 0.30), 1.0)
+				x += 48.0
+			y -= 24.0
+			row += 1
+		# Contrafuertes a los lados, con anillos de piedra clara.
+		for side: float in [-1.0, 1.0]:
+			var bx := side * (half - 34.0)
+			draw_rect(Rect2(bx - 22.0, -HEIGHT, 44.0, HEIGHT), stone_light.darkened(0.25))
+			draw_rect(Rect2(bx - 22.0, -HEIGHT, 6.0, HEIGHT), stone_light)
+			draw_rect(Rect2(bx + 16.0, -HEIGHT, 6.0, HEIGHT), stone_dark)
+			var ring := -140.0
+			while ring > -HEIGHT:
+				draw_rect(Rect2(bx - 28.0, ring, 56.0, 14.0), stone_light)
+				draw_rect(Rect2(bx - 28.0, ring + 14.0, 56.0, 4.0), stone_dark)
+				ring -= 220.0
+		# Ventanas ojivales con luz y bandas de runas.
+		var level := -170.0
+		var index := 0
+		while level > -HEIGHT:
+			for i: int in range(5):
+				var wx := lerpf(-half * 0.55, half * 0.55, float(i) / 4.0)
+				var lit := rng.randf() < 0.55
+				var glow := Color(1.0, 0.72, 0.30) if rng.randf() < 0.7 else Color(0.45, 0.80, 1.0)
+				draw_rect(Rect2(wx - 9.0, level - 34.0, 18.0, 34.0), Color(0.02, 0.025, 0.05))
+				draw_colored_polygon(PackedVector2Array([Vector2(wx - 9.0, level - 34.0), Vector2(wx, level - 46.0), Vector2(wx + 9.0, level - 34.0)]), Color(0.02, 0.025, 0.05))
+				if lit:
+					draw_rect(Rect2(wx - 6.0, level - 30.0, 12.0, 28.0), Color(glow.r, glow.g, glow.b, 0.85))
+					draw_circle(Vector2(wx, level - 16.0), 26.0, Color(glow.r, glow.g, glow.b, 0.06))
+				draw_rect(Rect2(wx - 11.0, level, 22.0, 4.0), stone_light)
+			index += 1
+			if index % 3 == 0:
+				var band := level - 78.0
+				draw_rect(Rect2(-half * 0.8, band, half * 1.6, 8.0), stone_dark)
+				for k: int in range(14):
+					var rx := lerpf(-half * 0.74, half * 0.74, float(k) / 13.0)
+					draw_rect(Rect2(rx - 3.0, band + 2.0, 6.0, 4.0), Color(0.45, 0.85, 1.0, 0.75))
+			level -= 150.0
+		# Arco de entrada y escalinata.
+		draw_rect(Rect2(-62.0, -150.0, 124.0, 150.0), stone_light.darkened(0.2))
+		draw_rect(Rect2(-48.0, -134.0, 96.0, 134.0), Color(0.01, 0.012, 0.03))
+		draw_colored_polygon(PackedVector2Array([Vector2(-48.0, -134.0), Vector2(0.0, -168.0), Vector2(48.0, -134.0)]), Color(0.01, 0.012, 0.03))
+		draw_arc(Vector2(0.0, -134.0), 56.0, PI, TAU, 24, stone_light, 6.0)
+		for i: int in range(5):
+			draw_rect(Rect2(-76.0 + float(i) * 6.0, -float(i) * 5.0 - 4.0, 152.0 - float(i) * 12.0, 6.0), stone_light.darkened(0.1 * float(i % 2)))
+		draw_circle(Vector2(0.0, -70.0), 70.0, Color(0.45, 0.8, 1.0, 0.07))
+		draw_circle(Vector2(0.0, -70.0), 38.0, Color(0.45, 0.8, 1.0, 0.09))
+		# Niebla: cada capa oscurece lo que tiene encima, hasta perder la cima.
+		var layers := 48
+		for i: int in range(layers):
+			var top := -HEIGHT + HEIGHT * float(i) / float(layers)
+			var alpha := pow(1.0 - float(i) / float(layers), 1.6) * 0.62
+			draw_rect(Rect2(-half - 40.0, top, width + 80.0, HEIGHT / float(layers) + 2.0), Color(0.03, 0.04, 0.08, alpha))
+		for i: int in range(26):
+			var cy := -rng.randf_range(200.0, 1500.0)
+			draw_circle(Vector2(rng.randf_range(-half, half), cy), rng.randf_range(60.0, 130.0), Color(0.55, 0.6, 0.72, 0.05))
+		# Sombra proyectada al pie.
+		draw_rect(Rect2(-half, 0.0, width, 14.0), Color(0, 0, 0, 0.35))
