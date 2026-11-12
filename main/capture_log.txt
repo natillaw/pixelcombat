@@ -33,7 +33,7 @@ shot 04g_enemy_beetle_cone -> /home/runner/work/pixelcombat/pixelcombat/screensh
 shot 05_vengeful_fury -> /home/runner/work/pixelcombat/pixelcombat/screenshots/05_vengeful_fury.png err=0
 shot 06_death -> /home/runner/work/pixelcombat/pixelcombat/screenshots/06_death.png err=0
 CAPTURE DONE -> /home/runner/work/pixelcombat/pixelcombat/screenshots
-ERROR: Texture with GL ID of 43: leaked 5460 bytes.
+ERROR: Texture with GL ID of 44: leaked 5460 bytes.
    at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
 ERROR: Parameter "RenderingServer::get_singleton()" is null.
    at: ~CompressedTexture2D (scene/resources/compressed_texture.cpp:464)
