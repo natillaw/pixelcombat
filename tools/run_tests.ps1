@@ -77,7 +77,8 @@ $suites = @(
     "tests/test_missions.gd"
     "tests/test_fx.gd"
     "tests/test_scene_smoke.tscn"
-    "tests/test_creator.tscn"
+    "tests/test_creator.tscn",
+    "tests/test_menus.tscn"
 )
 
 "" | Set-Content -Path $summaryPath -Encoding utf8

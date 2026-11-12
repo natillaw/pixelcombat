@@ -219,13 +219,13 @@ func _slot_bar(at: Vector2, width: float, ratio: float, color: Color) -> void:
 func _draw_abilities(warrior: PlayerSim) -> void:
 	_draw_ability(
 		_slot_rect(0),
-		"LMB", _hud_label(warrior, "M1"), "M1",
+		Settings.short_label("attack_m1"), _hud_label(warrior, "M1"), "M1",
 		warrior.attack_cooldown_left("M1"), warrior.attack_cooldown_total("M1"),
 		false, warrior.state == PlayerSim.AttackState.IDLE
 	)
 	_draw_ability(
 		_slot_rect(1),
-		"RMB", _hud_label(warrior, "M2"), "M2",
+		Settings.short_label("attack_m2"), _hud_label(warrior, "M2"), "M2",
 		warrior.attack_cooldown_left("M2"), warrior.attack_cooldown_total("M2"),
 		warrior.vengeful_active, warrior.state == PlayerSim.AttackState.IDLE
 	)
@@ -233,8 +233,8 @@ func _draw_abilities(warrior: PlayerSim) -> void:
 	_draw_m1_pips(_slot_rect(0), warrior)
 	_draw_m2_charge(_slot_rect(1), warrior)
 	for i: int in range(5):
-		_draw_skill_slot(_slot_rect(3 + i), str(i + 1), "S%d" % (i + 1), warrior)
-	_draw_skill_slot(_slot_rect(8), "Q", "SPECIAL", warrior)
+		_draw_skill_slot(_slot_rect(3 + i), Settings.short_label("skill_%d" % (i + 1)) if InputMap.has_action("skill_%d" % (i + 1)) else str(i + 1), "S%d" % (i + 1), warrior)
+	_draw_skill_slot(_slot_rect(8), Settings.short_label("special"), "SPECIAL", warrior)
 	_draw_ultimate_slot(_slot_rect(9), warrior)
 
 
@@ -373,7 +373,7 @@ func _draw_dodge_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	var edge := Color(0.55, 0.82, 1.0, 1.0) if warrior.dodging else PANEL_EDGE
 	UiStyle.draw_slot_bg(self, rect)
 	UiStyle.draw_slot_edge(self, rect, edge)
-	_draw_text("SPACE", rect.position + Vector2(4, 9), 7, MUTED)
+	_draw_text(Settings.short_label("dodge"), rect.position + Vector2(4, 9), 7, MUTED)
 	var icon_color := Color(0.6, 0.85, 1.0, 1.0) if ready else Color(0.62, 0.64, 0.72, 1.0)
 	var c := rect.position + Vector2(rect.size.x * 0.5, 18)
 	var dodge_icon := SkillIcons.texture("dodge")
@@ -578,21 +578,21 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _draw_controls() -> void:
 	_panel(Rect2(10, 84, 132, 148), "CONTROLES")
 	var lines := [
-		"WASD   MOVE",
+		"%s %s %s %s  MOVE" % [Settings.short_label("move_up"), Settings.short_label("move_left"), Settings.short_label("move_down"), Settings.short_label("move_right")],
 		"MOUSE  AIM",
-		"LMB    PRIMARY",
-		"RMB    SECONDARY (HOLD)",
-		"SPACE  DODGE",
-		"1-5    SKILLS",
-		"Q      SPECIAL",
-		"F      ULTIMATE",
-		"TAB    LOADOUT",
-		"I      INVENTORY",
-		"E      INTERACT",
+		"%s  PRIMARY" % Settings.short_label("attack_m1"),
+		"%s  SECONDARY (HOLD)" % Settings.short_label("attack_m2"),
+		"%s  MOBILITY" % Settings.short_label("dodge"),
+		"%s %s %s  SKILLS" % [Settings.short_label("skill_1"), Settings.short_label("skill_2"), Settings.short_label("skill_3")],
+		"%s  SPECIAL" % Settings.short_label("special"),
+		"%s  ULTIMATE" % Settings.short_label("ultimate"),
+		"%s  SKILL BOOK" % Settings.short_label("toggle_loadout"),
+		"%s  INVENTORY" % Settings.short_label("toggle_inventory"),
+		"%s  INTERACT" % Settings.short_label("interact"),
 		", .    TOWER FLOOR",
-		"R      RESTART",
+		"%s  RESTART" % Settings.short_label("restart_training"),
+		"ESC    MENU",
 		"F3     DEBUG",
-		"F7     NEXT CLASS",
 	]
 	for i: int in range(lines.size()):
 		_draw_text(String(lines[i]), Vector2(16, 100 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)

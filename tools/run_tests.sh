@@ -59,6 +59,7 @@ SUITES=(
     "tests/test_fx.gd"
     "tests/test_scene_smoke.tscn"
     "tests/test_creator.tscn"
+    "tests/test_menus.tscn"
 )
 
 : >"$SUMMARY"

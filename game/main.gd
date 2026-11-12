@@ -16,6 +16,10 @@ var creator: CharacterCreator
 var loadout_panel: LoadoutPanel
 var inventory_panel: InventoryPanel
 var crafting_panel: CraftingPanel
+var main_menu: MainMenu
+var pause_menu: PauseMenu
+## Con menu principal: la partida se elige ahi (sin menu en tests y capturas).
+var _use_menu: bool = false
 
 var _was_dead: bool = false
 ## Hasta soltar el boton, el clic que recogio algo no ataca.
@@ -29,7 +33,8 @@ func _ready() -> void:
 		save_path = OS.get_environment("PIXELCOMBAT_SAVE_PATH")
 	if not OS.get_environment("PIXELCOMBAT_NO_SAVE").is_empty():
 		save_path = ""
-	session = GameSession.new(world, save_path)
+	_use_menu = DisplayServer.get_name() != "headless" and OS.get_environment("PIXELCOMBAT_NO_MENU").is_empty() and OS.get_environment("PIXELCOMBAT_NO_SAVE").is_empty() and OS.get_environment("PIXELCOMBAT_SAVE_PATH").is_empty()
+	session = GameSession.new(world, "" if _use_menu else save_path)
 
 	arena = Arena.new()
 	arena.name = "Arena"
@@ -87,10 +92,50 @@ func _ready() -> void:
 	creator_layer.add_child(creator)
 	creator.created.connect(_on_character_created)
 
+	var menu_layer := CanvasLayer.new()
+	menu_layer.name = "MenuLayer"
+	menu_layer.layer = 50
+	add_child(menu_layer)
+	main_menu = MainMenu.new()
+	main_menu.name = "MainMenu"
+	menu_layer.add_child(main_menu)
+	main_menu.slot_chosen.connect(_on_slot_chosen)
+	main_menu.quit_requested.connect(func() -> void: get_tree().quit())
+	pause_menu = PauseMenu.new()
+	pause_menu.name = "PauseMenu"
+	menu_layer.add_child(pause_menu)
+	pause_menu.main_menu_requested.connect(_on_main_menu_requested)
+	pause_menu.quit_requested.connect(func() -> void:
+		session.autosave()
+		get_tree().quit())
+
 	TickManager.register(world)
 	_was_dead = false
-	if session.needs_character() and OS.get_environment("PIXELCOMBAT_NO_CREATOR").is_empty():
+	if _use_menu:
+		main_menu.open()
+	elif session.needs_character() and OS.get_environment("PIXELCOMBAT_NO_CREATOR").is_empty():
 		creator.start()
+
+
+## Se elige una ranura en el menu: se carga (o se crea) esa partida y, si es nueva, se abre el creador.
+func _on_slot_chosen(index: int, fresh: bool) -> void:
+	main_menu.close()
+	session.load_slot(SaveGame.slot_path(index), fresh)
+	_was_dead = false
+	if session.needs_character():
+		creator.start()
+
+
+func _on_main_menu_requested() -> void:
+	session.autosave()
+	pause_menu.close()
+	main_menu.open()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("quit_game") and world != null and not creator.visible and not main_menu.visible and not pause_menu.visible:
+		pause_menu.open()
+		get_viewport().set_input_as_handled()
 
 
 func _on_character_created(character_name: String, class_id: String, appearance: Dictionary) -> void:
@@ -110,7 +155,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if world == null or (creator != null and creator.visible):
+	if world == null or (creator != null and creator.visible) or (main_menu != null and main_menu.visible) or (pause_menu != null and pause_menu.visible):
 		return
 
 	if Input.is_action_just_pressed("restart_training"):

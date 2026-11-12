@@ -52,6 +52,25 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 	go_to_city()
 
 
+## Carga la partida de `path` (o una nueva si no existe o `fresh`) y empieza en la ciudad. Es lo que usa el
+## menu al elegir una ranura.
+func load_slot(path: String, fresh: bool = false) -> void:
+	save_path = path
+	if fresh:
+		SaveGame.delete(path)
+	var data := SaveGame.read(path) if not path.is_empty() else {}
+	if data.is_empty():
+		world.player.safe_zone = true
+		world.player.import_state({})
+		tower = TowerState.new()
+	else:
+		world.player.import_state(data["player"])
+		tower = TowerState.from_dict(data["tower"])
+	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
+	_floor_done = false
+	go_to_city()
+
+
 ## Si hay que pasar por el creador de personaje (partida nueva).
 func needs_character() -> bool:
 	return not world.player.character_created

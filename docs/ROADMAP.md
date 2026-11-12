@@ -209,3 +209,7 @@ Cada clase empieza con 5 skills: M1, M2, S1 (control/utilidad), Special (postura
 - Campamentos coordinados: despiertan juntos y solo 2 cuerpo a cuerpo atacan a la vez (los demas rodean).
 - Elite errante (Cornelius the Deserter): en cada partida hay un 50 % de que aparezca una vez en un piso del 5 al 10 (`TowerCatalog.elite_floor`); al caer no vuelve. Mini-jefe con botin propio.
 - Cursor del juego: espada (PixelRPGCursors Lite) sobre enemigos y puntero propio. El runner de tests ahora falla ante cualquier `SCRIPT ERROR`.
+
+## Menus, ajustes y varios personajes
+- Menu principal (Continuar, Personajes, Ajustes, Salir), pausa con Esc (Continuar, Ajustes, Personajes, Salir) y 3 ranuras de guardado (`SaveGame.slot_path`), con su personaje cada una; el guardado antiguo se copia a la ranura 1. `GameSession.load_slot` carga o crea una partida; sin menu en tests (headless) y capturas.
+- Ajustes (`Settings`, user://settings.json): volumen general y de efectos (bus `SFX`), pantalla completa y reasignacion de 15 acciones (teclas o botones del raton, con intercambio si chocan). El HUD y el panel F1 muestran las teclas actuales.

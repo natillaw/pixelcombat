@@ -318,6 +318,7 @@ func _build_sfx_pool() -> void:
 		var player := AudioStreamPlayer.new()
 		player.name = "Sfx%02d" % i
 		player.volume_db = -8.0
+		player.bus = Settings.SFX_BUS
 		add_child(player)
 		_sfx_pool.append(player)
 

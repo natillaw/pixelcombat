@@ -42,6 +42,7 @@ func _enter_tree() -> void:
 			_add_key(action, key)
 	_add_mouse_button("attack_m1", MOUSE_BUTTON_LEFT)
 	_add_mouse_button("attack_m2", MOUSE_BUTTON_RIGHT)
+	Settings.load_and_apply()
 
 
 func _add_key(action: String, keycode: int) -> void:
