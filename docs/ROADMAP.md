@@ -185,3 +185,11 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 3. Actualizar README/AGENTS con la visión nueva y las rutas correctas.
 4. Hacer que el Warrior encare siempre al cursor y añadir la esquiva.
 5. Diseñar el esquema de datos de skills (`data/skills/*.tres` o JSON) y portar M1/M2 del Warrior a él.
+
+## Balance de campana (medido con `tools/balance/run_campaign.gd`)
+Un bot (FloorBot) recorre los pisos con el mismo input que una persona. Resultado, 4 clases, sin pociones:
+- Pisos normales 1-4: 1-3 min, 5-90 % de la vida perdida, nivel 8 al llegar al piso 5.
+- Pisos normales 6-15: 2-3 min, 15-95 % de vida perdida; el nivel sube ~1 por piso.
+- Pisos x5 y x10 (picos): 300-500 % de la vida perdida, 1-4 muertes del bot; son el pico de dificultad buscado, no hace falta bajar la escala (+10 %/piso).
+- La vida no se regeneraba: ahora regenera 1,5 %/s tras 5 s sin recibir dano (`PlayerSim.regen_per_second`).
+- Pendiente: el bot aun se atasca a veces (piso 7, ~1600 s), y no recoge items con la mochila llena.

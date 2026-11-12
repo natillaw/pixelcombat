@@ -52,6 +52,11 @@ const MOVE_SPEED := 168.0
 const ACCELERATION := 1500.0
 const FRICTION := 2100.0
 const BASE_HEALTH := 100.0
+## Regeneracion de vida fuera de combate (fraccion de la vida maxima por segundo). 0 = sin
+## regeneracion; la fija el laboratorio de campana para medir el efecto.
+static var regen_per_second: float = 0.015
+## Segundos sin recibir dano para empezar a regenerar.
+const REGEN_DELAY := 5.0
 const HEALTH_PER_STAMINA := 10.0
 
 const RAGE_DECAY_GRACE := 5.0
@@ -445,6 +450,15 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 	_update_attack(delta)
 	_update_movement(delta)
 	_update_resource(delta)
+	_update_regen(delta)
+
+
+func _update_regen(delta: float) -> void:
+	if regen_per_second <= 0.0 or not alive or health >= max_health:
+		return
+	if tick - last_combat_tick < int(REGEN_DELAY * 60.0):
+		return
+	health = minf(max_health, health + max_health * regen_per_second * delta)
 
 
 func _read_input(input: Object) -> void:
