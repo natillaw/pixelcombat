@@ -13,7 +13,7 @@ signal created(character_name: String, class_id: String, appearance: Dictionary)
 const FONT := preload("res://assets/fonts/m5x7.ttf")
 const GOLD := Color(0.94, 0.74, 0.36, 1.0)
 const TEXT := Color(0.93, 0.90, 0.83, 1.0)
-const MUTED := Color(0.62, 0.66, 0.76, 1.0)
+const MUTED := Color(0.86, 0.80, 0.62, 1.0)
 const PANEL := Color(0.055, 0.065, 0.10, 0.97)
 const EDGE := Color(0.62, 0.48, 0.24, 1.0)
 
@@ -127,8 +127,9 @@ func _button(text: String, rect: Rect2, callback: Callable, size: int = 8) -> Bu
 	button.custom_minimum_size = Vector2.ZERO
 	button.add_theme_font_override("font", FONT)
 	button.add_theme_font_size_override("font_size", size)
-	button.add_theme_color_override("font_color", TEXT)
-	button.add_theme_color_override("font_hover_color", GOLD)
+	button.add_theme_color_override("font_color", Color(0.04, 0.16, 0.09))
+	button.add_theme_color_override("font_hover_color", Color(0.0, 0.1, 0.05))
+	button.add_theme_color_override("font_pressed_color", Color(0.0, 0.1, 0.05))
 	for state: String in ["normal", "hover", "pressed", "focus"]:
 		button.add_theme_stylebox_override(state, UiStyle.button_style("normal" if state == "focus" else state))
 	button.pressed.connect(callback)
@@ -176,8 +177,8 @@ func _build_create() -> void:
 	# Vista previa.
 	_panel(Rect2(22, 40, 196, 196), "VISTA PREVIA")
 	_preview = TextureRect.new()
-	_preview.position = Vector2(26, 44)
-	_preview.size = Vector2(188, 188)
+	_preview.position = Vector2(26, 56)
+	_preview.size = Vector2(188, 176)
 	_preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -292,7 +293,7 @@ func _select_class(class_id: String) -> void:
 func _refresh_class_buttons() -> void:
 	for class_id: String in _class_buttons:
 		var button: Button = _class_buttons[class_id]
-		button.add_theme_color_override("font_color", GOLD if class_id == _class_id else TEXT)
+		button.add_theme_color_override("font_color", Color(0.40, 0.08, 0.0) if class_id == _class_id else Color(0.04, 0.16, 0.09))
 	if _blurb != null:
 		_blurb.text = String(Lore.class_blurb(_class_id)["text"])
 

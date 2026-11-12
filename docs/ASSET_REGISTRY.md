@@ -159,3 +159,5 @@ Otros packs auditados el 2026-11-11 (Descargas/new assets) y su veredicto:
 | **Pixel Spell & Combat FX** (muestra del starter kit, 22 efectos) | `assets/pixel/fx/vfx/kit_*.png` | Subir de nivel, recoger, escudo, circulos, orbes... | Uso comercial OK, sin credito; no revender ni usar para entrenar IA | En uso |
 | Iconos de habilidad (Swordsman y Paladin de CraftPix, Dark Fantasy Combat Skills de M-Xing, Spell Icons Vol.1, Aeromancer) | `assets/pixel/icons/skills/` (64x64) | HUD y panel de habilidades | Licencias gratuitas comerciales de cada autor; **REVISAR Spell Icons y Aeromancer antes de publicar** | En uso |
 | Antorcha animada (GIF) | `assets/pixel/fx/torch_sheet.png` | Antorchas | Sin licencia incluida; REVISAR | En uso |
+
+| **Free Basic Pixel Art UI for RPG** (CraftPix) | `assets/pixel/ui/craftpix/` | Paneles (nueve parches), botones y marco del retrato de toda la interfaz via `UiStyle` | Licencia gratuita de CraftPix (uso comercial, no redistribuir el pack); REVISAR antes de publicar | En uso |

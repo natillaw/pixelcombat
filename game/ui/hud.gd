@@ -12,7 +12,7 @@ const PANEL := Color(0.055, 0.065, 0.095, 0.86)
 const PANEL_EDGE := Color(0.33, 0.37, 0.47, 0.95)
 const PANEL_EDGE_SOFT := Color(0.20, 0.23, 0.30, 0.9)
 const TEXT := Color(0.93, 0.90, 0.83, 1.0)
-const MUTED := Color(0.56, 0.60, 0.70, 1.0)
+const MUTED := Color(0.84, 0.77, 0.60, 1.0)
 const GOLD := Color(0.94, 0.74, 0.36, 1.0)
 const ORANGE := Color(1.0, 0.53, 0.18, 1.0)
 const RED := Color(0.88, 0.28, 0.24, 1.0)
@@ -146,57 +146,73 @@ func _draw() -> void:
 # --- Paneles ----------------------------------------------------------------
 
 
+const CHAR_PANEL := preload("res://assets/pixel/ui/craftpix/character_panel.png")
+## Placa con anillo de retrato y tres ranuras (de character_panel): se dibuja a x2.
+const PLATE := Rect2(1, 34, 86, 30)
+
+
+## Retrato circular + placa del paquete CraftPix (vida, recurso y XP en sus ranuras) y, a la
+## derecha, nombre, clase, valores y oro.
 func _draw_status(warrior: PlayerSim) -> void:
-	_panel(Rect2(6, 6, 256, 70))
-	# Retrato (cara del personaje con su equipo) en marco dorado y chapa de nivel.
+	var origin := Vector2(6, 6)
+	var scale := 2.0
 	var key := str([warrior.class_id, warrior.equipment, warrior.appearance].hash())
 	if key != _portrait_key:
 		_portrait_key = key
 		_portrait = ClassLook.portrait(warrior.class_id, warrior.appearance, warrior.equipment)
-	var frame := Rect2(13, 13, 52, 52)
-	draw_rect(frame.grow(2.0), Color(0.0, 0.0, 0.02, 0.95))
-	draw_rect(frame, Color(0.10, 0.13, 0.20, 1.0))
+	var center := origin + Vector2(15.5, 15.0) * scale
 	if _portrait != null:
-		draw_texture_rect_region(_portrait, frame, Rect2(10, 2, 44, 44))
-	draw_rect(frame.grow(2.0), UiStyle.GOLD, false, 1.0)
-	draw_circle(frame.end - Vector2(4, 4), 9.0, Color(0.05, 0.06, 0.1, 1.0))
-	draw_arc(frame.end - Vector2(4, 4), 9.0, 0.0, TAU, 20, UiStyle.GOLD, 1.0)
-	_draw_text(str(warrior.level), frame.end - Vector2(13, 1), 8, UiStyle.GOLD_LIGHT, HORIZONTAL_ALIGNMENT_CENTER, 18)
-
-	var x := 72.0
-	_draw_text(warrior.character_name.to_upper(), Vector2(x, 19), 8, GOLD)
-	_draw_text("%s  -  %s" % [String(warrior.class_def["name"]).to_upper(), _location_title()], Vector2(x, 19), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 184)
+		var points := PackedVector2Array()
+		var uvs := PackedVector2Array()
+		for i: int in range(32):
+			var angle := TAU * float(i) / 32.0
+			points.append(center + Vector2(cos(angle), sin(angle)) * 21.0)
+			uvs.append(Vector2((10.0 + (cos(angle) * 0.5 + 0.5) * 44.0) / 64.0, (2.0 + (sin(angle) * 0.5 + 0.5) * 44.0) / 64.0))
+		draw_circle(center, 22.0, Color(0.10, 0.12, 0.2, 1.0))
+		draw_colored_polygon(points, Color.WHITE, uvs, _portrait)
+	draw_texture_rect_region(CHAR_PANEL, Rect2(origin, PLATE.size * scale), PLATE)
+	# Chapa de nivel.
+	draw_circle(center + Vector2(15, 14), 9.0, Color(0.16, 0.10, 0.05, 1.0))
+	draw_arc(center + Vector2(15, 14), 9.0, 0.0, TAU, 20, UiStyle.GOLD, 1.0)
+	_draw_text(str(warrior.level), center + Vector2(6, 17), 8, UiStyle.GOLD_LIGHT, HORIZONTAL_ALIGNMENT_CENTER, 18)
 
 	var health_ratio: float = warrior.health / maxf(warrior.max_health, 1.0)
-	var health_color := Color(0.80, 0.18, 0.18, 1.0) if health_ratio > 0.30 else Color(0.95, 0.35, 0.15, 1.0)
-	_bar(Rect2(x, 24, 184, 12), health_ratio, health_color)
-	_draw_text("%d / %d" % [ceili(warrior.health), ceili(warrior.max_health)], Vector2(x, 34), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 184)
-
 	var rage_ratio: float = warrior.resource.get_current() / maxf(warrior.resource.max_amount, 1.0)
-	_bar(Rect2(x, 40, 184, 9), rage_ratio, _resource_color(warrior))
-	if warrior.resource.is_full() and warrior.resource_kind == "rage":
-		draw_rect(Rect2(x, 40, 184, 9), GOLD, false, 1.0)
-	_draw_text("%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)], Vector2(x, 47), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 184)
-	# Marca del coste del Special (30 Rage) para que la barra ya se lea.
-	var special_mark := x + 184.0 * (WarriorKit.SPECIAL_COST / WarriorKit.MAX_RAGE)
-	draw_line(Vector2(special_mark, 40), Vector2(special_mark, 49), Color(1, 1, 1, 0.35), 1.0)
-
-	var passive := String(warrior.class_def["role"]).to_upper()
-	var passive_color := MUTED
-	if String(warrior.class_def["passive"]) == "vengeful_fury":
-		passive = "VENGEFUL FURY"
-		passive_color = GOLD
-		if warrior.vengeful_active:
-			passive += "  %.1fs" % warrior.vengeful_seconds_left()
-			passive_color = ORANGE
-	if warrior.empower_mult > 1.0:
-		passive = "EMPOWERED  x%.1f  %.1fs" % [warrior.empower_mult, warrior.empower_seconds_left()]
-		passive_color = Color(0.65, 0.88, 1.0, 1.0)
-	_draw_text(passive, Vector2(x, 59), 7, passive_color)
 	var to_next := warrior.xp_to_next()
 	var xp_ratio := 1.0 if to_next <= 0 else float(warrior.xp) / float(to_next)
-	_bar(Rect2(x, 62, 184, 4), xp_ratio, XP)
-	_draw_text("ORO %d" % warrior.gold, Vector2(x, 59), 7, GOLD, HORIZONTAL_ALIGNMENT_RIGHT, 184)
+	var health_color := Color(0.86, 0.2, 0.18, 1.0) if health_ratio > 0.30 else Color(1.0, 0.45, 0.15, 1.0)
+	_slot_bar(origin + Vector2(31, 9) * scale, 52.0 * scale, health_ratio, health_color)
+	_slot_bar(origin + Vector2(31, 14) * scale, 46.0 * scale, rage_ratio, _resource_color(warrior))
+	_slot_bar(origin + Vector2(31, 19) * scale, 40.0 * scale, xp_ratio, Color(0.35, 0.82, 0.38, 1.0))
+
+	# Texto a la derecha de la placa.
+	var tx := 184.0
+	_panel(Rect2(tx - 4, 8, 112, 58))
+	_draw_text(warrior.character_name.to_upper(), Vector2(tx, 19), 8, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 104)
+	_draw_text("%s  -  %s" % [String(warrior.class_def["name"]).to_upper(), _location_title()], Vector2(tx, 28), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 104)
+	_draw_text("VIDA  %d / %d" % [ceili(warrior.health), ceili(warrior.max_health)], Vector2(tx, 38), 7, TEXT)
+	_draw_text("%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)], Vector2(tx, 46), 7, TEXT)
+	var passive := ""
+	var passive_color := MUTED
+	if warrior.vengeful_active:
+		passive = "FURIA  %.1fs" % warrior.vengeful_seconds_left()
+		passive_color = ORANGE
+	if warrior.empower_mult > 1.0:
+		passive = "POTENCIADO x%.1f" % warrior.empower_mult
+		passive_color = Color(0.65, 0.88, 1.0, 1.0)
+	_draw_text(passive if passive != "" else "XP  %d / %d" % [warrior.xp, maxi(to_next, 0)], Vector2(tx, 54), 7, passive_color if passive != "" else XP)
+	_draw_text("ORO %d" % warrior.gold, Vector2(tx, 62), 7, GOLD)
+
+
+## Barra fina que rellena una ranura de la placa (vida, recurso, XP).
+func _slot_bar(at: Vector2, width: float, ratio: float, color: Color) -> void:
+	var rect := Rect2(at, Vector2(width, 6.0))
+	draw_rect(rect, Color(0.07, 0.04, 0.03, 1.0))
+	var clamped := clampf(ratio, 0.0, 1.0)
+	if clamped > 0.0:
+		var fill := Rect2(rect.position, Vector2(rect.size.x * clamped, rect.size.y))
+		draw_rect(fill, color)
+		draw_rect(Rect2(fill.position, Vector2(fill.size.x, 2.0)), color.lightened(0.35))
 
 
 ## Barra inferior: M1, M2, esquiva, S1-S5, Special y Ultimate (10 huecos).
