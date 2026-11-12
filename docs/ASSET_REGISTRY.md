@@ -24,6 +24,7 @@ archivo por archivo del LPC están en `assets/pixel/lpc/CREDITS.csv`.
 |---|---|---|---|---|
 | **Universal LPC Spritesheet Character Generator** | `assets/pixel/lpc/` | Cuerpo, cabeza, pelo, barba y equipo del Warrior vía `LpcComposer` / `LpcWardrobe` | CC0 / CC-BY / OGA-BY / CC-BY-SA según archivo (ver `CREDITS.csv`) | En uso |
 | Fuente **m5x7** (Daniel Linssen) | `assets/fonts/m5x7.ttf` | HUD y números de daño | CC0 | En uso |
+| **PixelRPGCursors Lite** (Indigolay) | `assets/pixel/cursors/` | Espada cruzada al pasar sobre enemigos y base del puntero (el Default se dibujó a juego, el pack Lite no trae flecha); el reloj de arena sin usar aun | Gratis uso comercial y modificable; no se puede revender ni redistribuir los archivos sueltos (README.pdf) | En uso - REVISAR antes de publicar el repo |
 | **Ninja Adventure Asset Pack** (pixel-boy & AAA) | `assets/audio/sfx/ninja/` | Tajos, impactos, alerta del muñeco, muerte | CC0 1.0 | En uso |
 
 ### Capas LPC del Warrior

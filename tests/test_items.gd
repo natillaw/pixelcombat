@@ -261,18 +261,19 @@ func _test_enemy_tables() -> void:
 				table_ok = false
 				reason = "%s: ranura %s" % [id, slot]
 	_check(table_ok, "las tablas de botin de los enemigos usan ranuras validas (%s)" % reason)
-	_check(EnemyCatalog.enemy(&"wisp")["loot"]["slots"] == ["ring"], "el Wisp tiene tabla propia (solo anillos)")
+	# Una tabla con `chance` y `slots` propios (la usan los bandidos): solo anillos y su probabilidad.
+	var ring_table := {"chance": 0.2, "slots": ["ring"]}
 	var rng := _rng(90)
 	var only_rings := true
 	var drops := 0
 	for i: int in range(400):
-		var item := ItemGen.roll_drop(rng, 1, "normal", EnemyCatalog.enemy(&"wisp")["loot"])
+		var item := ItemGen.roll_drop(rng, 1, "normal", ring_table)
 		if item.is_empty():
 			continue
 		drops += 1
 		if String(ItemCatalog.item(String(item["id"]))["slot"]) != "ring":
 			only_rings = false
-	_check(drops > 50 and drops < 120 and only_rings, "el Wisp solo suelta anillos y con su propia probabilidad (%d de 400)" % drops)
+	_check(drops > 50 and drops < 120 and only_rings, "una tabla con ranura y probabilidad propias se respeta (%d de 400)" % drops)
 	var boss_slots := {}
 	for i: int in range(200):
 		var item := ItemGen.roll_drop(rng, 1, "boss", EnemyCatalog.enemy(&"brood_beetle")["loot"])

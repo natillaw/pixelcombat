@@ -34,6 +34,10 @@ const CONTACT_GAP := 2.0
 const PHASE_PAUSE := 1.2
 ## Maximo de crias invocadas vivas a la vez.
 const MAX_SUMMONS := 6
+## Distancia a la que un enemigo avisa a su campamento.
+const GROUP_ALERT_RANGE := 420.0
+## Cuantos cuerpo a cuerpo de un mismo campamento atacan a la vez; los demas rodean.
+const MAX_MELEE_ATTACKERS := 2
 
 var world: Object = null
 var def_id: StringName = &""
@@ -208,6 +212,11 @@ func _aggro() -> void:
 	state = State.CHASE
 	state_time = 0.0
 	aggroed.emit()
+	# Un campamento reacciona junto: los de su grupo que estan cerca tambien atacan.
+	if group != "" and world != null and not summoned:
+		for mate: EnemySim in world.enemies:
+			if mate != self and mate.alive and mate.group == group and mate.state == State.IDLE and mate.position.distance_to(position) <= GROUP_ALERT_RANGE:
+				mate._aggro()
 
 
 func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
@@ -224,6 +233,10 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 
 	var sees_target: bool = world == null or world.line_of_sight(position, warrior.position)
 	var attack := _pick_attack(distance) if sees_target else {}
+	var circling := false
+	if not attack.is_empty() and _melee_slots_full(attack):
+		attack = {}
+		circling = distance < 150.0
 	if not attack.is_empty():
 		_start_telegraph(attack)
 		return
@@ -250,8 +263,24 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 		var flow: Vector2 = world.path_direction(position)
 		if flow != Vector2.ZERO:
 			heading = flow
+	if circling:
+		# Espera su turno rodeando al jugador (los demas del campamento ya le estan atacando).
+		var side := 1.0 if int(get_instance_id()) % 2 == 0 else -1.0
+		heading = (facing.orthogonal() * side + facing * 0.15).normalized()
+		step_length = speed * delta * 0.7
 	var desired := position + heading * step_length
 	position = world.resolve_position(desired, radius, self) if world != null else desired
+
+
+## Un ataque cuerpo a cuerpo no puede empezar si ya hay MAX_MELEE_ATTACKERS compañeros de su campamento atacando.
+func _melee_slots_full(attack: Dictionary) -> bool:
+	if group == "" or world == null or summoned or String(attack["shape"]) == "projectile" or String(attack["shape"]) == "buff":
+		return false
+	var busy := 0
+	for mate: EnemySim in world.enemies:
+		if mate != self and mate.alive and mate.group == group and (mate.state == State.TELEGRAPH or mate.state == State.ACTIVE) and not mate.current_attack.is_empty() and String(mate.current_attack["shape"]) != "projectile":
+			busy += 1
+	return busy >= MAX_MELEE_ATTACKERS
 
 
 ## Entre los ataques listos y con el jugador a su alcance de disparo, elige uno
@@ -266,6 +295,8 @@ func _pick_attack(distance: float) -> Dictionary:
 		if _attack_cooldowns.has(String(attack["id"])):
 			continue
 		if distance > float(attack["trigger_range"]):
+			continue
+		if String(attack["shape"]) == "buff" and statuses.has(String((attack["cast"] as Array)[0]["id"])):
 			continue
 		ready.append(attack)
 		total += float(attack["weight"])
@@ -295,8 +326,34 @@ func _activate(warrior: Object) -> void:
 	attack_active.emit(current_attack, attack_direction)
 	if String(current_attack["shape"]) == "projectile":
 		_launch_projectiles()
+		_spawn_zone()
+		return
+	if String(current_attack["shape"]) == "buff":
+		_cast_buff()
 		return
 	_resolve_hit(warrior)
+	_spawn_zone()
+
+
+## Ataques `buff`: aplican estados a si mismo y a los aliados vivos dentro de `range` (escudos).
+func _cast_buff() -> void:
+	if world == null:
+		return
+	for ally: EnemySim in world.enemies:
+		if not ally.alive or ally.position.distance_to(position) > float(current_attack["range"]) + ally.radius:
+			continue
+		for effect: Dictionary in current_attack.get("cast", []):
+			ally.statuses.apply(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)) * level_scale)
+
+
+## Ataques con `zone`: dejan una zona en el suelo (grietas, charcos) delante del enemigo o bajo el.
+func _spawn_zone() -> void:
+	if world == null or not current_attack.has("zone"):
+		return
+	var spec: Dictionary = current_attack["zone"]
+	var at := position + attack_direction * float(spec.get("offset", 0.0))
+	var base_damage := float(data["stats"]["damage"]) * _damage_scale
+	world.spawn_zone(GroundZone.new(spec, at, base_damage))
 
 
 ## El golpe se evalua una sola vez, al caer, contra la zona que se marco.
@@ -314,7 +371,7 @@ func _resolve_hit(warrior: Object) -> void:
 ## Si el ataque en curso amenaza un punto (zona marcada por el telegraph). Lo usan
 ## los bots para decidir cuando esquivar.
 func threatens(point: Vector2) -> bool:
-	return not current_attack.is_empty() and _in_zone(point)
+	return not current_attack.is_empty() and String(current_attack["shape"]) != "buff" and _in_zone(point)
 
 
 ## Si un punto (centro del jugador) esta dentro de la zona del ataque actual.
@@ -378,20 +435,34 @@ func _apply_on_hit(attack: Dictionary) -> void:
 	if world == null or world.player == null:
 		return
 	for effect: Dictionary in attack.get("on_hit", []):
-		world.player.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)))
+		world.player.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)), position)
 
 
 ## Aplica un estado al enemigo. Un stun interrumpe el ataque en curso. Devuelve
 ## false si es inmune (o su resistencia es total).
-func apply_status(id: String, duration: float, strength: float = 0.0) -> bool:
+func apply_status(id: String, duration: float, strength: float = 0.0, source: Vector2 = Vector2.ZERO) -> bool:
 	if not alive or state == State.PHASE:
 		return false
 	var applied := statuses.apply(id, duration, strength)
+	if applied and id == "knockback":
+		push_from(source, strength)
+		return true
 	if applied and id == "stun":
 		state = State.STUN
 		state_time = 0.0
 		current_attack = {}
 	return applied
+
+
+## Empuje instantaneo lejos de `source` (no atraviesa muros ni a otros).
+func push_from(source: Vector2, distance: float) -> void:
+	if bool(data.get("stationary", false)):
+		return
+	var away := position - source
+	if away.length_squared() < 0.0001:
+		away = -facing
+	var desired := position + away.normalized() * distance
+	position = world.resolve_position(desired, radius, self) if world != null else desired
 
 
 ## Dano continuo (veneno): si mata, la XP es del jugador.
@@ -419,7 +490,10 @@ func take_damage(amount: float) -> float:
 	if not alive or amount <= 0.0 or state == State.PHASE or invulnerable:
 		return 0.0
 	var armor := float(data["stats"].get("armor", 0.0))
-	var reduced := amount * (1.0 - armor / (armor + 100.0))
+	var reduced := statuses.absorb(amount * (1.0 - armor / (armor + 100.0)))
+	if reduced <= 0.0:
+		hit_flash_ticks = 3
+		return 0.0
 	var dealt := minf(reduced, health)
 	health -= dealt
 	hit_flash_ticks = 6

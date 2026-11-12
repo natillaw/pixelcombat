@@ -102,6 +102,13 @@ func _exit_tree() -> void:
 		TickManager.unregister(world)
 
 
+func _process(_delta: float) -> void:
+	if world == null:
+		return
+	var over_enemy := creator != null and not creator.visible and GameCursor.enemy_under(world, get_global_mouse_position())
+	GameCursor.set_mode("attack" if over_enemy else "default")
+
+
 func _physics_process(_delta: float) -> void:
 	if world == null or (creator != null and creator.visible):
 		return

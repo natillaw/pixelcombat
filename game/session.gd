@@ -48,6 +48,7 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 			tower = TowerState.from_dict(data["tower"])
 	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
 	world.tick_advanced.connect(_on_tick)
+	world.enemy_killed.connect(_on_enemy_killed)
 	go_to_city()
 
 
@@ -85,7 +86,7 @@ func go_to_floor(floor_number: int) -> bool:
 	if TowerCatalog.position_in_tier(floor_number) == 1 and visit == 1:
 		var blurb := Lore.tier_blurb(TowerCatalog.tier_of_floor(floor_number))
 		message.emit("%s: %s" % [blurb["name"], blurb["text"]])
-	_enter(TowerGenerator.generate(floor_number, tower.world_seed, visit), false)
+	_enter(TowerGenerator.generate(floor_number, tower.world_seed, visit, [], tower.elite_floor() == floor_number), false)
 	_floor_done = false
 	if visit > 1:
 		message.emit("Piso %d: los enemigos han vuelto." % floor_number)
@@ -190,6 +191,15 @@ func objective_text() -> String:
 			return "Entra a la torre (E) en el centro"
 		_:
 			return "Practica el combate"
+
+
+## El mini-jefe elite errante cae: no vuelve a aparecer en esta partida.
+func _on_enemy_killed(enemy: EnemySim) -> void:
+	var config := TowerCatalog.elite_boss()
+	if not config.is_empty() and String(enemy.def_id) == String(config["id"]) and not enemy.summoned and not tower.elite_defeated:
+		tower.elite_defeated = true
+		message.emit("%s ha caido. No volvera a cruzarse en tu camino." % String(enemy.data["name"]))
+		autosave()
 
 
 func is_floor_done() -> bool:

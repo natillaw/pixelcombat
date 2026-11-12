@@ -866,5 +866,15 @@
 	],
 	"map": {
 		"first_medium_floors": 3
+	},
+	"elite_boss": {
+		"id": "bandit_deserter",
+		"first_floor": 5,
+		"last_floor": 10,
+		"chance": 0.5,
+		"boost": [
+			1.0,
+			1.0
+		]
 	}
 }

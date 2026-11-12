@@ -11,6 +11,7 @@ signal tick_advanced(tick_number: int)
 signal projectile_spawned(projectile: ProjectileSim)
 signal projectile_removed(projectile: ProjectileSim)
 signal enemy_spawned(enemy: EnemySim)
+signal zone_spawned(zone: GroundZone)
 signal layout_loaded(layout: FloorLayout)
 signal loot_dropped(item: Dictionary, position: Vector2)
 signal loot_spawned(drop: LootDrop)
@@ -100,6 +101,15 @@ func add_enemy(def_id: StringName, spawn: Vector2, level_scale: float = 1.0) -> 
 
 
 ## Anade un proyectil al mundo; lo avanza step() hasta que muere.
+## Zonas persistentes en el suelo (ataques de jefe con `zone`).
+var zones: Array = []
+
+
+func spawn_zone(zone: GroundZone) -> void:
+	zones.append(zone)
+	zone_spawned.emit(zone)
+
+
 func spawn_projectile(projectile: ProjectileSim) -> void:
 	projectiles.append(projectile)
 	projectile_spawned.emit(projectile)
@@ -116,6 +126,9 @@ func load_layout(new_layout: FloorLayout) -> void:
 		projectile.alive = false
 		projectile_removed.emit(projectile)
 	projectiles.clear()
+	for zone: GroundZone in zones:
+		zone.alive = false
+	zones.clear()
 	dummies.clear()
 	enemies.clear()
 	for drop: LootDrop in loot_drops.duplicate():
@@ -160,7 +173,7 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	var kind := "normal"
 	if enemy.is_boss():
 		var spike := TowerCatalog.spike_kind(layout.floor_number) if layout != null and layout.floor_number > 0 else ""
-		kind = spike if spike != "" else "boss"
+		kind = spike if spike != "" else ("mid_boss" if bool(enemy.data.get("elite_boss", false)) else "boss")
 	player.add_gold(int(round(float(enemy.xp_reward()) * float(ItemCatalog.loot().get("gold_per_xp", 0.0)))))
 	var material_table: Dictionary = enemy.data.get("materials", {})
 	for kind_id: String in material_table:
@@ -208,6 +221,10 @@ func step(delta: float, tick_number: int = -1) -> void:
 		dummy.step(tick, delta, player)
 	for enemy: EnemySim in enemies.duplicate():
 		enemy.step(tick, delta, player)
+	for zone: GroundZone in zones.duplicate():
+		zone.step(delta, player)
+		if not zone.alive:
+			zones.erase(zone)
 	for projectile: ProjectileSim in projectiles.duplicate():
 		projectile.step(self, delta)
 		if not projectile.alive:

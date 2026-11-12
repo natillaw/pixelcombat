@@ -288,6 +288,22 @@ static func _place(ctx: Ctx, spec: Dictionary) -> void:
 					_place_relic(ctx, spec)
 
 
+## Mini-jefe elite errante (opcional, no cuenta para completar el piso): un enemigo unico y poderoso
+## colocado lejos de la entrada.
+static func add_wandering_elite(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumberGenerator) -> void:
+	var config := TowerCatalog.elite_boss()
+	if config.is_empty():
+		return
+	var point: Variant = analysis.pick_spot(rng, 0.45, 0.9, 2, [], 0.0)
+	if point == null:
+		point = analysis.pick_spot(rng, 0.2, 1.0, 1, [], 0.0)
+	if point == null:
+		return
+	var spec := {"id": StringName(String(config["id"])), "position": point, "required": false, "group": "wanderer"}
+	spec["boost"] = config["boost"]
+	layout.enemies.append(spec)
+
+
 static func _spot(ctx: Ctx, t_min: float, t_max: float, clearance: int, spacing: float) -> Vector2:
 	var point: Variant = null
 	var wanted := clearance

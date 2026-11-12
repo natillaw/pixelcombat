@@ -524,10 +524,13 @@ func _read_input(input: Object) -> void:
 
 ## Aplica un estado al jugador (stun, slow, veneno). Devuelve false si es inmune.
 ## Un stun cancela lo que estuviera haciendo, incluida la esquiva.
-func apply_status(id: String, duration: float, strength: float = 0.0) -> bool:
+func apply_status(id: String, duration: float, strength: float = 0.0, source: Vector2 = Vector2.ZERO) -> bool:
 	if not alive:
 		return false
 	var applied := statuses.apply(id, duration, strength)
+	if applied and id == "knockback":
+		push_from(source, strength)
+		return true
 	if applied and id == "stun":
 		if state != AttackState.IDLE:
 			_cancel_attack()
@@ -538,6 +541,15 @@ func apply_status(id: String, duration: float, strength: float = 0.0) -> bool:
 		buffer_timer = 0.0
 		dodge_buffer_timer = 0.0
 	return applied
+
+
+## Empuje instantaneo lejos de `source` (knockback). No atraviesa muros.
+func push_from(source: Vector2, distance: float) -> void:
+	var away := position - source
+	if away.length_squared() < 0.0001:
+		away = -aim_dir
+	position = world.resolve_position(position + away.normalized() * distance, RADIUS) if world != null else position + away.normalized() * distance
+	velocity = Vector2.ZERO
 
 
 ## Avanza los estados; el veneno hace su dano continuo (que ignora i-frames y
@@ -816,6 +828,8 @@ func _afford_reason(slot: String) -> String:
 	if not loadout.has(slot):
 		return "slot"
 	var skill: Dictionary = loadout[slot]
+	if statuses.has("silence") and slot != "M1" and slot != "M2":
+		return "silenced"
 	if resource.get_current() < float(skill.get("cost", 0.0)):
 		return "resource"
 	if ultimate_charge < float(skill.get("charge", 0.0)):
@@ -916,7 +930,7 @@ func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: D
 		grant_xp(int(target.xp_reward()), target.position)
 	elif dealt > 0.0 and skill.has("on_hit") and target.has_method("apply_status"):
 		for effect: Dictionary in skill["on_hit"]:
-			target.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)))
+			target.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)), position)
 
 	var resource_left: float = float(skill["resource_cap"]) - float(tracker["resource"])
 	var resource_gain := minf(float(skill["resource_gain"]), maxf(resource_left, 0.0))
@@ -1145,7 +1159,9 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 		_block_with_stance(source_position)
 		return 0.0
 
-	var reduced := amount * (1.0 - armor_reduction())
+	var reduced := statuses.absorb(amount * (1.0 - armor_reduction()))
+	if reduced <= 0.0:
+		return 0.0
 	var dealt := minf(reduced, health)
 	health -= dealt
 

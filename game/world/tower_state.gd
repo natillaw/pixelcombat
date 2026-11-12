@@ -12,6 +12,13 @@ var world_seed: int = 20261110
 var floors: Dictionary = {}
 ## Ultimo piso en el que estuvo el jugador (la puerta de la ciudad lo propone).
 var last_floor: int = 1
+## El mini-jefe elite errante ya fue derrotado (solo aparece una vez por partida).
+var elite_defeated: bool = false
+
+
+## Piso en el que toca el elite errante, o 0 si no hay (ya derrotado o no tocaba).
+func elite_floor() -> int:
+	return 0 if elite_defeated else TowerCatalog.elite_floor(world_seed)
 
 
 func is_completed(floor_number: int) -> bool:
@@ -63,13 +70,14 @@ func to_dict() -> Dictionary:
 	var out: Dictionary = {}
 	for key: Variant in floors:
 		out[str(key)] = (floors[key] as Dictionary).duplicate()
-	return {"world_seed": world_seed, "last_floor": last_floor, "floors": out}
+	return {"world_seed": world_seed, "last_floor": last_floor, "floors": out, "elite_defeated": elite_defeated}
 
 
 static func from_dict(data: Dictionary) -> TowerState:
 	var state := TowerState.new()
 	state.world_seed = int(data.get("world_seed", state.world_seed))
 	state.last_floor = int(data.get("last_floor", 1))
+	state.elite_defeated = bool(data.get("elite_defeated", false))
 	var saved: Dictionary = data.get("floors", {})
 	for key: Variant in saved:
 		var entry: Dictionary = saved[key]

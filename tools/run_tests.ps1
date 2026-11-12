@@ -54,6 +54,7 @@ $suites = @(
     "tests/test_facing.gd",
     "tests/test_dodge.gd",
     "tests/test_kits.gd",
+    "tests/test_combat_depth.gd",
     "tests/test_skill_catalog.gd",
     "tests/test_skills.gd",
     "tests/test_ultimate.gd",
@@ -107,10 +108,13 @@ try {
         Write-Host "== $suite =="
         "===== $suite =====" | Add-Content -Path $summaryPath -Encoding utf8
         $runArgs = if ($suite -like '*.tscn') { @("res://$suite") } else { @('--script', $suite) }
+        $suiteLines = @()
         & $Godot --headless --path . @runArgs 2>&1 |
             Tee-Object -FilePath $summaryPath -Append |
-            ForEach-Object { Write-Host $_ }
+            ForEach-Object { Write-Host $_; $suiteLines += "$_" }
         $exit = $LASTEXITCODE
+        # Un SCRIPT ERROR deja el resto de la suite sin correr aunque Godot salga con 0.
+        if ($exit -eq 0 -and ($suiteLines | Where-Object { $_ -match 'SCRIPT ERROR' })) { $exit = 1 }
         if ($exit -ne 0) {
             $failed += $suite
             Write-Host "FAIL $suite (exit $exit)"

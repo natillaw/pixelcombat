@@ -303,6 +303,10 @@ func _draw_telegraph() -> void:
 		edge = Color(1.0, 0.9, 0.8, 0.95)
 
 	match String(attack["shape"]):
+		"buff":
+			# Refuerzo (escudo): anillo azul, no es una zona de dano.
+			var ring := float(attack["range"])
+			draw_arc(Vector2.ZERO, ring * (0.4 + 0.6 * progress), 0.0, TAU, 40, Color(0.4, 0.85, 1.0, 0.35 + 0.5 * progress), 2.0)
 		"circle":
 			var radius := float(attack["range"])
 			draw_circle(Vector2.ZERO, radius * progress, fill)

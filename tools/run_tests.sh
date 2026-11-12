@@ -35,6 +35,7 @@ SUITES=(
     "tests/test_facing.gd"
     "tests/test_dodge.gd"
     "tests/test_kits.gd"
+    "tests/test_combat_depth.gd"
     "tests/test_skill_catalog.gd"
     "tests/test_skills.gd"
     "tests/test_ultimate.gd"
@@ -89,8 +90,12 @@ for suite in "${SUITES[@]}"; do
     echo "== $suite =="
     echo "===== $suite =====" >>"$SUMMARY"
     if [[ "$suite" == *.tscn ]]; then RUN_ARGS=("res://$suite"); else RUN_ARGS=(--script "$suite"); fi
-    "$GODOT_BIN" --headless --path . "${RUN_ARGS[@]}" 2>&1 | tee -a "$SUMMARY"
+    SUITE_LOG="$(mktemp)"
+    "$GODOT_BIN" --headless --path . "${RUN_ARGS[@]}" 2>&1 | tee -a "$SUMMARY" "$SUITE_LOG"
     EXIT=${PIPESTATUS[0]}
+    # Un SCRIPT ERROR (fallo de ejecucion) deja el resto de la suite sin correr aunque Godot salga con 0.
+    if [ "$EXIT" -eq 0 ] && grep -q "SCRIPT ERROR" "$SUITE_LOG"; then EXIT=1; fi
+    rm -f "$SUITE_LOG"
     if [ "$EXIT" -ne 0 ]; then
         FAILED+=("$suite")
         echo "FAIL $suite (exit $EXIT)"

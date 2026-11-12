@@ -90,7 +90,14 @@
 					"anim": "thrust",
 					"range": 110,
 					"width": 28,
-					"dash_distance": 100
+					"dash_distance": 100,
+					"on_hit": [
+						{
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 90
+						}
+					]
 				}
 			],
 			"loot": {
@@ -475,8 +482,36 @@
 					"range": 78,
 					"on_hit": [
 						{
-							"id": "stun",
-							"duration": 0.3
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 110
+						}
+					]
+				},
+				{
+					"id": "silence_orb",
+					"shape": "projectile",
+					"windup": 1.0,
+					"active": 0.1,
+					"recovery": 0.7,
+					"cooldown": 9.0,
+					"damage_mult": 0.6,
+					"trigger_range": 260,
+					"weight": 1,
+					"anim": "spellcast",
+					"projectile": {
+						"speed": 190,
+						"range": 300,
+						"radius": 8,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "wisp"
+					},
+					"on_hit": [
+						{
+							"id": "silence",
+							"duration": 2.0
 						}
 					]
 				}
@@ -587,9 +622,9 @@
 					"dash_distance": 125,
 					"on_hit": [
 						{
-							"id": "poison",
+							"id": "bleed",
 							"duration": 3,
-							"strength": 3
+							"strength": 4
 						}
 					]
 				},
@@ -730,6 +765,26 @@
 					"weight": 1,
 					"anim": "slash",
 					"range": 70
+				},
+				{
+					"id": "raise_shield",
+					"shape": "buff",
+					"windup": 0.8,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 11.0,
+					"damage_mult": 0.5,
+					"trigger_range": 260,
+					"weight": 2,
+					"anim": "thrust",
+					"range": 120,
+					"cast": [
+						{
+							"id": "shield",
+							"duration": 6,
+							"strength": 45
+						}
+					]
 				}
 			],
 			"loot": {
@@ -838,8 +893,9 @@
 					"arc": 130,
 					"on_hit": [
 						{
-							"id": "stun",
-							"duration": 0.35
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 80
 						}
 					]
 				},
@@ -875,7 +931,21 @@
 							"id": "stun",
 							"duration": 0.4
 						}
-					]
+					],
+					"zone": {
+						"radius": 75,
+						"duration": 4.5,
+						"tick": 0.6,
+						"damage_mult": 0.25,
+						"visual": "fire",
+						"status": [
+							{
+								"id": "slow",
+								"duration": 1.0,
+								"strength": 0.35
+							}
+						]
+					}
 				}
 			],
 			"boss": true,
@@ -1038,10 +1108,29 @@
 					"range": 110,
 					"on_hit": [
 						{
-							"id": "stun",
-							"duration": 0.4
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 120
 						}
-					]
+					],
+					"zone": {
+						"radius": 90,
+						"duration": 5.0,
+						"tick": 0.7,
+						"damage_mult": 0.2,
+						"visual": "dark",
+						"status": [
+							{
+								"id": "silence",
+								"duration": 1.2
+							},
+							{
+								"id": "slow",
+								"duration": 1.0,
+								"strength": 0.3
+							}
+						]
+					}
 				},
 				{
 					"id": "hex_bolt",
@@ -1231,7 +1320,14 @@
 					"trigger_range": 100,
 					"weight": 2,
 					"anim": "slash",
-					"range": 120
+					"range": 120,
+					"on_hit": [
+						{
+							"id": "bleed",
+							"duration": 3,
+							"strength": 5
+						}
+					]
 				},
 				{
 					"id": "charge",
@@ -1264,8 +1360,9 @@
 					"dash_distance": 320,
 					"on_hit": [
 						{
-							"id": "stun",
-							"duration": 0.4
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 110
 						}
 					]
 				},
@@ -1342,6 +1439,40 @@
 							"id": "stun",
 							"duration": 0.4
 						}
+					],
+					"zone": {
+						"radius": 120,
+						"duration": 6.0,
+						"tick": 0.6,
+						"damage_mult": 0.3,
+						"visual": "blood",
+						"status": [
+							{
+								"id": "bleed",
+								"duration": 2.0,
+								"strength": 4
+							}
+						]
+					}
+				},
+				{
+					"id": "war_cry",
+					"shape": "buff",
+					"windup": 1.0,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 14.0,
+					"damage_mult": 0.5,
+					"trigger_range": 320,
+					"weight": 2,
+					"anim": "spellcast",
+					"range": 220,
+					"cast": [
+						{
+							"id": "shield",
+							"duration": 7,
+							"strength": 70
+						}
 					]
 				}
 			],
@@ -1369,7 +1500,8 @@
 						"charge",
 						"leap_slam",
 						"throwing_knives",
-						"crossbow_volley"
+						"crossbow_volley",
+						"war_cry"
 					],
 					"summons": [
 						{
@@ -1394,6 +1526,7 @@
 						"leap_slam",
 						"throwing_knives",
 						"crossbow_volley",
+						"war_cry",
 						"quake"
 					],
 					"summons": [
@@ -1418,6 +1551,7 @@
 						"leap_slam",
 						"throwing_knives",
 						"crossbow_volley",
+						"war_cry",
 						"quake"
 					],
 					"summons": [
@@ -1470,6 +1604,217 @@
 			"materials": {
 				"hide": 1
 			}
+		},
+		{
+			"id": "bandit_deserter",
+			"name": "Cornelius the Deserter",
+			"tier": 1,
+			"role": "Elite errante del tier 1",
+			"description": "Un antiguo capitan que huyo del Cuervo y ahora vaga por el Bosque; aparece una sola vez y no perdona. Escudo, empujon y sangrado; al caer a la mitad llama a su vieja escolta.",
+			"stats": {
+				"health": 720,
+				"speed": 74,
+				"radius": 15,
+				"damage": 22,
+				"armor": 30,
+				"xp": 180
+			},
+			"ai": {
+				"aggro_range": 300,
+				"leash": 2
+			},
+			"respawn_seconds": 0,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "light",
+						"eyes": "blue",
+						"head": "head_human_male",
+						"hair": "hair_plain",
+						"hair_color": "gray",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"navy"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"bag": [
+							"cape",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_arming",
+							"default"
+						],
+						"off_hand": [
+							"shield_round",
+							"default"
+						]
+					}
+				},
+				"scale": 1.2
+			},
+			"attacks": [
+				{
+					"id": "shield_bash",
+					"shape": "cone",
+					"windup": 0.8,
+					"active": 0.12,
+					"recovery": 0.8,
+					"cooldown": 2.4,
+					"damage_mult": 1.1,
+					"trigger_range": 64,
+					"weight": 1,
+					"anim": "thrust",
+					"range": 70,
+					"arc": 100,
+					"on_hit": [
+						{
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 110
+						}
+					]
+				},
+				{
+					"id": "rend",
+					"shape": "cone",
+					"windup": 0.6,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 1.6,
+					"damage_mult": 0.9,
+					"trigger_range": 56,
+					"weight": 1,
+					"anim": "slash",
+					"range": 62,
+					"arc": 110,
+					"on_hit": [
+						{
+							"id": "bleed",
+							"duration": 3,
+							"strength": 5
+						}
+					]
+				},
+				{
+					"id": "rush",
+					"shape": "line",
+					"windup": 0.7,
+					"active": 0.3,
+					"recovery": 0.9,
+					"cooldown": 5.0,
+					"damage_mult": 1.1,
+					"trigger_range": 190,
+					"weight": 1,
+					"anim": "thrust",
+					"range": 170,
+					"width": 34,
+					"dash_distance": 170
+				},
+				{
+					"id": "hold_the_line",
+					"shape": "buff",
+					"windup": 0.9,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 12.0,
+					"damage_mult": 0.5,
+					"trigger_range": 240,
+					"weight": 2,
+					"anim": "thrust",
+					"range": 140,
+					"cast": [
+						{
+							"id": "shield",
+							"duration": 6,
+							"strength": 55
+						}
+					]
+				}
+			],
+			"boss": true,
+			"phases": [
+				{
+					"name": "Cornelius the Deserter",
+					"hp_below": 1,
+					"speed_mult": 1,
+					"attacks": [
+						"shield_bash",
+						"rend",
+						"rush",
+						"hold_the_line"
+					]
+				},
+				{
+					"name": "The Old Guard",
+					"hp_below": 0.5,
+					"speed_mult": 1.2,
+					"attacks": [
+						"shield_bash",
+						"rend",
+						"rush",
+						"hold_the_line"
+					],
+					"summons": [
+						{
+							"id": "bandit_swordsman",
+							"count": 1
+						},
+						{
+							"id": "bandit_shieldman",
+							"count": 1
+						}
+					]
+				}
+			],
+			"resist": {
+				"stun": 0.5
+			},
+			"loot": {
+				"slots": [
+					"weapon",
+					"chest",
+					"head",
+					"ring"
+				],
+				"items": [
+					{
+						"id": "deserter_medal",
+						"chance": 0.6
+					},
+					{
+						"id": "deserter_coat",
+						"chance": 0.5
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.3
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.3
+					}
+				]
+			},
+			"materials": {
+				"hide": 1
+			},
+			"elite_boss": true
 		}
 	]
 }

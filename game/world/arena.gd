@@ -73,6 +73,7 @@ func build(p_world: CombatWorld) -> void:
 	world.projectile_spawned.connect(_on_projectile_spawned)
 	# Las crias que invoca un jefe aparecen despues y necesitan su actor.
 	world.enemy_spawned.connect(_on_enemy_spawned)
+	world.zone_spawned.connect(_on_zone_spawned)
 	world.layout_loaded.connect(_rebuild)
 	world.interacted.connect(_on_world_interacted)
 	world.resource_gathered.connect(_on_resource_gathered)
@@ -177,6 +178,12 @@ func _on_loot_spawned(drop: LootDrop) -> void:
 	var actor := LootActor.new()
 	actor.setup(drop, world, self)
 	entities.add_child(actor)
+
+
+func _on_zone_spawned(zone: GroundZone) -> void:
+	var actor := ZoneActor.new()
+	actor.setup(zone)
+	fx.add_child(actor)
 
 
 func _on_enemy_spawned(enemy_sim: EnemySim) -> void:

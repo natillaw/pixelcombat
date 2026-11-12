@@ -47,6 +47,9 @@ NEW_ITEMS = [
     {"id": "traveler_breeches", "name": "Calzas de viajero", "slot": "legs", "stats": {"armor": 5, "stamina": 1.5, "agility": 1}, "value": 12,
      "look": look("legs", "pants", ["brown", "charcoal"])},
     # Unicos de los jefes (rompen la monotonia sin subir el techo de balance: mismos stats base que un item normal x rareza)
+    {"id": "deserter_medal", "name": "Medalla del Desertor", "slot": "ring", "stats": {"armor": 3, "stamina": 2, "attack_power_bonus": 2}, "value": 70},
+    {"id": "deserter_coat", "name": "Capote del Desertor", "slot": "chest", "stats": {"armor": 9, "stamina": 2.5, "strength": 1.5, "agility": 1}, "value": 70,
+     "look": look("chest", "shirt_longsleeve", ["navy", "tan"])},
     {"id": "rask_cleaver", "name": "Tajador de Rask", "slot": "weapon", "classes": ["warrior"],
      "stats": {"weapon_min": 4.5, "weapon_max": 6.5, "strength": 3}, "value": 60, "look": look("main_hand", "weapon_mace", ["default"])},
     {"id": "veyra_wand", "name": "Varita de Veyra", "slot": "weapon", "classes": ["mage"],
@@ -89,6 +92,7 @@ DROPS = {
     "bandit_hexer": [("apprentice_wand", 0.10), ("crow_hood", 0.10), ("crow_signet", 0.05), ("plain_tunic", 0.06)],
     "bandit_cutthroat": [("crow_hood", 0.08), ("crow_vest", 0.10), ("crow_signet", 0.06), ("crow_boots", 0.08)],
     "bandit_shieldman": [("militia_mace", 0.08), ("crow_bandana", 0.10), ("crow_vest", 0.10), ("crow_breeches", 0.08)],
+    "bandit_deserter": [("deserter_medal", 0.6), ("deserter_coat", 0.5), ("crow_signet", 0.3), ("crow_vest", 0.3)],
     "bandit_rask": [("rask_cleaver", 0.45), ("crow_vest", 0.30), ("crow_signet", 0.20)],
     "bandit_veyra": [("veyra_wand", 0.45), ("crow_hood", 0.30), ("crow_signet", 0.20)],
     "bandit_garrick": [("blackhand_signet", 0.55), ("rask_cleaver", 0.15), ("veyra_wand", 0.15), ("crow_signet", 0.30), ("crow_bandana", 0.25)],

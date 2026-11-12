@@ -44,6 +44,25 @@ static func position_in_tier(floor_number: int) -> int:
 	return (floor_number - 1) % tier_size() + 1
 
 
+## Mini-jefe elite errante: {id, first_floor, last_floor, chance, boost}. En cada partida (semilla del
+## mundo) hay `chance` de que aparezca una sola vez en un piso entre first_floor y last_floor.
+static func elite_boss() -> Dictionary:
+	_ensure_loaded()
+	return (_data.get("elite_boss", {}) as Dictionary).duplicate(true)
+
+
+## Piso (0 = ninguno) en el que esta partida tendra su mini-jefe elite; sale de la semilla del mundo.
+static func elite_floor(world_seed: int) -> int:
+	var config := elite_boss()
+	if config.is_empty():
+		return 0
+	var rng := RandomNumberGenerator.new()
+	rng.seed = world_seed * 977 + 5
+	if rng.randf() >= float(config["chance"]):
+		return 0
+	return rng.randi_range(int(config["first_floor"]), int(config["last_floor"]))
+
+
 ## "mid_boss", "boss" o "" segun la posicion del piso en su tier.
 static func spike_kind(floor_number: int) -> String:
 	_ensure_loaded()

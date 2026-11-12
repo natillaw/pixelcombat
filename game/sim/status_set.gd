@@ -24,6 +24,9 @@ func apply(id: String, duration: float, strength: float = 0.0) -> bool:
 	var definition := StatusCatalog.status(id)
 	if definition.is_empty() or duration <= 0.0:
 		return false
+	if String(definition["kind"]) == "push":
+		# Empuje: es instantaneo, lo resuelve la unidad (push_from); aqui solo se comprueba la resistencia.
+		return float(resist.get(id, 0.0)) < 1.0
 	var resistance := clampf(float(resist.get(id, 0.0)), 0.0, 1.0)
 	if resistance >= 1.0 or float(_immune.get(id, 0.0)) > 0.0:
 		return false
@@ -66,6 +69,19 @@ func step(delta: float) -> float:
 				_immune[id] = immune_after
 			expired.emit(id)
 	return damage
+
+
+## El escudo absorbe `amount` antes que la vida; devuelve lo que sobra (0 si lo absorbe todo).
+func absorb(amount: float) -> float:
+	if not _active.has("shield"):
+		return amount
+	var entry: Dictionary = _active["shield"]
+	var soaked := minf(amount, float(entry["strength"]))
+	entry["strength"] = float(entry["strength"]) - soaked
+	if float(entry["strength"]) <= 0.01:
+		_active.erase("shield")
+		expired.emit("shield")
+	return amount - soaked
 
 
 func has(id: String) -> bool:

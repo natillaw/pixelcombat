@@ -11,7 +11,7 @@ class_name StatusCatalog
 extends RefCounted
 
 const PATH := "res://data/statuses.json"
-const KINDS := ["control", "damage"]
+const KINDS := ["control", "damage", "buff", "push"]
 
 static var _statuses: Dictionary = {}
 static var _errors: Array[String] = []
@@ -72,7 +72,7 @@ static func validate(entry: Dictionary) -> Array[String]:
 		if not (entry.get(field) is String) or String(entry[field]).is_empty():
 			problems.append("falta el texto '%s'" % field)
 	if not KINDS.has(entry.get("kind")):
-		problems.append("kind debe ser control o damage")
+		problems.append("kind debe ser control, damage, buff o push")
 	if not _is_number(entry.get("max_duration")) or float(entry["max_duration"]) <= 0.0:
 		problems.append("max_duration debe ser > 0")
 	if entry.has("max_strength") and (not _is_number(entry["max_strength"]) or float(entry["max_strength"]) <= 0.0):
@@ -104,7 +104,7 @@ static func validate_on_hit(on_hit: Variant) -> Array[String]:
 		if not _is_number(spec.get("duration")) or float(spec["duration"]) <= 0.0:
 			problems.append("%s: duration debe ser > 0" % id)
 		var definition := status(id)
-		if definition.has("max_strength") or definition["kind"] == "damage":
+		if definition.has("max_strength") or definition["kind"] == "damage" or definition["kind"] == "push":
 			if not _is_number(spec.get("strength")) or float(spec["strength"]) <= 0.0:
 				problems.append("%s: strength debe ser > 0" % id)
 	return problems

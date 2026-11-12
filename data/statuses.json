@@ -1,5 +1,5 @@
 {
-	"_doc": "Estados alterados (stun, slow, veneno). Esquema y validacion en combat/status_catalog.gd. Numeros provisionales.",
+	"_doc": "Estados alterados (stun, slow, veneno, sangrado, silencio, escudo y empuje). Esquema y validacion en combat/status_catalog.gd. Numeros provisionales.",
 	"statuses": [
 		{
 			"id": "stun",
@@ -8,7 +8,12 @@
 			"description": "No puede actuar ni moverse. Cancela lo que estuviera haciendo.",
 			"max_duration": 2.0,
 			"immune_after": 2.5,
-			"color": [1.0, 0.9, 0.3, 1.0]
+			"color": [
+				1.0,
+				0.9,
+				0.3,
+				1.0
+			]
 		},
 		{
 			"id": "slow",
@@ -18,7 +23,12 @@
 			"max_duration": 4.0,
 			"max_strength": 0.6,
 			"immune_after": 0.0,
-			"color": [0.45, 0.75, 1.0, 1.0]
+			"color": [
+				0.45,
+				0.75,
+				1.0,
+				1.0
+			]
 		},
 		{
 			"id": "poison",
@@ -28,7 +38,71 @@
 			"max_duration": 8.0,
 			"tick": 0.5,
 			"immune_after": 0.0,
-			"color": [0.5, 0.9, 0.3, 1.0]
+			"color": [
+				0.5,
+				0.9,
+				0.3,
+				1.0
+			]
+		},
+		{
+			"id": "bleed",
+			"name": "Bleed",
+			"kind": "damage",
+			"description": "Dano continuo mas fuerte que el veneno y mas corto (strength = dano por segundo).",
+			"max_duration": 5.0,
+			"tick": 0.5,
+			"immune_after": 0.0,
+			"color": [
+				0.85,
+				0.1,
+				0.15,
+				1.0
+			]
+		},
+		{
+			"id": "silence",
+			"name": "Silence",
+			"kind": "control",
+			"description": "El jugador no puede usar skills (solo M1, M2 y la movilidad).",
+			"max_duration": 3.0,
+			"immune_after": 3.0,
+			"color": [
+				0.7,
+				0.45,
+				0.95,
+				1.0
+			]
+		},
+		{
+			"id": "shield",
+			"name": "Shield",
+			"kind": "buff",
+			"description": "Absorbe dano antes que la vida (strength = puntos absorbidos).",
+			"max_duration": 8.0,
+			"max_strength": 400.0,
+			"immune_after": 0.0,
+			"color": [
+				0.4,
+				0.85,
+				1.0,
+				1.0
+			]
+		},
+		{
+			"id": "knockback",
+			"name": "Knockback",
+			"kind": "push",
+			"description": "Empuja lejos del origen del golpe (strength = distancia en px).",
+			"max_duration": 0.3,
+			"max_strength": 160.0,
+			"immune_after": 0.0,
+			"color": [
+				1.0,
+				0.6,
+				0.2,
+				1.0
+			]
 		}
 	]
 }

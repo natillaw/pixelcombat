@@ -203,3 +203,9 @@ Los enemigos reales de los pisos 1-10 son bandidos LPC (`data/enemies/bandits.js
 
 ## Kits rediseñados (5 skills por clase)
 Cada clase empieza con 5 skills: M1, M2, S1 (control/utilidad), Special (postura o mejora) y Ultimate; el resto son *skills de mundo* (`"world": true`) que se aprenden con `PlayerSim.learn_skill` (libros, jefes, maestros) y se guardan. Cada clase tiene su movilidad (`mobility` en la clase): guerrero carga (aturde 1 s), picaro rueda, mago blink, arquero salto atras. Cada una carga la ultimate a su manera (`ult_charge`): guerrero golpeando y aguantando, picaro esquivando y rematando envenenados, mago lanzando hechizos, arquero con aciertos lejanos y criticos. `tests/legacy_kit.gd` restaura el kit antiguo para los tests de mecanicas.
+
+## Profundidad de combate
+- Estados nuevos (data/statuses.json): sangrado, silencio (el jugador solo usa M1/M2/movilidad), escudo (absorbe, tambien en aliados enemigos) y empuje (`knockback`, instantaneo). Ataques `buff` de enemigos (escudos de grupo) y `zone` (grietas/charcos en el suelo con dano y estados: `GroundZone`, dibujado por `ZoneActor`).
+- Campamentos coordinados: despiertan juntos y solo 2 cuerpo a cuerpo atacan a la vez (los demas rodean).
+- Elite errante (Cornelius the Deserter): en cada partida hay un 50 % de que aparezca una vez en un piso del 5 al 10 (`TowerCatalog.elite_floor`); al caer no vuelve. Mini-jefe con botin propio.
+- Cursor del juego: espada (PixelRPGCursors Lite) sobre enemigos y puntero propio. El runner de tests ahora falla ante cualquier `SCRIPT ERROR`.

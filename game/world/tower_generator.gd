@@ -15,7 +15,7 @@ extends RefCounted
 
 ## `forced` (solo pruebas): ids de mision que sustituyen al sorteo (principal, opcional)
 ## o, en un piso x10, la variante de la prueba (seals, gauntlet, elites).
-static func generate(floor_number: int, world_seed: int, visit: int = 1, forced: Array = []) -> FloorLayout:
+static func generate(floor_number: int, world_seed: int, visit: int = 1, forced: Array = [], with_elite: bool = false) -> FloorLayout:
 	var tier_number := TowerCatalog.tier_of_floor(floor_number)
 	var tier_data := TowerCatalog.tier(tier_number)
 	var spike := TowerCatalog.spike_kind(floor_number)
@@ -57,6 +57,8 @@ static func generate(floor_number: int, world_seed: int, visit: int = 1, forced:
 	var content_rng := RandomNumberGenerator.new()
 	content_rng.seed = int(terrain_rng.seed) * 31 + visit * 104729
 	MissionGen.populate(layout, analysis, content_rng, floor_number, tier_data, spike, forced)
+	if with_elite:
+		MissionGen.add_wandering_elite(layout, analysis, content_rng)
 	return layout
 
 

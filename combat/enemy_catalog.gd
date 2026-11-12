@@ -37,7 +37,7 @@ class_name EnemyCatalog
 extends RefCounted
 
 const ENEMIES_DIR := "res://data/enemies/"
-const SHAPES := ["cone", "line", "circle", "projectile"]
+const SHAPES := ["cone", "line", "circle", "projectile", "buff"]
 
 static var _enemies: Dictionary = {}
 static var _errors: Array[String] = []
@@ -263,7 +263,18 @@ static func validate_attack(attack: Dictionary) -> Array[String]:
 			problems.append("'%s' debe ser > 0" % field)
 	var shape: Variant = attack.get("shape")
 	if not (shape is String) or not SHAPES.has(shape):
-		problems.append("forma desconocida '%s' (cone, line, circle o projectile)" % str(shape))
+		problems.append("forma desconocida '%s' (cone, line, circle, projectile o buff)" % str(shape))
+		return problems
+	if attack.has("zone"):
+		var zone: Variant = attack["zone"]
+		if not (zone is Dictionary) or not _is_number((zone as Dictionary).get("radius")) or float(zone["radius"]) <= 0.0 or not _is_number((zone as Dictionary).get("duration")) or float(zone["duration"]) <= 0.0:
+			problems.append("zone necesita radius y duration > 0")
+		elif (zone as Dictionary).has("status"):
+			problems.append_array(StatusCatalog.validate_on_hit(zone["status"]))
+	if shape == "buff":
+		if not _is_number(attack.get("range")) or float(attack["range"]) <= 0.0:
+			problems.append("buff: 'range' debe ser > 0")
+		problems.append_array(StatusCatalog.validate_on_hit(attack.get("cast")))
 		return problems
 	if shape == "projectile":
 		problems.append_array(SkillCatalog.validate_projectile_spec(attack.get("projectile")))

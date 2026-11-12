@@ -799,6 +799,37 @@
 				"intellect": 1
 			},
 			"value": 18
+		},
+		{
+			"id": "deserter_medal",
+			"name": "Medalla del Desertor",
+			"slot": "ring",
+			"stats": {
+				"armor": 3,
+				"stamina": 2,
+				"attack_power_bonus": 2
+			},
+			"value": 70
+		},
+		{
+			"id": "deserter_coat",
+			"name": "Capote del Desertor",
+			"slot": "chest",
+			"stats": {
+				"armor": 9,
+				"stamina": 2.5,
+				"strength": 1.5,
+				"agility": 1
+			},
+			"value": 70,
+			"look": {
+				"slot": "chest",
+				"piece": "shirt_longsleeve",
+				"variants": [
+					"navy",
+					"tan"
+				]
+			}
 		}
 	],
 	"affixes": [
