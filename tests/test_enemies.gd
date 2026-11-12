@@ -23,6 +23,7 @@ func _run() -> void:
 	print("== test_enemies (enemigos con telegraph) ==")
 	_test_catalog_loads_and_is_valid()
 	_test_bandits_are_tier_one_enemies()
+	_test_bandit_item_drops()
 	_test_validator_rejects_bad_data()
 	_test_idle_outside_aggro()
 	_test_chase_and_leash()
@@ -64,6 +65,31 @@ func _check_lpc_sprite(id: StringName, lpc: Dictionary) -> void:
 		for dir: String in ["up", "down", "left", "right"]:
 			anims_ok = anims_ok and frames.has_animation("%s_%s" % [anim, dir])
 	_check(anims_ok, "%s: el sprite LPC tiene todas las animaciones" % id)
+
+
+## Los bandidos y jefes sueltan sus propios items con probabilidad (loot.items), todos existen.
+func _test_bandit_item_drops() -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 77
+	for id: StringName in EnemyCatalog.all_ids():
+		if not String(id).begins_with("bandit_"):
+			continue
+		var table: Dictionary = EnemyCatalog.enemy(id)["loot"]
+		var entries: Array = table.get("items", [])
+		_check(entries.size() >= 3, "%s tiene al menos 3 items propios en su botin" % id)
+		var valid := true
+		for entry: Dictionary in entries:
+			valid = valid and ItemCatalog.has_item(String(entry["id"])) and float(entry["chance"]) > 0.0 and float(entry["chance"]) <= 1.0
+		_check(valid, "%s: sus items propios existen y la probabilidad es valida" % id)
+		var own := {}
+		for entry: Dictionary in entries:
+			own[String(entry["id"])] = true
+		var seen := {}
+		for i: int in range(3000):
+			var drop := ItemGen.roll_drop(rng, 1, "boss" if EnemyCatalog.enemy(id).get("boss", false) else "normal", table)
+			if not drop.is_empty() and own.has(String(drop["id"])):
+				seen[String(drop["id"])] = true
+		_check(seen.size() == own.size(), "%s: en 3000 muertes suelta todos sus items propios (%d/%d)" % [id, seen.size(), own.size()])
 
 
 func _test_bandits_are_tier_one_enemies() -> void:

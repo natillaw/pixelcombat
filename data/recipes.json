@@ -1,28 +1,310 @@
 {
 	"_doc": "Estaciones de crafting (edificios de la ciudad) y recetas. Esquema en combat/recipe_catalog.gd. El coste son unidades de material del tier elegido.",
 	"stations": [
-		{"id": "blacksmith", "name": "Herreria"},
-		{"id": "alchemist", "name": "Alquimia"},
-		{"id": "carpenter", "name": "Carpinteria"},
-		{"id": "tailor", "name": "Sastreria"},
-		{"id": "tavern", "name": "Taberna"}
+		{
+			"id": "blacksmith",
+			"name": "Herreria"
+		},
+		{
+			"id": "alchemist",
+			"name": "Alquimia"
+		},
+		{
+			"id": "carpenter",
+			"name": "Carpinteria"
+		},
+		{
+			"id": "tailor",
+			"name": "Sastreria"
+		},
+		{
+			"id": "tavern",
+			"name": "Taberna"
+		}
 	],
 	"gold_per_tier_scale": true,
 	"recipes": [
-		{"id": "forge_iron_sword", "station": "blacksmith", "item": "iron_sword", "cost": {"ore": 6, "wood": 1}, "gold": 20, "quality_bonus": 1.0},
-		{"id": "forge_worn_boots", "station": "blacksmith", "item": "worn_boots", "cost": {"ore": 3, "hide": 2}, "gold": 10, "quality_bonus": 1.0},
-		{"id": "forge_copper_ring", "station": "blacksmith", "item": "copper_ring", "cost": {"ore": 4}, "gold": 15, "quality_bonus": 1.0},
-		{"id": "carve_short_bow", "station": "carpenter", "item": "short_bow", "cost": {"wood": 6, "hide": 1}, "gold": 20, "quality_bonus": 1.0},
-		{"id": "carve_oak_staff", "station": "carpenter", "item": "oak_staff", "cost": {"wood": 6, "herb": 1}, "gold": 20, "quality_bonus": 1.0},
-		{"id": "forge_hunting_knife", "station": "carpenter", "item": "hunting_knife", "cost": {"wood": 2, "ore": 3}, "gold": 20, "quality_bonus": 1.0},
-		{"id": "sew_leather_cap", "station": "tailor", "item": "leather_cap", "cost": {"hide": 3}, "gold": 8, "quality_bonus": 1.0},
-		{"id": "sew_leather_vest", "station": "tailor", "item": "leather_vest", "cost": {"hide": 6}, "gold": 14, "quality_bonus": 1.0},
-		{"id": "sew_leather_pants", "station": "tailor", "item": "leather_pants", "cost": {"hide": 4}, "gold": 10, "quality_bonus": 1.0},
-		{"id": "sew_cloth_hood", "station": "tailor", "item": "cloth_hood", "cost": {"herb": 3, "hide": 1}, "gold": 8, "quality_bonus": 1.0},
-		{"id": "sew_padded_robe", "station": "tailor", "item": "padded_robe", "cost": {"herb": 4, "hide": 3}, "gold": 14, "quality_bonus": 1.0},
-		{"id": "sew_cloth_trousers", "station": "tailor", "item": "cloth_trousers", "cost": {"herb": 3, "hide": 2}, "gold": 10, "quality_bonus": 1.0},
-		{"id": "sew_traveler_shoes", "station": "tailor", "item": "traveler_shoes", "cost": {"hide": 2, "herb": 1}, "gold": 8, "quality_bonus": 1.0},
-		{"id": "brew_mystic_ring", "station": "alchemist", "item": "mystic_ring", "cost": {"herb": 4, "ore": 1}, "gold": 15, "quality_bonus": 1.0},
-		{"id": "brew_bone_ring", "station": "alchemist", "item": "bone_ring", "cost": {"chitin": 4, "herb": 1}, "gold": 15, "quality_bonus": 1.0}
+		{
+			"id": "forge_iron_sword",
+			"station": "blacksmith",
+			"item": "iron_sword",
+			"cost": {
+				"ore": 6,
+				"wood": 1
+			},
+			"gold": 20,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "forge_worn_boots",
+			"station": "blacksmith",
+			"item": "worn_boots",
+			"cost": {
+				"ore": 3,
+				"hide": 2
+			},
+			"gold": 10,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "forge_copper_ring",
+			"station": "blacksmith",
+			"item": "copper_ring",
+			"cost": {
+				"ore": 4
+			},
+			"gold": 15,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "carve_short_bow",
+			"station": "carpenter",
+			"item": "short_bow",
+			"cost": {
+				"wood": 6,
+				"hide": 1
+			},
+			"gold": 20,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "carve_oak_staff",
+			"station": "carpenter",
+			"item": "oak_staff",
+			"cost": {
+				"wood": 6,
+				"herb": 1
+			},
+			"gold": 20,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "forge_hunting_knife",
+			"station": "carpenter",
+			"item": "hunting_knife",
+			"cost": {
+				"wood": 2,
+				"ore": 3
+			},
+			"gold": 20,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_leather_cap",
+			"station": "tailor",
+			"item": "leather_cap",
+			"cost": {
+				"hide": 3
+			},
+			"gold": 8,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_leather_vest",
+			"station": "tailor",
+			"item": "leather_vest",
+			"cost": {
+				"hide": 6
+			},
+			"gold": 14,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_leather_pants",
+			"station": "tailor",
+			"item": "leather_pants",
+			"cost": {
+				"hide": 4
+			},
+			"gold": 10,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_cloth_hood",
+			"station": "tailor",
+			"item": "cloth_hood",
+			"cost": {
+				"herb": 3,
+				"hide": 1
+			},
+			"gold": 8,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_padded_robe",
+			"station": "tailor",
+			"item": "padded_robe",
+			"cost": {
+				"herb": 4,
+				"hide": 3
+			},
+			"gold": 14,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_cloth_trousers",
+			"station": "tailor",
+			"item": "cloth_trousers",
+			"cost": {
+				"herb": 3,
+				"hide": 2
+			},
+			"gold": 10,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_traveler_shoes",
+			"station": "tailor",
+			"item": "traveler_shoes",
+			"cost": {
+				"hide": 2,
+				"herb": 1
+			},
+			"gold": 8,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "brew_mystic_ring",
+			"station": "alchemist",
+			"item": "mystic_ring",
+			"cost": {
+				"herb": 4,
+				"ore": 1
+			},
+			"gold": 15,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "brew_bone_ring",
+			"station": "alchemist",
+			"item": "bone_ring",
+			"cost": {
+				"chitin": 4,
+				"herb": 1
+			},
+			"gold": 15,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "forge_militia_mace",
+			"station": "blacksmith",
+			"item": "militia_mace",
+			"cost": {
+				"ore": 6,
+				"wood": 2
+			},
+			"gold": 20,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "carve_hunter_crossbow",
+			"station": "carpenter",
+			"item": "hunter_crossbow",
+			"cost": {
+				"wood": 6,
+				"ore": 2
+			},
+			"gold": 22,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "carve_apprentice_wand",
+			"station": "carpenter",
+			"item": "apprentice_wand",
+			"cost": {
+				"wood": 3,
+				"herb": 4
+			},
+			"gold": 22,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_plain_tunic",
+			"station": "tailor",
+			"item": "plain_tunic",
+			"cost": {
+				"hide": 4,
+				"herb": 1
+			},
+			"gold": 12,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_traveler_breeches",
+			"station": "tailor",
+			"item": "traveler_breeches",
+			"cost": {
+				"hide": 3,
+				"herb": 1
+			},
+			"gold": 10,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_silk_hood",
+			"station": "tailor",
+			"item": "silk_hood",
+			"cost": {
+				"silk": 3,
+				"herb": 1
+			},
+			"gold": 12,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_silk_robe",
+			"station": "tailor",
+			"item": "silk_robe",
+			"cost": {
+				"silk": 5,
+				"hide": 1
+			},
+			"gold": 16,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_chitin_vest",
+			"station": "tailor",
+			"item": "chitin_vest",
+			"cost": {
+				"chitin": 5,
+				"hide": 2
+			},
+			"gold": 16,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "forge_chitin_greaves",
+			"station": "blacksmith",
+			"item": "chitin_greaves",
+			"cost": {
+				"chitin": 4,
+				"ore": 1
+			},
+			"gold": 14,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "sew_slime_boots",
+			"station": "tailor",
+			"item": "slime_boots",
+			"cost": {
+				"essence": 3,
+				"hide": 2
+			},
+			"gold": 12,
+			"quality_bonus": 1.0
+		},
+		{
+			"id": "brew_wisp_ring",
+			"station": "alchemist",
+			"item": "wisp_ring",
+			"cost": {
+				"essence": 4,
+				"herb": 1
+			},
+			"gold": 16,
+			"quality_bonus": 1.0
+		}
 	]
 }

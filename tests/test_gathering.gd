@@ -60,8 +60,8 @@ func _click(world: CombatWorld, point: Vector2) -> String:
 
 func _test_catalog() -> void:
 	_check(MaterialCatalog.errors().is_empty(), "materials.json valido: %s" % str(MaterialCatalog.errors()))
-	_check(MaterialCatalog.kind_ids() == ["ore", "herb", "wood", "hide", "chitin"], "cinco tipos de material")
-	_check(MaterialCatalog.gatherable_kinds() == ["ore", "herb", "wood"], "mineral, hierba y madera se recolectan; cuero y quitina son botin")
+	_check(MaterialCatalog.kind_ids() == ["ore", "herb", "wood", "hide", "chitin", "silk", "essence"], "siete tipos de material")
+	_check(MaterialCatalog.gatherable_kinds() == ["ore", "herb", "wood"], "mineral, hierba y madera se recolectan; cuero, quitina, seda y esencia son botin de animales")
 	_check(MaterialCatalog.tier_count() == TowerCatalog.tier_count(), "hay un material de cada tipo por cada tier de la torre")
 	_check(MaterialCatalog.material_id("ore", 3) == "ore_t3" and MaterialCatalog.parse("ore_t3") == {"kind": "ore", "tier": 3}, "los ids de material se forman y se leen")
 	_check(MaterialCatalog.is_valid("hide_t10") and not MaterialCatalog.is_valid("hide_t11") and not MaterialCatalog.is_valid("oro_t1") and not MaterialCatalog.is_valid("ore") and not MaterialCatalog.is_valid("ore_t0"), "los ids invalidos se rechazan")
@@ -194,7 +194,7 @@ func _test_monster_materials() -> void:
 	world.setup_arena(Rect2(0, 0, 900, 600))
 	for i: int in range(200):
 		world.add_enemy(&"beetle", Vector2(300, 300)).take_damage(1.0e9)
-	_check(world.player.material_count("chitin_t1") > 60 and world.player.material_count("hide_t1") == 0, "el Beetle suelta quitina del tier 1 (y no cuero)")
+	_check(world.player.material_count("chitin_t1") > 60 and world.player.material_count("chitin_t1") > world.player.material_count("hide_t1") * 2, "el Beetle suelta sobre todo quitina del tier 1")
 	var bats: CombatWorld = CombatWorldScript.new(61)
 	bats.setup_arena(Rect2(0, 0, 900, 600))
 	for i: int in range(200):

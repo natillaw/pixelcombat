@@ -55,11 +55,15 @@ static func roll_item(rng: RandomNumberGenerator, tier: int, rarity: String = ""
 ## `slots` limita las ranuras que puede soltar.
 static func roll_drop(rng: RandomNumberGenerator, tier: int, kind: String, table: Dictionary = {}) -> Dictionary:
 	var loot := ItemCatalog.loot()
+	var bonus := float((loot["rarity_bonus"] as Dictionary).get(kind, 0.0))
+	# Items propios del enemigo (`items`: [{id, chance}]): cada uno tira por separado, antes del botin generico.
+	for entry: Dictionary in table.get("items", []):
+		if rng.randf() < float(entry["chance"]):
+			return roll_item(rng, tier, "", "", "", String(entry["id"]), bonus)
 	var chance := float(loot["boss_chance"]) if kind != "normal" else float(loot["normal_chance"])
 	chance = float(table.get("chance", chance))
 	if rng.randf() >= chance:
 		return {}
-	var bonus := float((loot["rarity_bonus"] as Dictionary).get(kind, 0.0))
 	var slot := ""
 	var slots: Array = table.get("slots", [])
 	if not slots.is_empty():

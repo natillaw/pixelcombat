@@ -43,7 +43,7 @@
 				}
 			],
 			"materials": {
-				"hide": 0.55
+				"essence": 0.7
 			}
 		},
 		{
@@ -89,8 +89,7 @@
 				}
 			],
 			"materials": {
-				"hide": 1.0,
-				"chitin": 0.5
+				"hide": 0.8
 			}
 		},
 		{
@@ -154,8 +153,8 @@
 				}
 			],
 			"materials": {
-				"chitin": 0.88,
-				"hide": 0.44
+				"silk": 0.8,
+				"chitin": 0.35
 			}
 		},
 		{
@@ -206,7 +205,8 @@
 				}
 			],
 			"materials": {
-				"chitin": 1.0
+				"chitin": 1.0,
+				"hide": 0.3
 			}
 		},
 		{
@@ -266,7 +266,7 @@
 				}
 			],
 			"materials": {
-				"hide": 1.0
+				"essence": 0.9
 			}
 		},
 		{
@@ -326,7 +326,8 @@
 				}
 			],
 			"materials": {
-				"chitin": 1.0
+				"chitin": 0.7,
+				"silk": 0.3
 			}
 		},
 		{

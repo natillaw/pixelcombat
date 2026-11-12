@@ -1,16 +1,132 @@
 {
 	"_doc": "Materiales de recoleccion y botin. Un material se llama <tipo>_t<tier> (p. ej. ore_t1). Esquema en combat/material_catalog.gd. Los tiers 2-10 tienen nombres provisionales.",
 	"kinds": [
-		{"id": "ore", "name": "Mineral", "source": "mine", "gather_seconds": 1.8,
-			"names": ["Mineral de cobre", "Mineral de hierro", "Mineral de plata", "Mineral de acero", "Mithril en bruto", "Adamantita en bruto", "Oricalco en bruto", "Cristal estelar", "Obsidiana pura", "Esquirla solar"]},
-		{"id": "herb", "name": "Hierba", "source": "herbalism", "gather_seconds": 1.4,
-			"names": ["Hierba lunar", "Flor de bruma", "Raiz ambar", "Hoja de escarcha", "Brote espectral", "Loto carmesi", "Musgo abisal", "Petalo de aurora", "Espina de ceniza", "Flor astral"]},
-		{"id": "wood", "name": "Madera", "source": "woodcutting", "gather_seconds": 1.6,
-			"names": ["Madera de roble", "Madera de pino", "Madera de fresno", "Madera de eben", "Madera de sauce", "Madera de cedro", "Madera de baobab", "Madera runica", "Madera de ceniza", "Madera astral"]},
-		{"id": "hide", "name": "Cuero", "source": "monster",
-			"names": ["Cuero basto", "Cuero curtido", "Cuero grueso", "Cuero de escama", "Cuero de bruma", "Cuero carmesi", "Cuero abisal", "Cuero de aurora", "Cuero de ceniza", "Cuero astral"]},
-		{"id": "chitin", "name": "Quitina", "source": "monster",
-			"names": ["Quitina de nidada", "Quitina oscura", "Quitina de hierro", "Quitina de escarcha", "Quitina espectral", "Quitina carmesi", "Quitina abisal", "Quitina de aurora", "Quitina de ceniza", "Quitina astral"]}
+		{
+			"id": "ore",
+			"name": "Mineral",
+			"source": "mine",
+			"gather_seconds": 1.8,
+			"names": [
+				"Mineral de cobre",
+				"Mineral de hierro",
+				"Mineral de plata",
+				"Mineral de acero",
+				"Mithril en bruto",
+				"Adamantita en bruto",
+				"Oricalco en bruto",
+				"Cristal estelar",
+				"Obsidiana pura",
+				"Esquirla solar"
+			]
+		},
+		{
+			"id": "herb",
+			"name": "Hierba",
+			"source": "herbalism",
+			"gather_seconds": 1.4,
+			"names": [
+				"Hierba lunar",
+				"Flor de bruma",
+				"Raiz ambar",
+				"Hoja de escarcha",
+				"Brote espectral",
+				"Loto carmesi",
+				"Musgo abisal",
+				"Petalo de aurora",
+				"Espina de ceniza",
+				"Flor astral"
+			]
+		},
+		{
+			"id": "wood",
+			"name": "Madera",
+			"source": "woodcutting",
+			"gather_seconds": 1.6,
+			"names": [
+				"Madera de roble",
+				"Madera de pino",
+				"Madera de fresno",
+				"Madera de eben",
+				"Madera de sauce",
+				"Madera de cedro",
+				"Madera de baobab",
+				"Madera runica",
+				"Madera de ceniza",
+				"Madera astral"
+			]
+		},
+		{
+			"id": "hide",
+			"name": "Cuero",
+			"source": "monster",
+			"names": [
+				"Cuero basto",
+				"Cuero curtido",
+				"Cuero grueso",
+				"Cuero de escama",
+				"Cuero de bruma",
+				"Cuero carmesi",
+				"Cuero abisal",
+				"Cuero de aurora",
+				"Cuero de ceniza",
+				"Cuero astral"
+			]
+		},
+		{
+			"id": "chitin",
+			"name": "Quitina",
+			"source": "monster",
+			"names": [
+				"Quitina de nidada",
+				"Quitina oscura",
+				"Quitina de hierro",
+				"Quitina de escarcha",
+				"Quitina espectral",
+				"Quitina carmesi",
+				"Quitina abisal",
+				"Quitina de aurora",
+				"Quitina de ceniza",
+				"Quitina astral"
+			]
+		},
+		{
+			"id": "silk",
+			"name": "Seda",
+			"source": "monster",
+			"names": [
+				"Seda de arana",
+				"Seda reforzada",
+				"Seda de cienaga",
+				"Seda de mina",
+				"Seda espectral",
+				"Seda de escarcha",
+				"Seda abisal",
+				"Seda lunar",
+				"Seda de ceniza",
+				"Seda estelar"
+			]
+		},
+		{
+			"id": "essence",
+			"name": "Esencia",
+			"source": "monster",
+			"names": [
+				"Esencia de limo",
+				"Esencia fatua",
+				"Esencia de bruma",
+				"Esencia de cripta",
+				"Esencia espectral",
+				"Esencia carmesi",
+				"Esencia abisal",
+				"Esencia de aurora",
+				"Esencia de ceniza",
+				"Esencia astral"
+			]
+		}
 	],
-	"gather_yield": {"min": 1, "max": 3, "bonus_chance": 0.15}
+	"gather_yield": {
+		"min": 1,
+		"max": 3,
+		"bonus_chance": 0.15
+	}
 }

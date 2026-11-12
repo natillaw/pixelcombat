@@ -443,6 +443,362 @@
 				"spell_power_bonus": 3
 			},
 			"value": 16
+		},
+		{
+			"id": "militia_mace",
+			"name": "Maza de milicia",
+			"slot": "weapon",
+			"classes": [
+				"warrior"
+			],
+			"stats": {
+				"weapon_min": 3.5,
+				"weapon_max": 5.5,
+				"strength": 2.5
+			},
+			"value": 22,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_mace",
+				"variants": [
+					"default"
+				]
+			}
+		},
+		{
+			"id": "hunter_crossbow",
+			"name": "Ballesta de cazador",
+			"slot": "weapon",
+			"classes": [
+				"archer"
+			],
+			"stats": {
+				"weapon_min": 3,
+				"weapon_max": 4.5,
+				"agility": 2.5
+			},
+			"value": 22,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_crossbow",
+				"variants": [
+					"default"
+				]
+			}
+		},
+		{
+			"id": "apprentice_wand",
+			"name": "Varita de aprendiz",
+			"slot": "weapon",
+			"classes": [
+				"mage"
+			],
+			"stats": {
+				"weapon_min": 2,
+				"weapon_max": 3.5,
+				"intellect": 3
+			},
+			"value": 22,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_wand",
+				"variants": [
+					"default"
+				]
+			}
+		},
+		{
+			"id": "crow_bandana",
+			"name": "Pañuelo del Cuervo",
+			"slot": "head",
+			"stats": {
+				"armor": 3,
+				"agility": 1,
+				"stamina": 1
+			},
+			"value": 14,
+			"look": {
+				"slot": "head",
+				"piece": "bandana",
+				"variants": [
+					"maroon"
+				]
+			}
+		},
+		{
+			"id": "crow_hood",
+			"name": "Capucha del Cuervo",
+			"slot": "head",
+			"stats": {
+				"armor": 2,
+				"intellect": 1,
+				"agility": 1
+			},
+			"value": 14,
+			"look": {
+				"slot": "head",
+				"piece": "hood",
+				"variants": [
+					"maroon"
+				]
+			}
+		},
+		{
+			"id": "crow_vest",
+			"name": "Jubón del Cuervo",
+			"slot": "chest",
+			"stats": {
+				"armor": 6,
+				"strength": 1.5,
+				"stamina": 1.5
+			},
+			"value": 18,
+			"look": {
+				"slot": "chest",
+				"piece": "shirt_sleeveless",
+				"variants": [
+					"charcoal"
+				]
+			}
+		},
+		{
+			"id": "crow_breeches",
+			"name": "Calzas del Cuervo",
+			"slot": "legs",
+			"stats": {
+				"armor": 4,
+				"agility": 1.5,
+				"stamina": 1
+			},
+			"value": 14,
+			"look": {
+				"slot": "legs",
+				"piece": "pants",
+				"variants": [
+					"charcoal"
+				]
+			}
+		},
+		{
+			"id": "crow_boots",
+			"name": "Botas del Cuervo",
+			"slot": "feet",
+			"stats": {
+				"armor": 3,
+				"agility": 1.5,
+				"stamina": 1
+			},
+			"value": 14,
+			"look": {
+				"slot": "feet",
+				"piece": "boots_basic",
+				"variants": [
+					"black"
+				]
+			}
+		},
+		{
+			"id": "crow_signet",
+			"name": "Sello del Cuervo",
+			"slot": "ring",
+			"stats": {
+				"crit_chance": 0.015,
+				"attack_power_bonus": 2
+			},
+			"value": 20
+		},
+		{
+			"id": "plain_tunic",
+			"name": "Tunica sencilla",
+			"slot": "chest",
+			"stats": {
+				"armor": 5,
+				"stamina": 2,
+				"strength": 1
+			},
+			"value": 14,
+			"look": {
+				"slot": "chest",
+				"piece": "shirt_longsleeve",
+				"variants": [
+					"tan",
+					"navy"
+				]
+			}
+		},
+		{
+			"id": "traveler_breeches",
+			"name": "Calzas de viajero",
+			"slot": "legs",
+			"stats": {
+				"armor": 5,
+				"stamina": 1.5,
+				"agility": 1
+			},
+			"value": 12,
+			"look": {
+				"slot": "legs",
+				"piece": "pants",
+				"variants": [
+					"brown",
+					"charcoal"
+				]
+			}
+		},
+		{
+			"id": "rask_cleaver",
+			"name": "Tajador de Rask",
+			"slot": "weapon",
+			"classes": [
+				"warrior"
+			],
+			"stats": {
+				"weapon_min": 4.5,
+				"weapon_max": 6.5,
+				"strength": 3
+			},
+			"value": 60,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_mace",
+				"variants": [
+					"default"
+				]
+			}
+		},
+		{
+			"id": "veyra_wand",
+			"name": "Varita de Veyra",
+			"slot": "weapon",
+			"classes": [
+				"mage"
+			],
+			"stats": {
+				"weapon_min": 3,
+				"weapon_max": 4.5,
+				"intellect": 4
+			},
+			"value": 60,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_wand",
+				"variants": [
+					"default"
+				]
+			}
+		},
+		{
+			"id": "blackhand_signet",
+			"name": "Sello de Mano Negra",
+			"slot": "ring",
+			"stats": {
+				"crit_chance": 0.02,
+				"attack_power_bonus": 3,
+				"spell_power_bonus": 3
+			},
+			"value": 80
+		},
+		{
+			"id": "silk_hood",
+			"name": "Capucha de seda",
+			"slot": "head",
+			"stats": {
+				"armor": 2.5,
+				"intellect": 2,
+				"stamina": 0.5
+			},
+			"value": 16,
+			"look": {
+				"slot": "head",
+				"piece": "hood",
+				"variants": [
+					"forest",
+					"brown"
+				]
+			}
+		},
+		{
+			"id": "silk_robe",
+			"name": "Tunica de seda",
+			"slot": "chest",
+			"stats": {
+				"armor": 5,
+				"intellect": 3,
+				"stamina": 1
+			},
+			"value": 20,
+			"look": {
+				"slot": "chest",
+				"piece": "shirt_longsleeve",
+				"variants": [
+					"navy",
+					"tan"
+				]
+			}
+		},
+		{
+			"id": "chitin_vest",
+			"name": "Peto de quitina",
+			"slot": "chest",
+			"stats": {
+				"armor": 10,
+				"stamina": 2.5
+			},
+			"value": 20,
+			"look": {
+				"slot": "chest",
+				"piece": "shirt_sleeveless",
+				"variants": [
+					"charcoal"
+				]
+			}
+		},
+		{
+			"id": "chitin_greaves",
+			"name": "Grebas de quitina",
+			"slot": "legs",
+			"stats": {
+				"armor": 7,
+				"stamina": 1.5
+			},
+			"value": 16,
+			"look": {
+				"slot": "legs",
+				"piece": "pants",
+				"variants": [
+					"charcoal",
+					"brown"
+				]
+			}
+		},
+		{
+			"id": "slime_boots",
+			"name": "Botas de limo",
+			"slot": "feet",
+			"stats": {
+				"armor": 2,
+				"agility": 2,
+				"stamina": 1
+			},
+			"value": 14,
+			"look": {
+				"slot": "feet",
+				"piece": "boots_basic",
+				"variants": [
+					"leather",
+					"black"
+				]
+			}
+		},
+		{
+			"id": "wisp_ring",
+			"name": "Anillo de fuego fatuo",
+			"slot": "ring",
+			"stats": {
+				"spell_power_bonus": 4,
+				"intellect": 1
+			},
+			"value": 18
 		}
 	],
 	"affixes": [

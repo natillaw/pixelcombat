@@ -63,11 +63,32 @@ func _test_coverage() -> void:
 	var by_item := {}
 	for recipe: Dictionary in RecipeCatalog.recipes():
 		by_item[String(recipe["item"])] = true
-	var all_craftable := true
+	# Cada item base se consigue: se fabrica o lo suelta algun enemigo (loot.items).
+	var dropped := {}
+	for enemy_id: StringName in EnemyCatalog.all_ids():
+		for entry: Dictionary in EnemyCatalog.enemy(enemy_id).get("loot", {}).get("items", []):
+			dropped[String(entry["id"])] = true
+	var all_obtainable := true
 	for entry: Dictionary in ItemCatalog.items():
-		if not by_item.has(String(entry["id"])):
-			all_craftable = false
-	_check(all_craftable, "cada item base se puede fabricar")
+		if not by_item.has(String(entry["id"])) and not dropped.has(String(entry["id"])):
+			print("   sin fuente: %s" % entry["id"])
+			all_obtainable = false
+	_check(all_obtainable, "cada item base se puede fabricar o lo suelta un enemigo")
+	# Cada material tiene uso (alguna receta) y cada material de animal lo suelta algun enemigo.
+	var used := {}
+	for recipe: Dictionary in RecipeCatalog.recipes():
+		for kind: String in recipe["cost"]:
+			used[kind] = true
+	var dropped_kinds := {}
+	for enemy_id: StringName in EnemyCatalog.all_ids():
+		for kind: String in EnemyCatalog.enemy(enemy_id).get("materials", {}):
+			dropped_kinds[kind] = true
+	var every_kind_ok := true
+	for kind: String in MaterialCatalog.kind_ids():
+		if not used.has(kind) or (not MaterialCatalog.gatherable_kinds().has(kind) and not dropped_kinds.has(kind)):
+			print("   material sin uso o sin fuente: %s" % kind)
+			every_kind_ok = false
+	_check(every_kind_ok, "cada material tiene uso en alguna receta y fuente (recoleccion o animal)")
 	var every_class := true
 	for class_id: String in ClassCatalog.all_ids():
 		var weapon_recipe := false

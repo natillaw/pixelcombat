@@ -178,3 +178,7 @@ out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "en
 with open(out, "w", encoding="utf8") as f:
     json.dump({"_doc": doc, "enemies": enemies}, f, ensure_ascii=False, indent=1)
 print(len(enemies), "enemigos")
+
+# El botin propio (loot.items) lo anade add_gear.py; se vuelve a aplicar para no perderlo al regenerar.
+import subprocess, sys
+subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "add_gear.py")], check=True)

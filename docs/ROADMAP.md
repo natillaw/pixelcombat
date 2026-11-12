@@ -196,3 +196,7 @@ Un bot (FloorBot) recorre los pisos con el mismo input que una persona. Resultad
 
 ## Bandidos del Cuervo (tier 1)
 Los enemigos reales de los pisos 1-10 son bandidos LPC (`data/enemies/bandits.json`, generado por `tools/gen_bandits.py`): matón, espadachín, arquero, hechicero, degollador y escudero, con su kit de ataques; mini-jefes Rask y Veyra y jefe del piso 10 Garrick Blackhand (escala 2.3, 8 ataques elegidos por distancia, 4 fases con refuerzos mixtos). Las bestias (slime, bat, spider, beetle, wisp, hornet) son minoría en la mezcla y ya no sueltan equipo, solo cuero y quitina. Lore y nombre del tier: Bosque del Cuervo. Captura: `tests/capture_bandits.tscn`.
+
+## Botin, materiales y crafteo (tier 1)
+- Los bandidos y jefes sueltan sus propios items con probabilidad (`loot.items` en `data/enemies/bandits.json`; las tiradas van antes del botin generico). Tablas y equipo nuevo: `tools/add_gear.py` (35 items base, 26 recetas).
+- Las bestias son animales sin lore: solo sueltan materiales (cuero, quitina, seda, esencia). 7 tipos de material x 10 tiers = 70: mineral, hierba y madera se recolectan; cuero, quitina, seda y esencia son botin de animales. Un test exige que cada material tenga uso en alguna receta y fuente.

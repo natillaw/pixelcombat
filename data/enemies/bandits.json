@@ -1,1317 +1,1475 @@
 {
- "_doc": "Bandidos del Cuervo (pisos 1-10): los enemigos reales del tier 1. Personajes LPC compuestos (sprite.lpc: look + equipment) con su propio kit de ataques; el atuendo granate es el color de la banda. Generado por tools/gen_bandits.py. Numeros provisionales.",
- "enemies": [
-  {
-   "id": "bandit_thug",
-   "name": "Bandit Thug",
-   "tier": 1,
-   "role": "Maton de maza",
-   "description": "Un bruto del Cuervo con una maza. Golpe alto con aviso largo y, si te alejas, una embestida de hombro corta.",
-   "stats": {
-    "health": 150,
-    "speed": 72,
-    "radius": 13,
-    "damage": 16,
-    "armor": 10,
-    "xp": 34
-   },
-   "ai": {
-    "aggro_range": 210,
-    "leash": 1.6
-   },
-   "respawn_seconds": 10,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "olive",
-      "eyes": "brown",
-      "head": "head_human_male",
-      "hair": "hair_buzzcut",
-      "hair_color": "dark_brown",
-      "beard": "beard_trimmed"
-     },
-     "equipment": {
-      "chest": [
-       "shirt_sleeveless",
-       "charcoal"
-      ],
-      "legs": [
-       "pants",
-       "brown"
-      ],
-      "feet": [
-       "boots_basic",
-       "leather"
-      ],
-      "head": [
-       "bandana",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_mace",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.0
-   },
-   "attacks": [
-    {
-     "id": "smash",
-     "shape": "cone",
-     "windup": 0.8,
-     "active": 0.1,
-     "recovery": 0.7,
-     "cooldown": 1.6,
-     "damage_mult": 1.0,
-     "trigger_range": 48,
-     "weight": 1,
-     "anim": "slash",
-     "range": 54,
-     "arc": 110,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.3
-      }
-     ]
-    },
-    {
-     "id": "shoulder",
-     "shape": "line",
-     "windup": 0.6,
-     "active": 0.25,
-     "recovery": 0.8,
-     "cooldown": 4.0,
-     "damage_mult": 0.9,
-     "trigger_range": 120,
-     "weight": 1,
-     "anim": "thrust",
-     "range": 110,
-     "width": 28,
-     "dash_distance": 100
-    }
-   ],
-   "loot": {
-    "chance": 0.3,
-    "slots": [
-     "weapon",
-     "chest",
-     "head"
-    ]
-   },
-   "materials": {
-    "hide": 0.2
-   }
-  },
-  {
-   "id": "bandit_swordsman",
-   "name": "Bandit Swordsman",
-   "tier": 1,
-   "role": "Espadachin",
-   "description": "Rapido con la espada: tajo en arco y, desde media distancia, una estocada con salto hacia delante.",
-   "stats": {
-    "health": 125,
-    "speed": 92,
-    "radius": 12,
-    "damage": 15,
-    "armor": 8,
-    "xp": 34
-   },
-   "ai": {
-    "aggro_range": 230,
-    "leash": 1.6
-   },
-   "respawn_seconds": 10,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "light",
-      "eyes": "brown",
-      "head": "head_human_male",
-      "hair": "hair_plain",
-      "hair_color": "chestnut",
-      "beard": ""
-     },
-     "equipment": {
-      "chest": [
-       "shirt_longsleeve",
-       "tan"
-      ],
-      "legs": [
-       "pants",
-       "charcoal"
-      ],
-      "feet": [
-       "boots_basic",
-       "black"
-      ],
-      "head": [
-       "bandana",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_arming",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.0
-   },
-   "attacks": [
-    {
-     "id": "slash",
-     "shape": "cone",
-     "windup": 0.55,
-     "active": 0.1,
-     "recovery": 0.55,
-     "cooldown": 1.3,
-     "damage_mult": 1.0,
-     "trigger_range": 44,
-     "weight": 1,
-     "anim": "slash",
-     "range": 50,
-     "arc": 90
-    },
-    {
-     "id": "lunge",
-     "shape": "line",
-     "windup": 0.65,
-     "active": 0.2,
-     "recovery": 0.8,
-     "cooldown": 3.5,
-     "damage_mult": 1.1,
-     "trigger_range": 130,
-     "weight": 1,
-     "anim": "thrust",
-     "range": 120,
-     "width": 22,
-     "dash_distance": 105
-    }
-   ],
-   "loot": {
-    "chance": 0.3,
-    "slots": [
-     "weapon",
-     "chest",
-     "legs"
-    ]
-   },
-   "materials": {
-    "hide": 0.2
-   }
-  },
-  {
-   "id": "bandit_archer",
-   "name": "Bandit Archer",
-   "tier": 1,
-   "role": "Arquero a distancia",
-   "description": "Mantiene la distancia. Una flecha rapida y, cada pocos segundos, una descarga de tres flechas en abanico.",
-   "stats": {
-    "health": 82,
-    "speed": 84,
-    "radius": 11,
-    "damage": 14,
-    "armor": 0,
-    "xp": 32
-   },
-   "ai": {
-    "aggro_range": 280,
-    "leash": 1.6,
-    "keep_distance": 170
-   },
-   "respawn_seconds": 10,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "taupe",
-      "eyes": "brown",
-      "head": "head_human_male",
-      "hair": "hair_bob",
-      "hair_color": "ginger",
-      "beard": ""
-     },
-     "equipment": {
-      "chest": [
-       "shirt_longsleeve",
-       "tan"
-      ],
-      "legs": [
-       "pants",
-       "brown"
-      ],
-      "feet": [
-       "boots_basic",
-       "leather"
-      ],
-      "head": [
-       "hood",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_bow",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.0
-   },
-   "attacks": [
-    {
-     "id": "arrow",
-     "shape": "projectile",
-     "windup": 0.7,
-     "active": 0.1,
-     "recovery": 0.5,
-     "cooldown": 1.8,
-     "damage_mult": 1.0,
-     "trigger_range": 290,
-     "weight": 1,
-     "anim": "shoot",
-     "projectile": {
-      "speed": 310,
-      "range": 330,
-      "radius": 5,
-      "count": 1,
-      "spread": 0,
-      "pierce": 0,
-      "visual": "stinger"
-     }
-    },
-    {
-     "id": "volley",
-     "shape": "projectile",
-     "windup": 1.0,
-     "active": 0.1,
-     "recovery": 0.7,
-     "cooldown": 4.5,
-     "damage_mult": 0.7,
-     "trigger_range": 270,
-     "weight": 1,
-     "anim": "shoot",
-     "projectile": {
-      "speed": 280,
-      "range": 300,
-      "radius": 5,
-      "count": 3,
-      "spread": 34,
-      "pierce": 0,
-      "visual": "stinger"
-     },
-     "on_hit": [
-      {
-       "id": "slow",
-       "duration": 1.0,
-       "strength": 0.2
-      }
-     ]
-    }
-   ],
-   "loot": {
-    "chance": 0.28,
-    "slots": [
-     "weapon",
-     "head",
-     "feet"
-    ]
-   },
-   "materials": {
-    "hide": 0.2
-   }
-  },
-  {
-   "id": "bandit_hexer",
-   "name": "Bandit Hexer",
-   "tier": 1,
-   "role": "Hechicero a distancia",
-   "description": "Un renegado que estudio las grietas de la Torre. Lanza orbes lentos que frenan y, si te acercas, una onda que aturde.",
-   "stats": {
-    "health": 78,
-    "speed": 74,
-    "radius": 11,
-    "damage": 14,
-    "armor": 0,
-    "xp": 36
-   },
-   "ai": {
-    "aggro_range": 270,
-    "leash": 1.6,
-    "keep_distance": 150
-   },
-   "respawn_seconds": 10,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "light",
-      "eyes": "green",
-      "head": "head_human_male",
-      "hair": "hair_bob",
-      "hair_color": "gray",
-      "beard": ""
-     },
-     "equipment": {
-      "chest": [
-       "shirt_longsleeve",
-       "navy"
-      ],
-      "legs": [
-       "pants_dyed",
-       "navy"
-      ],
-      "feet": [
-       "shoes_basic",
-       "leather"
-      ],
-      "head": [
-       "hood",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_staff",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.0
-   },
-   "attacks": [
-    {
-     "id": "hex_orb",
-     "shape": "projectile",
-     "windup": 0.9,
-     "active": 0.1,
-     "recovery": 0.6,
-     "cooldown": 2.4,
-     "damage_mult": 1.0,
-     "trigger_range": 270,
-     "weight": 1,
-     "anim": "spellcast",
-     "projectile": {
-      "speed": 200,
-      "range": 310,
-      "radius": 7,
-      "count": 1,
-      "spread": 0,
-      "pierce": 0,
-      "visual": "wisp"
-     },
-     "on_hit": [
-      {
-       "id": "slow",
-       "duration": 1.6,
-       "strength": 0.3
-      }
-     ]
-    },
-    {
-     "id": "nova",
-     "shape": "circle",
-     "windup": 1.0,
-     "active": 0.12,
-     "recovery": 0.8,
-     "cooldown": 5.0,
-     "damage_mult": 1.2,
-     "trigger_range": 70,
-     "weight": 1,
-     "anim": "spellcast",
-     "range": 78,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.3
-      }
-     ]
-    }
-   ],
-   "loot": {
-    "chance": 0.3,
-    "slots": [
-     "weapon",
-     "ring",
-     "head"
-    ]
-   },
-   "materials": {
-    "herb": 0.3
-   }
-  },
-  {
-   "id": "bandit_cutthroat",
-   "name": "Bandit Cutthroat",
-   "tier": 1,
-   "role": "Degollador veloz",
-   "description": "Veloz y fragil: una embestida en linea con daga envenenada y un doble tajo corto.",
-   "stats": {
-    "health": 88,
-    "speed": 118,
-    "radius": 10,
-    "damage": 13,
-    "armor": 0,
-    "xp": 36
-   },
-   "ai": {
-    "aggro_range": 250,
-    "leash": 1.6
-   },
-   "respawn_seconds": 10,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "olive",
-      "eyes": "brown",
-      "head": "head_human_male",
-      "hair": "hair_plain",
-      "hair_color": "black",
-      "beard": ""
-     },
-     "equipment": {
-      "chest": [
-       "shirt_sleeveless",
-       "charcoal"
-      ],
-      "legs": [
-       "pants",
-       "charcoal"
-      ],
-      "feet": [
-       "boots_basic",
-       "black"
-      ],
-      "head": [
-       "hood",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_dagger",
-       "default"
-      ],
-      "off_hand": [
-       "weapon_dagger_offhand",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.0
-   },
-   "attacks": [
-    {
-     "id": "stab",
-     "shape": "line",
-     "windup": 0.5,
-     "active": 0.22,
-     "recovery": 0.7,
-     "cooldown": 2.8,
-     "damage_mult": 1.0,
-     "trigger_range": 140,
-     "weight": 1,
-     "anim": "thrust",
-     "range": 135,
-     "width": 22,
-     "dash_distance": 125,
-     "on_hit": [
-      {
-       "id": "poison",
-       "duration": 3,
-       "strength": 3
-      }
-     ]
-    },
-    {
-     "id": "flurry",
-     "shape": "cone",
-     "windup": 0.45,
-     "active": 0.1,
-     "recovery": 0.5,
-     "cooldown": 1.4,
-     "damage_mult": 0.8,
-     "trigger_range": 38,
-     "weight": 1,
-     "anim": "slash",
-     "range": 44,
-     "arc": 110
-    }
-   ],
-   "loot": {
-    "chance": 0.3,
-    "slots": [
-     "weapon",
-     "feet",
-     "ring"
-    ]
-   },
-   "materials": {
-    "hide": 0.25
-   }
-  },
-  {
-   "id": "bandit_shieldman",
-   "name": "Bandit Shieldman",
-   "tier": 1,
-   "role": "Escudero resistente",
-   "description": "Muy resistente con su escudo: un empujon que aturde y un barrido a su alrededor. Hay que rodearlo.",
-   "stats": {
-    "health": 240,
-    "speed": 56,
-    "radius": 14,
-    "damage": 20,
-    "armor": 40,
-    "xp": 56
-   },
-   "ai": {
-    "aggro_range": 200,
-    "leash": 1.6
-   },
-   "respawn_seconds": 10,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "brown",
-      "eyes": "brown",
-      "head": "head_human_male",
-      "hair": "hair_buzzcut",
-      "hair_color": "black",
-      "beard": "beard_trimmed"
-     },
-     "equipment": {
-      "chest": [
-       "shirt_longsleeve",
-       "navy"
-      ],
-      "legs": [
-       "pants",
-       "brown"
-      ],
-      "feet": [
-       "boots_basic",
-       "leather"
-      ],
-      "head": [
-       "bandana",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_arming",
-       "default"
-      ],
-      "off_hand": [
-       "shield_round",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.0
-   },
-   "attacks": [
-    {
-     "id": "bash",
-     "shape": "cone",
-     "windup": 1.0,
-     "active": 0.12,
-     "recovery": 0.9,
-     "cooldown": 2.6,
-     "damage_mult": 1.0,
-     "trigger_range": 46,
-     "weight": 1,
-     "anim": "thrust",
-     "range": 52,
-     "arc": 80,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.5
-      }
-     ]
-    },
-    {
-     "id": "sweep",
-     "shape": "circle",
-     "windup": 1.1,
-     "active": 0.12,
-     "recovery": 0.9,
-     "cooldown": 4.5,
-     "damage_mult": 1.1,
-     "trigger_range": 64,
-     "weight": 1,
-     "anim": "slash",
-     "range": 70
-    }
-   ],
-   "loot": {
-    "chance": 0.35,
-    "slots": [
-     "chest",
-     "head",
-     "weapon",
-     "legs"
-    ]
-   },
-   "materials": {
-    "hide": 0.2
-   }
-  },
-  {
-   "id": "bandit_rask",
-   "name": "Rask the Cleaver",
-   "tier": 1,
-   "role": "Mini-jefe del tier 1",
-   "description": "Teniente del Cuervo. Tajos amplios y una carga; por debajo de la mitad llama a sus matones y golpea el suelo.",
-   "stats": {
-    "health": 560,
-    "speed": 80,
-    "radius": 17,
-    "damage": 22,
-    "armor": 25,
-    "xp": 150
-   },
-   "ai": {
-    "aggro_range": 280,
-    "leash": 2
-   },
-   "respawn_seconds": 40,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "bronze",
-      "eyes": "brown",
-      "head": "head_human_male",
-      "hair": "hair_buzzcut",
-      "hair_color": "black",
-      "beard": "beard_trimmed"
-     },
-     "equipment": {
-      "chest": [
-       "shirt_sleeveless",
-       "charcoal"
-      ],
-      "legs": [
-       "pants",
-       "charcoal"
-      ],
-      "feet": [
-       "boots_basic",
-       "black"
-      ],
-      "head": [
-       "bandana",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_mace",
-       "default"
-      ],
-      "off_hand": [
-       "shield_round",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.1
-   },
-   "attacks": [
-    {
-     "id": "cleave",
-     "shape": "cone",
-     "windup": 0.9,
-     "active": 0.12,
-     "recovery": 0.8,
-     "cooldown": 2.2,
-     "damage_mult": 1.2,
-     "trigger_range": 80,
-     "weight": 1,
-     "anim": "slash",
-     "range": 86,
-     "arc": 130,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.35
-      }
-     ]
-    },
-    {
-     "id": "charge",
-     "shape": "line",
-     "windup": 0.8,
-     "active": 0.3,
-     "recovery": 0.9,
-     "cooldown": 4.5,
-     "damage_mult": 1.2,
-     "trigger_range": 220,
-     "weight": 1,
-     "anim": "thrust",
-     "range": 200,
-     "width": 40,
-     "dash_distance": 200
-    },
-    {
-     "id": "ground_pound",
-     "shape": "circle",
-     "windup": 1.2,
-     "active": 0.15,
-     "recovery": 1.0,
-     "cooldown": 6.0,
-     "damage_mult": 1.4,
-     "trigger_range": 90,
-     "weight": 1,
-     "anim": "slash",
-     "range": 100,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.4
-      }
-     ]
-    }
-   ],
-   "boss": true,
-   "phases": [
-    {
-     "name": "Rask the Cleaver",
-     "hp_below": 1,
-     "speed_mult": 1,
-     "attacks": [
-      "cleave",
-      "charge"
-     ]
-    },
-    {
-     "name": "Rask Enraged",
-     "hp_below": 0.5,
-     "speed_mult": 1.25,
-     "attacks": [
-      "cleave",
-      "charge",
-      "ground_pound"
-     ],
-     "summons": [
-      {
-       "id": "bandit_thug",
-       "count": 2
-      }
-     ]
-    }
-   ],
-   "resist": {
-    "stun": 0.5
-   },
-   "loot": {
-    "slots": [
-     "head",
-     "legs",
-     "weapon",
-     "chest"
-    ]
-   },
-   "materials": {
-    "hide": 1
-   }
-  },
-  {
-   "id": "bandit_veyra",
-   "name": "Veyra the Hexer",
-   "tier": 1,
-   "role": "Mini-jefe del tier 1",
-   "description": "Teniente del Cuervo. Descargas de orbes desde lejos; por debajo de la mitad se rodea de arqueros y suelta una onda.",
-   "stats": {
-    "health": 470,
-    "speed": 92,
-    "radius": 15,
-    "damage": 18,
-    "armor": 10,
-    "xp": 140
-   },
-   "ai": {
-    "aggro_range": 330,
-    "leash": 2,
-    "keep_distance": 230
-   },
-   "respawn_seconds": 40,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "female",
-      "skin": "light",
-      "eyes": "green",
-      "head": "head_human_female",
-      "hair": "hair_bob",
-      "hair_color": "red",
-      "beard": ""
-     },
-     "equipment": {
-      "chest": [
-       "shirt_longsleeve",
-       "navy"
-      ],
-      "legs": [
-       "pants_dyed",
-       "navy"
-      ],
-      "feet": [
-       "shoes_basic",
-       "leather"
-      ],
-      "head": [
-       "hood",
-       "maroon"
-      ],
-      "bag": [
-       "cape",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_staff",
-       "default"
-      ]
-     }
-    },
-    "scale": 1.05
-   },
-   "attacks": [
-    {
-     "id": "barrage",
-     "shape": "projectile",
-     "windup": 0.9,
-     "active": 0.1,
-     "recovery": 0.7,
-     "cooldown": 3.0,
-     "damage_mult": 0.8,
-     "trigger_range": 340,
-     "weight": 1,
-     "anim": "spellcast",
-     "projectile": {
-      "speed": 250,
-      "range": 400,
-      "radius": 7,
-      "count": 5,
-      "spread": 56,
-      "pierce": 0,
-      "visual": "wisp"
-     },
-     "on_hit": [
-      {
-       "id": "slow",
-       "duration": 1.5,
-       "strength": 0.3
-      }
-     ]
-    },
-    {
-     "id": "nova",
-     "shape": "circle",
-     "windup": 1.1,
-     "active": 0.12,
-     "recovery": 0.9,
-     "cooldown": 5.0,
-     "damage_mult": 1.3,
-     "trigger_range": 100,
-     "weight": 1,
-     "anim": "spellcast",
-     "range": 110,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.4
-      }
-     ]
-    },
-    {
-     "id": "hex_bolt",
-     "shape": "projectile",
-     "windup": 0.7,
-     "active": 0.1,
-     "recovery": 0.6,
-     "cooldown": 2.2,
-     "damage_mult": 1.0,
-     "trigger_range": 330,
-     "weight": 1,
-     "anim": "spellcast",
-     "projectile": {
-      "speed": 280,
-      "range": 380,
-      "radius": 8,
-      "count": 1,
-      "spread": 0,
-      "pierce": 0,
-      "visual": "wisp"
-     }
-    }
-   ],
-   "boss": true,
-   "phases": [
-    {
-     "name": "Veyra the Hexer",
-     "hp_below": 1,
-     "speed_mult": 1,
-     "attacks": [
-      "barrage",
-      "hex_bolt"
-     ]
-    },
-    {
-     "name": "Veyra Unbound",
-     "hp_below": 0.5,
-     "speed_mult": 1.25,
-     "attacks": [
-      "barrage",
-      "hex_bolt",
-      "nova"
-     ],
-     "summons": [
-      {
-       "id": "bandit_archer",
-       "count": 2
-      }
-     ]
-    }
-   ],
-   "resist": {
-    "stun": 0.5
-   },
-   "loot": {
-    "slots": [
-     "head",
-     "ring",
-     "weapon",
-     "legs"
-    ]
-   },
-   "materials": {
-    "herb": 1
-   }
-  },
-  {
-   "id": "bandit_garrick",
-   "name": "Garrick Blackhand",
-   "tier": 1,
-   "role": "Jefe del tier 1",
-   "description": "El jefe del Cuervo, enorme y con muchos recursos: elige el golpe segun la distancia (salto sobre ti si huyes, cuchillos a media distancia, torbellino y tajos si te pegas) y llama a su banda en cada fase.",
-   "stats": {
-    "health": 1900,
-    "speed": 64,
-    "radius": 24,
-    "damage": 32,
-    "armor": 35,
-    "xp": 400
-   },
-   "ai": {
-    "aggro_range": 340,
-    "leash": 2
-   },
-   "respawn_seconds": 40,
-   "sprite": {
-    "lpc": {
-     "look": {
-      "body": "male",
-      "skin": "light",
-      "eyes": "gray",
-      "head": "head_human_male",
-      "hair": "hair_buzzcut",
-      "hair_color": "black",
-      "beard": "beard_trimmed"
-     },
-     "equipment": {
-      "chest": [
-       "shirt_longsleeve",
-       "tan"
-      ],
-      "legs": [
-       "pants",
-       "charcoal"
-      ],
-      "feet": [
-       "boots_basic",
-       "black"
-      ],
-      "head": [
-       "bandana",
-       "maroon"
-      ],
-      "bag": [
-       "cape",
-       "maroon"
-      ],
-      "main_hand": [
-       "weapon_arming",
-       "default"
-      ],
-      "off_hand": [
-       "shield_round",
-       "default"
-      ]
-     }
-    },
-    "scale": 2.3
-   },
-   "attacks": [
-    {
-     "id": "crush",
-     "shape": "cone",
-     "windup": 0.95,
-     "active": 0.12,
-     "recovery": 0.7,
-     "cooldown": 2.0,
-     "damage_mult": 1.1,
-     "trigger_range": 100,
-     "weight": 3,
-     "anim": "slash",
-     "range": 104,
-     "arc": 130,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.35
-      }
-     ]
-    },
-    {
-     "id": "backhand",
-     "shape": "cone",
-     "windup": 0.5,
-     "active": 0.1,
-     "recovery": 0.5,
-     "cooldown": 1.6,
-     "damage_mult": 0.8,
-     "trigger_range": 76,
-     "weight": 2,
-     "anim": "slash",
-     "range": 80,
-     "arc": 200
-    },
-    {
-     "id": "whirlwind",
-     "shape": "circle",
-     "windup": 1.0,
-     "active": 0.2,
-     "recovery": 0.9,
-     "cooldown": 5.5,
-     "damage_mult": 1.3,
-     "trigger_range": 100,
-     "weight": 2,
-     "anim": "slash",
-     "range": 120
-    },
-    {
-     "id": "charge",
-     "shape": "line",
-     "windup": 0.8,
-     "active": 0.35,
-     "recovery": 1.0,
-     "cooldown": 5.0,
-     "damage_mult": 1.2,
-     "trigger_range": 250,
-     "weight": 2,
-     "anim": "thrust",
-     "range": 240,
-     "width": 48,
-     "dash_distance": 240
-    },
-    {
-     "id": "leap_slam",
-     "shape": "line",
-     "windup": 0.9,
-     "active": 0.4,
-     "recovery": 1.0,
-     "cooldown": 7.0,
-     "damage_mult": 1.4,
-     "trigger_range": 340,
-     "weight": 3,
-     "anim": "thrust",
-     "range": 340,
-     "width": 60,
-     "dash_distance": 320,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.4
-      }
-     ]
-    },
-    {
-     "id": "throwing_knives",
-     "shape": "projectile",
-     "windup": 0.7,
-     "active": 0.1,
-     "recovery": 0.6,
-     "cooldown": 3.0,
-     "damage_mult": 0.5,
-     "trigger_range": 300,
-     "weight": 3,
-     "anim": "shoot",
-     "projectile": {
-      "speed": 300,
-      "range": 330,
-      "radius": 6,
-      "count": 3,
-      "spread": 30,
-      "pierce": 0,
-      "visual": "stinger"
-     },
-     "on_hit": [
-      {
-       "id": "poison",
-       "duration": 3,
-       "strength": 3
-      }
-     ]
-    },
-    {
-     "id": "crossbow_volley",
-     "shape": "projectile",
-     "windup": 0.8,
-     "active": 0.1,
-     "recovery": 0.7,
-     "cooldown": 4.5,
-     "damage_mult": 0.5,
-     "trigger_range": 330,
-     "weight": 2,
-     "anim": "shoot",
-     "projectile": {
-      "speed": 260,
-      "range": 360,
-      "radius": 7,
-      "count": 7,
-      "spread": 90,
-      "pierce": 0,
-      "visual": "stinger"
-     },
-     "on_hit": [
-      {
-       "id": "slow",
-       "duration": 1.2,
-       "strength": 0.25
-      }
-     ]
-    },
-    {
-     "id": "quake",
-     "shape": "circle",
-     "windup": 1.3,
-     "active": 0.15,
-     "recovery": 1.0,
-     "cooldown": 6.5,
-     "damage_mult": 1.5,
-     "trigger_range": 125,
-     "weight": 2,
-     "anim": "slash",
-     "range": 150,
-     "on_hit": [
-      {
-       "id": "stun",
-       "duration": 0.4
-      }
-     ]
-    }
-   ],
-   "boss": true,
-   "phases": [
-    {
-     "name": "Garrick Blackhand",
-     "hp_below": 1,
-     "speed_mult": 1,
-     "attacks": [
-      "crush",
-      "backhand",
-      "leap_slam",
-      "throwing_knives"
-     ]
-    },
-    {
-     "name": "The Crows Call",
-     "hp_below": 0.75,
-     "speed_mult": 1.15,
-     "attacks": [
-      "crush",
-      "backhand",
-      "whirlwind",
-      "charge",
-      "leap_slam",
-      "throwing_knives",
-      "crossbow_volley"
-     ],
-     "summons": [
-      {
-       "id": "bandit_swordsman",
-       "count": 2
-      },
-      {
-       "id": "bandit_archer",
-       "count": 1
-      }
-     ]
-    },
-    {
-     "name": "Blackhands Wrath",
-     "hp_below": 0.5,
-     "speed_mult": 1.3,
-     "attacks": [
-      "crush",
-      "backhand",
-      "whirlwind",
-      "charge",
-      "leap_slam",
-      "throwing_knives",
-      "crossbow_volley",
-      "quake"
-     ],
-     "summons": [
-      {
-       "id": "bandit_cutthroat",
-       "count": 2
-      },
-      {
-       "id": "bandit_hexer",
-       "count": 1
-      }
-     ]
-    },
-    {
-     "name": "Blackhands Last Stand",
-     "hp_below": 0.25,
-     "speed_mult": 1.55,
-     "attacks": [
-      "backhand",
-      "whirlwind",
-      "charge",
-      "leap_slam",
-      "throwing_knives",
-      "crossbow_volley",
-      "quake"
-     ],
-     "summons": [
-      {
-       "id": "bandit_shieldman",
-       "count": 1
-      },
-      {
-       "id": "bandit_thug",
-       "count": 2
-      }
-     ]
-    }
-   ],
-   "resist": {
-    "stun": 1,
-    "slow": 0.5
-   },
-   "loot": {
-    "slots": [
-     "weapon",
-     "chest",
-     "ring",
-     "head",
-     "legs"
-    ]
-   },
-   "materials": {
-    "hide": 1
-   }
-  }
- ]
+	"_doc": "Bandidos del Cuervo (pisos 1-10): los enemigos reales del tier 1. Personajes LPC compuestos (sprite.lpc: look + equipment) con su propio kit de ataques; el atuendo granate es el color de la banda. Generado por tools/gen_bandits.py. Numeros provisionales.",
+	"enemies": [
+		{
+			"id": "bandit_thug",
+			"name": "Bandit Thug",
+			"tier": 1,
+			"role": "Maton de maza",
+			"description": "Un bruto del Cuervo con una maza. Golpe alto con aviso largo y, si te alejas, una embestida de hombro corta.",
+			"stats": {
+				"health": 150,
+				"speed": 72,
+				"radius": 13,
+				"damage": 16,
+				"armor": 10,
+				"xp": 34
+			},
+			"ai": {
+				"aggro_range": 210,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "olive",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_buzzcut",
+						"hair_color": "dark_brown",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_sleeveless",
+							"charcoal"
+						],
+						"legs": [
+							"pants",
+							"brown"
+						],
+						"feet": [
+							"boots_basic",
+							"leather"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_mace",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "smash",
+					"shape": "cone",
+					"windup": 0.8,
+					"active": 0.1,
+					"recovery": 0.7,
+					"cooldown": 1.6,
+					"damage_mult": 1.0,
+					"trigger_range": 48,
+					"weight": 1,
+					"anim": "slash",
+					"range": 54,
+					"arc": 110,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.3
+						}
+					]
+				},
+				{
+					"id": "shoulder",
+					"shape": "line",
+					"windup": 0.6,
+					"active": 0.25,
+					"recovery": 0.8,
+					"cooldown": 4.0,
+					"damage_mult": 0.9,
+					"trigger_range": 120,
+					"weight": 1,
+					"anim": "thrust",
+					"range": 110,
+					"width": 28,
+					"dash_distance": 100
+				}
+			],
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"weapon",
+					"chest",
+					"head"
+				],
+				"items": [
+					{
+						"id": "militia_mace",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_bandana",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.08
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.06
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.2
+			}
+		},
+		{
+			"id": "bandit_swordsman",
+			"name": "Bandit Swordsman",
+			"tier": 1,
+			"role": "Espadachin",
+			"description": "Rapido con la espada: tajo en arco y, desde media distancia, una estocada con salto hacia delante.",
+			"stats": {
+				"health": 125,
+				"speed": 92,
+				"radius": 12,
+				"damage": 15,
+				"armor": 8,
+				"xp": 34
+			},
+			"ai": {
+				"aggro_range": 230,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "light",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_plain",
+						"hair_color": "chestnut",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"tan"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_arming",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "slash",
+					"shape": "cone",
+					"windup": 0.55,
+					"active": 0.1,
+					"recovery": 0.55,
+					"cooldown": 1.3,
+					"damage_mult": 1.0,
+					"trigger_range": 44,
+					"weight": 1,
+					"anim": "slash",
+					"range": 50,
+					"arc": 90
+				},
+				{
+					"id": "lunge",
+					"shape": "line",
+					"windup": 0.65,
+					"active": 0.2,
+					"recovery": 0.8,
+					"cooldown": 3.5,
+					"damage_mult": 1.1,
+					"trigger_range": 130,
+					"weight": 1,
+					"anim": "thrust",
+					"range": 120,
+					"width": 22,
+					"dash_distance": 105
+				}
+			],
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"weapon",
+					"chest",
+					"legs"
+				],
+				"items": [
+					{
+						"id": "crow_bandana",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_breeches",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.08
+					},
+					{
+						"id": "plain_tunic",
+						"chance": 0.06
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.2
+			}
+		},
+		{
+			"id": "bandit_archer",
+			"name": "Bandit Archer",
+			"tier": 1,
+			"role": "Arquero a distancia",
+			"description": "Mantiene la distancia. Una flecha rapida y, cada pocos segundos, una descarga de tres flechas en abanico.",
+			"stats": {
+				"health": 82,
+				"speed": 84,
+				"radius": 11,
+				"damage": 14,
+				"armor": 0,
+				"xp": 32
+			},
+			"ai": {
+				"aggro_range": 280,
+				"leash": 1.6,
+				"keep_distance": 170
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "taupe",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_bob",
+						"hair_color": "ginger",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"tan"
+						],
+						"legs": [
+							"pants",
+							"brown"
+						],
+						"feet": [
+							"boots_basic",
+							"leather"
+						],
+						"head": [
+							"hood",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_bow",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "arrow",
+					"shape": "projectile",
+					"windup": 0.7,
+					"active": 0.1,
+					"recovery": 0.5,
+					"cooldown": 1.8,
+					"damage_mult": 1.0,
+					"trigger_range": 290,
+					"weight": 1,
+					"anim": "shoot",
+					"projectile": {
+						"speed": 310,
+						"range": 330,
+						"radius": 5,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "stinger"
+					}
+				},
+				{
+					"id": "volley",
+					"shape": "projectile",
+					"windup": 1.0,
+					"active": 0.1,
+					"recovery": 0.7,
+					"cooldown": 4.5,
+					"damage_mult": 0.7,
+					"trigger_range": 270,
+					"weight": 1,
+					"anim": "shoot",
+					"projectile": {
+						"speed": 280,
+						"range": 300,
+						"radius": 5,
+						"count": 3,
+						"spread": 34,
+						"pierce": 0,
+						"visual": "stinger"
+					},
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.0,
+							"strength": 0.2
+						}
+					]
+				}
+			],
+			"loot": {
+				"chance": 0.28,
+				"slots": [
+					"weapon",
+					"head",
+					"feet"
+				],
+				"items": [
+					{
+						"id": "hunter_crossbow",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_hood",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.08
+					},
+					{
+						"id": "crow_breeches",
+						"chance": 0.06
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.2
+			}
+		},
+		{
+			"id": "bandit_hexer",
+			"name": "Bandit Hexer",
+			"tier": 1,
+			"role": "Hechicero a distancia",
+			"description": "Un renegado que estudio las grietas de la Torre. Lanza orbes lentos que frenan y, si te acercas, una onda que aturde.",
+			"stats": {
+				"health": 78,
+				"speed": 74,
+				"radius": 11,
+				"damage": 14,
+				"armor": 0,
+				"xp": 36
+			},
+			"ai": {
+				"aggro_range": 270,
+				"leash": 1.6,
+				"keep_distance": 150
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "light",
+						"eyes": "green",
+						"head": "head_human_male",
+						"hair": "hair_bob",
+						"hair_color": "gray",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"navy"
+						],
+						"legs": [
+							"pants_dyed",
+							"navy"
+						],
+						"feet": [
+							"shoes_basic",
+							"leather"
+						],
+						"head": [
+							"hood",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_staff",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "hex_orb",
+					"shape": "projectile",
+					"windup": 0.9,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 2.4,
+					"damage_mult": 1.0,
+					"trigger_range": 270,
+					"weight": 1,
+					"anim": "spellcast",
+					"projectile": {
+						"speed": 200,
+						"range": 310,
+						"radius": 7,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "wisp"
+					},
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.6,
+							"strength": 0.3
+						}
+					]
+				},
+				{
+					"id": "nova",
+					"shape": "circle",
+					"windup": 1.0,
+					"active": 0.12,
+					"recovery": 0.8,
+					"cooldown": 5.0,
+					"damage_mult": 1.2,
+					"trigger_range": 70,
+					"weight": 1,
+					"anim": "spellcast",
+					"range": 78,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.3
+						}
+					]
+				}
+			],
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"weapon",
+					"ring",
+					"head"
+				],
+				"items": [
+					{
+						"id": "apprentice_wand",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_hood",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.05
+					},
+					{
+						"id": "plain_tunic",
+						"chance": 0.06
+					}
+				]
+			},
+			"materials": {
+				"herb": 0.3
+			}
+		},
+		{
+			"id": "bandit_cutthroat",
+			"name": "Bandit Cutthroat",
+			"tier": 1,
+			"role": "Degollador veloz",
+			"description": "Veloz y fragil: una embestida en linea con daga envenenada y un doble tajo corto.",
+			"stats": {
+				"health": 88,
+				"speed": 118,
+				"radius": 10,
+				"damage": 13,
+				"armor": 0,
+				"xp": 36
+			},
+			"ai": {
+				"aggro_range": 250,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "olive",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_plain",
+						"hair_color": "black",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_sleeveless",
+							"charcoal"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"hood",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_dagger",
+							"default"
+						],
+						"off_hand": [
+							"weapon_dagger_offhand",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "stab",
+					"shape": "line",
+					"windup": 0.5,
+					"active": 0.22,
+					"recovery": 0.7,
+					"cooldown": 2.8,
+					"damage_mult": 1.0,
+					"trigger_range": 140,
+					"weight": 1,
+					"anim": "thrust",
+					"range": 135,
+					"width": 22,
+					"dash_distance": 125,
+					"on_hit": [
+						{
+							"id": "poison",
+							"duration": 3,
+							"strength": 3
+						}
+					]
+				},
+				{
+					"id": "flurry",
+					"shape": "cone",
+					"windup": 0.45,
+					"active": 0.1,
+					"recovery": 0.5,
+					"cooldown": 1.4,
+					"damage_mult": 0.8,
+					"trigger_range": 38,
+					"weight": 1,
+					"anim": "slash",
+					"range": 44,
+					"arc": 110
+				}
+			],
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"weapon",
+					"feet",
+					"ring"
+				],
+				"items": [
+					{
+						"id": "crow_hood",
+						"chance": 0.08
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.06
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.08
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.25
+			}
+		},
+		{
+			"id": "bandit_shieldman",
+			"name": "Bandit Shieldman",
+			"tier": 1,
+			"role": "Escudero resistente",
+			"description": "Muy resistente con su escudo: un empujon que aturde y un barrido a su alrededor. Hay que rodearlo.",
+			"stats": {
+				"health": 240,
+				"speed": 56,
+				"radius": 14,
+				"damage": 20,
+				"armor": 40,
+				"xp": 56
+			},
+			"ai": {
+				"aggro_range": 200,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "brown",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_buzzcut",
+						"hair_color": "black",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"navy"
+						],
+						"legs": [
+							"pants",
+							"brown"
+						],
+						"feet": [
+							"boots_basic",
+							"leather"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_arming",
+							"default"
+						],
+						"off_hand": [
+							"shield_round",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "bash",
+					"shape": "cone",
+					"windup": 1.0,
+					"active": 0.12,
+					"recovery": 0.9,
+					"cooldown": 2.6,
+					"damage_mult": 1.0,
+					"trigger_range": 46,
+					"weight": 1,
+					"anim": "thrust",
+					"range": 52,
+					"arc": 80,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.5
+						}
+					]
+				},
+				{
+					"id": "sweep",
+					"shape": "circle",
+					"windup": 1.1,
+					"active": 0.12,
+					"recovery": 0.9,
+					"cooldown": 4.5,
+					"damage_mult": 1.1,
+					"trigger_range": 64,
+					"weight": 1,
+					"anim": "slash",
+					"range": 70
+				}
+			],
+			"loot": {
+				"chance": 0.35,
+				"slots": [
+					"chest",
+					"head",
+					"weapon",
+					"legs"
+				],
+				"items": [
+					{
+						"id": "militia_mace",
+						"chance": 0.08
+					},
+					{
+						"id": "crow_bandana",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_breeches",
+						"chance": 0.08
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.2
+			}
+		},
+		{
+			"id": "bandit_rask",
+			"name": "Rask the Cleaver",
+			"tier": 1,
+			"role": "Mini-jefe del tier 1",
+			"description": "Teniente del Cuervo. Tajos amplios y una carga; por debajo de la mitad llama a sus matones y golpea el suelo.",
+			"stats": {
+				"health": 560,
+				"speed": 80,
+				"radius": 17,
+				"damage": 22,
+				"armor": 25,
+				"xp": 150
+			},
+			"ai": {
+				"aggro_range": 280,
+				"leash": 2
+			},
+			"respawn_seconds": 40,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "bronze",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_buzzcut",
+						"hair_color": "black",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_sleeveless",
+							"charcoal"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_mace",
+							"default"
+						],
+						"off_hand": [
+							"shield_round",
+							"default"
+						]
+					}
+				},
+				"scale": 1.1
+			},
+			"attacks": [
+				{
+					"id": "cleave",
+					"shape": "cone",
+					"windup": 0.9,
+					"active": 0.12,
+					"recovery": 0.8,
+					"cooldown": 2.2,
+					"damage_mult": 1.2,
+					"trigger_range": 80,
+					"weight": 1,
+					"anim": "slash",
+					"range": 86,
+					"arc": 130,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.35
+						}
+					]
+				},
+				{
+					"id": "charge",
+					"shape": "line",
+					"windup": 0.8,
+					"active": 0.3,
+					"recovery": 0.9,
+					"cooldown": 4.5,
+					"damage_mult": 1.2,
+					"trigger_range": 220,
+					"weight": 1,
+					"anim": "thrust",
+					"range": 200,
+					"width": 40,
+					"dash_distance": 200
+				},
+				{
+					"id": "ground_pound",
+					"shape": "circle",
+					"windup": 1.2,
+					"active": 0.15,
+					"recovery": 1.0,
+					"cooldown": 6.0,
+					"damage_mult": 1.4,
+					"trigger_range": 90,
+					"weight": 1,
+					"anim": "slash",
+					"range": 100,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.4
+						}
+					]
+				}
+			],
+			"boss": true,
+			"phases": [
+				{
+					"name": "Rask the Cleaver",
+					"hp_below": 1,
+					"speed_mult": 1,
+					"attacks": [
+						"cleave",
+						"charge"
+					]
+				},
+				{
+					"name": "Rask Enraged",
+					"hp_below": 0.5,
+					"speed_mult": 1.25,
+					"attacks": [
+						"cleave",
+						"charge",
+						"ground_pound"
+					],
+					"summons": [
+						{
+							"id": "bandit_thug",
+							"count": 2
+						}
+					]
+				}
+			],
+			"resist": {
+				"stun": 0.5
+			},
+			"loot": {
+				"slots": [
+					"head",
+					"legs",
+					"weapon",
+					"chest"
+				],
+				"items": [
+					{
+						"id": "rask_cleaver",
+						"chance": 0.45
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.3
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.2
+					}
+				]
+			},
+			"materials": {
+				"hide": 1
+			}
+		},
+		{
+			"id": "bandit_veyra",
+			"name": "Veyra the Hexer",
+			"tier": 1,
+			"role": "Mini-jefe del tier 1",
+			"description": "Teniente del Cuervo. Descargas de orbes desde lejos; por debajo de la mitad se rodea de arqueros y suelta una onda.",
+			"stats": {
+				"health": 470,
+				"speed": 92,
+				"radius": 15,
+				"damage": 18,
+				"armor": 10,
+				"xp": 140
+			},
+			"ai": {
+				"aggro_range": 330,
+				"leash": 2,
+				"keep_distance": 230
+			},
+			"respawn_seconds": 40,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "female",
+						"skin": "light",
+						"eyes": "green",
+						"head": "head_human_female",
+						"hair": "hair_bob",
+						"hair_color": "red",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"navy"
+						],
+						"legs": [
+							"pants_dyed",
+							"navy"
+						],
+						"feet": [
+							"shoes_basic",
+							"leather"
+						],
+						"head": [
+							"hood",
+							"maroon"
+						],
+						"bag": [
+							"cape",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_staff",
+							"default"
+						]
+					}
+				},
+				"scale": 1.05
+			},
+			"attacks": [
+				{
+					"id": "barrage",
+					"shape": "projectile",
+					"windup": 0.9,
+					"active": 0.1,
+					"recovery": 0.7,
+					"cooldown": 3.0,
+					"damage_mult": 0.8,
+					"trigger_range": 340,
+					"weight": 1,
+					"anim": "spellcast",
+					"projectile": {
+						"speed": 250,
+						"range": 400,
+						"radius": 7,
+						"count": 5,
+						"spread": 56,
+						"pierce": 0,
+						"visual": "wisp"
+					},
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.5,
+							"strength": 0.3
+						}
+					]
+				},
+				{
+					"id": "nova",
+					"shape": "circle",
+					"windup": 1.1,
+					"active": 0.12,
+					"recovery": 0.9,
+					"cooldown": 5.0,
+					"damage_mult": 1.3,
+					"trigger_range": 100,
+					"weight": 1,
+					"anim": "spellcast",
+					"range": 110,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.4
+						}
+					]
+				},
+				{
+					"id": "hex_bolt",
+					"shape": "projectile",
+					"windup": 0.7,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 2.2,
+					"damage_mult": 1.0,
+					"trigger_range": 330,
+					"weight": 1,
+					"anim": "spellcast",
+					"projectile": {
+						"speed": 280,
+						"range": 380,
+						"radius": 8,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "wisp"
+					}
+				}
+			],
+			"boss": true,
+			"phases": [
+				{
+					"name": "Veyra the Hexer",
+					"hp_below": 1,
+					"speed_mult": 1,
+					"attacks": [
+						"barrage",
+						"hex_bolt"
+					]
+				},
+				{
+					"name": "Veyra Unbound",
+					"hp_below": 0.5,
+					"speed_mult": 1.25,
+					"attacks": [
+						"barrage",
+						"hex_bolt",
+						"nova"
+					],
+					"summons": [
+						{
+							"id": "bandit_archer",
+							"count": 2
+						}
+					]
+				}
+			],
+			"resist": {
+				"stun": 0.5
+			},
+			"loot": {
+				"slots": [
+					"head",
+					"ring",
+					"weapon",
+					"legs"
+				],
+				"items": [
+					{
+						"id": "veyra_wand",
+						"chance": 0.45
+					},
+					{
+						"id": "crow_hood",
+						"chance": 0.3
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.2
+					}
+				]
+			},
+			"materials": {
+				"herb": 1
+			}
+		},
+		{
+			"id": "bandit_garrick",
+			"name": "Garrick Blackhand",
+			"tier": 1,
+			"role": "Jefe del tier 1",
+			"description": "El jefe del Cuervo, enorme y con muchos recursos: elige el golpe segun la distancia (salto sobre ti si huyes, cuchillos a media distancia, torbellino y tajos si te pegas) y llama a su banda en cada fase.",
+			"stats": {
+				"health": 1900,
+				"speed": 64,
+				"radius": 24,
+				"damage": 32,
+				"armor": 35,
+				"xp": 400
+			},
+			"ai": {
+				"aggro_range": 340,
+				"leash": 2
+			},
+			"respawn_seconds": 40,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "light",
+						"eyes": "gray",
+						"head": "head_human_male",
+						"hair": "hair_buzzcut",
+						"hair_color": "black",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"tan"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"bag": [
+							"cape",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_arming",
+							"default"
+						],
+						"off_hand": [
+							"shield_round",
+							"default"
+						]
+					}
+				},
+				"scale": 2.3
+			},
+			"attacks": [
+				{
+					"id": "crush",
+					"shape": "cone",
+					"windup": 0.95,
+					"active": 0.12,
+					"recovery": 0.7,
+					"cooldown": 2.0,
+					"damage_mult": 1.1,
+					"trigger_range": 100,
+					"weight": 3,
+					"anim": "slash",
+					"range": 104,
+					"arc": 130,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.35
+						}
+					]
+				},
+				{
+					"id": "backhand",
+					"shape": "cone",
+					"windup": 0.5,
+					"active": 0.1,
+					"recovery": 0.5,
+					"cooldown": 1.6,
+					"damage_mult": 0.8,
+					"trigger_range": 76,
+					"weight": 2,
+					"anim": "slash",
+					"range": 80,
+					"arc": 200
+				},
+				{
+					"id": "whirlwind",
+					"shape": "circle",
+					"windup": 1.0,
+					"active": 0.2,
+					"recovery": 0.9,
+					"cooldown": 5.5,
+					"damage_mult": 1.3,
+					"trigger_range": 100,
+					"weight": 2,
+					"anim": "slash",
+					"range": 120
+				},
+				{
+					"id": "charge",
+					"shape": "line",
+					"windup": 0.8,
+					"active": 0.35,
+					"recovery": 1.0,
+					"cooldown": 5.0,
+					"damage_mult": 1.2,
+					"trigger_range": 250,
+					"weight": 2,
+					"anim": "thrust",
+					"range": 240,
+					"width": 48,
+					"dash_distance": 240
+				},
+				{
+					"id": "leap_slam",
+					"shape": "line",
+					"windup": 0.9,
+					"active": 0.4,
+					"recovery": 1.0,
+					"cooldown": 7.0,
+					"damage_mult": 1.4,
+					"trigger_range": 340,
+					"weight": 3,
+					"anim": "thrust",
+					"range": 340,
+					"width": 60,
+					"dash_distance": 320,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.4
+						}
+					]
+				},
+				{
+					"id": "throwing_knives",
+					"shape": "projectile",
+					"windup": 0.7,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 3.0,
+					"damage_mult": 0.5,
+					"trigger_range": 300,
+					"weight": 3,
+					"anim": "shoot",
+					"projectile": {
+						"speed": 300,
+						"range": 330,
+						"radius": 6,
+						"count": 3,
+						"spread": 30,
+						"pierce": 0,
+						"visual": "stinger"
+					},
+					"on_hit": [
+						{
+							"id": "poison",
+							"duration": 3,
+							"strength": 3
+						}
+					]
+				},
+				{
+					"id": "crossbow_volley",
+					"shape": "projectile",
+					"windup": 0.8,
+					"active": 0.1,
+					"recovery": 0.7,
+					"cooldown": 4.5,
+					"damage_mult": 0.5,
+					"trigger_range": 330,
+					"weight": 2,
+					"anim": "shoot",
+					"projectile": {
+						"speed": 260,
+						"range": 360,
+						"radius": 7,
+						"count": 7,
+						"spread": 90,
+						"pierce": 0,
+						"visual": "stinger"
+					},
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.2,
+							"strength": 0.25
+						}
+					]
+				},
+				{
+					"id": "quake",
+					"shape": "circle",
+					"windup": 1.3,
+					"active": 0.15,
+					"recovery": 1.0,
+					"cooldown": 6.5,
+					"damage_mult": 1.5,
+					"trigger_range": 125,
+					"weight": 2,
+					"anim": "slash",
+					"range": 150,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.4
+						}
+					]
+				}
+			],
+			"boss": true,
+			"phases": [
+				{
+					"name": "Garrick Blackhand",
+					"hp_below": 1,
+					"speed_mult": 1,
+					"attacks": [
+						"crush",
+						"backhand",
+						"leap_slam",
+						"throwing_knives"
+					]
+				},
+				{
+					"name": "The Crows Call",
+					"hp_below": 0.75,
+					"speed_mult": 1.15,
+					"attacks": [
+						"crush",
+						"backhand",
+						"whirlwind",
+						"charge",
+						"leap_slam",
+						"throwing_knives",
+						"crossbow_volley"
+					],
+					"summons": [
+						{
+							"id": "bandit_swordsman",
+							"count": 2
+						},
+						{
+							"id": "bandit_archer",
+							"count": 1
+						}
+					]
+				},
+				{
+					"name": "Blackhands Wrath",
+					"hp_below": 0.5,
+					"speed_mult": 1.3,
+					"attacks": [
+						"crush",
+						"backhand",
+						"whirlwind",
+						"charge",
+						"leap_slam",
+						"throwing_knives",
+						"crossbow_volley",
+						"quake"
+					],
+					"summons": [
+						{
+							"id": "bandit_cutthroat",
+							"count": 2
+						},
+						{
+							"id": "bandit_hexer",
+							"count": 1
+						}
+					]
+				},
+				{
+					"name": "Blackhands Last Stand",
+					"hp_below": 0.25,
+					"speed_mult": 1.55,
+					"attacks": [
+						"backhand",
+						"whirlwind",
+						"charge",
+						"leap_slam",
+						"throwing_knives",
+						"crossbow_volley",
+						"quake"
+					],
+					"summons": [
+						{
+							"id": "bandit_shieldman",
+							"count": 1
+						},
+						{
+							"id": "bandit_thug",
+							"count": 2
+						}
+					]
+				}
+			],
+			"resist": {
+				"stun": 1,
+				"slow": 0.5
+			},
+			"loot": {
+				"slots": [
+					"weapon",
+					"chest",
+					"ring",
+					"head",
+					"legs"
+				],
+				"items": [
+					{
+						"id": "blackhand_signet",
+						"chance": 0.55
+					},
+					{
+						"id": "rask_cleaver",
+						"chance": 0.15
+					},
+					{
+						"id": "veyra_wand",
+						"chance": 0.15
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.3
+					},
+					{
+						"id": "crow_bandana",
+						"chance": 0.25
+					}
+				]
+			},
+			"materials": {
+				"hide": 1
+			}
+		}
+	]
 }
