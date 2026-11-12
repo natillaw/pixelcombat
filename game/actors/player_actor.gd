@@ -413,7 +413,8 @@ func _on_dodge_started(_direction: Vector2) -> void:
 	sprite.speed_scale = 1.8
 	if arena == null:
 		return
-	arena.play_event("dodge", sim.position)
+	var mobility_event := "mobility_%s" % String(sim.mobility().get("kind", "roll"))
+	arena.play_event(mobility_event if not FxLibrary.event_fx(mobility_event).is_empty() else "dodge", sim.position)
 	arena.play_sfx(SFX_DODGE, -10.0, randf_range(1.05, 1.2))
 
 

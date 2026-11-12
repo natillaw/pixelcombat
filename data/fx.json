@@ -2140,7 +2140,13 @@
 			"hit": "ice/snowball-impact"
 		},
 		"quick_shot": {
-			"cast": [],
+			"cast": [
+				{
+					"id": "kit/burst_fire",
+					"scale": 0.35,
+					"ahead": 0.2
+				}
+			],
 			"hit": "projectiles/arrow-impact"
 		},
 		"charged_shot": {
@@ -2155,11 +2161,29 @@
 			"crit": "impacts/crit-hit"
 		},
 		"multishot": {
-			"cast": [],
+			"cast": [
+				{
+					"id": "kit/burst_fire",
+					"scale": 0.55,
+					"ahead": 0.25
+				},
+				{
+					"id": "wind/wind-gust",
+					"scale": 0.5,
+					"ahead": 0.3
+				}
+			],
 			"hit": "projectiles/arrow-impact"
 		},
 		"explosive_arrow": {
-			"cast": [],
+			"cast": [
+				{
+					"id": "fire/ground-flames",
+					"scale": 0.4,
+					"ahead": 0.2,
+					"seconds": 0.4
+				}
+			],
 			"hit": "explosions/small-explosion",
 			"crit": "fire/fireball-impact"
 		},
@@ -2190,12 +2214,25 @@
 			"hit": "projectiles/arrow-impact"
 		},
 		"piercing_arrow": {
-			"cast": [],
+			"cast": [
+				{
+					"id": "kit/thrust_thunder",
+					"scale": 0.5,
+					"ahead": 0.25
+				}
+			],
 			"hit": "projectiles/arrow-impact",
 			"crit": "impacts/crit-hit"
 		},
 		"crippling_arrow": {
-			"cast": [],
+			"cast": [
+				{
+					"id": "ice/frost-breath",
+					"scale": 0.45,
+					"ahead": 0.25,
+					"seconds": 0.4
+				}
+			],
 			"hit": "ice/snowball-impact"
 		}
 	},
@@ -2337,6 +2374,141 @@
 				"id": "arcane/teleport-in",
 				"scale": 1
 			}
+		],
+		"mobility_charge": [
+			{
+				"id": "smoke/dash-dust",
+				"scale": 1.2,
+				"up": -4
+			},
+			{
+				"id": "impacts/shockwave-ring",
+				"scale": 0.7,
+				"up": -2
+			}
+		],
+		"mobility_roll": [
+			{
+				"id": "smoke/dash-dust",
+				"scale": 1.0,
+				"up": -4
+			}
+		],
+		"mobility_blink": [
+			{
+				"id": "arcane/blink-out",
+				"scale": 1.0,
+				"up": 0
+			},
+			{
+				"id": "arcane/teleport-in",
+				"scale": 0.9,
+				"up": 0
+			}
+		],
+		"mobility_backstep": [
+			{
+				"id": "smoke/dash-dust",
+				"scale": 1.2,
+				"up": -4
+			},
+			{
+				"id": "wind/wind-gust",
+				"scale": 0.6,
+				"up": -10
+			}
 		]
+	},
+	"projectiles": {
+		"bolt": {
+			"id": "projectiles/magic-missile",
+			"scale": 0.55,
+			"tint": [
+				0.85,
+				0.65,
+				1.0,
+				1.0
+			]
+		},
+		"orb": {
+			"id": "arcane/arcane-orb-projectile",
+			"scale": 0.85,
+			"tint": [
+				1,
+				1,
+				1,
+				1
+			]
+		},
+		"fire": {
+			"id": "projectiles/magic-missile",
+			"scale": 0.7,
+			"tint": [
+				1.0,
+				0.5,
+				0.15,
+				1.0
+			]
+		},
+		"ice": {
+			"id": "projectiles/ice-shard",
+			"scale": 0.6,
+			"tint": [
+				1,
+				1,
+				1,
+				1
+			]
+		},
+		"arrow": {
+			"id": "projectiles/poison-dart",
+			"scale": 0.6,
+			"tint": [
+				1.0,
+				0.93,
+				0.75,
+				1.0
+			]
+		},
+		"knife": {
+			"id": "projectiles/poison-dart",
+			"scale": 0.5,
+			"tint": [
+				0.85,
+				0.9,
+				1.0,
+				1.0
+			]
+		},
+		"wisp": {
+			"id": "kit/orb_ice",
+			"scale": 0.7,
+			"tint": [
+				0.7,
+				1.0,
+				1.0,
+				1.0
+			]
+		},
+		"stinger": {
+			"id": "projectiles/poison-dart",
+			"scale": 0.45,
+			"tint": [
+				1.0,
+				0.85,
+				0.2,
+				1.0
+			]
+		},
+		"spit": {
+			"id": "nature/acid-spit",
+			"scale": 0.6,
+			"tint": [
+				1,
+				1,
+				1,
+				1
+			]
+		}
 	}
 }

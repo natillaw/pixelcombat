@@ -6,6 +6,7 @@
 ##            se coloca sobre la posicion del efecto, `blend` "add" (luz aditiva) o "mix"
 ##   skills: {skill_id: {cast: [{id, scale, ahead|at, up}], hit: id, crit: id}}: que efecto
 ##           acompana a cada habilidad al lanzarla y al acertar
+##   projectiles: {visual: {id, scale, tint}}: sprite que dibuja cada tipo de proyectil
 ##   events: {nombre: [{id, scale, up}]}: efectos de sucesos (subir de nivel, esquiva, estados...)
 ## Efectos: PVFX Foundry (CC0) y Pixel Spell & Combat FX; ver assets/pixel/fx/vfx/CREDITS.txt.
 class_name FxLibrary
@@ -45,6 +46,12 @@ static func effect_ids() -> Array:
 static func skill_fx(skill_id: String) -> Dictionary:
 	_ensure()
 	return ((_data.get("skills", {}) as Dictionary).get(skill_id, {}) as Dictionary).duplicate(true)
+
+
+## Sprite de un proyectil segun su `visual` ({id, scale, tint}); {} si no hay (se dibuja por codigo).
+static func projectile_fx(visual: String) -> Dictionary:
+	_ensure()
+	return ((_data.get("projectiles", {}) as Dictionary).get(visual, {}) as Dictionary).duplicate(true)
 
 
 static func event_fx(name: String) -> Array:
@@ -95,6 +102,9 @@ static func errors() -> Array[String]:
 		for ref: String in refs:
 			if not has_effect(ref):
 				problems.append("skill %s: efecto desconocido %s" % [skill_id, ref])
+	for visual: String in (_data.get("projectiles", {}) as Dictionary):
+		if not has_effect(String(_data["projectiles"][visual]["id"])):
+			problems.append("proyectil %s: efecto desconocido %s" % [visual, _data["projectiles"][visual]["id"]])
 	for name: String in (_data.get("events", {}) as Dictionary):
 		for entry: Variant in _data["events"][name]:
 			if not has_effect(String((entry as Dictionary)["id"])):

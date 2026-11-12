@@ -12,12 +12,37 @@ var sim: ProjectileSim
 
 var _trail: Array[Vector2] = []
 var _age: float = 0.0
+## Sprite animado del paquete de efectos (si el `visual` tiene uno); si no, se dibuja por codigo.
+var _sprite: AnimatedSprite2D = null
 
 
 func setup(p_sim: ProjectileSim) -> void:
 	sim = p_sim
 	position = sim.position
 	z_index = 5
+	var spec := FxLibrary.projectile_fx(String(sim.visual))
+	if not spec.is_empty():
+		_build_sprite(spec)
+
+
+func _build_sprite(spec: Dictionary) -> void:
+	var effect := FxLibrary.effect(String(spec["id"]))
+	_sprite = AnimatedSprite2D.new()
+	_sprite.sprite_frames = FxLibrary.frames(String(spec["id"]))
+	_sprite.centered = true
+	_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var pivot: Array = effect["pivot"]
+	_sprite.offset = Vector2(float(effect["w"]) * 0.5 - float(pivot[0]), float(effect["h"]) * 0.5 - float(pivot[1]))
+	_sprite.scale = Vector2.ONE * float(spec["scale"])
+	var tint: Array = spec["tint"]
+	_sprite.modulate = Color(float(tint[0]), float(tint[1]), float(tint[2]), float(tint[3]))
+	_sprite.material = FxSprite.additive()
+	_sprite.position = LIFT
+	_sprite.rotation = sim.direction.angle()
+	# Los efectos que no hacen bucle se repiten mientras vuela el proyectil.
+	_sprite.animation_finished.connect(func() -> void: _sprite.play(&"play"))
+	add_child(_sprite)
+	_sprite.play(&"play")
 
 
 func _process(delta: float) -> void:
@@ -28,6 +53,8 @@ func _process(delta: float) -> void:
 		queue_free()
 		return
 	position = sim.position
+	if _sprite != null:
+		_sprite.rotation = sim.direction.angle()
 	_trail.append(sim.position)
 	if _trail.size() > TRAIL_POINTS:
 		_trail.pop_front()
@@ -51,6 +78,11 @@ func _draw() -> void:
 	var direction := sim.direction
 	var center := LIFT
 	var side := direction.orthogonal()
+	if _sprite != null:
+		# El sprite del paquete ya es el cuerpo; solo se anade el aro de peligro de los hostiles.
+		if sim.hostile:
+			draw_arc(center, sim.radius + 3.5, 0.0, TAU, 20, Color(1.0, 0.28, 0.2, 0.85), 1.5)
+		return
 	match sim.visual:
 		"arrow":
 			var tail := center - direction * 15.0
