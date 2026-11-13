@@ -10,6 +10,8 @@ LPC con composición por capas, 188 checks de test headless en verde.
 
 **Estado 13 nov 2026 (ronda de pulido, rama `feat/beta-polish-review`):** los 10 pisos del tier 1 son jugables de principio a fin con misiones con lore (pisos 2-9 con dos misiones principales cada uno), nivel limitado por el piso, 4 clases equilibradas en el laboratorio de duelos PvP (40-60 %), modos de reglas PvE/PvP, musica por zona y momento, accesibilidad, guardado atomico y 61 suites en verde. Detalle y limitaciones en `docs/DECISIONES.md` (secciones del 13 nov). Pendiente de jugar a mano: el jefe del piso 10, el feel con teclado y raton, el rendimiento en GPU real y el audio.
 
+**Siguiente nivel (valoracion como jugador, 13 nov):** el plan para pasar de prototipo pulido a juego bueno esta en `docs/ROADMAP_JUGABILIDAD.md` (fases 0-3: playtest, enemigos y combate, mapas y botin, endgame y PvP).
+
 Fecha del roadmap: 10 nov 2026. Todo es provisional y se revisa al cerrar cada fase.
 
 ---
