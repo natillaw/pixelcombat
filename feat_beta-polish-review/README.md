@@ -1,5 +1,5 @@
 # Capturas de feat/beta-polish-review
-Commit `3f17a0c` — 2026-11-13 12:35 UTC
+Commit `3283128` — 2026-11-13 12:43 UTC
 
 ## 01_arena.png
 ![](01_arena.png)
