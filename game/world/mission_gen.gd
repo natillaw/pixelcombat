@@ -587,6 +587,10 @@ static func _add_ambient(ctx: Ctx) -> void:
 	var reach := ctx.analysis.reach.size()
 	var camps := maxi(3, reach / int(camps_cfg["cells_per_camp"]))
 	var size_range: Array = camps_cfg["size"]
+	# Los primeros pisos llevan campamentos mas pequeños (un personaje de nivel 1-2 no debe pelear contra cuatro a la vez).
+	var by_floor: Dictionary = camps_cfg.get("size_by_floor", {})
+	if by_floor.has(str(ctx.layout.floor_number)):
+		size_range = by_floor[str(ctx.layout.floor_number)]
 	for i: int in range(camps):
 		var spot := _spot(ctx, 0.14, 1.0, 2, float(camps_cfg["spacing"]))
 		var size := ctx.rng.randi_range(int(size_range[0]), int(size_range[1])) + (ctx.tier - 1) / 3

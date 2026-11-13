@@ -46,7 +46,7 @@ static func _score(piece: Dictionary) -> float:
 
 ## Recorre los pisos 1..max_floor. `regen` = fraccion de vida maxima por segundo fuera de combate.
 ## Devuelve una fila por piso: {floor, level_start, level_end, seconds, deaths, hp_lost, completed, items}.
-static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below: float = 0.0, forced_clear: bool = false) -> Array:
+static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below: float = 0.0, forced_clear: bool = false, on_row: Callable = Callable()) -> Array:
 	var world := CombatWorld.new(SEED)
 	var session := GameSession.new(world, "")
 	world.player.safe_zone = true
@@ -120,6 +120,8 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 		row["level_end"] = world.player.level
 		row["hp_max"] = world.player.max_health
 		rows.append(row)
+		if on_row.is_valid():
+			on_row.call(row)
 		if not bool(row["completed"]):
 			break
 	PlayerSim.regen_per_second = 0.015

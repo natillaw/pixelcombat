@@ -133,7 +133,10 @@ func _test_feasibility_everywhere() -> void:
 func _test_plan_shapes() -> void:
 	var normal := TowerGenerator.generate(3, SEED, 1)
 	var mains: Array = normal.mission_plan["missions"].filter(func(s: Dictionary) -> bool: return not bool(s["optional"]))
-	_check(mains.size() == 1 and float(normal.mission_plan["time_limit"]) == 0.0, "un piso normal tiene una mision principal y sin limite de tiempo")
+	_check(mains.size() == 2 and float(normal.mission_plan["time_limit"]) == 0.0, "un piso con historia (2-9) tiene dos misiones principales y sin limite de tiempo")
+	var tutorial := TowerGenerator.generate(1, SEED, 1)
+	var tutorial_mains: Array = tutorial.mission_plan["missions"].filter(func(s: Dictionary) -> bool: return not bool(s["optional"]))
+	_check(tutorial_mains.size() == 1, "el piso 1 (tutorial) tiene una sola mision principal")
 	var mid := TowerGenerator.generate(5, SEED, 1)
 	var mid_ids: Array = mid.mission_plan["missions"].map(func(s: Dictionary) -> String: return String(s["id"]))
 	_check(mid_ids.has("bosses") and mid.mission_plan["missions"].filter(func(s: Dictionary) -> bool: return not bool(s["optional"])).size() == 2, "el piso 5 es una mision doble con los dos mini-jefes")
