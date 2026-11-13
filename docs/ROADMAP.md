@@ -111,6 +111,7 @@ Objetivo: que el Warrior *se sienta* bien. Todo lo demás depende de esto.
 - Zona segura: aquí se cambia loadout, clase y equipo.
 - Guardado en disco (versionado desde el día uno).
 
+> **Estado (13 nov):** ciudad con 10 residentes con dialogo, props (estandartes, braseros, puestos, bancos, maceteros, farolas) y fuente con cristal; ver DECISIONES.
 > **Estado:** hecho el esqueleto (plaza, torre, patio, 5 fachadas con puerta que avisa "proximamente", zona segura, guardado versionado). Faltan tilemaps LPC, NPCs y el interior de los edificios.
 
 **Hecho cuando:** se camina por la ciudad, se entra a cada edificio y se cruza el portal a un piso de prueba.

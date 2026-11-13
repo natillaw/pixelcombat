@@ -54,6 +54,7 @@ $suites = @(
     "tests/test_facing.gd",
     "tests/test_tutorial.gd",
     "tests/test_campfire.gd",
+    "tests/test_city_life.gd",
     "tests/test_dodge.gd",
     "tests/test_kits.gd",
     "tests/test_combat_depth.gd",

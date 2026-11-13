@@ -206,7 +206,7 @@ func portal_prompt(portal: Dictionary) -> String:
 		label = "Torre - piso %d (</> cambian)" % selected_floor
 	if not portal_active(portal):
 		return "%s (completa el piso)" % label
-	return "E: %s" % label
+	return "%s: %s" % [Settings.short_label("interact"), label]
 
 
 func try_interact() -> void:
@@ -235,7 +235,9 @@ func try_interact() -> void:
 		"next_floor":
 			go_to_floor(layout.floor_number + 1)
 		_:
-			if action.begins_with("building:"):
+			if action.begins_with("talk:"):
+				_talk_to(action.substr("talk:".length()))
+			elif action.begins_with("building:"):
 				var station := action.substr("building:".length())
 				if SERVICE_STATIONS.has(station):
 					var service_line := Lore.npc_line(station, tower.story_stage())
@@ -249,6 +251,22 @@ func try_interact() -> void:
 					if not line.is_empty():
 						message.emit(line)
 					building_opened.emit(station)
+
+
+## Veces que se ha hablado con cada residente en esta sesion (rota entre sus frases).
+var _talk_visits: Dictionary = {}
+
+
+## Un residente de la ciudad dice su frase de la etapa actual de la historia.
+func _talk_to(resident_id: String) -> void:
+	var entry := Residents.find(resident_id)
+	if entry.is_empty():
+		return
+	var visit := int(_talk_visits.get(resident_id, 0))
+	_talk_visits[resident_id] = visit + 1
+	var line := Residents.line_for(entry, tower.story_stage(), visit)
+	if not line.is_empty():
+		message.emit("%s: %s" % [String(entry["name"]).get_slice(",", 0), line])
 
 
 ## Tier mas alto con el que se puede fabricar: el del piso mas alto abierto en la torre.
@@ -276,7 +294,7 @@ func objective_text() -> String:
 				return "Piso completado - sube por la salida"
 			return ""
 		FloorLayout.KIND_CITY:
-			return "Entra a la torre (E) en el centro"
+			return "Entra a la torre (%s) en el centro" % Settings.short_label("interact")
 		_:
 			return "Practica el combate"
 

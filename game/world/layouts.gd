@@ -104,6 +104,8 @@ static func city() -> FloorLayout:
 		_building(layout, grid, {"id": id, "sprite": String(slot[3]), "label": String(slot[4]), "scale": 2.0, "cx": int(slot[0]), "base": int(slot[1]), "half": 2, "door": has_door, "action": "building:" + id})
 	layout.portals.append({"id": "to_training", "position": Vector2(77.0 * 32.0, 31.5 * 32.0), "radius": 38.0, "label": "Patio de entrenamiento", "action": "to_training", "requires_complete": false})
 	_decorate_city(layout, grid)
+	_dress_city(layout)
+	_residents(layout)
 	_townsfolk(layout)
 	layout.torches = []
 	for y: int in [20, 25, 36, 41, 52, 57]:
@@ -145,6 +147,8 @@ const TOWNSFOLK := [
 	["Aldeano", Vector2(40.5, 21.0), Vector2(45.0, 21.0)], ["Viajera", Vector2(41.0, 37.0), Vector2(41.0, 47.0)],
 	["Aldeano", Vector2(44.5, 38.0), Vector2(44.5, 55.0)], ["Peregrina", Vector2(40.5, 56.0), Vector2(45.5, 50.0)],
 	["Aldeano", Vector2(43.0, 24.0), Vector2(43.0, 27.5)], ["Viajero", Vector2(45.5, 44.0), Vector2(40.5, 44.0)],
+	["Mercader", Vector2(20.0, 31.5), Vector2(34.0, 31.5)], ["Aldeana", Vector2(51.0, 47.5), Vector2(72.0, 47.5)],
+	["Aventurero", Vector2(12.0, 47.0), Vector2(30.0, 47.0)], ["Aldeana", Vector2(52.0, 31.0), Vector2(66.0, 31.0)],
 ]
 
 
@@ -162,6 +166,66 @@ static func _townsfolk(layout: FloorLayout) -> void:
 		var to: Vector2 = (entry[2] as Vector2) * 32.0
 		layout.npcs.append({"id": "folk_%d" % i, "name": String(entry[0]), "position": from, "look": LpcWardrobe.random_look(rng), "equipment": outfits[i % outfits.size()],
 			"wander": {"from": from, "to": to, "speed": rng.randf_range(16.0, 26.0)}})
+
+
+## Residentes (data/residents.json): un PNJ en su casilla, su colision y un portal "talk:<id>" para hablar con el.
+static func _residents(layout: FloorLayout) -> void:
+	for entry_value: Variant in Residents.all():
+		var entry: Dictionary = entry_value
+		var cell: Array = entry["cell"]
+		var spot := Vector2((float(cell[0]) + 0.5) * 32.0, (float(cell[1]) + 0.5) * 32.0)
+		var id := String(entry["id"])
+		layout.npcs.append({"id": "res_" + id, "name": String(entry["name"]), "position": spot, "look": Residents.look_of(entry), "equipment": Residents.OUTFITS[String(entry["outfit"])],
+			"face": String(entry.get("face", "down")), "bubble": bool(entry.get("bubble", false))})
+		layout.obstacles.append({"position": spot, "radius": 13.0, "hidden": true})
+		layout.portals.append({"id": "talk_" + id, "position": spot, "radius": 46.0, "label": "Hablar con " + String(entry["name"]), "action": "talk:" + id, "requires_complete": false})
+
+
+## Viste la ciudad con props (estandartes, braseros, puestos, bancos, maceteros, farolas, parterres y el
+## anillo de la plaza). La colision de cada uno es un circulo oculto, asi no cambia el mapa de casillas.
+static func _dress_city(layout: FloorLayout) -> void:
+	var solid := func(cell: Vector2, radius: float) -> void:
+		layout.obstacles.append({"position": cell * 32.0, "radius": radius, "hidden": true})
+	var add := func(kind: String, cell: Vector2, radius: float, variant: int = 0) -> void:
+		layout.props.append({"kind": kind, "position": cell * 32.0, "variant": variant})
+		if radius > 0.0:
+			layout.obstacles.append({"position": cell * 32.0 + Vector2(0.0, -6.0), "radius": radius, "hidden": true})
+	layout.props.append({"kind": "plaza_ring", "position": Vector2(42.5, 31.5) * 32.0, "variant": 0})
+	# Puerta de la Torre: braseros, estandartes y los guardias (residentes) a los lados.
+	add.call("brazier", Vector2(38.0, 15.9), 12.0)
+	add.call("brazier", Vector2(47.0, 15.9), 12.0)
+	add.call("banner", Vector2(36.0, 16.4), 8.0)
+	add.call("banner", Vector2(49.0, 16.4), 8.0)
+	# Avenida norte: estandartes a ambos lados y farolas.
+	for row: float in [20.5, 26.0]:
+		add.call("banner", Vector2(37.5, row), 8.0)
+		add.call("banner", Vector2(48.0, row), 8.0)
+	# Plaza: bancos, maceteros en anillo y parterres de flores alrededor.
+	for bench: Vector2 in [Vector2(36.6, 27.8), Vector2(48.4, 27.8), Vector2(36.6, 35.8), Vector2(48.4, 35.8)]:
+		add.call("bench", bench, 0.0)
+		solid.call(bench + Vector2(-0.35, -0.2), 14.0)
+		solid.call(bench + Vector2(0.35, -0.2), 14.0)
+	for i: int in range(10):
+		var angle := TAU * (float(i) + 0.5) / 10.0
+		var spot := Vector2(42.5, 31.5) + Vector2(cos(angle) * 5.6, sin(angle) * 5.0)
+		if absf(spot.x - 42.5) < 3.4 and absf(spot.y - 31.5) > 4.0:
+			continue
+		add.call("planter", spot, 15.0, i)
+	for bed: Vector2 in [Vector2(30.0, 25.5), Vector2(55.0, 25.5), Vector2(26.0, 36.0), Vector2(59.0, 36.0), Vector2(27.0, 52.0), Vector2(58.0, 52.0), Vector2(33.5, 23.0), Vector2(51.5, 23.0)]:
+		add.call("flowerbed", bed, 0.0, int(bed.x * 13.0 + bed.y))
+	# Mercado: dos puestos junto a la calle de la plaza (los vendedores son residentes).
+	add.call("stall", Vector2(33.5, 29.0), 0.0, 0)
+	solid.call(Vector2(32.4, 28.7), 18.0)
+	solid.call(Vector2(34.6, 28.7), 18.0)
+	add.call("stall", Vector2(52.5, 29.0), 0.0, 1)
+	solid.call(Vector2(51.4, 28.7), 18.0)
+	solid.call(Vector2(53.6, 28.7), 18.0)
+	# Farolas a lo largo de las calles transversales.
+	for lamp: Vector2 in [Vector2(12.0, 29.6), Vector2(26.0, 29.6), Vector2(58.0, 29.6), Vector2(72.0, 29.6), Vector2(12.0, 45.6), Vector2(26.0, 45.6), Vector2(58.0, 45.6), Vector2(72.0, 45.6)]:
+		add.call("lamppost", lamp, 7.0)
+	# Estatuas de guardianes a la entrada sur de la plaza.
+	add.call("statue", Vector2(38.5, 40.5), 12.0)
+	add.call("statue", Vector2(46.5, 40.5), 12.0)
 
 
 ## La Torre de las Cien Puertas: una aguja gigantesca que domina el norte de la ciudad y se

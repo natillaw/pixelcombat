@@ -411,6 +411,12 @@ func _build_props() -> void:
 			_add_static(Fountain.new() if radius >= 30.0 else CityTree.new(), obstacle["position"])
 		else:
 			_add_static(Pillar.new(), obstacle["position"])
+	for prop: Dictionary in layout.props:
+		var city_prop := CityProp.new()
+		city_prop.position = prop["position"]
+		entities.add_child(city_prop)
+		city_prop.setup(String(prop["kind"]), int(prop.get("variant", 0)))
+		_static_nodes.append(city_prop)
 	for landmark: Dictionary in layout.landmarks:
 		if String(landmark["kind"]) == "giant_tower":
 			var tower := GiantTower.new()
@@ -700,7 +706,7 @@ class Fountain extends Node2D:
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.62))
 		draw_circle(Vector2(0, 6), 40.0, Color(0.0, 0.0, 0.0, 0.25))
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-		var scale := 1.15
+		var scale := 1.35
 		var size := Vector2(RING.get_size()) * scale
 		var origin := Vector2(-size.x * 0.5, -size.y + 14.0)
 		draw_texture_rect(RING, Rect2(origin, size), false)
@@ -710,6 +716,18 @@ class Fountain extends Node2D:
 		draw_circle(Vector2.ZERO, 17.0 + sin(phase * 3.0) * 1.2, Color(0.27, 0.52, 0.68))
 		draw_arc(Vector2.ZERO, 8.0 + fmod(phase * 6.0, 9.0), 0.0, TAU, 24, Color(0.75, 0.9, 1.0, 0.5), 1.0)
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		# Cristal flotante sobre la fuente: palpita y suelta destellos (como el de la plaza de referencia).
+		var bob := sin(phase * 1.8) * 3.0
+		var top := center + Vector2(0, -34.0 + bob)
+		draw_circle(top, 30.0 + sin(phase * 2.6) * 3.0, Color(0.4, 0.65, 1.0, 0.10))
+		draw_circle(top, 18.0, Color(0.55, 0.78, 1.0, 0.14))
+		draw_colored_polygon(PackedVector2Array([top + Vector2(0, -20), top + Vector2(10, -4), top + Vector2(7, 16), top + Vector2(0, 22), top + Vector2(-7, 16), top + Vector2(-10, -4)]), Color(0.32, 0.55, 0.98))
+		draw_colored_polygon(PackedVector2Array([top + Vector2(0, -20), top + Vector2(10, -4), top + Vector2(0, 2), top + Vector2(-10, -4)]), Color(0.62, 0.82, 1.0))
+		draw_colored_polygon(PackedVector2Array([top + Vector2(0, 2), top + Vector2(10, -4), top + Vector2(7, 16), top + Vector2(0, 22)]), Color(0.2, 0.38, 0.8))
+		for i: int in range(5):
+			var t := fmod(phase * 0.6 + float(i) * 0.2, 1.0)
+			var spark := top + Vector2(sin(float(i) * 2.4 + phase) * 16.0, 22.0 - t * 52.0)
+			draw_circle(spark, 1.6, Color(0.8, 0.92, 1.0, 1.0 - t))
 
 
 ## Fachada de un edificio de oficio (decoracion; la puerta es un portal).

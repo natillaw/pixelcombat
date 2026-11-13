@@ -45,6 +45,8 @@ var grid: TileGrid = null
 var interactables: Array = []
 ## Decorado con colision ya reservada en el mapa (arboles, barriles...): [{kind, position}].
 var decor: Array = []
+## Props de la ciudad dibujados en codigo (CityProp): [{kind, position (pie), variant}].
+var props: Array = []
 ## Personajes no jugadores: [{id, name, station, position, look, equipment}].
 var npcs: Array = []
 ## Casillas de edificio (se dibujan como suelo pavimentado): [Vector2i].

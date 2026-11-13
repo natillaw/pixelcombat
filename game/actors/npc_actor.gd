@@ -28,7 +28,8 @@ func setup(p_spec: Dictionary) -> void:
 	sprite.position = LpcComposer.FEET_OFFSET
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	add_child(sprite)
-	var animation := "idle_down" if sprite.sprite_frames.has_animation("idle_down") else "walk_down"
+	var face := String(spec.get("face", "down"))
+	var animation := "idle_" + face if sprite.sprite_frames.has_animation("idle_" + face) else ("idle_down" if sprite.sprite_frames.has_animation("idle_down") else "walk_down")
 	sprite.play(animation)
 	_time = float(abs(hash(String(spec["id"]))) % 100) * 0.1
 
@@ -73,3 +74,20 @@ func _draw() -> void:
 	var at := Vector2(-size.x * 0.5, -58.0)
 	draw_rect(Rect2(at + Vector2(-3, -9), Vector2(size.x + 6, 12)), Color(0.04, 0.05, 0.08, 0.7))
 	draw_string(FONT, at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color(0.95, 0.88, 0.62))
+	_draw_bubble()
+
+
+## Globo "..." sobre los residentes que tienen algo que contar: aparece y desaparece solo (ambiente).
+func _draw_bubble() -> void:
+	if not bool(spec.get("bubble", false)):
+		return
+	var cycle := fposmod(_time, 7.0)
+	if cycle > 4.2:
+		return
+	var alpha := clampf(minf(cycle, 4.2 - cycle) * 3.0, 0.0, 1.0)
+	var top := Vector2(0, -78.0)
+	draw_rect(Rect2(top + Vector2(-11, -12), Vector2(22, 14)), Color(0.97, 0.97, 1.0, alpha))
+	draw_rect(Rect2(top + Vector2(-12, -11), Vector2(24, 12)), Color(0.97, 0.97, 1.0, alpha))
+	draw_colored_polygon(PackedVector2Array([top + Vector2(-3, 2), top + Vector2(3, 2), top + Vector2(0, 7)]), Color(0.97, 0.97, 1.0, alpha))
+	for i: int in range(3):
+		draw_circle(top + Vector2(-6.0 + float(i) * 6.0, -5.0), 1.6, Color(0.2, 0.22, 0.3, alpha))

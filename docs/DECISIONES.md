@@ -116,3 +116,12 @@ archivos de momentos distintos y no compilaba.
 
 ## Orientacion al caminar (13 nov 2026, dueño)
 El personaje ya **no** encara el cursor mientras camina (antes caminar a la derecha con el raton a la izquierda lo dejaba mirando a la izquierda): mira hacia donde se mueve, y quieto conserva la ultima direccion. Al atacar o lanzar una skill encara el cursor (`attack_aim`), como en Drakantos. `PlayerActor._update_facing` / `facing_for_movement`, `tests/test_facing.gd`. Es solo presentacion; la simulacion (`aim_dir`) no cambia.
+
+## Ciudad con vida, hogueras, tutorial y arreglos de la ronda de pulido (13 nov 2026)
+- **Residentes** (`data/residents.json`, `Residents`): 10 vecinos con los que se habla con la tecla de interactuar (portal `talk:<id>`); sus frases cambian con la etapa de la historia (`TowerState.story_stage`) y rotan entre visitas; los que tienen algo que contar llevan un globo "..." (`NpcActor._draw_bubble`). Los 10 se vistan con piezas LPC existentes (placas, yelmos, capuchas, capa). Solo hablan los residentes quietos: los 10 paseantes ambientales siguen sin dialogo (su posicion es presentacion pura y la sim no la conoce).
+- **Props de ciudad** (`CityProp`, `FloorLayout.props`): estandartes, braseros, puestos de mercado, bancos, maceteros, farolas, parterres, estatuas y el anillo de la plaza, dibujados en codigo con la paleta del juego; su colision son circulos ocultos (no cambia el mapa de casillas). La fuente lleva un cristal flotante.
+- **Hogueras de descanso** (`MissionGen.add_campfire`, `PlayerSim.rest`): una por piso del 2 al 10, opcional y sin guardia; canalizar 3 s cura el 50 % (`CombatWorld.CAMPFIRE_HEAL`), una vez por hoguera.
+- **Tutorial** (`data/tutorial.json`, `TutorialHints`): 5 pistas contextuales que salen una sola vez por personaje (bandera `tut_<id>`).
+- **Bug del agua** (`TileGrid.push_out`): un circulo con el centro dentro de un estanque de 2+ casillas no tenia salida y el jugador quedaba atrapado (es lo que dejaba clavado a la campana en el piso 5). Ahora sale por la casilla libre mas cercana (`tests/test_tilegrid.gd`).
+- **Tecla de interactuar:** el aviso decia "E" pero la tecla es G (E es la skill 2); ahora usa la tecla configurada.
+- Medido con `tools/balance/run_campaign.gd` (guerrero, pisos 1-10, tras el arreglo del agua): pisos 1-4 de 43-80 s; piso 5 en 594 s (1 muerte); pisos 6-9 de 83-130 s; el piso 10 (Garrick) no lo supera el bot (4 muertes, nivel 10). Pendiente: afinar la curva 6-9 (demasiado cortos) y el jefe del 10.

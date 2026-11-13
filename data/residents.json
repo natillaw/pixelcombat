@@ -1,0 +1,58 @@
+{
+	"_doc": "Residentes de la ciudad con los que se puede hablar (E o clic cerca). cell = casilla (columna, fila) donde se quedan; outfit = vestuario de Residents.OUTFITS; seed = semilla del aspecto LPC; lines = frases por etapa de la historia (TowerState.story_stage 0-3; si falta una etapa se usa la anterior); bubble = muestra el globo '...' que avisa de que tienen algo que contar. Esquema validado en game/residents.gd y tests/test_city_life.gd.",
+	"residents": [
+		{"id": "gate_guard_a", "name": "Bram, guardia de la Torre", "cell": [40, 17], "outfit": "guard", "seed": 11, "face": "down", "bubble": true,
+			"lines": {
+				"0": ["Nadie sabe cuantos pisos tiene la Torre. Yo solo vigilo la puerta.", "Empieza por el piso 1: es corto y los bandidos de ahi no muerden tanto."],
+				"1": ["Dicen que el Puesto Avanzado cayo. Si tu lo hiciste, la guardia te debe una cerveza."],
+				"2": ["El Barón Carmesí espera arriba. Lleva buen equipo y no te apresures."],
+				"3": ["Garrick ha caido... y aun asi la Torre sigue subiendo. Esto no ha terminado."]
+			}},
+		{"id": "gate_guard_b", "name": "Hilda, guardia de la Torre", "cell": [45, 17], "outfit": "guard_f", "seed": 12, "face": "down", "bubble": false,
+			"lines": {
+				"0": ["Si te hieren, busca hogueras de descanso en los pisos: curan la mitad de la vida.", "Las zonas rojas del suelo son ataques. Sal de ellas."],
+				"2": ["Cuantos mas pisos pasas, mas hogueras valoraras."]
+			}},
+		{"id": "bard", "name": "Fenn, el bardo", "cell": [47, 28], "outfit": "bard", "seed": 21, "face": "down", "bubble": true,
+			"lines": {
+				"0": ["Cien puertas, cien pisos, cien canciones. Aun voy por la primera.", "Se dice que un cuervo vio nacer a la Aguja hace trescientos años."],
+				"1": ["Ya canto sobre ti, forastero. La rima con 'capitan' me cuesta, eso si."],
+				"3": ["Garrick Blackhand, caido ante un recien llegado. Que balada."]
+			}},
+		{"id": "old_man", "name": "Perrin, el abuelo", "cell": [36, 35], "outfit": "elder", "seed": 31, "face": "right", "bubble": true,
+			"lines": {
+				"0": ["Cuando era joven el bosque tenia nombre propio y cantaba. Ahora solo grita.", "Las bestias del bosque son animales, no monstruos. Dejan buen cuero."],
+				"1": ["Ese Capitan era un buen hombre antes. La Torre cambia a la gente."],
+				"2": ["Si ves un cuervo en lo alto, no lo ignores."]
+			}},
+		{"id": "child", "name": "Pip", "cell": [48, 35], "outfit": "kid", "seed": 41, "face": "left", "bubble": true,
+			"lines": {
+				"0": ["¿Eres un aventurero? ¡Enseñame tu espada!", "La fuente brilla cuando alguien vuelve vivo de la Torre."],
+				"2": ["Yo tambien quiero subir cuando sea grande. Mama dice que no."]
+			}},
+		{"id": "fruit_seller", "name": "Maren, la frutera", "cell": [33, 28], "outfit": "vendor", "seed": 51, "face": "down", "bubble": true,
+			"lines": {
+				"0": ["Manzanas del bosque, ¡frescas! Hoy no vendo, pero la taberna de Ottis te cocina algo.", "Recoge hierbas en los pisos: Mira las usa para pociones."],
+				"1": ["Los bandidos ya no asaltan mis carros. ¡Gracias!"]
+			}},
+		{"id": "hunter", "name": "Jorik, el cazador", "cell": [52, 28], "outfit": "hunter", "seed": 61, "face": "down", "bubble": false,
+			"lines": {
+				"0": ["Arañas, escarabajos, abejas gigantes: todo deja materiales. Cuero, quitina, seda.", "La Reina Avispa del piso 5 pica fuerte. Esquiva su abanico."],
+				"2": ["El Barón protege su escudo con luz. Busca de donde viene."]
+			}},
+		{"id": "wounded", "name": "Sorel, aventurero", "cell": [50, 57], "outfit": "wounded", "seed": 71, "face": "left", "bubble": true,
+			"lines": {
+				"0": ["Me falto un bloqueo. Con Espacio el guerrero para casi todo si lo haces a tiempo.", "Mi consejo: pociones en 1 y 2, y no pelees sin vida."],
+				"1": ["Cornelius el Desertor me dejo asi. Vive en algun piso del 5 al 10."]
+			}},
+		{"id": "seer", "name": "Ysolde, la vidente", "cell": [31, 44], "outfit": "seer", "seed": 81, "face": "right", "bubble": true,
+			"lines": {
+				"0": ["Veo caminos que se bifurcan: uno sube, otro vuelve. Elige con cuidado.", "Hay quien oye la Torre respirar de noche."],
+				"2": ["Un baron rojo, un escudo de luz... y tu sombra mas larga que la suya."]
+			}},
+		{"id": "lookout", "name": "Kael, el vigia", "cell": [75, 34], "outfit": "scout", "seed": 91, "face": "left", "bubble": false,
+			"lines": {
+				"0": ["Ahi esta el patio de entrenamiento. Los munecos no devuelven los golpes... casi.", "Prueba tu kit alli antes de subir."]
+			}}
+	]
+}
