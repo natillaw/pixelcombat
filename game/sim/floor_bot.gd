@@ -19,6 +19,12 @@ var _unstick_ticks: int = 0
 ## Enemigos a los que no hay camino desde donde esta el bot (se descartan y se prueba con otro).
 var _ignored: Array = []
 var _field_grid: TileGrid = null
+var _fight_stuck: int = 0
+var _fight_last: Vector2 = Vector2.ZERO
+var _path_ticks: int = 0
+## Casillas con holgura suficiente para el cuerpo del jugador (por piso) y el campo de flujo por ellas.
+var _open: PackedByteArray = PackedByteArray()
+var _safe_field: PackedInt32Array = PackedInt32Array()
 
 
 func decide(world: CombatWorld) -> InputMessage:
@@ -27,7 +33,7 @@ func decide(world: CombatWorld) -> InputMessage:
 		return super.decide(world)
 	var near := _nearest_target(world)
 	if near != null:
-		return super.decide(world)
+		return _fight(world, near)
 	var message := InputMessage.new()
 	message.peer_id = 1
 	message.actions = {}
@@ -42,6 +48,7 @@ func decide(world: CombatWorld) -> InputMessage:
 		_goal_cell = cell
 		_field_grid = world.grid
 		_field = world.grid.distance_field(cell, 100000)
+		_safe_field = _build_safe_field(world.grid, cell)
 	var here := world.grid.world_to_cell(player.position)
 	if world.grid.in_bounds(here.x, here.y) and _field[here.y * world.grid.cols + here.x] < 0 and _target != null:
 		_ignored.append(_target)
@@ -50,7 +57,9 @@ func decide(world: CombatWorld) -> InputMessage:
 		if _ignored.size() > world.enemies.size():
 			_ignored.clear()
 		return message
-	var direction := world.grid.flow_direction(_field, player.position)
+	var direction := _safe_direction(world.grid, player.position)
+	if direction == Vector2.ZERO:
+		direction = world.grid.flow_direction(_field, player.position)
 	if direction == Vector2.ZERO:
 		direction = ((goal as EnemySim).position - player.position).normalized()
 	# Atascado contra un obstaculo (arbol pegado a un muro, esquina): prueba varias salidas y sigue la que mas avanza.
@@ -65,6 +74,25 @@ func decide(world: CombatWorld) -> InputMessage:
 		_stuck = 0
 	message.move_dir = direction
 	message.aim_dir = direction
+	return message
+
+
+## Pelea con la logica de BotBrain; si el avance en linea recta se atasca contra un muro (el enemigo se ve pero hay
+## una esquina de por medio), sigue el camino hasta el durante un rato.
+func _fight(world: CombatWorld, target: Object) -> InputMessage:
+	var message := super.decide(world)
+	var player: PlayerSim = world.player
+	_fight_stuck = _fight_stuck + 1 if message.move_dir != Vector2.ZERO and player.position.distance_to(_fight_last) < 0.5 else 0
+	_fight_last = player.position
+	if _path_ticks > 0:
+		_path_ticks -= 1
+		var field := world.grid.distance_field(world.grid.world_to_cell(target.position), 400) if world.grid != null else PackedInt32Array()
+		var direction := world.grid.flow_direction(field, player.position) if field.size() > 0 else Vector2.ZERO
+		if direction != Vector2.ZERO:
+			message.move_dir = direction
+	elif _fight_stuck > 20 and target.position.distance_to(player.position) > 50.0:
+		_path_ticks = 90
+		_fight_stuck = 0
 	return message
 
 
@@ -116,3 +144,82 @@ func _best_escape(world: CombatWorld, player: PlayerSim, blocked: Vector2) -> Ve
 			best_gain = gain
 			best = candidate
 	return best
+
+
+## Campo de flujo solo por casillas por las que cabe el cuerpo (radio del jugador + holgura de muros): un atajo
+## de una casilla de ancho que el campo crudo da por bueno, la colision no deja cruzarlo.
+func _build_safe_field(grid: TileGrid, goal: Vector2i) -> PackedInt32Array:
+	var cells := grid.cols * grid.rows
+	var field := PackedInt32Array()
+	field.resize(cells)
+	field.fill(-1)
+	if _open.size() != cells or _open_grid != grid:
+		_open_grid = grid
+		var clearance := TowerGenerator._clearance_px(grid)
+		var radius := PlayerSim.RADIUS + grid.wall_margin * TileGrid.NORTH_MARGIN_FACTOR
+		_open.resize(cells)
+		for i: int in range(cells):
+			_open[i] = 1 if clearance[i] >= radius and not grid.blocks_move(i % grid.cols, i / grid.cols) else 0
+	var start := goal
+	if not _is_open(grid, goal):
+		start = Vector2i(-1, -1)
+		for ring: int in range(1, 4):
+			for dr: int in range(-ring, ring + 1):
+				for dc: int in range(-ring, ring + 1):
+					if start.x < 0 and _is_open(grid, Vector2i(goal.x + dc, goal.y + dr)):
+						start = Vector2i(goal.x + dc, goal.y + dr)
+		if start.x < 0:
+			return field
+	var queue: Array[Vector2i] = [start]
+	field[start.y * grid.cols + start.x] = 0
+	var head := 0
+	while head < queue.size():
+		var cell := queue[head]
+		head += 1
+		var here := field[cell.y * grid.cols + cell.x]
+		for dr: int in range(-1, 2):
+			for dc: int in range(-1, 2):
+				if dr == 0 and dc == 0:
+					continue
+				var next := Vector2i(cell.x + dc, cell.y + dr)
+				if not _is_open(grid, next) or field[next.y * grid.cols + next.x] != -1:
+					continue
+				if dr != 0 and dc != 0 and (not _is_open(grid, Vector2i(cell.x + dc, cell.y)) or not _is_open(grid, Vector2i(cell.x, cell.y + dr))):
+					continue
+				field[next.y * grid.cols + next.x] = here + 1
+				queue.append(next)
+	return field
+
+
+var _open_grid: TileGrid = null
+
+
+func _is_open(grid: TileGrid, cell: Vector2i) -> bool:
+	return grid.in_bounds(cell.x, cell.y) and _open[cell.y * grid.cols + cell.x] == 1
+
+
+## Direccion hacia la vecina abierta de menor distancia; ZERO si el bot no esta en una casilla del campo seguro.
+func _safe_direction(grid: TileGrid, position: Vector2) -> Vector2:
+	var cell := grid.world_to_cell(position)
+	if _safe_field.size() == 0 or not grid.in_bounds(cell.x, cell.y):
+		return Vector2.ZERO
+	var here := _safe_field[cell.y * grid.cols + cell.x]
+	if here <= 0:
+		return Vector2.ZERO
+	var best := here
+	var best_cell := cell
+	for dr: int in range(-1, 2):
+		for dc: int in range(-1, 2):
+			var next := Vector2i(cell.x + dc, cell.y + dr)
+			if (dr == 0 and dc == 0) or not grid.in_bounds(next.x, next.y):
+				continue
+			var value := _safe_field[next.y * grid.cols + next.x]
+			if value < 0 or value >= best:
+				continue
+			if dr != 0 and dc != 0 and (not _is_open(grid, Vector2i(cell.x + dc, cell.y)) or not _is_open(grid, Vector2i(cell.x, cell.y + dr))):
+				continue
+			best = value
+			best_cell = next
+	if best_cell == cell:
+		return Vector2.ZERO
+	return (grid.cell_center(best_cell.x, best_cell.y) - position).normalized()

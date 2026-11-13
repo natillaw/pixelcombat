@@ -361,7 +361,32 @@ static func _pick_enemy(ctx: Ctx, prefix: String = "") -> String:
 	return String((pool[pool.size() - 1] as Dictionary)["id"])
 
 
+## Un enemigo pegado al borde o dentro de un muro no se puede alcanzar ni siquiera con la holgura de colision: se
+## recoloca en la casilla libre mas cercana con espacio (clearance 2).
+static func _spot_with_room(ctx: Ctx, position: Vector2) -> Vector2:
+	var grid := ctx.analysis.grid
+	var origin := ctx.analysis.cell_at(position)
+	if grid.in_bounds(origin.x, origin.y) and ctx.analysis.dist[origin.y * grid.cols + origin.x] >= 0 and ctx.analysis.clearance_at(origin) >= 2:
+		return position
+	var best := position
+	var best_distance := INF
+	for ring: int in range(1, 9):
+		for dr: int in range(-ring, ring + 1):
+			for dc: int in range(-ring, ring + 1):
+				var cell := Vector2i(origin.x + dc, origin.y + dr)
+				if not grid.in_bounds(cell.x, cell.y) or ctx.analysis.dist[cell.y * grid.cols + cell.x] < 0 or ctx.analysis.clearance_at(cell) < 2:
+					continue
+				var center := ctx.analysis.cell_center(cell)
+				if center.distance_to(position) < best_distance:
+					best_distance = center.distance_to(position)
+					best = center
+		if best_distance < INF:
+			return best
+	return position
+
+
 static func _add_enemy(ctx: Ctx, id: String, position: Vector2, required: bool, group: String, extra: Dictionary = {}) -> Dictionary:
+	position = _spot_with_room(ctx, position)
 	var spec := {"id": StringName(id), "position": position, "required": required, "group": group}
 	for key: String in extra:
 		spec[key] = extra[key]

@@ -83,6 +83,7 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 			world.player.damage_taken.connect(callable)
 			var bag_before := world.player.bag.size()
 			var elapsed := 0.0
+			var probe := Vector2(-9999, -9999)
 			while elapsed < MAX_FLOOR_SECONDS and world.player.alive and not session.is_floor_done():
 				var message := bot.decide(world)
 				# Como una persona: pocion de vida con poca vida y elixir con poco recurso.
@@ -94,6 +95,11 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 				world.submit_input(message)
 				world.step(DT)
 				elapsed += DT
+				if int(elapsed * 60.0) % 7200 == 0 and elapsed > 1.0:
+					if player.position.distance_to(probe) < 80.0:
+						_diagnose(world, bot, message)
+						elapsed = MAX_FLOOR_SECONDS
+					probe = player.position
 				# Recoger todo lo que cae (el bot no hace clic). Con la mochila llena tira lo peor.
 				if world.loot_drops.size() > 0 and int(elapsed * 60.0) % 30 == 0:
 					for drop: LootDrop in world.loot_drops.duplicate():
@@ -121,6 +127,36 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 	PlayerSim.regen_per_second = 0.015
 	return rows
 
+
+static func _diagnose(world: CombatWorld, bot: FloorBot, message: InputMessage) -> void:
+	var player := world.player
+	var grid := world.grid
+	var here := grid.world_to_cell(player.position)
+	print("   [sin-avance] pos %s cell %s move_dir %s actions %s target %s" % [str(player.position), str(here), str(message.move_dir), str(message.actions.keys()), str(bot._target.position) if bot._target != null else "-"])
+	if bot._field_grid == grid and bot._field.size() > 0:
+		print("   [campo] aqui=%d" % (bot._field[here.y * grid.cols + here.x] if bot._field.size() > here.y * grid.cols + here.x else -9))
+	var near := []
+	for target: Object in world.get_living_targets():
+		if target.position.distance_to(player.position) < 400.0:
+			near.append("%s@%s inv=%s los=%s" % [target.get("def_id"), str(target.position), str(target.get("invulnerable")), str(world.line_of_sight(player.position, target.position))])
+	print("   [cerca] %s" % str(near))
+	var obs := []
+	for o: Dictionary in world.obstacles:
+		if (o["position"] as Vector2).distance_to(player.position) < 120.0:
+			obs.append("%s r=%s" % [str(o["position"]), str(o["radius"])])
+	print("   [obstaculos] %s margin=%s tile=%s" % [str(obs), str(grid.wall_margin), str(TileGrid.TILE)])
+	for dr: int in range(-4, 5):
+		var line := "   "
+		for dc: int in range(-4, 5):
+			var c := here.x + dc
+			var r := here.y + dr
+			var f: int = bot._safe_field[r * grid.cols + c] if bot._field_grid == grid and bot._safe_field.size() > r * grid.cols + c else -9
+			line += ("#### " if grid.blocks_move(c, r) else "%4d " % f)
+		print(line)
+	var moves := []
+	for step: Vector2 in [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]:
+		moves.append("%s->%s" % [str(step), str(world.resolve_position(player.position + step * 12.0, PlayerSim.RADIUS).distance_to(player.position))])
+	print("   [mov] %s" % str(moves))
 
 ## Diagnostico de un piso que no se termina: que queda vivo y donde esta el bot.
 static func _report_stuck(world: CombatWorld, session: GameSession, bot: FloorBot) -> void:
