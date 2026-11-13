@@ -172,7 +172,8 @@
 		"distance": 150,
 		"iframe_start": 0.0,
 		"iframe_end": 0.1,
-		"cooldown": 5.0
+		"cooldown": 5.0,
+		"icon": "dodge"
 	},
 	"ult_charge": {
 		"hit_scale": 0.25,

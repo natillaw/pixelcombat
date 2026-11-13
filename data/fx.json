@@ -2402,6 +2402,62 @@
 				"scale": 0.6,
 				"up": -10
 			}
+		],
+		"status_bleed": [
+			{
+				"id": "status/bleeding",
+				"scale": 0.9,
+				"up": 18
+			}
+		],
+		"status_silence": [
+			{
+				"id": "shadow/curse",
+				"scale": 0.55,
+				"up": 6
+			}
+		],
+		"status_shield": [
+			{
+				"id": "holy/shield-bubble",
+				"scale": 0.8,
+				"up": 4
+			}
+		],
+		"status_knockback": [
+			{
+				"id": "impacts/shockwave-ring",
+				"scale": 0.5,
+				"up": 2
+			}
+		],
+		"status_fed": [
+			{
+				"id": "holy/regen-aura",
+				"scale": 0.9,
+				"up": 6
+			}
+		],
+		"status_might": [
+			{
+				"id": "status/power-up-aura",
+				"scale": 0.9,
+				"up": 6
+			}
+		],
+		"status_haste": [
+			{
+				"id": "wind/wind-gust",
+				"scale": 0.7,
+				"up": 10
+			}
+		],
+		"alert": [
+			{
+				"id": "impacts/hit-spark",
+				"scale": 1.0,
+				"up": 36
+			}
 		]
 	},
 	"projectiles": {

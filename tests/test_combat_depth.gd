@@ -23,6 +23,7 @@ func _run() -> void:
 	_test_zones()
 	_test_group_coordination()
 	_test_wandering_elite()
+	_test_effects_coverage()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -215,6 +216,19 @@ func _test_wandering_elite() -> void:
 	# El elite suelta sus items propios y es un mini-jefe.
 	var deserter := EnemyCatalog.enemy(&"bandit_deserter")
 	_check(bool(deserter["boss"]) and bool(deserter["elite_boss"]) and (deserter["loot"]["items"] as Array).size() >= 3, "el Desertor es un mini-jefe con botin propio")
+
+
+## Cada estado y cada movilidad tienen su efecto, y cada movilidad su icono en el HUD.
+func _test_effects_coverage() -> void:
+	var missing: Array = []
+	for id: String in StatusCatalog.all_ids():
+		if FxLibrary.event_fx("status_" + id).is_empty():
+			missing.append(id)
+	_check(missing.is_empty(), "todos los estados tienen efecto visual (%s)" % str(missing))
+	for class_id: String in ClassCatalog.all_ids():
+		var mobility: Dictionary = ClassCatalog.class_def(class_id)["mobility"]
+		_check(not FxLibrary.event_fx("mobility_%s" % String(mobility["kind"])).is_empty() and SkillIcons.texture(String(mobility["icon"])) != null, "%s: la movilidad %s tiene efecto e icono" % [class_id, mobility["name"]])
+	_check(FxLibrary.errors().is_empty(), "fx.json sin referencias rotas: %s" % str(FxLibrary.errors()))
 
 
 func _check(condition: bool, label: String) -> void:

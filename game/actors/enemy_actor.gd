@@ -38,6 +38,7 @@ func setup(p_sim: EnemySim, p_arena: Arena) -> void:
 	sim.died.connect(_on_died)
 	sim.revived.connect(_on_revived)
 	sim.phase_changed.connect(_on_phase_changed)
+	sim.aggroed.connect(_on_aggroed)
 	sim.statuses.applied.connect(_on_status_applied)
 
 
@@ -151,7 +152,14 @@ func _process(_delta: float) -> void:
 		if sim.summoned and sim.state_time > 1.2:
 			queue_free()
 			return
-		sprite.scale = Vector2.ONE * _scale_value * (1.0 - 0.3 * t)
+		if _is_lpc:
+			# Los humanos caen de lado sobre la ultima pose de daño y se desvanecen; sin encoger.
+			var fall := clampf(sim.state_time / 0.45, 0.0, 1.0)
+			var side := -1.0 if sim.facing.x >= 0.0 else 1.0
+			sprite.rotation = side * fall * PI * 0.5
+			sprite.position = LpcComposer.FEET_OFFSET * _scale_value + Vector2(0.0, 8.0 * fall * _scale_value)
+		else:
+			sprite.scale = Vector2.ONE * _scale_value * (1.0 - 0.3 * t)
 	queue_redraw()
 
 
@@ -175,6 +183,9 @@ func _apply_state_visual() -> void:
 
 func _restore_visual() -> void:
 	_was_alive = true
+	sprite.rotation = 0.0
+	if _is_lpc:
+		sprite.position = LpcComposer.FEET_OFFSET * _scale_value
 	sprite.modulate = _tint
 	sprite.scale = Vector2.ONE * _scale_value
 
@@ -212,6 +223,14 @@ func _on_phase_changed(index: int, phase_name: String) -> void:
 
 
 ## Aviso flotante al recibir un estado (STUN, SLOW, POISON).
+## Al despertar un enemigo (o un campamento entero) sale un aviso dorado sobre el.
+func _on_aggroed() -> void:
+	if arena == null or sim.summoned:
+		return
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -_sprite_height - 12.0), "!", Color(1.0, 0.82, 0.3, 1.0))
+	arena.play_event("alert", sim.position)
+
+
 func _on_status_applied(id: String) -> void:
 	if arena == null:
 		return

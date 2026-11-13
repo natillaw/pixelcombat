@@ -397,7 +397,8 @@ func _draw_dodge_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	_draw_text(Settings.short_label("dodge"), rect.position + Vector2(4, 9), 7, MUTED)
 	var icon_color := Color(0.6, 0.85, 1.0, 1.0) if ready else Color(0.62, 0.64, 0.72, 1.0)
 	var c := rect.position + Vector2(rect.size.x * 0.5, 18)
-	var dodge_icon := SkillIcons.texture("dodge")
+	var mobility := warrior.mobility()
+	var dodge_icon := SkillIcons.texture(String(mobility.get("icon", "dodge")))
 	if dodge_icon != null:
 		_draw_icon(dodge_icon, rect, ready)
 	else:
@@ -405,7 +406,7 @@ func _draw_dodge_slot(rect: Rect2, warrior: PlayerSim) -> void:
 			var x := -8.0 + i * 8.0
 			draw_line(Vector2(c.x + x - 2, c.y - 6), Vector2(c.x + x + 2, c.y), icon_color, 2.0)
 			draw_line(Vector2(c.x + x + 2, c.y), Vector2(c.x + x - 2, c.y + 6), icon_color, 2.0)
-	_draw_text("DODGE", Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	_draw_text(String(mobility.get("name", "Dodge")).to_upper().substr(0, 9), Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 	if left > 0.05:
 		var ratio := clampf(left / maxf(total, 0.001), 0.0, 1.0)
 		draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * ratio)), Color(0.02, 0.02, 0.04, 0.62))
