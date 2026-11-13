@@ -39,6 +39,7 @@ SUITES=(
     "tests/test_services.gd"
     "tests/test_narrative.gd"
     "tests/test_quests.gd"
+    "tests/test_world_sanity.gd"
     "tests/test_warrior_kit.gd"
     "tests/test_rogue_kit.gd"
     "tests/test_mage_kit.gd"

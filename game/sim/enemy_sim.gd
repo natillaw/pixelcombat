@@ -646,5 +646,6 @@ func phase_name() -> String:
 
 
 ## XP que da al morir (dato stats.xp).
-func xp_reward() -> int:
-	return int(round(float(data["stats"].get("xp", 0)) * level_scale * xp_mult))
+func xp_reward(scaled: bool = true) -> int:
+	var base := float(data["stats"].get("xp", 0)) * level_scale * xp_mult
+	return int(round(base * (float(world.call("xp_factor")) if scaled and world != null and world.has_method("xp_factor") else 1.0)))

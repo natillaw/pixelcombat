@@ -5,14 +5,14 @@
 			"id": "clear",
 			"kind": "clear",
 			"name": "Limpieza",
-			"desc": "Elimina a todos los enemigos del piso",
+			"desc": "Elimina a {count} enemigos del piso",
 			"weight": 3.0,
 			"tier_min": 1,
 			"xp_mult": 1.0,
 			"flavors": [
 				{
 					"name": "Despejar la linde",
-					"desc": "Elimina a todos los enemigos del piso: el Cuervo y las bestias que lo siguen"
+					"desc": "Elimina a {count} enemigos del piso: el Cuervo y las bestias que lo siguen"
 				}
 			]
 		},

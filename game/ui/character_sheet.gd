@@ -188,7 +188,7 @@ func _report(reason: String, success: String) -> void:
 		"":
 			_say(success, Color(0.6, 0.9, 0.5))
 		"busy":
-			_say("No puedes cambiar de equipo en pleno combate.", bad)
+			_say(world.player.gear_block_reason() if world.player.gear_block_reason() != "" else "No puedes cambiar de equipo ahora.", bad)
 		"class":
 			_say("Tu clase no puede equipar eso.", bad)
 		"full":

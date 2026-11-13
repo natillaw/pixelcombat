@@ -37,6 +37,11 @@ class Ctx extends RefCounted:
 	var forced: Array = []
 
 
+## Cuantos enemigos pide la mision de limpieza: base + por piso (el resto de enemigos del piso son opcionales).
+const CLEAR_BASE := 10
+const CLEAR_PER_FLOOR := 3
+
+
 static func populate(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumberGenerator, floor_number: int, tier_data: Dictionary, spike: String, forced: Array = []) -> void:
 	var ctx := Ctx.new()
 	ctx.forced = forced
@@ -58,7 +63,11 @@ static func populate(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumb
 	if ctx.ambient_required:
 		for spec: Dictionary in specs:
 			if String(spec["kind"]) == "clear":
-				spec["target"] = layout.enemies.filter(func(e: Dictionary) -> bool: return bool(e["required"])).size()
+				# El piso puede tener muchos mas enemigos: la mision pide solo una cantidad (10 en el piso 1, mas en los siguientes).
+				var total := layout.enemies.filter(func(e: Dictionary) -> bool: return bool(e["required"])).size()
+				spec["total"] = total
+				spec["target"] = mini(total, CLEAR_BASE + CLEAR_PER_FLOOR * (floor_number - 1))
+				spec["desc"] = String(spec["desc"]).replace("Elimina a 0 enemigos", "Elimina a %d enemigos" % int(spec["target"]))
 	layout.mission_plan = {"missions": specs, "time_limit": float(plan["time_limit"]), "variant": String(plan["variant"])}
 	var main_titles: Array = specs.filter(func(s: Dictionary) -> bool: return not bool(s["optional"])).map(func(s: Dictionary) -> String: return String(s["title"]))
 	layout.objective = {"type": "missions", "label": " + ".join(main_titles)}

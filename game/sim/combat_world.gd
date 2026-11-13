@@ -166,6 +166,15 @@ func load_layout(new_layout: FloorLayout) -> void:
 	layout_loaded.emit(new_layout)
 
 
+## La experiencia por enemigo cae si vas por encima del nivel que toca al piso (piso + 1): limpiar el piso 1 entero no te
+## lleva al nivel 6. Fuera de los pisos (ciudad, entrenamiento) no hay recorte.
+func xp_factor() -> float:
+	if layout == null or layout.kind != FloorLayout.KIND_FLOOR or layout.floor_number <= 0:
+		return 1.0
+	var over := player.level - (layout.floor_number + 1)
+	return clampf(1.0 - 0.4 * float(over), 0.1, 1.0)
+
+
 ## Botin al morir un enemigo (las crias invocadas no sueltan nada). El tier sale del
 ## piso si hay uno cargado y, si no, del propio enemigo.
 func _on_enemy_died(enemy: EnemySim) -> void:
@@ -177,7 +186,7 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	if enemy.is_boss():
 		var spike := TowerCatalog.spike_kind(layout.floor_number) if layout != null and layout.floor_number > 0 else ""
 		kind = spike if spike != "" else ("mid_boss" if bool(enemy.data.get("elite_boss", false)) else "boss")
-	player.add_gold(int(round(float(enemy.xp_reward()) * float(ItemCatalog.loot().get("gold_per_xp", 0.0)))))
+	player.add_gold(int(round(float(enemy.xp_reward(false)) * float(ItemCatalog.loot().get("gold_per_xp", 0.0)))))
 	var material_table: Dictionary = enemy.data.get("materials", {})
 	for kind_id: String in material_table:
 		if loot_rng.randf() < float(material_table[kind_id]):

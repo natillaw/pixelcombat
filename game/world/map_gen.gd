@@ -36,6 +36,8 @@ static func build(style: String, cols: int, rows: int, rng: RandomNumberGenerato
 			_mixed(grid, rng)
 		_:
 			_field(grid, rng)
+	_tidy_water(grid)
+	_close_narrow_gaps(grid)
 	_border(grid)
 	var spawn_cell := _choose_spawn(grid, rng)
 	_clear_square(grid, spawn_cell, SAFE_RADIUS)
@@ -44,6 +46,7 @@ static func build(style: String, cols: int, rows: int, rng: RandomNumberGenerato
 	var analysis := MapAnalysis.new(grid, spawn_cell)
 	analysis.exit = _choose_exit(analysis, rng)
 	_clear_square(grid, analysis.exit, EXIT_RADIUS)
+	_trim_water_tips(grid)
 	_border(grid)
 	analysis.refresh()
 	return analysis
@@ -147,6 +150,89 @@ static func _blobs(grid: TileGrid, rng: RandomNumberGenerator, kind: int, count:
 				var jitter := rng.randf_range(-0.8, 0.8)
 				if float(dx * dx + dy * dy) <= float(radius * radius) + jitter * float(radius):
 					grid.set_cell(cx + dx, cy + dy, kind)
+
+
+## Quita del agua las casillas con menos de dos vecinas de agua (puntas sueltas tras recortar o abrir pasillos).
+static func _trim_water_tips(grid: TileGrid) -> void:
+	var sides := [Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0)]
+	for pass_index: int in range(3):
+		for r: int in range(BORDER, grid.rows - BORDER):
+			for c: int in range(BORDER, grid.cols - BORDER):
+				if grid.get_cell(c, r) != TileGrid.WATER:
+					continue
+				var count := 0
+				for side: Vector2i in sides:
+					count += 1 if grid.get_cell(c + side.x, r + side.y) == TileGrid.WATER else 0
+				if count <= 1:
+					grid.set_cell(c, r, TileGrid.FLOOR)
+
+
+## Estanques limpios: la hoja de agua solo tiene piezas de borde y esquina convexa, asi que se rellenan los rincones
+## concavos, se quitan las puntas de una casilla y se aparta el muro (arboles, rocas) de la orilla.
+static func _tidy_water(grid: TileGrid) -> void:
+	var sides := [Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0)]
+	_trim_water_tips(grid)
+	# Cada estanque pasa a ser su rectangulo: la hoja solo trae bordes y esquinas convexas.
+	for pass_index: int in range(5):
+		var changed := false
+		var seen := {}
+		for r: int in range(BORDER, grid.rows - BORDER):
+			for c: int in range(BORDER, grid.cols - BORDER):
+				if grid.get_cell(c, r) != TileGrid.WATER or seen.has(Vector2i(c, r)):
+					continue
+				var stack: Array[Vector2i] = [Vector2i(c, r)]
+				seen[Vector2i(c, r)] = true
+				var low := Vector2i(c, r)
+				var high := Vector2i(c, r)
+				while not stack.is_empty():
+					var cell: Vector2i = stack.pop_back()
+					low = Vector2i(mini(low.x, cell.x), mini(low.y, cell.y))
+					high = Vector2i(maxi(high.x, cell.x), maxi(high.y, cell.y))
+					for side: Vector2i in sides:
+						var next := cell + side
+						if grid.get_cell(next.x, next.y) == TileGrid.WATER and not seen.has(next):
+							seen[next] = true
+							stack.append(next)
+				for y: int in range(low.y, high.y + 1):
+					for x: int in range(low.x, high.x + 1):
+						if grid.get_cell(x, y) != TileGrid.WATER and x >= BORDER and y >= BORDER and x < grid.cols - BORDER and y < grid.rows - BORDER:
+							grid.set_cell(x, y, TileGrid.WATER)
+							changed = true
+		if not changed:
+			break
+	for r: int in range(BORDER, grid.rows - BORDER):
+		for c: int in range(BORDER, grid.cols - BORDER):
+			if grid.get_cell(c, r) != TileGrid.WALL:
+				continue
+			for dy: int in range(-1, 2):
+				for dx: int in range(-1, 2):
+					if grid.get_cell(c + dx, r + dy) == TileGrid.WATER:
+						grid.set_cell(c, r, TileGrid.FLOOR)
+
+
+## Un hueco de 1-2 casillas entre dos muros (dos rocas, dos arboles) parece pasable pero no lo es con la holgura de
+## colision del personaje: se cierra del todo, y `_connect` abre despues los pasillos anchos que hagan falta.
+static func _close_narrow_gaps(grid: TileGrid) -> void:
+	var fill: Array[Vector2i] = []
+	for horizontal: bool in [true, false]:
+		var lines := grid.rows if horizontal else grid.cols
+		var length := grid.cols if horizontal else grid.rows
+		for line: int in range(BORDER, lines - BORDER):
+			var run_start := -1
+			for i: int in range(BORDER - 1, length - BORDER + 1):
+				var cell := Vector2i(i, line) if horizontal else Vector2i(line, i)
+				var is_floor := grid.get_cell(cell.x, cell.y) == TileGrid.FLOOR
+				if is_floor and run_start < 0:
+					run_start = i
+				elif not is_floor and run_start >= 0:
+					var width := i - run_start
+					var before := Vector2i(run_start - 1, line) if horizontal else Vector2i(line, run_start - 1)
+					if width <= 2 and grid.get_cell(before.x, before.y) == TileGrid.WALL and grid.get_cell(cell.x, cell.y) == TileGrid.WALL:
+						for k: int in range(run_start, i):
+							fill.append(Vector2i(k, line) if horizontal else Vector2i(line, k))
+					run_start = -1
+	for cell: Vector2i in fill:
+		grid.set_cell(cell.x, cell.y, TileGrid.WALL)
 
 
 static func _scatter(grid: TileGrid, rng: RandomNumberGenerator, kind: int, count: int) -> void:

@@ -106,8 +106,9 @@ func update(delta: float) -> void:
 			for enemy: EnemySim in _world.enemies:
 				if enemy.alive and enemy.required and not enemy.summoned:
 					alive += 1
-			progress = clampi(target - alive, 0, target)
-			if alive == 0:
+			var total := int(spec.get("total", target))
+			progress = clampi(total - alive, 0, target)
+			if progress >= target or alive == 0:
 				_finish()
 		"explore":
 			if not _world.player.alive:
