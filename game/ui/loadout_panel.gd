@@ -35,8 +35,8 @@ const CELL_CENTER := Vector2(136.0, 175.5)
 ## Paginas dentro del fotograma abierto (px del fotograma).
 const LEFT_PAGE := Rect2(30.0, 100.0, 98.0, 148.0)
 const RIGHT_PAGE := Rect2(146.0, 100.0, 96.0, 148.0)
-const SLOT_ROW_H := 24.0
-const ENTRY_ROW_H := 17.0
+const SLOT_ROW_H := 28.0
+const ENTRY_ROW_H := 15.0
 const TAB_Y := 5.0
 const TAB_W := 92.0
 const TAB_H := 15.0
@@ -119,12 +119,12 @@ func _page_rect(page: Rect2) -> Rect2:
 
 func _slot_rect(index: int) -> Rect2:
 	var page := _page_rect(LEFT_PAGE)
-	return Rect2(page.position.x, page.position.y + 82.0 + float(index) * (SLOT_ROW_H + 2.0), page.size.x, SLOT_ROW_H)
+	return Rect2(page.position.x, page.position.y + 84.0 + float(index) * (SLOT_ROW_H + 2.0), page.size.x, SLOT_ROW_H)
 
 
 func _entry_rect(index: int) -> Rect2:
 	var page := _page_rect(RIGHT_PAGE)
-	return Rect2(page.position.x, page.position.y + 24.0 + float(index) * ENTRY_ROW_H, page.size.x, ENTRY_ROW_H - 1.0)
+	return Rect2(page.position.x, page.position.y + 20.0 + float(index) * ENTRY_ROW_H, page.size.x, ENTRY_ROW_H - 1.0)
 
 
 func _tab_rect(index: int) -> Rect2:
@@ -306,17 +306,17 @@ func _draw_tabs(player: PlayerSim) -> void:
 func _draw_left_page(player: PlayerSim) -> void:
 	var page := _page_rect(LEFT_PAGE)
 	_text(String(player.class_def["name"]).to_upper(), page.position + Vector2(0, 8), 10, INK, HORIZONTAL_ALIGNMENT_CENTER, page.size.x)
-	_text("Nivel %d   XP %d / %d" % [player.level, player.xp, player.xp_to_next()], page.position + Vector2(0, 19), 7, INK_SOFT, HORIZONTAL_ALIGNMENT_CENTER, page.size.x)
-	draw_line(page.position + Vector2(4, 23), page.position + Vector2(page.size.x - 4.0, 23), LINE, 1.0)
-	var info_y := page.position.y + 33.0
+	_text("Nivel %d   XP %d / %d" % [player.level, player.xp, player.xp_to_next()], page.position + Vector2(0, 21), 7, INK_SOFT, HORIZONTAL_ALIGNMENT_CENTER, page.size.x)
+	draw_line(page.position + Vector2(4, 26), page.position + Vector2(page.size.x - 4.0, 26), LINE, 1.0)
+	var info_y := page.position.y + 38.0
 	for slot: String in ["M1", "M2"]:
 		if player.loadout.has(slot):
 			_text("%s  %s" % [slot, String((player.loadout[slot] as Dictionary)["name"])], Vector2(page.position.x + 2.0, info_y), 7, INK)
-		info_y += 10.0
+		info_y += 12.0
 	var mobility := player.mobility()
 	_text("MOV  %s (%.0f s)" % [String(mobility.get("name", "Esquiva")), float(mobility["cooldown"])], Vector2(page.position.x + 2.0, info_y), 7, GREEN)
-	info_y += 10.0
-	_text("ULTI  %s" % String(player.class_def.get("ult_charge", {}).get("_doc", "")), Vector2(page.position.x + 2.0, info_y), 6, INK_SOFT, HORIZONTAL_ALIGNMENT_LEFT, page.size.x - 2.0)
+	info_y += 12.0
+	_text("ULTI  %s" % String(player.class_def.get("ult_charge", {}).get("_doc", "")), Vector2(page.position.x + 2.0, info_y), 7, INK_SOFT, HORIZONTAL_ALIGNMENT_LEFT, page.size.x - 2.0)
 	for i: int in range(_slot_rows().size()):
 		_draw_slot_row(i, _slot_rows()[i], player)
 
@@ -326,24 +326,23 @@ func _draw_slot_row(index: int, slot: String, player: PlayerSim) -> void:
 	var selected := slot == _selected_slot
 	draw_rect(rect, Color(0.45, 0.32, 0.18, 0.14))
 	draw_rect(rect, GOLD if selected else LINE, false, 1.0 if not selected else 2.0)
-	_text("[%s]" % SLOT_KEYS[slot], rect.position + Vector2(3, 9), 7, INK_SOFT)
-	_text(String(SLOT_NAMES[slot]), rect.position + Vector2(3, 19), 6, INK_SOFT)
+	_text(String(SLOT_KEYS[slot]), rect.position + Vector2(5, 18), 7, INK_SOFT)
 	if player.loadout.has(slot):
 		var skill: Dictionary = player.loadout[slot]
 		var icon := SkillIcons.texture(String(skill["id"]))
 		if icon != null:
-			draw_texture_rect(icon, Rect2(rect.position + Vector2(30, 2), Vector2(20, 20)), false)
-		_text(String(skill["name"]), rect.position + Vector2(54, 10), 7, INK, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 56.0)
+			draw_texture_rect(icon, Rect2(rect.position + Vector2(20, 3), Vector2(22, 22)), false)
+		_text(String(skill["name"]), rect.position + Vector2(46, 12), 7, INK, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 48.0)
 		var cost := "%d" % int(skill.get("cost", 0.0)) if float(skill.get("cost", 0.0)) > 0.0 else "libre"
-		_text(cost, rect.position + Vector2(54, 19), 6, GOLD)
+		_text(cost, rect.position + Vector2(46, 24), 7, GOLD)
 	else:
-		_text("- vacio -", rect.position + Vector2(30, 14), 7, INK_SOFT)
+		_text("- vacio -", rect.position + Vector2(22, 18), 7, INK_SOFT)
 
 
 func _draw_right_page(player: PlayerSim) -> void:
 	var page := _page_rect(RIGHT_PAGE)
-	_text("HABILIDADES", page.position + Vector2(0, 8), 10, INK, HORIZONTAL_ALIGNMENT_CENTER, page.size.x)
-	draw_line(page.position + Vector2(4, 13), page.position + Vector2(page.size.x - 4.0, 13), LINE, 1.0)
+	_text("HABILIDADES", page.position + Vector2(0, 10), 10, INK, HORIZONTAL_ALIGNMENT_CENTER, page.size.x)
+	draw_line(page.position + Vector2(4, 16), page.position + Vector2(page.size.x - 4.0, 16), LINE, 1.0)
 	var unknown := 0
 	for i: int in range(_entries.size()):
 		_draw_entry_row(i, _entries[i]["skill"], player)
@@ -352,9 +351,9 @@ func _draw_right_page(player: PlayerSim) -> void:
 	var hovered := _entry_at(get_local_mouse_position())
 	var foot := page.end.y - 10.0
 	if not hovered.is_empty():
-		_text(String((hovered["skill"] as Dictionary).get("description", "")), Vector2(page.position.x, foot - 14.0), 6, INK_SOFT, HORIZONTAL_ALIGNMENT_LEFT, page.size.x)
+		_text(String((hovered["skill"] as Dictionary).get("description", "")), Vector2(page.position.x, foot - 14.0), 7, INK_SOFT, HORIZONTAL_ALIGNMENT_LEFT, page.size.x)
 	elif unknown > 0:
-		_text("%d habilidades de mundo por aprender (Gremio)" % unknown, Vector2(page.position.x, foot), 6, INK_SOFT, HORIZONTAL_ALIGNMENT_LEFT, page.size.x)
+		_text("%d por aprender (Gremio)" % unknown, Vector2(page.position.x, foot), 7, INK_SOFT, HORIZONTAL_ALIGNMENT_LEFT, page.size.x)
 
 
 func _draw_entry_row(index: int, skill: Dictionary, player: PlayerSim) -> void:
@@ -380,12 +379,9 @@ func _draw_entry_row(index: int, skill: Dictionary, player: PlayerSim) -> void:
 		draw_rect(rect, Color(0.45, 0.32, 0.18, 0.18))
 	var icon := SkillIcons.texture(String(skill["id"]))
 	if icon != null:
-		draw_texture_rect(icon, Rect2(rect.position + Vector2(1, 1), Vector2(14, 14)), false, Color(1, 1, 1, 0.45 if dim else 1.0))
-	_text(String(skill["name"]), rect.position + Vector2(18, 7), 7, color, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 20.0)
-	var kind := String(skill.get("slot", ""))
-	var sub := "Especial" if kind == "SPECIAL" else ("Ultimate" if kind == "ULTIMATE" else ("De mundo" if is_world else "Kit base"))
-	_text(sub, rect.position + Vector2(18, 14), 6, INK_SOFT)
-	_text(tag, rect.position + Vector2(0, 7), 6, color, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 1.0)
+		draw_texture_rect(icon, Rect2(rect.position + Vector2(1, 0), Vector2(13, 13)), false, Color(1, 1, 1, 0.45 if dim else 1.0))
+	_text(String(skill["name"]), rect.position + Vector2(17, 10), 7, color, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 17.0 - (30.0 if tag != "" else 0.0))
+	_text(tag, rect.position + Vector2(0, 10), 7, color, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 1.0)
 
 
 func _text(text: String, at: Vector2, font_size: int, color: Color, alignment: int = HORIZONTAL_ALIGNMENT_LEFT, width: float = -1.0) -> void:

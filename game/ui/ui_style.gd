@@ -65,7 +65,7 @@ static func draw_panel(canvas: CanvasItem, rect: Rect2, title: String = "") -> v
 	canvas.draw_rect(Rect2(rect.position + Vector2(5, 5), Vector2(rect.size.x - 10.0, 14.0)), Color(1, 1, 1, 0.04))
 	nine_frame(canvas, FRAME_TEX, Rect2i(0, 0, 72, 72), 12, rect)
 	if not title.is_empty():
-		canvas.draw_string(FONT, Vector2(rect.position.x, rect.position.y + 17.0), title, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x, 14, GOLD_LIGHT)
+		canvas.draw_string(FONT, Vector2(rect.position.x, rect.position.y + 22.0), title, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x, 14, GOLD_LIGHT)
 
 
 ## Marco sin el parche central: esquinas fijas y bordes repetidos en mosaico (una franja

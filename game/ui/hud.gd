@@ -594,30 +594,30 @@ func _draw_missions() -> void:
 		return
 	# Cada mision pendiente lleva debajo su descripcion (el lore) en dos lineas como maximo.
 	var heights: Array = []
-	var total := 28.0 + (14.0 if session.time_limit > 0.0 else 0.0)
+	var total := 34.0 + (14.0 if session.time_limit > 0.0 else 0.0)
 	for line: Dictionary in lines:
 		var rows := 0 if bool(line["done"]) else _desc_rows(String(line.get("desc", "")))
 		var row_height := 13.0 + float(rows) * 10.0 + (2.0 if rows > 0 else 0.0)
 		heights.append(row_height)
 		total += row_height
 	_quest_tracker_y = 92.0 + total + 6.0
-	_panel(Rect2(488, 92, 142, total), "OBJETIVOS")
-	var y := 114.0                                   # bajo la cabecera verde (antes pisaba el titulo)
+	_panel(Rect2(468, 92, 162, total), "OBJETIVOS")
+	var y := 120.0                                   # bajo la cabecera verde (antes pisaba el titulo)
 	for index: int in range(lines.size()):
 		var line: Dictionary = lines[index]
 		var color := GREEN_DONE if bool(line["done"]) else (MUTED if bool(line["optional"]) else TEXT)
 		var mark := "[x] " if bool(line["done"]) else "[ ] "
-		var shown := _fit(mark + String(line["text"]), 7, 130.0)
-		_draw_text(shown, Vector2(494, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 130)
+		var shown := _fit(mark + String(line["text"]), 7, 142.0)
+		_draw_text(shown, Vector2(480, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 142)
 		if not bool(line["done"]):
 			var desc := String(line.get("desc", ""))
 			if not desc.is_empty():
-				draw_multiline_string(FONT, Vector2(494, y + 11.0), desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, UiStyle.MIN_FONT, 2, MUTED if not bool(line["optional"]) else DIM_TEXT)
+				draw_multiline_string(FONT, Vector2(480, y + 11.0), desc, HORIZONTAL_ALIGNMENT_LEFT, 142.0, UiStyle.MIN_FONT, 2, MUTED if not bool(line["optional"]) else DIM_TEXT)
 		y += float(heights[index])
 	if session.time_limit > 0.0:
 		var left := session.time_left
 		var urgent := left < 60.0
-		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(494, y + 1.0), 7, RED if urgent else GOLD)
+		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(480, y + 1.0), 7, RED if urgent else GOLD)
 	_draw_quest_tracker()
 
 
@@ -625,7 +625,7 @@ func _draw_missions() -> void:
 func _desc_rows(desc: String) -> int:
 	if desc.is_empty():
 		return 0
-	var size := FONT.get_multiline_string_size(desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, UiStyle.MIN_FONT, 2)
+	var size := FONT.get_multiline_string_size(desc, HORIZONTAL_ALIGNMENT_LEFT, 142.0, UiStyle.MIN_FONT, 2)
 	return clampi(int(round(size.y / 10.0)), 1, 2)
 
 
@@ -635,9 +635,9 @@ func _draw_quest_tracker() -> void:
 	if active.is_empty():
 		return
 	var shown := mini(active.size(), 3)
-	var height := 28.0 + float(shown) * 27.0
-	_panel(Rect2(488, _quest_tracker_y, 142, height), "MISIONES")
-	var y := _quest_tracker_y + 22.0
+	var height := 34.0 + float(shown) * 27.0
+	_panel(Rect2(468, _quest_tracker_y, 162, height), "MISIONES")
+	var y := _quest_tracker_y + 28.0
 	for i: int in range(shown):
 		var instance: Dictionary = active[i]
 		var objective: Dictionary = {}
@@ -645,9 +645,9 @@ func _draw_quest_tracker() -> void:
 			if not bool(candidate["optional"]) and int(candidate["progress"]) < int(candidate["required"]):
 				objective = candidate
 				break
-		_draw_text(_fit(String(instance["title"]), 7, 130.0), Vector2(494, y), 7, TEXT, HORIZONTAL_ALIGNMENT_LEFT, 130)
+		_draw_text(_fit(String(instance["title"]), 7, 142.0), Vector2(480, y), 7, TEXT, HORIZONTAL_ALIGNMENT_LEFT, 142)
 		if not objective.is_empty():
-			_draw_text("%s  %d / %d" % [String(objective["kind"]), int(objective["progress"]), int(objective["required"])], Vector2(494, y + 11.0), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 130)
+			_draw_text("%s  %d / %d" % [String(objective["kind"]), int(objective["progress"]), int(objective["required"])], Vector2(480, y + 11.0), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 142)
 		y += 27.0
 
 
@@ -767,7 +767,10 @@ func _draw_location() -> void:
 		_panel(tip_rect, "")
 		draw_multiline_string(FONT, tip_rect.position + Vector2(12, 19), _tip, HORIZONTAL_ALIGNMENT_LEFT, tip_rect.size.x - 24.0, UiStyle.MIN_FONT, 3, TEXT)
 	if _toast_time > 0.0:
-		_draw_text(_toast.to_upper(), Vector2(0, 120), 7, _toast_color, HORIZONTAL_ALIGNMENT_CENTER, 640)
+		var toast_text := _toast.to_upper()
+		var toast_box := FONT.get_multiline_string_size(toast_text, HORIZONTAL_ALIGNMENT_CENTER, 330.0, UiStyle.MIN_FONT, 3)
+		draw_rect(Rect2(108, 108, 330, toast_box.y + 8.0), Color(0, 0, 0, 0.45))
+		draw_multiline_string(FONT, Vector2(108, 120), toast_text, HORIZONTAL_ALIGNMENT_CENTER, 330.0, UiStyle.MIN_FONT, 3, _toast_color)
 	if _banner_time > 0.0:
 		_draw_text(_banner, Vector2(0, 90), 14, GOLD, HORIZONTAL_ALIGNMENT_CENTER, 640)
 

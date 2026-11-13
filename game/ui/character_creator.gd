@@ -189,7 +189,7 @@ func _build_create() -> void:
 	_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_root.add_child(_preview)
-	_label("NOMBRE", Rect2(22, 244, 196, 10), 8, MUTED)
+	_label("NOMBRE", Rect2(24, 242, 196, 12), 8, MUTED)
 	_name_edit = LineEdit.new()
 	_name_edit.position = Vector2(22, 256)
 	_name_edit.size = Vector2(150, 22)
@@ -210,18 +210,17 @@ func _build_create() -> void:
 	_option_row(4, "Ojos", "eyes")
 	_option_row(5, "Barba", "beard")
 	_option_row(6, "Cejas", "brows")
-	_label("La ropa no se elige: empiezas con lo mas sencillo y el resto se consigue como equipo.", Rect2(232, 270, 190, 30), 8, MUTED, HORIZONTAL_ALIGNMENT_LEFT, true)
+	_label("La ropa se consigue como equipo.", Rect2(243, 268, 176, 14), 8, MUTED, HORIZONTAL_ALIGNMENT_LEFT, true)
 	# Clases.
 	_panel(Rect2(430, 40, 192, 270), "CLASE")
 	_class_buttons.clear()
-	var y := 54.0
+	var y := 66.0
 	for class_id: String in ["warrior", "rogue", "mage", "archer"]:
 		var blurb := Lore.class_blurb(class_id)
-		var button := _button("%s - %s" % [String(ClassCatalog.class_def(class_id)["name"]).to_upper(), String(blurb["tagline"])], Rect2(436, y, 184, 24), _select_class.bind(class_id))
-		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		var button := _button(String(ClassCatalog.class_def(class_id)["name"]).to_upper(), Rect2(440, y, 172, 24), _select_class.bind(class_id))
 		_class_buttons[class_id] = button
 		y += 28.0
-	_blurb = _label("", Rect2(436, 170, 184, 110), 8, TEXT, HORIZONTAL_ALIGNMENT_LEFT, true)
+	_blurb = _label("", Rect2(443, 182, 166, 118), 8, TEXT, HORIZONTAL_ALIGNMENT_LEFT, true)
 	_button("Despertar  >", Rect2(436, 318, 184, 26), _finish, 16)
 	_button("<  Historia", Rect2(22, 318, 100, 26), _back_to_lore)
 	_refresh_class_buttons()
@@ -238,11 +237,11 @@ func _random_name() -> void:
 
 
 func _option_row(index: int, title: String, key: String) -> void:
-	var y := 56.0 + float(index) * 28.0
-	_label(title.to_upper(), Rect2(232, y, 190, 10), 8, MUTED)
-	_button("<", Rect2(232, y + 10.0, 22, 16), _cycle.bind(key, -1))
-	_button(">", Rect2(400, y + 10.0, 22, 16), _cycle.bind(key, 1))
-	_value_labels[key] = _label("", Rect2(256, y + 11.0, 142, 14), 8, TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+	var y := 66.0 + float(index) * 28.0
+	_label(title.to_upper(), Rect2(243, y, 176, 12), 8, MUTED)
+	_button("<", Rect2(243, y + 12.0, 24, 14), _cycle.bind(key, -1))
+	_button(">", Rect2(385, y + 12.0, 24, 14), _cycle.bind(key, 1))
+	_value_labels[key] = _label("", Rect2(269, y + 12.0, 112, 14), 8, TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 	_update_value(key)
 
 
@@ -304,7 +303,7 @@ func _refresh_class_buttons() -> void:
 		var button: Button = _class_buttons[class_id]
 		button.add_theme_color_override("font_color", Color(1.0, 0.82, 0.4) if class_id == _class_id else Color(0.93, 0.90, 0.83))
 	if _blurb != null:
-		_blurb.text = String(Lore.class_blurb(_class_id)["text"])
+		_blurb.text = "%s\n%s" % [String(Lore.class_blurb(_class_id)["tagline"]), String(Lore.class_blurb(_class_id)["text"])]
 
 
 func _refresh_preview() -> void:

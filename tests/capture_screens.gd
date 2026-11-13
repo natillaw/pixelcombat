@@ -56,7 +56,7 @@ func _ready() -> void:
 		await _wait(1.2)  # el loadout solo se abre en reposo: deja acabar el ataque anterior
 		await _shot("04a_level10_hud", 0.1)
 		_toggle_loadout()
-		await _shot("04a2_loadout_panel", 0.3)
+		await _shot("04a2_loadout_panel", 2.0)
 		_toggle_loadout()
 		await _wait(0.2)
 		Input.action_press("special")
