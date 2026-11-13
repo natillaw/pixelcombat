@@ -41,6 +41,7 @@ SUITES=(
     "tests/test_story_floors.gd"
     "tests/test_accessibility.gd"
     "tests/test_music.gd"
+    "tests/test_rules.gd"
     "tests/test_dodge.gd"
     "tests/test_kits.gd"
     "tests/test_combat_depth.gd"

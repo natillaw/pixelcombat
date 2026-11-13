@@ -313,6 +313,8 @@ func _next_world_skill() -> StringName:
 func use_consumable(id: String) -> String:
 	if not alive:
 		return "dead"
+	if not rule("allow_consumables"):
+		return "rules"
 	if consumable_count(id) <= 0 or not ConsumableCatalog.has(id):
 		return "none"
 	var spec: Dictionary = ConsumableCatalog.item(id)
@@ -362,6 +364,8 @@ func use_quick(quick: String) -> String:
 
 ## Aprende una skill de mundo de la clase actual. false si no existe, no es de mundo o ya la tiene.
 func learn_skill(id: StringName) -> bool:
+	if not rule("allow_world_skills"):
+		return false
 	var skill: Dictionary = SkillCatalog.skill(id)
 	if skill.is_empty() or String(skill.get("class", "")) != class_id or not bool(skill.get("world", false)) or learned_skills.has(String(id)):
 		return false
@@ -442,7 +446,7 @@ func xp_to_next() -> int:
 ## desbloquean en los slots libres.
 func grant_xp(amount: int, source_position: Vector2 = Vector2.ZERO) -> void:
 	var ceiling := effective_max_level()
-	if amount <= 0 or level >= Progression.max_level():
+	if amount <= 0 or level >= Progression.max_level() or not rule("allow_xp"):
 		return
 	xp_gained.emit(amount, source_position)
 	xp += amount
@@ -1555,9 +1559,44 @@ func _activate_class(new_class_id: String) -> void:
 	xp_changed.emit(xp, xp_to_next(), level)
 
 
+## Modo de reglas (data/rules.json): "pve" es la aventura; "pvp" normaliza al personaje.
+var rule_mode: String = "pve"
+## Estado de la aventura guardado mientras se juega una partida normalizada.
+var _pve_state: Dictionary = {}
+
+
+## Cambia de modo de reglas. En PvP el personaje se sustituye por uno normalizado de la misma clase (nivel
+## fijo, sin equipo ni consumibles ni skills de mundo); al volver a "pve" se restaura la aventura tal cual.
+func enter_rules(mode: String) -> String:
+	if not RuleSet.has_mode(mode):
+		return "unknown"
+	if mode == rule_mode:
+		return ""
+	if rule_mode == "pve":
+		_pve_state = export_state()
+	rule_mode = mode
+	var rules := RuleSet.rules(mode)
+	if not bool(rules["normalized"]):
+		import_state(_pve_state)
+		_pve_state = {}
+		return ""
+	progress = {}
+	learned_skills = []
+	consumables = {}
+	progress[class_id] = {"level": int(rules["level"]), "xp": 0, "equipment": {}}
+	_activate_class(class_id)
+	return ""
+
+
+func rule(key: String) -> bool:
+	return bool(RuleSet.rules(rule_mode).get(key, true))
+
+
 ## Estado que se guarda en disco: la clase activa y el nivel, XP y loadout de cada
 ## clase.
 func export_state() -> Dictionary:
+	if rule_mode != "pve" and not _pve_state.is_empty():
+		return _pve_state.duplicate(true)      # en una partida normalizada no se guarda nada del personaje de arena
 	_save_progress()
 	return {"class_id": class_id, "progress": progress.duplicate(true), "bag": bag.duplicate(true), "gold": gold, "materials": materials.duplicate(), "consumables": consumables.duplicate(), "bank": bank.duplicate(true), "bounties": bounties.duplicate(true), "bounty_serial": bounty_serial, "bounties_done": bounties_done, "learned": learned_skills.duplicate(), "character": {"name": character_name, "appearance": appearance.duplicate(), "created": character_created}}
 
@@ -1645,6 +1684,8 @@ func add_item(item: Dictionary) -> bool:
 func equip_reason(index: int) -> String:
 	if index < 0 or index >= bag.size():
 		return "unknown"
+	if not rule("allow_gear"):
+		return "rules"
 	if not can_change_gear():
 		return "busy"
 	var piece: Dictionary = bag[index]
