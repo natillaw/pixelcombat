@@ -97,7 +97,7 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 				elapsed += DT
 				if int(elapsed * 60.0) % 7200 == 0 and elapsed > 1.0:
 					if player.position.distance_to(probe) < 80.0:
-						_diagnose(world, bot, message)
+						_diagnose(world, bot, message, session)
 						elapsed = MAX_FLOOR_SECONDS
 					probe = player.position
 				# Recoger todo lo que cae (el bot no hace clic). Con la mochila llena tira lo peor.
@@ -128,11 +128,11 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 	return rows
 
 
-static func _diagnose(world: CombatWorld, bot: FloorBot, message: InputMessage) -> void:
+static func _diagnose(world: CombatWorld, bot: FloorBot, message: InputMessage, session: GameSession) -> void:
 	var player := world.player
 	var grid := world.grid
 	var here := grid.world_to_cell(player.position)
-	print("   [sin-avance] pos %s cell %s move_dir %s actions %s target %s" % [str(player.position), str(here), str(message.move_dir), str(message.actions.keys()), str(bot._target.position) if bot._target != null else "-"])
+	print("   [sin-avance] piso %d grid %dx%d bounds %s celda_tipo %d pos %s cell %s move_dir %s actions %s target %s" % [int(session.layout.floor_number), grid.cols, grid.rows, str(world.bounds), grid.get_cell(here.x, here.y), str(player.position), str(here), str(message.move_dir), str(message.actions.keys()), str(bot._target.position) if bot._target != null else "-"])
 	if bot._field_grid == grid and bot._field.size() > 0:
 		print("   [campo] aqui=%d" % (bot._field[here.y * grid.cols + here.x] if bot._field.size() > here.y * grid.cols + here.x else -9))
 	var near := []

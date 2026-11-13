@@ -474,6 +474,12 @@ func resolve_position(desired: Vector2, radius: float, ignore: Object = null) ->
 				diff = Vector2.RIGHT
 			pos = enemy.position + diff.normalized() * min_distance
 
+	# Apartarse de un objeto o enemigo no puede dejar el circulo dentro de un muro: ultima pasada contra el mapa.
+	if grid != null:
+		pos.x = clampf(pos.x, bounds.position.x + radius, bounds.end.x - radius)
+		pos.y = clampf(pos.y, bounds.position.y + radius, bounds.end.y - radius)
+		pos = grid.push_out(pos, radius)
+
 	return pos
 
 
