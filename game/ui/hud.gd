@@ -594,7 +594,7 @@ func _draw_missions() -> void:
 		return
 	# Cada mision pendiente lleva debajo su descripcion (el lore) en dos lineas como maximo.
 	var heights: Array = []
-	var total := 34.0 + (14.0 if session.time_limit > 0.0 else 0.0)
+	var total := 42.0 + (14.0 if session.time_limit > 0.0 else 0.0)
 	for line: Dictionary in lines:
 		var rows := 0 if bool(line["done"]) else _desc_rows(String(line.get("desc", "")))
 		var row_height := 13.0 + float(rows) * 10.0 + (2.0 if rows > 0 else 0.0)
@@ -602,22 +602,22 @@ func _draw_missions() -> void:
 		total += row_height
 	_quest_tracker_y = 92.0 + total + 6.0
 	_panel(Rect2(468, 92, 162, total), "OBJETIVOS")
-	var y := 120.0                                   # bajo la cabecera verde (antes pisaba el titulo)
+	var y := 129.0                                   # bajo la cabecera verde (antes pisaba el titulo)
 	for index: int in range(lines.size()):
 		var line: Dictionary = lines[index]
 		var color := GREEN_DONE if bool(line["done"]) else (MUTED if bool(line["optional"]) else TEXT)
 		var mark := "[x] " if bool(line["done"]) else "[ ] "
 		var shown := _fit(mark + String(line["text"]), 7, 142.0)
-		_draw_text(shown, Vector2(480, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 142)
+		_draw_text(shown, Vector2(483, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 142)
 		if not bool(line["done"]):
 			var desc := String(line.get("desc", ""))
 			if not desc.is_empty():
-				draw_multiline_string(FONT, Vector2(480, y + 11.0), desc, HORIZONTAL_ALIGNMENT_LEFT, 142.0, UiStyle.MIN_FONT, 2, MUTED if not bool(line["optional"]) else DIM_TEXT)
+				draw_multiline_string(FONT, Vector2(483, y + 11.0), desc, HORIZONTAL_ALIGNMENT_LEFT, 142.0, UiStyle.MIN_FONT, 2, MUTED if not bool(line["optional"]) else DIM_TEXT)
 		y += float(heights[index])
 	if session.time_limit > 0.0:
 		var left := session.time_left
 		var urgent := left < 60.0
-		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(480, y + 1.0), 7, RED if urgent else GOLD)
+		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(483, y + 1.0), 7, RED if urgent else GOLD)
 	_draw_quest_tracker()
 
 
@@ -635,9 +635,9 @@ func _draw_quest_tracker() -> void:
 	if active.is_empty():
 		return
 	var shown := mini(active.size(), 3)
-	var height := 34.0 + float(shown) * 27.0
+	var height := 42.0 + float(shown) * 27.0
 	_panel(Rect2(468, _quest_tracker_y, 162, height), "MISIONES")
-	var y := _quest_tracker_y + 28.0
+	var y := _quest_tracker_y + 37.0
 	for i: int in range(shown):
 		var instance: Dictionary = active[i]
 		var objective: Dictionary = {}
@@ -645,9 +645,9 @@ func _draw_quest_tracker() -> void:
 			if not bool(candidate["optional"]) and int(candidate["progress"]) < int(candidate["required"]):
 				objective = candidate
 				break
-		_draw_text(_fit(String(instance["title"]), 7, 142.0), Vector2(480, y), 7, TEXT, HORIZONTAL_ALIGNMENT_LEFT, 142)
+		_draw_text(_fit(String(instance["title"]), 7, 142.0), Vector2(483, y), 7, TEXT, HORIZONTAL_ALIGNMENT_LEFT, 142)
 		if not objective.is_empty():
-			_draw_text("%s  %d / %d" % [String(objective["kind"]), int(objective["progress"]), int(objective["required"])], Vector2(480, y + 11.0), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 142)
+			_draw_text("%s  %d / %d" % [String(objective["kind"]), int(objective["progress"]), int(objective["required"])], Vector2(483, y + 11.0), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 142)
 		y += 27.0
 
 
