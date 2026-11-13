@@ -31,6 +31,8 @@ const FACING_HYSTERESIS := 1.15
 ## Velocidad minima (px/s) para que el movimiento decida hacia donde mira.
 const MOVE_FACING_MIN := 14.0
 
+## Empujon visual al recibir un golpe (decae solo; la posicion real es la de la simulacion).
+var _kick: Vector2 = Vector2.ZERO
 var _facing: String = "down"
 ## Huella del aspecto mostrado (clase + equipo) para recomponer solo si cambia.
 var _look_key: String = ""
@@ -88,7 +90,8 @@ func _connect_signals() -> void:
 func _process(delta: float) -> void:
 	if sim == null:
 		return
-	position = sim.position
+	position = sim.position + _kick
+	_kick *= exp(-14.0 * delta)
 	_flash = maxf(0.0, _flash - delta)
 	# Oculto (sigilo, humo): casi transparente.
 	if sim.alive:
@@ -233,6 +236,14 @@ func _on_attack_hit(skill: Dictionary, _target: Object, damage: float, critical:
 	arena.play_hit_fx(skill, hit_position, critical)
 	arena.play_sfx(SFX_HIT_HEAVY if heavy else SFX_HIT, -5.0, randf_range(0.92, 1.06))
 	arena.shake(2.0 if not heavy else 3.0, 0.12)
+	# Hit-stop: el golpe se "agarra" un instante; mas largo si es fuerte o critico.
+	arena.hit_stop(0.1 if critical else (0.06 if heavy else 0.03))
+	if critical:
+		arena.shake(4.5, 0.16)
+		arena.punch_zoom(0.03)
+		arena.play_sfx(SFX_HIT_HEAVY, -4.0, 1.25)
+	elif heavy:
+		arena.punch_zoom(0.012)
 
 
 func _on_attack_finished(_skill: Dictionary) -> void:
@@ -240,13 +251,20 @@ func _on_attack_finished(_skill: Dictionary) -> void:
 	sprite.speed_scale = 1.0
 
 
-func _on_damage_taken(_amount: float, _source_position: Vector2, is_dot: bool) -> void:
+func _on_damage_taken(amount: float, source_position: Vector2, is_dot: bool) -> void:
 	if is_dot:
 		return
 	_flash = FLASH_SECONDS
+	# La reaccion crece con lo que duele: un rasguño apenas se nota, un golpe fuerte frena, sacude y empuja.
+	var ratio := clampf(amount / maxf(sim.max_health, 1.0), 0.0, 0.5)
+	if source_position != Vector2.ZERO and source_position != sim.position:
+		_kick = (sim.position - source_position).normalized() * (3.0 + 36.0 * ratio)
 	if arena != null:
-		arena.play_sfx(SFX_HURT, -6.0, randf_range(0.92, 1.05))
-		arena.shake(3.2, 0.18)
+		arena.play_sfx(SFX_HURT, -6.0 + ratio * 8.0, randf_range(0.92, 1.05) - ratio * 0.2)
+		arena.shake(2.4 + 14.0 * ratio, 0.16 + 0.5 * ratio)
+		if ratio > 0.05:
+			arena.hit_stop(0.04 + 0.12 * ratio)
+			arena.punch_zoom(0.01 + 0.08 * ratio)
 
 
 func _on_died() -> void:
@@ -254,6 +272,8 @@ func _on_died() -> void:
 	if arena != null:
 		arena.play_sfx(SFX_DEATH, -4.0, 0.9)
 		arena.shake(5.0, 0.35)
+		arena.slowmo(0.25, 0.9)              # camara lenta: se siente la caida
+		arena.punch_zoom(0.08)
 
 	if _death_tween != null and _death_tween.is_valid():
 		_death_tween.kill()

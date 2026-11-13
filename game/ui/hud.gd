@@ -53,6 +53,8 @@ var _banner_time: float = 0.0
 var _tip: String = ""
 var _tip_time: float = 0.0
 var _boss_bar_seen: bool = false
+## Segundos reales desde que murio el jugador (el telon de la muerte aparece poco a poco).
+var _death_time: float = 0.0
 
 
 func _ready() -> void:
@@ -91,6 +93,10 @@ func _process(delta: float) -> void:
 	_toast_time = maxf(0.0, _toast_time - delta)
 	_banner_time = maxf(0.0, _banner_time - delta)
 	_tip_time = maxf(0.0, _tip_time - delta)
+	if world != null and world.player != null and not world.player.alive:
+		_death_time += delta / maxf(Engine.time_scale, 0.05)
+	else:
+		_death_time = 0.0
 	queue_redraw()
 
 
@@ -776,8 +782,12 @@ func _draw_damage_flash() -> void:
 
 
 func _draw_death() -> void:
-	draw_rect(Rect2(0, 0, 640, 360), Color(0.04, 0.01, 0.02, 0.62))
-	_draw_text("HAS MUERTO", Vector2(0, 176), 28, RED, HORIZONTAL_ALIGNMENT_CENTER, 640)
+	var fade := clampf(_death_time / 0.9, 0.0, 1.0)
+	draw_rect(Rect2(0, 0, 640, 360), Color(0.04, 0.01, 0.02, 0.62 * fade))
+	if fade < 0.35:
+		return
+	var text_alpha := clampf((fade - 0.35) / 0.65, 0.0, 1.0)
+	_draw_text("HAS MUERTO", Vector2(0, 176), 28, Color(RED.r, RED.g, RED.b, text_alpha), HORIZONTAL_ALIGNMENT_CENTER, 640)
 	if session != null and session.layout != null and session.layout.kind == FloorLayout.KIND_FLOOR:
 		_draw_text("VOLVIENDO A LA CIUDAD...", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
 		return

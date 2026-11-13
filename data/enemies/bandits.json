@@ -9,7 +9,7 @@
 			"description": "Un bruto del Cuervo con una maza. Golpe alto con aviso largo y, si te alejas, una embestida de hombro corta.",
 			"stats": {
 				"health": 150,
-				"speed": 72,
+				"speed": 61,
 				"radius": 13,
 				"damage": 16,
 				"armor": 10,
@@ -139,7 +139,7 @@
 			"description": "Rapido con la espada: tajo en arco y, desde media distancia, una estocada con salto hacia delante.",
 			"stats": {
 				"health": 125,
-				"speed": 92,
+				"speed": 78,
 				"radius": 12,
 				"damage": 15,
 				"armor": 8,
@@ -256,7 +256,7 @@
 			"description": "Mantiene la distancia. Una flecha rapida y, cada pocos segundos, una descarga de tres flechas en abanico.",
 			"stats": {
 				"health": 82,
-				"speed": 84,
+				"speed": 71,
 				"radius": 11,
 				"damage": 14,
 				"armor": 0,
@@ -317,7 +317,7 @@
 					"weight": 1,
 					"anim": "shoot",
 					"projectile": {
-						"speed": 310,
+						"speed": 279,
 						"range": 330,
 						"radius": 5,
 						"count": 1,
@@ -338,7 +338,7 @@
 					"weight": 1,
 					"anim": "shoot",
 					"projectile": {
-						"speed": 280,
+						"speed": 252,
 						"range": 300,
 						"radius": 5,
 						"count": 3,
@@ -394,7 +394,7 @@
 			"description": "Un renegado que estudio las grietas de la Torre. Lanza orbes lentos que frenan y, si te acercas, una onda que aturde.",
 			"stats": {
 				"health": 78,
-				"speed": 74,
+				"speed": 63,
 				"radius": 11,
 				"damage": 14,
 				"armor": 0,
@@ -455,7 +455,7 @@
 					"weight": 1,
 					"anim": "spellcast",
 					"projectile": {
-						"speed": 200,
+						"speed": 180,
 						"range": 310,
 						"radius": 7,
 						"count": 1,
@@ -503,7 +503,7 @@
 					"weight": 1,
 					"anim": "spellcast",
 					"projectile": {
-						"speed": 190,
+						"speed": 171,
 						"range": 300,
 						"radius": 8,
 						"count": 1,
@@ -558,7 +558,7 @@
 			"description": "Veloz y fragil: una embestida en linea con daga envenenada y un doble tajo corto.",
 			"stats": {
 				"health": 88,
-				"speed": 118,
+				"speed": 100,
 				"radius": 10,
 				"damage": 13,
 				"armor": 0,
@@ -686,7 +686,7 @@
 			"description": "Muy resistente con su escudo: un empujon que aturde y un barrido a su alrededor. Hay que rodearlo.",
 			"stats": {
 				"health": 240,
-				"speed": 56,
+				"speed": 48,
 				"radius": 14,
 				"damage": 20,
 				"armor": 40,
@@ -832,7 +832,7 @@
 			"description": "Teniente del Cuervo. Tajos amplios y una carga; por debajo de la mitad llama a sus matones y golpea el suelo.",
 			"stats": {
 				"health": 560,
-				"speed": 80,
+				"speed": 68,
 				"radius": 17,
 				"damage": 22,
 				"armor": 25,
@@ -1026,7 +1026,7 @@
 			"description": "Teniente del Cuervo. Descargas de orbes desde lejos; por debajo de la mitad se rodea de arqueros y suelta una onda.",
 			"stats": {
 				"health": 470,
-				"speed": 92,
+				"speed": 78,
 				"radius": 15,
 				"damage": 18,
 				"armor": 10,
@@ -1091,7 +1091,7 @@
 					"weight": 1,
 					"anim": "spellcast",
 					"projectile": {
-						"speed": 250,
+						"speed": 225,
 						"range": 400,
 						"radius": 7,
 						"count": 5,
@@ -1157,7 +1157,7 @@
 					"weight": 1,
 					"anim": "spellcast",
 					"projectile": {
-						"speed": 280,
+						"speed": 252,
 						"range": 380,
 						"radius": 8,
 						"count": 1,
@@ -1239,7 +1239,7 @@
 			"description": "El jefe del Cuervo, enorme y con muchos recursos: elige el golpe segun la distancia (salto sobre ti si huyes, cuchillos a media distancia, torbellino y tajos si te pegas) y llama a su banda en cada fase.",
 			"stats": {
 				"health": 1900,
-				"speed": 64,
+				"speed": 54,
 				"radius": 24,
 				"damage": 32,
 				"armor": 35,
@@ -1398,7 +1398,7 @@
 					"weight": 3,
 					"anim": "shoot",
 					"projectile": {
-						"speed": 300,
+						"speed": 270,
 						"range": 330,
 						"radius": 6,
 						"count": 3,
@@ -1426,7 +1426,7 @@
 					"weight": 2,
 					"anim": "shoot",
 					"projectile": {
-						"speed": 260,
+						"speed": 234,
 						"range": 360,
 						"radius": 7,
 						"count": 7,
@@ -1640,7 +1640,7 @@
 			"description": "Un antiguo capitan que huyo del Cuervo y ahora vaga por el Bosque; aparece una sola vez y no perdona. Escudo, empujon y sangrado; al caer a la mitad llama a su vieja escolta.",
 			"stats": {
 				"health": 720,
-				"speed": 74,
+				"speed": 63,
 				"radius": 15,
 				"damage": 22,
 				"armor": 30,

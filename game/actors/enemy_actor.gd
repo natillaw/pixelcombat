@@ -25,6 +25,8 @@ var _tint: Color = Color.WHITE
 var _was_alive: bool = true
 var _scale_value: float = 1.0
 var _is_lpc: bool = false
+## Empujon visual al recibir un golpe (decae solo).
+var _kick: Vector2 = Vector2.ZERO
 
 
 func setup(p_sim: EnemySim, p_arena: Arena) -> void:
@@ -36,6 +38,7 @@ func setup(p_sim: EnemySim, p_arena: Arena) -> void:
 	sim.attack_active.connect(_on_attack_active)
 	sim.attack_landed.connect(_on_attack_landed)
 	sim.died.connect(_on_died)
+	sim.hit.connect(_on_hit)
 	sim.revived.connect(_on_revived)
 	sim.phase_changed.connect(_on_phase_changed)
 	sim.aggroed.connect(_on_aggroed)
@@ -132,10 +135,11 @@ func _lpc_animation() -> void:
 		sprite.play(full)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if sim == null:
 		return
-	position = sim.position
+	position = sim.position + _kick
+	_kick *= exp(-12.0 * delta)
 	if _is_lpc:
 		_lpc_animation()
 	elif absf(sim.facing.x) > 0.05:
@@ -268,8 +272,21 @@ func _draw_status_icons() -> void:
 			draw_circle(Vector2(cos(angle) * 12.0, -_sprite_height + 4.0 + sin(angle) * 4.0), 2.0, Color(1.0, 0.9, 0.3, 1.0))
 
 
+## Retroceso visual al recibir un golpe (mas pequeño en jefes y elites, que pesan mas).
+func _on_hit(amount: float, _at: Vector2) -> void:
+	if sim.world == null or sim.world.player == null or amount <= 0.0:
+		return
+	var away: Vector2 = (sim.position - sim.world.player.position).normalized()
+	var weight := 0.3 if sim.is_boss() else (0.6 if sim.elite else 1.0)
+	_kick = away * clampf(3.0 + 70.0 * amount / maxf(sim.max_health, 1.0), 3.0, 12.0) * weight
+
+
 func _on_died() -> void:
 	if arena != null:
+		arena.hit_stop(0.16 if sim.is_boss() else (0.09 if sim.elite else 0.05))
+		if sim.is_boss():
+			arena.slowmo(0.3, 1.0)
+			arena.punch_zoom(0.07)
 		arena.play_sfx(SFX_IMPACT, -9.0, 0.7)
 		arena.play_event("boss_death" if sim.is_boss() else "enemy_death", sim.position)
 

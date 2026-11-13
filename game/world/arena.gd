@@ -49,6 +49,60 @@ var _shake_strength: float = 0.0
 var _rng := RandomNumberGenerator.new()
 
 
+# --- Game feel (solo presentacion: no cambia ningun resultado de la simulacion) -----------------
+## Hit-stop y camara lenta: bajan `Engine.time_scale` unos milisegundos reales (se mide con el reloj real,
+## no con el delta escalado). Los ticks de la simulacion siguen contandose igual, solo tardan mas en llegar.
+const HITSTOP_SCALE := 0.04
+var _hitstop_until_ms: int = 0
+var _slowmo_until_ms: int = 0
+var _slowmo_scale: float = 1.0
+var _punch: float = 0.0
+var _punching: bool = false
+
+
+## Congela la accion `seconds` (reales): el golpe "pesa". Se mantiene el mayor de los pedidos.
+func hit_stop(seconds: float) -> void:
+	if seconds <= 0.0 or DisplayServer.get_name() == "headless":
+		return
+	_hitstop_until_ms = maxi(_hitstop_until_ms, Time.get_ticks_msec() + int(seconds * 1000.0))
+
+
+## Camara lenta (escala 0-1) durante `seconds` reales: muertes de jefes y del jugador.
+func slowmo(scale: float, seconds: float) -> void:
+	if seconds <= 0.0 or DisplayServer.get_name() == "headless":
+		return
+	_slowmo_scale = scale
+	_slowmo_until_ms = maxi(_slowmo_until_ms, Time.get_ticks_msec() + int(seconds * 1000.0))
+
+
+## Golpe de zoom: la camara se acerca `amount` (0.03 = 3 %) y vuelve sola.
+func punch_zoom(amount: float) -> void:
+	_punch = maxf(_punch, amount)
+
+
+func _update_feel(delta: float) -> void:
+	var now := Time.get_ticks_msec()
+	var target := 1.0
+	if now < _hitstop_until_ms:
+		target = HITSTOP_SCALE
+	elif now < _slowmo_until_ms:
+		target = _slowmo_scale
+	if not is_equal_approx(Engine.time_scale, target):
+		Engine.time_scale = target
+	var real_delta := delta / maxf(Engine.time_scale, 0.001)
+	if _punch > 0.0005:
+		_punching = true
+		_punch = move_toward(_punch, 0.0, real_delta * _punch * 7.0 + real_delta * 0.02)
+		camera.zoom = Vector2.ONE * (1.0 + _punch)
+	elif _punching:
+		_punching = false
+		camera.zoom = Vector2.ONE
+
+
+func _exit_tree() -> void:
+	Engine.time_scale = 1.0
+
+
 ## Monta la arena sobre el escenario que el mundo ya tiene cargado.
 func build(p_world: CombatWorld) -> void:
 	world = p_world
@@ -209,6 +263,7 @@ func _process(delta: float) -> void:
 		return
 
 	camera.position = world.player.position
+	_update_feel(delta)
 
 	if _shake_time > 0.0:
 		_shake_time = maxf(0.0, _shake_time - delta)

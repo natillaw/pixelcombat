@@ -17,14 +17,19 @@ def atk(id, shape, rng=None, windup=0.7, active=0.1, recovery=0.6, cd=2.0, mult=
     return a
 
 
+# Ronda de "mas lento" (13 nov 2026): los enemigos andan un 15 % mas despacio y sus proyectiles un 10 %.
+MOVE_SCALE = 0.85
+PROJECTILE_SCALE = 0.9
+
+
 def proj(speed, rng, radius, count, spread, visual="stinger"):
-    return {"speed": speed, "range": rng, "radius": radius, "count": count, "spread": spread, "pierce": 0, "visual": visual}
+    return {"speed": round(speed * PROJECTILE_SCALE), "range": rng, "radius": radius, "count": count, "spread": spread, "pierce": 0, "visual": visual}
 
 
 def en(id, name, role, desc, hp, speed, radius, dmg, armor, xp, aggro, equip, attacks, scale=1.0, keep=None,
        loot=None, mats=None, lk=None, boss=False, phases=None, resist=None, respawn=10, leash=1.6):
     e = {"id": id, "name": name, "tier": 1, "role": role, "description": desc,
-         "stats": {"health": hp, "speed": speed, "radius": radius, "damage": dmg, "armor": armor, "xp": xp},
+         "stats": {"health": hp, "speed": round(speed * MOVE_SCALE) if speed > 0 else speed, "radius": radius, "damage": dmg, "armor": armor, "xp": xp},
          "ai": {"aggro_range": aggro, "leash": leash}, "respawn_seconds": respawn,
          "sprite": {"lpc": {"look": lk or look(), "equipment": equip}, "scale": scale}, "attacks": attacks}
     if keep:

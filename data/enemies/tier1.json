@@ -9,7 +9,7 @@
 			"description": "Lento y predecible. Un golpe frontal con aviso largo: ideal para aprender a leer el telegraph.",
 			"stats": {
 				"health": 90,
-				"speed": 62,
+				"speed": 53,
 				"radius": 12,
 				"damage": 12,
 				"armor": 0,
@@ -55,7 +55,7 @@
 			"description": "Rápido y frágil. Marca una línea y se lanza por ella: hay que salir de la línea o esquivar justo al impacto.",
 			"stats": {
 				"health": 45,
-				"speed": 118,
+				"speed": 100,
 				"radius": 9,
 				"damage": 14,
 				"armor": 0,
@@ -102,7 +102,7 @@
 			"description": "Alterna una explosión alrededor de sí misma (hay que alejarse) con un salto frontal estrecho (hay que apartarse).",
 			"stats": {
 				"health": 110,
-				"speed": 85,
+				"speed": 72,
 				"radius": 12,
 				"damage": 16,
 				"armor": 0,
@@ -168,7 +168,7 @@
 			"description": "Muy resistente y lento, con un golpe enorme y un aviso largo. Castiga al que se queda pegado.",
 			"stats": {
 				"health": 240,
-				"speed": 48,
+				"speed": 41,
 				"radius": 16,
 				"damage": 30,
 				"armor": 40,
@@ -221,7 +221,7 @@
 			"description": "Se mantiene lejos y lanza un orbe lento. Se esquiva leyendo el carril que marca antes de disparar.",
 			"stats": {
 				"health": 55,
-				"speed": 70,
+				"speed": 60,
 				"radius": 11,
 				"damage": 13,
 				"armor": 0,
@@ -245,7 +245,7 @@
 					"id": "orb",
 					"shape": "projectile",
 					"projectile": {
-						"speed": 190,
+						"speed": 171,
 						"range": 300,
 						"radius": 7,
 						"count": 1,
@@ -282,7 +282,7 @@
 			"description": "Rápido y frágil: dispara tres aguijones en abanico. Hay que apartarse del eje o esquivar.",
 			"stats": {
 				"health": 40,
-				"speed": 105,
+				"speed": 89,
 				"radius": 9,
 				"damage": 8,
 				"armor": 0,
@@ -306,7 +306,7 @@
 					"id": "sting",
 					"shape": "projectile",
 					"projectile": {
-						"speed": 250,
+						"speed": 225,
 						"range": 230,
 						"radius": 5,
 						"count": 3,
@@ -345,7 +345,7 @@
 			"description": "Guardián de la nidada. Cambia de comportamiento al bajar su vida: más rápido, con embestida, esputo y, al final, un temblor de zona. Invoca crías.",
 			"stats": {
 				"health": 1200,
-				"speed": 52,
+				"speed": 44,
 				"radius": 30,
 				"damage": 32,
 				"armor": 30,
@@ -450,7 +450,7 @@
 					"id": "spit",
 					"shape": "projectile",
 					"projectile": {
-						"speed": 230,
+						"speed": 207,
 						"range": 330,
 						"radius": 7,
 						"count": 5,
@@ -518,7 +518,7 @@
 			"description": "Mini-jefe de los pisos 5. Zona y salto al principio; por debajo de la mitad de su vida escupe telarañas en abanico y llama a avispas.",
 			"stats": {
 				"health": 520,
-				"speed": 78,
+				"speed": 66,
 				"radius": 22,
 				"damage": 20,
 				"armor": 15,
@@ -609,7 +609,7 @@
 					"id": "web",
 					"shape": "projectile",
 					"projectile": {
-						"speed": 220,
+						"speed": 198,
 						"range": 320,
 						"radius": 7,
 						"count": 3,
@@ -655,7 +655,7 @@
 			"description": "Mini-jefe de los pisos 5. Dispara abanicos de aguijones desde lejos y, por debajo de la mitad de su vida, se lanza en picado y llama a su enjambre.",
 			"stats": {
 				"health": 460,
-				"speed": 92,
+				"speed": 78,
 				"radius": 20,
 				"damage": 18,
 				"armor": 10,
@@ -713,7 +713,7 @@
 					"id": "sting",
 					"shape": "projectile",
 					"projectile": {
-						"speed": 270,
+						"speed": 243,
 						"range": 400,
 						"radius": 7,
 						"count": 5,

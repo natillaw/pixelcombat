@@ -48,9 +48,10 @@ signal status_applied(id: String)
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
 const RADIUS := 14.0
-const MOVE_SPEED := 168.0
-const ACCELERATION := 1500.0
-const FRICTION := 2100.0
+## Ronda de "mas lento" (13 nov 2026): 168 -> 142 px/s, arranque y frenada un poco mas pesados.
+const MOVE_SPEED := 142.0
+const ACCELERATION := 1350.0
+const FRICTION := 1900.0
 const BASE_HEALTH := 100.0
 ## Regeneracion de vida fuera de combate (fraccion de la vida maxima por segundo). 0 = sin
 ## regeneracion; la fija el laboratorio de campana para medir el efecto.
