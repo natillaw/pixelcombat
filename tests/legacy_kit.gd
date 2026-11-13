@@ -13,6 +13,7 @@ const KITS := {
 
 
 static func apply(player: PlayerSim) -> void:
+	PlayerSim.allow_legacy_special = true
 	for id: StringName in SkillCatalog.ids_for_class(player.class_id):
 		if bool(SkillCatalog.skill(id).get("world", false)) and not player.learned_skills.has(String(id)):
 			player.learned_skills.append(String(id))

@@ -137,7 +137,7 @@ static func trainer_offers(player: PlayerSim) -> Array:
 	var out: Array = []
 	for id: StringName in SkillCatalog.ids_for_class(player.class_id):
 		var skill := SkillCatalog.skill(id)
-		if bool(skill.get("world", false)) and bool(skill.get("implemented", false)) and not player.learned_skills.has(String(id)):
+		if bool(skill.get("world", false)) and bool(skill.get("implemented", false)) and not bool(skill.get("retired", false)) and String(skill.get("source", "trainer")) != "book" and not player.learned_skills.has(String(id)):
 			out.append({"id": String(id), "name": String(skill["name"]), "price": trainer_price(skill), "level": int(skill["unlock_level"])})
 	return out
 

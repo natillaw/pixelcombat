@@ -135,6 +135,78 @@
 			"price": 0,
 			"value": 40,
 			"icon": "skill_tome"
+		},
+		{
+			"id": "book_ground_stomp",
+			"name": "Libro: Pisoton",
+			"kind": "book",
+			"description": "Ensena la habilidad Ground Stomp del Guerrero. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "ground_stomp"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_iron_counter",
+			"name": "Libro: Contragolpe",
+			"kind": "book",
+			"description": "Ensena la habilidad Counterstrike del Guerrero. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "iron_counter"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_whirlwind",
+			"name": "Libro: Torbellino",
+			"kind": "book",
+			"description": "Ensena la habilidad Whirlwind del Guerrero. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "whirlwind"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_throwing_axe",
+			"name": "Libro: Hacha arrojadiza",
+			"kind": "book",
+			"description": "Ensena la habilidad Throwing Axe del Guerrero. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "throwing_axe"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_execute",
+			"name": "Libro: Remate",
+			"kind": "book",
+			"description": "Ensena la habilidad Execute del Guerrero. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "execute"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_second_wind",
+			"name": "Libro: Segundo aliento",
+			"kind": "book",
+			"description": "Ensena la habilidad Second Wind del Guerrero. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "second_wind"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
 		}
 	]
 }

@@ -168,6 +168,8 @@ var _combo_tick: int = -100000
 ## Bloqueo (movilidad del guerrero): activo mientras se mantiene Espacio.
 var blocking: bool = false
 var block_time: float = 0.0
+## Solo los tests de mecanicas (LegacyKit) equipan el Counterstrike del guerrero en el hueco Especial de antes.
+static var allow_legacy_special: bool = false
 signal block_started()
 signal block_ended()
 signal attack_parried(source_position: Vector2)
@@ -247,7 +249,7 @@ func slot_accepts(slot: String, skill: Dictionary) -> bool:
 	var skill_slot := String(skill.get("slot", ""))
 	if SKILL_SLOTS.has(slot):
 		return skill_slot == "S"
-	if slot == "SPECIAL" and bool(skill.get("legacy_special", false)):
+	if slot == "SPECIAL" and bool(skill.get("legacy_special", false)) and allow_legacy_special:
 		return true
 	return skill_slot == slot
 
@@ -305,8 +307,14 @@ func use_consumable(id: String) -> String:
 	var spec: Dictionary = ConsumableCatalog.item(id)
 	var effect: Dictionary = spec["effect"]
 	if String(spec["kind"]) == "book":
-		var next := _next_world_skill()
-		if next == &"" or not learn_skill(next):
+		var target := String(effect.get("learn", "world_skill"))
+		var next: StringName = _next_world_skill() if target == "world_skill" else StringName(target)
+		if next == &"":
+			return "known"
+		var skill: Dictionary = SkillCatalog.skill(next)
+		if not skill.is_empty() and String(skill.get("class", "")) != class_id:
+			return "wrong_class"
+		if not learn_skill(next):
 			return "known"
 	elif String(spec["kind"]) == "potion":
 		if potion_cooldown_left > 0.0:
@@ -821,6 +829,10 @@ func _enter_active() -> void:
 		var buff: Dictionary = current_skill["buff"]
 		_apply_buff(float(buff["next_damage_mult"]), float(buff["duration"]))
 		return
+	if current_skill.has("self_heal_pct"):
+		health = minf(max_health, health + max_health * float(current_skill["self_heal_pct"]))
+		health_changed.emit(health, max_health)
+		return
 	if current_skill.has("self_status"):
 		var self_status: Dictionary = current_skill["self_status"]
 		statuses.apply(String(self_status["id"]), float(self_status["duration"]), float(self_status["strength"]))
@@ -1067,6 +1079,8 @@ func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: D
 	var critical: bool = _rng.randf() < stats.get_crit_chance()
 	var roll: float = stats.roll_spell_damage(_rng) if String(skill.get("damage_type", "physical")) == "magic" else stats.roll_weapon_damage(_rng)
 	var damage: float = roll * mult * (1.0 + statuses.strength("might") + statuses.strength("warcry"))
+	if skill.has("execute") and target.get("max_health") != null and float(target.health) <= float(target.max_health) * float(skill["execute"]["below"]):
+		damage *= float(skill["execute"]["mult"])
 	if critical:
 		damage *= CRIT_MULTIPLIER
 	var dealt: float = target.take_damage(damage)

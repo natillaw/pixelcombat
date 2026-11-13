@@ -20,6 +20,7 @@ func _run() -> void:
 	_test_data()
 	_test_session()
 	_test_story_missions()
+	_test_names()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -119,6 +120,26 @@ func _test_story_missions() -> void:
 	var boss_floor := TowerGenerator.generate(10, 777, 1)
 	var ids := (boss_floor.mission_plan["missions"] as Array).map(func(m: Dictionary) -> String: return String(m["id"]))
 	_check(ids.has("boss"), "el piso 10 sigue siendo la prueba de Garrick")
+
+
+## Los nombres que ve el jugador estan en espanol y coinciden con el lore (Rask el Tajador, Veyra la Hechicera...).
+func _test_names() -> void:
+	var english: Array = []
+	var no_plural: Array = []
+	for entry: Dictionary in TowerCatalog.tier(1)["pool"]:
+		var data := EnemyCatalog.enemy(StringName(String(entry["id"])))
+		for word: String in ["Bandit", " the ", "Slime", "Bat", "Spider", "Beetle", "Wisp", "Hornet"]:
+			if String(data["name"]).contains(word):
+				english.append(data["name"])
+		if not data.has("plural"):
+			no_plural.append(entry["id"])
+	_check(english.is_empty() and no_plural.is_empty(), "los enemigos del tier 1 tienen nombre y plural en espanol (%s %s)" % [str(english), str(no_plural)])
+	for id: String in ["bandit_rask", "bandit_veyra", "bandit_garrick", "bandit_deserter"]:
+		var spoken := String(Lore.boss_line(id, "enter")).split(":")[0]
+		_check(String(EnemyCatalog.enemy(StringName(id))["name"]).begins_with(spoken), "%s: el nombre del jefe coincide con quien habla en el lore (%s)" % [id, spoken])
+	var slay := TowerGenerator.generate(2, 777, 1)
+	var title_text := String((slay.mission_plan["missions"][0] as Dictionary)["desc"])
+	_check(not title_text.contains("{") and not title_text.contains("ss "), "los textos de mision no dejan marcadores ni plurales rotos: %s" % title_text)
 
 
 func _check(condition: bool, label: String) -> void:

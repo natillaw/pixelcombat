@@ -73,6 +73,9 @@ const SKILL_BOOK := [
 	{"id": &"ground_stomp", "unlock_level": 3, "name": "Ground Stomp", "role": "Control / AoE", "cost": 25, "cooldown": 11.0, "description": "Golpea el suelo: ralentiza a los enemigos cercanos y los atrae hacia ti.", "implemented": true},
 	{"id": &"iron_counter", "unlock_level": 6, "name": "Counterstrike", "role": "Contraataque", "cost": 30, "cooldown": 12.0, "description": "Postura de 1 s: si te golpean de frente, anulas el golpe y respondes con un corte que hace sangrar.", "implemented": true},
 	{"id": &"whirlwind", "unlock_level": 9, "name": "Whirlwind", "role": "Dano / area", "cost": 30, "cooldown": 9.0, "description": "Giro de 1,5 s que golpea 5 veces a todos los que te rodean.", "implemented": true},
+	{"id": &"throwing_axe", "unlock_level": 5, "name": "Throwing Axe", "role": "Dano / a distancia", "cost": 15, "cooldown": 6.0, "description": "Lanza un hacha que hace sangrar al impactar: una opcion para quien no puede acercarse.", "implemented": true},
+	{"id": &"execute", "unlock_level": 7, "name": "Execute", "role": "Dano / remate", "cost": 25, "cooldown": 8.0, "description": "Golpe brutal que hace el doble de dano a los enemigos con menos del 30 % de vida.", "implemented": true},
+	{"id": &"second_wind", "unlock_level": 4, "name": "Second Wind", "role": "Mejora / curacion", "cost": 25, "cooldown": 30.0, "description": "Recupera el 25 % de la vida maxima de golpe (cooldown largo).", "implemented": true},
 ]
 
 

@@ -23,9 +23,9 @@ const TAB_BG := Color(0.09, 0.10, 0.14, 0.96)
 const TAB_TEXT := Color(0.94, 0.74, 0.36, 1.0)
 const TAB_MUTED := Color(0.78, 0.72, 0.56, 1.0)
 
-const SLOT_ROWS := ["S1", "S2", "S3", "SPECIAL", "ULTIMATE"]
-const SLOT_KEYS := {"S1": "1", "S2": "2", "S3": "3", "SPECIAL": "Q", "ULTIMATE": "F"}
-const SLOT_NAMES := {"S1": "Skill 1", "S2": "Skill 2", "S3": "Skill 3", "SPECIAL": "Especial", "ULTIMATE": "Ultimate"}
+const SLOT_ROWS_ALL := ["S1", "S2", "S3", "SPECIAL", "ULTIMATE"]
+const SLOT_KEYS := {"S1": "Q", "S2": "E", "S3": "R", "SPECIAL": "X", "ULTIMATE": "F"}
+const SLOT_NAMES := {"S1": "Skill Q", "S2": "Skill E", "S3": "Skill R", "SPECIAL": "Especial", "ULTIMATE": "Ultimate (F)"}
 ## El libro: hoja de 4 x 3 fotogramas de 272 px (el ultimo es el libro abierto).
 const FRAME := 272.0
 const FRAME_COUNT := 12
@@ -92,6 +92,16 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 
+## Huecos que se muestran: Q E R y F, y el Especial solo en las clases que aun lo usan.
+func _slot_rows() -> Array:
+	var rows: Array = []
+	for slot: String in SLOT_ROWS_ALL:
+		if slot == "SPECIAL" and not (world.player.class_def.get("default_loadout", {}) as Dictionary).has("SPECIAL"):
+			continue
+		rows.append(slot)
+	return rows
+
+
 func _book_ready() -> bool:
 	return _open_time >= float(FRAME_COUNT) / FRAME_FPS
 
@@ -131,9 +141,9 @@ func _tab_at(position: Vector2) -> String:
 
 
 func _slot_at(position: Vector2) -> String:
-	for i: int in range(SLOT_ROWS.size()):
+	for i: int in range(_slot_rows().size()):
 		if _slot_rect(i).has_point(position):
-			return SLOT_ROWS[i]
+			return _slot_rows()[i]
 	return ""
 
 
@@ -179,7 +189,7 @@ func _click_skill(entry: Dictionary) -> void:
 	var id := StringName(String(skill["id"]))
 	var player := world.player
 	if bool(skill.get("world", false)) and not player.learned_skills.has(String(id)):
-		_say("%s se aprende con Dara, en el Gremio de Albor." % skill["name"], RED)
+		_say(("%s esta en un libro: buscalo en el mundo (jefes, elite, misiones secretas)." if String(skill.get("source", "trainer")) == "book" else "%s se aprende con Dara, en el Gremio de Albor.") % skill["name"], RED)
 		return
 	if int(skill["unlock_level"]) > player.level:
 		_say("%s se desbloquea en el nivel %d." % [skill["name"], int(skill["unlock_level"])], RED)
@@ -210,7 +220,7 @@ func _target_slot_for(skill: Dictionary) -> String:
 	if not _selected_slot.is_empty() and player.slot_accepts(_selected_slot, skill):
 		return _selected_slot
 	var first_fit := ""
-	for slot: String in SLOT_ROWS:
+	for slot: String in _slot_rows():
 		if not player.slot_accepts(slot, skill):
 			continue
 		if first_fit.is_empty():
@@ -221,7 +231,7 @@ func _target_slot_for(skill: Dictionary) -> String:
 
 
 func _slot_of(id: StringName) -> String:
-	for slot: String in SLOT_ROWS:
+	for slot: String in _slot_rows():
 		if world.player.loadout.has(slot) and StringName(String((world.player.loadout[slot] as Dictionary)["id"])) == id:
 			return slot
 	return ""
@@ -247,7 +257,7 @@ func _build_entries() -> Array:
 	var entries: Array = []
 	for id: StringName in SkillCatalog.ids_for_class(world.player.class_id):
 		var data := SkillCatalog.skill(id)
-		if String(data["slot"]) == "M1" or String(data["slot"]) == "M2" or not bool(data.get("implemented", false)):
+		if String(data["slot"]) == "M1" or String(data["slot"]) == "M2" or not bool(data.get("implemented", false)) or bool(data.get("retired", false)):
 			continue
 		entries.append({"skill": data})
 	entries.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
@@ -307,8 +317,8 @@ func _draw_left_page(player: PlayerSim) -> void:
 	_text("MOV  %s (%.0f s)" % [String(mobility.get("name", "Esquiva")), float(mobility["cooldown"])], Vector2(page.position.x + 2.0, info_y), 7, GREEN)
 	info_y += 10.0
 	_text("ULTI  %s" % String(player.class_def.get("ult_charge", {}).get("_doc", "")), Vector2(page.position.x + 2.0, info_y), 6, INK_SOFT, HORIZONTAL_ALIGNMENT_LEFT, page.size.x - 2.0)
-	for i: int in range(SLOT_ROWS.size()):
-		_draw_slot_row(i, SLOT_ROWS[i], player)
+	for i: int in range(_slot_rows().size()):
+		_draw_slot_row(i, _slot_rows()[i], player)
 
 
 func _draw_slot_row(index: int, slot: String, player: PlayerSim) -> void:
@@ -358,7 +368,7 @@ func _draw_entry_row(index: int, skill: Dictionary, player: PlayerSim) -> void:
 	var tag := ""
 	if not learned:
 		color = INK_SOFT
-		tag = "Gremio"
+		tag = "Libro" if String(skill.get("source", "trainer")) == "book" else "Gremio"
 	elif unlock_at > player.level:
 		color = INK_SOFT
 		tag = "nv %d" % unlock_at

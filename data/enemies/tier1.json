@@ -3,7 +3,7 @@
 	"enemies": [
 		{
 			"id": "slime",
-			"name": "Slime",
+			"name": "Limo",
 			"tier": 1,
 			"role": "Melee lento",
 			"description": "Lento y predecible. Un golpe frontal con aviso largo: ideal para aprender a leer el telegraph.",
@@ -44,11 +44,12 @@
 			],
 			"materials": {
 				"essence": 0.7
-			}
+			},
+			"plural": "Limos"
 		},
 		{
 			"id": "bat",
-			"name": "Bat",
+			"name": "Murcielago",
 			"tier": 1,
 			"role": "Embestida",
 			"description": "Rápido y frágil. Marca una línea y se lanza por ella: hay que salir de la línea o esquivar justo al impacto.",
@@ -90,11 +91,12 @@
 			],
 			"materials": {
 				"hide": 0.8
-			}
+			},
+			"plural": "Murcielagos"
 		},
 		{
 			"id": "spider",
-			"name": "Spider",
+			"name": "Arana",
 			"tier": 1,
 			"role": "Zona y salto",
 			"description": "Alterna una explosión alrededor de sí misma (hay que alejarse) con un salto frontal estrecho (hay que apartarse).",
@@ -155,11 +157,12 @@
 			"materials": {
 				"silk": 0.8,
 				"chitin": 0.35
-			}
+			},
+			"plural": "Aranas"
 		},
 		{
 			"id": "beetle",
-			"name": "Beetle",
+			"name": "Escarabajo",
 			"tier": 1,
 			"role": "Tanque pesado",
 			"description": "Muy resistente y lento, con un golpe enorme y un aviso largo. Castiga al que se queda pegado.",
@@ -207,11 +210,12 @@
 			"materials": {
 				"chitin": 1.0,
 				"hide": 0.3
-			}
+			},
+			"plural": "Escarabajos"
 		},
 		{
 			"id": "wisp",
-			"name": "Wisp",
+			"name": "Fuego fatuo",
 			"tier": 1,
 			"role": "Hechicero a distancia",
 			"description": "Se mantiene lejos y lanza un orbe lento. Se esquiva leyendo el carril que marca antes de disparar.",
@@ -267,11 +271,12 @@
 			],
 			"materials": {
 				"essence": 0.9
-			}
+			},
+			"plural": "Fuegos fatuos"
 		},
 		{
 			"id": "hornet",
-			"name": "Hornet",
+			"name": "Avispa",
 			"tier": 1,
 			"role": "Abanico a distancia",
 			"description": "Rápido y frágil: dispara tres aguijones en abanico. Hay que apartarse del eje o esquivar.",
@@ -328,11 +333,12 @@
 			"materials": {
 				"chitin": 0.7,
 				"silk": 0.3
-			}
+			},
+			"plural": "Avispas"
 		},
 		{
 			"id": "brood_beetle",
-			"name": "Brood Beetle",
+			"name": "Escarabajo de la Nidada",
 			"tier": 1,
 			"role": "Jefe del tier 1",
 			"boss": true,
@@ -500,11 +506,12 @@
 			"materials": {
 				"chitin": 1,
 				"hide": 1
-			}
+			},
+			"plural": "Escarabajos de la Nidada"
 		},
 		{
 			"id": "elder_spider",
-			"name": "Elder Spider",
+			"name": "Arana anciana",
 			"tier": 1,
 			"role": "Mini-jefe del tier 1",
 			"boss": true,
@@ -636,11 +643,12 @@
 			"materials": {
 				"chitin": 1,
 				"hide": 1
-			}
+			},
+			"plural": "Aranas ancianas"
 		},
 		{
 			"id": "hornet_queen",
-			"name": "Hornet Queen",
+			"name": "Reina avispa",
 			"tier": 1,
 			"role": "Mini-jefe del tier 1",
 			"boss": true,
@@ -741,11 +749,12 @@
 					"trigger_range": 140,
 					"weight": 1
 				}
-			]
+			],
+			"plural": "Reinas avispa"
 		},
 		{
 			"id": "brood_nest",
-			"name": "Brood Nest",
+			"name": "Nido",
 			"tier": 1,
 			"role": "Nido (mision de destruccion)",
 			"description": "Un nido inmovil que engendra crias mientras haya alguien cerca. Destruirlo corta el flujo.",
@@ -795,7 +804,8 @@
 					"trigger_range": 60,
 					"weight": 1
 				}
-			]
+			],
+			"plural": "Nidos"
 		}
 	]
 }

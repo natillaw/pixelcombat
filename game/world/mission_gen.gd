@@ -240,7 +240,8 @@ static func _describe(spec: Dictionary, ctx: Ctx) -> Dictionary:
 	text = text.replace("{count}", str(int(spec["target"])))
 	text = text.replace("{seconds}", str(int(spec.get("seconds", 0))))
 	if spec.has("enemy_id"):
-		text = text.replace("{enemy}", String(EnemyCatalog.enemy(StringName(String(spec["enemy_id"])))["name"]) + "s")
+		var enemy_data := EnemyCatalog.enemy(StringName(String(spec["enemy_id"])))
+		text = text.replace("{enemy}", String(enemy_data.get("plural", String(enemy_data["name"]) + "s")))
 	if spec.has("material_kind"):
 		text = text.replace("{material}", MaterialCatalog.display_name(MaterialCatalog.material_id(String(spec["material_kind"]), ctx.tier)))
 	text = text.replace("{names}", _names_for(spec, ctx))

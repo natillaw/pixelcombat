@@ -100,8 +100,9 @@ static func validate(entry: Dictionary) -> Array[String]:
 		if not _is_number(spec.get("duration")) or float(spec["duration"]) <= 0.0 or not _is_number(spec.get("strength")) or float(spec["strength"]) <= 0.0:
 			problems.append("la comida necesita duration y strength > 0")
 	elif entry.get("kind") == "book":
-		if (effect as Dictionary).get("learn") != "world_skill":
-			problems.append("el libro necesita effect.learn = world_skill")
+		var learn := String((effect as Dictionary).get("learn", ""))
+		if learn != "world_skill" and not (SkillCatalog.has_skill(StringName(learn)) and bool(SkillCatalog.skill(StringName(learn)).get("world", false))):
+			problems.append("el libro necesita effect.learn = world_skill o el id de una skill de mundo")
 	elif entry.get("kind") == "potion":
 		var spec: Dictionary = effect
 		if not spec.has("heal_pct") and not spec.has("resource_pct"):

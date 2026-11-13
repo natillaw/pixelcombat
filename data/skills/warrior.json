@@ -218,7 +218,8 @@
 					"strength": 5
 				}
 			],
-			"legacy_special": true
+			"legacy_special": true,
+			"source": "book"
 		},
 		{
 			"id": "war_gods_descent",
@@ -358,7 +359,8 @@
 			},
 			"anim": "slash",
 			"unlock_level": 3,
-			"world": true
+			"world": true,
+			"source": "book"
 		},
 		{
 			"id": "rend",
@@ -517,7 +519,130 @@
 				"count": 5,
 				"interval": 0.3,
 				"final_mult": 1.4
+			},
+			"source": "book"
+		},
+		{
+			"id": "throwing_axe",
+			"name": "Throwing Axe",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Dano / a distancia",
+			"description": "Lanza un hacha que hace sangrar al impactar: una opcion para quien no puede acercarse.",
+			"hud_label": "AXE",
+			"shape": "projectile",
+			"windup": 0.25,
+			"active": 0.12,
+			"recovery": 0.3,
+			"cooldown": 6,
+			"cost": 15,
+			"damage_mult": 1.5,
+			"resource_gain": 4,
+			"resource_cap": 16,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.3,
+				"active": 0.1,
+				"recovery": 0.35
+			},
+			"anim": "thrust",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 5,
+			"class": "warrior",
+			"damage_type": "physical",
+			"world": true,
+			"source": "book",
+			"projectile": {
+				"speed": 330,
+				"range": 320,
+				"radius": 8,
+				"count": 1,
+				"spread": 0,
+				"pierce": 0,
+				"visual": "knife"
+			},
+			"on_hit": [
+				{
+					"id": "bleed",
+					"duration": 4,
+					"strength": 5
+				}
+			]
+		},
+		{
+			"id": "execute",
+			"name": "Execute",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Dano / remate",
+			"description": "Golpe brutal que hace el doble de dano a los enemigos con menos del 30 % de vida.",
+			"hud_label": "EXEC",
+			"shape": "cone",
+			"windup": 0.35,
+			"active": 0.12,
+			"recovery": 0.3,
+			"cooldown": 8,
+			"cost": 25,
+			"damage_mult": 1.6,
+			"resource_gain": 4,
+			"resource_cap": 16,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.3,
+				"active": 0.1,
+				"recovery": 0.35
+			},
+			"anim": "slash",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 7,
+			"class": "warrior",
+			"damage_type": "physical",
+			"world": true,
+			"source": "book",
+			"range": 72,
+			"arc": 70,
+			"execute": {
+				"below": 0.3,
+				"mult": 2.0
 			}
+		},
+		{
+			"id": "second_wind",
+			"name": "Second Wind",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Mejora / curacion",
+			"description": "Recupera el 25 % de la vida maxima de golpe (cooldown largo).",
+			"hud_label": "WIND",
+			"shape": "self",
+			"windup": 0.4,
+			"active": 0.3,
+			"recovery": 0.3,
+			"cooldown": 30,
+			"cost": 25,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.5,
+				"active": 0.5,
+				"recovery": 0.8
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 4,
+			"class": "warrior",
+			"damage_type": "physical",
+			"world": true,
+			"source": "book",
+			"self_heal_pct": 0.25
 		}
 	]
 }

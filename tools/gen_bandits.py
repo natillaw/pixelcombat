@@ -213,6 +213,32 @@ standard = en("crow_standard", "Crow Standard-Bearer", "Estandarte (mision de de
 standard["stationary"] = True
 standard["spawner"] = {"id": "bandit_cutthroat", "interval": 12, "max_alive": 2, "range": 480}
 enemies += [rask, veyra, garrick, deserter, standard]
+# Nombres que ve el jugador (los ids no cambian) y plural para los textos de mision ("Derrota a 5 Matones del Cuervo").
+DISPLAY = {
+    "bandit_thug": ("Maton del Cuervo", "Matones del Cuervo"),
+    "bandit_swordsman": ("Espadachin del Cuervo", "Espadachines del Cuervo"),
+    "bandit_archer": ("Arquero del Cuervo", "Arqueros del Cuervo"),
+    "bandit_hexer": ("Hechicero del Cuervo", "Hechiceros del Cuervo"),
+    "bandit_cutthroat": ("Degollador del Cuervo", "Degolladores del Cuervo"),
+    "bandit_shieldman": ("Escudero del Cuervo", "Escuderos del Cuervo"),
+    "bandit_rask": ("Rask el Tajador", "Rask el Tajador"),
+    "bandit_veyra": ("Veyra la Hechicera", "Veyra la Hechicera"),
+    "bandit_garrick": ("Garrick Mano Negra", "Garrick Mano Negra"),
+    "bandit_deserter": ("Cornelius el Desertor", "Cornelius el Desertor"),
+    "crow_standard": ("Portaestandarte del Cuervo", "Portaestandartes del Cuervo"),
+}
+PHASES = {
+    "Rask the Cleaver": "Rask el Tajador", "Rask Enraged": "Rask enfurecido",
+    "Veyra the Hexer": "Veyra la Hechicera", "Veyra Unbound": "Veyra desatada",
+    "Garrick Blackhand": "Garrick Mano Negra", "The Crow's Call": "La llamada del Cuervo", "The Crows Call": "La llamada del Cuervo",
+    "Blackhand's Wrath": "La ira de Mano Negra", "Blackhands Wrath": "La ira de Mano Negra", "Blackhand's Last Stand": "Ultimo aliento", "Blackhands Last Stand": "Ultimo aliento",
+    "Cornelius the Deserter": "Cornelius el Desertor", "The Old Guard": "La vieja guardia",
+}
+for _e in enemies:
+    if _e["id"] in DISPLAY:
+        _e["name"], _e["plural"] = DISPLAY[_e["id"]]
+    for _phase in _e.get("phases", []):
+        _phase["name"] = PHASES.get(_phase["name"], _phase["name"])
 doc = ("Bandidos del Cuervo (pisos 1-10): los enemigos reales del tier 1. Personajes LPC compuestos (sprite.lpc: look + "
        "equipment) con su propio kit de ataques; el atuendo granate es el color de la banda. Generado por "
        "tools/gen_bandits.py. Numeros provisionales.")

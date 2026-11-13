@@ -77,10 +77,6 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 				forced = ["elites"]
 			session._enter(TowerGenerator.generate(floor_number, SEED, attempts, forced), false)
 			session._floor_done = false
-			# El bot sigue el campo de flujo de casillas y no sabe rodear la copa de los arboles: en el laboratorio se
-			# desactiva la holgura de colision de los muros de arboles (la comprueba tests/test_tilegrid.gd).
-			if world.grid != null:
-				world.grid.wall_margin = 0.0
 			session.tower.visit(floor_number)
 			var damage := [0.0]
 			var callable := func(amount: float, _src: Vector2, _dot: bool) -> void: damage[0] += amount

@@ -3,7 +3,7 @@
 	"enemies": [
 		{
 			"id": "bandit_thug",
-			"name": "Bandit Thug",
+			"name": "Maton del Cuervo",
 			"tier": 1,
 			"role": "Maton de maza",
 			"description": "Un bruto del Cuervo con una maza. Golpe alto con aviso largo y, si te alejas, una embestida de hombro corta.",
@@ -128,11 +128,12 @@
 			},
 			"materials": {
 				"hide": 0.2
-			}
+			},
+			"plural": "Matones del Cuervo"
 		},
 		{
 			"id": "bandit_swordsman",
-			"name": "Bandit Swordsman",
+			"name": "Espadachin del Cuervo",
 			"tier": 1,
 			"role": "Espadachin",
 			"description": "Rapido con la espada: tajo en arco y, desde media distancia, una estocada con salto hacia delante.",
@@ -244,11 +245,12 @@
 			},
 			"materials": {
 				"hide": 0.2
-			}
+			},
+			"plural": "Espadachines del Cuervo"
 		},
 		{
 			"id": "bandit_archer",
-			"name": "Bandit Archer",
+			"name": "Arquero del Cuervo",
 			"tier": 1,
 			"role": "Arquero a distancia",
 			"description": "Mantiene la distancia. Una flecha rapida y, cada pocos segundos, una descarga de tres flechas en abanico.",
@@ -381,11 +383,12 @@
 			},
 			"materials": {
 				"hide": 0.2
-			}
+			},
+			"plural": "Arqueros del Cuervo"
 		},
 		{
 			"id": "bandit_hexer",
-			"name": "Bandit Hexer",
+			"name": "Hechicero del Cuervo",
 			"tier": 1,
 			"role": "Hechicero a distancia",
 			"description": "Un renegado que estudio las grietas de la Torre. Lanza orbes lentos que frenan y, si te acercas, una onda que aturde.",
@@ -544,11 +547,12 @@
 			},
 			"materials": {
 				"herb": 0.3
-			}
+			},
+			"plural": "Hechiceros del Cuervo"
 		},
 		{
 			"id": "bandit_cutthroat",
-			"name": "Bandit Cutthroat",
+			"name": "Degollador del Cuervo",
 			"tier": 1,
 			"role": "Degollador veloz",
 			"description": "Veloz y fragil: una embestida en linea con daga envenenada y un doble tajo corto.",
@@ -671,11 +675,12 @@
 			},
 			"materials": {
 				"hide": 0.25
-			}
+			},
+			"plural": "Degolladores del Cuervo"
 		},
 		{
 			"id": "bandit_shieldman",
-			"name": "Bandit Shieldman",
+			"name": "Escudero del Cuervo",
 			"tier": 1,
 			"role": "Escudero resistente",
 			"description": "Muy resistente con su escudo: un empujon que aturde y un barrido a su alrededor. Hay que rodearlo.",
@@ -816,11 +821,12 @@
 			},
 			"materials": {
 				"hide": 0.2
-			}
+			},
+			"plural": "Escuderos del Cuervo"
 		},
 		{
 			"id": "bandit_rask",
-			"name": "Rask the Cleaver",
+			"name": "Rask el Tajador",
 			"tier": 1,
 			"role": "Mini-jefe del tier 1",
 			"description": "Teniente del Cuervo. Tajos amplios y una carga; por debajo de la mitad llama a sus matones y golpea el suelo.",
@@ -951,7 +957,7 @@
 			"boss": true,
 			"phases": [
 				{
-					"name": "Rask the Cleaver",
+					"name": "Rask el Tajador",
 					"hp_below": 1,
 					"speed_mult": 1,
 					"attacks": [
@@ -960,7 +966,7 @@
 					]
 				},
 				{
-					"name": "Rask Enraged",
+					"name": "Rask enfurecido",
 					"hp_below": 0.5,
 					"speed_mult": 1.25,
 					"attacks": [
@@ -1009,11 +1015,12 @@
 			},
 			"materials": {
 				"hide": 1
-			}
+			},
+			"plural": "Rask el Tajador"
 		},
 		{
 			"id": "bandit_veyra",
-			"name": "Veyra the Hexer",
+			"name": "Veyra la Hechicera",
 			"tier": 1,
 			"role": "Mini-jefe del tier 1",
 			"description": "Teniente del Cuervo. Descargas de orbes desde lejos; por debajo de la mitad se rodea de arqueros y suelta una onda.",
@@ -1163,7 +1170,7 @@
 			"boss": true,
 			"phases": [
 				{
-					"name": "Veyra the Hexer",
+					"name": "Veyra la Hechicera",
 					"hp_below": 1,
 					"speed_mult": 1,
 					"attacks": [
@@ -1172,7 +1179,7 @@
 					]
 				},
 				{
-					"name": "Veyra Unbound",
+					"name": "Veyra desatada",
 					"hp_below": 0.5,
 					"speed_mult": 1.25,
 					"attacks": [
@@ -1221,11 +1228,12 @@
 			},
 			"materials": {
 				"herb": 1
-			}
+			},
+			"plural": "Veyra la Hechicera"
 		},
 		{
 			"id": "bandit_garrick",
-			"name": "Garrick Blackhand",
+			"name": "Garrick Mano Negra",
 			"tier": 1,
 			"role": "Jefe del tier 1",
 			"description": "El jefe del Cuervo, enorme y con muchos recursos: elige el golpe segun la distancia (salto sobre ti si huyes, cuchillos a media distancia, torbellino y tajos si te pegas) y llama a su banda en cada fase.",
@@ -1491,7 +1499,7 @@
 			"boss": true,
 			"phases": [
 				{
-					"name": "Garrick Blackhand",
+					"name": "Garrick Mano Negra",
 					"hp_below": 1,
 					"speed_mult": 1,
 					"attacks": [
@@ -1502,7 +1510,7 @@
 					]
 				},
 				{
-					"name": "The Crows Call",
+					"name": "La llamada del Cuervo",
 					"hp_below": 0.75,
 					"speed_mult": 1.15,
 					"attacks": [
@@ -1527,7 +1535,7 @@
 					]
 				},
 				{
-					"name": "Blackhands Wrath",
+					"name": "La ira de Mano Negra",
 					"hp_below": 0.5,
 					"speed_mult": 1.3,
 					"attacks": [
@@ -1553,7 +1561,7 @@
 					]
 				},
 				{
-					"name": "Blackhands Last Stand",
+					"name": "Ultimo aliento",
 					"hp_below": 0.25,
 					"speed_mult": 1.55,
 					"attacks": [
@@ -1621,11 +1629,12 @@
 			},
 			"materials": {
 				"hide": 1
-			}
+			},
+			"plural": "Garrick Mano Negra"
 		},
 		{
 			"id": "bandit_deserter",
-			"name": "Cornelius the Deserter",
+			"name": "Cornelius el Desertor",
 			"tier": 1,
 			"role": "Elite errante del tier 1",
 			"description": "Un antiguo capitan que huyo del Cuervo y ahora vaga por el Bosque; aparece una sola vez y no perdona. Escudo, empujon y sangrado; al caer a la mitad llama a su vieja escolta.",
@@ -1768,7 +1777,7 @@
 			"boss": true,
 			"phases": [
 				{
-					"name": "Cornelius the Deserter",
+					"name": "Cornelius el Desertor",
 					"hp_below": 1,
 					"speed_mult": 1,
 					"attacks": [
@@ -1779,7 +1788,7 @@
 					]
 				},
 				{
-					"name": "The Old Guard",
+					"name": "La vieja guardia",
 					"hp_below": 0.5,
 					"speed_mult": 1.2,
 					"attacks": [
@@ -1838,11 +1847,12 @@
 			"materials": {
 				"hide": 1
 			},
-			"elite_boss": true
+			"elite_boss": true,
+			"plural": "Cornelius el Desertor"
 		},
 		{
 			"id": "crow_standard",
-			"name": "Crow Standard-Bearer",
+			"name": "Portaestandarte del Cuervo",
 			"tier": 1,
 			"role": "Estandarte (mision de destruccion)",
 			"description": "Un portaestandarte inmovil del Cuervo: mientras viva llama refuerzos. Derribarlo corta su bandera.",
@@ -1955,7 +1965,8 @@
 				"interval": 12,
 				"max_alive": 2,
 				"range": 480
-			}
+			},
+			"plural": "Portaestandartes del Cuervo"
 		}
 	]
 }

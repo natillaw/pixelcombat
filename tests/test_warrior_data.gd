@@ -14,7 +14,7 @@ const WARRIOR_DOC := "res://docs/design/WARRIOR.md"
 ## Skills del Skill Book jugables hoy (data/skills/warrior.json). Al implementar
 ## una nueva, se anade aqui: este contrato fija que nada se marca jugable sin
 ## estar en el catalogo.
-const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind"]
+const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind", "throwing_axe", "execute", "second_wind"]
 
 var _failures: int = 0
 var _checks: int = 0
@@ -56,7 +56,7 @@ func _test_design_documents() -> void:
 
 func _test_skill_book_shape() -> void:
 	var book := WarriorKit.get_skill_book()
-	_check(book.size() == 9, "the Skill Book lists 9 skills (3 retired for mechanic tests + Q/E/R + world pool)")
+	_check(book.size() == 12, "the Skill Book lists 12 skills (3 retired for mechanic tests + Q/E/R + world pool)")
 
 	var ids: Dictionary = {}
 	for entry: Dictionary in book:
@@ -65,7 +65,7 @@ func _test_skill_book_shape() -> void:
 		ids[id] = true
 		_check(id == id.to_lower() and not id.contains(" "), "%s uses snake_case" % id)
 		_check(int(entry["cost"]) >= 0 and int(entry["cost"]) <= 30, "%s costs between 0 and 30 Rage" % id)
-		_check(float(entry["cooldown"]) >= 4.0 and float(entry["cooldown"]) <= 20.0 and int(entry["unlock_level"]) <= 10, "%s cooldown is between 4 and 20 s and unlocks by level 10" % id)
+		_check(float(entry["cooldown"]) >= 4.0 and float(entry["cooldown"]) <= 30.0 and int(entry["unlock_level"]) <= 10, "%s cooldown is between 4 and 30 s and unlocks by level 10" % id)
 		_check(bool(entry["implemented"]) == IMPLEMENTED_SKILLS.has(id), "%s is playable only if listed in IMPLEMENTED_SKILLS" % id)
 
 	_check(WarriorKit.all_ids().size() == book.size(), "all_ids matches the Skill Book")

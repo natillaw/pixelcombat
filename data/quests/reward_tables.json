@@ -1,0 +1,45 @@
+{
+	"_doc": "Tablas de recompensa de las misiones. Una tabla tiene `guaranteed` (siempre) y `slots` (cada uno elige una entrada por peso). Cada entrada: {type: gold|xp|item|consumable|material|skill_tome|flag|unlock, ...}. scale_floor: multiplicador por piso (1 + scale_floor * (piso-1)); rarity_mult: multiplica las cantidades segun la rareza de la mision; min/max son cantidades; item admite slot (ranura) y rarity (rareza minima) o id; only_if: {flag} o {class_has_world_skill}. Esquema y validacion en game/quests/reward_generator.gd.",
+	"rarity_mult": {"common": 1.0, "uncommon": 1.25, "rare": 1.6, "epic": 2.2, "legendary": 3.0},
+	"tables": {
+		"common": {
+			"guaranteed": [{"type": "gold", "min": 40, "max": 70, "scale_floor": 0.12}, {"type": "xp", "min": 60, "max": 90, "scale_floor": 0.12}],
+			"slots": [[
+				{"weight": 4, "entry": {"type": "consumable", "id": "health_potion", "min": 1, "max": 2}},
+				{"weight": 3, "entry": {"type": "material", "kind": "hide", "min": 2, "max": 4}},
+				{"weight": 2, "entry": {"type": "item", "slot": "any", "rarity": "common"}},
+				{"weight": 1, "entry": {"type": "consumable", "id": "resource_potion", "min": 1, "max": 1}}
+			]]
+		},
+		"rare": {
+			"guaranteed": [{"type": "gold", "min": 90, "max": 140, "scale_floor": 0.15}, {"type": "xp", "min": 120, "max": 180, "scale_floor": 0.15}],
+			"slots": [[
+				{"weight": 4, "entry": {"type": "item", "slot": "any", "rarity": "uncommon"}},
+				{"weight": 2, "entry": {"type": "item", "slot": "any", "rarity": "rare"}},
+				{"weight": 3, "entry": {"type": "consumable", "id": "greater_health_potion", "min": 1, "max": 1}}
+			], [
+				{"weight": 3, "entry": {"type": "material", "kind": "silk", "min": 2, "max": 3}},
+				{"weight": 3, "entry": {"type": "material", "kind": "essence", "min": 2, "max": 3}},
+				{"weight": 1, "entry": {"type": "skill_tome", "min": 1, "max": 1}}
+			]]
+		},
+		"boss": {
+			"guaranteed": [{"type": "gold", "min": 160, "max": 220, "scale_floor": 0.2}, {"type": "xp", "min": 240, "max": 300, "scale_floor": 0.2}, {"type": "skill_tome", "min": 1, "max": 1}],
+			"slots": [[
+				{"weight": 3, "entry": {"type": "item", "slot": "any", "rarity": "rare"}},
+				{"weight": 1, "entry": {"type": "item", "slot": "any", "rarity": "epic"}}
+			]]
+		},
+		"secret": {
+			"guaranteed": [{"type": "item", "id": "crow_signet", "rarity": "rare"}, {"type": "xp", "min": 150, "max": 200, "scale_floor": 0.1}, {"type": "flag", "flag": "vigia_ledger_found"}],
+			"slots": [[
+				{"weight": 1, "entry": {"type": "skill_tome", "min": 1, "max": 1}},
+				{"weight": 1, "entry": {"type": "consumable", "id": "hunters_stew", "min": 1, "max": 1}}
+			]]
+		},
+		"story_main_01": {
+			"guaranteed": [{"type": "gold", "min": 120, "max": 120, "scale_floor": 0.0}, {"type": "xp", "min": 200, "max": 200, "scale_floor": 0.0}, {"type": "item", "id": "crow_bandana", "rarity": "uncommon"}, {"type": "flag", "flag": "story_01_done"}],
+			"slots": []
+		}
+	}
+}

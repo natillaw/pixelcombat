@@ -2264,6 +2264,37 @@
 				}
 			],
 			"hit": "impacts/hit-spark"
+		},
+		"throwing_axe": {
+			"cast": [
+				{
+					"id": "wind/wind-gust",
+					"scale": 0.6,
+					"ahead": 0.3
+				}
+			],
+			"hit": "impacts/blood-splat"
+		},
+		"execute": {
+			"cast": [
+				{
+					"id": "melee/axe-smear",
+					"scale": 1.4,
+					"ahead": 0.55
+				}
+			],
+			"hit": "impacts/crit-hit",
+			"crit": "impacts/crit-hit"
+		},
+		"second_wind": {
+			"cast": [
+				{
+					"id": "holy/regen-aura",
+					"scale": 1.0,
+					"at": "self",
+					"seconds": 1.2
+				}
+			]
 		}
 	},
 	"events": {
@@ -2276,7 +2307,8 @@
 			{
 				"id": "status/power-up-aura",
 				"scale": 1.1,
-				"up": 4
+				"up": 4,
+				"seconds": 1.2
 			}
 		],
 		"dodge": [

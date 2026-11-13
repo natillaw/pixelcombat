@@ -28,7 +28,7 @@ func setup(id: String, p_scale: float = 1.0, p_rotation: float = 0.0, tint: Colo
 	z_index = 4
 	play(&"play")
 	if bool(spec["loop"]):
-		if seconds > 0.0:
-			get_tree().create_timer(seconds).timeout.connect(queue_free)
+		# Un efecto en bucle sin duracion no se queda para siempre (auras eternas): como mucho 3 s.
+		get_tree().create_timer(seconds if seconds > 0.0 else 3.0).timeout.connect(queue_free)
 	else:
 		animation_finished.connect(queue_free)
