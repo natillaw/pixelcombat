@@ -39,6 +39,8 @@ var _toast: String = ""
 var _portrait: Texture2D = null
 var _portrait_key: String = ""
 var show_controls: bool = false
+## F3: contador de FPS y datos de rendimiento para el playtest.
+var show_fps: bool = false
 var _minimap: ImageTexture = null
 var _minimap_layout: FloorLayout = null
 ## Casillas ya descubiertas del piso actual (niebla del minimapa); vacio = todo descubierto (ciudad, entrenamiento).
@@ -188,6 +190,8 @@ func _draw() -> void:
 		_draw_controls()
 	else:
 		_draw_text("F1  AYUDA", Vector2(520, 354), 7, MUTED)
+	if show_fps:
+		_draw_text("FPS %d   FRAME %.1f MS   ENEMIGOS %d" % [Engine.get_frames_per_second(), 1000.0 / maxf(float(Engine.get_frames_per_second()), 1.0), world.enemies.size()], Vector2(10, 340), 7, GREEN_DONE)
 	if Settings.sim_latency_ms > 0:
 		_draw_text("LATENCIA SIMULADA: %d MS" % Settings.sim_latency_ms, Vector2(10, 354), 7, RED)
 	_draw_boss_bar()
@@ -778,6 +782,8 @@ func _draw_location() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F1:
 		show_controls = not show_controls
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F3:
+		show_fps = not show_fps
 
 
 func _draw_controls() -> void:

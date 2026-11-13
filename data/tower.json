@@ -1,5 +1,5 @@
 {
-	"_doc": "La torre: 100 pisos en 10 tiers de 10. Esquema y validacion en combat/tower_catalog.gd. El tier 1 tiene contenido propio; los tiers 2-10 reutilizan por ahora sus enemigos y jefes con otro tema y mas dificultad (placeholder: true) hasta tener arte y bestiario propios. playable_floors: pisos que se pueden jugar en esta version (la beta llega al 10; los tiers 2-10 son placeholder y no se abren).",
+	"_doc": "La torre: 100 pisos en 10 tiers de 10. Esquema y validacion en combat/tower_catalog.gd. El tier 1 tiene contenido propio; los tiers 2-10 reutilizan por ahora sus enemigos y jefes con otro tema y mas dificultad (placeholder: true) hasta tener arte y bestiario propios. playable_floors: pisos que se pueden jugar en esta version (la beta llega al 10; los tiers 2-10 son placeholder y no se abren). pool: cada entrada admite min_floor y max_floor opcionales (piso 1-10); el piso 10 no incluye enemigos nuevos (jefe aun sin probar).",
 	"floors": 100,
 	"tier_size": 10,
 	"scaling": {
@@ -92,6 +92,36 @@
 				{
 					"id": "hornet",
 					"weight": 1
+				},
+				{
+					"id": "carrion_crow",
+					"weight": 1,
+					"min_floor": 2,
+					"max_floor": 9
+				},
+				{
+					"id": "bandit_shaman",
+					"weight": 2,
+					"min_floor": 3,
+					"max_floor": 9
+				},
+				{
+					"id": "acid_slime",
+					"weight": 1,
+					"min_floor": 4,
+					"max_floor": 9
+				},
+				{
+					"id": "bandit_sapper",
+					"weight": 2,
+					"min_floor": 4,
+					"max_floor": 9
+				},
+				{
+					"id": "bandit_brute",
+					"weight": 1,
+					"min_floor": 5,
+					"max_floor": 9
 				}
 			],
 			"adds": [

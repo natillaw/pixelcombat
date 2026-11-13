@@ -31,6 +31,7 @@ class Ctx extends RefCounted:
 	var rng: RandomNumberGenerator
 	var tier_data: Dictionary
 	var tier: int
+	var floor_number: int = 1
 	var placed: Array = []
 	var camp_counter: int = 0
 	## Si es true los enemigos ambientales cuentan para completar el piso (mision "clear").
@@ -51,6 +52,7 @@ static func populate(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumb
 	ctx.analysis = analysis
 	ctx.rng = rng
 	ctx.tier_data = tier_data
+	ctx.floor_number = floor_number
 	ctx.tier = layout.tier
 	ctx.placed = [analysis.spawn_position(), analysis.exit_position()]
 
@@ -220,7 +222,7 @@ static func _from_template(ctx: Ctx, template: Dictionary, optional: bool) -> Di
 			spec["group"] = "nest"
 		"slay":
 			spec["target"] = _count(ctx, template, optional)
-			var pool: Array = ctx.tier_data["pool"]
+			var pool: Array = pool_for_floor(ctx.tier_data, ctx.floor_number)
 			var chosen := _pick_enemy(ctx)
 			if pool.size() > 1:
 				# Evita los mas raros: el objetivo se cumple con los comunes.
@@ -391,8 +393,17 @@ static func _walkable_near(ctx: Ctx, center: Vector2, radius: float) -> Vector2:
 	return center
 
 
+## Entradas del pool de un tier que valen para ese piso (min_floor / max_floor opcionales).
+static func pool_for_floor(tier_data: Dictionary, floor_number: int) -> Array:
+	var result: Array = []
+	for entry: Dictionary in tier_data["pool"]:
+		if floor_number >= int(entry.get("min_floor", 1)) and floor_number <= int(entry.get("max_floor", 9999)):
+			result.append(entry)
+	return result
+
+
 static func _pick_enemy(ctx: Ctx, prefix: String = "") -> String:
-	var pool: Array = ctx.tier_data["pool"]
+	var pool: Array = pool_for_floor(ctx.tier_data, ctx.floor_number)
 	if prefix != "":
 		var filtered: Array = pool.filter(func(entry: Dictionary) -> bool: return String(entry["id"]).begins_with(prefix))
 		if not filtered.is_empty():
@@ -539,7 +550,7 @@ static func _place_survive(ctx: Ctx, spec: Dictionary) -> void:
 	spec["wave_size"] = 3 + ctx.tier / 2 + (1 if int(spec["seconds"]) > 75 else 0)
 	spec["wave_interval"] = 11.0
 	spec["wave_seed"] = ctx.rng.randi()
-	spec["wave_pool"] = (ctx.tier_data["pool"] as Array).map(func(e: Dictionary) -> String: return String(e["id"]))
+	spec["wave_pool"] = pool_for_floor(ctx.tier_data, ctx.floor_number).map(func(e: Dictionary) -> String: return String(e["id"]))
 	spec["beacon"] = [spot.x, spot.y]
 	ctx.layout.interactables.append({"kind": "beacon", "position": spot, "group": "survive", "channel": 1.5, "label": _label("beacon")})
 

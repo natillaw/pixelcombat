@@ -25,6 +25,7 @@ const DEATH_RETURN_TICKS := 150
 var world: CombatWorld
 var tower: TowerState
 var layout: FloorLayout
+var playtest_log: PlaytestLog = PlaytestLog.new()
 var save_path: String = ""
 ## Piso al que lleva la puerta de la torre (se cambia con floor_prev/next).
 var selected_floor: int = 1
@@ -57,11 +58,23 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 	_hook_quests()
 	world.enemy_spawned.connect(_on_enemy_spawned)
 	world.player.material_gained.connect(_on_material_gained)
+	_hook_playtest_log()
 	go_to_city()
 
 
 ## Carga la partida de `path` (o una nueva si no existe o `fresh`) y empieza en la ciudad. Es lo que usa el
 ## menu al elegir una ranura.
+## Registro de playtest (solo con guardado real): entradas, pisos completados y muertes con su causa.
+func _hook_playtest_log() -> void:
+	playtest_log.enabled = not save_path.is_empty()
+	location_changed.connect(func(new_layout: FloorLayout) -> void:
+		playtest_log.record("enter", new_layout.floor_number, world.player.level, {"kind_of_floor": String(new_layout.kind)}))
+	floor_completed.connect(func(floor_number: int, xp: int) -> void:
+		playtest_log.record("complete", floor_number, world.player.level, {"xp": xp}))
+	world.player.died.connect(func() -> void:
+		playtest_log.record("death", layout.floor_number if layout != null else 0, world.player.level))
+
+
 ## Avisos del marco de misiones (nueva mision, completada...) como mensajes del juego. Se vuelve a llamar al cambiar de partida.
 func _hook_quests() -> void:
 	if not tower.quests.notice.is_connected(_on_quest_notice):

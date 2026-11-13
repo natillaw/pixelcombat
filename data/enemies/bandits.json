@@ -1967,6 +1967,412 @@
 				"range": 480
 			},
 			"plural": "Portaestandartes del Cuervo"
+		},
+		{
+			"id": "bandit_brute",
+			"name": "Bruto del Cuervo",
+			"tier": 1,
+			"role": "Tanque lento",
+			"description": "Enorme y lento. Su golpe cenital tarda en caer y deja aturdido: rodéalo y castiga cuando falla.",
+			"stats": {
+				"health": 330,
+				"speed": 42,
+				"radius": 15,
+				"damage": 24,
+				"armor": 25,
+				"xp": 70
+			},
+			"ai": {
+				"aggro_range": 200,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "brown",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_buzzcut",
+						"hair_color": "black",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_sleeveless",
+							"charcoal"
+						],
+						"legs": [
+							"pants",
+							"brown"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_mace",
+							"default"
+						]
+					}
+				},
+				"scale": 1.2
+			},
+			"attacks": [
+				{
+					"id": "overhead",
+					"shape": "cone",
+					"range": 60,
+					"arc": 90,
+					"windup": 1.25,
+					"active": 0.12,
+					"recovery": 1.0,
+					"cooldown": 3.0,
+					"damage_mult": 1.8,
+					"trigger_range": 54,
+					"weight": 2,
+					"anim": "slash",
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.7
+						}
+					]
+				},
+				{
+					"id": "stomp",
+					"shape": "circle",
+					"range": 72,
+					"windup": 1.0,
+					"active": 0.12,
+					"recovery": 0.9,
+					"cooldown": 5.0,
+					"damage_mult": 1.0,
+					"trigger_range": 66,
+					"weight": 1,
+					"anim": "slash",
+					"on_hit": [
+						{
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 120
+						}
+					]
+				}
+			],
+			"materials": {
+				"hide": 0.3
+			},
+			"plural": "Brutos del Cuervo",
+			"loot": {
+				"chance": 0.35,
+				"slots": [
+					"weapon",
+					"chest",
+					"feet"
+				],
+				"items": [
+					{
+						"id": "militia_mace",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.08
+					}
+				]
+			}
+		},
+		{
+			"id": "bandit_sapper",
+			"name": "Zapador del Cuervo",
+			"tier": 1,
+			"role": "Trampas y bombas",
+			"description": "Se mantiene a distancia, lanza bombas de pólvora y siembra abrojos que ralentizan. Sal de los charcos de fuego y ve a por él.",
+			"stats": {
+				"health": 85,
+				"speed": 58,
+				"radius": 11,
+				"damage": 15,
+				"armor": 0,
+				"xp": 40
+			},
+			"ai": {
+				"aggro_range": 270,
+				"leash": 1.6,
+				"keep_distance": 130
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "taupe",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_plain",
+						"hair_color": "ginger",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_sleeveless",
+							"charcoal"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"leather"
+						],
+						"head": [
+							"hood",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_dagger",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "powder_bomb",
+					"shape": "projectile",
+					"windup": 0.9,
+					"active": 0.1,
+					"recovery": 0.7,
+					"cooldown": 3.2,
+					"damage_mult": 1.2,
+					"trigger_range": 250,
+					"weight": 2,
+					"anim": "thrust",
+					"projectile": {
+						"speed": 150,
+						"range": 280,
+						"radius": 9,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "wisp"
+					},
+					"on_hit": [
+						{
+							"id": "burn",
+							"duration": 2.5,
+							"strength": 0.15
+						}
+					]
+				},
+				{
+					"id": "caltrops",
+					"shape": "circle",
+					"range": 60,
+					"windup": 0.8,
+					"active": 0.12,
+					"recovery": 0.7,
+					"cooldown": 7.0,
+					"damage_mult": 0.5,
+					"trigger_range": 90,
+					"weight": 1,
+					"anim": "thrust",
+					"zone": {
+						"radius": 70,
+						"duration": 5.0,
+						"tick": 0.6,
+						"damage_mult": 0.2,
+						"visual": "fire",
+						"status": [
+							{
+								"id": "slow",
+								"duration": 1.0,
+								"strength": 0.35
+							}
+						]
+					}
+				}
+			],
+			"materials": {
+				"herb": 0.2
+			},
+			"plural": "Zapadores del Cuervo",
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"head",
+					"feet",
+					"chest"
+				],
+				"items": [
+					{
+						"id": "crow_hood",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.08
+					},
+					{
+						"id": "plain_tunic",
+						"chance": 0.08
+					}
+				]
+			}
+		},
+		{
+			"id": "bandit_shaman",
+			"name": "Chamán del Cuervo",
+			"tier": 1,
+			"role": "Apoyo (prioridad)",
+			"description": "Protege y acelera a sus compañeros con escudos. Mátalo primero: si no, el combate se alarga.",
+			"stats": {
+				"health": 95,
+				"speed": 56,
+				"radius": 11,
+				"damage": 12,
+				"armor": 0,
+				"xp": 48
+			},
+			"ai": {
+				"aggro_range": 270,
+				"leash": 1.6,
+				"keep_distance": 170
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "female",
+						"skin": "olive",
+						"eyes": "green",
+						"head": "head_human_female",
+						"hair": "hair_bob",
+						"hair_color": "gray",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"navy"
+						],
+						"legs": [
+							"pants_dyed",
+							"navy"
+						],
+						"feet": [
+							"shoes_basic",
+							"leather"
+						],
+						"head": [
+							"hood",
+							"maroon"
+						],
+						"bag": [
+							"cape",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_staff",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "rally",
+					"shape": "buff",
+					"range": 170,
+					"windup": 0.9,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 9.0,
+					"damage_mult": 0.5,
+					"trigger_range": 300,
+					"weight": 3,
+					"anim": "spellcast",
+					"cast": [
+						{
+							"id": "shield",
+							"duration": 5,
+							"strength": 35
+						},
+						{
+							"id": "haste",
+							"duration": 5,
+							"strength": 0.25
+						}
+					]
+				},
+				{
+					"id": "curse_bolt",
+					"shape": "projectile",
+					"windup": 0.9,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 3.0,
+					"damage_mult": 0.8,
+					"trigger_range": 260,
+					"weight": 1,
+					"anim": "spellcast",
+					"projectile": {
+						"speed": 170,
+						"range": 300,
+						"radius": 7,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "wisp"
+					},
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 1.4,
+							"strength": 0.25
+						}
+					]
+				}
+			],
+			"materials": {
+				"herb": 0.5
+			},
+			"plural": "Chamanes del Cuervo",
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"weapon",
+					"ring",
+					"head"
+				],
+				"items": [
+					{
+						"id": "apprentice_wand",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_hood",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.06
+					}
+				]
+			}
 		}
 	]
 }

@@ -103,7 +103,7 @@ func _test_bandits_are_tier_one_enemies() -> void:
 			beast_weight += float(entry["weight"])
 	_check(bandit_weight > beast_weight * 3.0, "en el tier 1 los bandidos son la mayoria (%.0f vs %.0f)" % [bandit_weight, beast_weight])
 	_check(String(tier["boss"]).begins_with("bandit_") and String(tier["mid_boss"]).begins_with("bandit_") and String(tier["mid_boss_2"]).begins_with("bandit_"), "los jefes del tier 1 son bandidos")
-	for id: String in ["slime", "bat", "spider", "beetle", "wisp", "hornet"]:
+	for id: String in ["slime", "bat", "spider", "beetle", "wisp", "hornet", "carrion_crow", "acid_slime"]:
 		var beast := EnemyCatalog.enemy(StringName(id))
 		_check(not beast.has("loot") and not (beast["materials"] as Dictionary).is_empty(), "%s solo da materiales (sin equipo)" % id)
 	# Las piezas vistosas se guardan para pisos altos: los bandidos solo llevan ropa corriente y solo el jefe es grande.
@@ -115,7 +115,7 @@ func _test_bandits_are_tier_one_enemies() -> void:
 		for slot: String in sprite["lpc"]["equipment"]:
 			_check(not reserved.has(String(sprite["lpc"]["equipment"][slot][0])), "%s: %s es ropa corriente" % [id, slot])
 		_check((float(sprite["scale"]) > 1.2) == (id == &"bandit_garrick"), "%s: solo Garrick es grande" % id)
-	for id: String in ["bandit_thug", "bandit_swordsman", "bandit_archer", "bandit_hexer", "bandit_cutthroat", "bandit_shieldman"]:
+	for id: String in ["bandit_thug", "bandit_swordsman", "bandit_archer", "bandit_hexer", "bandit_cutthroat", "bandit_shieldman", "bandit_brute", "bandit_sapper", "bandit_shaman"]:
 		var bandit := EnemyCatalog.enemy(StringName(id))
 		_check(bandit["sprite"].has("lpc") and (bandit["loot"]["slots"] as Array).size() > 0 and (bandit["attacks"] as Array).size() >= 2, "%s: sprite LPC, kit de 2+ ataques y botin de equipo" % id)
 
