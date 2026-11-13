@@ -46,6 +46,7 @@ var _fight_last: Vector2 = Vector2.ZERO
 var _path_ticks: int = 0
 ## Casillas con holgura suficiente para el cuerpo del jugador (por piso) y el campo de flujo por ellas.
 var _open: PackedByteArray = PackedByteArray()
+var _open_needs_obstacles: bool = false
 var _safe_field: PackedInt32Array = PackedInt32Array()
 
 
@@ -65,7 +66,7 @@ func decide(world: CombatWorld) -> InputMessage:
 	if world.grid == null:
 		return message
 	_tick_count += 1
-	_ensure_known(world.grid)
+	_ensure_known(world.grid, world)
 	var direction := Vector2.ZERO
 	if _exhausted and not knows_map:
 		_exhausted_ticks += 1
@@ -136,7 +137,7 @@ func _known_map_direction(world: CombatWorld, player: PlayerSim) -> Vector2:
 # --- Exploracion como una persona (sin conocer el mapa) -------------------------------------
 
 
-func _ensure_known(grid: TileGrid) -> void:
+func _ensure_known(grid: TileGrid, world: CombatWorld = null) -> void:
 	if _known_grid != grid:
 		_known_grid = grid
 		_known.resize(grid.cols * grid.rows)
@@ -151,13 +152,13 @@ func _ensure_known(grid: TileGrid) -> void:
 		_exhausted_ticks = 0
 		_replan_ticks = 0
 		_force_reveal = true
-		_ensure_open(grid)
+		_ensure_open(grid, world)
 
 
 ## Casillas con holgura para el cuerpo (una sola vez por piso).
-func _ensure_open(grid: TileGrid) -> void:
+func _ensure_open(grid: TileGrid, world: CombatWorld = null) -> void:
 	var cells := grid.cols * grid.rows
-	if _open.size() == cells and _open_grid == grid:
+	if _open.size() == cells and _open_grid == grid and not _open_needs_obstacles:
 		return
 	_open_grid = grid
 	var clearance := TowerGenerator._clearance_px(grid)
@@ -165,12 +166,25 @@ func _ensure_open(grid: TileGrid) -> void:
 	_open.resize(cells)
 	for i: int in range(cells):
 		_open[i] = 1 if clearance[i] >= radius and not grid.blocks_move(i % grid.cols, i / grid.cols) else 0
+	# Arboles, rocas, vetas y demas obstaculos circulares no estan en el mapa de casillas: sin esto el bot planea
+	# caminos que chocan contra ellos y se queda empujando un arbol.
+	_open_needs_obstacles = world == null
+	if world != null:
+		for obstacle: Dictionary in world.obstacles:
+			var center: Vector2 = obstacle["position"]
+			var reach := float(obstacle["radius"]) + PlayerSim.RADIUS + 6.0
+			var first := grid.world_to_cell(center - Vector2(reach, reach))
+			var last := grid.world_to_cell(center + Vector2(reach, reach))
+			for r: int in range(first.y, last.y + 1):
+				for c: int in range(first.x, last.x + 1):
+					if grid.in_bounds(c, r) and grid.cell_center(c, r).distance_to(center) < reach + 10.0:
+						_open[r * grid.cols + c] = 0
 
 
 ## Descubre lo que ve el bot: las casillas a la vista (y sus vecinas, muros incluidos), los enemigos y el botin.
 func _reveal(world: CombatWorld) -> void:
 	var grid := world.grid
-	_ensure_known(grid)
+	_ensure_known(grid, world)
 	if not _force_reveal and _tick_count % 6 != 1:
 		return
 	_force_reveal = false
