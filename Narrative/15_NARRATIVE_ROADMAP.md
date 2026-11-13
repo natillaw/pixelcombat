@@ -23,3 +23,7 @@ Plantillas nuevas en `data/missions.json`: **Robar el cargamento** (cargamento =
 principal fija de historia (`story`): 1 Despejar la linde, 2 Quitarles las hachas, 3 Destruir el estandarte, 4 Prisioneros
 del Cuervo, 5 Interrogar al capitan (+ Rask y Veyra), 6 Robar el cargamento, 7 Mojones de la Vigia, 8 El asedio del Cuervo,
 9 Marcas del Cuervo; el 10 es la prueba de Garrick. Validado en `tests/test_narrative.gd`.
+
+## Fases 10 y 11 hechas (tecnico)
+- **10**: caida de los enemigos LPC al morir (giran sobre su ultima pose y se desvanecen), efecto al aplicarse cada estado nuevo (sangrado, silencio, escudo, empuje, comida) con duracion corta para que no se queden pegados, aviso "!" al despertar un campamento, efecto e icono por movilidad en el HUD, proyectiles con sprites del pack.
+- **11**: cada ranura tiene al menos 2 recetas por clase y el set de tier 1 mas barato cabe en lo recolectable en los pisos 1-10 (test que lo mide); tomo de habilidad como segunda fuente de skills de mundo (Rask y Veyra 30 %, Cornelius 60 %, Garrick siempre); iconos de consumibles (CraftPix) e indicador de comida activa en el HUD; **cada item es su propio icono** (su pieza LPC recortada, `ItemIcons`) en mochila (rejilla), ficha de personaje, mercader y banco.

@@ -175,7 +175,11 @@ func _draw_slot(slot: String, player: PlayerSim) -> void:
 	var tint := Color(1, 1, 1, 1.0) if equipped else Color(1, 1, 1, 0.3)
 	if slot == "legs":
 		tint = Color(0.82, 0.62, 0.42, tint.a)
-	draw_texture_rect_region(SHEET, target, icon, tint)
+	var own_icon: Texture2D = ItemIcons.texture(player.equipment[slot], 36) if equipped else null
+	if own_icon != null:
+		draw_texture(own_icon, rect.position + ((rect.size - own_icon.get_size()) * 0.5).floor())
+	else:
+		draw_texture_rect_region(SHEET, target, icon, tint)
 	if equipped:
 		var color := ItemCatalog.rarity_color(String((player.equipment[slot] as Dictionary)["rarity"]))
 		draw_rect(rect, color, false, 3.0)

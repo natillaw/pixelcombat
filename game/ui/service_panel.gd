@@ -124,7 +124,7 @@ func _say(text: String) -> void:
 
 
 ## Una fila: nombre (a color), detalle y un boton de accion.
-func _row(name_text: String, detail: String, action: String, enabled: bool, callback: Callable, color: Color = MenuKit.TEXT) -> void:
+func _row(name_text: String, detail: String, action: String, enabled: bool, callback: Callable, color: Color = MenuKit.TEXT, piece: Dictionary = {}) -> void:
 	var row := Control.new()
 	row.custom_minimum_size = Vector2(540, ROW_H)
 	_list.add_child(row)
@@ -133,8 +133,19 @@ func _row(name_text: String, detail: String, action: String, enabled: bool, call
 	back.size = Vector2(540, ROW_H - 1.0)
 	back.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(back)
-	MenuKit.label(row, name_text, Rect2(4, 2, 170, 10), 8, color)
-	MenuKit.label(row, detail, Rect2(4, 11, 400, 10), 7, MenuKit.MUTED)
+	var text_x := 4.0
+	if not piece.is_empty():
+		var icon := ItemIcons.texture(piece, 18)
+		if icon != null:
+			var holder := TextureRect.new()
+			holder.texture = icon
+			holder.position = Vector2(3, (ROW_H - icon.get_size().y) * 0.5)
+			holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			holder.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			row.add_child(holder)
+		text_x = 26.0
+	MenuKit.label(row, name_text, Rect2(text_x, 2, 170, 10), 8, color)
+	MenuKit.label(row, detail, Rect2(text_x, 11, 400, 10), 7, MenuKit.MUTED)
 	if action != "":
 		var button := MenuKit.button(row, action, Rect2(440, 2, 96, ROW_H - 5.0), callback)
 		button.disabled = not enabled
@@ -200,7 +211,7 @@ func _fill_merchant() -> void:
 				var piece: Dictionary = entry["item"]
 				var color := ItemCatalog.rarity_color(String(piece["rarity"]))
 				var detail := "%s - %s" % [ItemCatalog.slot_name(String(ItemCatalog.item(String(piece["id"]))["slot"])), _stats_text(piece)]
-				_row(ItemCatalog.display_name(piece) if not bool(entry["sold"]) else "(vendido)", detail, "%d oro" % int(entry["price"]), not bool(entry["sold"]) and player.gold >= int(entry["price"]), func() -> void: _after(Services.buy_stock(player, _stock, index), "Comprado."), color)
+				_row(ItemCatalog.display_name(piece) if not bool(entry["sold"]) else "(vendido)", detail, "%d oro" % int(entry["price"]), not bool(entry["sold"]) and player.gold >= int(entry["price"]), func() -> void: _after(Services.buy_stock(player, _stock, index), "Comprado."), color, piece)
 		1:
 			for id: String in ConsumableCatalog.sold_ids():
 				var spec := ConsumableCatalog.item(id)
@@ -213,7 +224,7 @@ func _fill_merchant() -> void:
 				_note("La mochila esta vacia.")
 			for index: int in range(player.bag.size()):
 				var piece: Dictionary = player.bag[index]
-				_row(ItemCatalog.display_name(piece), _stats_text(piece), "Vender %d" % ItemCatalog.sell_value(piece), true, func() -> void: _sell(index), ItemCatalog.rarity_color(String(piece["rarity"])))
+				_row(ItemCatalog.display_name(piece), _stats_text(piece), "Vender %d" % ItemCatalog.sell_value(piece), true, func() -> void: _sell(index), ItemCatalog.rarity_color(String(piece["rarity"])), piece)
 
 
 func _sell(index: int) -> void:
@@ -232,13 +243,13 @@ func _fill_bank() -> void:
 			_note("La mochila esta vacia.")
 		for index: int in range(player.bag.size()):
 			var piece: Dictionary = player.bag[index]
-			_row(ItemCatalog.display_name(piece), _stats_text(piece), "Guardar", player.bank.size() < PlayerSim.BANK_SIZE, func() -> void: _after(Services.bank_deposit(player, index), "Guardado."), ItemCatalog.rarity_color(String(piece["rarity"])))
+			_row(ItemCatalog.display_name(piece), _stats_text(piece), "Guardar", player.bank.size() < PlayerSim.BANK_SIZE, func() -> void: _after(Services.bank_deposit(player, index), "Guardado."), ItemCatalog.rarity_color(String(piece["rarity"])), piece)
 	else:
 		if player.bank.is_empty():
 			_note("El alijo esta vacio.")
 		for index: int in range(player.bank.size()):
 			var piece: Dictionary = player.bank[index]
-			_row(ItemCatalog.display_name(piece), _stats_text(piece), "Retirar", player.bag_has_room(), func() -> void: _after(Services.bank_withdraw(player, index), "Retirado."), ItemCatalog.rarity_color(String(piece["rarity"])))
+			_row(ItemCatalog.display_name(piece), _stats_text(piece), "Retirar", player.bag_has_room(), func() -> void: _after(Services.bank_withdraw(player, index), "Retirado."), ItemCatalog.rarity_color(String(piece["rarity"])), piece)
 
 
 # --- Gremio --------------------------------------------------------------------------

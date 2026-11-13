@@ -999,6 +999,12 @@
 						"id": "crow_signet",
 						"chance": 0.2
 					}
+				],
+				"consumables": [
+					{
+						"id": "skill_tome",
+						"chance": 0.3
+					}
 				]
 			},
 			"materials": {
@@ -1204,6 +1210,12 @@
 					{
 						"id": "crow_signet",
 						"chance": 0.2
+					}
+				],
+				"consumables": [
+					{
+						"id": "skill_tome",
+						"chance": 0.3
 					}
 				]
 			},
@@ -1599,6 +1611,12 @@
 						"id": "crow_bandana",
 						"chance": 0.25
 					}
+				],
+				"consumables": [
+					{
+						"id": "skill_tome",
+						"chance": 1.0
+					}
 				]
 			},
 			"materials": {
@@ -1808,6 +1826,12 @@
 					{
 						"id": "crow_vest",
 						"chance": 0.3
+					}
+				],
+				"consumables": [
+					{
+						"id": "skill_tome",
+						"chance": 0.6
 					}
 				]
 			},

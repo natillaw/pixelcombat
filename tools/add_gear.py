@@ -50,6 +50,8 @@ NEW_ITEMS = [
     {"id": "deserter_medal", "name": "Medalla del Desertor", "slot": "ring", "stats": {"armor": 3, "stamina": 2, "attack_power_bonus": 2}, "value": 70},
     {"id": "deserter_coat", "name": "Capote del Desertor", "slot": "chest", "stats": {"armor": 9, "stamina": 2.5, "strength": 1.5, "agility": 1}, "value": 70,
      "look": look("chest", "shirt_longsleeve", ["navy", "tan"])},
+    {"id": "bone_dagger", "name": "Daga de hueso", "slot": "weapon", "classes": ["rogue"],
+     "stats": {"weapon_min": 2.5, "weapon_max": 4.2, "agility": 2.5}, "value": 20, "look": look("main_hand", "weapon_dagger", ["default"])},
     {"id": "rask_cleaver", "name": "Tajador de Rask", "slot": "weapon", "classes": ["warrior"],
      "stats": {"weapon_min": 4.5, "weapon_max": 6.5, "strength": 3}, "value": 60, "look": look("main_hand", "weapon_mace", ["default"])},
     {"id": "veyra_wand", "name": "Varita de Veyra", "slot": "weapon", "classes": ["mage"],
@@ -77,6 +79,7 @@ NEW_RECIPES = [
     {"id": "forge_chitin_greaves", "station": "blacksmith", "item": "chitin_greaves", "cost": {"chitin": 4, "ore": 1}, "gold": 14, "quality_bonus": 1.0},
     {"id": "sew_slime_boots", "station": "tailor", "item": "slime_boots", "cost": {"essence": 3, "hide": 2}, "gold": 12, "quality_bonus": 1.0},
     {"id": "brew_wisp_ring", "station": "alchemist", "item": "wisp_ring", "cost": {"essence": 4, "herb": 1}, "gold": 16, "quality_bonus": 1.0},
+    {"id": "forge_bone_dagger", "station": "blacksmith", "item": "bone_dagger", "cost": {"chitin": 3, "ore": 2}, "gold": 18, "quality_bonus": 1.0},
     {"id": "forge_militia_mace", "station": "blacksmith", "item": "militia_mace", "cost": {"ore": 6, "wood": 2}, "gold": 20, "quality_bonus": 1.0},
     {"id": "carve_hunter_crossbow", "station": "carpenter", "item": "hunter_crossbow", "cost": {"wood": 6, "ore": 2}, "gold": 22, "quality_bonus": 1.0},
     {"id": "carve_apprentice_wand", "station": "carpenter", "item": "apprentice_wand", "cost": {"wood": 3, "essence": 3}, "gold": 22, "quality_bonus": 1.0},
@@ -110,8 +113,12 @@ recipes["recipes"] += [r for r in NEW_RECIPES if r["id"] not in have]
 save("data/recipes.json", recipes)
 
 bandits = load("data/enemies/bandits.json")
+# Tomos de habilidad: segunda fuente de skills de mundo (la primera es la instructora del Gremio).
+TOMES = {"bandit_rask": 0.3, "bandit_veyra": 0.3, "bandit_deserter": 0.6, "bandit_garrick": 1.0}
 for e in bandits["enemies"]:
     e.setdefault("loot", {})["items"] = [{"id": i, "chance": c} for i, c in DROPS[e["id"]]]
+    if e["id"] in TOMES:
+        e["loot"]["consumables"] = [{"id": "skill_tome", "chance": TOMES[e["id"]]}]
 save("data/enemies/bandits.json", bandits)
 print(len(items["items"]), "items,", len(recipes["recipes"]), "recetas")
 

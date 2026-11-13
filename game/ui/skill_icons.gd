@@ -11,6 +11,17 @@ const DIR := "res://assets/pixel/icons/skills/"
 static var _cache: Dictionary = {}
 
 
+## Icono de un consumible (assets/pixel/icons/consumables/<id>.png, 12x12; se dibuja a escala entera).
+static func consumable(id: String) -> Texture2D:
+	var key := "consumable/" + id
+	if _cache.has(key):
+		return _cache[key]
+	var path := "res://assets/pixel/icons/consumables/%s.png" % id
+	var tex: Texture2D = load(path) if ResourceLoader.exists(path) else null
+	_cache[key] = tex
+	return tex
+
+
 static func texture(skill_id: String) -> Texture2D:
 	if skill_id.is_empty():
 		return null

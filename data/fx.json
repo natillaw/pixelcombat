@@ -2406,8 +2406,9 @@
 		"status_bleed": [
 			{
 				"id": "status/bleeding",
-				"scale": 0.9,
-				"up": 18
+				"scale": 0.8,
+				"up": 18,
+				"seconds": 1.0
 			}
 		],
 		"status_silence": [
@@ -2420,8 +2421,9 @@
 		"status_shield": [
 			{
 				"id": "holy/shield-bubble",
-				"scale": 0.8,
-				"up": 4
+				"scale": 0.5,
+				"up": 4,
+				"seconds": 0.9
 			}
 		],
 		"status_knockback": [
@@ -2434,15 +2436,17 @@
 		"status_fed": [
 			{
 				"id": "holy/regen-aura",
-				"scale": 0.9,
-				"up": 6
+				"scale": 0.6,
+				"up": 6,
+				"seconds": 0.9
 			}
 		],
 		"status_might": [
 			{
 				"id": "status/power-up-aura",
-				"scale": 0.9,
-				"up": 6
+				"scale": 0.6,
+				"up": 6,
+				"seconds": 0.9
 			}
 		],
 		"status_haste": [

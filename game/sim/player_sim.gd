@@ -265,6 +265,18 @@ func add_consumable(id: String, count: int = 1) -> int:
 	return added
 
 
+## La skill de mundo de la clase que aun no se conoce y es mas facil (menor nivel); &"" si ya las conoce todas.
+func _next_world_skill() -> StringName:
+	var best: StringName = &""
+	var best_level := 1000
+	for id: StringName in SkillCatalog.ids_for_class(class_id):
+		var skill: Dictionary = SkillCatalog.skill(id)
+		if bool(skill.get("world", false)) and bool(skill.get("implemented", false)) and not learned_skills.has(String(id)) and int(skill["unlock_level"]) < best_level:
+			best = id
+			best_level = int(skill["unlock_level"])
+	return best
+
+
 ## Usa un consumible: "" si se uso o el motivo ("none", "dead", "cooldown", "full").
 func use_consumable(id: String) -> String:
 	if not alive:
@@ -273,7 +285,11 @@ func use_consumable(id: String) -> String:
 		return "none"
 	var spec: Dictionary = ConsumableCatalog.item(id)
 	var effect: Dictionary = spec["effect"]
-	if String(spec["kind"]) == "potion":
+	if String(spec["kind"]) == "book":
+		var next := _next_world_skill()
+		if next == &"" or not learn_skill(next):
+			return "known"
+	elif String(spec["kind"]) == "potion":
 		if potion_cooldown_left > 0.0:
 			return "cooldown"
 		var heal := float(effect.get("heal_pct", 0.0)) * max_health

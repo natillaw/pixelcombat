@@ -179,6 +179,10 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	for kind_id: String in material_table:
 		if loot_rng.randf() < float(material_table[kind_id]):
 			player.add_material(MaterialCatalog.material_id(kind_id, tier), loot_rng.randi_range(1, 2) + (2 if kind != "normal" else 0))
+	# Consumibles propios del enemigo (tomos de habilidad de jefes y elite): loot.consumables = [{id, chance}].
+	for entry: Dictionary in enemy.data.get("loot", {}).get("consumables", []):
+		if loot_rng.randf() < float(entry["chance"]):
+			player.add_consumable(String(entry["id"]), 1)
 	# Pociones sueltas: raras en enemigos normales, seguras en jefes.
 	var loot_config := ItemCatalog.loot()
 	var boss_kill := kind != "normal"

@@ -1,0 +1,1 @@
+Recortes de Inventory.png del paquete Free Basic Pixel Art UI for RPG (CraftPix, licencia gratuita de uso comercial; no redistribuir el pack). Las pociones se tinen de rojo en codigo de herramienta (tools/_patch_phase11.py, ya aplicado).

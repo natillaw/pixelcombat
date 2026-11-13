@@ -26,9 +26,9 @@ const EQUIP_W := 190.0
 const ROW_H := 26.0
 const BAG_X := 256.0
 const BAG_Y := 60.0
-const BAG_COL_W := 172.0
-const BAG_ROW_H := 10.0
-const BAG_ROWS := 20
+## La mochila es una rejilla de 8 columnas: cada item es su propio icono (su pieza LPC).
+const BAG_COLS := 8
+const BAG_CELL := 37.0
 
 var world: CombatWorld
 var is_open: bool = false
@@ -114,7 +114,7 @@ func _consumable_rects() -> Array:
 	for id: String in ConsumableCatalog.ids():
 		if world.player.consumable_count(id) <= 0:
 			continue
-		var width := 112.0
+		var width := 90.0
 		out.append({"rect": Rect2(x, 337.0, width - 4.0, 11.0), "id": id})
 		x += width
 	return out
@@ -153,9 +153,9 @@ func _slot_rect(i: int) -> Rect2:
 
 
 func _bag_rect(index: int) -> Rect2:
-	var col := index / BAG_ROWS
-	var row := index % BAG_ROWS
-	return Rect2(BAG_X + float(col) * BAG_COL_W, BAG_Y + float(row) * BAG_ROW_H, BAG_COL_W - 6.0, BAG_ROW_H - 1.0)
+	var col := index % BAG_COLS
+	var row := index / BAG_COLS
+	return Rect2(BAG_X + float(col) * BAG_CELL, BAG_Y + float(row) * BAG_CELL, BAG_CELL - 2.0, BAG_CELL - 2.0)
 
 
 func _bag_index_at(position: Vector2) -> int:
@@ -196,20 +196,24 @@ func _draw() -> void:
 		var slot := String(slots[i])
 		draw_rect(rect, Color(0.09, 0.10, 0.14, 1.0))
 		draw_rect(rect, EDGE if rect.has_point(get_local_mouse_position()) else Color(0.2, 0.23, 0.3), false, 1.0)
-		_text(ItemCatalog.slot_name(slot).to_upper(), rect.position + Vector2(4, 9), 7, DIM)
+		_text(ItemCatalog.slot_name(slot).to_upper(), rect.position + Vector2(30, 9), 7, DIM)
 		if player.equipment.has(slot):
 			var piece: Dictionary = player.equipment[slot]
-			_text(ItemCatalog.display_name(piece), rect.position + Vector2(4, 20), 7, ItemCatalog.rarity_color(String(piece["rarity"])), HORIZONTAL_ALIGNMENT_LEFT, EQUIP_W - 8.0)
+			ItemIcons.draw(self, piece, Rect2(rect.position + Vector2(2, 1), Vector2(24, rect.size.y - 2.0)))
+			_text(ItemCatalog.display_name(piece), rect.position + Vector2(30, 20), 7, ItemCatalog.rarity_color(String(piece["rarity"])), HORIZONTAL_ALIGNMENT_LEFT, EQUIP_W - 34.0)
 		else:
-			_text("vacio", rect.position + Vector2(4, 20), 7, DIM)
+			_text("vacio", rect.position + Vector2(30, 20), 7, DIM)
 
 	for i: int in range(player.bag.size()):
 		var rect := _bag_rect(i)
 		var piece: Dictionary = player.bag[i]
 		var color := ItemCatalog.rarity_color(String(piece["rarity"]))
+		UiStyle.draw_slot_bg(self, rect)
+		ItemIcons.draw(self, piece, rect)
+		draw_rect(rect, color, false, 2.0)
+		_text("T%d" % int(piece["tier"]), rect.position + Vector2(3, 9), 7, color.lightened(0.25))
 		if rect.has_point(get_local_mouse_position()):
-			draw_rect(rect, Color(0.16, 0.18, 0.25, 1.0))
-		_text(ItemCatalog.display_name(piece), rect.position + Vector2(2, 9), 7, color, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 4.0)
+			draw_rect(rect, Color(1, 1, 1, 0.16))
 
 	_draw_detail(player)
 	_text(_message, Vector2(48, 325), 7, _message_color)
@@ -228,7 +232,10 @@ func _draw_materials(player: PlayerSim) -> void:
 		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource")], Vector2(EQUIP_X, 346), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
 	for entry: Dictionary in rects:
 		var spec := ConsumableCatalog.item(String(entry["id"]))
-		_text("%s x%d" % [spec["name"], player.consumable_count(String(entry["id"]))], (entry["rect"] as Rect2).position + Vector2(0, 8), 7, GREEN, HORIZONTAL_ALIGNMENT_LEFT, 108.0)
+		var icon := SkillIcons.consumable(String(spec.get("icon", "")))
+		if icon != null:
+			draw_texture_rect(icon, Rect2((entry["rect"] as Rect2).position + Vector2(0, -1), Vector2(12, 12)), false)
+		_text("%s x%d" % [spec["name"], player.consumable_count(String(entry["id"]))], (entry["rect"] as Rect2).position + Vector2(14, 8), 7, GREEN, HORIZONTAL_ALIGNMENT_LEFT, 74.0)
 
 
 func _draw_detail(player: PlayerSim) -> void:

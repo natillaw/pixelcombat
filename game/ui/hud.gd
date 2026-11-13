@@ -128,6 +128,7 @@ func _draw() -> void:
 	_draw_statuses(warrior)
 	_draw_abilities(warrior)
 	_draw_quick_items(warrior)
+	_draw_active_food(warrior)
 	if show_controls:
 		_draw_controls()
 	else:
@@ -250,13 +251,40 @@ func _draw_quick_items(player: PlayerSim) -> void:
 		var rect := Rect2(3.0, SLOT_Y + float(index) * 20.0, 31.0, 18.0)
 		UiStyle.draw_slot_bg(self, rect)
 		var color: Color = colors[quick]
-		draw_circle(rect.position + Vector2(8, 9), 4.0, color if total > 0 else color.darkened(0.6))
+		var best := ""
+		for id: String in ConsumableCatalog.quick_ids(quick):
+			if player.consumable_count(id) > 0:
+				best = id
+				break
+		var potion_icon := SkillIcons.consumable(best if best != "" else String(ConsumableCatalog.quick_ids(quick)[ConsumableCatalog.quick_ids(quick).size() - 1]))
+		if potion_icon != null:
+			draw_texture_rect(potion_icon, Rect2(rect.position + Vector2(1, 3), Vector2(12, 12)), false, Color(1, 1, 1, 1.0 if total > 0 else 0.35))
+		else:
+			draw_circle(rect.position + Vector2(8, 9), 4.0, color if total > 0 else color.darkened(0.6))
 		_draw_text(Settings.short_label("quick_" + quick), rect.position + Vector2(14, 7), 7, TEXT)
 		_draw_text("x%d" % total, rect.position + Vector2(14, 15), 7, MUTED if total > 0 else Color(0.5, 0.45, 0.38))
 		if player.potion_cooldown_left > 0.0 and total > 0:
 			var fraction := clampf(player.potion_cooldown_left / ConsumableCatalog.potion_cooldown(), 0.0, 1.0)
 			draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * fraction)), Color(0, 0, 0, 0.55))
 		index += 1
+
+
+## Comida activa (bien alimentado, fuerza, velocidad): icono y tiempo que queda, apilados sobre las pociones.
+func _draw_active_food(player: PlayerSim) -> void:
+	var foods := {"fed": "herb_bread", "might": "hunters_stew", "haste": "silk_tea"}
+	var row := 0
+	for status: String in foods:
+		if not player.statuses.has(status):
+			continue
+		var rect := Rect2(3.0, SLOT_Y - 26.0 - float(row) * 25.0, 31.0, 23.0)
+		UiStyle.draw_slot_bg(self, rect)
+		var icon := SkillIcons.consumable(String(foods[status]))
+		if icon != null:
+			draw_texture_rect(icon, Rect2(rect.position + Vector2(1, 5), Vector2(12, 12)), false)
+		var seconds := int(player.statuses.remaining(status))
+		_draw_text("%d:%02d" % [seconds / 60, seconds % 60], rect.position + Vector2(14, 10), 7, TEXT)
+		_draw_text(String(StatusCatalog.status(status)["name"]).substr(0, 5), rect.position + Vector2(14, 19), 7, MUTED)
+		row += 1
 
 
 func _slot_rect(index: int) -> Rect2:

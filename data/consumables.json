@@ -1,13 +1,140 @@
 {
-	"_doc": "Consumibles: pociones (vida y recurso, enfriamiento compartido) y comida (mejoras de larga duracion, solo una activa por tipo). Esquema y validacion en combat/consumable_catalog.gd. 'cook' = receta de la taberna (materiales por tipo + oro); 'price' = lo que cuesta en la taberna o el mercader (0 = no se vende). Numeros provisionales.",
+	"_doc": "Consumibles: pociones (vida y recurso, enfriamiento compartido) y comida (mejoras de larga duracion, solo una activa por tipo). Esquema y validacion en combat/consumable_catalog.gd. 'cook' = receta de la taberna (materiales por tipo + oro); 'price' = lo que cuesta en la taberna o el mercader (0 = no se vende). Numeros provisionales. 'book' (tomo de habilidad): al leerlo ensena una skill de mundo de la clase; no se vende ni se cocina, solo lo sueltan jefes y elite (loot.consumables en los enemigos).",
 	"potion_cooldown": 14.0,
 	"max_stack": 20,
 	"consumables": [
-		{"id": "health_potion", "name": "Pocion de vida", "kind": "potion", "description": "Recupera el 40 % de la vida maxima.", "effect": {"heal_pct": 0.4}, "price": 28, "value": 10, "cook": {"cost": {"herb": 3}, "gold": 8}, "quick": "health"},
-		{"id": "greater_health_potion", "name": "Pocion de vida mayor", "kind": "potion", "description": "Recupera el 70 % de la vida maxima.", "effect": {"heal_pct": 0.7}, "price": 0, "value": 24, "cook": {"cost": {"herb": 5, "essence": 2}, "gold": 20}, "quick": "health"},
-		{"id": "resource_potion", "name": "Elixir de energia", "kind": "potion", "description": "Recupera el 60 % del recurso (Rage, Energy, Mana o Focus).", "effect": {"resource_pct": 0.6}, "price": 24, "value": 9, "cook": {"cost": {"herb": 2, "essence": 1}, "gold": 8}, "quick": "resource"},
-		{"id": "herb_bread", "name": "Pan de hierbas", "kind": "food", "description": "Regenera vida mas rapido durante 10 minutos (+1,2 % de vida por segundo fuera de combate).", "effect": {"status": "fed", "duration": 600, "strength": 0.012}, "price": 18, "value": 6, "cook": {"cost": {"herb": 2}, "gold": 4}},
-		{"id": "hunters_stew", "name": "Estofado del cazador", "kind": "food", "description": "+8 % de dano durante 10 minutos.", "effect": {"status": "might", "duration": 600, "strength": 0.08}, "price": 32, "value": 12, "cook": {"cost": {"hide": 2, "herb": 1}, "gold": 8}},
-		{"id": "silk_tea", "name": "Infusion de seda", "kind": "food", "description": "+8 % de velocidad de movimiento durante 10 minutos.", "effect": {"status": "haste", "duration": 600, "strength": 0.08}, "price": 32, "value": 12, "cook": {"cost": {"silk": 1, "essence": 1}, "gold": 8}}
+		{
+			"id": "health_potion",
+			"name": "Pocion de vida",
+			"kind": "potion",
+			"description": "Recupera el 40 % de la vida maxima.",
+			"effect": {
+				"heal_pct": 0.4
+			},
+			"price": 28,
+			"value": 10,
+			"cook": {
+				"cost": {
+					"herb": 3
+				},
+				"gold": 8
+			},
+			"quick": "health",
+			"icon": "health_potion"
+		},
+		{
+			"id": "greater_health_potion",
+			"name": "Pocion de vida mayor",
+			"kind": "potion",
+			"description": "Recupera el 70 % de la vida maxima.",
+			"effect": {
+				"heal_pct": 0.7
+			},
+			"price": 0,
+			"value": 24,
+			"cook": {
+				"cost": {
+					"herb": 5,
+					"essence": 2
+				},
+				"gold": 20
+			},
+			"quick": "health",
+			"icon": "greater_health_potion"
+		},
+		{
+			"id": "resource_potion",
+			"name": "Elixir de energia",
+			"kind": "potion",
+			"description": "Recupera el 60 % del recurso (Rage, Energy, Mana o Focus).",
+			"effect": {
+				"resource_pct": 0.6
+			},
+			"price": 24,
+			"value": 9,
+			"cook": {
+				"cost": {
+					"herb": 2,
+					"essence": 1
+				},
+				"gold": 8
+			},
+			"quick": "resource",
+			"icon": "resource_potion"
+		},
+		{
+			"id": "herb_bread",
+			"name": "Pan de hierbas",
+			"kind": "food",
+			"description": "Regenera vida mas rapido durante 10 minutos (+1,2 % de vida por segundo fuera de combate).",
+			"effect": {
+				"status": "fed",
+				"duration": 600,
+				"strength": 0.012
+			},
+			"price": 18,
+			"value": 6,
+			"cook": {
+				"cost": {
+					"herb": 2
+				},
+				"gold": 4
+			},
+			"icon": "herb_bread"
+		},
+		{
+			"id": "hunters_stew",
+			"name": "Estofado del cazador",
+			"kind": "food",
+			"description": "+8 % de dano durante 10 minutos.",
+			"effect": {
+				"status": "might",
+				"duration": 600,
+				"strength": 0.08
+			},
+			"price": 32,
+			"value": 12,
+			"cook": {
+				"cost": {
+					"hide": 2,
+					"herb": 1
+				},
+				"gold": 8
+			},
+			"icon": "hunters_stew"
+		},
+		{
+			"id": "silk_tea",
+			"name": "Infusion de seda",
+			"kind": "food",
+			"description": "+8 % de velocidad de movimiento durante 10 minutos.",
+			"effect": {
+				"status": "haste",
+				"duration": 600,
+				"strength": 0.08
+			},
+			"price": 32,
+			"value": 12,
+			"cook": {
+				"cost": {
+					"silk": 1,
+					"essence": 1
+				},
+				"gold": 8
+			},
+			"icon": "silk_tea"
+		},
+		{
+			"id": "skill_tome",
+			"name": "Tomo de habilidad",
+			"kind": "book",
+			"description": "Ensena una habilidad de mundo de tu clase que aun no conozcas (la mas facil primero). Lo sueltan los jefes y el elite.",
+			"effect": {
+				"learn": "world_skill"
+			},
+			"price": 0,
+			"value": 40,
+			"icon": "skill_tome"
+		}
 	]
 }

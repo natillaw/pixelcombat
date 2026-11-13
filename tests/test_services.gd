@@ -25,6 +25,9 @@ func _run() -> void:
 	_test_merchant_and_bank()
 	_test_trainer()
 	_test_bounties()
+	_test_class_sets()
+	_test_tomes()
+	_test_item_icons()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -225,6 +228,108 @@ func _test_bounties() -> void:
 	var other := _player(1)
 	other.import_state(saved)
 	_check(other.bounties.size() == 2 and other.bounty_serial == serial + 1 and other.bounties_done == 1, "los encargos se guardan y se cargan")
+
+
+## Cada clase puede fabricarse un set completo de tier 1 (arma, cabeza, pecho, piernas, pies, anillo) con al menos
+## 2 opciones por ranura, y el set mas barato cabe en lo que se recolecta en los pisos 1-10.
+func _test_class_sets() -> void:
+	var yield_by_kind := _tier1_yield()
+	print("   rendimiento esperado de los pisos 1-10: %s" % str(yield_by_kind))
+	for class_id: String in ClassCatalog.all_ids():
+		var cheapest := {}
+		var options_ok := true
+		for slot: String in ItemCatalog.slots():
+			var best_cost := {}
+			var best_total := 1000000
+			var options := 0
+			for recipe: Dictionary in RecipeCatalog.recipes():
+				var item := ItemCatalog.item(String(recipe["item"]))
+				if String(item["slot"]) != slot or not ItemCatalog.can_equip_base(String(item["id"]), class_id):
+					continue
+				options += 1
+				var total := 0
+				for kind: String in recipe["cost"]:
+					total += int(recipe["cost"][kind])
+				if total < best_total:
+					best_total = total
+					best_cost = recipe["cost"]
+			options_ok = options_ok and options >= 2
+			for kind: String in best_cost:
+				cheapest[kind] = int(cheapest.get(kind, 0)) + int(best_cost[kind])
+		_check(options_ok, "%s: cada ranura tiene al menos 2 opciones de crafteo" % class_id)
+		var fits := true
+		for kind: String in cheapest:
+			if float(cheapest[kind]) > float(yield_by_kind.get(kind, 0.0)) * 0.6:
+				fits = false
+				print("   el set de %s pide %d de %s y los pisos 1-10 dan ~%d" % [class_id, cheapest[kind], kind, int(yield_by_kind.get(kind, 0.0))])
+		_check(fits, "%s: el set completo mas barato (%s) cabe en lo recolectable en 10 pisos" % [class_id, str(cheapest)])
+
+
+## Materiales esperados al recorrer los pisos 1-10 una vez: nodos de recoleccion (con su rendimiento medio) y botin de enemigos.
+func _tier1_yield() -> Dictionary:
+	var out := {}
+	var gather := MaterialCatalog.gather_yield()
+	var per_node := (float(gather["min"]) + float(gather["max"])) * 0.5 + float(gather["bonus_chance"])
+	for floor_number: int in range(1, 11):
+		var layout := TowerGenerator.generate(floor_number, 20261110, 1)
+		for node: Dictionary in layout.resources:
+			out[String(node["kind"])] = float(out.get(String(node["kind"]), 0.0)) + per_node * (2.0 if bool(node.get("rich", false)) else 1.0)
+		for spec: Dictionary in layout.enemies:
+			var table: Dictionary = EnemyCatalog.enemy(StringName(String(spec["id"]))).get("materials", {})
+			for kind: String in table:
+				out[kind] = float(out.get(kind, 0.0)) + float(table[kind]) * 1.5
+	return out
+
+
+func _test_tomes() -> void:
+	var player := _player(12)
+	player.add_consumable("skill_tome", 2)
+	var known := player.learned_skills.size()
+	_check(player.use_consumable("skill_tome") == "" and player.learned_skills.size() == known + 1 and player.consumable_count("skill_tome") == 1, "un tomo ensena una skill de mundo")
+	var first: String = player.learned_skills[player.learned_skills.size() - 1]
+	_check(int(SkillCatalog.skill(StringName(first))["unlock_level"]) <= int(SkillCatalog.skill(StringName(String(player.learned_skills[0])))["unlock_level"]) + 100, "(la skill pertenece a la clase)")
+	for offer: Dictionary in Services.trainer_offers(player):
+		player.learn_skill(StringName(String(offer["id"])))
+	player.add_consumable("skill_tome", 1)
+	var before := player.consumable_count("skill_tome")
+	var all_known := Services.trainer_offers(player).is_empty()
+	_check(all_known and player.use_consumable("skill_tome") == "known" and player.consumable_count("skill_tome") == before, "si ya las conoces todas el tomo no se gasta")
+	var drops := 0
+	var garrick_world: CombatWorld = CombatWorldScript.new(31)
+	garrick_world.setup_arena(Rect2(0, 0, 900, 600))
+	garrick_world.add_enemy(&"bandit_garrick", Vector2(300, 300)).take_damage(1.0e9)
+	_check(garrick_world.player.consumable_count("skill_tome") >= 1, "Garrick siempre suelta un tomo")
+	for i: int in range(30):
+		var w: CombatWorld = CombatWorldScript.new(40 + i)
+		w.setup_arena(Rect2(0, 0, 900, 600))
+		w.add_enemy(&"bandit_deserter", Vector2(300, 300)).take_damage(1.0e9)
+		drops += w.player.consumable_count("skill_tome")
+	_check(drops > 8 and drops < 28, "el elite suelta tomos a veces (%d de 30)" % drops)
+	for id: String in ConsumableCatalog.ids():
+		_check(SkillIcons.consumable(String(ConsumableCatalog.item(id)["icon"])) != null, "%s tiene icono" % id)
+
+
+## Cada item base tiene su propio icono (su pieza LPC recortada; los anillos usan el de CraftPix).
+func _test_item_icons() -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 3
+	var without: Array = []
+	var too_big: Array = []
+	var distinct := {}
+	for entry: Dictionary in ItemCatalog.items():
+		var piece := ItemGen.roll_item(rng, 1, "common", "", "", String(entry["id"]))
+		var icon := ItemIcons.texture(piece, 28)
+		if icon == null:
+			without.append(entry["id"])
+			continue
+		if icon.get_width() > 36 or icon.get_height() > 36:
+			too_big.append(entry["id"])
+		distinct[String(entry["id"])] = [icon.get_width(), icon.get_height()]
+	_check(without.is_empty(), "todos los items tienen icono propio (sin icono: %s)" % str(without))
+	_check(too_big.is_empty(), "los iconos caben en su hueco (%s)" % str(too_big))
+	var sword := ItemIcons.texture(ItemGen.roll_item(rng, 1, "common", "", "", "iron_sword"), 28)
+	var bow := ItemIcons.texture(ItemGen.roll_item(rng, 1, "common", "", "", "short_bow"), 28)
+	_check(sword != null and bow != null and sword.get_image().get_data() != bow.get_image().get_data(), "cada arma tiene su propio dibujo")
 
 
 func _check(condition: bool, label: String) -> void:

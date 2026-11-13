@@ -305,6 +305,17 @@
 			},
 			"gold": 16,
 			"quality_bonus": 1.0
+		},
+		{
+			"id": "forge_bone_dagger",
+			"station": "blacksmith",
+			"item": "bone_dagger",
+			"cost": {
+				"chitin": 3,
+				"ore": 2
+			},
+			"gold": 18,
+			"quality_bonus": 1.0
 		}
 	]
 }

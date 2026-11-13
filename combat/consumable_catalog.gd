@@ -10,7 +10,7 @@ class_name ConsumableCatalog
 extends RefCounted
 
 const PATH := "res://data/consumables.json"
-const KINDS := ["potion", "food"]
+const KINDS := ["potion", "food", "book"]
 const FOOD_STATUSES := ["fed", "might", "haste"]
 
 static var _data: Dictionary = {}
@@ -85,6 +85,8 @@ static func validate(entry: Dictionary) -> Array[String]:
 			problems.append("falta el texto '%s'" % field)
 	if not KINDS.has(entry.get("kind")):
 		problems.append("kind debe ser potion o food")
+	if entry.has("icon") and not ResourceLoader.exists("res://assets/pixel/icons/consumables/%s.png" % String(entry["icon"])):
+		problems.append("el icono no existe")
 	for field: String in ["price", "value"]:
 		if not _is_number(entry.get(field)) or float(entry[field]) < 0.0:
 			problems.append("%s debe ser >= 0" % field)
@@ -97,6 +99,9 @@ static func validate(entry: Dictionary) -> Array[String]:
 			problems.append("la comida necesita un status valido (fed, might o haste)")
 		if not _is_number(spec.get("duration")) or float(spec["duration"]) <= 0.0 or not _is_number(spec.get("strength")) or float(spec["strength"]) <= 0.0:
 			problems.append("la comida necesita duration y strength > 0")
+	elif entry.get("kind") == "book":
+		if (effect as Dictionary).get("learn") != "world_skill":
+			problems.append("el libro necesita effect.learn = world_skill")
 	elif entry.get("kind") == "potion":
 		var spec: Dictionary = effect
 		if not spec.has("heal_pct") and not spec.has("resource_pct"):

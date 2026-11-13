@@ -830,6 +830,27 @@
 					"tan"
 				]
 			}
+		},
+		{
+			"id": "bone_dagger",
+			"name": "Daga de hueso",
+			"slot": "weapon",
+			"classes": [
+				"rogue"
+			],
+			"stats": {
+				"weapon_min": 2.5,
+				"weapon_max": 4.2,
+				"agility": 2.5
+			},
+			"value": 20,
+			"look": {
+				"slot": "main_hand",
+				"piece": "weapon_dagger",
+				"variants": [
+					"default"
+				]
+			}
 		}
 	],
 	"affixes": [
