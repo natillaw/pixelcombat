@@ -64,9 +64,9 @@ func _build() -> void:
 		MenuKit.label(_body, String(pair[1]), Rect2(x, y + 3.0, 150, 16), 14, MenuKit.TEXT)
 		var action := String(pair[0])
 		_buttons[action] = MenuKit.button(_body, Settings.key_label(action), Rect2(x + 154.0, y, 100, 20), func() -> void: _listen(action))
-	MenuKit.button(_body, "Accesibilidad y musica", Rect2(240, 312, 200, 22), func() -> void: _page = 1; _build())
-	MenuKit.button(_body, "Restablecer teclas", Rect2(60, 312, 170, 22), func() -> void: Settings.reset_bindings(); _build())
-	MenuKit.button(_body, "Volver", Rect2(450, 312, 110, 22), _close)
+	MenuKit.button(_body, "Accesibilidad y musica", Rect2(240, 305, 200, 22), func() -> void: _page = 1; _build())
+	MenuKit.button(_body, "Restablecer teclas", Rect2(60, 305, 170, 22), func() -> void: Settings.reset_bindings(); _build())
+	MenuKit.button(_body, "Volver", Rect2(450, 305, 110, 22), _close)
 
 
 ## Segunda pagina: musica y comodidad. Todo es solo visual/sonoro: la simulacion no cambia.
@@ -92,7 +92,7 @@ func _build_access() -> void:
 	latency.focus_mode = Control.FOCUS_NONE
 	latency.value_changed.connect(func(value: float) -> void: Settings.sim_latency_ms = int(value); Settings.save(); _build())
 	_body.add_child(latency)
-	MenuKit.button(_body, "Volver", Rect2(450, 312, 110, 22), func() -> void: _page = 0; _build())
+	MenuKit.button(_body, "Volver", Rect2(450, 305, 110, 22), func() -> void: _page = 0; _build())
 
 
 func _check_box(text: String, value: bool, at: Vector2, on_toggle: Callable) -> void:

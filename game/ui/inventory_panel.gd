@@ -14,7 +14,7 @@ const PANEL := Color(0.055, 0.065, 0.095, 0.96)
 const EDGE := Color(0.33, 0.37, 0.47, 1.0)
 const TEXT := Color(0.93, 0.90, 0.83, 1.0)
 const MUTED := Color(0.84, 0.77, 0.60, 1.0)
-const DIM := Color(0.58, 0.50, 0.40, 1.0)
+const DIM := Color(0.72, 0.66, 0.55, 1.0)
 const GOLD := Color(0.94, 0.74, 0.36, 1.0)
 const RED := Color(0.88, 0.34, 0.28, 1.0)
 const GREEN := Color(0.55, 0.82, 0.45, 1.0)
@@ -194,29 +194,34 @@ func _draw() -> void:
 	for i: int in range(slots.size()):
 		var rect := _slot_rect(i)
 		var slot := String(slots[i])
-		draw_rect(rect, Color(0.09, 0.10, 0.14, 1.0))
-		draw_rect(rect, EDGE if rect.has_point(get_local_mouse_position()) else Color(0.2, 0.23, 0.3), false, 1.0)
+		draw_rect(rect, Color(0.07, 0.08, 0.14, 1.0))
+		draw_rect(rect, UiStyle.GOLD if rect.has_point(get_local_mouse_position()) else UiStyle.GOLD_DIM, false, 1.0)
+		UiStyle.draw_slot_bg(self, Rect2(rect.position + Vector2(2, 1), Vector2(24, rect.size.y - 2.0)))
 		_text(ItemCatalog.slot_name(slot).to_upper(), rect.position + Vector2(30, 9), 7, DIM)
 		if player.equipment.has(slot):
 			var piece: Dictionary = player.equipment[slot]
-			ItemIcons.draw(self, piece, Rect2(rect.position + Vector2(2, 1), Vector2(24, rect.size.y - 2.0)))
+			ItemIcons.draw(self, piece, Rect2(rect.position + Vector2(3, 2), Vector2(22, rect.size.y - 4.0)))
+			UiStyle.draw_rarity_frame(self, Rect2(rect.position + Vector2(2, 1), Vector2(24, rect.size.y - 2.0)), String(piece["rarity"]))
 			_text(ItemCatalog.display_name(piece), rect.position + Vector2(30, 20), 7, ItemCatalog.rarity_color(String(piece["rarity"])), HORIZONTAL_ALIGNMENT_LEFT, EQUIP_W - 34.0)
 		else:
 			_text("vacio", rect.position + Vector2(30, 20), 7, DIM)
 
+	for i: int in range(ItemCatalog.bag_size()):
+		if i >= player.bag.size():
+			UiStyle.draw_slot_bg(self, _bag_rect(i))
 	for i: int in range(player.bag.size()):
 		var rect := _bag_rect(i)
 		var piece: Dictionary = player.bag[i]
 		var color := ItemCatalog.rarity_color(String(piece["rarity"]))
 		UiStyle.draw_slot_bg(self, rect)
 		ItemIcons.draw(self, piece, rect)
-		draw_rect(rect, color, false, 2.0)
+		UiStyle.draw_rarity_frame(self, rect, String(piece["rarity"]))
 		_text("T%d" % int(piece["tier"]), rect.position + Vector2(3, 9), 7, color.lightened(0.25))
 		if rect.has_point(get_local_mouse_position()):
 			draw_rect(rect, Color(1, 1, 1, 0.16))
 
 	_draw_detail(player)
-	_text(_message, Vector2(48, 325), 7, _message_color)
+	_text(_message, Vector2(48, 318), 7, _message_color)
 
 
 ## Materiales que lleva el jugador, en una linea bajo el titulo y sin pasar del panel.
@@ -226,10 +231,10 @@ func _draw_materials(player: PlayerSim) -> void:
 	ids.sort()
 	for id: String in ids:
 		parts.append("%s x%d" % [MaterialCatalog.display_name(id), int(player.materials[id])])
-	_text("MATERIALES  " + ("-" if parts.is_empty() else "   ".join(parts)), Vector2(EQUIP_X, 326 + 10), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 544)
+	_text("MATERIALES  " + ("-" if parts.is_empty() else "   ".join(parts)), Vector2(EQUIP_X, 330), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 544)
 	var rects := _consumable_rects()
 	if rects.is_empty():
-		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource")], Vector2(EQUIP_X, 346), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
+		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource")], Vector2(EQUIP_X, 340), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
 	for entry: Dictionary in rects:
 		var spec := ConsumableCatalog.item(String(entry["id"]))
 		var icon := SkillIcons.consumable(String(spec.get("icon", "")))

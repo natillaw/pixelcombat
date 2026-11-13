@@ -88,23 +88,23 @@ func _build() -> void:
 	MenuKit.panel(_body, Rect2(36, 14, 568, 332), String(TITLES[station]))
 	var player := world.player
 	if station != "tower" and station != "leave":
-		MenuKit.label(_body, "Oro %d" % player.gold, Rect2(48, 32, 90, 18), 14, MenuKit.GOLD)
+		MenuKit.label(_body, "Oro %d" % player.gold, Rect2(52, 36, 90, 18), 14, MenuKit.GOLD)
 	var tabs: Array = TABS[station]
 	for i: int in range(tabs.size() if tabs.size() > 1 else 0):
 		var tab_width := minf(118.0, 372.0 / float(tabs.size()) - 4.0)
-		var button := MenuKit.button(_body, String(tabs[i]), Rect2(140.0 + float(i) * (tab_width + 4.0), 30, tab_width, 22), func() -> void: _select(i))
+		var button := MenuKit.button(_body, String(tabs[i]), Rect2(140.0 + float(i) * (tab_width + 4.0), 34, tab_width, 22), func() -> void: _select(i))
 		button.disabled = i == tab
-	MenuKit.button(_body, "Cerrar", Rect2(520, 30, 76, 22), close)
+	MenuKit.button(_body, "Cerrar", Rect2(520, 34, 76, 22), close)
 	var scroll := ScrollContainer.new()
-	scroll.position = Vector2(46, 58)
-	scroll.size = Vector2(548, 250)
+	scroll.position = Vector2(54, 60)
+	scroll.size = Vector2(536, 246)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_body.add_child(scroll)
 	_list = VBoxContainer.new()
 	_list.custom_minimum_size = Vector2(540, 0)
 	_list.add_theme_constant_override("separation", 2)
 	scroll.add_child(_list)
-	MenuKit.note(_body, _message, 540.0, 14, MenuKit.MUTED).position = Vector2(48, 310)
+	MenuKit.note(_body, _message, 540.0, 14, MenuKit.MUTED).position = Vector2(54, 308)
 	match station:
 		"tavern":
 			_fill_tavern()
@@ -325,7 +325,7 @@ func _after(result: Dictionary, success: String) -> void:
 func _stats_text(piece: Dictionary) -> String:
 	var parts: Array = []
 	for stat: String in piece["stats"]:
-		parts.append("%s %s" % [stat.replace("_bonus", "").replace("_", " "), str(snappedf(float(piece["stats"][stat]), 0.1))])
+		parts.append("%s %s" % [InventoryPanel._stat_label(stat).capitalize(), InventoryPanel._stat_value(stat, float(piece["stats"][stat]))])
 	return "T%d  %s" % [int(piece["tier"]), ", ".join(parts)]
 
 

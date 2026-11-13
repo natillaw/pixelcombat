@@ -170,3 +170,9 @@ Barrido sistematico (tests nuevos, campañas reales de las 4 clases con misiones
 - `data/tower.json > playable_floors: 10`. `TowerCatalog.playable_floors()` lo expone; `TowerState.highest_unlocked()` y `can_enter()` lo respetan. La generacion sigue conociendo los 100 pisos (`floors()`), solo no se abren.
 - Al completar el piso 10 se avisa de que los pisos 11+ llegan en proximas versiones. Consecuencia: el tier de crafteo 2 queda cerrado en la beta.
 - Las pruebas de tiers altos usan `TowerCatalog.playable_override` (solo tests).
+
+## Interfaz con los assets de Tactical Summoners (ya copiados en `assets/pixel/ui`)
+- `UiStyle.draw_panel`: marco dorado ornamental de Dragon Regalia (CC0) con bordes en mosaico y centro azul noche. Sustituye al panel marron de CraftPix en inventario, taller, servicios, ajustes y menu.
+- Botones: placa Dragon Regalia teñida (antes botones verdes CraftPix). Ranuras: `FilledFrame` oscurecido. Marcos de rareza: `ts_kit/ui/rarity_frame_*` (se cargan con `preload`; con `load()` en runtime salian en blanco en xvfb).
+- Inventario: mochila con las 40 ranuras visibles; equipo con marco de rareza; nombres de stats en espanol en el mercader.
+- Pendiente de unificar: hoja de personaje (aun pergamino CraftPix), HUD superior (texto muy pequeno), iconos de recursos/sociales de `ts_kit/icons` sin usar.

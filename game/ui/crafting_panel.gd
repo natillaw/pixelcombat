@@ -225,7 +225,7 @@ func _draw() -> void:
 	draw_rect(craft_rect, Color(0.20, 0.32, 0.18, 1.0) if can_craft else Color(0.14, 0.15, 0.19, 1.0))
 	draw_rect(craft_rect, GREEN if can_craft else DIM, false, 1.0)
 	_text("FABRICAR  (INTRO)", craft_rect.position + Vector2(0, 13), 7, TEXT if can_craft else DIM, HORIZONTAL_ALIGNMENT_CENTER, craft_rect.size.x)
-	_text(_message, Vector2(48, 336), 7, _message_color)
+	_text(_message, Vector2(48, 330), 7, _message_color)
 
 
 func _arrow(rect: Rect2, label: String) -> void:
