@@ -48,6 +48,12 @@ signal status_applied(id: String)
 enum AttackState { IDLE, WINDUP, ACTIVE, RECOVERY }
 
 const RADIUS := 14.0
+## Radio como blanco (la simulacion pide `target.radius` a todo lo que se puede golpear).
+var radius: float = RADIUS
+## Hacia donde mira, para el golpe por la espalda de un rival.
+var facing: Vector2:
+	get:
+		return aim_dir
 ## Ronda de "mas lento" (13 nov 2026): 168 -> 142 px/s, arranque y frenada un poco mas pesados.
 const MOVE_SPEED := 142.0
 const ACCELERATION := 1350.0
@@ -573,7 +579,7 @@ func _build_stats() -> void:
 	stats.set_base_stat(&"weapon_min", float(base["weapon_min"]) + float(gear.get("weapon_min", 0.0)))
 	stats.set_base_stat(&"weapon_max", float(base["weapon_max"]) + float(gear.get("weapon_max", 0.0)))
 	stats.set_base_stat(&"weapon_speed", float(base["weapon_speed"]))
-	max_health = BASE_HEALTH + stats.get_stat(&"stamina") * HEALTH_PER_STAMINA
+	max_health = (BASE_HEALTH + stats.get_stat(&"stamina") * HEALTH_PER_STAMINA) * pvp_tuning("health")
 	health = max_health
 
 
@@ -1137,7 +1143,7 @@ func _resolve_attack_hit(strike_mult: float = 1.0) -> void:
 	if shape == "projectile" or shape == "self":
 		return
 	_spawn_skill_zone()
-	for target: Object in _targets_in_shape(world.get_living_targets()):
+	for target: Object in _targets_in_shape(world.get_living_targets(self)):
 		_apply_skill_hit(target, current_skill, _attack_damage_mult * strike_mult * _zone_multiplier(target), _swing_tracker)
 
 
@@ -1148,7 +1154,7 @@ func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: D
 	var critical: bool = _rng.randf() < stats.get_crit_chance() or _force_crit
 	_force_crit = false
 	var roll: float = stats.roll_spell_damage(_rng) if String(skill.get("damage_type", "physical")) == "magic" else stats.roll_weapon_damage(_rng)
-	var damage: float = roll * mult * (1.0 + statuses.strength("might") + statuses.strength("warcry"))
+	var damage: float = roll * mult * (1.0 + statuses.strength("might") + statuses.strength("warcry")) * pvp_tuning("damage")
 	var behind := _is_behind(target)
 	var bonus := 0.0
 	if behind:
@@ -1170,7 +1176,8 @@ func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: D
 			damage *= float(skill["execute"]["mult"])
 	if critical:
 		damage *= CRIT_MULTIPLIER
-	var dealt: float = target.take_damage(damage)
+	# Un rival (PvP) recibe el golpe con su origen, para que el bloqueo y la esquiva funcionen como siempre.
+	var dealt: float = target.take_damage(damage, position) if target is PlayerSim else target.take_damage(damage)
 	if target.alive and dealt > 0.0 and target.has_method("apply_status"):
 		if venom_hits > 0:
 			venom_hits -= 1
@@ -1315,7 +1322,7 @@ func _move_leap(delta: float) -> void:
 
 ## La carga (guerrero): aturde a cada enemigo que toca durante el desplazamiento.
 func _charge_hits(mob: Dictionary) -> void:
-	for target: Object in world.get_living_targets():
+	for target: Object in world.get_living_targets(self):
 		if _dodge_hit.has(target.get_instance_id()):
 			continue
 		if target.position.distance_to(position) > RADIUS + float(target.radius) + 8.0:
@@ -1586,6 +1593,14 @@ func enter_rules(mode: String) -> String:
 	progress[class_id] = {"level": int(rules["level"]), "xp": 0, "equipment": {}}
 	_activate_class(class_id)
 	return ""
+
+
+## Multiplicador de equilibrio PvP de esta clase ("health" o "damage"); 1.0 fuera de PvP.
+func pvp_tuning(key: String) -> float:
+	if rule_mode == "pve":
+		return 1.0
+	var tuning: Dictionary = RuleSet.rules(rule_mode).get("class_tuning", {})
+	return float((tuning.get(class_id, {}) as Dictionary).get(key, 1.0))
 
 
 func rule(key: String) -> bool:

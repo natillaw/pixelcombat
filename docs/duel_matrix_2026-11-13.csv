@@ -1,0 +1,5 @@
+clase,warrior,rogue,mage,archer,media
+warrior,,0.500,0.525,0.500,0.508
+rogue,0.475,,0.450,0.500,0.475
+mage,0.700,0.500,,0.450,0.550
+archer,0.575,0.500,0.550,,0.542

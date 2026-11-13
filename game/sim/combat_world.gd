@@ -242,6 +242,9 @@ func step(delta: float, tick_number: int = -1) -> void:
 		tick += 1
 
 	player.step(tick, delta, pending_input)
+	for opponent: Object in opponents:
+		opponent.step(tick, delta, opponent_inputs.get(opponent))
+	opponent_inputs.clear()
 	for dummy: DummySim in dummies:
 		dummy.step(tick, delta, player)
 	for enemy: EnemySim in enemies.duplicate():
@@ -440,12 +443,45 @@ func blocked_by_obstacle(point: Vector2, radius: float) -> bool:
 
 
 ## Todo lo que el jugador puede golpear: muñecos y enemigos vivos.
-func get_living_targets() -> Array:
-	var living: Array = get_living_dummies()
+func get_living_targets(for_owner: Object = null) -> Array:
+	var living: Array = []
+	if for_owner != null and for_owner != player:
+		# Duelo (PvP): el rival golpea al jugador y a los demas rivales, no a los enemigos del PvE ni a si mismo.
+		if player.alive:
+			living.append(player)
+		for opponent: Object in opponents:
+			if opponent != for_owner and opponent.alive:
+				living.append(opponent)
+		return living
+	living = get_living_dummies()
 	for enemy: EnemySim in enemies:
 		if enemy.alive:
 			living.append(enemy)
+	for opponent: Object in opponents:
+		if opponent.alive:
+			living.append(opponent)
 	return living
+
+
+## Duelos (PvP): jugadores rivales en el mismo mundo. Cada uno recibe su propio input por tick
+## (`submit_opponent_input`) y se simula con las mismas reglas que el jugador principal.
+var opponents: Array = []
+var opponent_inputs: Dictionary = {}
+
+
+func add_opponent(class_id: String, at: Vector2, rule_mode: String = "pvp") -> PlayerSim:
+	var opponent := PlayerSimScript.new(self)
+	opponent.safe_zone = true
+	opponent.switch_class(class_id)
+	opponent.enter_rules(rule_mode)
+	opponent.safe_zone = false
+	opponent.reset(at)
+	opponents.append(opponent)
+	return opponent
+
+
+func submit_opponent_input(opponent: Object, message: Object) -> void:
+	opponent_inputs[opponent] = message
 
 
 ## Empuja `desired` fuera de limites, obstaculos, muñecos y enemigos vivos.

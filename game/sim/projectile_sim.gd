@@ -71,7 +71,7 @@ func step(world: Object, delta: float) -> void:
 		_step_hostile(world)
 		return
 
-	for target: Object in world.get_living_targets():
+	for target: Object in world.get_living_targets(owner):
 		var id := target.get_instance_id()
 		if _already_hit.has(id):
 			continue
@@ -110,7 +110,7 @@ func _step_hostile(world: Object) -> void:
 ## que ya recibio el golpe directo.
 func _explode(world: Object, direct_target: Object) -> void:
 	var blast_radius := float(explode["radius"])
-	for target: Object in world.get_living_targets():
+	for target: Object in world.get_living_targets(owner):
 		if target == direct_target:
 			continue
 		if position.distance_to(target.position) <= blast_radius + float(target.radius):

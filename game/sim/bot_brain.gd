@@ -20,6 +20,8 @@ var use_stances: bool = false
 ## Distancia a la que se queda un bot a distancia (px).
 var ranged_distance: float = 170.0
 
+## Si el bot lleva a un jugador que no es `world.player` (el rival de un duelo).
+var me: PlayerSim = null
 var _pressed_last: Dictionary = {}
 var _world: CombatWorld = null
 
@@ -29,8 +31,8 @@ func decide(world: CombatWorld) -> InputMessage:
 	message.peer_id = 1
 	message.actions = {}
 	_world = world
-	var player: PlayerSim = world.player
-	var target := _nearest_target(world)
+	var player: PlayerSim = me if me != null else world.player
+	var target := _nearest_target(world, player)
 	if target == null or not player.alive:
 		_pressed_last = {}
 		return message
@@ -89,11 +91,12 @@ func _retreat_direction(world: CombatWorld, player: PlayerSim, aim: Vector2) -> 
 	return to_center if to_center.length_squared() > 0.0 else back
 
 
-func _nearest_target(world: CombatWorld) -> Object:
+func _nearest_target(world: CombatWorld, player: PlayerSim = null) -> Object:
 	var best: Object = null
 	var best_distance := INF
-	for target: Object in world.get_living_targets():
-		var distance: float = target.position.distance_to(world.player.position)
+	var origin := (player if player != null else world.player).position
+	for target: Object in world.get_living_targets(player):
+		var distance: float = target.position.distance_to(origin)
 		if distance < best_distance:
 			best_distance = distance
 			best = target
@@ -159,6 +162,13 @@ func _enemy_about_to_hit(player: PlayerSim, windup: float) -> bool:
 func _should_dodge(world: CombatWorld, player: PlayerSim) -> bool:
 	if player.dodge_cooldown_left() > 0.0 or player.dodging:
 		return false
+	for rival: Object in world.get_living_targets(player):
+		# Duelo: un rival que esta a punto de soltar un golpe a su alcance.
+		if rival is PlayerSim and (rival as PlayerSim).state == PlayerSim.AttackState.WINDUP and not (rival as PlayerSim).current_skill.is_empty():
+			var skill: Dictionary = (rival as PlayerSim).current_skill
+			var windup := maxf(float(skill.get("windup", 0.3)), 0.05)
+			if (rival as PlayerSim).state_time / windup > 0.6 and rival.position.distance_to(player.position) < _reach(skill, player) + 20.0:
+				return true
 	for enemy: EnemySim in world.enemies:
 		if not enemy.alive or not enemy.is_telegraphing():
 			continue

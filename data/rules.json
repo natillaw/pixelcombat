@@ -1,7 +1,41 @@
 {
-	"_doc": "Modos de reglas. pve = la aventura (nivel, equipo, consumibles y XP cuentan). pvp = arena: el personaje se normaliza (nivel fijo, sin equipo, sin consumibles, sin skills de mundo, sin XP) para que decida la habilidad y no el progreso de la torre. Esquema validado en combat/rule_set.gd y tests/test_rules.gd.",
+	"_doc": "Modos de reglas. pve = la aventura (nivel, equipo, consumibles y XP cuentan). pvp = arena: el personaje se normaliza (nivel fijo, sin equipo, sin consumibles, sin skills de mundo, sin XP) para que decida la habilidad y no el progreso de la torre. Esquema validado en combat/rule_set.gd y tests/test_rules.gd. class_tuning (solo PvP): multiplicadores de vida y de dano por clase para equilibrar la arena sin tocar el PvE; se ajustan con tools/balance/run_duels.gd (objetivo: cada clase entre 40 y 60 % de victorias de media).",
 	"modes": {
-		"pve": {"name": "Aventura", "normalized": false, "level": 0, "allow_gear": true, "allow_consumables": true, "allow_xp": true, "allow_world_skills": true},
-		"pvp": {"name": "Arena (PvP)", "normalized": true, "level": 10, "allow_gear": false, "allow_consumables": false, "allow_xp": false, "allow_world_skills": false}
+		"pve": {
+			"name": "Aventura",
+			"normalized": false,
+			"level": 0,
+			"allow_gear": true,
+			"allow_consumables": true,
+			"allow_xp": true,
+			"allow_world_skills": true
+		},
+		"pvp": {
+			"name": "Arena (PvP)",
+			"normalized": true,
+			"level": 10,
+			"allow_gear": false,
+			"allow_consumables": false,
+			"allow_xp": false,
+			"allow_world_skills": false,
+			"class_tuning": {
+				"warrior": {
+					"health": 1.0,
+					"damage": 0.97
+				},
+				"rogue": {
+					"health": 1.0,
+					"damage": 1.22
+				},
+				"mage": {
+					"health": 1.0,
+					"damage": 0.98
+				},
+				"archer": {
+					"health": 1.0,
+					"damage": 0.85
+				}
+			}
+		}
 	}
 }
