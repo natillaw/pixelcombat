@@ -362,7 +362,8 @@ func _test_save_roundtrip() -> void:
 	_check(loaded.tower.world_seed == session.tower.world_seed, "se conserva la semilla del mundo")
 	_check(JSON.stringify(TowerGenerator.generate(2, loaded.tower.world_seed).to_dict()) == JSON.stringify(TowerGenerator.generate(2, session.tower.world_seed).to_dict()), "los pisos se regeneran identicos tras cargar")
 
-	# Un guardado roto o de otra version se ignora.
+	# Un guardado roto o de otra version se ignora (sin copia .bak: con ella se recuperaria, ver test_save_robustness).
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + ".bak"))
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	file.store_string("{ esto no es json")
 	file.close()
