@@ -328,6 +328,12 @@ func _draw_telegraph() -> void:
 			draw_arc(Vector2.ZERO, ring * (0.4 + 0.6 * progress), 0.0, TAU, 40, Color(0.4, 0.85, 1.0, 0.35 + 0.5 * progress), 2.0)
 		"circle":
 			var radius := float(attack["range"])
+			if String(attack.get("id", "")) == "nova":
+				# Hechizo a distancia: sin circulo de peligro alrededor del lanzador, solo un destello que se carga a sus pies.
+				var glow := Color(0.7, 0.55, 1.0, 0.25 + 0.5 * progress)
+				draw_arc(Vector2(0, -4), 8.0 + 10.0 * progress, 0.0, TAU, 20, glow, 1.5)
+				draw_circle(Vector2(0, -4), 3.0 + 4.0 * progress, Color(glow.r, glow.g, glow.b, 0.35 * progress))
+				return
 			draw_circle(Vector2.ZERO, radius * progress, fill)
 			draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, edge, 1.5)
 		"projectile":

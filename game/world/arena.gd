@@ -469,6 +469,9 @@ func _build_npcs() -> void:
 		var npc := NpcActor.new()
 		npc.setup(spec)
 		_add_static(npc, spec["position"])
+		if spec.has("wander"):
+			npc.blocker = {"position": npc.position, "radius": 12.0, "hidden": true}
+			world.obstacles.append(npc.blocker)
 
 
 func _build_interactables() -> void:
@@ -683,6 +686,7 @@ class CityTree extends Node2D:
 
 
 class Fountain extends Node2D:
+	const RING := preload("res://assets/pixel/lpc_terrain/well_ring.png")
 	var phase: float = 0.0
 
 	func _process(delta: float) -> void:
@@ -690,14 +694,20 @@ class Fountain extends Node2D:
 		queue_redraw()
 
 	func _draw() -> void:
+		# Brocal de piedra (pozo LPC de Xenodora) con agua viva dentro.
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.62))
-		draw_circle(Vector2.ZERO, 38.0, Color(0.0, 0.0, 0.0, 0.3))
-		draw_circle(Vector2.ZERO, 34.0, Color(0.36, 0.37, 0.43))
-		draw_circle(Vector2.ZERO, 28.0, Color(0.22, 0.42, 0.55))
-		draw_circle(Vector2.ZERO, 22.0 + sin(phase * 3.0) * 1.5, Color(0.30, 0.55, 0.68))
+		draw_circle(Vector2(0, 6), 40.0, Color(0.0, 0.0, 0.0, 0.25))
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-		draw_rect(Rect2(-5, -30, 10, 28), Color(0.40, 0.41, 0.48))
-		draw_circle(Vector2(0, -34), 6.0 + sin(phase * 5.0), Color(0.55, 0.78, 0.90, 0.9))
+		var scale := 1.15
+		var size := Vector2(RING.get_size()) * scale
+		var origin := Vector2(-size.x * 0.5, -size.y + 14.0)
+		draw_texture_rect(RING, Rect2(origin, size), false)
+		var center := Vector2(0, origin.y + size.y * 0.42)
+		draw_set_transform(center, 0.0, Vector2(1.0, 0.5))
+		draw_circle(Vector2.ZERO, 21.0, Color(0.16, 0.34, 0.5))
+		draw_circle(Vector2.ZERO, 17.0 + sin(phase * 3.0) * 1.2, Color(0.27, 0.52, 0.68))
+		draw_arc(Vector2.ZERO, 8.0 + fmod(phase * 6.0, 9.0), 0.0, TAU, 24, Color(0.75, 0.9, 1.0, 0.5), 1.0)
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 
 ## Fachada de un edificio de oficio (decoracion; la puerta es un portal).
@@ -747,25 +757,39 @@ class PortalMarker extends Node2D:
 	var near: bool = false
 	var _time: float = 0.0
 
+	var _sprite: AnimatedSprite2D = null
+
+	func _ready() -> void:
+		# Portales de piso (salida, entrenamiento): el portal arcano del pack de efectos, en bucle. La puerta de la torre y
+		# las de los oficios no llevan nada en el suelo (el edificio ya es la puerta).
+		var id := String(portal.get("id", ""))
+		if id == "exit" or id == "entrance" or id == "to_city" or id == "to_training":
+			var frames := FxLibrary.frames("arcane/portal-summon").duplicate() as SpriteFrames
+			frames.set_animation_loop(&"play", true)
+			_sprite = AnimatedSprite2D.new()
+			_sprite.sprite_frames = frames
+			_sprite.offset = Vector2(0, -44)
+			_sprite.scale = Vector2.ONE * 0.9
+			_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			var material := CanvasItemMaterial.new()
+			material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+			_sprite.material = material
+			add_child(_sprite)
+			_sprite.play(&"play")
+
 	func _process(delta: float) -> void:
 		_time += delta
+		if _sprite != null:
+			_sprite.modulate = Color(1, 1, 1, 0.95 if active else 0.35)
 		queue_redraw()
 
 	func _draw() -> void:
 		var radius: float = float(portal.get("radius", 34.0))
-		var color := accent if active else Color(0.45, 0.45, 0.5)
-		var pulse := 0.5 + 0.5 * sin(_time * 3.0)
-		var alpha := 0.35 + 0.35 * pulse if near else 0.18 + 0.12 * pulse
-		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.6))
-		draw_circle(Vector2.ZERO, radius, Color(color.r, color.g, color.b, alpha * 0.45))
-		draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color(color.r, color.g, color.b, alpha + 0.2), 2.0)
-		draw_arc(Vector2.ZERO, radius * 0.62, 0.0, TAU, 36, Color(color.r, color.g, color.b, alpha), 1.0)
-		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 		var font := ThemeDB.fallback_font
 		var label := String(portal.get("label", ""))
 		if label != "" and (near or String(portal.get("action", "")) == "tower"):
 			var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
-			draw_string(font, Vector2(-size.x * 0.5, -radius * 0.6 - 8.0), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color(1, 1, 1, 0.9) if active else Color(0.7, 0.7, 0.75, 0.9))
+			draw_string(font, Vector2(-size.x * 0.5, -radius * 0.6 - 8.0 - (70.0 if _sprite != null else 0.0)), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color(1, 1, 1, 0.9) if active else Color(0.7, 0.7, 0.75, 0.9))
 
 
 ## Item en el suelo: gema del color de su rareza que salta al caer, flota y, a partir

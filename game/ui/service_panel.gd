@@ -11,8 +11,10 @@ const TABS := {
 	"merchant": ["Equipo", "Pociones", "Vender"],
 	"bank": ["Guardar", "Retirar"],
 	"guild": ["Tablon", "Misiones", "Diario", "Maestra"],
+	"tower": ["Pisos"],
+	"leave": ["Salida"],
 }
-const TITLES := {"tavern": "TABERNA", "merchant": "MERCADER", "bank": "BANCO", "guild": "GREMIO"}
+const TITLES := {"tavern": "TABERNA", "merchant": "MERCADER", "bank": "BANCO", "guild": "GREMIO", "tower": "TORRE DE LAS CIEN PUERTAS", "leave": "SALIDA"}
 const ROW_H := 30.0
 
 var world: CombatWorld
@@ -85,9 +87,10 @@ func _build() -> void:
 	_body.add_child(shade)
 	MenuKit.panel(_body, Rect2(36, 14, 568, 332), String(TITLES[station]))
 	var player := world.player
-	MenuKit.label(_body, "Oro %d" % player.gold, Rect2(48, 32, 90, 18), 14, MenuKit.GOLD)
+	if station != "tower" and station != "leave":
+		MenuKit.label(_body, "Oro %d" % player.gold, Rect2(48, 32, 90, 18), 14, MenuKit.GOLD)
 	var tabs: Array = TABS[station]
-	for i: int in range(tabs.size()):
+	for i: int in range(tabs.size() if tabs.size() > 1 else 0):
 		var tab_width := minf(118.0, 372.0 / float(tabs.size()) - 4.0)
 		var button := MenuKit.button(_body, String(tabs[i]), Rect2(140.0 + float(i) * (tab_width + 4.0), 30, tab_width, 22), func() -> void: _select(i))
 		button.disabled = i == tab
@@ -111,6 +114,10 @@ func _build() -> void:
 			_fill_bank()
 		"guild":
 			_fill_guild()
+		"tower":
+			_fill_tower()
+		"leave":
+			_fill_leave()
 
 
 func _select(index: int) -> void:
@@ -275,6 +282,32 @@ func _fill_guild() -> void:
 			_fill_journal(player)
 		3:
 			_fill_trainer(player)
+
+
+# --- Torre y salida ------------------------------------------------------------------
+
+
+## Selector de pisos: solo los que ya abriste (los completados y el siguiente); el actual se marca.
+func _fill_tower() -> void:
+	var tower := session.tower
+	_note("Elige a que piso subir. Solo aparecen los que ya has desbloqueado.")
+	var current := session.layout.floor_number if session.layout != null and session.layout.kind == FloorLayout.KIND_FLOOR else 0
+	for floor_number: int in range(tower.highest_unlocked(), 0, -1):
+		var info := Lore.floor_info(floor_number)
+		var title := "Piso %d" % floor_number
+		var detail := String(info.get("name", info.get("title", ""))) if not info.is_empty() else ""
+		var done := tower.is_completed(floor_number)
+		_row(title + ("  (completado)" if done else "  (sin completar)"), detail, "Subir", true, func() -> void:
+			if session.go_to_floor(floor_number):
+				close(), MenuKit.GOLD if floor_number == tower.highest_unlocked() else MenuKit.TEXT)
+
+
+func _fill_leave() -> void:
+	_note("Seguro que quieres dejar la torre?")
+	_row("Dejar la torre", "Vuelves a Albor; el avance de este piso se pierde si no lo has completado.", "Si, salir", true, func() -> void:
+		session.go_to_city()
+		close())
+	_row("Quedarme", "Sigues en el piso.", "Quedarme", true, close)
 
 
 # --- Utilidades ----------------------------------------------------------------------

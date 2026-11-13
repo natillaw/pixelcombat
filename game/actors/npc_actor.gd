@@ -12,6 +12,8 @@ const FONT := preload("res://assets/fonts/m5x7.ttf")
 var spec: Dictionary
 var sprite: AnimatedSprite2D
 var _time: float = 0.0
+## Obstaculo que sigue al paseante en el mundo (el jugador no lo atraviesa).
+var blocker: Dictionary = {}
 
 
 func setup(p_spec: Dictionary) -> void:
@@ -35,6 +37,8 @@ func _process(delta: float) -> void:
 	_time += delta
 	if spec.has("wander"):
 		_wander()
+		if not blocker.is_empty():
+			blocker["position"] = position
 	queue_redraw()
 
 

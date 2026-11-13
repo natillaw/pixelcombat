@@ -193,3 +193,4 @@ Winter Plants, Small
   SOURCE: https://opengameart.org/content/lpc-winter-tiles
   LICENSE: OGA-BY 3.0
   DETAILS: Original by Demetrius. Edited and recolored by Eliza Wyatt.
+well_ring.png - LPC Style Well, Xenodora (CC-BY 3.0): https://opengameart.org/content/lpc-style-well . Solo el brocal de piedra; los cubos (Lanea Zimmerman, CC-BY-SA) no se usan.

@@ -35,14 +35,14 @@ func _test_sizes() -> void:
 	for seed_value: int in range(20):
 		for floor_number: int in [1, 2, 3]:
 			var size := MapGen.map_size(floor_number, _rng(seed_value))
-			if size.x < 64 or size.x > 72 or size.y < 48 or size.y > 56:
+			if size.x < 120 or size.x > 128 or size.y < 88 or size.y > 96:
 				small_ok = false
 		for floor_number: int in [4, 15, 40, 100]:
 			var size := MapGen.map_size(floor_number, _rng(seed_value))
-			if size.x < 84 or size.y < 64:
+			if size.x < 150 or size.y < 110:
 				large_ok = false
-	_check(small_ok, "los tres primeros pisos son medianos (64-72 x 48-56 casillas)")
-	_check(large_ok, "del 4 en adelante son grandes (>= 84 x 64)")
+	_check(small_ok, "los tres primeros pisos son medianos (120-128 x 88-96 casillas)")
+	_check(large_ok, "del 4 en adelante son grandes (>= 150 x 110)")
 	var growth := MapGen.map_size(100, _rng(1)).x * MapGen.map_size(100, _rng(1)).y > MapGen.map_size(4, _rng(1)).x * MapGen.map_size(4, _rng(1)).y * 1.4
 	_check(growth, "los pisos de los ultimos tiers son bastante mayores que los primeros")
 	var big := MapGen.map_size(100, _rng(2))

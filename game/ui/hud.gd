@@ -40,6 +40,9 @@ var _portrait_key: String = ""
 var show_controls: bool = false
 var _minimap: ImageTexture = null
 var _minimap_layout: FloorLayout = null
+## Casillas ya descubiertas del piso actual (niebla del minimapa); vacio = todo descubierto (ciudad, entrenamiento).
+var _explored: PackedByteArray = PackedByteArray()
+const MINIMAP_REVEAL := 8
 ## Texto bajo el cursor sobre algo que se puede coger (lo pone main).
 var pickup_prompt: String = ""
 var _toast_time: float = 0.0
@@ -576,6 +579,12 @@ func _draw_minimap() -> void:
 		return
 	if _minimap_layout != session.layout:
 		_minimap_layout = session.layout
+		_explored = PackedByteArray()
+		if session.layout.kind == FloorLayout.KIND_FLOOR:
+			_explored.resize(session.layout.grid.cols * session.layout.grid.rows)
+		_reveal_around(world.player.position, session.layout.grid)
+		_minimap = _build_minimap(session.layout.grid)
+	elif _reveal_around(world.player.position, session.layout.grid):
 		_minimap = _build_minimap(session.layout.grid)
 	var box := Rect2(522, 6, 108, 80)
 	_panel(box)
@@ -585,18 +594,42 @@ func _draw_minimap() -> void:
 	var origin := box.position + (box.size - size * scale) * 0.5
 	draw_texture_rect(_minimap, Rect2(origin, size * scale), false)
 	for portal: Dictionary in session.layout.portals:
-		if String(portal["id"]) in ["exit", "door_tower", "to_training"]:
+		if String(portal["id"]) in ["exit", "door_tower", "to_training"] and _seen(portal["position"], grid):
 			var spot: Vector2 = origin + (portal["position"] as Vector2) * scale
 			var active := session.portal_active(portal)
 			draw_rect(Rect2(spot - Vector2(1.5, 1.5), Vector2(3, 3)), Color(0.35, 0.95, 1.0) if active else Color(0.5, 0.5, 0.55))
 	for object: Interactable in world.interactables:
-		if not object.done:
+		if not object.done and _seen(object.position, grid):
 			draw_rect(Rect2(origin + object.position * scale - Vector2(1, 1), Vector2(2, 2)), GOLD)
 	for enemy: EnemySim in world.enemies:
-		if enemy.alive and (enemy.is_boss() or enemy.elite):
+		if enemy.alive and (enemy.is_boss() or enemy.elite) and _seen(enemy.position, grid):
 			draw_rect(Rect2(origin + enemy.position * scale - Vector2(1, 1), Vector2(2, 2)), RED)
 	var blink := 0.6 + 0.4 * sin(Time.get_ticks_msec() * 0.01)
 	draw_rect(Rect2(origin + world.player.position * scale - Vector2(1.5, 1.5), Vector2(3, 3)), Color(1, 1, 1, blink))
+
+
+## Descubre las casillas a MINIMAP_REVEAL de `point`; true si se descubrio alguna nueva.
+func _reveal_around(point: Vector2, grid: TileGrid) -> bool:
+	if _explored.is_empty():
+		return false
+	var center := grid.world_to_cell(point)
+	var changed := false
+	for dr: int in range(-MINIMAP_REVEAL, MINIMAP_REVEAL + 1):
+		for dc: int in range(-MINIMAP_REVEAL, MINIMAP_REVEAL + 1):
+			if dr * dr + dc * dc > MINIMAP_REVEAL * MINIMAP_REVEAL or not grid.in_bounds(center.x + dc, center.y + dr):
+				continue
+			var index := (center.y + dr) * grid.cols + center.x + dc
+			if _explored[index] == 0:
+				_explored[index] = 1
+				changed = true
+	return changed
+
+
+func _seen(point: Vector2, grid: TileGrid) -> bool:
+	if _explored.is_empty():
+		return true
+	var cell := grid.world_to_cell(point)
+	return grid.in_bounds(cell.x, cell.y) and _explored[cell.y * grid.cols + cell.x] == 1
 
 
 func _build_minimap(grid: TileGrid) -> ImageTexture:
@@ -605,6 +638,9 @@ func _build_minimap(grid: TileGrid) -> ImageTexture:
 	for r: int in range(grid.rows):
 		for c: int in range(grid.cols):
 			var color := Color(0, 0, 0, 0)
+			if not _explored.is_empty() and _explored[r * grid.cols + c] == 0:
+				image.set_pixel(c, r, Color(0.04, 0.05, 0.07, 0.92))
+				continue
 			match grid.get_cell(c, r):
 				TileGrid.FLOOR:
 					color = Color(0.22, 0.38, 0.24, 0.95)

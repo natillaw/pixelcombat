@@ -37,6 +37,7 @@ func _ready() -> void:
 		save_path = ""
 	_use_menu = DisplayServer.get_name() != "headless" and OS.get_environment("PIXELCOMBAT_NO_MENU").is_empty() and OS.get_environment("PIXELCOMBAT_NO_SAVE").is_empty() and OS.get_environment("PIXELCOMBAT_SAVE_PATH").is_empty()
 	session = GameSession.new(world, "" if _use_menu else save_path)
+	session.use_menus = true
 
 	arena = Arena.new()
 	arena.name = "Arena"

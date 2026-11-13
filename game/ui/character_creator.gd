@@ -18,7 +18,13 @@ const PANEL := Color(0.055, 0.065, 0.10, 0.97)
 const EDGE := Color(0.62, 0.48, 0.24, 1.0)
 
 const SKIN_NAMES := {"light": "Clara", "amber": "Ambar", "olive": "Oliva", "taupe": "Topo", "bronze": "Bronce", "brown": "Morena", "black": "Oscura"}
-const HAIR_STYLES := [["", "Calvo"], ["hair_buzzcut", "Rapado"], ["hair_bob", "Bob"], ["hair_plain", "Suelto"]]
+const HAIR_STYLES := [["", "Calvo"], ["hair_buzzcut", "Rapado"], ["hair_bob", "Bob"], ["hair_plain", "Suelto"], ["hair_balding", "Entradas"],
+	["hair_flat_top_fade", "Cresta plana"], ["hair_parted3", "Raya al lado"], ["hair_curly_short", "Rizado corto"], ["hair_curly_long", "Rizado largo"],
+	["hair_afro", "Afro"], ["hair_cornrows", "Trenzas pegadas"], ["hair_dreadlocks_short", "Rastas"], ["hair_bob_side_part", "Bob de lado"],
+	["hair_lob", "Media melena"], ["hair_long_straight", "Largo liso"], ["hair_long_center_part", "Largo con raya"], ["hair_long_tied", "Largo atado"],
+	["hair_xlong_wavy", "Larguisimo ondulado"], ["hair_high_ponytail", "Cola alta"], ["hair_half_up", "Medio recogido"]]
+const BEARD_STYLES := [["", "Sin barba"], ["beard_trimmed", "Perilla"], ["beard_medium", "Barba media"], ["beard_winter", "Barba larga"], ["beard_handlebar", "Bigote de manillar"], ["beard_walrus", "Bigote de morsa"]]
+const BROW_STYLES := [["", "Sin cejas"], ["brows_thin", "Cejas finas"], ["brows_thick", "Cejas gruesas"]]
 const HAIR_COLOR_NAMES := {"black": "Negro", "dark_brown": "Castano oscuro", "chestnut": "Castano", "light_brown": "Castano claro", "blonde": "Rubio", "ginger": "Pelirrojo", "gray": "Gris", "white": "Blanco", "red": "Rojo"}
 const EYE_NAMES := {"blue": "Azules", "green": "Verdes", "brown": "Marrones", "gray": "Grises"}
 const NAMES := ["Kael", "Iria", "Dorian", "Selene", "Bram", "Nyra", "Torvin", "Lyra", "Aldric", "Vesna", "Rurik", "Maelis"]
@@ -26,7 +32,7 @@ const NAMES := ["Kael", "Iria", "Dorian", "Selene", "Bram", "Nyra", "Torvin", "L
 var _stage: String = "lore"
 var _page: int = 0
 var _class_id: String = "warrior"
-var _look: Dictionary = {"body": "male", "skin": "light", "eyes": "blue", "hair": "hair_buzzcut", "hair_color": "dark_brown", "beard": ""}
+var _look: Dictionary = {"body": "male", "skin": "light", "eyes": "blue", "hair": "hair_buzzcut", "hair_color": "dark_brown", "beard": "", "brows": "brows_thin"}
 var _was_paused: bool = false
 
 var _root: Control
@@ -195,7 +201,7 @@ func _build_create() -> void:
 	_button("?", Rect2(176, 256, 42, 22), _random_name)
 	_label("Sin nombre te llamaran Despierto.", Rect2(22, 282, 196, 20), 8, MUTED, HORIZONTAL_ALIGNMENT_LEFT, true)
 	# Opciones de aspecto.
-	_panel(Rect2(226, 40, 202, 228), "ASPECTO")
+	_panel(Rect2(226, 40, 202, 256), "ASPECTO")
 	_value_labels.clear()
 	_option_row(0, "Cuerpo", "body")
 	_option_row(1, "Piel", "skin")
@@ -203,7 +209,8 @@ func _build_create() -> void:
 	_option_row(3, "Color de pelo", "hair_color")
 	_option_row(4, "Ojos", "eyes")
 	_option_row(5, "Barba", "beard")
-	_label("La ropa no se elige: empiezas con lo mas sencillo y el resto se consigue como equipo.", Rect2(232, 238, 190, 40), 8, MUTED, HORIZONTAL_ALIGNMENT_LEFT, true)
+	_option_row(6, "Cejas", "brows")
+	_label("La ropa no se elige: empiezas con lo mas sencillo y el resto se consigue como equipo.", Rect2(232, 270, 190, 30), 8, MUTED, HORIZONTAL_ALIGNMENT_LEFT, true)
 	# Clases.
 	_panel(Rect2(430, 40, 192, 270), "CLASE")
 	_class_buttons.clear()
@@ -252,7 +259,9 @@ func _values(key: String) -> Array:
 		"eyes":
 			return (LpcWardrobe.EYES as Array).map(func(id: String) -> Array: return [id, EYE_NAMES.get(id, id)])
 		"beard":
-			return [["", "Sin barba"], ["beard_trimmed", "Perilla"]]
+			return BEARD_STYLES
+		"brows":
+			return BROW_STYLES
 	return []
 
 

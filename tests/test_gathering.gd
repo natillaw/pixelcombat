@@ -238,7 +238,12 @@ func _test_respawn_and_tiers() -> void:
 	var node: ResourceNode = world.resource_nodes[0]
 	for enemy: EnemySim in world.enemies:
 		enemy.take_damage(1.0e9)
-	world.player.position = node.position + Vector2(44, 0)
+	var stand := node.position + Vector2(44, 0)
+	for offset: Vector2 in [Vector2(44, 0), Vector2(-44, 0), Vector2(0, 44), Vector2(0, -44)]:
+		if world.resolve_position(node.position + offset, PlayerSim.RADIUS).distance_to(node.position + offset) < 0.5:
+			stand = node.position + offset
+			break
+	world.player.position = stand
 	world.try_click(node.position)
 	_run_ticks(world, 3.0)
 	_check(node.depleted, "se agota un nodo del piso")

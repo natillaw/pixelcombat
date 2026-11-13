@@ -17,7 +17,7 @@ const BIOMES_PATH := "res://data/biomes.json"
 const TILE := 32
 const CHUNK := 16
 ## Un muro solo se dibuja a menos de esta distancia (casillas) de suelo o agua.
-const VISIBLE_RANGE := 2
+const VISIBLE_RANGE := 6
 
 static var _images: Dictionary = {}
 static var _biomes: Dictionary = {}
@@ -421,7 +421,7 @@ func _add_wall_prop(entities: Node2D, c: int, r: int) -> void:
 	for offset: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
 		if not _is_wall(c + offset.x, r + offset.y) and grid.get_cell(c + offset.x, r + offset.y) != TileGrid.WALL:
 			touches_floor = true
-	if not touches_floor and (c + r) % 2 != 0:
+	if not touches_floor and (c % 2 != 0 or r % 2 != 0):
 		return
 	var tree := String(biome["tree"])
 	var center := grid.cell_center(c, r) + Vector2(_rng.randf_range(-6.0, 6.0), 10.0 + _rng.randf_range(-4.0, 6.0))

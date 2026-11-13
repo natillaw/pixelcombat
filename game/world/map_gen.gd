@@ -19,10 +19,10 @@ const EXIT_RADIUS := 3
 ## con el tier hasta casi el doble.
 static func map_size(floor_number: int, rng: RandomNumberGenerator) -> Vector2i:
 	if floor_number <= 3:
-		return Vector2i(64 + rng.randi_range(0, 2) * 4, 48 + rng.randi_range(0, 2) * 4)
+		return Vector2i(120 + rng.randi_range(0, 2) * 4, 88 + rng.randi_range(0, 2) * 4)
 	var tier := TowerCatalog.tier_of_floor(floor_number)
 	var growth := tier - 1
-	return Vector2i(84 + growth * 4 + rng.randi_range(0, 3) * 4, 64 + growth * 3 + rng.randi_range(0, 3) * 4)
+	return Vector2i(150 + growth * 5 + rng.randi_range(0, 3) * 4, 110 + growth * 4 + rng.randi_range(0, 3) * 4)
 
 
 static func build(style: String, cols: int, rows: int, rng: RandomNumberGenerator) -> MapAnalysis:

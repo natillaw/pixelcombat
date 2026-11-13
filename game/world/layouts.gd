@@ -247,7 +247,14 @@ static func _decorate_city(layout: FloorLayout, grid: TileGrid) -> void:
 	for attempt: int in range(500):
 		var cell := Vector2i(rng.randi_range(5, grid.cols - 6), rng.randi_range(5, grid.rows - 6))
 		if grid.get_cell(cell.x, cell.y) == TileGrid.FLOOR and _clear_of_paths(grid, cell, 1):
-			layout.decor.append({"kind": "bush", "position": grid.cell_center(cell.x, cell.y) + Vector2(rng.randf_range(-8.0, 8.0), 12.0)})
+			var spot := grid.cell_center(cell.x, cell.y) + Vector2(rng.randf_range(-8.0, 8.0), 12.0)
+			var in_the_way := spot.distance_to(layout.player_spawn) < 100.0
+			for portal: Dictionary in layout.portals:
+				in_the_way = in_the_way or (portal["position"] as Vector2).distance_to(spot) < 70.0
+			if in_the_way:
+				continue
+			layout.decor.append({"kind": "bush", "position": spot})
+			layout.obstacles.append({"position": spot + Vector2(0.0, -6.0), "radius": 14.0, "hidden": true})
 
 
 ## Si no hay calle, edificio ni agua a `distance` casillas de `cell`.

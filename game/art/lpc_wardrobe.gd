@@ -16,7 +16,7 @@ const STARTER_WEAPON_BY_CLASS := {
 ## Look pools (heroes): every entry exists in the imported sheets.
 const SKINS := ["light", "amber", "olive", "taupe", "bronze", "brown", "black"]
 const EYES := ["blue", "green", "brown", "gray"]
-const HAIR := ["hair_buzzcut", "hair_bob", "hair_plain"]   # solo piezas con licencia de atribucion (docs/ASSET_REGISTRY.md)
+const HAIR := ["hair_buzzcut", "hair_bob", "hair_plain", "hair_balding", "hair_flat_top_fade", "hair_parted3", "hair_curly_short", "hair_curly_long", "hair_afro", "hair_cornrows", "hair_bob_side_part", "hair_lob", "hair_long_straight", "hair_long_center_part", "hair_long_tied", "hair_high_ponytail", "hair_half_up"]   # solo piezas con licencia de atribucion (docs/ASSET_REGISTRY.md)
 const HAIR_COLORS := ["black", "dark_brown", "chestnut", "light_brown", "blonde", "ginger", "gray", "white", "red"]
 const BEARD_CHANCE := 0.3             # male bodies only
 ## Bandit faction colour (D-E): no hero starter piece may use it.
@@ -47,6 +47,8 @@ static func layers_for(look: Dictionary, hero_class: String = "", equipment: Dic
         [String(look.get("head", "head_human_male")), "%s_%s" % [look.get("skin", "light"), look.get("eyes", "blue")]]]
     if String(look.get("ears", "")) != "":
         out.append([String(look["ears"]), String(look.get("skin", "light"))])
+    if String(look.get("brows", "")) != "":
+        out.append([String(look["brows"]), String(look.get("hair_color", "black"))])
     if String(look.get("hair", "")) != "":
         out.append([String(look["hair"]), String(look.get("hair_color", "black"))])
     if String(look.get("beard", "")) != "":

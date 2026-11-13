@@ -120,6 +120,8 @@ func load_slot(path: String, fresh: bool = false) -> void:
 
 
 ## Estaciones que no fabrican: tienen su propia ventana de servicio.
+## La interfaz real pone esto a true: el portal de la torre abre el selector de pisos y la salida pide confirmacion.
+var use_menus: bool = false
 const SERVICE_STATIONS := ["tavern", "guild", "merchant", "bank"]
 
 
@@ -219,11 +221,17 @@ func try_interact() -> void:
 	var action := String(portal["action"])
 	match action:
 		"to_city":
-			go_to_city()
+			if use_menus and layout.kind == FloorLayout.KIND_FLOOR:
+				service_opened.emit("leave")
+			else:
+				go_to_city()
 		"to_training":
 			go_to_training()
 		"tower":
-			go_to_floor(selected_floor)
+			if use_menus:
+				service_opened.emit("tower")
+			else:
+				go_to_floor(selected_floor)
 		"next_floor":
 			go_to_floor(layout.floor_number + 1)
 		_:
