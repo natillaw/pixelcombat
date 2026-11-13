@@ -818,7 +818,7 @@ func _draw_death() -> void:
 		_draw_text("VOLVIENDO A LA CIUDAD...", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
 		return
 	_draw_text("EL MUNECO DE ENTRENAMIENTO GANO ESTA RONDA", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
-	_draw_text("PULSA  R  PARA LEVANTARTE", Vector2(0, 210), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 640)
+	_draw_text("PULSA  %s  PARA LEVANTARTE" % Settings.short_label("restart_training"), Vector2(0, 210), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 640)
 
 
 # --- Primitivas -------------------------------------------------------------

@@ -177,7 +177,7 @@ func _physics_process(_delta: float) -> void:
 	if world == null or (creator != null and creator.visible) or (main_menu != null and main_menu.visible) or (pause_menu != null and pause_menu.visible) or (service_panel != null and service_panel.is_open) or (character_sheet != null and character_sheet.is_open):
 		return
 
-	if Input.is_action_just_pressed("restart_training"):
+	if Input.is_action_just_pressed("restart_training") and session.layout.kind == FloorLayout.KIND_TRAINING:
 		session.restart()
 		_was_dead = false
 	if Input.is_action_just_pressed("interact"):

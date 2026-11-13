@@ -70,9 +70,11 @@ func decide(world: CombatWorld) -> InputMessage:
 	if _exhausted and not knows_map:
 		_exhausted_ticks += 1
 		if _exhausted_ticks > 600:
-			_exhausted = false                      # se reintenta explorar: lo ya conocido no se pierde, pero puede haber algo nuevo a la vista
+			_exhausted = false                      # se reintenta: la persona recorre otra vez el piso (lo que vio puede haberse movido)
 			_exhausted_ticks = 0
 			_force_reveal = true
+			_known.fill(0)
+			_path.clear()
 	if knows_map or _exhausted:
 		var known_direction := _known_map_direction(world, player)
 		if known_direction == Vector2.INF:
@@ -286,13 +288,16 @@ func _plan(world: CombatWorld, player: PlayerSim) -> void:
 	# Primero va a por lo que ya ha visto (enemigos, botin); solo si no hay nada, explora el borde de lo desconocido.
 	var parents := PackedInt32Array()
 	var found := -1
-	for use_frontier: bool in [false, true]:
+	# Pasadas: primero por sitios con holgura (lo normal) y, si no llega a nada, por cualquier casilla caminable.
+	for pass_index: int in range(4):
+		var use_frontier := pass_index % 2 == 1
+		var strict := pass_index < 2
 		if not use_frontier and goals.is_empty():
 			continue
 		parents = PackedInt32Array()
 		parents.resize(cols * grid.rows)
 		parents.fill(-2)
-		found = _search(grid, start, goals, parents, use_frontier)
+		found = _search(grid, start, goals, parents, use_frontier, strict)
 		if found >= 0:
 			break
 	_path.clear()
@@ -309,7 +314,7 @@ func _plan(world: CombatWorld, player: PlayerSim) -> void:
 
 
 ## BFS desde `start` por casillas conocidas y abiertas; devuelve la casilla de `goals` (o del borde de lo desconocido) mas cercana, o -1.
-func _search(grid: TileGrid, start: Vector2i, goals: Dictionary, parents: PackedInt32Array, use_frontier: bool) -> int:
+func _search(grid: TileGrid, start: Vector2i, goals: Dictionary, parents: PackedInt32Array, use_frontier: bool, strict: bool = true) -> int:
 	var cols := grid.cols
 	var queue: Array[int] = [start.y * cols + start.x]
 	parents[queue[0]] = -1
@@ -318,7 +323,7 @@ func _search(grid: TileGrid, start: Vector2i, goals: Dictionary, parents: Packed
 		var index := queue[head]
 		head += 1
 		var cell := Vector2i(index % cols, index / cols)
-		if goals.has(index) or (use_frontier and index != queue[0] and _is_frontier(grid, cell)):
+		if goals.has(index) or (use_frontier and index != queue[0] and _is_frontier(grid, cell, strict)):
 			return index
 		for dr: int in range(-1, 2):
 			for dc: int in range(-1, 2):
@@ -328,18 +333,27 @@ func _search(grid: TileGrid, start: Vector2i, goals: Dictionary, parents: Packed
 				if not grid.in_bounds(next.x, next.y):
 					continue
 				var next_index := next.y * cols + next.x
-				if parents[next_index] != -2 or _known[next_index] == 0 or not (_open[next_index] == 1 or goals.has(next_index)):
+				if parents[next_index] != -2 or _known[next_index] == 0:
 					continue
-				if dr != 0 and dc != 0 and (not _is_open(grid, Vector2i(cell.x + dc, cell.y)) or not _is_open(grid, Vector2i(cell.x, cell.y + dr))):
-					continue
+				if strict:
+					# Por casillas con holgura para el cuerpo; la meta (un enemigo, un objeto) puede estar al borde.
+					if not (_open[next_index] == 1 or goals.has(next_index)):
+						continue
+					if dr != 0 and dc != 0 and (not _is_open(grid, Vector2i(cell.x + dc, cell.y)) or not _is_open(grid, Vector2i(cell.x, cell.y + dr))):
+						continue
+				else:
+					if grid.blocks_move(next.x, next.y):
+						continue
+					if dr != 0 and dc != 0 and (grid.blocks_move(cell.x + dc, cell.y) or grid.blocks_move(cell.x, cell.y + dr)):
+						continue
 				parents[next_index] = index
 				queue.append(next_index)
 	return -1
 
 
 ## Casilla conocida y abierta con alguna vecina todavia desconocida.
-func _is_frontier(grid: TileGrid, cell: Vector2i) -> bool:
-	if not _is_open(grid, cell):
+func _is_frontier(grid: TileGrid, cell: Vector2i, strict: bool = true) -> bool:
+	if not (_is_open(grid, cell) if strict else not grid.blocks_move(cell.x, cell.y)):
 		return false
 	for offset: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
 		var next := cell + offset

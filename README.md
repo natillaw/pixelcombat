@@ -39,27 +39,25 @@ La primera vez, o tras cambiar muchos assets, importa:
 
 | Entrada | Acción |
 |---|---|
-| WASD | Mover |
+| WASD / flechas | Mover (el personaje mira hacia donde camina; al atacar o lanzar una skill, hacia el cursor) |
 | Ratón | Apuntar |
-| Clic izquierdo | M1: ataque básico con cargas que se recuperan solas (mantener para encadenar) |
-| Clic derecho | M2: ataque especial; mantén el botón para cargarlo (más daño y alcance) |
-| Espacio | Esquiva (i-frames, cancela windup/recovery, cooldown 1,1 s) |
-| 1-5 | Skills S1-S5. Se **desbloquean por nivel** (niveles 2, 4 y 10 las de cada clase). Empiezas con solo M1, M2 y esquiva; la XP sale de matar enemigos |
-| Q | Special (nivel 6, cuesta 30): Iron Counter, Perfect Evasion, Arcane Overload o Deadeye |
-| F | Ultimate (nivel 8; necesita la barra al 100 %, que sube al conectar golpes) |
-| Tab | Panel de loadout: pestañas de clase y skills desbloqueadas (pausa el juego) |
-| F7 | Depuración: pasar a la siguiente clase |
-| F5 / F6 | Depuración: subir un nivel / volver al nivel 1 |
-| E | Interactuar: puertas de la ciudad, entrada de la torre, salidas de piso |
+| Clic izquierdo (M1) | Interactuar: hablar con vecinos y artesanos, puertas, entrada de la torre, altares, jaulas, hogueras; recoger botín y recolectar vetas (hay que estar cerca; tarda ~1,5-3 s y se cancela si te mueves, atacas, esquivas o te golpean) |
+| Clic derecho (M2) | Ataque básico: un toque lanza el combo, mantener carga el golpe fuerte |
+| Espacio | Defensa / movilidad de la clase (guerrero: bloqueo y parry; pícaro: rodar; mago: blink; arquero: salto atrás) |
+| Q / E / R | Skills 1-3 (se desbloquean por nivel; el resto de skills se aprenden con libros) |
+| X | Special (postura o mejora de la clase) |
+| F | Ultimate (necesita la barra al 100 %) |
+| 1 / 2 | Poción de vida / elixir de recurso |
+| G | Interactuar con el teclado (lo mismo que el clic izquierdo cerca de un objeto) |
+| I / C / Tab | Inventario / ficha de personaje / libro de skills |
 | , / . | En la ciudad, elegir el piso de la torre (hasta el más alto desbloqueado) |
-| Clic izquierdo sobre un item del suelo o un nodo | Recoger / recolectar (hay que estar cerca; el clic no ataca). Recolectar tarda ~1,5 s y se cancela si te mueves, atacas, esquivas o te golpean |
-| E junto a un artesano de la ciudad | Hablar con Brann (herrero), Mira (alquimista), Tomas (carpintero) o Lena (sastre) abre su taller (Ottis, el tabernero, aun no): flechas cambian receta y tier, Intro fabrica |
-| (HUD) | Arriba a la derecha: minimapa del piso (salida en cian, objetivos en dorado, jefes y elites en rojo) |
-| I | Inventario: clic equipa, clic derecho vende (solo en zona segura) |
-| R | Reiniciar el escenario actual (enemigos vivos y vida completa) |
+| F1 | Ayuda de controles |
 | F3 | Overlay de debug |
-| Esc | Salir |
+| F5 / F6 / F7 | Depuración: subir un nivel / volver al nivel 1 / siguiente clase |
+| F9 | Reiniciar el patio de entrenamiento (solo allí) |
+| Esc | Menú de pausa (Ajustes: volumen, teclas, accesibilidad y música) |
 
+El nivel nunca supera al piso más alto desbloqueado; completar la misión principal de cada piso da casi un nivel.
 
 ## Tests
 

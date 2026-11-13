@@ -27,7 +27,7 @@ const ACTIONS := {
 	"debug_level_up": [KEY_F5],
 	"debug_level_reset": [KEY_F6],
 	"debug_class_next": [KEY_F7],
-	"restart_training": [KEY_R],
+	"restart_training": [KEY_F9],            # antes R: chocaba con la skill 3 (R) y reiniciaba el piso al lanzarla
 	"interact": [KEY_G],
 	"floor_prev": [KEY_COMMA],
 	"floor_next": [KEY_PERIOD],
