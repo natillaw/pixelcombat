@@ -36,6 +36,8 @@ static var slow_motion: bool = true
 static var damage_flash: bool = true
 ## Solo pruebas: milisegundos de retraso del input para sentir el juego con latencia (0 = ninguno).
 static var sim_latency_ms: int = 0
+## Escalado de la imagen: false = en pasos enteros (pixel perfecto, con bandas negras en pantallas como 1366x768 o 1600x900); true = ajustado a toda la ventana.
+static var fractional_scale: bool = false
 ## accion -> {"type": "key"|"mouse", "code": int}; solo las que difieren de las de fabrica.
 static var bindings: Dictionary = {}
 static var _defaults: Dictionary = {}
@@ -60,6 +62,7 @@ static func load_and_apply() -> void:
 		slow_motion = bool((parsed as Dictionary).get("slow_motion", slow_motion))
 		damage_flash = bool((parsed as Dictionary).get("damage_flash", damage_flash))
 		sim_latency_ms = clampi(int((parsed as Dictionary).get("sim_latency_ms", sim_latency_ms)), 0, 400)
+		fractional_scale = bool((parsed as Dictionary).get("fractional_scale", fractional_scale))
 		bindings = {}
 		var saved: Dictionary = (parsed as Dictionary).get("bindings", {})
 		for action: String in saved:
@@ -72,7 +75,7 @@ static func load_and_apply() -> void:
 static func save() -> void:
 	var file := FileAccess.open(path(), FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"master": master, "sfx": sfx, "music": music, "fullscreen": fullscreen, "shake": shake, "zoom_punch": zoom_punch, "hit_stop": hit_stop, "slow_motion": slow_motion, "damage_flash": damage_flash, "sim_latency_ms": sim_latency_ms, "bindings": bindings}, "\t"))
+		file.store_string(JSON.stringify({"master": master, "sfx": sfx, "music": music, "fullscreen": fullscreen, "shake": shake, "zoom_punch": zoom_punch, "hit_stop": hit_stop, "slow_motion": slow_motion, "damage_flash": damage_flash, "sim_latency_ms": sim_latency_ms, "fractional_scale": fractional_scale, "bindings": bindings}, "\t"))
 
 
 static func apply() -> void:
@@ -80,6 +83,9 @@ static func apply() -> void:
 	AudioServer.set_bus_volume_db(0, _to_db(master))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(SFX_BUS), _to_db(sfx))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS), _to_db(music))
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null and tree.root != null:
+		tree.root.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL if fractional_scale else Window.CONTENT_SCALE_STRETCH_INTEGER
 	if DisplayServer.get_name() != "headless":
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
 	for action: String in bindings:

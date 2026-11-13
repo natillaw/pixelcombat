@@ -80,9 +80,10 @@ func _build_access() -> void:
 	_check_box("Pausa de impacto (hit-stop)", Settings.hit_stop, Vector2(60, 148), func(on: bool) -> void: Settings.hit_stop = on; Settings.save())
 	_check_box("Camara lenta al morir", Settings.slow_motion, Vector2(60, 174), func(on: bool) -> void: Settings.slow_motion = on; Settings.save())
 	_check_box("Destellos rojos de dano", Settings.damage_flash, Vector2(60, 200), func(on: bool) -> void: Settings.damage_flash = on; Settings.save())
-	MenuKit.label(_body, "Latencia simulada (pruebas): %d ms" % Settings.sim_latency_ms, Rect2(60, 232, 300, 16), 14, MenuKit.MUTED)
+	_check_box("Imagen ajustada a la ventana (si hay bandas negras; puede verse borrosa)", Settings.fractional_scale, Vector2(60, 226), func(on: bool) -> void: Settings.fractional_scale = on; Settings.apply(); Settings.save())
+	MenuKit.label(_body, "Latencia simulada (pruebas): %d ms" % Settings.sim_latency_ms, Rect2(60, 258, 300, 16), 14, MenuKit.MUTED)
 	var latency := HSlider.new()
-	latency.position = Vector2(60, 252)
+	latency.position = Vector2(60, 278)
 	latency.size = Vector2(300, 12)
 	latency.min_value = 0
 	latency.max_value = 300

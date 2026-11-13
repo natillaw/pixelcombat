@@ -41,6 +41,7 @@ func _run() -> void:
 	Settings.damage_flash = false
 	Settings.music = 0.3
 	Settings.sim_latency_ms = 80
+	Settings.fractional_scale = true
 	Settings.save()
 	Settings.shake = 1.0
 	Settings.zoom_punch = true
@@ -52,6 +53,7 @@ func _run() -> void:
 	Settings.load_and_apply()
 	_check(is_equal_approx(Settings.shake, 0.25) and not Settings.zoom_punch and not Settings.hit_stop and not Settings.slow_motion and not Settings.damage_flash, "los ajustes de accesibilidad se guardan y se cargan")
 	_check(is_equal_approx(Settings.music, 0.3) and Settings.sim_latency_ms == 80, "la musica y la latencia simulada tambien")
+	_check(Settings.fractional_scale, "el escalado ajustado se guarda y se carga")
 	_check(AudioServer.get_bus_index(Settings.MUSIC_BUS) != -1, "existe el bus de musica")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://test_access_settings.json"))
 	# Restablece para no ensuciar otras suites.
@@ -62,6 +64,8 @@ func _run() -> void:
 	Settings.damage_flash = true
 	Settings.music = 0.7
 	Settings.sim_latency_ms = 0
+	Settings.fractional_scale = false
+	Settings.apply()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
