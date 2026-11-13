@@ -37,9 +37,9 @@ func _run() -> void:
 func _player(level: int = 6) -> PlayerSim:
 	var world: CombatWorld = CombatWorldScript.new(11)
 	world.setup_arena(Rect2(0, 0, 900, 600))
-	# Mago: sus skills de mundo se aprenden con la instructora (las del guerrero estan en libros).
+	# Arquero: sus skills de mundo se aprenden con la instructora (las del guerrero estan en libros).
 	world.player.safe_zone = true
-	world.player.switch_class("mage")
+	world.player.switch_class("archer")
 	world.player.safe_zone = false
 	world.player.set_level(level)
 	return world.player

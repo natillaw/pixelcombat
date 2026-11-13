@@ -1016,7 +1016,7 @@ func _afford_reason(slot: String) -> String:
 	var skill: Dictionary = loadout[slot]
 	if statuses.has("silence") and slot != "M1" and slot != "M2":
 		return "silenced"
-	if resource.get_current() < float(skill.get("cost", 0.0)):
+	if resource.get_current() < float(skill.get("cost", 0.0)) and not skill.has("spark_mult"):
 		return "resource"
 	if ultimate_charge < float(skill.get("charge", 0.0)):
 		return "charge"
@@ -1039,6 +1039,7 @@ func _start_attack(slot: String) -> void:
 		_break_stealth()
 	if current_skill.has("combo"):
 		_apply_combo()
+	_apply_mage_rules()
 	var cost := float(current_skill.get("cost", 0.0))
 	if cost > 0.0:
 		resource.consume(cost)
@@ -1131,6 +1132,8 @@ func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: D
 		bonus += _opening_bonus
 		_opening_bonus = 0.0
 	damage *= 1.0 + bonus
+	if skill.has("bonus_vs") and target.get("statuses") != null and (target.statuses as StatusSet).has(String(skill["bonus_vs"]["status"])):
+		damage *= float(skill["bonus_vs"]["mult"])
 	if skill.has("execute") and target.get("max_health") != null and float(target.health) <= float(target.max_health) * float(skill["execute"]["below"]):
 		if bool(skill["execute"].get("kill", false)):
 			if not (target.has_method("is_boss") and target.is_boss()):
@@ -1363,7 +1366,10 @@ func _update_resource(delta: float) -> void:
 		return
 	if resource.current_amount < resource.max_amount:
 		var before := resource.current_amount
-		resource.generate(float(class_def["resource"]["regen_per_second"]) * delta)
+		var regen := float(class_def["resource"]["regen_per_second"])
+		if tick - last_combat_tick > 180 and class_def["resource"].has("regen_out_of_combat"):
+			regen = float(class_def["resource"]["regen_out_of_combat"])
+		resource.generate(regen * delta)
 		if not is_equal_approx(before, resource.current_amount):
 			resource_changed.emit(resource.get_current(), resource.max_amount)
 
@@ -1385,6 +1391,12 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 		amount = left
 
 	var reduced := statuses.absorb(amount * (1.0 - armor_reduction()))
+	if statuses.has("manashield") and reduced > 0.0 and resource.get_current() > 0.0:
+		# Mana Shield: el mana absorbe parte del dano (1 de mana por 1 de dano).
+		var soaked := minf(reduced * statuses.strength("manashield"), resource.get_current())
+		resource.consume(soaked)
+		resource_changed.emit(resource.get_current(), resource.max_amount)
+		reduced -= soaked
 	if reduced <= 0.0:
 		return 0.0
 	var dealt := minf(reduced, health)
@@ -1840,6 +1852,22 @@ func _spawn_skill_zone() -> void:
 	var spec: Dictionary = (current_skill["zone"] as Dictionary).duplicate(true)
 	spec["owner"] = "player"
 	world.spawn_zone(GroundZone.new(spec, _hit_origin(), stats.roll_weapon_damage(_rng)))
+
+
+## Magia: Arcane Surge (tras una skill, el siguiente basico sale gratis y +50 %) y el chispazo (basico sin mana).
+func _apply_mage_rules() -> void:
+	var surge_on := String(class_def.get("passive", "")) == "arcane_surge" and level >= int(class_def.get("passive_level", 1))
+	var kind := String(current_skill.get("kind", ""))
+	if surge_on and kind == "basic" and statuses.has("surge"):
+		statuses.remove("surge")
+		current_skill["cost"] = 0.0
+		current_skill["damage_mult"] = float(current_skill["damage_mult"]) * 1.5
+		return
+	if surge_on and (kind == "skill" or kind == "ultimate"):
+		statuses.apply("surge", 8.0, 0.5)
+	if current_skill.has("spark_mult") and resource.get_current() < float(current_skill.get("cost", 0.0)):
+		current_skill["cost"] = 0.0
+		current_skill["damage_mult"] = float(current_skill["damage_mult"]) * float(current_skill["spark_mult"])
 
 
 ## Sigilo ---------------------------------------------------------------------------------

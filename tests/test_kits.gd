@@ -42,7 +42,7 @@ func _test_base_kits() -> void:
 		var world := _make(class_id)
 		var slots: Array = world.player.loadout.keys()
 		slots.sort()
-		var expected: Array = ["M1", "M2", "S1", "S2", "ULTIMATE"] if class_id == "warrior" or class_id == "rogue" else ["M1", "M2", "S1", "SPECIAL", "ULTIMATE"]
+		var expected: Array = ["M1", "M2", "S1", "S2", "ULTIMATE"] if class_id == "warrior" or class_id == "rogue" or class_id == "mage" else ["M1", "M2", "S1", "SPECIAL", "ULTIMATE"]
 		_check(slots == expected, "%s: el kit base son 5 skills (%s)" % [class_id, str(slots)])
 		var shapes := {}
 		for slot: String in slots:
@@ -62,15 +62,20 @@ func _test_base_kits() -> void:
 
 func _test_world_skills() -> void:
 	var world := _make("mage", 12)
-	_check(world.player.equip("S2", &"fireball") == "not_learned", "una skill de mundo no se equipa sin aprenderla")
-	_check(not world.player.loadout.has("S2"), "ni llega sola por nivel")
-	_check(world.player.learn_skill(&"fireball") and not world.player.learn_skill(&"fireball"), "se aprende una vez")
+	_check(world.player.equip("S2", &"mana_shield") == "not_learned", "una skill de mundo no se equipa sin aprenderla")
+	var on_loadout := func() -> bool:
+		for slot: String in world.player.loadout:
+			if world.player.loadout[slot]["id"] == &"mana_shield":
+				return true
+		return false
+	_check(not on_loadout.call(), "ni llega sola por nivel")
+	_check(world.player.learn_skill(&"mana_shield") and not world.player.learn_skill(&"mana_shield"), "se aprende una vez")
 	_check(not world.player.learn_skill(&"frost_nova") and not world.player.learn_skill(&"cleaving_strike"), "no se aprende una skill base ni de otra clase")
-	_check(world.player.loadout.has("S2") and world.player.loadout["S2"]["id"] == &"fireball", "al aprenderla se equipa en un hueco libre")
+	_check(on_loadout.call(), "al aprenderla se equipa en un hueco libre")
 	var exported: Dictionary = world.player.export_state()
 	var other := _make("warrior", 1)
 	other.player.import_state(exported)
-	_check(other.player.learned_skills == ["fireball"], "lo aprendido se guarda y se carga")
+	_check(other.player.learned_skills == ["mana_shield"], "lo aprendido se guarda y se carga")
 
 
 func _test_mobility() -> void:

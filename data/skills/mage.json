@@ -4,8 +4,8 @@
 		{
 			"kind": "basic",
 			"slot": "M1",
-			"cost": 0,
-			"cooldown": 0.02,
+			"cost": 3,
+			"cooldown": 0.3,
 			"max_targets": 0,
 			"resource_gain": 0,
 			"resource_cap": 0,
@@ -17,17 +17,13 @@
 			"name": "Arcane Bolt",
 			"class": "mage",
 			"role": "Daño / presión",
-			"description": "Proyectil mágico rápido de daño moderado. 4 cargas que se recuperan solas.",
+			"description": "Basico (clic derecho). Proyectil debil: cuesta 3 de mana y tiene una pausa corta entre disparos. Sin mana sale un chispazo al 25 %.",
 			"hud_label": "BOLT",
 			"shape": "projectile",
 			"windup": 0.12,
 			"active": 0.04,
 			"recovery": 0.2,
-			"damage_mult": 0.9,
-			"charges": {
-				"max": 4,
-				"recharge": 0.55
-			},
+			"damage_mult": 1.0,
 			"projectile": {
 				"speed": 420,
 				"range": 300,
@@ -43,13 +39,14 @@
 				"recovery": 0.6
 			},
 			"anim": "spellcast",
-			"unlock_level": 1
+			"unlock_level": 1,
+			"spark_mult": 0.25
 		},
 		{
 			"kind": "basic",
 			"slot": "M2",
-			"cost": 0,
-			"cooldown": 3,
+			"cost": 12,
+			"cooldown": 2.5,
 			"max_targets": 0,
 			"resource_gain": 0,
 			"resource_cap": 0,
@@ -61,7 +58,7 @@
 			"name": "Charged Arcane Blast",
 			"class": "mage",
 			"role": "Burst / castigo",
-			"description": "Acumula energía (mantén el botón) y dispara un proyectil más lento, potente y grande.",
+			"description": "Basico cargado (mantener clic derecho): hasta 1,2 s cargando; mucho dano y, con la carga completa, ralentiza. Cuesta 12 de mana.",
 			"hud_label": "BLAST",
 			"shape": "projectile",
 			"windup": 0.28,
@@ -69,9 +66,16 @@
 			"recovery": 0.35,
 			"damage_mult": 2.2,
 			"hold": {
-				"max": 0.8,
-				"damage_bonus": 0.9,
-				"range_bonus": 0.3
+				"max": 1.2,
+				"damage_bonus": 1.0,
+				"range_bonus": 0.3,
+				"full_on_hit": [
+					{
+						"id": "slow",
+						"duration": 2.0,
+						"strength": 0.4
+					}
+				]
 			},
 			"projectile": {
 				"speed": 250,
@@ -88,7 +92,8 @@
 				"recovery": 0.4
 			},
 			"anim": "spellcast",
-			"unlock_level": 1
+			"unlock_level": 1,
+			"spark_mult": 0.25
 		},
 		{
 			"kind": "skill",
@@ -106,7 +111,7 @@
 			"name": "Fireball",
 			"class": "mage",
 			"role": "Daño",
-			"description": "Proyectil de fuego que explota al impactar.",
+			"description": "Bola de fuego con explosion pequena; deja al enemigo ardiendo 3 s.",
 			"hud_label": "FIREBALL",
 			"shape": "projectile",
 			"windup": 0.25,
@@ -133,7 +138,13 @@
 			},
 			"anim": "spellcast",
 			"unlock_level": 2,
-			"world": true
+			"on_hit": [
+				{
+					"id": "burn",
+					"duration": 3.0,
+					"strength": 5.0
+				}
+			]
 		},
 		{
 			"kind": "skill",
@@ -151,7 +162,7 @@
 			"name": "Arcane Explosion",
 			"class": "mage",
 			"role": "Área",
-			"description": "Explosión mágica alrededor del Mage.",
+			"description": "Explosion arcana a tu alrededor, de coste alto.",
 			"hud_label": "EXPLODE",
 			"shape": "circle",
 			"range": 70,
@@ -166,8 +177,9 @@
 				"recovery": 0.4
 			},
 			"anim": "spellcast",
-			"unlock_level": 4,
-			"world": true
+			"unlock_level": 5,
+			"world": true,
+			"source": "book"
 		},
 		{
 			"kind": "special",
@@ -202,7 +214,10 @@
 				"recovery": 0.3
 			},
 			"anim": "spellcast",
-			"unlock_level": 4
+			"unlock_level": 4,
+			"retired": true,
+			"world": true,
+			"legacy_special": true
 		},
 		{
 			"kind": "ultimate",
@@ -259,7 +274,7 @@
 			"name": "Ice Lance",
 			"class": "mage",
 			"role": "Daño preciso",
-			"description": "Proyectil de hielo rápido que atraviesa a dos enemigos.",
+			"description": "Lanza de hielo que atraviesa: hace el doble de dano contra enemigos ralentizados.",
 			"hud_label": "LANCE",
 			"shape": "projectile",
 			"windup": 0.15,
@@ -281,8 +296,13 @@
 				"recovery": 0.5
 			},
 			"anim": "spellcast",
-			"unlock_level": 10,
-			"world": true
+			"unlock_level": 3,
+			"world": true,
+			"source": "book",
+			"bonus_vs": {
+				"status": "slow",
+				"mult": 2.0
+			}
 		},
 		{
 			"kind": "skill",
@@ -300,7 +320,7 @@
 			"name": "Frost Nova",
 			"class": "mage",
 			"role": "Control",
-			"description": "Congela brevemente a los enemigos cercanos: stun corto y ralentizacion.",
+			"description": "Explosion helada a tu alrededor: casi inmoviliza 1,5 s y ralentiza despues. Los jefes solo se ralentizan a medias.",
 			"hud_label": "NOVA",
 			"shape": "circle",
 			"range": 80,
@@ -311,13 +331,9 @@
 			"telegraph": true,
 			"on_hit": [
 				{
-					"id": "stun",
-					"duration": 0.6
-				},
-				{
 					"id": "slow",
 					"duration": 3.5,
-					"strength": 0.5
+					"strength": 0.9
 				}
 			],
 			"move": {
@@ -326,7 +342,136 @@
 				"recovery": 0.4
 			},
 			"anim": "spellcast",
-			"unlock_level": 2
+			"unlock_level": 4
+		},
+		{
+			"id": "arcane_orb",
+			"name": "Arcane Orb",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Dano / zona",
+			"description": "Orbe lento que atraviesa a los enemigos y los ralentiza.",
+			"hud_label": "ORB",
+			"shape": "projectile",
+			"windup": 0.3,
+			"active": 0.05,
+			"recovery": 0.3,
+			"cooldown": 10,
+			"cost": 30,
+			"damage_mult": 1.4,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.4,
+				"active": 0.2,
+				"recovery": 0.5
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 8,
+			"class": "mage",
+			"damage_type": "magic",
+			"projectile": {
+				"speed": 150,
+				"range": 300,
+				"radius": 14,
+				"count": 1,
+				"spread": 0,
+				"pierce": 6,
+				"visual": "orb"
+			},
+			"on_hit": [
+				{
+					"id": "slow",
+					"duration": 2.0,
+					"strength": 0.3
+				}
+			]
+		},
+		{
+			"id": "meteor",
+			"name": "Meteor",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Dano / area",
+			"description": "Marca una zona y, tras 1 s, cae un meteoro que quema.",
+			"hud_label": "METEOR",
+			"shape": "circle",
+			"windup": 1.0,
+			"active": 0.05,
+			"recovery": 0.3,
+			"cooldown": 16,
+			"cost": 40,
+			"damage_mult": 3.0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.4,
+				"active": 0.2,
+				"recovery": 0.5
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 7,
+			"class": "mage",
+			"damage_type": "magic",
+			"world": true,
+			"source": "book",
+			"range": 70,
+			"anchor": "aim_point",
+			"point_distance": 190,
+			"telegraph": true,
+			"on_hit": [
+				{
+					"id": "burn",
+					"duration": 3.0,
+					"strength": 6.0
+				}
+			]
+		},
+		{
+			"id": "mana_shield",
+			"name": "Mana Shield",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Defensa",
+			"description": "6 s: el 60 % del dano que recibes se paga con mana.",
+			"hud_label": "SHIELD",
+			"shape": "self",
+			"windup": 0.2,
+			"active": 0.05,
+			"recovery": 0.3,
+			"cooldown": 20,
+			"cost": 20,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.4,
+				"active": 0.2,
+				"recovery": 0.5
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 9,
+			"class": "mage",
+			"damage_type": "magic",
+			"world": true,
+			"source": "book",
+			"self_status": {
+				"id": "manashield",
+				"duration": 6.0,
+				"strength": 0.6
+			}
 		}
 	]
 }

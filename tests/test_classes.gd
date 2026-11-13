@@ -157,7 +157,7 @@ func _test_resources() -> void:
 	player.switch_class("mage")
 	player.resource.current_amount = 50.0
 	_step(world, 60, _input({}))
-	_check(absf(player.resource_amount() - 54.0) < 0.5, "el Mana se regenera despacio (4/s): %.1f" % player.resource_amount())
+	_check(absf(player.resource_amount() - 62.0) < 0.5, "el Mana se regenera mas rapido fuera de combate (12/s): %.1f" % player.resource_amount())
 
 	# El Rogue no gana recurso al golpear ni al recibir dano, y no tiene pasiva.
 	player.switch_class("rogue")
@@ -209,8 +209,8 @@ func _test_stats_and_damage_types() -> void:
 	var physical_low := _first_hit_damage("rogue", 1, 20.0)
 	var physical_high := _first_hit_damage("rogue", 1, 60.0)
 	_check(is_equal_approx(physical_low, physical_high), "el dano del Rogue no depende de Intellect")
-	var expected := (10.0 + (20.0 * 2.0) / 14.0 * 2.0) * 0.9
-	_check(absf(magic_low - expected) < 0.01, "Arcane Bolt = (base + SP/14 x velocidad) x 0.9 (%.2f vs %.2f)" % [magic_low, expected])
+	var expected := (10.0 + (20.0 * 2.0) / 14.0 * 2.0) * 1.0
+	_check(absf(magic_low - expected) < 0.01, "Arcane Bolt = (base + SP/14 x velocidad) x 0.6 (%.2f vs %.2f)" % [magic_low, expected])
 
 
 ## Dano del primer golpe del M1 de `class_id` con el Intellect indicado, con dano de

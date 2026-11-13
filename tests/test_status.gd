@@ -43,7 +43,7 @@ func _run() -> void:
 func _test_catalog() -> void:
 	for error: String in StatusCatalog.errors():
 		print("   error de carga: %s" % error)
-	_check(StatusCatalog.errors().is_empty() and StatusCatalog.all_ids() == ["stun", "slow", "poison", "bleed", "silence", "shield", "knockback", "fed", "might", "haste", "warcry", "pull", "stealth", "vanish", "concealed", "backstab", "disarm", "stagger"], "data/statuses.json carga con los dieciocho estados")
+	_check(StatusCatalog.errors().is_empty() and StatusCatalog.all_ids() == ["stun", "slow", "poison", "bleed", "silence", "shield", "knockback", "fed", "might", "haste", "warcry", "pull", "stealth", "vanish", "concealed", "backstab", "disarm", "stagger", "burn", "surge", "manashield"], "data/statuses.json carga con los veintiun estados")
 	_check(StatusCatalog.validate_on_hit([{"id": "stun", "duration": 0.5}]).is_empty(), "un stun solo necesita duracion")
 	_check(not StatusCatalog.validate_on_hit([{"id": "slow", "duration": 2.0}]).is_empty(), "un slow sin strength se rechaza")
 	_check(not StatusCatalog.validate_on_hit([{"id": "poison", "duration": 2.0}]).is_empty(), "un veneno sin strength se rechaza")
@@ -286,7 +286,7 @@ func _test_skills_apply_statuses() -> void:
 	_check(not nova_slot.is_empty(), "(preparacion) Frost Nova se desbloquea a nivel 12")
 	_step(nova_world, 1, _input({nova_slot.to_lower(): true}))
 	_step(nova_world, 40, _input({}))
-	_check(target.statuses.has("slow") and target.statuses.has("stun"), "Frost Nova aplica stun y slow")
+	_check(target.statuses.has("slow"), "Frost Nova casi inmoviliza (slow)")
 
 	# Crippling Arrow (proyectil) y Poisoned Blades (cuerpo a cuerpo).
 	var arrow_world := _world()

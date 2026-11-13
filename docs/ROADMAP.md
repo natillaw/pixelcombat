@@ -233,3 +233,8 @@ Canon en `Narrative/` (mitologia, cronologia, estructura de 100 pisos, pisos 1-1
 - Guerrero: Q = Charge (embestida, aturde 2 s, sin Rage); Rend pasa a libro. El bloqueo gasta Rage al aguantar (5/s) y al recibir golpes; el Rage decae a 10/s tras 3 s sin combatir.
 - Equipo: se cambia tambien dentro de los pisos tras 4 s sin combatir; la ficha (C) trae la mochila y se arrastran los items a su hueco (pantalones con icono propio).
 - Rareza: legendario 0,01 de peso (casi nunca), unico 0,3, epico 1,5.
+
+## Rediseno del Mago
+- Basico M2: Arcane Bolt cuesta 3 de mana (pausa 0,3 s) y sin mana sale un chispazo al 25 %; Arcane Blast cargado (1,2 s, 12 de mana). Mana: 7/s en combate, 12/s tras 3 s sin combate. Blink cuesta 8.
+- Q Fireball (nv 2, quema), E Frost Nova (nv 4, casi inmoviliza), R Arcane Orb (nv 8), F Cataclysm (nv 6; se carga lanzando hechizos y rematando, no con golpes), pasiva Arcane Surge (nv 8).
+- Libros: Ice Lance (x2 contra ralentizados), Arcane Explosion, Meteor, Mana Shield. Pendientes para otro libro: Chain Lightning y Teleport Mark. Arcane Overload queda retirada.

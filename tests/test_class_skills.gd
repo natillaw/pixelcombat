@@ -168,7 +168,7 @@ func _bolt_damage(buffed: bool) -> float:
 
 
 func _test_arcane_explosion() -> void:
-	var world := _make("mage", 4, [Vector2(40, 0), Vector2(-40, 0), Vector2(0, 40), Vector2(0, -40), Vector2(150, 0)])
+	var world := _make("mage", 5, [Vector2(40, 0), Vector2(-40, 0), Vector2(0, 40), Vector2(0, -40), Vector2(150, 0)])
 	var hits: Array = []
 	world.player.attack_hit.connect(func(_s: Dictionary, target: Object, _d: float, _c: bool, _p: Vector2) -> void: hits.append(target))
 	world.player.resource.current_amount = 100.0

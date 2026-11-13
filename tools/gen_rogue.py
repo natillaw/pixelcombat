@@ -74,7 +74,7 @@ sentence["strikes"]["final_mult"] = 4.5
 sentence["strikes"]["count"] = 5
 sentence["strikes"]["interval"] = 0.12
 sentence["active"] = 0.6
-by_id["twin_fang"]["combo"]["mults"] = [1.15, 1.15, 1.15, 1.6]
+by_id["twin_fang"]["combo"]["mults"] = [1.05, 1.05, 1.05, 1.5]
 
 # --- Libros de skill (skills de mundo) ---
 smoke = skill("smoke_bomb", "Smoke Bomb", "Control / sigilo", "Una nube de humo ralentiza a los enemigos y te oculta de ellos 3 s.", "SMOKE", "self", 3, book=True,

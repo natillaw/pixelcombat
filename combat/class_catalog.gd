@@ -25,7 +25,7 @@ extends RefCounted
 const CLASSES_DIR := "res://data/classes/"
 const MAIN_STATS := ["strength", "agility", "intellect"]
 const RESOURCE_KINDS := ["rage", "energy", "mana"]
-const PASSIVES := ["", "vengeful_fury", "shadow_venom"]
+const PASSIVES := ["", "vengeful_fury", "shadow_venom", "arcane_surge"]
 const STAT_FIELDS := ["strength", "agility", "stamina", "intellect", "armor", "crit_chance", "weapon_min", "weapon_max", "weapon_speed"]
 
 static var _classes: Dictionary = {}

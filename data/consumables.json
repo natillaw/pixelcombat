@@ -291,6 +291,54 @@
 			"price": 0,
 			"value": 60,
 			"icon": "skill_tome"
+		},
+		{
+			"id": "book_ice_lance",
+			"name": "Libro: Lanza de hielo",
+			"kind": "book",
+			"description": "Ensena la habilidad Ice Lance del Mago. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "ice_lance"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_arcane_explosion",
+			"name": "Libro: Explosion arcana",
+			"kind": "book",
+			"description": "Ensena la habilidad Arcane Explosion del Mago. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "arcane_explosion"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_meteor",
+			"name": "Libro: Meteoro",
+			"kind": "book",
+			"description": "Ensena la habilidad Meteor del Mago. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "meteor"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_mana_shield",
+			"name": "Libro: Escudo de mana",
+			"kind": "book",
+			"description": "Ensena la habilidad Mana Shield del Mago. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "mana_shield"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
 		}
 	]
 }
