@@ -46,6 +46,12 @@ static func config(key: String) -> Dictionary:
 	return (_data.get(key, {}) as Dictionary).duplicate(true)
 
 
+## Mision principal de historia de un piso: {template, flavor?} o {} si el piso no tiene.
+static func story(floor_number: int) -> Dictionary:
+	_ensure_loaded()
+	return ((_data.get("story", {}) as Dictionary).get(str(floor_number), {}) as Dictionary).duplicate()
+
+
 ## Plantillas elegibles en un tier, con su peso.
 static func eligible(tier: int, pool: Array = []) -> Array:
 	var out: Array = []
@@ -107,6 +113,23 @@ static func validate(data: Dictionary) -> Array[String]:
 			problems.append("%s: la mision '%s' necesita count" % [id, kind])
 		if kind == "survive" and not spec.has("seconds"):
 			problems.append("%s: la resistencia necesita seconds" % id)
+		if spec.has("flavors"):
+			if not (spec["flavors"] is Array) or (spec["flavors"] as Array).is_empty():
+				problems.append("%s: flavors debe ser una lista no vacia" % id)
+			else:
+				for flavor: Variant in spec["flavors"]:
+					if not (flavor is Dictionary) or String((flavor as Dictionary).get("name", "")).is_empty() or String((flavor as Dictionary).get("desc", "")).is_empty():
+						problems.append("%s: un flavor necesita name y desc" % id)
+	var story: Variant = data.get("story", {})
+	if not (story is Dictionary):
+		problems.append("story debe ser un objeto")
+	else:
+		for floor_key: Variant in (story as Dictionary):
+			var entry: Variant = (story as Dictionary)[floor_key]
+			if not (entry is Dictionary) or not ids.has(String((entry as Dictionary).get("template", ""))):
+				problems.append("story[%s]: plantilla desconocida" % str(floor_key))
+			elif String((entry as Dictionary)["template"]) != "clear" and int(str(floor_key)) % 10 == 0:
+				problems.append("story[%s]: el piso x10 no usa mision de historia" % str(floor_key))
 	var optional: Variant = data.get("optional")
 	if not (optional is Dictionary) or not (((optional as Dictionary).get("pool")) is Array):
 		problems.append("falta 'optional' con su pool")

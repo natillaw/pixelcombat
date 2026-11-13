@@ -92,6 +92,7 @@ DROPS = {
     "bandit_hexer": [("apprentice_wand", 0.10), ("crow_hood", 0.10), ("crow_signet", 0.05), ("plain_tunic", 0.06)],
     "bandit_cutthroat": [("crow_hood", 0.08), ("crow_vest", 0.10), ("crow_signet", 0.06), ("crow_boots", 0.08)],
     "bandit_shieldman": [("militia_mace", 0.08), ("crow_bandana", 0.10), ("crow_vest", 0.10), ("crow_breeches", 0.08)],
+    "crow_standard": [("crow_bandana", 0.12), ("crow_vest", 0.08), ("crow_signet", 0.06)],
     "bandit_deserter": [("deserter_medal", 0.6), ("deserter_coat", 0.5), ("crow_signet", 0.3), ("crow_vest", 0.3)],
     "bandit_rask": [("rask_cleaver", 0.45), ("crow_vest", 0.30), ("crow_signet", 0.20)],
     "bandit_veyra": [("veyra_wand", 0.45), ("crow_hood", 0.30), ("crow_signet", 0.20)],

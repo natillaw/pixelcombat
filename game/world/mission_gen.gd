@@ -91,6 +91,9 @@ static func _choose_plan(ctx: Ctx, floor_number: int, spike: String) -> Dictiona
 	elif spike == "mid_boss":
 		var mid_cfg := MissionCatalog.config("spike_mid")
 		var primary := _pick_template(rng, MissionCatalog.eligible(ctx.tier, mid_cfg["primary_pool"]))
+		var mid_story := MissionCatalog.story(floor_number) if ctx.forced.is_empty() and ctx.tier == 1 else {}
+		if not mid_story.is_empty():
+			primary = MissionCatalog.mission(String(mid_story["template"]))
 		if not ctx.forced.is_empty():
 			primary = MissionCatalog.mission(String(ctx.forced[0]))
 		specs.append(_from_template(ctx, primary, false))
@@ -101,6 +104,11 @@ static func _choose_plan(ctx: Ctx, floor_number: int, spike: String) -> Dictiona
 			specs.append(_optional(ctx, floor_number, specs))
 	else:
 		var main_template := _pick_template(rng, MissionCatalog.eligible(ctx.tier))
+		var story := MissionCatalog.story(floor_number) if ctx.forced.is_empty() and ctx.tier == 1 else {}
+		if not story.is_empty():
+			main_template = MissionCatalog.mission(String(story["template"]))
+			if story.has("flavor"):
+				main_template["flavors"] = [(main_template["flavors"] as Array)[int(story["flavor"])]]
 		if not ctx.forced.is_empty():
 			main_template = MissionCatalog.mission(String(ctx.forced[0]))
 		specs.append(_from_template(ctx, main_template, false))
@@ -160,8 +168,17 @@ static func _from_template(ctx: Ctx, template: Dictionary, optional: bool) -> Di
 		"target": 1, "xp_mult": float(template["xp_mult"]) * (float(MissionCatalog.config("optional")["xp_mult"]) if optional else 1.0),
 		"group": "", "on_complete": {},
 	}
+	var flavors: Array = template.get("flavors", [])
+	if not flavors.is_empty() and (optional or ctx.forced.is_empty()):
+		var flavor: Dictionary = flavors[ctx.rng.randi_range(0, flavors.size() - 1)]
+		spec["title"] = String(flavor["name"])
+		spec["desc"] = String(flavor["desc"])
 	if optional:
-		spec["title"] = "(Opcional) " + String(template["name"])
+		spec["title"] = "(Opcional) " + String(spec["title"])
+	if template.has("target_enemy"):
+		spec["target_enemy"] = String(template["target_enemy"])
+	if template.has("target_prefix"):
+		spec["target_prefix"] = String(template["target_prefix"])
 	match kind:
 		"clear":
 			spec["target"] = 0
@@ -326,8 +343,12 @@ static func _walkable_near(ctx: Ctx, center: Vector2, radius: float) -> Vector2:
 	return center
 
 
-static func _pick_enemy(ctx: Ctx) -> String:
+static func _pick_enemy(ctx: Ctx, prefix: String = "") -> String:
 	var pool: Array = ctx.tier_data["pool"]
+	if prefix != "":
+		var filtered: Array = pool.filter(func(entry: Dictionary) -> bool: return String(entry["id"]).begins_with(prefix))
+		if not filtered.is_empty():
+			pool = filtered
 	var total := 0.0
 	for entry: Dictionary in pool:
 		total += float(entry["weight"])
@@ -365,7 +386,7 @@ static func _place_hunt(ctx: Ctx, spec: Dictionary, group: String, with_guards: 
 		var t_min := 0.35 + 0.5 * float(i) / float(count)
 		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.4), 2, 420.0)
 		# Un elite es un enemigo del pool reforzado.
-		_add_enemy(ctx, _pick_enemy(ctx), spot, false, group, {"elite": true})
+		_add_enemy(ctx, _pick_enemy(ctx, String(spec.get("target_prefix", ""))), spot, false, group, {"elite": true})
 		if with_guards:
 			_guard(ctx, spot, 2)
 
@@ -375,7 +396,7 @@ static func _place_nests(ctx: Ctx, spec: Dictionary) -> void:
 	for i: int in range(count):
 		var t_min := 0.3 + 0.55 * float(i) / float(count)
 		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.4), 3, 380.0)
-		_add_enemy(ctx, String(ctx.tier_data["nest"]), spot, false, "nest")
+		_add_enemy(ctx, String(spec.get("target_enemy", ctx.tier_data["nest"])), spot, false, "nest")
 		_guard(ctx, spot, 2)
 
 

@@ -201,7 +201,18 @@ deserter = en("bandit_deserter", "Cornelius the Deserter", "Elite errante del ti
               loot={"slots": ["weapon", "chest", "head", "ring"]}, mats={"hide": 1})
 deserter["elite_boss"] = True
 
-enemies += [rask, veyra, garrick, deserter]
+standard = en("crow_standard", "Crow Standard-Bearer", "Estandarte (mision de destruccion)",
+              "Un portaestandarte inmovil del Cuervo: mientras viva llama refuerzos. Derribarlo corta su bandera.",
+              260, 0, 16, 14, 15, 60, 300,
+              {"chest": L("shirt_longsleeve", "tan"), "legs": L("pants", "charcoal"), "feet": L("boots_basic", "black"),
+               "head": L("bandana", M), "bag": L("cape", "maroon"), "main_hand": L("weapon_arming", "default")},
+              [atk("rally_shout", "circle", 80, 1.0, 0.12, 0.8, 4.0, 1.0, trig=78, anim="spellcast", on_hit=[{"id": "knockback", "duration": 0.2, "strength": 90}])],
+              scale=1.0, respawn=0, resist={"stun": 1.0},
+              lk=look(skin="bronze", hair="hair_buzzcut", hc="black", beard="beard_trimmed"),
+              loot={"chance": 0.4, "slots": ["head", "chest", "ring"]}, mats={"hide": 0.6})
+standard["stationary"] = True
+standard["spawner"] = {"id": "bandit_cutthroat", "interval": 12, "max_alive": 2, "range": 480}
+enemies += [rask, veyra, garrick, deserter, standard]
 doc = ("Bandidos del Cuervo (pisos 1-10): los enemigos reales del tier 1. Personajes LPC compuestos (sprite.lpc: look + "
        "equipment) con su propio kit de ataques; el atuendo granate es el color de la banda. Generado por "
        "tools/gen_bandits.py. Numeros provisionales.")

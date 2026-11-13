@@ -1815,6 +1815,123 @@
 				"hide": 1
 			},
 			"elite_boss": true
+		},
+		{
+			"id": "crow_standard",
+			"name": "Crow Standard-Bearer",
+			"tier": 1,
+			"role": "Estandarte (mision de destruccion)",
+			"description": "Un portaestandarte inmovil del Cuervo: mientras viva llama refuerzos. Derribarlo corta su bandera.",
+			"stats": {
+				"health": 260,
+				"speed": 0,
+				"radius": 16,
+				"damage": 14,
+				"armor": 15,
+				"xp": 60
+			},
+			"ai": {
+				"aggro_range": 300,
+				"leash": 1.6
+			},
+			"respawn_seconds": 0,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "bronze",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_buzzcut",
+						"hair_color": "black",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"tan"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"bag": [
+							"cape",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_arming",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "rally_shout",
+					"shape": "circle",
+					"windup": 1.0,
+					"active": 0.12,
+					"recovery": 0.8,
+					"cooldown": 4.0,
+					"damage_mult": 1.0,
+					"trigger_range": 78,
+					"weight": 1,
+					"anim": "spellcast",
+					"range": 80,
+					"on_hit": [
+						{
+							"id": "knockback",
+							"duration": 0.2,
+							"strength": 90
+						}
+					]
+				}
+			],
+			"resist": {
+				"stun": 1.0
+			},
+			"loot": {
+				"chance": 0.4,
+				"slots": [
+					"head",
+					"chest",
+					"ring"
+				],
+				"items": [
+					{
+						"id": "crow_bandana",
+						"chance": 0.12
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.08
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.06
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.6
+			},
+			"stationary": true,
+			"spawner": {
+				"id": "bandit_cutthroat",
+				"interval": 12,
+				"max_alive": 2,
+				"range": 480
+			}
 		}
 	]
 }

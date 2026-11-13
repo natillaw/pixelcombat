@@ -1,20 +1,311 @@
 {
-	"_doc": "Plantillas de mision de los pisos. Esquema en combat/mission_catalog.gd. Cada piso sortea sus misiones al entrar (semilla del piso + numero de visita); el generador coloca todo lo necesario para que se puedan cumplir.",
+	"_doc": "Plantillas de mision de los pisos. Esquema en combat/mission_catalog.gd. Cada piso sortea sus misiones al entrar (semilla del piso + numero de visita); el generador coloca todo lo necesario para que se puedan cumplir. 'flavors' (opcional): variantes {name, desc} de una plantilla; 'story': mision principal fija de los pisos 1-9 (el 5 usa la suya como mision previa a los dos mini-jefes; el 10 es la prueba de Garrick); 'target_enemy' y 'target_prefix' eligen a quien afecta una caceria o una destruccion.",
 	"missions": [
-		{"id": "clear", "kind": "clear", "name": "Limpieza", "desc": "Elimina a todos los enemigos del piso", "weight": 3.0, "tier_min": 1, "xp_mult": 1.0},
-		{"id": "hunt", "kind": "hunt", "name": "Caceria", "desc": "Caza {count} elites ({names})", "count": [1, 2], "weight": 2.0, "tier_min": 1, "xp_mult": 1.4},
-		{"id": "slay", "kind": "slay", "name": "Exterminio", "desc": "Elimina {count} {enemy}", "count": [8, 12], "weight": 2.0, "tier_min": 1, "xp_mult": 1.1},
-		{"id": "collect", "kind": "collect", "name": "Recoleccion", "desc": "Reune {count} de {material} (vetas ricas del piso)", "count": [9, 15], "weight": 2.0, "tier_min": 1, "xp_mult": 1.1},
-		{"id": "altars", "kind": "activate", "name": "Rituales", "desc": "Activa {count} altares antiguos", "count": [2, 4], "channel": 2.5, "weight": 2.0, "tier_min": 1, "xp_mult": 1.3},
-		{"id": "waypoints", "kind": "explore", "name": "Reconocimiento", "desc": "Alcanza {count} balizas de exploracion", "count": [3, 5], "weight": 2.0, "tier_min": 1, "xp_mult": 1.0},
-		{"id": "rescue", "kind": "rescue", "name": "Rescate", "desc": "Libera a {count} prisioneros", "count": [1, 3], "channel": 3.0, "weight": 1.5, "tier_min": 1, "xp_mult": 1.4},
-		{"id": "nests", "kind": "destroy", "name": "Plaga", "desc": "Destruye {count} nidos", "count": [2, 3], "weight": 1.5, "tier_min": 1, "xp_mult": 1.4},
-		{"id": "survive", "kind": "survive", "name": "Resistencia", "desc": "Resiste {seconds} s junto a la baliza", "seconds": [60, 90], "weight": 1.5, "tier_min": 1, "xp_mult": 1.5},
-		{"id": "relic", "kind": "relic", "name": "Reliquia", "desc": "Recupera la reliquia y llevala al altar de entrega", "weight": 1.0, "tier_min": 1, "xp_mult": 1.5}
+		{
+			"id": "clear",
+			"kind": "clear",
+			"name": "Limpieza",
+			"desc": "Elimina a todos los enemigos del piso",
+			"weight": 3.0,
+			"tier_min": 1,
+			"xp_mult": 1.0,
+			"flavors": [
+				{
+					"name": "Despejar la linde",
+					"desc": "Elimina a todos los enemigos del piso: el Cuervo y las bestias que lo siguen"
+				}
+			]
+		},
+		{
+			"id": "hunt",
+			"kind": "hunt",
+			"name": "Caceria",
+			"desc": "Caza {count} elites ({names})",
+			"count": [
+				1,
+				2
+			],
+			"weight": 2.0,
+			"tier_min": 1,
+			"xp_mult": 1.4
+		},
+		{
+			"id": "slay",
+			"kind": "slay",
+			"name": "Exterminio",
+			"desc": "Elimina {count} {enemy}",
+			"count": [
+				8,
+				12
+			],
+			"weight": 2.0,
+			"tier_min": 1,
+			"xp_mult": 1.1,
+			"flavors": [
+				{
+					"name": "Quitarles las hachas",
+					"desc": "Derrota a {count} {enemy}: los falsos lenadores del Cuervo"
+				}
+			]
+		},
+		{
+			"id": "collect",
+			"kind": "collect",
+			"name": "Recoleccion",
+			"desc": "Reune {count} de {material} (vetas ricas del piso)",
+			"count": [
+				9,
+				15
+			],
+			"weight": 2.0,
+			"tier_min": 1,
+			"xp_mult": 1.1,
+			"flavors": [
+				{
+					"name": "Lo que robaron",
+					"desc": "Recupera {count} de {material}: el Cuervo lo tenia acopiado"
+				}
+			]
+		},
+		{
+			"id": "altars",
+			"kind": "activate",
+			"name": "Rituales",
+			"desc": "Activa {count} altares antiguos",
+			"count": [
+				2,
+				4
+			],
+			"channel": 2.5,
+			"weight": 2.0,
+			"tier_min": 1,
+			"xp_mult": 1.3,
+			"flavors": [
+				{
+					"name": "Mojones de la Vigia",
+					"desc": "Toca {count} mojones antiguos de la Vigia para ver que anotaron"
+				}
+			]
+		},
+		{
+			"id": "waypoints",
+			"kind": "explore",
+			"name": "Reconocimiento",
+			"desc": "Alcanza {count} balizas de exploracion",
+			"count": [
+				3,
+				5
+			],
+			"weight": 2.0,
+			"tier_min": 1,
+			"xp_mult": 1.0,
+			"flavors": [
+				{
+					"name": "Marcas del Cuervo",
+					"desc": "Alcanza {count} balizas y sigue el rastro de trapos granates"
+				}
+			]
+		},
+		{
+			"id": "rescue",
+			"kind": "rescue",
+			"name": "Rescate",
+			"desc": "Libera a {count} prisioneros",
+			"count": [
+				1,
+				3
+			],
+			"channel": 3.0,
+			"weight": 1.5,
+			"tier_min": 1,
+			"xp_mult": 1.4,
+			"flavors": [
+				{
+					"name": "Prisioneros del Cuervo",
+					"desc": "Libera a {count} Despiertos encerrados en las jaulas del Cuervo"
+				}
+			]
+		},
+		{
+			"id": "nests",
+			"kind": "destroy",
+			"name": "Plaga",
+			"desc": "Destruye {count} nidos",
+			"count": [
+				2,
+				3
+			],
+			"weight": 1.5,
+			"tier_min": 1,
+			"xp_mult": 1.4
+		},
+		{
+			"id": "survive",
+			"kind": "survive",
+			"name": "Resistencia",
+			"desc": "Resiste {seconds} s junto a la baliza",
+			"seconds": [
+				60,
+				90
+			],
+			"weight": 1.5,
+			"tier_min": 1,
+			"xp_mult": 1.5,
+			"flavors": [
+				{
+					"name": "El asedio del Cuervo",
+					"desc": "Resiste {seconds} s junto a la baliza mientras el Cuervo ataca sin descanso"
+				}
+			]
+		},
+		{
+			"id": "relic",
+			"kind": "relic",
+			"name": "Reliquia",
+			"desc": "Recupera la reliquia y llevala al altar de entrega",
+			"weight": 1.0,
+			"tier_min": 1,
+			"xp_mult": 1.5
+		},
+		{
+			"id": "cargo",
+			"kind": "relic",
+			"name": "Robar el cargamento",
+			"desc": "Recupera el cargamento del Cuervo (un relicario) y llevalo al altar de entrega",
+			"weight": 1.5,
+			"tier_min": 1,
+			"xp_mult": 1.5
+		},
+		{
+			"id": "banner",
+			"kind": "destroy",
+			"name": "Destruir el estandarte",
+			"desc": "Derriba {count} estandartes del Cuervo: sus portaestandartes llaman refuerzos",
+			"count": [
+				2,
+				3
+			],
+			"weight": 1.5,
+			"tier_min": 1,
+			"xp_mult": 1.4,
+			"target_enemy": "crow_standard"
+		},
+		{
+			"id": "captain",
+			"kind": "hunt",
+			"name": "Interrogar al capitan",
+			"desc": "Derrota al capitan de un campamento del Cuervo y registra su campamento",
+			"count": [
+				1,
+				2
+			],
+			"weight": 1.5,
+			"tier_min": 1,
+			"xp_mult": 1.5,
+			"target_prefix": "bandit_"
+		}
 	],
-	"optional": {"chance": 0.35, "chance_first_floors": 0.25, "scale": 0.6, "xp_mult": 0.8, "chest_bonus": 1.5, "pool": ["slay", "collect", "waypoints", "altars", "hunt", "nests", "rescue"]},
-	"spike_mid": {"time_limit_chance": 0.6, "time_limit_seconds": [600, 780], "optional_chance": 0.6, "primary_pool": ["hunt", "altars", "rescue", "nests", "relic", "survive", "collect", "slay"]},
-	"spike_boss": {"variants": ["seals", "gauntlet", "elites"], "boss_boost": [1.6, 1.35], "seals": [3, 4], "gauntlet_seconds": [60, 80], "optional_chance": 0.5},
-	"camps": {"cells_per_camp": 300, "size": [2, 4], "radius": 78.0, "spacing": 210.0},
-	"nodes": {"cells_per_node": 420, "min": 5, "max": 12}
+	"optional": {
+		"chance": 0.35,
+		"chance_first_floors": 0.25,
+		"scale": 0.6,
+		"xp_mult": 0.8,
+		"chest_bonus": 1.5,
+		"pool": [
+			"slay",
+			"collect",
+			"waypoints",
+			"altars",
+			"hunt",
+			"nests",
+			"rescue"
+		]
+	},
+	"spike_mid": {
+		"time_limit_chance": 0.6,
+		"time_limit_seconds": [
+			600,
+			780
+		],
+		"optional_chance": 0.6,
+		"primary_pool": [
+			"hunt",
+			"altars",
+			"rescue",
+			"nests",
+			"relic",
+			"survive",
+			"collect",
+			"slay"
+		]
+	},
+	"spike_boss": {
+		"variants": [
+			"seals",
+			"gauntlet",
+			"elites"
+		],
+		"boss_boost": [
+			1.6,
+			1.35
+		],
+		"seals": [
+			3,
+			4
+		],
+		"gauntlet_seconds": [
+			60,
+			80
+		],
+		"optional_chance": 0.5
+	},
+	"camps": {
+		"cells_per_camp": 300,
+		"size": [
+			2,
+			4
+		],
+		"radius": 78.0,
+		"spacing": 210.0
+	},
+	"nodes": {
+		"cells_per_node": 420,
+		"min": 5,
+		"max": 12
+	},
+	"story": {
+		"1": {
+			"template": "clear",
+			"flavor": 0
+		},
+		"2": {
+			"template": "slay",
+			"flavor": 0
+		},
+		"3": {
+			"template": "banner"
+		},
+		"4": {
+			"template": "rescue",
+			"flavor": 0
+		},
+		"5": {
+			"template": "captain"
+		},
+		"6": {
+			"template": "cargo"
+		},
+		"7": {
+			"template": "altars",
+			"flavor": 0
+		},
+		"8": {
+			"template": "survive",
+			"flavor": 0
+		},
+		"9": {
+			"template": "waypoints",
+			"flavor": 0
+		}
+	}
 }

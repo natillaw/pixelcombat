@@ -15,3 +15,11 @@ Pendiente del tier 1:
 
 Base futura (sin implementar): 9 regiones restantes (`03_TOWER_STRUCTURE.md`), el precio de guardar, quien firma los
 relicarios, los Siete Pueblos.
+
+## Fase 5 hecha (misiones con sabor del Cuervo)
+Plantillas nuevas en `data/missions.json`: **Robar el cargamento** (cargamento = relicario, se lleva al altar de entrega),
+**Destruir el estandarte** (portaestandartes inmoviles `crow_standard` que llaman refuerzos) e **Interrogar al capitan**
+(caceria de un bandido elite). Las plantillas existentes tienen variantes con sabor (`flavors`) y los pisos 1-9 tienen mision
+principal fija de historia (`story`): 1 Despejar la linde, 2 Quitarles las hachas, 3 Destruir el estandarte, 4 Prisioneros
+del Cuervo, 5 Interrogar al capitan (+ Rask y Veyra), 6 Robar el cargamento, 7 Mojones de la Vigia, 8 El asedio del Cuervo,
+9 Marcas del Cuervo; el 10 es la prueba de Garrick. Validado en `tests/test_narrative.gd`.

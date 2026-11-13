@@ -19,6 +19,7 @@ func _run() -> void:
 	print("== test_narrative (lore del tier 1) ==")
 	_test_data()
 	_test_session()
+	_test_story_missions()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -88,6 +89,36 @@ func _test_session() -> void:
 	for text: Variant in closing:
 		found = found or String(text).contains(String(Lore.tier_closing(1)["title"]))
 	_check(found, "al completar el piso 10 sale el cierre del tier")
+
+
+## Cada piso 1-9 tiene su mision principal con sabor del Cuervo y es posible de cumplir (el 10 es la prueba de Garrick).
+func _test_story_missions() -> void:
+	var expected := {1: "clear", 2: "slay", 3: "banner", 4: "rescue", 5: "captain", 6: "cargo", 7: "altars", 8: "survive", 9: "waypoints"}
+	var all_ok := true
+	var feasible := true
+	for floor_number: int in expected:
+		for visit: int in range(1, 4):
+			var layout := TowerGenerator.generate(floor_number, 777, visit)
+			var mains: Array = (layout.mission_plan["missions"] as Array).filter(func(m: Dictionary) -> bool: return not bool(m["optional"]))
+			all_ok = all_ok and String((mains[0] as Dictionary)["id"]) == String(expected[floor_number])
+			feasible = feasible and MissionGen.check(layout).is_empty()
+	_check(all_ok, "los pisos 1-9 usan su mision de historia en cada visita")
+	_check(feasible, "y son posibles de cumplir (enemigos y objetos alcanzables)")
+	var first := TowerGenerator.generate(1, 777, 1)
+	_check(String((first.mission_plan["missions"][0] as Dictionary)["title"]) == "Despejar la linde", "la mision del piso 1 lleva el sabor del Cuervo")
+	var banner_floor := TowerGenerator.generate(3, 777, 1)
+	var standards := banner_floor.enemies.filter(func(e: Dictionary) -> bool: return String(e["id"]) == "crow_standard")
+	_check(standards.size() >= 2, "el piso 3 pide derribar estandartes: hay portaestandartes (%d)" % standards.size())
+	var captain_floor := TowerGenerator.generate(5, 777, 1)
+	var captains := captain_floor.enemies.filter(func(e: Dictionary) -> bool: return String(e["group"]) == "hunt")
+	var bandit_captains := captains.filter(func(e: Dictionary) -> bool: return String(e["id"]).begins_with("bandit_") and bool(e.get("elite", false)))
+	_check(captains.size() >= 1 and bandit_captains.size() == captains.size(), "el capitan del piso 5 es un bandido elite")
+	var cargo_floor := TowerGenerator.generate(6, 777, 1)
+	var kinds := cargo_floor.interactables.map(func(o: Dictionary) -> String: return String(o["kind"]))
+	_check(kinds.has("relic") and kinds.has("relic_altar"), "el piso 6 tiene el cargamento y el altar de entrega")
+	var boss_floor := TowerGenerator.generate(10, 777, 1)
+	var ids := (boss_floor.mission_plan["missions"] as Array).map(func(m: Dictionary) -> String: return String(m["id"]))
+	_check(ids.has("boss"), "el piso 10 sigue siendo la prueba de Garrick")
 
 
 func _check(condition: bool, label: String) -> void:
