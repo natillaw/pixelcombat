@@ -347,7 +347,13 @@ func autosave() -> void:
 		SaveGame.write(save_path, world.player, tower)
 
 
+## Tope de nivel = piso mas alto desbloqueado: no puedes ser de mas nivel que el piso al que has llegado.
+func _sync_level_cap() -> void:
+	world.player.level_cap = tower.highest_unlocked()
+
+
 func _enter(new_layout: FloorLayout, safe: bool) -> void:
+	_sync_level_cap()
 	layout = new_layout
 	world.player.safe_zone = safe
 	_dead_ticks = 0
@@ -426,6 +432,7 @@ func _complete_floor() -> void:
 	var mult := main_mult / float(main_count) if main_count > 0 else 1.0
 	var xp := int(round(float(TowerCatalog.completion_xp(floor_number)) * mult)) if first_time else 0
 	tower.complete(floor_number)
+	_sync_level_cap()                              # el piso siguiente se abre: el tope sube antes de pagar la XP
 	if floor_number == 10 and first_time:
 		var closing := Lore.tier_closing(TowerCatalog.tier_of_floor(floor_number))
 		if not closing.is_empty():

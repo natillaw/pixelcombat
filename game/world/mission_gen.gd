@@ -123,6 +123,9 @@ static func _choose_plan(ctx: Ctx, floor_number: int, spike: String) -> Dictiona
 		if not ctx.forced.is_empty():
 			main_template = MissionCatalog.mission(String(ctx.forced[0]))
 		specs.append(_from_template(ctx, main_template, false))
+		# Pisos con historia: misiones principales extra (data/missions.json > story > extra), cada una con su texto de lore.
+		for extra_value: Variant in story.get("extra", []):
+			specs.append(_story_extra(ctx, extra_value as Dictionary))
 		var optional_cfg := MissionCatalog.config("optional")
 		var chance := float(optional_cfg["chance_first_floors"]) if floor_number <= 3 else float(optional_cfg["chance"])
 		if ctx.forced.size() > 1:
@@ -130,6 +133,22 @@ static func _choose_plan(ctx: Ctx, floor_number: int, spike: String) -> Dictiona
 		elif ctx.forced.is_empty() and rng.randf() < chance:
 			specs.append(_optional(ctx, floor_number, specs))
 	return {"missions": specs, "time_limit": time_limit, "variant": variant}
+
+
+## Mision principal extra de un piso con historia: la plantilla con titulo, texto, objetivo y enemigo propios.
+static func _story_extra(ctx: Ctx, extra: Dictionary) -> Dictionary:
+	var template := MissionCatalog.mission(String(extra["template"]))
+	var spec := _from_template(ctx, template, false)
+	if extra.has("title"):
+		spec["title"] = String(extra["title"])
+	if extra.has("target"):
+		spec["target"] = int(extra["target"])
+	if extra.has("enemy_id"):
+		spec["enemy_id"] = String(extra["enemy_id"])
+	if extra.has("desc"):
+		spec["desc"] = String(extra["desc"])
+		spec = _describe(spec, ctx)
+	return spec
 
 
 static func _pick_template(rng: RandomNumberGenerator, templates: Array) -> Dictionary:

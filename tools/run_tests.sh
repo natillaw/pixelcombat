@@ -37,6 +37,8 @@ SUITES=(
     "tests/test_campfire.gd"
     "tests/test_city_life.gd"
     "tests/test_floor_bot.gd"
+    "tests/test_level_cap.gd"
+    "tests/test_story_floors.gd"
     "tests/test_dodge.gd"
     "tests/test_kits.gd"
     "tests/test_combat_depth.gd"

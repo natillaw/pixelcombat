@@ -137,7 +137,13 @@
 			],
 			"weight": 1.5,
 			"tier_min": 1,
-			"xp_mult": 1.4
+			"xp_mult": 1.4,
+			"flavors": [
+				{
+					"name": "Las guaridas de la espesura",
+					"desc": "Destruye {count} nidos de bestias: el Cuervo las azuza y no dejan de salir"
+				}
+			]
 		},
 		{
 			"id": "survive",
@@ -293,19 +299,49 @@
 			"template": "captain"
 		},
 		"6": {
-			"template": "cargo"
+			"template": "cargo",
+			"extra": [
+				{
+					"template": "slay",
+					"enemy_id": "bandit_shieldman",
+					"target": 6,
+					"title": "Escoltas del cargamento",
+					"desc": "Derrota a {count} {enemy} que escoltan el contrabando del Cuervo"
+				}
+			]
 		},
 		"7": {
 			"template": "altars",
-			"flavor": 0
+			"flavor": 0,
+			"extra": [
+				{
+					"template": "waypoints",
+					"title": "Las balizas de la Vigia",
+					"desc": "Alcanza {count} balizas de la Vigia de Albor: cada una guarda una nota que nadie recogio"
+				}
+			]
 		},
 		"8": {
 			"template": "survive",
-			"flavor": 0
+			"flavor": 0,
+			"extra": [
+				{
+					"template": "banner",
+					"title": "Los estandartes del Cuervo",
+					"desc": "Derriba {count} estandartes: en su territorio el Cuervo llama refuerzos sin parar"
+				}
+			]
 		},
 		"9": {
 			"template": "waypoints",
-			"flavor": 0
+			"flavor": 0,
+			"extra": [
+				{
+					"template": "captain",
+					"title": "El ultimo capitan",
+					"desc": "Derrota al capitan que guarda la antesala de Garrick y registra su campamento"
+				}
+			]
 		}
 	}
 }

@@ -84,6 +84,8 @@ var aim_dir: Vector2 = Vector2.RIGHT
 
 ## Nivel y XP dentro del nivel. Las skills se desbloquean por nivel (unlock_level).
 var level: int = 1
+## Tope de nivel por progreso en la torre (lo pone la sesion: el piso mas alto desbloqueado). 0 = sin tope.
+var level_cap: int = 0
 var xp: int = 0
 
 var max_health: float = 1.0
@@ -439,19 +441,26 @@ func xp_to_next() -> int:
 ## Subir de nivel recalcula los stats, cura del todo y equipa las skills que se
 ## desbloquean en los slots libres.
 func grant_xp(amount: int, source_position: Vector2 = Vector2.ZERO) -> void:
+	var ceiling := effective_max_level()
 	if amount <= 0 or level >= Progression.max_level():
 		return
 	xp_gained.emit(amount, source_position)
 	xp += amount
 	var previous := level
-	while level < Progression.max_level() and xp >= Progression.xp_to_next(level):
+	while level < ceiling and xp >= Progression.xp_to_next(level):
 		xp -= Progression.xp_to_next(level)
 		level += 1
-	if level >= Progression.max_level():
-		xp = 0
+	if level >= ceiling:
+		# Tope alcanzado: la barra se queda casi llena (la XP sobrante no se pierde del todo, pero no pasa de nivel).
+		xp = mini(xp, maxi(Progression.xp_to_next(level) - 1, 0))
 	if level != previous:
 		_apply_level_change(previous)
 	xp_changed.emit(xp, xp_to_next(), level)
+
+
+## Nivel maximo que se puede alcanzar ahora: el tope del piso (level_cap) si lo hay y, si no, el maximo del juego.
+func effective_max_level() -> int:
+	return mini(level_cap, Progression.max_level()) if level_cap > 0 else Progression.max_level()
 
 
 ## Fija el nivel (depuracion, tests y reinicio). Con un nivel menor se retiran las

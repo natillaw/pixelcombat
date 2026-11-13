@@ -6,7 +6,7 @@
 ##            mitad de ritmo, del dano) y de la XP de los enemigos
 ##   spike_positions: {mid_boss, boss} posicion dentro de cada tier (5 y 10) de los
 ##            pisos dificiles: mini-jefe y jefe
-##   completion_xp: {per_floor, boss_multiplier} XP al completar un piso
+##   completion_xp: {level_fraction, boss_multiplier} XP al completar un piso (fraccion del coste del nivel N)
 ##   tiers: lista de {tier, name, placeholder, theme, pool: [{id, weight}], adds,
 ##            mid_boss, boss}; `theme` son colores [r, g, b] (ver FloorLayout)
 class_name TowerCatalog
@@ -115,8 +115,11 @@ static func enemy_scale(floor_number: int) -> float:
 static func completion_xp(floor_number: int) -> int:
 	_ensure_loaded()
 	var spec: Dictionary = _data["completion_xp"]
-	var base := int(spec["per_floor"]) * floor_number
-	return base * int(spec["boss_multiplier"]) if spike_kind(floor_number) != "" else base
+	# XP de piso = una fraccion de lo que cuesta el nivel que se tiene al llegar a el (piso N = nivel N): asi
+	# completar la mision principal de cada piso da casi un nivel y el ritmo no depende de los numeros del piso.
+	var level_cost := Progression.xp_to_next(clampi(floor_number, 1, Progression.max_level() - 1))
+	var base := int(round(float(spec["level_fraction"]) * float(level_cost)))
+	return int(round(float(base) * float(spec["boss_multiplier"]))) if spike_kind(floor_number) != "" else base
 
 
 static func errors() -> Array[String]:
@@ -155,8 +158,8 @@ static func validate(data: Dictionary) -> Array[String]:
 	elif _is_number(data.get("tier_size")) and (int(spikes["boss"]) > int(data["tier_size"]) or int(spikes["mid_boss"]) >= int(spikes["boss"]) or int(spikes["mid_boss"]) < 1):
 		problems.append("spike_positions debe cumplir 1 <= mid_boss < boss <= tier_size")
 	var completion: Variant = data.get("completion_xp")
-	if not (completion is Dictionary) or not _is_number((completion as Dictionary).get("per_floor")) or float(completion["per_floor"]) < 0.0 or not _is_number((completion as Dictionary).get("boss_multiplier")) or float(completion["boss_multiplier"]) < 1.0:
-		problems.append("completion_xp necesita per_floor >= 0 y boss_multiplier >= 1")
+	if not (completion is Dictionary) or not _is_number((completion as Dictionary).get("level_fraction")) or float(completion["level_fraction"]) < 0.0 or not _is_number((completion as Dictionary).get("boss_multiplier")) or float(completion["boss_multiplier"]) < 1.0:
+		problems.append("completion_xp necesita level_fraction >= 0 y boss_multiplier >= 1")
 
 	var tiers: Variant = data.get("tiers")
 	if not (tiers is Array) or (tiers as Array).is_empty():

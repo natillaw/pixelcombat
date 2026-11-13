@@ -11,8 +11,8 @@
 		"boss": 10
 	},
 	"completion_xp": {
-		"per_floor": 150,
-		"boss_multiplier": 3
+		"level_fraction": 0.75,
+		"boss_multiplier": 1.25
 	},
 	"tiers": [
 		{
