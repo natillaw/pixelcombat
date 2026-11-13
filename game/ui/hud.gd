@@ -195,7 +195,10 @@ func _draw_status(warrior: PlayerSim) -> void:
 	var tx := 184.0
 	_panel(Rect2(tx - 4, 8, 112, 58))
 	_draw_text(warrior.character_name.to_upper(), Vector2(tx, 19), 8, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 104)
-	_draw_text("%s  -  %s" % [String(warrior.class_def["name"]).to_upper(), _location_title()], Vector2(tx, 28), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 104)
+	var where := "%s  -  %s" % [String(warrior.class_def["name"]).to_upper(), _location_title()]
+	if FONT.get_string_size(where, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 7).x > 104.0:
+		where = _location_title()                    # largo: solo el lugar, sin la clase
+	_draw_text(_fit(where, 7, 104.0), Vector2(tx, 28), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 104)
 	_draw_text("VIDA  %d / %d" % [ceili(warrior.health), ceili(warrior.max_health)], Vector2(tx, 38), 7, TEXT)
 	_draw_text("%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)], Vector2(tx, 46), 7, TEXT)
 	var passive := ""
@@ -506,11 +509,11 @@ func _draw_boss_bar() -> void:
 	for enemy: EnemySim in world.enemies:
 		if not enemy.alive or not enemy.is_boss() or enemy.state == EnemySim.State.IDLE:
 			continue
-		var panel := Rect2(262, 6, 230, 34)
+		var panel := Rect2(300, 6, 190, 34)
 		_panel(panel)
-		_draw_text(String(enemy.data["name"]).to_upper(), Vector2(268, 18), 7, GOLD)
-		_draw_text(enemy.phase_name().to_upper(), Vector2(268, 18), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 218)
-		var bar := Rect2(268, 24, 218, 9)
+		_draw_text(_fit(String(enemy.data["name"]).to_upper(), 7, 110.0), Vector2(306, 18), 7, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 110)
+		_draw_text(enemy.phase_name().to_upper(), Vector2(306, 18), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 178)
+		var bar := Rect2(306, 24, 178, 9)
 		var ratio := clampf(enemy.health / maxf(enemy.max_health, 1.0), 0.0, 1.0)
 		var roaring := enemy.state == EnemySim.State.PHASE
 		_bar(bar, ratio, Color(1.0, 0.8, 0.3, 1.0) if roaring else RED)
@@ -530,10 +533,10 @@ func _draw_missions() -> void:
 	if lines.is_empty() and session.time_limit <= 0.0:
 		_draw_quest_tracker()
 		return
-	var height := 22.0 + float(lines.size()) * 11.0 + (12.0 if session.time_limit > 0.0 else 0.0)
+	var height := 26.0 + float(lines.size()) * 11.0 + (12.0 if session.time_limit > 0.0 else 0.0)
 	_quest_tracker_y = 92.0 + height + 6.0
 	_panel(Rect2(488, 92, 142, height), "OBJETIVOS")
-	var y := 107.0
+	var y := 112.0                                   # bajo la cabecera verde (antes pisaba el titulo)
 	for line: Dictionary in lines:
 		var color := GREEN_DONE if bool(line["done"]) else (MUTED if bool(line["optional"]) else TEXT)
 		var mark := "[x] " if bool(line["done"]) else "[ ] "
@@ -555,9 +558,9 @@ func _draw_quest_tracker() -> void:
 	if active.is_empty():
 		return
 	var shown := mini(active.size(), 3)
-	var height := 22.0 + float(shown) * 20.0
+	var height := 26.0 + float(shown) * 20.0
 	_panel(Rect2(488, _quest_tracker_y, 142, height), "MISIONES")
-	var y := _quest_tracker_y + 15.0
+	var y := _quest_tracker_y + 20.0
 	for i: int in range(shown):
 		var instance: Dictionary = active[i]
 		var objective: Dictionary = {}
@@ -751,6 +754,16 @@ func _panel(rect: Rect2, title: String = "") -> void:
 
 func _bar(rect: Rect2, ratio: float, color: Color) -> void:
 	UiStyle.draw_bar(self, rect, ratio, color)
+
+
+## Recorta el texto con ".." para que quepa en `width` (antes se cortaba a mitad de palabra).
+func _fit(text: String, font_size: int, width: float) -> String:
+	if FONT.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, font_size).x <= width:
+		return text
+	var cut := text
+	while cut.length() > 1 and FONT.get_string_size(cut + "..", HORIZONTAL_ALIGNMENT_LEFT, -1.0, font_size).x > width:
+		cut = cut.substr(0, cut.length() - 1)
+	return cut.strip_edges() + ".."
 
 
 func _draw_text(text: String, at: Vector2, font_size: int, color: Color, alignment: int = HORIZONTAL_ALIGNMENT_LEFT, width: float = -1.0) -> void:

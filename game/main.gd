@@ -92,6 +92,7 @@ func _ready() -> void:
 
 	var debug_overlay: CanvasLayer = DebugOverlayScene.instantiate()
 	debug_overlay.name = "DebugOverlay"
+	debug_overlay.visible = false                    # F3 lo muestra; ya no tapa el HUD al abrir el juego
 	add_child(debug_overlay)
 
 	var creator_layer := CanvasLayer.new()
