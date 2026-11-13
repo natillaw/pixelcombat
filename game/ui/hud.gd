@@ -183,7 +183,7 @@ func _draw() -> void:
 	_draw_minimap()
 
 	if warrior.vengeful_active and warrior.alive:
-		_draw_text("M2 EMPOWERED  +30%", Vector2(220, 305), 7, ORANGE, HORIZONTAL_ALIGNMENT_CENTER, 200)
+		_draw_text("M2 POTENCIADO  +30%", Vector2(220, 305), 7, ORANGE, HORIZONTAL_ALIGNMENT_CENTER, 200)
 
 	_draw_damage_flash()
 	if not warrior.alive:
@@ -429,7 +429,7 @@ func _draw_ultimate_slot(rect: Rect2, warrior: PlayerSim) -> void:
 	draw_rect(rect, edge, false, 1.0)
 	_draw_text("F", rect.position + Vector2(4, 9), 7, MUTED)
 	_draw_text("ULT", Vector2(rect.position.x, rect.position.y + 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 4)
-	_draw_text("READY" if ready else "%d%%" % int(ratio * 100.0), Vector2(rect.position.x, rect.position.y + rect.size.y * 0.62), 7, GOLD if ready else TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	_draw_text("LISTO" if ready else "%d%%" % int(ratio * 100.0), Vector2(rect.position.x, rect.position.y + rect.size.y * 0.62), 7, GOLD if ready else TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 	_draw_text(_hud_label(warrior, "ULTIMATE"), Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 
 
@@ -440,7 +440,7 @@ func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: PlayerSim
 	if not warrior.loadout.has(slot):
 		draw_rect(rect, PANEL_EDGE_SOFT, false, 1.0)
 		_draw_text(key, rect.position + Vector2(4, 9), 7, MUTED)
-		_draw_text("EMPTY", Vector2(rect.position.x, rect.position.y + rect.size.y * 0.62), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+		_draw_text("VACIO", Vector2(rect.position.x, rect.position.y + rect.size.y * 0.62), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 		return
 	var skill: Dictionary = warrior.loadout[slot]
 	var cost := float(skill.get("cost", 0.0))

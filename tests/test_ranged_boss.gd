@@ -218,9 +218,9 @@ func _test_boss_phases_and_roar() -> void:
 	var boss: EnemySim = setup["enemy"]
 	var phases: Array = []
 	boss.phase_changed.connect(func(index: int, phase_name: String) -> void: phases.append([index, phase_name]))
-	_check(boss.phase == 0 and boss.phase_name() == "Brood Guardian" and boss.is_boss(), "el jefe empieza en la fase 1")
+	_check(boss.phase == 0 and boss.phase_name() == "Guardian de la Nidada" and boss.is_boss(), "el jefe empieza en la fase 1")
 	_damage_to_fraction(boss, 0.60)
-	_check(boss.phase == 1 and phases == [[1, "Brood Hunter"]], "al bajar del 66 % entra en la fase 2")
+	_check(boss.phase == 1 and phases == [[1, "Cazador de la Nidada"]], "al bajar del 66 % entra en la fase 2")
 	_check(boss.state == EnemySim.State.PHASE, "con un rugido")
 	var health := boss.health
 	_check(is_zero_approx(boss.take_damage(500.0)) and is_equal_approx(boss.health, health), "invulnerable durante el rugido")

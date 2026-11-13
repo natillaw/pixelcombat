@@ -3,7 +3,7 @@
 	"statuses": [
 		{
 			"id": "stun",
-			"name": "Stun",
+			"name": "Aturdido",
 			"kind": "control",
 			"description": "No puede actuar ni moverse. Cancela lo que estuviera haciendo.",
 			"max_duration": 2.0,
@@ -17,7 +17,7 @@
 		},
 		{
 			"id": "slow",
-			"name": "Slow",
+			"name": "Ralentizado",
 			"kind": "control",
 			"description": "Reduce la velocidad de movimiento (strength = fraccion perdida, tope 0,6).",
 			"max_duration": 4.0,
@@ -32,7 +32,7 @@
 		},
 		{
 			"id": "poison",
-			"name": "Poison",
+			"name": "Veneno",
 			"kind": "damage",
 			"description": "Dano continuo que ignora i-frames y posturas (strength = dano por segundo).",
 			"max_duration": 8.0,
@@ -47,7 +47,7 @@
 		},
 		{
 			"id": "bleed",
-			"name": "Bleed",
+			"name": "Sangrado",
 			"kind": "damage",
 			"description": "Dano continuo mas fuerte que el veneno y mas corto (strength = dano por segundo).",
 			"max_duration": 5.0,
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "silence",
-			"name": "Silence",
+			"name": "Silencio",
 			"kind": "control",
 			"description": "El jugador no puede usar skills (solo M1, M2 y la movilidad).",
 			"max_duration": 3.0,
@@ -76,7 +76,7 @@
 		},
 		{
 			"id": "shield",
-			"name": "Shield",
+			"name": "Escudo",
 			"kind": "buff",
 			"description": "Absorbe dano antes que la vida (strength = puntos absorbidos).",
 			"max_duration": 8.0,
@@ -91,7 +91,7 @@
 		},
 		{
 			"id": "knockback",
-			"name": "Knockback",
+			"name": "Empuje",
 			"kind": "push",
 			"description": "Empuja lejos del origen del golpe (strength = distancia en px).",
 			"max_duration": 0.3,
@@ -106,7 +106,7 @@
 		},
 		{
 			"id": "fed",
-			"name": "Well fed",
+			"name": "Bien comido",
 			"kind": "buff",
 			"description": "Regeneracion de vida extra fuera de combate (strength = fraccion de la vida maxima por segundo).",
 			"max_duration": 900.0,
@@ -121,7 +121,7 @@
 		},
 		{
 			"id": "might",
-			"name": "Might",
+			"name": "Poder",
 			"kind": "buff",
 			"description": "Dano aumentado (strength = fraccion extra).",
 			"max_duration": 900.0,
@@ -136,7 +136,7 @@
 		},
 		{
 			"id": "haste",
-			"name": "Haste",
+			"name": "Prisa",
 			"kind": "buff",
 			"description": "Velocidad de movimiento aumentada (strength = fraccion extra).",
 			"max_duration": 900.0,
@@ -151,7 +151,7 @@
 		},
 		{
 			"id": "warcry",
-			"name": "War Cry",
+			"name": "Grito de guerra",
 			"kind": "buff",
 			"description": "Mas dano y armadura (strength = fraccion extra de dano; armadura +0,75 x strength).",
 			"max_duration": 12.0,
@@ -166,7 +166,7 @@
 		},
 		{
 			"id": "pull",
-			"name": "Pull",
+			"name": "Atraccion",
 			"kind": "push",
 			"description": "Atrae hacia el origen del golpe (strength = distancia en px).",
 			"max_duration": 0.3,
@@ -181,7 +181,7 @@
 		},
 		{
 			"id": "stealth",
-			"name": "Stealth",
+			"name": "Sigilo",
 			"kind": "buff",
 			"description": "Invisible para los enemigos normales (strength = bonus del primer golpe).",
 			"max_duration": 20.0,
@@ -196,7 +196,7 @@
 		},
 		{
 			"id": "vanish",
-			"name": "Vanish",
+			"name": "Desaparecer",
 			"kind": "buff",
 			"description": "Invisible, mas rapido y sobrevives al primer golpe (strength = bonus de velocidad).",
 			"max_duration": 6.0,
@@ -211,7 +211,7 @@
 		},
 		{
 			"id": "concealed",
-			"name": "Concealed",
+			"name": "Oculto",
 			"kind": "buff",
 			"description": "Oculto por el humo unos segundos.",
 			"max_duration": 5.0,
@@ -225,7 +225,7 @@
 		},
 		{
 			"id": "backstab",
-			"name": "Backstab",
+			"name": "Punalada",
 			"kind": "buff",
 			"description": "El siguiente golpe hace dano extra (strength = fraccion).",
 			"max_duration": 4.0,
@@ -240,7 +240,7 @@
 		},
 		{
 			"id": "disarm",
-			"name": "Disarm",
+			"name": "Desarme",
 			"kind": "control",
 			"description": "No puede atacar (los jefes son inmunes).",
 			"max_duration": 3.0,
@@ -254,7 +254,7 @@
 		},
 		{
 			"id": "stagger",
-			"name": "Stagger",
+			"name": "Tambaleo",
 			"kind": "control",
 			"description": "Tambaleo corto (el parry a un jefe): pausa breve, no es un stun.",
 			"max_duration": 0.6,
@@ -268,7 +268,7 @@
 		},
 		{
 			"id": "burn",
-			"name": "Burn",
+			"name": "Quemadura",
 			"kind": "damage",
 			"description": "Quema: dano por segundo (strength).",
 			"max_duration": 6.0,
@@ -283,7 +283,7 @@
 		},
 		{
 			"id": "surge",
-			"name": "Arcane Surge",
+			"name": "Oleada arcana",
 			"kind": "buff",
 			"description": "El siguiente basico sale gratis y +50 %.",
 			"max_duration": 8.0,
@@ -298,7 +298,7 @@
 		},
 		{
 			"id": "manashield",
-			"name": "Mana Shield",
+			"name": "Escudo de mana",
 			"kind": "buff",
 			"description": "Parte del dano se paga con mana (strength = fraccion).",
 			"max_duration": 8.0,

@@ -353,7 +353,7 @@ func _on_attack_blocked(source_position: Vector2) -> void:
 	var direction := (source_position - sim.position).normalized() if source_position != sim.position else sim.aim_dir
 	arena.spawn_impact(sim.position + direction * 22.0, GOLD_TEXT, true)
 	arena.spawn_slash(sim.position, direction, sim.attack_range_now(), visual_arc(sim.current_skill), true)
-	arena.spawn_floating_text(sim.position + Vector2(0.0, -6.0), "BLOCK", GOLD_TEXT)
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -6.0), "BLOQUEO", GOLD_TEXT)
 	arena.play_sfx(SFX_HIT_HEAVY, -3.0, 0.8)
 	arena.shake(3.5, 0.18)
 	_facing = _dir_name(direction)
@@ -390,7 +390,7 @@ func _on_class_changed(_new_class_id: String) -> void:
 func _on_buff_changed(active: bool, multiplier: float, _seconds_left: float) -> void:
 	if arena == null or not active:
 		return
-	arena.spawn_floating_text(sim.position + Vector2(0.0, -20.0), "EMPOWERED  x%.1f" % multiplier, Color(0.7, 0.9, 1.0, 1.0))
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -20.0), "POTENCIADO  x%.1f" % multiplier, Color(0.7, 0.9, 1.0, 1.0))
 	arena.play_sfx(SFX_HIT, -9.0, 1.6)
 
 
@@ -424,7 +424,7 @@ func _on_leveled_up(new_level: int, unlocked: Array) -> void:
 	if arena == null:
 		return
 	arena.play_event("level_up", sim.position)
-	arena.spawn_floating_text(sim.position + Vector2(0.0, -26.0), "LEVEL UP  %d" % new_level, GOLD_TEXT)
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -26.0), "NIVEL %d" % new_level, GOLD_TEXT)
 	var row := 0
 	for id: StringName in unlocked:
 		row += 1
@@ -436,7 +436,7 @@ func _on_leveled_up(new_level: int, unlocked: Array) -> void:
 func _on_ultimate_ready() -> void:
 	if arena == null:
 		return
-	arena.spawn_floating_text(sim.position + Vector2(0.0, -10.0), "ULTIMATE READY", GOLD_TEXT)
+	arena.spawn_floating_text(sim.position + Vector2(0.0, -10.0), "ULTIMATE LISTA", GOLD_TEXT)
 	arena.play_sfx(SFX_HIT, -8.0, 0.5)
 
 
@@ -471,7 +471,7 @@ func _on_dodge_ended() -> void:
 func _on_attack_evaded(_source_position: Vector2) -> void:
 	if arena == null:
 		return
-	arena.spawn_floating_text(sim.position, "DODGE", Color(0.6, 0.85, 1.0, 1.0))
+	arena.spawn_floating_text(sim.position, "ESQUIVA", Color(0.6, 0.85, 1.0, 1.0))
 	arena.play_sfx(SFX_DODGE, -6.0, 1.4)
 
 
