@@ -87,6 +87,7 @@ $suites = @(
     "tests/test_playtest_log.gd",
     "tests/test_environment.gd",
     "tests/test_discoveries.gd",
+    "tests/test_floor_modifiers.gd",
     "tests/test_progression.gd",
     "tests/test_special.gd",
     "tests/test_classes.gd",

@@ -41,6 +41,8 @@ var torches: Array = []
 var hazards: Array = []
 ## Contenido extra del piso (data/floor_features.json) tal como se aplico; vacio si no hay.
 var features: Dictionary = {}
+## Modificador del piso (data/floor_modifiers.json) o {}.
+var modifier: Dictionary = {}
 ## Nodos de recoleccion: [{kind: "ore"|"herb"|"wood", position: Vector2}]
 var resources: Array = []
 ## Mapa de casillas (pisos grandes y ciudad); null = escenario plano de siempre.

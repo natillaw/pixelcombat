@@ -1,0 +1,58 @@
+{
+	"_doc": "Modificadores de piso (uno al azar por piso segun floor_features.modifier_chance) y afijos de elite (solo pisos 2-9). Modificador: enemy_speed/enemy_health/enemy_damage multiplican a los enemigos normales y de elite (no a los jefes ni a los barriles), xp_mult su XP y loot_mult su probabilidad extra de soltar objeto. Afijos: swift {speed}, shielded {shield_fraction de la vida}, explosive {burst_radius, burst_mult sobre su dano}, venomous {poison_dps, duration}.",
+	"modifiers": {
+		"fast_foes": {
+			"name": "Enemigos veloces",
+			"description": "Los enemigos se mueven un 20 % mas rapido. +20 % de XP.",
+			"enemy_speed": 1.2,
+			"xp_mult": 1.2
+		},
+		"brutal": {
+			"name": "Golpes brutales",
+			"description": "Los enemigos pegan un 30 % mas fuerte. +20 % de XP, mas botin.",
+			"enemy_damage": 1.3,
+			"xp_mult": 1.2,
+			"loot_mult": 1.3
+		},
+		"tough": {
+			"name": "Piel dura",
+			"description": "Los enemigos tienen un 30 % mas de vida. +35 % de XP.",
+			"enemy_health": 1.3,
+			"xp_mult": 1.35
+		},
+		"bounty": {
+			"name": "Botin abundante",
+			"description": "Mas objetos suelta cada enemigo, pero aguantan un 10 % mas.",
+			"enemy_health": 1.1,
+			"loot_mult": 1.8
+		},
+		"frenzy": {
+			"name": "Frenesi",
+			"description": "Enemigos un 15 % mas rapidos y fuertes. +30 % de XP.",
+			"enemy_speed": 1.15,
+			"enemy_damage": 1.15,
+			"xp_mult": 1.3
+		}
+	},
+	"elite_affixes": {
+		"swift": {
+			"name": "Veloz",
+			"speed": 1.3
+		},
+		"shielded": {
+			"name": "Escudado",
+			"shield_fraction": 0.35
+		},
+		"explosive": {
+			"name": "Explosivo",
+			"burst_radius": 70,
+			"burst_mult": 1.5
+		},
+		"venomous": {
+			"name": "Venenoso",
+			"poison_dps": 3.0,
+			"duration": 3.0
+		}
+	},
+	"affix_chance": 0.7
+}

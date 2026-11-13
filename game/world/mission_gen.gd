@@ -449,6 +449,10 @@ static func _add_enemy(ctx: Ctx, id: String, position: Vector2, required: bool, 
 	var spec := {"id": StringName(id), "position": position, "required": required, "group": group}
 	for key: String in extra:
 		spec[key] = extra[key]
+	if bool(spec.get("elite", false)) and not spec.has("affix"):
+		var affix := FloorModifiers.pick_affix(ctx.floor_number, position, id)
+		if affix != "":
+			spec["affix"] = affix
 	ctx.layout.enemies.append(spec)
 	return spec
 

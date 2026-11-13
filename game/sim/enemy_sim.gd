@@ -72,6 +72,10 @@ var group: String = ""
 ## Version reforzada de un enemigo normal (mision de caza): mas vida, dano, XP y botin.
 var elite: bool = false
 var xp_mult: float = 1.0
+## Multiplicador de velocidad de movimiento (modificadores de piso y afijo "veloz").
+var speed_boost: float = 1.0
+## Afijo de elite ("swift", "shielded", "explosive", "venomous") o "".
+var affix: String = ""
 ## Mientras sea true no recibe dano (jefe protegido por sellos).
 var invulnerable: bool = false
 var _spawn_timer: float = 0.0
@@ -124,6 +128,32 @@ func make_elite() -> void:
 	_damage_scale *= 1.3
 	xp_mult = 3.0
 	radius *= 1.2
+
+
+## Afijo de elite: un rasgo extra (data/floor_modifiers.json > elite_affixes). Se aplica tras make_elite().
+func apply_affix(id: String) -> void:
+	var def := FloorModifiers.affix(id)
+	if def.is_empty():
+		return
+	affix = id
+	match id:
+		"swift":
+			speed_boost *= float(def["speed"])
+		"shielded":
+			statuses.apply("shield", 600.0, max_health * float(def["shield_fraction"]))
+		"explosive":
+			data["on_death"] = {"burst": {"radius": float(def["burst_radius"]), "damage": float(data["stats"]["damage"]) * _damage_scale * float(def["burst_mult"])}}
+		"venomous":
+			for attack: Dictionary in data["attacks"]:
+				if String(attack["shape"]) == "buff":
+					continue
+				var on_hit: Array = attack.get("on_hit", [])
+				on_hit.append({"id": "poison", "duration": float(def["duration"]), "strength": float(def["poison_dps"])})
+				attack["on_hit"] = on_hit
+
+
+func affix_name() -> String:
+	return String(FloorModifiers.affix(affix).get("name", ""))
 
 
 ## Refuerza al enemigo (jefes de los pisos x10: mas vida y dano sobre la escala del piso).
@@ -262,7 +292,7 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 		_start_telegraph(attack)
 		return
 
-	var speed := float(data["stats"]["speed"]) * _speed_mult() * statuses.speed_mult()
+	var speed := float(data["stats"]["speed"]) * _speed_mult() * statuses.speed_mult() * speed_boost
 	var keep := float(data["ai"].get("keep_distance", 0.0))
 	if keep > 0.0:
 		# Tirador: retrocede si lo alcanzan y se queda quieto a su distancia.

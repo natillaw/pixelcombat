@@ -64,3 +64,18 @@ Mientras no lleguen los assets locales del dueño, los 5 enemigos nuevos reutili
 | Iconos de recursos, estados sociales y estrellas | Disponibles en `assets/pixel/ui/ts_kit/icons`, sin usar en pantalla | Solo integrarlos (no necesitan asset nuevo) |
 | Nombres de habilidades en ingles | Sin traducir | Decision del dueño (traducir todo o conservar nombres propios) |
 | Contador de FPS (F3) | Texto simple | Opcional: fuente/estilo propio |
+
+## Torre viva (14 nov 2026): objetos nuevos con arte provisional
+| Que | Estado actual | Que asset hace falta |
+|---|---|---|
+| Fango y pinchos del suelo | Dibujados en codigo (`zone_actor.gd` `_draw_procedural`) | Sprites de charco de barro y de trampa de pinchos (con 2-3 fotogramas) |
+| Charco venenoso / fuego de aceite | Efectos del paquete de FX del repo (poison-cloud, ground-flames) | FX propios si se quiere un estilo unico |
+| Barriles (explosivo y de aceite) | `assets/pixel/village/barrel.png` tintado | Barril con marcas de pólvora (rojo/negro) y barril de aceite (con goteo); animacion de rotura/explosion |
+| Cofres de madera, hierro y dorado | Dibujados en codigo (`arena.gd` `InteractableActor`) | 3 cofres ~24x20 px, cerrado/abierto |
+| Camara sellada | Cofre dorado grande dibujado en codigo | Puerta o relicario sellado con cerradura |
+| Llave oxidada | Dibujada en codigo | Icono/sprite de llave ~12x16 px con brillo |
+| Notas de lore | Icono `ts_kit/icons/res_skill_book.png` | Pergamino o diario en el suelo ~16x16 px |
+| Pedestal de eventos | Dibujado en codigo (pedestal con llama) | Altar o pedestal pequeno con llama, 2 variantes (bueno/arriesgado) |
+| Etiqueta de afijo de elite | Texto sobre el enemigo | Icono por afijo (rayo, escudo, bomba, gota) |
+| Oscuridad del piso | Shader de viñeta | Luces suaves alrededor de fogatas/antorchas (sprites de brillo) |
+| Sonidos: explosion, cofre, llave, pergamino, pinchos, fango | Ninguno | SFX correspondientes en `assets/audio/sfx/` |

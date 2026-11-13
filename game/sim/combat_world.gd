@@ -321,6 +321,10 @@ func _on_enemy_died(enemy: EnemySim) -> void:
 	var item := ItemGen.roll_drop(loot_rng, tier, kind, enemy.data.get("loot", {}))
 	if enemy.elite and item.is_empty() and loot_rng.randf() < 0.6:
 		item = ItemGen.roll_item(loot_rng, tier, "", "", "", "", 1.5)
+	if item.is_empty() and layout != null and not layout.modifier.is_empty() and kind == "normal":
+		var loot_mult := float(layout.modifier.get("loot_mult", 1.0))
+		if loot_mult > 1.0 and loot_rng.randf() < (loot_mult - 1.0) * float(loot_config.get("normal_chance", 0.18)):
+			item = ItemGen.roll_item(loot_rng, tier, "", "", "", "", 0.0)
 	if item.is_empty():
 		return
 	var spot := resolve_position(enemy.position + Vector2.from_angle(loot_rng.randf() * TAU) * 14.0, 8.0)
@@ -338,10 +342,21 @@ func spawn_from_spec(spec: Dictionary, base_scale: float) -> EnemySim:
 	enemy.group = String(spec.get("group", ""))
 	if bool(spec.get("elite", false)):
 		enemy.make_elite()
+	if spec.has("affix"):
+		enemy.apply_affix(String(spec["affix"]))
+	if layout != null and not layout.modifier.is_empty() and not enemy.is_boss() and not bool(enemy.data.get("inert", false)):
+		_apply_modifier(enemy, layout.modifier)
 	if spec.has("boost"):
 		enemy.boost(float(spec["boost"][0]), float(spec["boost"][1]))
 	enemy.invulnerable = bool(spec.get("invulnerable", false))
 	return enemy
+
+
+## Modificador del piso sobre un enemigo normal o elite (no jefes ni barriles).
+func _apply_modifier(enemy: EnemySim, modifier: Dictionary) -> void:
+	enemy.boost(float(modifier.get("enemy_health", 1.0)), float(modifier.get("enemy_damage", 1.0)))
+	enemy.speed_boost *= float(modifier.get("enemy_speed", 1.0))
+	enemy.xp_mult *= float(modifier.get("xp_mult", 1.0))
 
 
 func submit_input(input: InputMessage) -> void:

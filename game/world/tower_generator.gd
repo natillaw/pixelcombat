@@ -58,6 +58,7 @@ static func generate(floor_number: int, world_seed: int, visit: int = 1, forced:
 	var content_rng := RandomNumberGenerator.new()
 	content_rng.seed = int(terrain_rng.seed) * 31 + visit * 104729
 	MissionGen.populate(layout, analysis, content_rng, floor_number, tier_data, spike, forced)
+	layout.modifier = FloorModifiers.pick(floor_number, layout.seed_value, float(layout.features.get("modifier_chance", 0.0)))
 	if with_elite:
 		MissionGen.add_wandering_elite(layout, analysis, content_rng)
 	MissionGen.add_campfire(layout, analysis, content_rng, floor_number)

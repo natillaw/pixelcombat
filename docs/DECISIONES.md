@@ -184,3 +184,16 @@ Barrido sistematico (tests nuevos, campañas reales de las 4 clases con misiones
 
 ## Determinismo: el lado de espera de los enemigos usaba `get_instance_id()`
 - `EnemySim` decidia por que lado rodear al jugador con la paridad de `get_instance_id()`. Ese id crece con cada objeto creado en el proceso, asi que dos partidas con el mismo input podian divergir segun cuantos objetos se hubieran creado antes. Lo detecto `test_sim_fuzz` al añadir enemigos nuevos (cambio el numero de objetos). Ahora usa la paridad del indice de spawn (`world.enemies.find(self)`), estable. Importante para PvP/red/replays. El test de determinismo del fuzz ahora cubre las 4 clases.
+
+## Torre viva (14 nov 2026): lo que ahora hay en los pisos 1-9 ademas de enemigos
+Todo es de datos (`data/floor_features.json` dice que lleva cada piso; el **piso 10 no lleva nada de esto a proposito**, el dueno aun no ha probado su jefe). Usa un RNG propio derivado de la semilla, asi no cambia el reparto de enemigos y misiones.
+- **Peligros del suelo** (`data/hazards.json`, `HazardCatalog`): fango (ralentiza), pinchos (dano) y charcos venenosos. Son `GroundZone` con `owner: "world"`: afectan por igual al jugador y a los enemigos y no caducan.
+- **Barriles** (`barrel_explosive`, `barrel_oil`): enemigos `inert` (sin IA ni ataques, 0 XP, sin botin) con `on_death`: explosion que encadena con otros barriles, o charco de aceite ardiendo. Se colocan junto a campamentos para usarlos tacticamente.
+- **Cofres** de madera y hierro (hierro con guardianes), **camara sellada** con cofre dorado y **llave oxidada** custodiada por un elite (`keys_carried`).
+- **Eventos con decision** (`data/events.json`, 7 eventos): 1-2 opciones; al usar una se cierran las demas (`exclusive`). Efectos: pagar, oro, XP, curar, objeto, estado (maldicion/poder), emboscada, apuesta determinista, mensaje. Sin oro suficiente la opcion de pago no se consume.
+- **Notas de lore** (`data/notes.json`, 18 notas): se cuentan en `tower.flags` ("Notas encontradas: n / 18").
+- **Estado `curse`**: +dano recibido (`strength` = fraccion extra).
+- **Modificadores de piso** (`data/floor_modifiers.json`, 5): salen en ~20-40 % de los pisos 2-9 segun `modifier_chance`; multiplican velocidad/vida/dano/XP/botin de enemigos normales y elite (no jefes ni barriles). Se anuncian al entrar.
+- **Afijos de elite** (Veloz, Escudado, Explosivo, Venenoso): el ~70 % de los elites de los pisos 2-9, elegidos por posicion (sin RNG); etiqueta sobre el enemigo.
+- **Oscuridad** (`darkness` por piso: 6 = 0,15; 7 = 0,45): vineta mas cerrada via shader. El bot de pruebas no toma las decisiones de los eventos.
+- Pruebas: `test_environment`, `test_discoveries`, `test_floor_modifiers`. Captura: `tests/capture_environment.tscn`.

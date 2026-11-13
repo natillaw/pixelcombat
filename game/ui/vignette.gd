@@ -15,7 +15,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var shader := Shader.new()
-	shader.code = "shader_type canvas_item;\nuniform float strength = 0.5;\nuniform vec3 tint = vec3(1.0);\nuniform float wash = 0.0;\nvoid fragment() {\n\tvec2 uv = UV - vec2(0.5);\n\tfloat d = length(uv * vec2(1.05, 1.0));\n\tfloat a = smoothstep(0.28, 0.78, d) * strength;\n\tvec3 dark = vec3(0.01, 0.015, 0.04);\n\tvec3 c = mix(tint, dark, clamp(a / (a + wash + 0.0001), 0.0, 1.0));\n\tCOLOR = vec4(c, clamp(a + wash, 0.0, 1.0));\n}\n"
+	shader.code = "shader_type canvas_item;\nuniform float strength = 0.5;\nuniform vec3 tint = vec3(1.0);\nuniform float wash = 0.0;\nuniform float darkness = 0.0;\nvoid fragment() {\n\tvec2 uv = UV - vec2(0.5);\n\tfloat d = length(uv * vec2(1.05, 1.0));\n\tfloat a = clamp(smoothstep(0.28 - darkness * 0.16, 0.78 - darkness * 0.30, d) * (strength + darkness * 0.45), 0.0, 1.0);\n\tvec3 dark = vec3(0.01, 0.015, 0.04);\n\tvec3 c = mix(tint, dark, clamp(a / (a + wash + 0.0001), 0.0, 1.0));\n\tCOLOR = vec4(c, clamp(a + wash, 0.0, 1.0));\n}\n"
 	_material = ShaderMaterial.new()
 	_material.shader = shader
 	material = _material
@@ -38,3 +38,4 @@ func apply_layout(layout: FloorLayout) -> void:
 	_material.set_shader_parameter("strength", strength)
 	_material.set_shader_parameter("tint", tint)
 	_material.set_shader_parameter("wash", wash)
+	_material.set_shader_parameter("darkness", float(layout.features.get("darkness", 0.0)))

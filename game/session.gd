@@ -69,6 +69,10 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 func _hook_playtest_log() -> void:
 	playtest_log.enabled = not save_path.is_empty()
 	location_changed.connect(func(new_layout: FloorLayout) -> void:
+		if not new_layout.modifier.is_empty():
+			message.emit("MODIFICADOR DEL PISO: %s. %s" % [new_layout.modifier["name"], new_layout.modifier["description"]])
+		if float(new_layout.features.get("darkness", 0.0)) > 0.3:
+			message.emit("El piso esta a oscuras: ves menos lejos. Las fogatas son refugio.")
 		playtest_log.record("enter", new_layout.floor_number, world.player.level, {"kind_of_floor": String(new_layout.kind)}))
 	floor_completed.connect(func(floor_number: int, xp: int) -> void:
 		playtest_log.record("complete", floor_number, world.player.level, {"xp": xp}))

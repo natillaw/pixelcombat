@@ -330,6 +330,8 @@ func _draw() -> void:
 
 	if sim.alive and not sim.is_boss() and not bool(sim.data.get("inert", false)) and (sim.health < sim.max_health or sim.state != EnemySim.State.IDLE):
 		_draw_health_bar()
+	if sim.alive and sim.affix != "":
+		draw_string(UiStyle.FONT, Vector2(-40.0, -_sprite_height - 12.0), sim.affix_name().to_upper(), HORIZONTAL_ALIGNMENT_CENTER, 80.0, 11, Color(1.0, 0.82, 0.4))
 	if sim.alive:
 		_draw_status_icons()
 
