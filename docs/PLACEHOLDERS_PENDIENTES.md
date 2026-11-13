@@ -43,3 +43,24 @@ Estos usan pixel art que ya estaba en el repo, pero el dueño los considera **vi
 - Tutorial por pistas (`data/tutorial.json`, `game/ui/tutorial_hints.gd`, panel en `hud.gd`): usa `UiStyle.draw_panel`, sin arte propio.
 - Hogueras de descanso, residentes, props de ciudad: ver `DECISIONES.md` ("Ciudad con vida...").
 - Curva de XP y bot sin mapa: ver `DECISIONES.md` ("Ritmo de niveles y bot sin mapa").
+
+## Enemigos nuevos con sprite provisional (13 nov 2026, roadmap 1.2)
+Mientras no lleguen los assets locales del dueño, los 5 enemigos nuevos reutilizan sprites del repo (tintados o recompuestos). Al llegar los assets propios, solo hay que cambiar el bloque `sprite` del enemigo en el JSON (`data/enemies/tier1.json` o `bandits.json`); no hace falta tocar codigo.
+
+| Enemigo | Sprite provisional | Que asset hace falta |
+|---|---|---|
+| Cuervo carroñero (`carrion_crow`) | `spritepilot_creatures/32px/bird` tintado gris-violeta | Cuervo/ave negra animada (vuelo 4-8 fotogramas, picado, muerte), ~32 px |
+| Limo ácido (`acid_slime`) | `spritepilot_creatures/32px/slime` tintado verde | Limo verde con burbujas, idle/ataque/muerte, ~32 px |
+| Bruto del Cuervo (`bandit_brute`) | LPC recompuesto (camiseta sin mangas, maza), escala 1.2 | Sprite de bandido corpulento (hombros anchos, mazo grande) en estilo LPC o equivalente |
+| Zapador del Cuervo (`bandit_sapper`) | LPC recompuesto (capucha, daga) | Bandido con mochila de bombas/pólvora y abrojos |
+| Chamán del Cuervo (`bandit_shaman`) | LPC recompuesto (capucha, capa, baculo) | Chamana con plumas/huesos y bastón, animacion de conjuro |
+| Efectos: charco de veneno, abrojos/fuego, escudo de apoyo | `game/world/zone_actor.gd` (paquete de efectos del repo) | FX propios: nube de veneno, abrojos en el suelo, burbuja de escudo sobre aliados |
+| Sonidos de los enemigos nuevos (graznido, chapoteo, bomba, conjuro) | ninguno (sin audio especifico) | SFX por enemigo en `assets/audio/sfx/` |
+
+## Interfaz y herramientas (pendiente de assets o decisiones del dueño)
+| Que | Estado | Que hace falta |
+|---|---|---|
+| Hoja de personaje (tecla C) | Aun con el pergamino CraftPix, desentona | Marco/ranuras de equipo en el estilo Dragon Regalia o un panel nuevo |
+| Iconos de recursos, estados sociales y estrellas | Disponibles en `assets/pixel/ui/ts_kit/icons`, sin usar en pantalla | Solo integrarlos (no necesitan asset nuevo) |
+| Nombres de habilidades en ingles | Sin traducir | Decision del dueño (traducir todo o conservar nombres propios) |
+| Contador de FPS (F3) | Texto simple | Opcional: fuente/estilo propio |
