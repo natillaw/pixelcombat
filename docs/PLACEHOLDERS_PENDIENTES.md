@@ -16,7 +16,19 @@ Regla del dueño (13 nov 2026): nada de formas geometricas dibujadas por el agen
 | Fuente: agua y chorros (ya existian, los dejo tal cual) | `arena.gd` `Fountain` | Fuente de piedra completa animada |
 | Fachadas procedurales de edificios sin sprite (ya existian) | `arena.gd` `Building` | Sprites de edificios |
 
-## Ya con pixel art del repo (sin placeholder)
+## REWORK DE ASSETS (pendiente, el dueño trae assets mejores desde su equipo local)
+Estos usan pixel art que ya estaba en el repo, pero el dueño los considera **viejos** (13 nov 2026): hay que sustituirlos por assets mejores. El codigo ya los dibuja por recorte de hoja, asi que el cambio es poner el sprite nuevo y ajustar la constante de recorte. Incluye tambien la tabla de placeholders de arriba y los edificios de `assets/pixel/village/` si se quiere un estilo unico.
+
+| Que | Hoja actual | Donde se cambia |
+|---|---|---|
+| Bancos (tronco caido) | `assets/tiles/bosque/bosque_props.png` | `city_prop.gd` `REGION_LOG`, kind `bench` |
+| Maceteros (arbusto de bayas) | `bosque_props.png` | `REGION_BERRY_BUSH`, kind `planter` |
+| Parterres de flores | `bosque_props.png` | `REGION_FLOWERS`, kind `flowerbed` |
+| Carreta de mercader | `assets/props/campamento/props_campamento.png` | `REGION_WAGON`, kind `wagon` |
+| Hoguera de descanso | `assets/props/campamento/prop_fogata_anim.png` | `arena.gd` constante `CAMPFIRE`, caso `campfire` de `InteractableActor` |
+| Barriles y cajas de la ciudad | `assets/pixel/village/` | `terrain_renderer.gd` `_spawn_decor` |
+
+## Hoy usan pixel art del repo (ver el rework de arriba)
 | Que | Hoja | Recorte |
 |---|---|---|
 | Bancos de la plaza = tronco caido | `assets/tiles/bosque/bosque_props.png` | `tronco_caido` (`bosque_tileset.json`) |
