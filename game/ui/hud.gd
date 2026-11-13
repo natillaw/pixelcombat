@@ -769,6 +769,8 @@ func _draw_controls() -> void:
 
 
 func _draw_damage_flash() -> void:
+	if not Settings.damage_flash:
+		return
 	var amount := 0.0
 	if _damage_flash > 0.0:
 		amount = 0.35 * _damage_flash

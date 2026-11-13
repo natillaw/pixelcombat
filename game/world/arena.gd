@@ -63,7 +63,7 @@ var _punching: bool = false
 
 ## Congela la accion `seconds` (reales): el golpe "pesa". Se mantiene el mayor de los pedidos.
 func hit_stop(seconds: float) -> void:
-	if seconds <= 0.0 or DisplayServer.get_name() == "headless":
+	if seconds <= 0.0 or DisplayServer.get_name() == "headless" or not Settings.hit_stop:
 		return
 	var until := Time.get_ticks_msec() + int(seconds * 1000.0)
 	if time_dilation_allowed():
@@ -87,7 +87,7 @@ func time_dilation_allowed() -> bool:
 
 ## Camara lenta (escala 0-1) durante `seconds` reales: muertes de jefes y del jugador.
 func slowmo(scale: float, seconds: float) -> void:
-	if seconds <= 0.0 or DisplayServer.get_name() == "headless" or not time_dilation_allowed():
+	if seconds <= 0.0 or DisplayServer.get_name() == "headless" or not Settings.slow_motion or not time_dilation_allowed():
 		return
 	_slowmo_scale = scale
 	_slowmo_until_ms = maxi(_slowmo_until_ms, Time.get_ticks_msec() + int(seconds * 1000.0))
@@ -95,7 +95,8 @@ func slowmo(scale: float, seconds: float) -> void:
 
 ## Golpe de zoom: la camara se acerca `amount` (0.03 = 3 %) y vuelve sola.
 func punch_zoom(amount: float) -> void:
-	_punch = maxf(_punch, amount)
+	if Settings.zoom_punch:
+		_punch = maxf(_punch, amount)
 
 
 func _update_feel(delta: float) -> void:
@@ -388,6 +389,9 @@ func play_sfx(stream: AudioStream, volume_db: float = -6.0, pitch: float = 1.0) 
 
 
 func shake(strength: float, duration: float) -> void:
+	strength *= Settings.shake
+	if strength <= 0.01:
+		return
 	_shake_strength = maxf(_shake_strength, strength)
 	_shake_duration = maxf(_shake_duration, duration)
 	_shake_time = maxf(_shake_time, duration)
