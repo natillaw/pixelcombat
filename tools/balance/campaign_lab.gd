@@ -46,7 +46,7 @@ static func _score(piece: Dictionary) -> float:
 
 ## Recorre los pisos 1..max_floor. `regen` = fraccion de vida maxima por segundo fuera de combate.
 ## Devuelve una fila por piso: {floor, level_start, level_end, seconds, deaths, hp_lost, completed, items}.
-static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below: float = 0.0) -> Array:
+static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below: float = 0.0, forced_clear: bool = false) -> Array:
 	var world := CombatWorld.new(SEED)
 	var session := GameSession.new(world, "")
 	world.player.safe_zone = true
@@ -67,14 +67,17 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 			_prepare(world.player)
 			for n: int in range(1, floor_number):
 				session.tower.complete(n)
+			# Por defecto se juegan las misiones reales de cada piso (historia incluida); `forced_clear` reproduce la
+			# campana antigua (limpiar, cazar elites) para comparar.
 			var forced: Array = []
 			var spike := TowerCatalog.spike_kind(floor_number)
-			if spike == "":
-				forced = ["clear"]
-			elif spike == "mid_boss":
-				forced = ["hunt"]
-			else:
-				forced = ["elites"]
+			if forced_clear:
+				if spike == "":
+					forced = ["clear"]
+				elif spike == "mid_boss":
+					forced = ["hunt"]
+				else:
+					forced = ["elites"]
 			session._enter(TowerGenerator.generate(floor_number, SEED, attempts, forced), false)
 			session._floor_done = false
 			session.tower.visit(floor_number)

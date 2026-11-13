@@ -19,6 +19,11 @@ var _known: PackedByteArray = PackedByteArray()
 var _known_grid: TileGrid = null
 var _seen_enemies: Array = []
 var _seen_loot: Array = []
+## Objetos de mision y hogueras que ya ha visto (altares, balizas, jaulas, reliquias...).
+var _seen_objects: Array = []
+## Resistencia: hasta que tick se queda junto a la baliza que acaba de activar.
+var _hold_until_tick: int = 0
+var _hold_point: Vector2 = Vector2.INF
 var _path: Array[Vector2] = []
 var _replan_ticks: int = 0
 var _tick_count: int = 0
@@ -67,7 +72,12 @@ func decide(world: CombatWorld) -> InputMessage:
 	else:
 		_reveal(world)
 		_pickup_near(world, message)
-		direction = _explore_direction(world, player)
+		if _interact_near(world, message):
+			return message                       # canalizando: quieto, como una persona que hace clic y espera
+		var hold := _hold_direction(world, player)
+		if hold == Vector2.INF:
+			return message                       # junto a la baliza, esperando a que lleguen las oleadas
+		direction = hold if hold != Vector2.ZERO else _explore_direction(world, player)
 		if direction == Vector2.ZERO:
 			return message
 	# Atascado contra un obstaculo (arbol pegado a un muro, esquina): prueba varias salidas y sigue la que mas avanza.
@@ -122,6 +132,9 @@ func _ensure_known(grid: TileGrid) -> void:
 		_known.fill(0)
 		_seen_enemies.clear()
 		_seen_loot.clear()
+		_seen_objects.clear()
+		_hold_until_tick = 0
+		_hold_point = Vector2.INF
 		_path.clear()
 		_exhausted = false
 		_replan_ticks = 0
@@ -170,6 +183,10 @@ func _reveal(world: CombatWorld) -> void:
 		if not _seen_loot.has(drop) and drop.position.distance_to(origin) <= vision_radius and grid.line_clear(origin, drop.position):
 			_seen_loot.append(drop)
 	_seen_loot = _seen_loot.filter(func(d: LootDrop) -> bool: return world.loot_drops.has(d))
+	for object: Interactable in world.interactables:
+		if not object.done and not _seen_objects.has(object) and object.position.distance_to(origin) <= vision_radius and grid.line_clear(origin, object.position):
+			_seen_objects.append(object)
+	_seen_objects = _seen_objects.filter(func(o: Interactable) -> bool: return not o.done and world.interactables.has(o))
 
 
 ## Como un clic de recoger: junto a un objeto que ya ha visto, pulsa recoger sobre el.
@@ -179,6 +196,48 @@ func _pickup_near(world: CombatWorld, message: InputMessage) -> void:
 			message.target_pos = drop.position
 			message.actions["pickup"] = _tick_count % 2 == 0
 			return
+
+
+## Si el bot debe ir a por este objeto ahora: reliquias de una en una, el altar de entrega solo con reliquia, y la
+## hoguera solo si va tocado.
+func _actionable(world: CombatWorld, object: Interactable) -> bool:
+	if object.done:
+		return false
+	match object.kind:
+		"relic_altar":
+			return world.relics_carried > 0
+		"relic":
+			return world.relics_carried < 1
+		"campfire":
+			return world.player.health < world.player.max_health * 0.6
+	return true
+
+
+## Junto a un objeto que se usa con clic: se queda quieto y pulsa sobre el (los waypoint se activan solos al pasar).
+func _interact_near(world: CombatWorld, message: InputMessage) -> bool:
+	var player := world.player
+	for object: Interactable in _seen_objects:
+		if object.kind == "waypoint" or not _actionable(world, object):
+			continue
+		if player.position.distance_to(object.position) > ResourceNode.GATHER_RANGE - 6.0:
+			continue
+		if object.kind == "beacon":
+			_hold_point = object.position
+			_hold_until_tick = world.tick + 100 * 60
+		message.target_pos = object.position
+		message.actions["pickup"] = _tick_count % 2 == 0
+		return true
+	return false
+
+
+## Resistencia: tras activar la baliza se queda cerca de ella (peleando lo que llegue) hasta que pasa el tiempo.
+func _hold_direction(world: CombatWorld, player: PlayerSim) -> Vector2:
+	if _hold_point == Vector2.INF or world.tick > _hold_until_tick:
+		return Vector2.ZERO
+	var to_point := _hold_point - player.position
+	if to_point.length() > 110.0:
+		return to_point.normalized()
+	return Vector2.INF
 
 
 ## Hacia donde andar: sigue el camino planificado (hacia lo que ha visto o hacia el borde de lo desconocido).
@@ -208,6 +267,10 @@ func _plan(world: CombatWorld, player: PlayerSim) -> void:
 			continue
 		var cell := grid.world_to_cell(enemy.position)
 		goals[cell.y * cols + cell.x] = true
+	for object: Interactable in _seen_objects:
+		if _actionable(world, object):
+			var object_cell := grid.world_to_cell(object.position)
+			goals[object_cell.y * cols + object_cell.x] = true
 	# Primero va a por lo que ya ha visto (enemigos, botin); solo si no hay nada, explora el borde de lo desconocido.
 	var parents := PackedInt32Array()
 	var found := -1

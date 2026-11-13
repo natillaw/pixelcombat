@@ -286,14 +286,39 @@
 		},
 		"2": {
 			"template": "slay",
-			"flavor": 0
+			"flavor": 0,
+			"extra": [
+				{
+					"template": "waypoints",
+					"title": "Las huellas del sendero",
+					"desc": "Sigue {count} rastros de huellas que no son de bestia: alguien ha abierto este camino"
+				}
+			]
 		},
 		"3": {
-			"template": "banner"
+			"template": "banner",
+			"extra": [
+				{
+					"template": "slay",
+					"enemy_id": "bandit_archer",
+					"target": 6,
+					"title": "Los arqueros del campamento",
+					"desc": "Derrota a {count} {enemy} que vigilan el primer campamento del Cuervo"
+				}
+			]
 		},
 		"4": {
 			"template": "rescue",
-			"flavor": 0
+			"flavor": 0,
+			"extra": [
+				{
+					"template": "slay",
+					"enemy_id": "bandit_cutthroat",
+					"target": 6,
+					"title": "Los degolladores de la emboscada",
+					"desc": "Derrota a {count} {enemy}: aqui nadie te ataca de frente"
+				}
+			]
 		},
 		"5": {
 			"template": "captain"

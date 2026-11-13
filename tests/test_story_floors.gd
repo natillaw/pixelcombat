@@ -1,10 +1,13 @@
-## Pisos con historia (6-9): dos misiones principales con su texto de lore, siempre resolubles.
+## Pisos con historia (2-9): dos misiones principales con su texto de lore, siempre resolubles.
 ##
 ##   godot --headless --path . --script tests/test_story_floors.gd
 extends SceneTree
 
 const SEED := 20261110
 const EXPECTED := {
+	2: ["slay", "explore"],
+	3: ["kill_group", "slay"],
+	4: ["interact", "slay"],
 	6: ["relic", "slay"],
 	7: ["interact", "explore"],
 	8: ["survive", "kill_group"],
@@ -49,7 +52,7 @@ func _run() -> void:
 		for mission: Dictionary in layout.mission_plan["missions"]:
 			if not bool(mission["optional"]):
 				titles[String(mission["title"])] = true
-	_check(titles.size() >= 8, "los pisos 6-9 no repiten misiones principales (%d distintas)" % titles.size())
+	_check(titles.size() >= 14, "los pisos 2-9 no repiten misiones principales (%d distintas)" % titles.size())
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)

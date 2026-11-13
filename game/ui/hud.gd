@@ -6,6 +6,7 @@
 class_name GameHud
 extends Control
 
+const DIM_TEXT := Color(0.6, 0.55, 0.5, 1.0)
 const FONT := preload("res://assets/fonts/m5x7.ttf")
 
 const PANEL := Color(0.055, 0.065, 0.095, 0.86)
@@ -579,23 +580,41 @@ func _draw_missions() -> void:
 	if lines.is_empty() and session.time_limit <= 0.0:
 		_draw_quest_tracker()
 		return
-	var height := 26.0 + float(lines.size()) * 11.0 + (12.0 if session.time_limit > 0.0 else 0.0)
-	_quest_tracker_y = 92.0 + height + 6.0
-	_panel(Rect2(488, 92, 142, height), "OBJETIVOS")
-	var y := 112.0                                   # bajo la cabecera verde (antes pisaba el titulo)
+	# Cada mision pendiente lleva debajo su descripcion (el lore) en dos lineas como maximo.
+	var heights: Array = []
+	var total := 26.0 + (12.0 if session.time_limit > 0.0 else 0.0)
 	for line: Dictionary in lines:
+		var rows := 0 if bool(line["done"]) else _desc_rows(String(line.get("desc", "")))
+		var row_height := 11.0 + float(rows) * 8.0 + (2.0 if rows > 0 else 0.0)
+		heights.append(row_height)
+		total += row_height
+	_quest_tracker_y = 92.0 + total + 6.0
+	_panel(Rect2(488, 92, 142, total), "OBJETIVOS")
+	var y := 112.0                                   # bajo la cabecera verde (antes pisaba el titulo)
+	for index: int in range(lines.size()):
+		var line: Dictionary = lines[index]
 		var color := GREEN_DONE if bool(line["done"]) else (MUTED if bool(line["optional"]) else TEXT)
 		var mark := "[x] " if bool(line["done"]) else "[ ] "
-		var shown := mark + String(line["text"])
-		if shown.length() > 38:
-			shown = shown.substr(0, 36) + ".."
+		var shown := _fit(mark + String(line["text"]), 7, 130.0)
 		_draw_text(shown, Vector2(494, y), 7, color, HORIZONTAL_ALIGNMENT_LEFT, 130)
-		y += 11.0
+		if not bool(line["done"]):
+			var desc := String(line.get("desc", ""))
+			if not desc.is_empty():
+				draw_multiline_string(FONT, Vector2(494, y + 8.0), desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, 7, 2, MUTED if not bool(line["optional"]) else DIM_TEXT)
+		y += float(heights[index])
 	if session.time_limit > 0.0:
 		var left := session.time_left
 		var urgent := left < 60.0
 		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(494, y + 1.0), 7, RED if urgent else GOLD)
 	_draw_quest_tracker()
+
+
+## Lineas (0-2) que ocupa la descripcion de una mision en el panel de objetivos.
+func _desc_rows(desc: String) -> int:
+	if desc.is_empty():
+		return 0
+	var size := FONT.get_multiline_string_size(desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, 7, 2)
+	return clampi(int(round(size.y / 8.0)), 1, 2)
 
 
 ## Seguimiento de las misiones activas del marco de misiones (hasta 3), bajo la lista de objetivos del piso.

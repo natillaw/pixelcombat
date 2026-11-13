@@ -93,7 +93,7 @@ func line() -> Dictionary:
 			text += "  %d / %d" % [progress, target]
 		_:
 			text += "  %d / %d" % [progress, target]
-	return {"text": text, "done": done, "optional": optional, "ratio": ratio}
+	return {"text": text, "done": done, "optional": optional, "ratio": ratio, "desc": String(spec.get("desc", ""))}
 
 
 ## Cada tick: balizas, resistencia y comprobacion de la limpieza.
