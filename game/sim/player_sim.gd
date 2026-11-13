@@ -379,6 +379,20 @@ func can_change_gear() -> bool:
 	return alive and state == AttackState.IDLE and not dodging and not blocking and (safe_zone or tick - last_combat_tick > GEAR_SWAP_QUIET_TICKS)
 
 
+## Por que no se puede cambiar de equipo ahora (texto para el jugador); "" si se puede.
+func gear_block_reason() -> String:
+	if can_change_gear():
+		return ""
+	if not alive:
+		return "Estas muerto."
+	if blocking:
+		return "Estas bloqueando: suelta el bloqueo."
+	if state != AttackState.IDLE or dodging:
+		return "Termina la accion en curso."
+	var left := float(GEAR_SWAP_QUIET_TICKS - (tick - last_combat_tick)) / 60.0
+	return "Acabas de pelear o recibir dano: espera %.0f s." % maxf(left, 1.0)
+
+
 ## Equipa `id` en `slot`. Devuelve "" si salio bien o el motivo del rechazo (los
 ## de _equip_reason, mas "busy" si no se puede editar ahora). Si la skill ya
 ## estaba en otro slot, se mueve.
