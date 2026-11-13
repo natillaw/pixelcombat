@@ -222,10 +222,10 @@ static func _from_template(ctx: Ctx, template: Dictionary, optional: bool) -> Di
 			spec["group"] = "nest"
 		"slay":
 			spec["target"] = _count(ctx, template, optional)
-			var pool: Array = pool_for_floor(ctx.tier_data, ctx.floor_number)
+			var pool: Array = pool_for_floor(ctx.tier_data, ctx.floor_number).filter(func(entry: Dictionary) -> bool: return bool(entry.get("slay", true)))
 			var chosen := _pick_enemy(ctx)
 			if pool.size() > 1:
-				# Evita los mas raros: el objetivo se cumple con los comunes.
+				# Evita los raros y los de apoyo (slay=false): el objetivo se cumple con los comunes.
 				chosen = String((pool[ctx.rng.randi_range(0, pool.size() - 1)] as Dictionary)["id"])
 			spec["enemy_id"] = chosen
 		"collect":
