@@ -91,14 +91,18 @@ static func _key(layers: Array) -> String:
 
 
 ## Full animation set: "<anim>_<dir>" for every anim and direction.
-static func build_frames_for(look: Dictionary, hero_class: String = "", equipment: Dictionary = {}) -> SpriteFrames:
+## `only`: si no esta vacio, solo se componen esas animaciones (los PNJ de la ciudad solo necesitan idle y walk:
+## componerlas todas costaba unos 16 MB por personaje).
+static func build_frames_for(look: Dictionary, hero_class: String = "", equipment: Dictionary = {}, only: PackedStringArray = PackedStringArray()) -> SpriteFrames:
     var layers := visual_layers(look, hero_class, equipment)
-    var key := _key(layers) + "/frames"
+    var key := _key(layers) + "/frames" + ("" if only.is_empty() else ":" + ",".join(only))
     if _tex_cache.has(key):
         return _tex_cache[key]
     var sf := SpriteFrames.new()
     sf.remove_animation("default")
     for anim in index().get("anims", []):
+        if not only.is_empty() and not only.has(String(anim)):
+            continue
         var img := compose_anim(layers, String(anim))
         if img == null:
             continue

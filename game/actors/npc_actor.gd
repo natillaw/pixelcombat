@@ -23,7 +23,7 @@ func setup(p_spec: Dictionary) -> void:
 	for slot: String in spec["equipment"]:
 		equipment[slot] = spec["equipment"][slot]
 	sprite = AnimatedSprite2D.new()
-	sprite.sprite_frames = LpcComposer.build_frames_for(spec["look"], "class.npc", equipment)
+	sprite.sprite_frames = LpcComposer.build_frames_for(spec["look"], "class.npc", equipment, PackedStringArray(["idle", "walk"]))
 	sprite.centered = true
 	sprite.position = LpcComposer.FEET_OFFSET
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST

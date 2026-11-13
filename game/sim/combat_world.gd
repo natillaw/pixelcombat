@@ -96,7 +96,13 @@ func add_dummy(spawn: Vector2, auto_attack: bool = true) -> DummySim:
 func add_enemy(def_id: StringName, spawn: Vector2, level_scale: float = 1.0) -> EnemySim:
 	var enemy := EnemySim.new(self, def_id, spawn, int(rng.seed) + (enemies.size() + 1) * 7919)
 	enemy.apply_scale(level_scale)
-	enemy.died.connect(_on_enemy_died.bind(enemy))
+	# El callable no puede guardar al propio enemigo (enemigo -> senal -> callable -> enemigo es un ciclo de RefCounted
+	# que nunca se libera: cada carga de piso perdia ~150 enemigos): se le pasa una referencia debil.
+	var weak_enemy: WeakRef = weakref(enemy)
+	enemy.died.connect(func() -> void:
+		var dead: EnemySim = weak_enemy.get_ref() as EnemySim
+		if dead != null:
+			_on_enemy_died(dead))
 	enemies.append(enemy)
 	enemy_spawned.emit(enemy)
 	return enemy
