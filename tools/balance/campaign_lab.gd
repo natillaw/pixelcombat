@@ -165,6 +165,15 @@ static func _report_stuck(world: CombatWorld, session: GameSession, bot: FloorBo
 		if enemy.alive:
 			print("   [vivo] %s %s inv=%s req=%s group=%s" % [enemy.def_id, str(enemy.position), str(enemy.invulnerable), str(enemy.required), str(enemy.group)])
 	print("   [objetivo] %s stuck=%d" % [str(bot._target.position) if bot._target != null else "-", bot._stuck])
+	# Bot sin mapa: que sabe y que le queda por hacer (para distinguir "no encuentra" de "no puede").
+	var known := 0
+	for value: int in bot._known:
+		known += value
+	var pending: Array = []
+	for object: Interactable in world.interactables:
+		if not object.done:
+			pending.append("%s@%s%s" % [object.kind, str(object.position.round()), "(visto)" if bot._seen_objects.has(object) else ""])
+	print("   [bot] explorado=%d casillas agotado=%s camino=%d objetos_vistos=%d pendientes=%s" % [known, str(bot._exhausted), bot._path.size(), bot._seen_objects.size(), str(pending)])
 
 
 ## En la ciudad antes de cada piso: vende lo que sobra, compra pociones con el oro y se come lo que lleve.

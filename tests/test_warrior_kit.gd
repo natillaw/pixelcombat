@@ -221,7 +221,7 @@ func _test_book_skills() -> void:
 	_step(world, 90, {})
 	_step(world, 1, {"s3": true})
 	_step(world, 40, {})
-	_check(world.player.health >= world.player.max_health * 0.64, "Second Wind cura el 25 % (%.0f%%)" % (world.player.health / world.player.max_health * 100.0))
+	_check(world.player.health >= world.player.max_health * 0.64, "Second Wind cura el 25 %% (%.0f%%)" % (world.player.health / world.player.max_health * 100.0))
 	# Execute: mas dano al que esta por debajo del 30 %.
 	var healthy := _execute_damage(1.0)
 	var weak := _execute_damage(0.2)

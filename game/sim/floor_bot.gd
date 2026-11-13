@@ -26,6 +26,9 @@ var _hold_until_tick: int = 0
 var _hold_point: Vector2 = Vector2.INF
 var _path: Array[Vector2] = []
 var _replan_ticks: int = 0
+## Hay que descubrir lo que se ve antes de planificar (piso nuevo).
+var _force_reveal: bool = true
+var _exhausted_ticks: int = 0
 var _tick_count: int = 0
 ## Se acabo lo que explorar sin completar el piso: recurre al metodo antiguo para rematar (enemigos escondidos).
 var _exhausted: bool = false
@@ -64,6 +67,12 @@ func decide(world: CombatWorld) -> InputMessage:
 	_tick_count += 1
 	_ensure_known(world.grid)
 	var direction := Vector2.ZERO
+	if _exhausted and not knows_map:
+		_exhausted_ticks += 1
+		if _exhausted_ticks > 600:
+			_exhausted = false                      # se reintenta explorar: lo ya conocido no se pierde, pero puede haber algo nuevo a la vista
+			_exhausted_ticks = 0
+			_force_reveal = true
 	if knows_map or _exhausted:
 		var known_direction := _known_map_direction(world, player)
 		if known_direction == Vector2.INF:
@@ -137,7 +146,9 @@ func _ensure_known(grid: TileGrid) -> void:
 		_hold_point = Vector2.INF
 		_path.clear()
 		_exhausted = false
+		_exhausted_ticks = 0
 		_replan_ticks = 0
+		_force_reveal = true
 		_ensure_open(grid)
 
 
@@ -158,8 +169,9 @@ func _ensure_open(grid: TileGrid) -> void:
 func _reveal(world: CombatWorld) -> void:
 	var grid := world.grid
 	_ensure_known(grid)
-	if _tick_count % 6 != 1:
+	if not _force_reveal and _tick_count % 6 != 1:
 		return
+	_force_reveal = false
 	var origin := world.player.position
 	var here := grid.world_to_cell(origin)
 	var span := int(ceil(vision_radius / TileGrid.TILE))
