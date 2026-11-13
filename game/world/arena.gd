@@ -8,6 +8,8 @@ class_name Arena
 extends Node2D
 
 const TILE := 32.0
+## Fuente pixel del juego (los carteles usaban la fuente por defecto de Godot, que desentonaba).
+const PIXEL_FONT := preload("res://assets/fonts/m5x7.ttf")
 const BRICK_H := 20.0
 const BRICK_W := 44.0
 
@@ -742,7 +744,7 @@ class Building extends Node2D:
 			draw_rect(win, Color(0.09, 0.10, 0.14))
 			draw_rect(Rect2(win.position + Vector2(2, 2), win.size - Vector2(4, 4)), Color(0.95, 0.72, 0.35, 0.85))
 		# Cartel.
-		var font := ThemeDB.fallback_font
+		var font: Font = PIXEL_FONT
 		var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
 		var sign_rect := Rect2(r.position + Vector2(r.size.x * 0.5 - size.x * 0.5 - 6, 62), Vector2(size.x + 12, 20))
 		draw_rect(sign_rect, Color(0.12, 0.08, 0.05))
@@ -785,11 +787,12 @@ class PortalMarker extends Node2D:
 
 	func _draw() -> void:
 		var radius: float = float(portal.get("radius", 34.0))
-		var font := ThemeDB.fallback_font
+		var font: Font = PIXEL_FONT
 		var label := String(portal.get("label", ""))
-		if label != "" and (near or String(portal.get("action", "")) == "tower"):
-			var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
-			draw_string(font, Vector2(-size.x * 0.5, -radius * 0.6 - 8.0 - (70.0 if _sprite != null else 0.0)), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color(1, 1, 1, 0.9) if active else Color(0.7, 0.7, 0.75, 0.9))
+		# "Hablar con X" ya sale en la barra inferior y encima del PNJ; flotando tapaba su nombre.
+		if label != "" and not label.begins_with("Hablar con") and (near or String(portal.get("action", "")) == "tower"):
+			var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
+			draw_string(font, Vector2(-size.x * 0.5, -radius * 0.6 - 8.0 - (70.0 if _sprite != null else 0.0)), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color(1, 1, 1, 0.9) if active else Color(0.7, 0.7, 0.75, 0.9))
 
 
 ## Item en el suelo: gema del color de su rareza que salta al caer, flota y, a partir
