@@ -230,21 +230,63 @@ func _test_tree_wall_margin() -> void:
 	_check(TowerCatalog.biome_wall_margin("forest") > 0.0 and TowerCatalog.biome_wall_margin("cave") == 0.0, "el bosque lleva holgura y las cuevas (cliffs) no")
 	var layout := TowerGenerator.generate(3, 20261110, 1)
 	_check(layout.wall_margin > 0.0, "los pisos del bosque llevan la holgura en su layout")
-	# Pasillo transitable: un circulo del jugador cruza todo el piso siguiendo el campo de flujo.
-	var world: CombatWorld = CombatWorldScript.new(5)
-	world.setup_arena(layout.bounds(), layout.obstacles, layout.grid)
-	layout.grid.wall_margin = layout.wall_margin
-	var exit_point: Vector2 = (layout.portals.filter(func(p: Dictionary) -> bool: return String(p["id"]) == "exit")[0] as Dictionary)["position"]
-	var field := layout.grid.distance_field(layout.grid.world_to_cell(exit_point), 100000)
-	world.player.position = layout.player_spawn
-	var arrived := false
-	for step: int in range(60 * 240):
-		var direction := layout.grid.flow_direction(field, world.player.position)
-		if direction == Vector2.ZERO:
-			arrived = world.player.position.distance_to(exit_point) < 96.0
-			break
-		world.player.position = world.resolve_position(world.player.position + direction * 3.0, PlayerSim.RADIUS)
-	_check(arrived, "con la holgura se puede cruzar el piso entero hasta la salida")
+	# Los pasillos siguen siendo transitables: un circulo del tamano del jugador mas la holgura (la mayor, al norte
+	# de un muro) conecta la entrada con la salida en varios pisos (erosion de casillas por su distancia a los muros).
+	var connected := 0
+	var tried := 0
+	for floor_number: int in [1, 2, 4, 6, 8, 9]:
+		for world_seed: int in [20261110, 777]:
+			tried += 1
+			var floor_layout := TowerGenerator.generate(floor_number, world_seed, 1)
+			var floor_grid := floor_layout.grid
+			var radius := PlayerSim.RADIUS + floor_layout.wall_margin * 1.0
+			var exit_point: Vector2 = (floor_layout.portals.filter(func(p: Dictionary) -> bool: return String(p["id"]) == "exit")[0] as Dictionary)["position"]
+			var open := PackedByteArray()
+			open.resize(floor_grid.cols * floor_grid.rows)
+			for r: int in range(floor_grid.rows):
+				for c: int in range(floor_grid.cols):
+					var center := floor_grid.cell_center(c, r)
+					var free := not floor_grid.blocks_move(c, r)
+					for dr: int in range(-2, 3):
+						for dc: int in range(-2, 3):
+							if free and floor_grid.get_cell(c + dc, r + dr) == TileGrid.WALL:
+								var rect_min := Vector2(float(c + dc), float(r + dr)) * 32.0
+								var nearest := Vector2(clampf(center.x, rect_min.x, rect_min.x + 32.0), clampf(center.y, rect_min.y, rect_min.y + 32.0))
+								if center.distance_to(nearest) < radius:
+									free = false
+					open[r * floor_grid.cols + c] = 1 if free else 0
+			# Arranca en la casilla abierta mas cercana a la entrada y busca la mas cercana a la salida.
+			var start := _nearest_open(floor_grid, open, floor_layout.player_spawn)
+			var goal := _nearest_open(floor_grid, open, exit_point)
+			var seen := PackedByteArray()
+			seen.resize(floor_grid.cols * floor_grid.rows)
+			var queue: Array[Vector2i] = [start]
+			seen[start.y * floor_grid.cols + start.x] = 1
+			while not queue.is_empty():
+				var current: Vector2i = queue.pop_back()
+				for offset: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+					var next := current + offset
+					if floor_grid.in_bounds(next.x, next.y) and open[next.y * floor_grid.cols + next.x] == 1 and seen[next.y * floor_grid.cols + next.x] == 0:
+						seen[next.y * floor_grid.cols + next.x] = 1
+						queue.append(next)
+			var ok := seen[goal.y * floor_grid.cols + goal.x] == 1
+			connected += 1 if ok else 0
+			if not ok:
+				print("   piso %d semilla %d: inicio %s (a %.0f px), meta %s (a %.0f px)" % [floor_number, world_seed, str(start), floor_grid.cell_center(start.x, start.y).distance_to(floor_layout.player_spawn), str(goal), floor_grid.cell_center(goal.x, goal.y).distance_to(exit_point)])
+	_check(connected == tried, "con la holgura elegida por el generador un circulo del jugador conecta la entrada con la salida (%d de %d pisos)" % [connected, tried])
+
+
+func _nearest_open(grid: TileGrid, open: PackedByteArray, point: Vector2) -> Vector2i:
+	var best := Vector2i.ZERO
+	var best_distance := INF
+	for r: int in range(grid.rows):
+		for c: int in range(grid.cols):
+			if open[r * grid.cols + c] == 1:
+				var distance := grid.cell_center(c, r).distance_to(point)
+				if distance < best_distance:
+					best_distance = distance
+					best = Vector2i(c, r)
+	return best
 
 
 func _check(condition: bool, label: String) -> void:

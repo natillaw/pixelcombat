@@ -60,7 +60,110 @@ static func generate(floor_number: int, world_seed: int, visit: int = 1, forced:
 	MissionGen.populate(layout, analysis, content_rng, floor_number, tier_data, spike, forced)
 	if with_elite:
 		MissionGen.add_wandering_elite(layout, analysis, content_rng)
+	layout.wall_margin = _safe_margin(layout)
 	return layout
+
+
+## Mayor holgura (de la del bioma hacia 0) con la que la entrada sigue conectada con la salida y con todos los
+## enemigos y objetos del piso para un circulo del tamano del jugador mas la holgura (la mayor, al norte de un muro).
+static func _safe_margin(layout: FloorLayout) -> float:
+	var wanted := layout.wall_margin
+	if wanted <= 0.0 or layout.grid == null:
+		return wanted
+	var grid := layout.grid
+	var points: Array[Vector2] = [layout.player_spawn]
+	for portal: Dictionary in layout.portals:
+		points.append(portal["position"])
+	for enemy: Dictionary in layout.enemies:
+		points.append(enemy["position"])
+	for enemy: Dictionary in layout.deferred_enemies:
+		points.append(enemy["position"])
+	for object: Dictionary in layout.interactables:
+		points.append(object["position"])
+	for node: Dictionary in layout.resources:
+		points.append(node["position"])
+	var clearance := _clearance_px(grid)
+	for candidate: float in [wanted, wanted * 0.75, wanted * 0.5, wanted * 0.25]:
+		if _connected(grid, clearance, 20.0 + candidate * TileGrid.NORTH_MARGIN_FACTOR, points):
+			return candidate
+	return 0.0
+
+
+## Distancia (px) del centro de cada casilla a la pared mas cercana (transformada de distancia aproximada).
+static func _clearance_px(grid: TileGrid) -> PackedFloat32Array:
+	var cells := grid.cols * grid.rows
+	var dist := PackedFloat32Array()
+	dist.resize(cells)
+	for i: int in range(cells):
+		dist[i] = 0.0 if grid.get_cell(i % grid.cols, i / grid.cols) == TileGrid.WALL else 1.0e6
+	var steps := [Vector2i(-1, 0), Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1)]
+	for r: int in range(grid.rows):
+		for c: int in range(grid.cols):
+			for step: Vector2i in steps:
+				var nc := c + step.x
+				var nr := r + step.y
+				if nc >= 0 and nc < grid.cols and nr >= 0:
+					dist[r * grid.cols + c] = minf(dist[r * grid.cols + c], dist[nr * grid.cols + nc] + (1.0 if step.x == 0 or step.y == 0 else 1.4142))
+	var back := [Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1), Vector2i(-1, 1)]
+	for r: int in range(grid.rows - 1, -1, -1):
+		for c: int in range(grid.cols - 1, -1, -1):
+			for step: Vector2i in back:
+				var nc := c + step.x
+				var nr := r + step.y
+				if nc >= 0 and nc < grid.cols and nr < grid.rows:
+					dist[r * grid.cols + c] = minf(dist[r * grid.cols + c], dist[nr * grid.cols + nc] + (1.0 if step.x == 0 or step.y == 0 else 1.4142))
+	var out := PackedFloat32Array()
+	out.resize(cells)
+	for i: int in range(cells):
+		out[i] = dist[i] * float(TileGrid.TILE) - float(TileGrid.TILE) * 0.5
+	return out
+
+
+static func _connected(grid: TileGrid, clearance: PackedFloat32Array, radius: float, points: Array[Vector2]) -> bool:
+	var cells := grid.cols * grid.rows
+	var open := PackedByteArray()
+	open.resize(cells)
+	for i: int in range(cells):
+		open[i] = 1 if clearance[i] >= radius and not grid.blocks_move(i % grid.cols, i / grid.cols) else 0
+	var start := _nearest_open(grid, open, points[0])
+	if start.x < 0:
+		return false
+	var seen := PackedByteArray()
+	seen.resize(cells)
+	var queue: Array[Vector2i] = [start]
+	seen[start.y * grid.cols + start.x] = 1
+	while not queue.is_empty():
+		var current: Vector2i = queue.pop_back()
+		for offset: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			var next := current + offset
+			if next.x >= 0 and next.y >= 0 and next.x < grid.cols and next.y < grid.rows and open[next.y * grid.cols + next.x] == 1 and seen[next.y * grid.cols + next.x] == 0:
+				seen[next.y * grid.cols + next.x] = 1
+				queue.append(next)
+	for point: Vector2 in points:
+		var cell := grid.world_to_cell(point)
+		if not grid.in_bounds(cell.x, cell.y):
+			continue
+		# Un objetivo cuyo entorno inmediato esta cerrado por la holgura se acepta si hay una casilla abierta alcanzada en la casilla contigua (a alcance de golpe).
+		var reached := false
+		for dr: int in range(-1, 2):
+			for dc: int in range(-1, 2):
+				if grid.in_bounds(cell.x + dc, cell.y + dr) and seen[(cell.y + dr) * grid.cols + cell.x + dc] == 1:
+					reached = true
+		if not reached:
+			return false
+	return true
+
+
+static func _nearest_open(grid: TileGrid, open: PackedByteArray, point: Vector2) -> Vector2i:
+	var origin := grid.world_to_cell(point)
+	for radius: int in range(0, 6):
+		for dr: int in range(-radius, radius + 1):
+			for dc: int in range(-radius, radius + 1):
+				var c := origin.x + dc
+				var r := origin.y + dr
+				if grid.in_bounds(c, r) and open[r * grid.cols + c] == 1:
+					return Vector2i(c, r)
+	return Vector2i(-1, -1)
 
 
 static func _pick_style(rng: RandomNumberGenerator, styles: Array) -> String:

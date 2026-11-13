@@ -160,7 +160,8 @@ func load_layout(new_layout: FloorLayout) -> void:
 			obstacles.append({"position": object.position, "radius": 16.0, "hidden": true})
 	for node: ResourceNode in resource_nodes:
 		if node.kind != "herb":
-			obstacles.append({"position": node.position, "radius": 14.0, "hidden": true})
+			# Rocas de mineral: tan anchas como su sprite; arboles: solo el tronco.
+			obstacles.append({"position": node.position, "radius": 19.0 if node.kind == "ore" else 12.0, "hidden": true})
 	loading_layout = false
 	layout_loaded.emit(new_layout)
 

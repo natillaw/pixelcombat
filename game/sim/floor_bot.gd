@@ -16,6 +16,7 @@ var _stuck: int = 0
 var _target: EnemySim = null
 ## Enemigos a los que no hay camino desde donde esta el bot (se descartan y se prueba con otro).
 var _ignored: Array = []
+var _field_grid: TileGrid = null
 
 
 func decide(world: CombatWorld) -> InputMessage:
@@ -35,13 +36,17 @@ func decide(world: CombatWorld) -> InputMessage:
 	if goal == null or world.grid == null:
 		return message
 	var cell := world.grid.world_to_cell((goal as EnemySim).position)
-	if cell != _goal_cell:
+	if cell != _goal_cell or _field_grid != world.grid:
 		_goal_cell = cell
+		_field_grid = world.grid
 		_field = world.grid.distance_field(cell, 100000)
 	var here := world.grid.world_to_cell(player.position)
-	if _field[here.y * world.grid.cols + here.x] < 0 and _target != null:
+	if world.grid.in_bounds(here.x, here.y) and _field[here.y * world.grid.cols + here.x] < 0 and _target != null:
 		_ignored.append(_target)
 		_target = null
+		# Si ya no queda ninguno al que haya camino, se vuelve a intentar con todos (el mapa cambia al moverse).
+		if _ignored.size() > world.enemies.size():
+			_ignored.clear()
 		return message
 	var direction := world.grid.flow_direction(_field, player.position)
 	if direction == Vector2.ZERO:
@@ -76,6 +81,7 @@ func _nearest_target(world: CombatWorld) -> Object:
 ## El enemigo vivo mas cercano por camino (el que hay que matar para avanzar); los protegidos
 ## por un escudo se dejan para el final.
 func _goal(world: CombatWorld) -> Variant:
+	_ignored = _ignored.filter(func(e: EnemySim) -> bool: return world.enemies.has(e))
 	if _target != null and _target.alive and world.enemies.has(_target):
 		return _target
 	var best: Variant = null
@@ -89,3 +95,5 @@ func _goal(world: CombatWorld) -> Variant:
 			best = enemy
 	_target = best as EnemySim
 	return best
+
+

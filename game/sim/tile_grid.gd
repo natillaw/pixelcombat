@@ -73,6 +73,8 @@ func blocks_shot(c: int, r: int) -> bool:
 ## Holgura extra (px) contra las casillas WALL: la copa de los arboles de los muros sobresale de su casilla,
 ## asi que el centro de un personaje no se acerca a ellos tanto como a otros obstaculos.
 var wall_margin: float = 0.0
+## Al norte de un muro (donde la copa se alza sobre el suelo) la holgura es mayor: el personaje queda lejos del follaje.
+const NORTH_MARGIN_FACTOR := 1.4
 
 
 func is_walkable_point(point: Vector2) -> bool:
@@ -86,13 +88,15 @@ func push_out(position: Vector2, radius: float) -> Vector2:
 	var base_radius := radius
 	for pass_index: int in range(2):
 		var cell := world_to_cell(pos)
-		var span := int(ceil((base_radius + wall_margin) / TILE)) + 1
+		var span := int(ceil((base_radius + wall_margin * NORTH_MARGIN_FACTOR) / TILE)) + 1
 		for r: int in range(cell.y - span, cell.y + span + 1):
 			for c: int in range(cell.x - span, cell.x + span + 1):
 				if not blocks_move(c, r):
 					continue
-				radius = base_radius + (wall_margin if get_cell(c, r) == WALL else 0.0)
 				var rect_min := Vector2(float(c), float(r)) * TILE
+				radius = base_radius
+				if get_cell(c, r) == WALL:
+					radius += wall_margin * (NORTH_MARGIN_FACTOR if pos.y < rect_min.y else 1.0)
 				var nearest := Vector2(clampf(pos.x, rect_min.x, rect_min.x + TILE), clampf(pos.y, rect_min.y, rect_min.y + TILE))
 				var diff := pos - nearest
 				var dist_sq := diff.length_squared()
