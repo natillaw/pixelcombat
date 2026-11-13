@@ -54,6 +54,7 @@ var _rng := RandomNumberGenerator.new()
 ## no con el delta escalado). Los ticks de la simulacion siguen contandose igual, solo tardan mas en llegar.
 const HITSTOP_SCALE := 0.04
 var _hitstop_until_ms: int = 0
+var _freeze_until_ms: int = 0
 var _slowmo_until_ms: int = 0
 var _slowmo_scale: float = 1.0
 var _punch: float = 0.0
@@ -64,12 +65,29 @@ var _punching: bool = false
 func hit_stop(seconds: float) -> void:
 	if seconds <= 0.0 or DisplayServer.get_name() == "headless":
 		return
-	_hitstop_until_ms = maxi(_hitstop_until_ms, Time.get_ticks_msec() + int(seconds * 1000.0))
+	var until := Time.get_ticks_msec() + int(seconds * 1000.0)
+	if time_dilation_allowed():
+		_hitstop_until_ms = maxi(_hitstop_until_ms, until)
+	else:
+		# En red / PvP el reloj de la simulacion no se toca: solo se congelan los sprites un instante.
+		_freeze_until_ms = maxi(_freeze_until_ms, Time.get_ticks_msec() + int(seconds * 600.0))
+
+
+## Los actores se quedan quietos (solo la imagen) mientras dura el congelado visual.
+func is_frozen() -> bool:
+	return Time.get_ticks_msec() < _freeze_until_ms
+
+
+## `Engine.time_scale` solo se toca en un solo jugador sin red: en una partida en red (servidor o cliente) o
+## en un duelo PvP retrasaria el tick de la simulacion de ese jugador y lo desincronizaria del resto.
+func time_dilation_allowed() -> bool:
+	var network := get_node_or_null("/root/NetworkManager")
+	return network == null or not (network.is_server() or network.is_client())
 
 
 ## Camara lenta (escala 0-1) durante `seconds` reales: muertes de jefes y del jugador.
 func slowmo(scale: float, seconds: float) -> void:
-	if seconds <= 0.0 or DisplayServer.get_name() == "headless":
+	if seconds <= 0.0 or DisplayServer.get_name() == "headless" or not time_dilation_allowed():
 		return
 	_slowmo_scale = scale
 	_slowmo_until_ms = maxi(_slowmo_until_ms, Time.get_ticks_msec() + int(seconds * 1000.0))
@@ -83,7 +101,10 @@ func punch_zoom(amount: float) -> void:
 func _update_feel(delta: float) -> void:
 	var now := Time.get_ticks_msec()
 	var target := 1.0
-	if now < _hitstop_until_ms:
+	if not time_dilation_allowed():
+		_hitstop_until_ms = 0
+		_slowmo_until_ms = 0
+	elif now < _hitstop_until_ms:
 		target = HITSTOP_SCALE
 	elif now < _slowmo_until_ms:
 		target = _slowmo_scale

@@ -90,6 +90,9 @@ func _connect_signals() -> void:
 func _process(delta: float) -> void:
 	if sim == null:
 		return
+	if arena != null and arena.is_frozen():
+		sprite.speed_scale = 0.0              # congelado visual (hit-stop en red): la sim sigue, la imagen espera
+		return
 	position = sim.position + _kick
 	_kick *= exp(-14.0 * delta)
 	_flash = maxf(0.0, _flash - delta)

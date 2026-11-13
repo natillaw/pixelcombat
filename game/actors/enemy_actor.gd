@@ -138,6 +138,9 @@ func _lpc_animation() -> void:
 func _process(delta: float) -> void:
 	if sim == null:
 		return
+	if arena != null and arena.is_frozen():
+		sprite.speed_scale = 0.0
+		return
 	position = sim.position + _kick
 	_kick *= exp(-12.0 * delta)
 	if _is_lpc:
