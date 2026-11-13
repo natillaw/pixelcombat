@@ -54,6 +54,7 @@ var _banner_time: float = 0.0
 var _tip: String = ""
 var _tip_time: float = 0.0
 var _boss_bar_seen: bool = false
+var _cap_warned: bool = false
 ## Segundos reales desde que murio el jugador (el telon de la muerte aparece poco a poco).
 var _death_time: float = 0.0
 
@@ -78,6 +79,7 @@ func bind(p_world: CombatWorld, p_session: GameSession = null) -> void:
 		_on_location_tip(session.layout)
 	if world != null and world.player != null:
 		world.player.item_gained.connect(_on_item_gained)
+		world.player.xp_gained.connect(_on_xp_for_cap)
 		world.player.bag_full.connect(_on_bag_full)
 		world.player.material_gained.connect(_on_material_gained)
 		world.gather_interrupted.connect(_on_gather_interrupted)
@@ -120,6 +122,16 @@ func _on_location_tip(layout: FloorLayout) -> void:
 		show_tip("city")
 	elif layout.kind == FloorLayout.KIND_FLOOR and layout.floor_number == 1:
 		show_tip("floor_1")
+
+
+## Primera vez que ganas XP con el nivel al tope del piso: aviso de por que no subes.
+func _on_xp_for_cap(_amount: int, _at: Vector2) -> void:
+	var player: PlayerSim = world.player
+	if player.level >= player.effective_max_level() and player.level < Progression.max_level() and not _cap_warned:
+		_cap_warned = true
+		_on_message("Nivel tope del piso: completa el piso para seguir subiendo.")
+	elif player.level < player.effective_max_level():
+		_cap_warned = false
 
 
 func _on_message(text: String) -> void:
