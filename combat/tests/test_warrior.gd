@@ -12,7 +12,7 @@ const StatsScript: GDScript = preload("res://combat/stats.gd")
 ## Skills del Skill Book jugables hoy (data/skills/warrior.json). Al implementar
 ## una nueva, se anade aqui: este contrato fija que nada se marca jugable sin
 ## estar en el catalogo.
-const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind", "throwing_axe", "execute", "second_wind"]
+const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "charge", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind", "throwing_axe", "execute", "second_wind"]
 
 var _failures: int = 0
 var _checks: int = 0
@@ -99,7 +99,7 @@ func _test_special_and_ultimate() -> void:
 
 func _test_skill_book() -> void:
 	var book := WarriorKit.get_skill_book()
-	_check(book.size() == 12, "Skill Book has 12 entries")
+	_check(book.size() == 13, "Skill Book has 13 entries")
 
 	var seen: Dictionary = {}
 	for entry: Dictionary in book:

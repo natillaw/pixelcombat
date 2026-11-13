@@ -93,7 +93,7 @@ func _test_unlocks_by_level() -> void:
 	var unlocked: Array = []
 	warrior.leveled_up.connect(func(_level: int, ids: Array) -> void: unlocked.append(ids))
 	warrior.set_level(2)
-	_check(warrior.loadout.has("S1") and warrior.loadout["S1"]["id"] == &"rend", "el nivel 2 desbloquea Rend (Q)")
+	_check(warrior.loadout.has("S1") and warrior.loadout["S1"]["id"] == &"charge", "el nivel 2 desbloquea Charge (Q)")
 	warrior.set_level(4)
 	_check(warrior.loadout.has("S2") and warrior.loadout["S2"]["id"] == &"war_cry", "el nivel 4 desbloquea War Cry (E)")
 	_check(not warrior.loadout.has("ULTIMATE"), "la Ultimate sigue bloqueada en el nivel 4")
@@ -103,7 +103,7 @@ func _test_unlocks_by_level() -> void:
 	warrior.set_level(8)
 	_check(warrior.loadout.has("S3") and warrior.loadout["S3"]["id"] == &"shockwave", "el nivel 8 desbloquea Shockwave (R)")
 	_check(unlocked.size() == 4, "cada subida emite leveled_up (%d)" % unlocked.size())
-	_check(unlocked[0] == [&"rend"] and unlocked[1] == [&"war_cry"], "leveled_up lista las skills nuevas")
+	_check(unlocked[0] == [&"charge"] and unlocked[1] == [&"war_cry"], "leveled_up lista las skills nuevas")
 
 
 func _test_one_grant_many_levels() -> void:
@@ -114,7 +114,7 @@ func _test_one_grant_many_levels() -> void:
 	_check(warrior.level == 6 and warrior.xp == 10, "una gran cantidad de XP sube varios niveles (nivel %d, xp %d)" % [warrior.level, warrior.xp])
 	_check(events.size() == 1 and events[0][0] == 6, "se emite un solo leveled_up con el nivel final")
 	var ids: Array = events[0][1] if not events.is_empty() else []
-	_check(ids == [&"rend", &"war_cry", &"war_gods_descent"], "y lista todas las skills desbloqueadas por orden de nivel")
+	_check(ids == [&"charge", &"war_cry", &"war_gods_descent"], "y lista todas las skills desbloqueadas por orden de nivel")
 	_check(warrior.loadout.has("S1") and warrior.loadout.has("S2") and warrior.loadout.has("ULTIMATE"), "todas quedan equipadas")
 	_check(warrior.xp_to_next() == Progression.xp_to_next(6), "xp_to_next refleja el nivel actual")
 
@@ -143,10 +143,10 @@ func _test_level_down() -> void:
 
 func _test_set_loadout_respects_levels() -> void:
 	var warrior := _warrior()
-	warrior.set_loadout({"M1": &"warrior_m1", "S1": &"rend", "ULTIMATE": &"war_gods_descent"})
+	warrior.set_loadout({"M1": &"warrior_m1", "S1": &"charge", "ULTIMATE": &"war_gods_descent"})
 	_check(warrior.loadout.has("M1") and not warrior.loadout.has("S1") and not warrior.loadout.has("ULTIMATE"), "set_loadout ignora skills bloqueadas por nivel")
 	warrior.set_level(10)
-	warrior.set_loadout({"S4": &"rend", "S2": &"warrior_m2"})
+	warrior.set_loadout({"S4": &"charge", "S2": &"warrior_m2"})
 	_check(warrior.loadout.has("S4") and not warrior.loadout.has("S2"), "set_loadout respeta que la skill quepa en el slot")
 
 
@@ -155,11 +155,11 @@ func _test_set_loadout_respects_levels() -> void:
 
 func _test_equip_reasons() -> void:
 	var warrior := _warrior()
-	_check(warrior.equip("S1", &"rend") == "locked", "equipar una skill bloqueada devuelve locked")
+	_check(warrior.equip("S1", &"charge") == "locked", "equipar una skill bloqueada devuelve locked")
 	_check(warrior.equip("S1", &"no_existe") == "unknown", "una skill inexistente devuelve unknown")
-	_check(warrior.equip("S9", &"rend") == "slot", "un slot inexistente devuelve slot")
+	_check(warrior.equip("S9", &"charge") == "slot", "un slot inexistente devuelve slot")
 	warrior.set_level(10)
-	_check(warrior.equip("ULTIMATE", &"rend") == "wrong_slot", "una skill normal no cabe en el slot de la ultimate")
+	_check(warrior.equip("ULTIMATE", &"charge") == "wrong_slot", "una skill normal no cabe en el slot de la ultimate")
 	_check(warrior.equip("S1", &"war_gods_descent") == "wrong_slot", "la ultimate no cabe en un slot normal")
 	_check(warrior.equip("M1", &"warrior_m2") == "wrong_slot", "M2 no cabe en el slot M1")
 	var world := _world()
@@ -167,7 +167,7 @@ func _test_equip_reasons() -> void:
 	world.player.resource.current_amount = 50.0
 	_step(world, 1, _input({"s1": true}))
 	_check(world.player.state != PlayerSim.AttackState.IDLE, "(preparacion) la skill esta en curso")
-	_check(world.player.equip("S3", &"rend") == "busy", "no se puede equipar mientras se ataca")
+	_check(world.player.equip("S3", &"charge") == "busy", "no se puede equipar mientras se ataca")
 	_check(not world.player.can_edit_loadout(), "can_edit_loadout es falso en pleno ataque")
 
 
@@ -176,7 +176,7 @@ func _test_equip_moves_and_unequips() -> void:
 	warrior.set_level(10)
 	var changes: Array = []
 	warrior.loadout_changed.connect(func() -> void: changes.append(true))
-	_check(warrior.equip("S3", &"rend") == "", "se puede equipar una skill desbloqueada en otro slot")
+	_check(warrior.equip("S3", &"charge") == "", "se puede equipar una skill desbloqueada en otro slot")
 	_check(warrior.loadout.has("S3") and not warrior.loadout.has("S1"), "una skill ya equipada se mueve de slot, no se duplica")
 	_check(changes.size() == 1, "equipar emite loadout_changed")
 	_check(warrior.unequip("S3") and not warrior.loadout.has("S3"), "unequip vacia el slot")
@@ -195,7 +195,7 @@ func _test_cooldown_follows_the_skill() -> void:
 	var left_before: float = world.player.attack_cooldown_left("S1")
 	_check(left_before > 4.0, "Rend esta en cooldown (%.1f s)" % left_before)
 	_check(world.player.unequip("S1"), "se retira de S1")
-	_check(world.player.equip("S4", &"rend") == "", "y se equipa en S4")
+	_check(world.player.equip("S4", &"charge") == "", "y se equipa en S4")
 	_check(world.player.attack_cooldown_left("S4") > 4.0, "el cooldown se conserva al cambiarla de slot (no se puede evadir cambiando el loadout)")
 
 

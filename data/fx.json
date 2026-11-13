@@ -2220,6 +2220,21 @@
 			"cast": [],
 			"hit": "ice/snowball-impact"
 		},
+		"charge": {
+			"cast": [
+				{
+					"id": "melee/axe-smear",
+					"scale": 1.2,
+					"ahead": 0.4
+				},
+				{
+					"id": "impacts/shockwave-ring",
+					"scale": 0.6,
+					"at": "self"
+				}
+			],
+			"hit": "impacts/shockwave-ring"
+		},
 		"rend": {
 			"cast": [
 				{
@@ -2295,6 +2310,61 @@
 					"seconds": 1.2
 				}
 			]
+		},
+		"shadow_step": {
+			"cast": [
+				{
+					"id": "smoke/dash-dust",
+					"scale": 1.0,
+					"at": "self"
+				}
+			]
+		},
+		"stealth": {
+			"cast": [
+				{
+					"id": "smoke/smoke-bomb",
+					"scale": 0.9,
+					"at": "self"
+				}
+			]
+		},
+		"vanish": {
+			"cast": [
+				{
+					"id": "smoke/smoke-bomb",
+					"scale": 1.2,
+					"at": "self"
+				}
+			]
+		},
+		"smoke_bomb": {
+			"cast": [
+				{
+					"id": "smoke/smoke-bomb",
+					"scale": 1.6,
+					"at": "self"
+				}
+			]
+		},
+		"caltrops": {
+			"cast": [
+				{
+					"id": "arcane/rune-trap",
+					"scale": 1.0,
+					"ahead": 0.9
+				}
+			]
+		},
+		"disarm": {
+			"cast": [
+				{
+					"id": "melee/shadow-claw",
+					"scale": 1.0,
+					"ahead": 0.5
+				}
+			],
+			"hit": "impacts/parry"
 		}
 	},
 	"events": {
@@ -2571,6 +2641,69 @@
 				"id": "impacts/shockwave-ring",
 				"scale": 0.5,
 				"up": 2
+			}
+		],
+		"shadow_step_out": [
+			{
+				"id": "arcane/blink-out",
+				"scale": 0.9,
+				"up": 0
+			}
+		],
+		"shadow_step_in": [
+			{
+				"id": "arcane/teleport-in",
+				"scale": 0.9,
+				"up": 0
+			}
+		],
+		"stealth_break": [
+			{
+				"id": "smoke/smoke-bomb",
+				"scale": 0.7,
+				"up": 0
+			}
+		],
+		"status_stealth": [
+			{
+				"id": "smoke/dust-puff",
+				"scale": 0.8,
+				"up": 8
+			}
+		],
+		"status_vanish": [
+			{
+				"id": "smoke/dust-puff",
+				"scale": 0.8,
+				"up": 8
+			}
+		],
+		"status_concealed": [
+			{
+				"id": "smoke/dust-puff",
+				"scale": 0.8,
+				"up": 8
+			}
+		],
+		"status_backstab": [
+			{
+				"id": "smoke/dust-puff",
+				"scale": 0.8,
+				"up": 8
+			}
+		],
+		"status_disarm": [
+			{
+				"id": "impacts/parry",
+				"scale": 0.7,
+				"up": 12
+			}
+		],
+		"status_stagger": [
+			{
+				"id": "impacts/hit-spark",
+				"scale": 0.9,
+				"up": 12
 			}
 		]
 	},

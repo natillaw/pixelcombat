@@ -34,6 +34,8 @@ const CONTACT_GAP := 2.0
 const PHASE_PAUSE := 1.2
 ## Maximo de crias invocadas vivas a la vez.
 const MAX_SUMMONS := 6
+## Con el jugador oculto, un enemigo normal solo lo nota a tan poca distancia (px).
+const HIDDEN_NOTICE := 45.0
 ## Distancia a la que un enemigo avisa a su campamento.
 const GROUP_ALERT_RANGE := 420.0
 ## Cuantos cuerpo a cuerpo de un mismo campamento atacan a la vez; los demas rodean.
@@ -92,7 +94,12 @@ func _init(p_world: Object, p_def_id: StringName, p_position: Vector2, rng_seed:
 	assert(not data.is_empty(), "enemigo desconocido: %s" % p_def_id)
 	position = p_position
 	spawn_position = p_position
-	statuses.resist = data.get("resist", {})
+	statuses.resist = (data.get("resist", {}) as Dictionary).duplicate()
+	if bool(data.get("boss", false)):
+		# Los jefes (y el elite errante) no se dejan controlar: inmunes a aturdir, silenciar, empujar, atraer y desarmar; frenan la mitad.
+		for id: String in ["stun", "silence", "knockback", "pull", "disarm"]:
+			statuses.resist[id] = 1.0
+		statuses.resist["slow"] = maxf(float(statuses.resist.get("slow", 0.0)), 0.5)
 	radius = float(data["stats"]["radius"])
 	max_health = float(data["stats"]["health"])
 	health = max_health
@@ -181,7 +188,7 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 	var target_alive: bool = warrior != null and bool(warrior.alive)
 	match state:
 		State.IDLE:
-			if target_alive and position.distance_to(warrior.position) <= float(data["ai"]["aggro_range"]) and (world == null or world.line_of_sight(position, warrior.position)):
+			if target_alive and position.distance_to(warrior.position) <= _notice_range(warrior) and (world == null or world.line_of_sight(position, warrior.position)):
 				_aggro()
 		State.CHASE:
 			_step_chase(delta, warrior, target_alive)
@@ -208,6 +215,14 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 				state_time = 0.0
 
 
+## Distancia a la que nota al jugador: su rango normal, o muy poca si esta oculto (sigilo, humo); los jefes siempre lo ven.
+func _notice_range(warrior: Object) -> float:
+	var normal := float(data["ai"]["aggro_range"])
+	if not is_boss() and warrior.has_method("is_hidden") and warrior.is_hidden():
+		return minf(normal, HIDDEN_NOTICE)
+	return normal
+
+
 func _aggro() -> void:
 	state = State.CHASE
 	state_time = 0.0
@@ -226,6 +241,10 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 	var to_target: Vector2 = warrior.position - position
 	var distance := to_target.length()
 	if distance > float(data["ai"]["aggro_range"]) * float(data["ai"]["leash"]):
+		state = State.IDLE
+		return
+	if not is_boss() and warrior.has_method("is_hidden") and warrior.is_hidden() and distance > HIDDEN_NOTICE:
+		# El jugador se oculto: pierde su pista y vuelve a lo suyo.
 		state = State.IDLE
 		return
 	if distance > 0.001:
@@ -288,6 +307,8 @@ func _melee_slots_full(attack: Dictionary) -> bool:
 func _pick_attack(distance: float) -> Dictionary:
 	var ready: Array = []
 	var total := 0.0
+	if statuses.has("disarm"):
+		return {}
 	var allowed := _allowed_attack_ids()
 	for attack: Dictionary in data["attacks"]:
 		if not allowed.is_empty() and not allowed.has(String(attack["id"])):
@@ -447,7 +468,7 @@ func apply_status(id: String, duration: float, strength: float = 0.0, source: Ve
 	if applied and id == "knockback":
 		push_from(source, strength)
 		return true
-	if applied and id == "stun":
+	if applied and (id == "stun" or id == "stagger"):
 		state = State.STUN
 		state_time = 0.0
 		current_attack = {}

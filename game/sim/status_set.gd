@@ -101,14 +101,20 @@ func is_immune(id: String) -> bool:
 
 
 func is_stunned() -> bool:
-	return _active.has("stun")
+	return _active.has("stun") or _active.has("stagger")
+
+
+## Quita un estado (p. ej. el backstab al usarlo). No inicia inmunidad.
+func remove(id: String) -> void:
+	if _active.erase(id):
+		expired.emit(id)
 
 
 ## Multiplicador de velocidad de movimiento: 0 aturdido; 1 - strength con slow.
 func speed_mult() -> float:
 	if is_stunned():
 		return 0.0
-	var mult := 1.0 + strength("haste")
+	var mult := 1.0 + strength("haste") + strength("vanish")
 	if _active.has("slow"):
 		mult *= 1.0 - strength("slow")
 	return mult

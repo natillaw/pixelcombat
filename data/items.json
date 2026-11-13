@@ -52,7 +52,7 @@
 			],
 			"stat_mult": 1.9,
 			"affixes": 3,
-			"weight": 2.5,
+			"weight": 1.5,
 			"value_mult": 12
 		},
 		{
@@ -65,7 +65,7 @@
 			],
 			"stat_mult": 2.1,
 			"affixes": 3,
-			"weight": 1.2,
+			"weight": 0.3,
 			"value_mult": 25
 		},
 		{
@@ -78,7 +78,7 @@
 			],
 			"stat_mult": 2.3,
 			"affixes": 4,
-			"weight": 0.5,
+			"weight": 0.01,
 			"value_mult": 60
 		}
 	],

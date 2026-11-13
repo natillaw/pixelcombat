@@ -42,7 +42,7 @@ func _test_base_kits() -> void:
 		var world := _make(class_id)
 		var slots: Array = world.player.loadout.keys()
 		slots.sort()
-		var expected: Array = ["M1", "M2", "S1", "S2", "ULTIMATE"] if class_id == "warrior" else ["M1", "M2", "S1", "SPECIAL", "ULTIMATE"]
+		var expected: Array = ["M1", "M2", "S1", "S2", "ULTIMATE"] if class_id == "warrior" or class_id == "rogue" else ["M1", "M2", "S1", "SPECIAL", "ULTIMATE"]
 		_check(slots == expected, "%s: el kit base son 5 skills (%s)" % [class_id, str(slots)])
 		var shapes := {}
 		for slot: String in slots:

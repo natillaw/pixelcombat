@@ -40,6 +40,7 @@ SUITES=(
     "tests/test_narrative.gd"
     "tests/test_quests.gd"
     "tests/test_warrior_kit.gd"
+    "tests/test_rogue_kit.gd"
     "tests/test_skill_catalog.gd"
     "tests/test_skills.gd"
     "tests/test_ultimate.gd"

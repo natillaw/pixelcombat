@@ -87,6 +87,9 @@ func _process(delta: float) -> void:
 		return
 	position = sim.position
 	_flash = maxf(0.0, _flash - delta)
+	# Oculto (sigilo, humo): casi transparente.
+	if sim.alive:
+		sprite.self_modulate.a = 0.35 if sim.is_hidden() else 1.0
 
 	if sim.alive:
 		if _dead_visual:
@@ -151,7 +154,14 @@ func _update_animation() -> void:
 		var speed_ratio := sim.velocity.length() / PlayerSim.MOVE_SPEED
 		sprite.speed_scale = clampf(0.75 + speed_ratio * 0.55, 0.75, 1.4)
 	else:
-		_play("combat_idle")
+		_play(_idle_name())
+
+
+## En la ciudad (zona segura) el personaje descansa con la pose normal, sin guardia de combate.
+func _idle_name() -> String:
+	if sim.safe_zone and sprite.sprite_frames != null and sprite.sprite_frames.has_animation("idle_%s" % _facing):
+		return "idle"
+	return "combat_idle"
 
 
 func _play(anim: String) -> void:
@@ -249,7 +259,7 @@ func _restore_visual() -> void:
 	sprite.position = LpcComposer.FEET_OFFSET
 	sprite.modulate = Color.WHITE
 	sprite.speed_scale = 1.0
-	sprite.play("combat_idle_%s" % _facing)
+	sprite.play("%s_%s" % [_idle_name(), _facing])
 
 
 ## Durante la esquiva el sprite se vuelve semitransparente (mientras dura la
@@ -333,7 +343,7 @@ func _refresh_look() -> void:
 func _on_class_changed(_new_class_id: String) -> void:
 	_look_key = str([ClassLook.equipment(sim.class_id, sim.equipment), sim.appearance].hash())
 	sprite.sprite_frames = ClassLook.frames(sim.class_id, sim.equipment, sim.appearance)
-	sprite.play("combat_idle_%s" % _facing)
+	sprite.play("%s_%s" % [_idle_name(), _facing])
 	_current_skill = {}
 	if arena != null:
 		arena.spawn_impact(sim.position, Color(0.8, 0.9, 1.0, 1.0), true)

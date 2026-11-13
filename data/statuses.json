@@ -178,6 +178,93 @@
 				1.0,
 				1.0
 			]
+		},
+		{
+			"id": "stealth",
+			"name": "Stealth",
+			"kind": "buff",
+			"description": "Invisible para los enemigos normales (strength = bonus del primer golpe).",
+			"max_duration": 20.0,
+			"max_strength": 1.0,
+			"immune_after": 0.0,
+			"color": [
+				0.6,
+				0.6,
+				0.75,
+				1.0
+			]
+		},
+		{
+			"id": "vanish",
+			"name": "Vanish",
+			"kind": "buff",
+			"description": "Invisible, mas rapido y sobrevives al primer golpe (strength = bonus de velocidad).",
+			"max_duration": 6.0,
+			"max_strength": 0.6,
+			"immune_after": 0.0,
+			"color": [
+				0.7,
+				0.5,
+				0.9,
+				1.0
+			]
+		},
+		{
+			"id": "concealed",
+			"name": "Concealed",
+			"kind": "buff",
+			"description": "Oculto por el humo unos segundos.",
+			"max_duration": 5.0,
+			"immune_after": 0.0,
+			"color": [
+				0.5,
+				0.5,
+				0.55,
+				1.0
+			]
+		},
+		{
+			"id": "backstab",
+			"name": "Backstab",
+			"kind": "buff",
+			"description": "El siguiente golpe hace dano extra (strength = fraccion).",
+			"max_duration": 4.0,
+			"max_strength": 1.0,
+			"immune_after": 0.0,
+			"color": [
+				0.9,
+				0.4,
+				0.4,
+				1.0
+			]
+		},
+		{
+			"id": "disarm",
+			"name": "Disarm",
+			"kind": "control",
+			"description": "No puede atacar (los jefes son inmunes).",
+			"max_duration": 3.0,
+			"immune_after": 0.0,
+			"color": [
+				0.9,
+				0.75,
+				0.4,
+				1.0
+			]
+		},
+		{
+			"id": "stagger",
+			"name": "Stagger",
+			"kind": "control",
+			"description": "Tambaleo corto (el parry a un jefe): pausa breve, no es un stun.",
+			"max_duration": 0.6,
+			"immune_after": 3.0,
+			"color": [
+				1.0,
+				0.85,
+				0.5,
+				1.0
+			]
 		}
 	]
 }

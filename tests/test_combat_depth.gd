@@ -84,7 +84,7 @@ func _test_statuses() -> void:
 	slime.apply_status("knockback", 0.2, 80.0, start)
 	_check(slime.position.x > slime_start.x + 70.0, "y a un enemigo")
 	var rask := push_world.add_enemy(&"bandit_rask", start + Vector2(400, 0))
-	_check(not rask.alive == false and rask.statuses.apply("knockback", 0.2, 80.0), "los jefes aceptan estados de empuje")
+	_check(rask.alive and not rask.statuses.apply("knockback", 0.2, 80.0), "los jefes son inmunes al empuje")
 
 
 func _test_enemy_buff() -> void:

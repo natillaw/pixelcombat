@@ -23,6 +23,7 @@ func _run() -> void:
 	_test_combo()
 	_test_slots_and_levels()
 	_test_rend_and_war_cry()
+	_test_charge()
 	_test_shockwave_and_stomp()
 	_test_books()
 	_test_book_skills()
@@ -99,7 +100,7 @@ func _test_slots_and_levels() -> void:
 	var low := _make(1)
 	_check(low.player.loadout.keys().size() == 2, "nivel 1: solo basicos")
 	var world := _make(3)
-	_check(world.player.loadout.has("S1") and not world.player.loadout.has("S2") and not world.player.loadout.has("ULTIMATE"), "nivel 3: Q (Rend)")
+	_check(world.player.loadout.has("S1") and not world.player.loadout.has("S2") and not world.player.loadout.has("ULTIMATE"), "nivel 3: Q (Charge)")
 	world.player.set_level(8)
 	_check(world.player.loadout.has("S3") and String(world.player.loadout["S3"]["id"]) == "shockwave" and world.player.loadout.has("ULTIMATE"), "nivel 8: R (Shockwave) y la ultimate")
 	world.player.safe_zone = true
@@ -107,6 +108,7 @@ func _test_slots_and_levels() -> void:
 	var early := _make(2)
 	early.player.safe_zone = true
 	early.player.learn_skill(&"ground_stomp")
+	early.player.learn_skill(&"rend")
 	_check(early.player.equip("S2", &"rend") == "slot_locked", "el hueco E no se abre antes del nivel 4")
 	_check(Progression.max_level() == 10, "el nivel maximo es 10")
 	for id: StringName in SkillCatalog.ids_for_class("warrior"):
@@ -115,6 +117,9 @@ func _test_slots_and_levels() -> void:
 
 func _test_rend_and_war_cry() -> void:
 	var world := _make()
+	world.player.safe_zone = true
+	world.player.learn_skill(&"rend")
+	world.player.equip("S1", &"rend")
 	var slime := world.add_enemy(&"slime", world.player.position + Vector2(45, 0))
 	slime.max_health = 1.0e6
 	slime.health = 1.0e6
@@ -136,6 +141,18 @@ func _test_rend_and_war_cry() -> void:
 	no_buff.player.take_damage(50.0, Vector2.ZERO, true)
 	buffed.player.take_damage(50.0, Vector2.ZERO, true)
 	_check(health_a - no_buff.player.health >= health_b - buffed.player.health, "War Cry no empeora la defensa")
+
+
+func _test_charge() -> void:
+	var world := _make()
+	var slime := world.add_enemy(&"slime", world.player.position + Vector2(140, 0))
+	slime.max_health = 1.0e6
+	slime.health = 1.0e6
+	var rage := world.player.resource_amount()
+	_step(world, 1, {"s1": true})
+	_step(world, 45, {})
+	_check(slime.statuses.has("stun") or slime.state == EnemySim.State.STUN, "Charge aturde al que embiste")
+	_check(world.player.resource_amount() >= rage, "y no cuesta Rage")
 
 
 func _test_shockwave_and_stomp() -> void:

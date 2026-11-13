@@ -127,6 +127,8 @@ func _can_use(player: PlayerSim, slot: String, distance: float, target: Object) 
 		return false
 	if skill.has("charges") and player.charges_left(slot) < 1.0:
 		return false
+	if skill.has("stealth_toggle") or skill.has("teleport_behind"):
+		return false
 	if skill.has("stance"):
 		return use_stances and _enemy_about_to_hit(player, float(skill["windup"]))
 	if skill.has("buff"):

@@ -400,6 +400,50 @@
 					"duration": 4,
 					"strength": 5
 				}
+			],
+			"world": true,
+			"source": "book"
+		},
+		{
+			"id": "charge",
+			"name": "Charge",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Movilidad / control",
+			"description": "Embistes hacia el cursor: si golpeas a alguien lo aturdes 2 s. No cuesta Rage.",
+			"hud_label": "CHARGE",
+			"shape": "circle",
+			"windup": 0.2,
+			"active": 0.15,
+			"recovery": 0.3,
+			"cooldown": 9,
+			"cost": 0,
+			"damage_mult": 0.7,
+			"resource_gain": 6,
+			"resource_cap": 12,
+			"max_targets": 1,
+			"move": {
+				"windup": 0.3,
+				"active": 0.1,
+				"recovery": 0.35
+			},
+			"anim": "thrust",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 2,
+			"class": "warrior",
+			"damage_type": "physical",
+			"range": 46,
+			"anchor": "aim_leap",
+			"leap_distance": 170,
+			"telegraph": true,
+			"uncancelable": true,
+			"on_hit": [
+				{
+					"id": "stun",
+					"duration": 2.0
+				}
 			]
 		},
 		{

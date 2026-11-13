@@ -48,6 +48,10 @@ m2["hold"] = {"max": 1.2, "damage_bonus": 0.9, "range_bonus": 0.3, "full_on_hit"
 # --- Skills base: Q, E, R ---
 rend = skill("rend", "Rend", "S", "skill", "Dano / sangrado", "Tajo corto que hace sangrar al enemigo 4 s.", "REND", "cone", 2, range=74, arc=80,
              damage_mult=1.2, cooldown=5, cost=20, windup=0.22, on_hit=[{"id": "bleed", "duration": 4, "strength": 5}])
+charge = skill("charge", "Charge", "S", "skill", "Movilidad / control", "Embistes hacia el cursor: si golpeas a alguien lo aturdes 2 s. No cuesta Rage.", "CHARGE", "circle", 2,
+               range=46, damage_mult=0.7, cooldown=9, cost=0, windup=0.2, active=0.15, recovery=0.3, anchor="aim_leap", leap_distance=170,
+               telegraph=True, uncancelable=True, max_targets=1, resource_gain=6, resource_cap=12, anim="thrust",
+               on_hit=[{"id": "stun", "duration": 2.0}])
 war_cry = skill("war_cry", "War Cry", "S", "skill", "Mejora / ofensiva", "Grito de guerra: +20 % de dano y +armadura durante 6 s y 30 de Rage al instante.", "CRY", "self", 4,
                 cooldown=14, cost=0, windup=0.3, active=0.3, recovery=0.2, damage_mult=0.1, resource_gain=0, resource_cap=0, ult_gain=0, ult_cap=0,
                 self_status={"id": "warcry", "duration": 6.0, "strength": 0.2}, resource_burst=30, anim="spellcast",
@@ -77,18 +81,25 @@ for retired_id in ["cleaving_strike", "piercing_thrust", "crushing_blow"]:
     by_id[retired_id]["world"] = True
 
 ids = [s["id"] for s in skills_doc["skills"]]
-for new in [rend, war_cry, shockwave, whirl]:
+for new in [charge, rend, war_cry, shockwave, whirl]:
     if new["id"] in by_id:
         by_id[new["id"]].update(new)
     else:
         skills_doc["skills"].append(new)
+# Rend pasa a ser un libro de skill; Charge ocupa la Q (debe ir antes que War Cry en el catalogo).
+lst = skills_doc["skills"]
+cur = {x["id"]: x for x in lst}
+cur["rend"]["world"] = True
+cur["rend"]["source"] = "book"
+lst.remove(cur["charge"])
+lst.insert(next(i for i, x in enumerate(lst) if x["id"] == "war_cry"), cur["charge"])
 save("data/skills/warrior.json", skills_doc)
 
 cls = load("data/classes/warrior.json")
-cls["default_loadout"] = {"M1": "warrior_m1", "M2": "warrior_m2", "S1": "rend", "S2": "war_cry", "S3": "shockwave", "ULTIMATE": "war_gods_descent"}
+cls["default_loadout"] = {"M1": "warrior_m1", "M2": "warrior_m2", "S1": "charge", "S2": "war_cry", "S3": "shockwave", "ULTIMATE": "war_gods_descent"}
 cls["passive_level"] = 8
-cls["mobility"] = {"name": "Bloqueo", "kind": "block", "description": "Mantener Espacio: escudo al frente (-70 % de dano, gasta Rage). Si empieza justo antes del golpe (0,12 s) es parry perfecto: sin dano, aturde al atacante y carga la ultimate.",
-                   "cooldown": 0.6, "parry_window": 0.12, "block_reduction": 0.7, "block_cost": 0.5, "block_arc": 150, "icon": "iron_counter"}
+cls["mobility"] = {"name": "Bloqueo", "kind": "block", "description": "Mantener Espacio: escudo al frente (-70 % de dano, gasta Rage al aguantar y al recibir golpes). Si empieza justo antes del golpe (0,12 s) es parry perfecto: sin dano, aturde al atacante y carga la ultimate.",
+                   "cooldown": 0.6, "parry_window": 0.12, "block_reduction": 0.7, "block_cost": 0.8, "block_drain": 5.0, "block_arc": 150, "icon": "iron_counter"}
 cls["ult_charge"]["on_parry"] = 14.0
 save("data/classes/warrior.json", cls)
 print("guerrero ok:", len(skills_doc["skills"]), "skills")

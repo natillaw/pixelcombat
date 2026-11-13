@@ -207,6 +207,90 @@
 			"price": 0,
 			"value": 60,
 			"icon": "skill_tome"
+		},
+		{
+			"id": "book_poisoned_blades",
+			"name": "Libro: Hojas envenenadas",
+			"kind": "book",
+			"description": "Ensena la habilidad Poisoned Blades del Picaro. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "poisoned_blades"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_blade_flurry",
+			"name": "Libro: Rafaga de cuchillas",
+			"kind": "book",
+			"description": "Ensena la habilidad Blade Flurry del Picaro. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "blade_flurry"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_smoke_bomb",
+			"name": "Libro: Bomba de humo",
+			"kind": "book",
+			"description": "Ensena la habilidad Smoke Bomb del Picaro. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "smoke_bomb"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_caltrops",
+			"name": "Libro: Abrojos",
+			"kind": "book",
+			"description": "Ensena la habilidad Caltrops del Picaro. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "caltrops"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_vanish",
+			"name": "Libro: Desvanecerse",
+			"kind": "book",
+			"description": "Ensena la habilidad Vanish del Picaro. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "vanish"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_disarm",
+			"name": "Libro: Desarmar",
+			"kind": "book",
+			"description": "Ensena la habilidad Disarm del Picaro. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "disarm"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
+		},
+		{
+			"id": "book_rend",
+			"name": "Libro: Desgarro",
+			"kind": "book",
+			"description": "Ensena la habilidad Rend del Guerrero. Al leerlo la aprendes y puedes cambiarla por una de tus skills Q, E o R en el libro de skills (Tab).",
+			"effect": {
+				"learn": "rend"
+			},
+			"price": 0,
+			"value": 60,
+			"icon": "skill_tome"
 		}
 	]
 }

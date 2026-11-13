@@ -46,8 +46,21 @@ const SLOTS := {
 	"feet": {"pos": Vector2(78, 200), "name": "Pies"},
 }
 
+## Mochila a la derecha del panel: rejilla de 5 columnas; se arrastra un item hasta su hueco para equiparlo.
+const BAG_X := 460.0
+const BAG_Y := 30.0
+const BAG_COLS := 5
+const BAG_CELL := 34.0
+## Pantalones (12 x 12): '#' es tela, el borde se oscurece solo.
+const PANTS_ART := [
+	"............", ".##########.", ".##########.", ".####..####.", ".####..####.", ".###....###.",
+	".###....###.", ".###....###.", ".###....###.", ".###....###.", ".###....###.", "............",
+]
+static var _pants_texture: ImageTexture
+
 var world: CombatWorld
 var is_open: bool = false
+var _drag_index: int = -1
 
 var _message: String = ""
 var _message_color: Color = Color(0.86, 0.80, 0.62)
@@ -83,7 +96,8 @@ func _toggle() -> void:
 	if is_open:
 		_was_paused = TickManager.is_paused()
 		TickManager.set_paused(true)
-		_message = "Clic en un hueco equipado para guardarlo en la mochila."
+		_drag_index = -1
+		_message = "Arrastra un item de la mochila a su hueco. Clic en un hueco para guardarlo."
 		_message_color = Color(0.86, 0.80, 0.62)
 	else:
 		TickManager.set_paused(_was_paused)
@@ -95,7 +109,38 @@ func _process(_delta: float) -> void:
 
 
 func _origin() -> Vector2:
-	return (Vector2(640.0, 360.0) - PANEL_SRC.size * SCALE) * 0.5 + Vector2(0.0, 4.0)
+	return Vector2(8.0, (360.0 - PANEL_SRC.size.y * SCALE) * 0.5 + 4.0)
+
+
+func _bag_rect(index: int) -> Rect2:
+	return Rect2(BAG_X + float(index % BAG_COLS) * BAG_CELL, BAG_Y + float(index / BAG_COLS) * BAG_CELL, BAG_CELL - 2.0, BAG_CELL - 2.0)
+
+
+func _bag_index_at(position: Vector2) -> int:
+	for i: int in range(ItemCatalog.bag_size()):
+		if _bag_rect(i).has_point(position):
+			return i
+	return -1
+
+
+## Icono de pantalones propio (el de la hoja era otro pecho).
+static func pants_texture() -> ImageTexture:
+	if _pants_texture != null:
+		return _pants_texture
+	var image := Image.create(12, 12, false, Image.FORMAT_RGBA8)
+	for y: int in range(12):
+		for x: int in range(12):
+			if String(PANTS_ART[y])[x] != "#":
+				continue
+			var edge := false
+			for offset: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+				var nx := x + offset.x
+				var ny := y + offset.y
+				if nx < 0 or ny < 0 or nx > 11 or ny > 11 or String(PANTS_ART[ny])[nx] != "#":
+					edge = true
+			image.set_pixel(x, y, Color(0.30, 0.20, 0.12) if edge else (Color(0.62, 0.45, 0.28) if y > 2 else Color(0.78, 0.60, 0.30)))
+	_pants_texture = ImageTexture.create_from_image(image)
+	return _pants_texture
 
 
 func _slot_rect(slot: String) -> Rect2:
@@ -110,20 +155,46 @@ func _slot_at(position: Vector2) -> String:
 
 
 func _gui_input(event: InputEvent) -> void:
-	if not is_open or not (event is InputEventMouseButton) or not event.pressed or (event as InputEventMouseButton).button_index != MOUSE_BUTTON_LEFT:
+	if not is_open or not (event is InputEventMouseButton) or (event as InputEventMouseButton).button_index != MOUSE_BUTTON_LEFT:
 		return
-	var slot := _slot_at((event as InputEventMouseButton).position)
-	if not slot.is_empty() and world.player.equipment.has(slot):
-		match world.player.unequip_gear(slot):
-			"":
-				_say("Guardado en la mochila.", Color(0.6, 0.9, 0.5))
-			"busy":
-				_say("Solo puedes cambiar de equipo en la ciudad o el patio.", Color(1.0, 0.55, 0.45))
-			"full":
-				_say("La mochila esta llena.", Color(1.0, 0.55, 0.45))
-			_:
-				_say("No se puede.", Color(1.0, 0.55, 0.45))
+	var position := (event as InputEventMouseButton).position
+	if event.pressed:
+		var index := _bag_index_at(position)
+		if index >= 0 and index < world.player.bag.size():
+			_drag_index = index
+		else:
+			var slot := _slot_at(position)
+			if not slot.is_empty() and world.player.equipment.has(slot):
+				_report(world.player.unequip_gear(slot), "Guardado en la mochila.")
+		accept_event()
+		return
+	# Al soltar: sobre un hueco equipa (si es el suyo); sobre la misma casilla es un clic y equipa tambien.
+	if _drag_index >= 0:
+		var index := _drag_index
+		_drag_index = -1
+		if index < world.player.bag.size():
+			var target := _slot_at(position)
+			var piece_slot := String(ItemCatalog.item(String((world.player.bag[index] as Dictionary)["id"]))["slot"])
+			if not target.is_empty() and target != piece_slot:
+				_say("Eso no va en ese hueco.", Color(1.0, 0.55, 0.45))
+			elif not target.is_empty() or _bag_index_at(position) == index:
+				_report(world.player.equip_from_bag(index), "Equipado.")
 	accept_event()
+
+
+func _report(reason: String, success: String) -> void:
+	var bad := Color(1.0, 0.55, 0.45)
+	match reason:
+		"":
+			_say(success, Color(0.6, 0.9, 0.5))
+		"busy":
+			_say("No puedes cambiar de equipo en pleno combate.", bad)
+		"class":
+			_say("Tu clase no puede equipar eso.", bad)
+		"full":
+			_say("La mochila esta llena.", bad)
+		_:
+			_say("No se puede.", bad)
 
 
 func _say(text: String, color: Color) -> void:
@@ -149,6 +220,7 @@ func _draw() -> void:
 		_draw_slot(slot, player)
 		if _slot_rect(slot).has_point(get_local_mouse_position()):
 			hovered = slot
+	_draw_bag(player, hovered)
 	_draw_text_area(player, origin, hovered)
 	_text(_message, Vector2(0, 352), TEXT, _message_color, HORIZONTAL_ALIGNMENT_CENTER, 640.0)
 
@@ -163,9 +235,31 @@ func _draw_figure(player: PlayerSim, origin: Vector2) -> void:
 	draw_texture_rect(texture, Rect2(center - Vector2(64, 64), Vector2(128, 128)), false)
 
 
+func _draw_bag(player: PlayerSim, _hovered: String) -> void:
+	_text("MOCHILA  %d/%d" % [player.bag.size(), ItemCatalog.bag_size()], Vector2(BAG_X, BAG_Y - 6.0), 14, TITLE, HORIZONTAL_ALIGNMENT_LEFT, 172.0)
+	for i: int in range(ItemCatalog.bag_size()):
+		var rect := _bag_rect(i)
+		UiStyle.draw_slot_bg(self, rect)
+		if i >= player.bag.size() or i == _drag_index:
+			continue
+		var piece: Dictionary = player.bag[i]
+		var icon: Texture2D = ItemIcons.texture(piece, 30)
+		if icon != null:
+			draw_texture(icon, rect.position + ((rect.size - icon.get_size()) * 0.5).floor())
+		draw_rect(rect, ItemCatalog.rarity_color(String(piece["rarity"])), false, 2.0)
+		if rect.has_point(get_local_mouse_position()):
+			draw_rect(rect, Color(1, 1, 1, 0.18))
+	if _drag_index >= 0 and _drag_index < player.bag.size():
+		var held: Texture2D = ItemIcons.texture(player.bag[_drag_index], 30)
+		if held != null:
+			draw_texture(held, get_local_mouse_position() - held.get_size() * 0.5)
+
+
 func _draw_slot(slot: String, player: PlayerSim) -> void:
 	var rect := _slot_rect(slot)
 	draw_texture_rect_region(SHEET, rect, SLOT_SRC)
+	if _drag_index >= 0 and _drag_index < player.bag.size() and String(ItemCatalog.item(String((player.bag[_drag_index] as Dictionary)["id"]))["slot"]) == slot:
+		draw_rect(rect, Color(0.5, 1.0, 0.5, 0.35))
 	var hovered := rect.has_point(get_local_mouse_position())
 	if hovered:
 		draw_rect(rect, Color(1, 1, 1, 0.18))
@@ -174,12 +268,15 @@ func _draw_slot(slot: String, player: PlayerSim) -> void:
 	var target := Rect2(rect.position + (rect.size - icon.size * SCALE) * 0.5, icon.size * SCALE)
 	var tint := Color(1, 1, 1, 1.0) if equipped else Color(1, 1, 1, 0.3)
 	if slot == "legs":
-		tint = Color(0.82, 0.62, 0.42, tint.a)
+		tint = Color(1, 1, 1, tint.a)
 	var own_icon: Texture2D = ItemIcons.texture(player.equipment[slot], 36) if equipped else null
 	if own_icon != null:
 		draw_texture(own_icon, rect.position + ((rect.size - own_icon.get_size()) * 0.5).floor())
 	else:
-		draw_texture_rect_region(SHEET, target, icon, tint)
+		if slot == "legs":
+			draw_texture_rect(pants_texture(), Rect2(rect.position + (rect.size - Vector2(36, 36)) * 0.5, Vector2(36, 36)), false, tint)
+		else:
+			draw_texture_rect_region(SHEET, target, icon, tint)
 	if equipped:
 		var color := ItemCatalog.rarity_color(String((player.equipment[slot] as Dictionary)["rarity"]))
 		draw_rect(rect, color, false, 3.0)
@@ -188,6 +285,10 @@ func _draw_slot(slot: String, player: PlayerSim) -> void:
 
 func _draw_text_area(player: PlayerSim, origin: Vector2, hovered: String) -> void:
 	var at := origin + Vector2(TEXT_X, 58.0)
+	var bag_hover := _bag_index_at(get_local_mouse_position())
+	if hovered.is_empty() and bag_hover >= 0 and bag_hover < player.bag.size():
+		_draw_item_detail(player.bag[bag_hover], at)
+		return
 	if not hovered.is_empty():
 		if player.equipment.has(hovered):
 			_draw_item_detail(player.equipment[hovered], at)

@@ -14,7 +14,7 @@ const WARRIOR_DOC := "res://docs/design/WARRIOR.md"
 ## Skills del Skill Book jugables hoy (data/skills/warrior.json). Al implementar
 ## una nueva, se anade aqui: este contrato fija que nada se marca jugable sin
 ## estar en el catalogo.
-const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind", "throwing_axe", "execute", "second_wind"]
+const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "charge", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind", "throwing_axe", "execute", "second_wind"]
 
 var _failures: int = 0
 var _checks: int = 0
@@ -56,7 +56,7 @@ func _test_design_documents() -> void:
 
 func _test_skill_book_shape() -> void:
 	var book := WarriorKit.get_skill_book()
-	_check(book.size() == 12, "the Skill Book lists 12 skills (3 retired for mechanic tests + Q/E/R + world pool)")
+	_check(book.size() == 13, "the Skill Book lists 13 skills (3 retired for mechanic tests + Q/E/R + world pool)")
 
 	var ids: Dictionary = {}
 	for entry: Dictionary in book:

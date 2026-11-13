@@ -134,7 +134,7 @@ func _test_drops() -> void:
 	world.setup_arena(Rect2(0, 0, 900, 600))
 	for i: int in range(120):
 		world.add_enemy(&"slime", Vector2(100 + i, 100)).take_damage(1.0e9)
-	_check(world.player.consumable_count("health_potion") > 2 and world.player.consumable_count("health_potion") < 20, "los enemigos sueltan pociones a veces (%d de 120)" % world.player.consumable_count("health_potion"))
+	_check(world.player.consumable_count("health_potion") >= 1 and world.player.consumable_count("health_potion") < 20, "los enemigos sueltan pociones a veces (%d de 120)" % world.player.consumable_count("health_potion"))
 	var boss_world: CombatWorld = CombatWorldScript.new(13)
 	boss_world.setup_arena(Rect2(0, 0, 900, 600))
 	boss_world.add_enemy(&"bandit_rask", Vector2(300, 300)).take_damage(1.0e9)

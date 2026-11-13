@@ -65,7 +65,7 @@ save("data/skills/warrior.json", skills_doc)
 consumables = load("data/consumables.json")
 have = {c["id"] for c in consumables["consumables"]}
 books = [("ground_stomp", "Pisoton", "Ground Stomp"), ("iron_counter", "Contragolpe", "Counterstrike"), ("whirlwind", "Torbellino", "Whirlwind"),
-         ("throwing_axe", "Hacha arrojadiza", "Throwing Axe"), ("execute", "Remate", "Execute"), ("second_wind", "Segundo aliento", "Second Wind")]
+         ("throwing_axe", "Hacha arrojadiza", "Throwing Axe"), ("execute", "Remate", "Execute"), ("second_wind", "Segundo aliento", "Second Wind"), ("rend", "Desgarro", "Rend")]
 for skill_id, spanish, english in books:
     book_id = "book_" + skill_id
     if book_id in have:

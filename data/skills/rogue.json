@@ -7,8 +7,8 @@
 			"cost": 0,
 			"cooldown": 0.02,
 			"max_targets": 0,
-			"resource_gain": 0,
-			"resource_cap": 0,
+			"resource_gain": 6,
+			"resource_cap": 12,
 			"ult_gain": 2,
 			"ult_cap": 4,
 			"damage_type": "physical",
@@ -17,7 +17,7 @@
 			"name": "Twin Fang",
 			"class": "rogue",
 			"role": "Daño / presión",
-			"description": "Tajo rápido con una daga. Alterna visualmente la mano, pero cada golpe es independiente. 4 cargas que se recuperan solas.",
+			"description": "Basico (clic derecho). Combo de 4 golpes rapidos: cada uno da 6 de Energy y el cuarto es un doble tajo (+40 %). Por la espalda del enemigo hace +25 %.",
 			"hud_label": "FANG",
 			"shape": "cone",
 			"range": 52,
@@ -36,12 +36,28 @@
 				"recovery": 0.7
 			},
 			"anim": "slash",
-			"unlock_level": 1
+			"unlock_level": 1,
+			"combo": {
+				"steps": 4,
+				"reset": 0.8,
+				"mults": [
+					1.15,
+					1.15,
+					1.15,
+					1.6
+				],
+				"arc_bonus": [
+					0,
+					0,
+					0,
+					20
+				]
+			}
 		},
 		{
 			"kind": "basic",
 			"slot": "M2",
-			"cost": 0,
+			"cost": 15,
 			"cooldown": 3,
 			"max_targets": 0,
 			"resource_gain": 0,
@@ -54,7 +70,7 @@
 			"name": "Cross Cut",
 			"class": "rogue",
 			"role": "Burst / movilidad",
-			"description": "Se lanza hacia delante y cruza las dos dagas en un corte amplio.",
+			"description": "Basico cargado (mantener clic derecho): hasta 0,9 s cargando. Embestida corta con dos cortes cruzados: mas dano y alcance cuanto mas cargues; con la carga completa hace sangrar 3 s. Cuesta 15 de Energy.",
 			"hud_label": "CROSS",
 			"shape": "cone",
 			"range": 54,
@@ -71,7 +87,19 @@
 				"recovery": 0.5
 			},
 			"anim": "thrust",
-			"unlock_level": 1
+			"unlock_level": 1,
+			"hold": {
+				"max": 0.9,
+				"damage_bonus": 0.6,
+				"range_bonus": 0.4,
+				"full_on_hit": [
+					{
+						"id": "bleed",
+						"duration": 3,
+						"strength": 4
+					}
+				]
+			}
 		},
 		{
 			"kind": "skill",
@@ -107,7 +135,8 @@
 			},
 			"anim": "thrust",
 			"unlock_level": 2,
-			"world": true
+			"world": true,
+			"retired": true
 		},
 		{
 			"kind": "skill",
@@ -125,18 +154,18 @@
 			"name": "Blade Flurry",
 			"class": "rogue",
 			"role": "Daño / AoE",
-			"description": "Serie de cortes rápidos alrededor del Rogue.",
+			"description": "Rafaga de 5 cortes en circulo, de alcance corto.",
 			"hud_label": "FLURRY",
 			"shape": "circle",
-			"range": 60,
+			"range": 58,
 			"windup": 0.12,
-			"active": 0.3,
+			"active": 0.45,
 			"recovery": 0.3,
 			"damage_mult": 0.9,
 			"strikes": {
-				"count": 3,
-				"interval": 0.1,
-				"final_mult": 1
+				"count": 5,
+				"interval": 0.08,
+				"final_mult": 1.2
 			},
 			"telegraph": true,
 			"move": {
@@ -145,8 +174,9 @@
 				"recovery": 0.5
 			},
 			"anim": "slash",
-			"unlock_level": 4,
-			"world": true
+			"unlock_level": 7,
+			"world": true,
+			"source": "book"
 		},
 		{
 			"kind": "special",
@@ -186,7 +216,10 @@
 				"recovery": 0.5
 			},
 			"anim": "slash",
-			"unlock_level": 4
+			"unlock_level": 4,
+			"retired": true,
+			"world": true,
+			"legacy_special": true
 		},
 		{
 			"kind": "ultimate",
@@ -204,7 +237,7 @@
 			"name": "Death Sentence",
 			"class": "rogue",
 			"role": "Ejecución / ráfaga",
-			"description": "Salta sobre el objetivo y encadena cortes rápidos que terminan con un golpe de daño elevado.",
+			"description": "Salta sobre el objetivo y encadena cortes; los golpes matan al instante a quien tenga menos del 30 % de vida (menos a los jefes).",
 			"hud_label": "SENTENCE",
 			"shape": "circle",
 			"range": 64,
@@ -212,11 +245,11 @@
 			"active": 0.6,
 			"recovery": 0.4,
 			"charge": 100,
-			"damage_mult": 1.16,
+			"damage_mult": 1.9,
 			"strikes": {
 				"count": 5,
 				"interval": 0.12,
-				"final_mult": 2.2
+				"final_mult": 4.5
 			},
 			"anchor": "aim_leap",
 			"leap_distance": 150,
@@ -228,7 +261,12 @@
 				"recovery": 0.3
 			},
 			"anim": "slash",
-			"unlock_level": 6
+			"unlock_level": 6,
+			"execute": {
+				"below": 0.3,
+				"mult": 1.0,
+				"kill": true
+			}
 		},
 		{
 			"kind": "skill",
@@ -246,7 +284,7 @@
 			"name": "Fan of Knives",
 			"class": "rogue",
 			"role": "Área",
-			"description": "Lanza dagas en abanico.",
+			"description": "Abanico de 5 dagas con veneno de 3 s: la herramienta a distancia del Picaro.",
 			"hud_label": "FAN",
 			"shape": "projectile",
 			"windup": 0.15,
@@ -255,7 +293,7 @@
 			"damage_mult": 1.03,
 			"projectile": {
 				"speed": 420,
-				"range": 150,
+				"range": 200,
 				"radius": 5,
 				"count": 5,
 				"spread": 70,
@@ -268,48 +306,48 @@
 				"recovery": 0.6
 			},
 			"anim": "slash",
-			"unlock_level": 2
+			"unlock_level": 2,
+			"on_hit": [
+				{
+					"id": "poison",
+					"duration": 3,
+					"strength": 4
+				}
+			]
 		},
 		{
 			"kind": "skill",
 			"slot": "S",
 			"cost": 20,
-			"cooldown": 10,
+			"cooldown": 14,
 			"max_targets": 0,
 			"resource_gain": 0,
 			"resource_cap": 0,
-			"ult_gain": 3,
-			"ult_cap": 6,
+			"ult_gain": 0,
+			"ult_cap": 0,
 			"damage_type": "physical",
 			"implemented": true,
 			"id": "poisoned_blades",
 			"name": "Poisoned Blades",
 			"class": "rogue",
 			"role": "Debilitamiento",
-			"description": "Corte envenenado: el veneno hace dano continuo y no se acumula, se refresca.",
+			"description": "Tus 4 siguientes golpes aplican un veneno fuerte (5 s).",
 			"hud_label": "POISON",
-			"shape": "cone",
-			"range": 52,
-			"arc": 90,
-			"windup": 0.12,
-			"active": 0.08,
-			"recovery": 0.25,
-			"damage_mult": 0.8,
-			"on_hit": [
-				{
-					"id": "poison",
-					"duration": 6,
-					"strength": 6
-				}
-			],
+			"shape": "self",
+			"windup": 0.2,
+			"active": 0.1,
+			"recovery": 0.2,
+			"damage_mult": 0.1,
 			"move": {
 				"windup": 0.5,
 				"active": 0.3,
 				"recovery": 0.6
 			},
-			"anim": "slash",
-			"unlock_level": 5,
-			"world": true
+			"anim": "spellcast",
+			"unlock_level": 6,
+			"world": true,
+			"source": "book",
+			"grant_venom_hits": 4
 		},
 		{
 			"kind": "skill",
@@ -350,7 +388,270 @@
 			},
 			"anim": "slash",
 			"unlock_level": 8,
-			"world": true
+			"world": true,
+			"retired": true
+		},
+		{
+			"id": "shadow_step",
+			"name": "Shadow Step",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Movilidad / ofensiva",
+			"description": "Te teletransportas detras del enemigo mas cercano hacia donde apuntas (hasta 220 px): tu siguiente golpe en 3 s hace +50 %.",
+			"hud_label": "STEP",
+			"shape": "self",
+			"windup": 0.1,
+			"active": 0.1,
+			"recovery": 0.15,
+			"cooldown": 9,
+			"cost": 20,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.6,
+				"active": 0.6,
+				"recovery": 0.8
+			},
+			"anim": "thrust",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 4,
+			"class": "rogue",
+			"damage_type": "physical",
+			"teleport_behind": {
+				"range": 220,
+				"backstab": {
+					"id": "backstab",
+					"duration": 3.0,
+					"strength": 0.5
+				}
+			}
+		},
+		{
+			"id": "stealth",
+			"name": "Stealth",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Sigilo / emboscada",
+			"description": "Te vuelves invisible hasta 20 s: los enemigos normales te pierden. Se rompe al atacar, usar otra skill, recibir dano o volver a usarla; el primer golpe hace +25 %. Los jefes siempre te ven.",
+			"hud_label": "STEALTH",
+			"shape": "self",
+			"windup": 0.6,
+			"active": 0.1,
+			"recovery": 0.2,
+			"cooldown": 25,
+			"cost": 20,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.5,
+				"active": 0.5,
+				"recovery": 0.8
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 8,
+			"class": "rogue",
+			"damage_type": "physical",
+			"self_status": {
+				"id": "stealth",
+				"duration": 20.0,
+				"strength": 0.25
+			},
+			"stealth_toggle": true
+		},
+		{
+			"id": "smoke_bomb",
+			"name": "Smoke Bomb",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Control / sigilo",
+			"description": "Una nube de humo ralentiza a los enemigos y te oculta de ellos 3 s.",
+			"hud_label": "SMOKE",
+			"shape": "self",
+			"windup": 0.2,
+			"active": 0.1,
+			"recovery": 0.3,
+			"cooldown": 14,
+			"cost": 20,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.5,
+				"active": 0.3,
+				"recovery": 0.6
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 3,
+			"class": "rogue",
+			"damage_type": "physical",
+			"world": true,
+			"source": "book",
+			"self_status": {
+				"id": "concealed",
+				"duration": 3.0,
+				"strength": 0.0
+			},
+			"zone": {
+				"radius": 80,
+				"duration": 4.0,
+				"tick": 0.5,
+				"damage_mult": 0.0,
+				"visual": "dark",
+				"status": [
+					{
+						"id": "slow",
+						"duration": 1.0,
+						"strength": 0.4
+					}
+				]
+			}
+		},
+		{
+			"id": "caltrops",
+			"name": "Caltrops",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Control / trampa",
+			"description": "Siembra abrojos delante de ti: los enemigos que los pisen sangran y se ralentizan.",
+			"hud_label": "CALTROP",
+			"shape": "self",
+			"windup": 0.2,
+			"active": 0.1,
+			"recovery": 0.3,
+			"cooldown": 12,
+			"cost": 20,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.5,
+				"active": 0.3,
+				"recovery": 0.6
+			},
+			"anim": "thrust",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 5,
+			"class": "rogue",
+			"damage_type": "physical",
+			"world": true,
+			"source": "book",
+			"zone": {
+				"radius": 70,
+				"duration": 6.0,
+				"tick": 0.6,
+				"damage_mult": 0.3,
+				"offset": 90,
+				"visual": "blood",
+				"status": [
+					{
+						"id": "bleed",
+						"duration": 2.0,
+						"strength": 3
+					},
+					{
+						"id": "slow",
+						"duration": 1.0,
+						"strength": 0.35
+					}
+				]
+			}
+		},
+		{
+			"id": "vanish",
+			"name": "Vanish",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Sigilo / escape",
+			"description": "Desapareces al instante 5 s: +30 % de velocidad, sueltas a quien te persigue, reinicias el combo y tu primer golpe es critico. Sobrevive al primer golpe que recibas; los jefes te siguen viendo.",
+			"hud_label": "VANISH",
+			"shape": "self",
+			"windup": 0.05,
+			"active": 0.05,
+			"recovery": 0.1,
+			"cooldown": 30,
+			"cost": 25,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 1.0,
+				"active": 1.0,
+				"recovery": 1.0
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 9,
+			"class": "rogue",
+			"damage_type": "physical",
+			"world": true,
+			"source": "book",
+			"self_status": {
+				"id": "vanish",
+				"duration": 5.0,
+				"strength": 0.3
+			},
+			"stealth_toggle": true,
+			"vanish": true
+		},
+		{
+			"id": "disarm",
+			"name": "Disarm",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Control",
+			"description": "Un golpe que desarma al objetivo 2,5 s: no puede atacar. Los jefes son inmunes.",
+			"hud_label": "DISARM",
+			"shape": "cone",
+			"windup": 0.2,
+			"active": 0.1,
+			"recovery": 0.3,
+			"cooldown": 15,
+			"cost": 25,
+			"damage_mult": 1.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.5,
+				"active": 0.3,
+				"recovery": 0.6
+			},
+			"anim": "slash",
+			"implemented": true,
+			"ult_gain": 2,
+			"ult_cap": 8,
+			"unlock_level": 10,
+			"class": "rogue",
+			"damage_type": "physical",
+			"world": true,
+			"source": "book",
+			"range": 58,
+			"arc": 70,
+			"on_hit": [
+				{
+					"id": "disarm",
+					"duration": 2.5
+				}
+			]
 		}
 	]
 }

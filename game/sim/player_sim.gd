@@ -59,8 +59,10 @@ static var regen_per_second: float = 0.015
 const REGEN_DELAY := 5.0
 const HEALTH_PER_STAMINA := 10.0
 
-const RAGE_DECAY_GRACE := 5.0
-const RAGE_DECAY_PER_SECOND := 6.0
+const RAGE_DECAY_GRACE := 3.0
+const RAGE_DECAY_PER_SECOND := 10.0
+## Cambiar de equipo en un piso exige 4 s sin combatir.
+const GEAR_SWAP_QUIET_TICKS := 240
 const RAGE_TAKEN_CAP := 15.0
 const RAGE_TAKEN_MIN := 1.0
 
@@ -171,6 +173,12 @@ var block_time: float = 0.0
 ## Solo los tests de mecanicas (LegacyKit) equipan el Counterstrike del guerrero en el hueco Especial de antes.
 static var allow_legacy_special: bool = false
 signal block_started()
+signal stealth_broken()
+## Sigilo: bonus del primer golpe al salir de Stealth, golpes envenenados pendientes, golpes que aun aguanta Vanish y critico asegurado.
+var _opening_bonus: float = 0.0
+var venom_hits: int = 0
+var vanish_hits_left: int = 0
+var _force_crit: bool = false
 signal block_ended()
 signal attack_parried(source_position: Vector2)
 ## Huecos de la clase que se desbloquean por nivel (solo clases con `slot_gates`).
@@ -364,6 +372,11 @@ func learn_skill(id: StringName) -> bool:
 ## El loadout solo se edita en reposo (zona segura / entre combates).
 func can_edit_loadout() -> bool:
 	return alive and state == AttackState.IDLE and not dodging and safe_zone
+
+
+## El equipo se cambia en reposo y tambien dentro de los pisos, si llevas unos segundos sin combatir.
+func can_change_gear() -> bool:
+	return alive and state == AttackState.IDLE and not dodging and not blocking and (safe_zone or tick - last_combat_tick > GEAR_SWAP_QUIET_TICKS)
 
 
 ## Equipa `id` en `slot`. Devuelve "" si salio bien o el motivo del rechazo (los
@@ -731,6 +744,8 @@ func _update_dodge(delta: float) -> void:
 		return
 	if dodge_buffer_timer <= 0.0 or cooldown_dodge > 0.0 or not alive or statuses.is_stunned():
 		return
+	if mob.has("cost") and resource.get_current() < float(mob["cost"]):
+		return
 	if state == AttackState.ACTIVE and not current_skill.has("stance"):
 		return
 	if state != AttackState.IDLE and bool(current_skill.get("uncancelable", false)):
@@ -763,6 +778,9 @@ func _start_dodge(delta_for_start: float) -> void:
 		dodge_dir = aim_dir
 	else:
 		dodge_dir = -aim_dir
+	if mob.has("cost"):
+		resource.consume(float(mob["cost"]))
+		resource_changed.emit(resource.get_current(), resource.max_amount)
 	dodging = true
 	dodge_time = delta_for_start
 	_dodge_hit = {}
@@ -829,6 +847,15 @@ func _enter_active() -> void:
 		var buff: Dictionary = current_skill["buff"]
 		_apply_buff(float(buff["next_damage_mult"]), float(buff["duration"]))
 		return
+	if current_skill.has("teleport_behind"):
+		_shadow_step()
+		return
+	if String(current_skill.get("shape", "")) == "self" and current_skill.has("zone") and not current_skill.has("self_status"):
+		_spawn_skill_zone()
+		return
+	if current_skill.has("grant_venom_hits"):
+		venom_hits = int(current_skill["grant_venom_hits"])
+		return
 	if current_skill.has("self_heal_pct"):
 		health = minf(max_health, health + max_health * float(current_skill["self_heal_pct"]))
 		health_changed.emit(health, max_health)
@@ -838,6 +865,12 @@ func _enter_active() -> void:
 		statuses.apply(String(self_status["id"]), float(self_status["duration"]), float(self_status["strength"]))
 		if current_skill.has("resource_burst"):
 			_gain_resource(float(current_skill["resource_burst"]))
+		if current_skill.has("zone"):
+			_spawn_skill_zone()
+		if bool(current_skill.get("vanish", false)):
+			vanish_hits_left = 1
+			_combo_index = 0
+			_force_crit = true
 		return
 	match String(current_skill.get("shape", "cone")):
 		"projectile":
@@ -997,6 +1030,13 @@ func _start_attack(slot: String) -> void:
 		return
 
 	current_skill = (loadout[slot] as Dictionary).duplicate(true)
+	if current_skill.has("stealth_toggle") and is_hidden():
+		# Volver a usar Stealth/Vanish estando oculto lo rompe (sin gastar).
+		current_skill = {}
+		_break_stealth()
+		return
+	if not current_skill.has("stealth_toggle"):
+		_break_stealth()
 	if current_skill.has("combo"):
 		_apply_combo()
 	var cost := float(current_skill.get("cost", 0.0))
@@ -1076,14 +1116,36 @@ func _resolve_attack_hit(strike_mult: float = 1.0) -> void:
 ## dano (fisico con arma o magico con Spell Power), XP si muere, recurso y carga de
 ## ultimate (con los topes de `tracker`) y la senal attack_hit.
 func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: Dictionary) -> void:
-	var critical: bool = _rng.randf() < stats.get_crit_chance()
+	var critical: bool = _rng.randf() < stats.get_crit_chance() or _force_crit
+	_force_crit = false
 	var roll: float = stats.roll_spell_damage(_rng) if String(skill.get("damage_type", "physical")) == "magic" else stats.roll_weapon_damage(_rng)
 	var damage: float = roll * mult * (1.0 + statuses.strength("might") + statuses.strength("warcry"))
+	var behind := _is_behind(target)
+	var bonus := 0.0
+	if behind:
+		bonus += float(class_def.get("backstab_bonus", 0.0))
+	if statuses.has("backstab") and behind:
+		bonus += statuses.strength("backstab")
+		statuses.remove("backstab")
+	if _opening_bonus > 0.0:
+		bonus += _opening_bonus
+		_opening_bonus = 0.0
+	damage *= 1.0 + bonus
 	if skill.has("execute") and target.get("max_health") != null and float(target.health) <= float(target.max_health) * float(skill["execute"]["below"]):
-		damage *= float(skill["execute"]["mult"])
+		if bool(skill["execute"].get("kill", false)):
+			if not (target.has_method("is_boss") and target.is_boss()):
+				damage = float(target.health) + 1000.0
+		else:
+			damage *= float(skill["execute"]["mult"])
 	if critical:
 		damage *= CRIT_MULTIPLIER
 	var dealt: float = target.take_damage(damage)
+	if target.alive and dealt > 0.0 and target.has_method("apply_status"):
+		if venom_hits > 0:
+			venom_hits -= 1
+			target.apply_status("poison", 5.0, 6.0, position)
+		elif String(class_def.get("passive", "")) == "shadow_venom" and level >= int(class_def.get("passive_level", 1)) and behind:
+			target.apply_status("poison", 3.0, 3.0, position)
 	if not target.alive and target.has_method("xp_reward"):
 		grant_xp(int(target.xp_reward()), target.position)
 	elif dealt > 0.0 and skill.has("on_hit") and target.has_method("apply_status"):
@@ -1326,6 +1388,7 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 	if reduced <= 0.0:
 		return 0.0
 	var dealt := minf(reduced, health)
+	_hit_breaks_stealth()
 	health -= dealt
 
 	if resource_kind == "rage" and not is_dot:
@@ -1538,7 +1601,7 @@ func add_item(item: Dictionary) -> bool:
 func equip_reason(index: int) -> String:
 	if index < 0 or index >= bag.size():
 		return "unknown"
-	if not can_edit_loadout():
+	if not can_change_gear():
 		return "busy"
 	var piece: Dictionary = bag[index]
 	if not ItemCatalog.can_equip_base(String(piece["id"]), class_id):
@@ -1565,7 +1628,7 @@ func equip_from_bag(index: int) -> String:
 func unequip_gear(slot: String) -> String:
 	if not equipment.has(slot):
 		return "unknown"
-	if not can_edit_loadout():
+	if not can_change_gear():
 		return "busy"
 	if bag.size() >= ItemCatalog.bag_size():
 		return "full"
@@ -1664,6 +1727,14 @@ func _update_block(delta: float, mob: Dictionary) -> void:
 	var held := bool(_actions.get("dodge", false))
 	if blocking:
 		block_time += delta
+		# Mantener el escudo gasta Rage cada segundo; sin Rage se baja solo.
+		var drain := float(mob.get("block_drain", 0.0)) * delta
+		if drain > 0.0 and block_time > float(mob["parry_window"]):
+			resource.consume(drain)
+			resource_changed.emit(resource.get_current(), resource.max_amount)
+			if resource.get_current() <= 0.0:
+				_end_block(mob)
+				return
 		if not held or not alive or statuses.is_stunned():
 			_end_block(mob)
 		return
@@ -1728,7 +1799,11 @@ func _on_parry(source_position: Vector2) -> void:
 				best = distance
 				nearest = enemy
 	if nearest != null:
-		nearest.apply_status("stun", 0.8)
+		# A un jefe no se le aturde: un tambaleo corto de 0,5 s.
+		if nearest.is_boss():
+			nearest.apply_status("stagger", 0.5)
+		else:
+			nearest.apply_status("stun", 0.8)
 	_gain_ultimate(float(class_def.get("ult_charge", {}).get("on_parry", 12.0)))
 	_gain_resource(10.0)
 	_trigger_vengeful()
@@ -1767,6 +1842,68 @@ func _spawn_skill_zone() -> void:
 	world.spawn_zone(GroundZone.new(spec, _hit_origin(), stats.roll_weapon_damage(_rng)))
 
 
+## Sigilo ---------------------------------------------------------------------------------
+
+
+func is_hidden() -> bool:
+	return statuses.has("stealth") or statuses.has("vanish") or statuses.has("concealed")
+
+
+## Sale del sigilo (atacar, usar otra skill, recibir dano): Stealth deja un bonus para el primer golpe.
+func _break_stealth() -> void:
+	if not is_hidden():
+		return
+	_opening_bonus = statuses.strength("stealth")
+	statuses.remove("stealth")
+	statuses.remove("vanish")
+	statuses.remove("concealed")
+	vanish_hits_left = 0
+	stealth_broken.emit()
+
+
+## Un golpe recibido: rompe Stealth y el humo; Vanish aguanta el primero.
+func _hit_breaks_stealth() -> void:
+	if statuses.has("vanish") and vanish_hits_left > 0:
+		vanish_hits_left -= 1
+		return
+	if is_hidden():
+		_break_stealth()
+
+
+## El jugador esta a la espalda del objetivo (este mira en sentido contrario).
+func _is_behind(target: Object) -> bool:
+	if target.get("facing") == null:
+		return false
+	var to_player: Vector2 = (position - target.position).normalized()
+	return (target.facing as Vector2).dot(to_player) < -0.25
+
+
+## Shadow Step: te teletransportas detras del enemigo mas cercano hacia donde apuntas.
+func _shadow_step() -> void:
+	var spec: Dictionary = current_skill["teleport_behind"]
+	var best: EnemySim = null
+	var best_distance := float(spec["range"])
+	if world != null:
+		for enemy: EnemySim in world.enemies:
+			if not enemy.alive:
+				continue
+			var to_enemy := enemy.position - position
+			var distance := to_enemy.length()
+			if distance > best_distance or distance < 0.001:
+				continue
+			if absf(rad_to_deg(aim_dir.angle_to(to_enemy))) > 55.0:
+				continue
+			best = enemy
+			best_distance = distance
+	if best == null:
+		return
+	var behind := best.position - best.facing * (best.radius + RADIUS + 6.0)
+	position = world.resolve_position(behind, RADIUS)
+	aim_dir = (best.position - position).normalized()
+	velocity = Vector2.ZERO
+	statuses.apply(String(spec["backstab"]["id"]), float(spec["backstab"]["duration"]), float(spec["backstab"]["strength"]))
+
+
 func armor_reduction() -> float:
 	var armor := stats.get_stat(&"armor")
 	return armor / (armor + 100.0)
@@ -1786,6 +1923,8 @@ func total_attack_duration(skill: Dictionary) -> float:
 
 func attack_cooldown_left(slot: String) -> float:
 	if not loadout.has(slot):
+		return 0.0
+	if (loadout[slot] as Dictionary).has("stealth_toggle") and is_hidden():
 		return 0.0
 	return float(cooldowns.get(String((loadout[slot] as Dictionary)["id"]), 0.0))
 

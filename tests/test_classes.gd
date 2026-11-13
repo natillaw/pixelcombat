@@ -138,7 +138,7 @@ func _test_progress_is_per_class() -> void:
 	_check(player.level == 1 and player.xp == 30, "el Mage conserva su XP (%d)" % player.xp)
 	player.switch_class("rogue")
 	player.set_level(4)
-	_check(player.loadout.has("S1") and player.loadout["S1"]["id"] == &"fan_of_knives" and player.loadout.has("SPECIAL") and not player.loadout.has("S2"), "las skills del Rogue se desbloquean por nivel (Fan of Knives 2, Perfect Evasion 4)")
+	_check(player.loadout.has("S1") and player.loadout["S1"]["id"] == &"fan_of_knives" and player.loadout.has("S2"), "las skills del Rogue se desbloquean por nivel (S1 nv 2, S2 nv 4)")
 
 
 # --- Recursos ----------------------------------------------------------------------

@@ -227,3 +227,9 @@ Canon en `Narrative/` (mitologia, cronologia, estructura de 100 pisos, pisos 1-1
 - **Guerrero**: Rend (Q, nv 2), War Cry (E, nv 4), Shockwave (R, nv 8), War God's Descent (F, nv 6, deja una grieta de fuego), Furia vengativa (pasiva, nv 8: tras bloquear o hacer parry el siguiente golpe cargado hace +30 %). **Bloqueo** con Espacio: -70 % de dano frontal a cambio de Rage; si empieza 0,12 s antes del golpe es **parry perfecto** (sin dano, aturde al atacante, carga la ultimate).
 - **Libros de skill** (no se venden en el Gremio): Ground Stomp, Counterstrike, Whirlwind, Throwing Axe, Execute y Second Wind se aprenden leyendo su libro (`book_<skill>`) o el Tomo de habilidad que sueltan jefes y elite; la skill puede entonces cambiarse por una de tus Q/E/R en el libro de skills. Fuentes futuras: misiones secretas y eventos. Cleaving Strike, Piercing Thrust y Crushing Blow quedan retiradas (solo las usan los tests de mecanicas).
 - Los demas personajes conservan su kit antiguo hasta que se rediseñen uno por uno (siguiente: Pícaro).
+
+## Rediseno del Picaro y ajustes del Guerrero
+- Picaro: Stealth (20 s, se rompe al atacar, usar otra skill o recibir dano), Vanish (aguanta un golpe), Shadow Step, Smoke Bomb, Caltrops, Poisoned Blades, Death Sentence (ejecuta por debajo del 30 %), pasiva Shadow Venom; Roll cuesta Energy. Los jefes son inmunes a aturdir/silenciar/empujar/desarmar (el parry les da 0,5 s de tambaleo).
+- Guerrero: Q = Charge (embestida, aturde 2 s, sin Rage); Rend pasa a libro. El bloqueo gasta Rage al aguantar (5/s) y al recibir golpes; el Rage decae a 10/s tras 3 s sin combatir.
+- Equipo: se cambia tambien dentro de los pisos tras 4 s sin combatir; la ficha (C) trae la mochila y se arrastran los items a su hueco (pantalones con icono propio).
+- Rareza: legendario 0,01 de peso (casi nunca), unico 0,3, epico 1,5.
