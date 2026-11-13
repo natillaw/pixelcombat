@@ -42,7 +42,8 @@ func _test_base_kits() -> void:
 		var world := _make(class_id)
 		var slots: Array = world.player.loadout.keys()
 		slots.sort()
-		_check(slots == ["M1", "M2", "S1", "SPECIAL", "ULTIMATE"], "%s: el kit base son 5 skills (%s)" % [class_id, str(slots)])
+		var expected: Array = ["M1", "M2", "S1", "S2", "ULTIMATE"] if class_id == "warrior" else ["M1", "M2", "S1", "SPECIAL", "ULTIMATE"]
+		_check(slots == expected, "%s: el kit base son 5 skills (%s)" % [class_id, str(slots)])
 		var shapes := {}
 		for slot: String in slots:
 			var skill: Dictionary = world.player.loadout[slot]
@@ -56,7 +57,7 @@ func _test_base_kits() -> void:
 	var kinds_seen := {}
 	for class_id: String in ClassCatalog.all_ids():
 		kinds_seen[String(_make(class_id).player.mobility()["kind"])] = true
-	_check(kinds_seen.has("charge") and kinds_seen.has("roll") and kinds_seen.has("blink") and kinds_seen.has("backstep") and kinds_seen.size() == 4, "cada clase tiene una movilidad distinta")
+	_check(kinds_seen.has("block") and kinds_seen.has("roll") and kinds_seen.has("blink") and kinds_seen.has("backstep") and kinds_seen.size() == 4, "cada clase tiene una movilidad distinta")
 
 
 func _test_world_skills() -> void:
@@ -73,13 +74,25 @@ func _test_world_skills() -> void:
 
 
 func _test_mobility() -> void:
-	# Guerrero: la carga aturde 1 s al primer golpe.
+	# Guerrero: Espacio mantenido levanta el escudo; el parry perfecto anula el golpe, aturde y carga la ultimate.
 	var world := _make("warrior")
-	var slime := world.add_enemy(&"slime", world.player.position + Vector2(90, 0))
-	_step(world, 1, {"dodge": true}, Vector2.RIGHT, Vector2.RIGHT)
-	_step(world, 25, {}, Vector2.RIGHT, Vector2.ZERO)
-	_check(slime.statuses.has("stun") or slime.state == EnemySim.State.STUN, "la carga del guerrero aturde al enemigo")
-	_check(slime.statuses.strength("stun") >= 0.0 and world.player.dodge_cooldown_total() >= 6.0, "y tiene su cooldown (%.1f s)" % world.player.dodge_cooldown_total())
+	world.player.resource.current_amount = 100.0
+	world.player.aim_dir = Vector2.RIGHT
+	_step(world, 1, {"dodge": true}, Vector2.RIGHT, Vector2.ZERO)
+	_check(world.player.blocking, "el guerrero levanta el escudo con Espacio")
+	var health: float = world.player.health
+	var attacker := world.add_enemy(&"slime", world.player.position + Vector2(40, 0))
+	world.player.ultimate_charge = 0.0
+	var dealt: float = world.player.take_damage(40.0, attacker.position, false)
+	_check(dealt == 0.0 and world.player.health == health and attacker.statuses.is_stunned() and world.player.ultimate_charge >= 10.0, "un bloqueo en el momento justo es parry perfecto: sin dano, aturde y carga la ultimate")
+	_step(world, 20, {"dodge": true}, Vector2.RIGHT, Vector2.ZERO)
+	var rage_before: float = world.player.resource_amount()
+	var blocked: float = world.player.take_damage(40.0, world.player.position + Vector2(40, 0), false)
+	_check(blocked > 0.0 and blocked < 40.0 * (1.0 - world.player.armor_reduction()) * 0.5 and world.player.resource_amount() < rage_before, "un bloqueo normal reduce el dano y gasta Rage")
+	var behind: float = world.player.take_damage(40.0, world.player.position + Vector2(-40, 0), false)
+	_check(behind > blocked, "por la espalda el escudo no cubre")
+	_step(world, 1, {}, Vector2.RIGHT, Vector2.ZERO)
+	_check(not world.player.blocking and world.player.dodge_cooldown_left() > 0.0, "soltar Espacio baja el escudo y deja un breve enfriamiento")
 	# Mago: blink de ~190 px casi instantaneo, sin aturdir.
 	var mage := _make("mage")
 	var start: Vector2 = mage.player.position

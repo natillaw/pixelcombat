@@ -12,7 +12,7 @@ const StatsScript: GDScript = preload("res://combat/stats.gd")
 ## Skills del Skill Book jugables hoy (data/skills/warrior.json). Al implementar
 ## una nueva, se anade aqui: este contrato fija que nada se marca jugable sin
 ## estar en el catalogo.
-const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp"]
+const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind"]
 
 var _failures: int = 0
 var _checks: int = 0
@@ -79,7 +79,7 @@ func _test_basics() -> void:
 	_check(float(m2["resource_gain"]) >= float(m1["resource_gain"]), "Heavy Strike generates at least as much Rage")
 
 	basics["M1"]["name"] = "mutated"
-	_check(WarriorKit.M1["name"] == "Sword Slash", "get_basics returns a defensive copy")
+	_check(WarriorKit.M1["name"] == "Sword Combo", "get_basics returns a defensive copy")
 
 
 func _test_passive() -> void:
@@ -99,7 +99,7 @@ func _test_special_and_ultimate() -> void:
 
 func _test_skill_book() -> void:
 	var book := WarriorKit.get_skill_book()
-	_check(book.size() == 15, "Skill Book has 15 entries")
+	_check(book.size() == 9, "Skill Book has 9 entries")
 
 	var seen: Dictionary = {}
 	for entry: Dictionary in book:
@@ -108,17 +108,17 @@ func _test_skill_book() -> void:
 		seen[id] = true
 		for key: String in ["name", "role", "description"]:
 			_check(not String(entry[key]).is_empty(), "%s has %s" % [id, key])
-		_check(int(entry["cost"]) > 0, "%s costs Rage" % id)
+		_check(int(entry["cost"]) >= 0, "%s has a Rage cost" % id)
 		_check(int(entry["cost"]) <= int(WarriorKit.MAX_RAGE), "%s is affordable" % id)
 		_check(float(entry["cooldown"]) > 0.0, "%s has a cooldown" % id)
 		_check(bool(entry["implemented"]) == IMPLEMENTED_SKILLS.has(id), "%s implemented flag matches the playable set" % id)
 
-	_check(WarriorKit.all_ids().size() == 15, "all_ids returns the 15 ids")
+	_check(WarriorKit.all_ids().size() == book.size(), "all_ids returns every Skill Book id")
 
 	var roles := ""
 	for entry: Dictionary in book:
 		roles += String(entry["role"]) + " "
-	for keyword: String in ["Daño", "Defensa", "Movilidad", "Control", "Apoyo"]:
+	for keyword: String in ["Daño", "Control", "Mejora"]:
 		_check(roles.contains(keyword), "Skill Book covers the %s role" % keyword)
 
 

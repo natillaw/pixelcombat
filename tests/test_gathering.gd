@@ -127,6 +127,9 @@ func _test_gather_interruptions() -> void:
 	var results := {}
 	for label: String in cases:
 		var world := _world_with_node()
+		world.player.safe_zone = true
+		world.player.switch_class("rogue")
+		world.player.safe_zone = false
 		var reasons: Array = []
 		world.gather_interrupted.connect(func(_n: ResourceNode, why: String) -> void: reasons.append(why))
 		world.try_click(world.resource_nodes[0].position)

@@ -26,6 +26,8 @@ static func apply(player: PlayerSim) -> void:
 	var free_slots: Array = ["S1", "S2", "S3", "S4", "S5"].filter(func(slot: String) -> bool: return not kit.has(slot))
 	for id: StringName in SkillCatalog.ids_for_class(player.class_id):
 		var skill: Dictionary = SkillCatalog.skill(id)
+		if player.class_id == "warrior" and not bool(skill.get("retired", false)) and String(id) != "ground_stomp":
+			continue
 		if used.has(String(id)) or String(skill.get("slot", "")) != "S" or int(skill["unlock_level"]) > player.level or not bool(skill.get("implemented", false)) or free_slots.is_empty():
 			continue
 		kit[free_slots.pop_front()] = id

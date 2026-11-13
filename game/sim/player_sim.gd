@@ -158,6 +158,21 @@ var _strike_index: int = 0
 var _attack_damage_mult: float = 1.0
 
 var _m1_held: bool = false
+## Clic derecho: tiempo mantenido (toque = basico, mantener = golpe cargado) y pulso de M1 tras un toque.
+const BASIC_HOLD := 0.16
+var _basic_time: float = 0.0
+var _basic_pulse: int = 0
+## Combo del basico (pasos) y ultimo tick en que se uso.
+var _combo_index: int = 0
+var _combo_tick: int = -100000
+## Bloqueo (movilidad del guerrero): activo mientras se mantiene Espacio.
+var blocking: bool = false
+var block_time: float = 0.0
+signal block_started()
+signal block_ended()
+signal attack_parried(source_position: Vector2)
+## Huecos de la clase que se desbloquean por nivel (solo clases con `slot_gates`).
+const SLOT_UNLOCK := {"S1": 2, "S2": 4, "S3": 8, "ULTIMATE": 6}
 var _stance_spent: bool = false
 var _slot_prev: Dictionary = {}
 var _actions: Dictionary = {}
@@ -220,6 +235,8 @@ func _equip_reason(slot: String, id: StringName) -> String:
 		return "not_learned"
 	if int(skill["unlock_level"]) > level:
 		return "locked"
+	if bool(class_def.get("slot_gates", false)) and SLOT_UNLOCK.has(slot) and level < int(SLOT_UNLOCK[slot]):
+		return "slot_locked"
 	if not slot_accepts(slot, skill):
 		return "wrong_slot"
 	return ""
@@ -230,6 +247,8 @@ func slot_accepts(slot: String, skill: Dictionary) -> bool:
 	var skill_slot := String(skill.get("slot", ""))
 	if SKILL_SLOTS.has(slot):
 		return skill_slot == "S"
+	if slot == "SPECIAL" and bool(skill.get("legacy_special", false)):
+		return true
 	return skill_slot == slot
 
 
@@ -528,6 +547,10 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 	cooldown_dodge = 0.0
 	dodge_buffer_timer = 0.0
 	_dodge_prev = false
+	blocking = false
+	block_time = 0.0
+	_basic_time = 0.0
+	_basic_pulse = 0
 	vengeful_active = false
 	vengeful_until_tick = 0
 	last_combat_tick = 0
@@ -550,7 +573,7 @@ func reset(spawn: Vector2 = Vector2(480, 380)) -> void:
 
 func step(tick_number: int, delta: float, input: Object) -> void:
 	tick = tick_number
-	_read_input(input)
+	_read_input(input, delta)
 	_tick_timers(delta)
 	potion_cooldown_left = maxf(0.0, potion_cooldown_left - delta)
 	_update_statuses(delta)
@@ -569,8 +592,8 @@ func _update_regen(delta: float) -> void:
 	health = minf(max_health, health + max_health * (regen_per_second + statuses.strength("fed")) * delta)
 
 
-func _read_input(input: Object) -> void:
-	_actions = {} if input == null else input.actions
+func _read_input(input: Object, delta: float = 1.0 / 60.0) -> void:
+	_actions = {} if input == null else (input.actions as Dictionary).duplicate()
 	if input == null:
 		move_input = Vector2.ZERO
 		_m1_held = false
@@ -581,27 +604,39 @@ func _read_input(input: Object) -> void:
 	var aim: Vector2 = input.aim_dir
 	if aim.length_squared() > 0.0001:
 		aim_dir = aim.normalized()
-	_m1_held = bool(input.actions.get("m1", false))
-	var dodge_pressed := bool(input.actions.get("dodge", false))
+	# Basico en el clic derecho: un toque lanza el basico (M1) y mantener carga el golpe fuerte (M2).
+	if bool(_actions.get("basic", false)):
+		_basic_time += delta
+		if _basic_time >= BASIC_HOLD:
+			_actions["m2"] = true
+	else:
+		if _basic_time > 0.0 and _basic_time < BASIC_HOLD:
+			_basic_pulse = 3
+		_basic_time = 0.0
+	if _basic_pulse > 0:
+		_actions["m1"] = true
+		_basic_pulse -= 1
+	_m1_held = bool(_actions.get("m1", false))
+	var dodge_pressed := bool(_actions.get("dodge", false))
 	if dodge_pressed and not _dodge_prev:
 		dodge_buffer_timer = float(WarriorKit.DODGE["buffer"])
 	_dodge_prev = dodge_pressed
 	# M2 y S1-S5 se lanzan al pulsar (mantener M2 despues del windup la carga).
 	for slot: String in EDGE_SLOTS:
-		var pressed := bool(input.actions.get(slot.to_lower(), false))
+		var pressed := bool(_actions.get(slot.to_lower(), false))
 		if pressed and not bool(_slot_prev.get(slot, false)):
 			buffered_slot = slot
 			buffer_timer = BUFFER_SECONDS
 		_slot_prev[slot] = pressed
 	for quick: String in ["quick_health", "quick_resource"]:
-		var held := bool(input.actions.get(quick, false))
+		var held := bool(_actions.get(quick, false))
 		if held and not bool(_slot_prev.get(quick, false)):
 			use_quick(quick.trim_prefix("quick_"))
 		_slot_prev[quick] = held
 	# Atajos de depuracion (F5 sube un nivel, F6 vuelve al nivel 1): son acciones
 	# del input para que sigan siendo deterministas.
 	for action: String in ["debug_level_up", "debug_level_reset", "debug_class_next"]:
-		var down := bool(input.actions.get(action, false))
+		var down := bool(_actions.get(action, false))
 		if down and not bool(_slot_prev.get(action, false)):
 			if action == "debug_level_up":
 				set_level(level + 1)
@@ -619,8 +654,8 @@ func apply_status(id: String, duration: float, strength: float = 0.0, source: Ve
 	if not alive:
 		return false
 	var applied := statuses.apply(id, duration, strength)
-	if applied and id == "knockback":
-		push_from(source, strength)
+	if applied and (id == "knockback" or id == "pull"):
+		push_from(source, strength if id == "knockback" else -strength)
 		return true
 	if applied and id == "stun":
 		if state != AttackState.IDLE:
@@ -639,6 +674,9 @@ func push_from(source: Vector2, distance: float) -> void:
 	var away := position - source
 	if away.length_squared() < 0.0001:
 		away = -aim_dir
+	if distance < 0.0:
+		# Atraer: sin pasar de largo del origen.
+		distance = -minf(-distance, maxf(away.length() - RADIUS - 8.0, 0.0))
 	position = world.resolve_position(position + away.normalized() * distance, RADIUS) if world != null else position + away.normalized() * distance
 	velocity = Vector2.ZERO
 
@@ -676,6 +714,10 @@ func _tick_timers(delta: float) -> void:
 ## Esquiva: avanza la que esta en curso o arranca la bufferizada. Puede cancelar
 ## un ataque en WINDUP o RECOVERY, no en ACTIVE.
 func _update_dodge(delta: float) -> void:
+	var mob := mobility()
+	if String(mob.get("kind", "")) == "block":
+		_update_block(delta, mob)
+		return
 	if dodging:
 		dodge_time += delta
 		return
@@ -779,6 +821,12 @@ func _enter_active() -> void:
 		var buff: Dictionary = current_skill["buff"]
 		_apply_buff(float(buff["next_damage_mult"]), float(buff["duration"]))
 		return
+	if current_skill.has("self_status"):
+		var self_status: Dictionary = current_skill["self_status"]
+		statuses.apply(String(self_status["id"]), float(self_status["duration"]), float(self_status["strength"]))
+		if current_skill.has("resource_burst"):
+			_gain_resource(float(current_skill["resource_burst"]))
+		return
 	match String(current_skill.get("shape", "cone")):
 		"projectile":
 			_launch_projectiles()
@@ -864,6 +912,8 @@ func _apply_hold_bonus() -> void:
 		return
 	var hold: Dictionary = current_skill["hold"]
 	var fraction := clampf(hold_time / float(hold["max"]), 0.0, 1.0)
+	if hold.has("full_on_hit") and fraction >= 0.99:
+		current_skill["on_hit"] = (current_skill.get("on_hit", []) as Array) + (hold["full_on_hit"] as Array)
 	_attack_damage_mult *= 1.0 + fraction * float(hold["damage_bonus"])
 	_range_mult = 1.0 + fraction * float(hold["range_bonus"])
 
@@ -894,7 +944,7 @@ func charges_max(slot: String) -> float:
 
 
 func _try_start_attack() -> void:
-	if not alive or dodging or statuses.is_stunned():
+	if not alive or dodging or blocking or statuses.is_stunned():
 		return
 	if buffered_slot != "":
 		var slot := buffered_slot
@@ -935,6 +985,8 @@ func _start_attack(slot: String) -> void:
 		return
 
 	current_skill = (loadout[slot] as Dictionary).duplicate(true)
+	if current_skill.has("combo"):
+		_apply_combo()
 	var cost := float(current_skill.get("cost", 0.0))
 	if cost > 0.0:
 		resource.consume(cost)
@@ -1003,6 +1055,7 @@ func _resolve_attack_hit(strike_mult: float = 1.0) -> void:
 	var shape := String(current_skill.get("shape", "cone"))
 	if shape == "projectile" or shape == "self":
 		return
+	_spawn_skill_zone()
 	for target: Object in _targets_in_shape(world.get_living_targets()):
 		_apply_skill_hit(target, current_skill, _attack_damage_mult * strike_mult * _zone_multiplier(target), _swing_tracker)
 
@@ -1013,7 +1066,7 @@ func _resolve_attack_hit(strike_mult: float = 1.0) -> void:
 func _apply_skill_hit(target: Object, skill: Dictionary, mult: float, tracker: Dictionary) -> void:
 	var critical: bool = _rng.randf() < stats.get_crit_chance()
 	var roll: float = stats.roll_spell_damage(_rng) if String(skill.get("damage_type", "physical")) == "magic" else stats.roll_weapon_damage(_rng)
-	var damage: float = roll * mult * (1.0 + statuses.strength("might"))
+	var damage: float = roll * mult * (1.0 + statuses.strength("might") + statuses.strength("warcry"))
 	if critical:
 		damage *= CRIT_MULTIPLIER
 	var dealt: float = target.take_damage(damage)
@@ -1126,7 +1179,7 @@ func _update_movement(delta: float) -> void:
 	if state == AttackState.WINDUP and String(current_skill.get("anchor", "self")) == "aim_leap":
 		_move_leap(delta)
 		return
-	var factor := _movement_factor() * statuses.speed_mult()
+	var factor := _movement_factor() * statuses.speed_mult() * (0.5 if blocking else 1.0)
 	var desired := move_input * MOVE_SPEED * factor
 	var rate := ACCELERATION if move_input.length_squared() > 0.0001 else FRICTION
 	velocity = velocity.move_toward(desired, rate * delta)
@@ -1249,6 +1302,11 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 	if not is_dot and _stance_blocks(source_position):
 		_block_with_stance(source_position)
 		return 0.0
+	if blocking and not is_dot and _block_covers(source_position):
+		var left := _resolve_block(amount, source_position)
+		if left < 0.0:
+			return 0.0
+		amount = left
 
 	var reduced := statuses.absorb(amount * (1.0 - armor_reduction()))
 	if reduced <= 0.0:
@@ -1264,10 +1322,7 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 		var taken_cfg: Dictionary = class_def.get("ult_charge", {})
 		_gain_ultimate(clampf((dealt / max_health) * 100.0 * float(taken_cfg.get("on_taken_per_percent", 0.0)), 0.0, float(taken_cfg.get("on_taken_cap", 10.0))))
 
-	if not is_dot and String(class_def.get("passive", "")) == "vengeful_fury":
-		vengeful_active = true
-		vengeful_until_tick = tick + int(float(WarriorKit.PASSIVE["window"]) * 60.0)
-		vengeful_changed.emit(true, vengeful_seconds_left())
+
 
 	health_changed.emit(health, max_health)
 	damage_taken.emit(dealt, source_position, is_dot)
@@ -1586,6 +1641,116 @@ func _refresh_gear() -> void:
 	_build_stats()
 	health = max_health * ratio
 	inventory_changed.emit()
+
+
+## Bloqueo del guerrero ----------------------------------------------------------------
+
+
+func _update_block(delta: float, mob: Dictionary) -> void:
+	var held := bool(_actions.get("dodge", false))
+	if blocking:
+		block_time += delta
+		if not held or not alive or statuses.is_stunned():
+			_end_block(mob)
+		return
+	if dodge_buffer_timer <= 0.0 or cooldown_dodge > 0.0 or not alive or statuses.is_stunned():
+		return
+	if state == AttackState.ACTIVE and not current_skill.has("stance"):
+		return
+	if state != AttackState.IDLE and bool(current_skill.get("uncancelable", false)):
+		return
+	dodge_buffer_timer = 0.0
+	if state != AttackState.IDLE:
+		_cancel_attack()
+	blocking = true
+	block_time = 0.0
+	block_started.emit()
+
+
+func _end_block(mob: Dictionary) -> void:
+	blocking = false
+	cooldown_dodge = float(mob["cooldown"])
+	block_ended.emit()
+
+
+## El golpe viene del frente (dentro del arco del escudo).
+func _block_covers(source_position: Vector2) -> bool:
+	if source_position == Vector2.ZERO:
+		return false
+	var toward := source_position - position
+	if toward.length_squared() < 0.0001:
+		return true
+	return absf(rad_to_deg(aim_dir.angle_to(toward))) <= float(mobility().get("block_arc", 150.0)) * 0.5
+
+
+## Devuelve el dano que aun pasa (>= 0) o -1 si el golpe se anula del todo (parry perfecto).
+func _resolve_block(amount: float, source_position: Vector2) -> float:
+	var mob := mobility()
+	if block_time <= float(mob["parry_window"]):
+		block_time = 1.0
+		_on_parry(source_position)
+		return -1.0
+	var cost := amount * float(mob["block_cost"])
+	if resource.get_current() >= cost:
+		resource.consume(cost)
+		resource_changed.emit(resource.get_current(), resource.max_amount)
+		_trigger_vengeful()
+		attack_blocked.emit(source_position)
+		return amount * (1.0 - float(mob["block_reduction"]))
+	# Sin Rage el escudo se rompe: el golpe entra entero y quedas aturdido.
+	_end_block(mob)
+	apply_status("stun", 1.0)
+	return amount
+
+
+func _on_parry(source_position: Vector2) -> void:
+	attack_parried.emit(source_position)
+	var nearest: EnemySim = null
+	var best := 80.0
+	if world != null:
+		for enemy: EnemySim in world.enemies:
+			var distance := enemy.position.distance_to(source_position)
+			if enemy.alive and distance < best:
+				best = distance
+				nearest = enemy
+	if nearest != null:
+		nearest.apply_status("stun", 0.8)
+	_gain_ultimate(float(class_def.get("ult_charge", {}).get("on_parry", 12.0)))
+	_gain_resource(10.0)
+	_trigger_vengeful()
+	last_combat_tick = tick
+
+
+## Furia vengativa (pasiva del guerrero, desde su nivel de pasiva): tras bloquear o hacer parry, el siguiente golpe fuerte hace mas dano.
+func _trigger_vengeful() -> void:
+	if String(class_def.get("passive", "")) != "vengeful_fury" or level < int(class_def.get("passive_level", 1)):
+		return
+	vengeful_active = true
+	vengeful_until_tick = tick + int(float(WarriorKit.PASSIVE["window"]) * 60.0)
+	vengeful_changed.emit(true, vengeful_seconds_left())
+
+
+## Paso del combo del basico: sube el dano y el arco del tercero y le anade empuje.
+func _apply_combo() -> void:
+	var combo: Dictionary = current_skill["combo"]
+	if tick - _combo_tick > int(float(combo["reset"]) * 60.0):
+		_combo_index = 0
+	var index := _combo_index
+	current_skill["damage_mult"] = float(current_skill["damage_mult"]) * float((combo["mults"] as Array)[index])
+	current_skill["arc"] = float(current_skill.get("arc", 90.0)) + float((combo["arc_bonus"] as Array)[index])
+	if index == int(combo["steps"]) - 1 and combo.has("last_on_hit"):
+		current_skill["on_hit"] = (current_skill.get("on_hit", []) as Array) + (combo["last_on_hit"] as Array)
+	_combo_index = (index + 1) % int(combo["steps"])
+	_combo_tick = tick
+
+
+## Zona de suelo de una skill (grieta de la ultimate): dana a los enemigos que se queden dentro.
+func _spawn_skill_zone() -> void:
+	if not current_skill.has("zone") or world == null:
+		return
+	var spec: Dictionary = (current_skill["zone"] as Dictionary).duplicate(true)
+	spec["owner"] = "player"
+	world.spawn_zone(GroundZone.new(spec, _hit_origin(), stats.roll_weapon_damage(_rng)))
 
 
 func armor_reduction() -> float:

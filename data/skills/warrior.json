@@ -3,11 +3,11 @@
 	"skills": [
 		{
 			"id": "warrior_m1",
-			"name": "Sword Slash",
+			"name": "Sword Combo",
 			"slot": "M1",
 			"kind": "basic",
 			"role": "Daño / presión",
-			"description": "Ataque básico (clic izquierdo). Funciona como en Drakantos: se puede usar sin esperar cooldown a cambio de gastar una carga; las cargas se recuperan solas.",
+			"description": "Basico (clic derecho). Combo de 3 tajos: cada golpe da Rage y el tercero es mas ancho y empuja un poco. Se pueden encadenar sin esperar, a cambio de una carga.",
 			"hud_label": "SLASH",
 			"shape": "cone",
 			"windup": 0.12,
@@ -36,7 +36,28 @@
 			},
 			"unlock_level": 1,
 			"class": "warrior",
-			"damage_type": "physical"
+			"damage_type": "physical",
+			"combo": {
+				"steps": 3,
+				"reset": 0.9,
+				"mults": [
+					1.0,
+					1.0,
+					1.35
+				],
+				"arc_bonus": [
+					0,
+					0,
+					40
+				],
+				"last_on_hit": [
+					{
+						"id": "knockback",
+						"duration": 0.2,
+						"strength": 40
+					}
+				]
+			}
 		},
 		{
 			"id": "warrior_m2",
@@ -44,14 +65,14 @@
 			"slot": "M2",
 			"kind": "basic",
 			"role": "Burst / castigo",
-			"description": "Ataque especial (clic derecho). Mantén el botón para potenciarlo: más daño y más alcance hasta el máximo de carga; soltar antes lo lanza con la potencia que lleve.",
+			"description": "Basico cargado (mantener clic derecho): hasta 1,2 s cargando. Mas dano y alcance cuanto mas cargues; con la carga completa aturde 0,4 s. Cuesta 15 de Rage.",
 			"hud_label": "HEAVY",
 			"shape": "cone",
 			"windup": 0.3,
 			"active": 0.12,
 			"recovery": 0.35,
 			"cooldown": 3,
-			"cost": 0,
+			"cost": 15,
 			"range": 70,
 			"arc": 80,
 			"damage_mult": 2.1,
@@ -69,9 +90,15 @@
 			"ult_gain": 6,
 			"ult_cap": 8,
 			"hold": {
-				"max": 0.6,
-				"damage_bonus": 0.6,
-				"range_bonus": 0.25
+				"max": 1.2,
+				"damage_bonus": 0.9,
+				"range_bonus": 0.3,
+				"full_on_hit": [
+					{
+						"id": "stun",
+						"duration": 0.4
+					}
+				]
 			},
 			"unlock_level": 1,
 			"class": "warrior",
@@ -109,7 +136,8 @@
 			"unlock_level": 4,
 			"class": "warrior",
 			"damage_type": "physical",
-			"world": true
+			"world": true,
+			"retired": true
 		},
 		{
 			"id": "piercing_thrust",
@@ -143,15 +171,16 @@
 			"unlock_level": 2,
 			"class": "warrior",
 			"damage_type": "physical",
-			"world": true
+			"world": true,
+			"retired": true
 		},
 		{
 			"id": "iron_counter",
-			"name": "Iron Counter",
-			"slot": "SPECIAL",
+			"name": "Counterstrike",
+			"slot": "S",
 			"kind": "special",
 			"role": "Contraataque",
-			"description": "Postura de contraataque frontal. Desvía un ataque bloqueable y responde con un corte potente.",
+			"description": "Postura de 1 s: si te golpean de frente, anulas el golpe y respondes con un corte que hace sangrar.",
 			"hud_label": "COUNTER",
 			"shape": "cone",
 			"windup": 0.08,
@@ -177,10 +206,19 @@
 				"counter_recovery": 0.25
 			},
 			"anim": "slash",
-			"unlock_level": 4,
+			"unlock_level": 6,
 			"implemented": true,
 			"class": "warrior",
-			"damage_type": "physical"
+			"damage_type": "physical",
+			"world": true,
+			"on_hit": [
+				{
+					"id": "bleed",
+					"duration": 3,
+					"strength": 5
+				}
+			],
+			"legacy_special": true
 		},
 		{
 			"id": "war_gods_descent",
@@ -188,7 +226,7 @@
 			"slot": "ULTIMATE",
 			"kind": "ultimate",
 			"role": "Daño de área / iniciación",
-			"description": "Salto a una zona marcada con un golpe devastador; más daño en el centro y preparación esquivable.",
+			"description": "Salto a una zona marcada con un golpe devastador (mas dano en el centro) que deja una grieta de fuego unos segundos.",
 			"hud_label": "DESCENT",
 			"shape": "circle",
 			"windup": 0.7,
@@ -219,7 +257,21 @@
 			"implemented": true,
 			"unlock_level": 6,
 			"class": "warrior",
-			"damage_type": "physical"
+			"damage_type": "physical",
+			"zone": {
+				"radius": 90,
+				"duration": 4.0,
+				"tick": 0.6,
+				"damage_mult": 0.35,
+				"visual": "fire",
+				"status": [
+					{
+						"id": "slow",
+						"duration": 1.0,
+						"strength": 0.3
+					}
+				]
+			}
 		},
 		{
 			"kind": "skill",
@@ -259,7 +311,8 @@
 			},
 			"anim": "thrust",
 			"unlock_level": 10,
-			"world": true
+			"world": true,
+			"retired": true
 		},
 		{
 			"kind": "skill",
@@ -277,7 +330,7 @@
 			"name": "Ground Stomp",
 			"class": "warrior",
 			"role": "Control / AoE",
-			"description": "Golpea el suelo y ralentiza a los enemigos cercanos.",
+			"description": "Golpea el suelo: ralentiza a los enemigos cercanos y los atrae hacia ti.",
 			"hud_label": "STOMP",
 			"shape": "circle",
 			"range": 90,
@@ -289,8 +342,13 @@
 			"on_hit": [
 				{
 					"id": "slow",
-					"duration": 3,
+					"duration": 2.0,
 					"strength": 0.45
+				},
+				{
+					"id": "pull",
+					"duration": 0.2,
+					"strength": 70
 				}
 			],
 			"move": {
@@ -299,7 +357,167 @@
 				"recovery": 0.3
 			},
 			"anim": "slash",
-			"unlock_level": 2
+			"unlock_level": 3,
+			"world": true
+		},
+		{
+			"id": "rend",
+			"name": "Rend",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Dano / sangrado",
+			"description": "Tajo corto que hace sangrar al enemigo 4 s.",
+			"hud_label": "REND",
+			"shape": "cone",
+			"windup": 0.22,
+			"active": 0.12,
+			"recovery": 0.3,
+			"cooldown": 5,
+			"cost": 20,
+			"damage_mult": 1.2,
+			"resource_gain": 4,
+			"resource_cap": 16,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.3,
+				"active": 0.1,
+				"recovery": 0.35
+			},
+			"anim": "slash",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 2,
+			"class": "warrior",
+			"damage_type": "physical",
+			"range": 74,
+			"arc": 80,
+			"on_hit": [
+				{
+					"id": "bleed",
+					"duration": 4,
+					"strength": 5
+				}
+			]
+		},
+		{
+			"id": "war_cry",
+			"name": "War Cry",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Mejora / ofensiva",
+			"description": "Grito de guerra: +20 % de dano y +armadura durante 6 s y 30 de Rage al instante.",
+			"hud_label": "CRY",
+			"shape": "self",
+			"windup": 0.3,
+			"active": 0.3,
+			"recovery": 0.2,
+			"cooldown": 14,
+			"cost": 0,
+			"damage_mult": 0.1,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.6,
+				"active": 0.6,
+				"recovery": 0.8
+			},
+			"anim": "spellcast",
+			"implemented": true,
+			"ult_gain": 0,
+			"ult_cap": 0,
+			"unlock_level": 4,
+			"class": "warrior",
+			"damage_type": "physical",
+			"self_status": {
+				"id": "warcry",
+				"duration": 6.0,
+				"strength": 0.2
+			},
+			"resource_burst": 30
+		},
+		{
+			"id": "shockwave",
+			"name": "Shockwave",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Control / empuje",
+			"description": "Onda en linea que empuja a los enemigos y aturde 0,4 s.",
+			"hud_label": "WAVE",
+			"shape": "line",
+			"windup": 0.3,
+			"active": 0.12,
+			"recovery": 0.3,
+			"cooldown": 10,
+			"cost": 25,
+			"damage_mult": 1.4,
+			"resource_gain": 4,
+			"resource_cap": 16,
+			"max_targets": 3,
+			"move": {
+				"windup": 0.3,
+				"active": 0.1,
+				"recovery": 0.35
+			},
+			"anim": "thrust",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 8,
+			"class": "warrior",
+			"damage_type": "physical",
+			"range": 240,
+			"width": 54,
+			"on_hit": [
+				{
+					"id": "knockback",
+					"duration": 0.2,
+					"strength": 110
+				},
+				{
+					"id": "stun",
+					"duration": 0.4
+				}
+			]
+		},
+		{
+			"id": "whirlwind",
+			"name": "Whirlwind",
+			"slot": "S",
+			"kind": "skill",
+			"role": "Dano / area",
+			"description": "Giro de 1,5 s que golpea 5 veces a todos los que te rodean.",
+			"hud_label": "WHIRL",
+			"shape": "circle",
+			"windup": 0.2,
+			"active": 1.5,
+			"recovery": 0.35,
+			"cooldown": 9,
+			"cost": 30,
+			"damage_mult": 0.8,
+			"resource_gain": 4,
+			"resource_cap": 16,
+			"max_targets": 0,
+			"move": {
+				"windup": 0.4,
+				"active": 0.55,
+				"recovery": 0.6
+			},
+			"anim": "slash",
+			"implemented": true,
+			"ult_gain": 4,
+			"ult_cap": 12,
+			"unlock_level": 9,
+			"class": "warrior",
+			"damage_type": "physical",
+			"range": 92,
+			"world": true,
+			"strikes": {
+				"count": 5,
+				"interval": 0.3,
+				"final_mult": 1.4
+			}
 		}
 	]
 }

@@ -27,8 +27,9 @@
 	"default_loadout": {
 		"M1": "warrior_m1",
 		"M2": "warrior_m2",
-		"S1": "ground_stomp",
-		"SPECIAL": "iron_counter",
+		"S1": "rend",
+		"S2": "war_cry",
+		"S3": "shockwave",
 		"ULTIMATE": "war_gods_descent"
 	},
 	"look": {
@@ -60,23 +61,23 @@
 	},
 	"planned": [],
 	"mobility": {
-		"name": "Shield Charge",
-		"kind": "charge",
-		"description": "Carga hacia el cursor; aturde 1 s al primer golpe a cada enemigo.",
-		"dir": "aim",
-		"duration": 0.3,
-		"distance": 150,
-		"iframe_start": 0.0,
-		"iframe_end": 0.0,
-		"cooldown": 9.0,
-		"stun_on_hit": 1.0,
-		"damage_mult": 0.6,
-		"icon": "piercing_thrust"
+		"name": "Bloqueo",
+		"kind": "block",
+		"description": "Mantener Espacio: escudo al frente (-70 % de dano, gasta Rage). Si empieza justo antes del golpe (0,12 s) es parry perfecto: sin dano, aturde al atacante y carga la ultimate.",
+		"cooldown": 0.6,
+		"parry_window": 0.12,
+		"block_reduction": 0.7,
+		"block_cost": 0.5,
+		"block_arc": 150,
+		"icon": "iron_counter"
 	},
 	"ult_charge": {
 		"hit_scale": 1.0,
 		"on_taken_per_percent": 0.6,
 		"on_taken_cap": 8.0,
-		"_doc": "Golpea y aguanta."
-	}
+		"_doc": "Golpea y aguanta.",
+		"on_parry": 14.0
+	},
+	"passive_level": 8,
+	"slot_gates": true
 }

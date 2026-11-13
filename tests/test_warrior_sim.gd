@@ -83,15 +83,20 @@ func _test_vengeful_fury() -> void:
 		)
 
 	var world := _make_world(false, 31)
+	world.player.set_level(8)
+	world.player.resource.current_amount = 100.0
 	world.player.take_damage(10.0, Vector2.ZERO, false)
-	_check(world.player.vengeful_active, "a direct hit activates Vengeful Fury")
+	_check(not world.player.vengeful_active, "a plain hit no longer activates Vengeful Fury (needs a block or parry)")
+	world.player._trigger_vengeful()
+	_check(world.player.vengeful_active, "a block or parry activates Vengeful Fury (from level 8)")
 	_step(world, 40, _input(Vector2(0, -1), false, true))
 	_check(not world.player.vengeful_active, "the next Heavy Strike consumes the passive")
 
 
 func _test_vengeful_expiry() -> void:
 	var world := _make_world(false, 5)
-	world.player.take_damage(10.0, Vector2.ZERO, false)
+	world.player.set_level(8)
+	world.player._trigger_vengeful()
 	_check(world.player.vengeful_active, "passive starts active")
 	_step(world, 250, null)
 	_check(not world.player.vengeful_active, "passive expires after its 4 s window")
@@ -229,9 +234,11 @@ func _first_hit(slot: String, seed_value: int, hurt_first: bool = false) -> Arra
 	world.player.attack_hit.connect(func(_skill: Dictionary, _target: Object, damage: float, _critical: bool, _pos: Vector2) -> void:
 		hits.append(damage)
 	)
+	world.player.resource.current_amount = 100.0
 	if hurt_first:
-		world.player.take_damage(10.0, Vector2.ZERO, false)
-	_step(world, 60, _input(Vector2(0, -1), slot == "M1", slot == "M2"))
+		world.player.set_level(8)
+		world.player._trigger_vengeful()
+	_step(world, 130, _input(Vector2(0, -1), slot == "M1", slot == "M2"))
 	return hits
 
 

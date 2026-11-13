@@ -14,6 +14,8 @@ var effects: Array = []
 var visual: String = "dark"
 var alive: bool = true
 var _tick_left: float = 0.0
+## "player": dana a los enemigos (grieta de la ultimate); si no, dana al jugador (zonas de jefe).
+var owner_kind: String = "enemy"
 
 
 func _init(spec: Dictionary, at: Vector2, base_damage: float) -> void:
@@ -24,7 +26,23 @@ func _init(spec: Dictionary, at: Vector2, base_damage: float) -> void:
 	damage = base_damage * float(spec.get("damage_mult", 0.3))
 	effects = spec.get("status", [])
 	visual = String(spec.get("visual", "dark"))
+	owner_kind = String(spec.get("owner", "enemy"))
 	_tick_left = float(spec.get("delay", 0.6))
+
+
+func _hurt_enemies(player: PlayerSim) -> void:
+	if player == null or player.world == null:
+		return
+	for enemy: EnemySim in player.world.enemies.duplicate():
+		if not enemy.alive or enemy.position.distance_to(position) > radius + enemy.radius:
+			continue
+		if damage > 0.0:
+			enemy.take_damage(damage)
+			if not enemy.alive:
+				player.grant_xp(enemy.xp_reward(), enemy.position)
+				continue
+		for effect: Dictionary in effects:
+			enemy.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)), position)
 
 
 func step(delta: float, player: PlayerSim) -> void:
@@ -36,6 +54,9 @@ func step(delta: float, player: PlayerSim) -> void:
 	if _tick_left > 0.0:
 		return
 	_tick_left += tick
+	if owner_kind == "player":
+		_hurt_enemies(player)
+		return
 	if player == null or not player.alive or player.position.distance_to(position) > radius + PlayerSim.RADIUS:
 		return
 	if damage > 0.0:

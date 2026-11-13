@@ -188,6 +188,7 @@ func _test_stance_blocks_a_projectile() -> void:
 	var setup := _make(&"wisp", Vector2(200, 0))
 	var world: CombatWorld = setup["world"]
 	world.player.set_level(6)
+	LegacyKit.apply(world.player)
 	world.player.resource.current_amount = 100.0
 	var blocked: Array = []
 	world.player.attack_blocked.connect(func(_s: Vector2) -> void: blocked.append(true))

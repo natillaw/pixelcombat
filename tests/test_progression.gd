@@ -45,14 +45,14 @@ func _test_curve() -> void:
 	for error: String in Progression.errors():
 		print("   error de carga: %s" % error)
 	_check(Progression.errors().is_empty(), "data/progression.json carga sin errores")
-	_check(Progression.max_level() == 60, "el nivel maximo es 60")
+	_check(Progression.max_level() == 10, "el nivel maximo es 10")
 	_check(Progression.xp_to_next(1) == 60, "subir del nivel 1 al 2 cuesta 60 XP")
 	var increasing := true
-	for level: int in range(1, 59):
+	for level: int in range(1, 9):
 		if Progression.xp_to_next(level + 1) <= Progression.xp_to_next(level):
 			increasing = false
 	_check(increasing, "cada nivel cuesta mas XP que el anterior")
-	_check(Progression.xp_to_next(60) == 0, "en el nivel maximo ya no hay siguiente")
+	_check(Progression.xp_to_next(10) == 0, "en el nivel maximo ya no hay siguiente")
 	_check(Progression.total_xp_for_level(1) == 0, "el nivel 1 no acumula XP")
 	_check(Progression.total_xp_for_level(3) == Progression.xp_to_next(1) + Progression.xp_to_next(2), "total_xp_for_level suma los tramos")
 	_check(not Progression.growth("warrior").is_empty() and Progression.growth("no_existe").is_empty(), "el crecimiento se define por clase")
@@ -93,15 +93,17 @@ func _test_unlocks_by_level() -> void:
 	var unlocked: Array = []
 	warrior.leveled_up.connect(func(_level: int, ids: Array) -> void: unlocked.append(ids))
 	warrior.set_level(2)
-	_check(warrior.loadout.has("S1") and warrior.loadout["S1"]["id"] == &"ground_stomp", "el nivel 2 desbloquea Ground Stomp (S1)")
+	_check(warrior.loadout.has("S1") and warrior.loadout["S1"]["id"] == &"rend", "el nivel 2 desbloquea Rend (Q)")
 	warrior.set_level(4)
-	_check(warrior.loadout.has("SPECIAL"), "el nivel 4 desbloquea el Special")
+	_check(warrior.loadout.has("S2") and warrior.loadout["S2"]["id"] == &"war_cry", "el nivel 4 desbloquea War Cry (E)")
 	_check(not warrior.loadout.has("ULTIMATE"), "la Ultimate sigue bloqueada en el nivel 4")
 	warrior.set_level(6)
 	_check(warrior.loadout.has("ULTIMATE"), "el nivel 6 desbloquea la Ultimate")
-	_check(not warrior.loadout.has("S2") and not warrior.loadout.has("S3"), "las skills de mundo no llegan por nivel")
-	_check(unlocked.size() == 3, "cada subida emite leveled_up (%d)" % unlocked.size())
-	_check(unlocked[0] == [&"ground_stomp"] and unlocked[1] == [&"iron_counter"], "leveled_up lista las skills nuevas")
+	_check(not warrior.loadout.has("S3"), "el hueco R sigue cerrado en el nivel 6")
+	warrior.set_level(8)
+	_check(warrior.loadout.has("S3") and warrior.loadout["S3"]["id"] == &"shockwave", "el nivel 8 desbloquea Shockwave (R)")
+	_check(unlocked.size() == 4, "cada subida emite leveled_up (%d)" % unlocked.size())
+	_check(unlocked[0] == [&"rend"] and unlocked[1] == [&"war_cry"], "leveled_up lista las skills nuevas")
 
 
 func _test_one_grant_many_levels() -> void:
@@ -112,28 +114,28 @@ func _test_one_grant_many_levels() -> void:
 	_check(warrior.level == 6 and warrior.xp == 10, "una gran cantidad de XP sube varios niveles (nivel %d, xp %d)" % [warrior.level, warrior.xp])
 	_check(events.size() == 1 and events[0][0] == 6, "se emite un solo leveled_up con el nivel final")
 	var ids: Array = events[0][1] if not events.is_empty() else []
-	_check(ids == [&"ground_stomp", &"iron_counter", &"war_gods_descent"], "y lista todas las skills desbloqueadas por orden de nivel")
-	_check(warrior.loadout.has("S1") and warrior.loadout.has("SPECIAL") and warrior.loadout.has("ULTIMATE"), "todas quedan equipadas")
+	_check(ids == [&"rend", &"war_cry", &"war_gods_descent"], "y lista todas las skills desbloqueadas por orden de nivel")
+	_check(warrior.loadout.has("S1") and warrior.loadout.has("S2") and warrior.loadout.has("ULTIMATE"), "todas quedan equipadas")
 	_check(warrior.xp_to_next() == Progression.xp_to_next(6), "xp_to_next refleja el nivel actual")
 
 
 func _test_stat_growth_and_heal() -> void:
 	var warrior := _warrior()
-	warrior.set_level(10)
+	warrior.set_level(9)
 	var growth := Progression.growth("warrior")
-	_check(is_equal_approx(warrior.stats.get_stat(&"strength"), 20.0 + 9.0 * float(growth["strength_per_level"])), "la fuerza crece por nivel (%.1f)" % warrior.stats.get_stat(&"strength"))
+	_check(is_equal_approx(warrior.stats.get_stat(&"strength"), 20.0 + 8.0 * float(growth["strength_per_level"])), "la fuerza crece por nivel (%.1f)" % warrior.stats.get_stat(&"strength"))
 	_check(warrior.max_health > 280.0, "la vida maxima sube con el nivel (%d)" % int(warrior.max_health))
 	warrior.take_damage(100.0, Vector2(50, 0), false)
 	_check(warrior.health < warrior.max_health, "el Warrior recibe dano")
-	warrior.grant_xp(Progression.xp_to_next(10))
-	_check(warrior.level == 11 and is_equal_approx(warrior.health, warrior.max_health), "subir de nivel cura del todo")
+	warrior.grant_xp(Progression.xp_to_next(9))
+	_check(warrior.level == 10 and is_equal_approx(warrior.health, warrior.max_health), "subir de nivel cura del todo")
 
 
 func _test_level_down() -> void:
 	var warrior := _warrior()
 	warrior.set_level(10)
 	warrior.set_level(3)
-	_check(warrior.loadout.has("S1") and not warrior.loadout.has("SPECIAL") and not warrior.loadout.has("ULTIMATE"), "bajar de nivel retira las skills que dejan de estar desbloqueadas")
+	_check(warrior.loadout.has("S1") and not warrior.loadout.has("S2") and not warrior.loadout.has("ULTIMATE"), "bajar de nivel retira las skills que dejan de estar desbloqueadas")
 	warrior.reset_progression()
 	_check(warrior.level == 1 and not warrior.loadout.has("S1"), "reset_progression vuelve al nivel 1")
 	_check(is_equal_approx(warrior.stats.get_stat(&"strength"), 20.0), "y a los stats base")
@@ -141,10 +143,10 @@ func _test_level_down() -> void:
 
 func _test_set_loadout_respects_levels() -> void:
 	var warrior := _warrior()
-	warrior.set_loadout({"M1": &"warrior_m1", "S1": &"ground_stomp", "ULTIMATE": &"war_gods_descent"})
+	warrior.set_loadout({"M1": &"warrior_m1", "S1": &"rend", "ULTIMATE": &"war_gods_descent"})
 	_check(warrior.loadout.has("M1") and not warrior.loadout.has("S1") and not warrior.loadout.has("ULTIMATE"), "set_loadout ignora skills bloqueadas por nivel")
 	warrior.set_level(10)
-	warrior.set_loadout({"S4": &"ground_stomp", "S2": &"iron_counter"})
+	warrior.set_loadout({"S4": &"rend", "S2": &"warrior_m2"})
 	_check(warrior.loadout.has("S4") and not warrior.loadout.has("S2"), "set_loadout respeta que la skill quepa en el slot")
 
 
@@ -153,19 +155,19 @@ func _test_set_loadout_respects_levels() -> void:
 
 func _test_equip_reasons() -> void:
 	var warrior := _warrior()
-	_check(warrior.equip("S1", &"ground_stomp") == "locked", "equipar una skill bloqueada devuelve locked")
+	_check(warrior.equip("S1", &"rend") == "locked", "equipar una skill bloqueada devuelve locked")
 	_check(warrior.equip("S1", &"no_existe") == "unknown", "una skill inexistente devuelve unknown")
-	_check(warrior.equip("S9", &"ground_stomp") == "slot", "un slot inexistente devuelve slot")
+	_check(warrior.equip("S9", &"rend") == "slot", "un slot inexistente devuelve slot")
 	warrior.set_level(10)
-	_check(warrior.equip("SPECIAL", &"ground_stomp") == "wrong_slot", "una skill normal no cabe en el slot Special")
-	_check(warrior.equip("S1", &"iron_counter") == "wrong_slot", "el Special no cabe en un slot normal")
+	_check(warrior.equip("ULTIMATE", &"rend") == "wrong_slot", "una skill normal no cabe en el slot de la ultimate")
+	_check(warrior.equip("S1", &"war_gods_descent") == "wrong_slot", "la ultimate no cabe en un slot normal")
 	_check(warrior.equip("M1", &"warrior_m2") == "wrong_slot", "M2 no cabe en el slot M1")
 	var world := _world()
 	world.player.set_level(10)
 	world.player.resource.current_amount = 50.0
 	_step(world, 1, _input({"s1": true}))
 	_check(world.player.state != PlayerSim.AttackState.IDLE, "(preparacion) la skill esta en curso")
-	_check(world.player.equip("S3", &"ground_stomp") == "busy", "no se puede equipar mientras se ataca")
+	_check(world.player.equip("S3", &"rend") == "busy", "no se puede equipar mientras se ataca")
 	_check(not world.player.can_edit_loadout(), "can_edit_loadout es falso en pleno ataque")
 
 
@@ -174,7 +176,7 @@ func _test_equip_moves_and_unequips() -> void:
 	warrior.set_level(10)
 	var changes: Array = []
 	warrior.loadout_changed.connect(func() -> void: changes.append(true))
-	_check(warrior.equip("S3", &"ground_stomp") == "", "se puede equipar una skill desbloqueada en otro slot")
+	_check(warrior.equip("S3", &"rend") == "", "se puede equipar una skill desbloqueada en otro slot")
 	_check(warrior.loadout.has("S3") and not warrior.loadout.has("S1"), "una skill ya equipada se mueve de slot, no se duplica")
 	_check(changes.size() == 1, "equipar emite loadout_changed")
 	_check(warrior.unequip("S3") and not warrior.loadout.has("S3"), "unequip vacia el slot")
@@ -191,9 +193,9 @@ func _test_cooldown_follows_the_skill() -> void:
 	_step(world, 60, _input({}))
 	_check(world.player.state == PlayerSim.AttackState.IDLE, "(preparacion) el lanzamiento ha terminado")
 	var left_before: float = world.player.attack_cooldown_left("S1")
-	_check(left_before > 4.0, "Ground Stomp esta en cooldown (%.1f s)" % left_before)
+	_check(left_before > 4.0, "Rend esta en cooldown (%.1f s)" % left_before)
 	_check(world.player.unequip("S1"), "se retira de S1")
-	_check(world.player.equip("S4", &"ground_stomp") == "", "y se equipa en S4")
+	_check(world.player.equip("S4", &"rend") == "", "y se equipa en S4")
 	_check(world.player.attack_cooldown_left("S4") > 4.0, "el cooldown se conserva al cambiarla de slot (no se puede evadir cambiando el loadout)")
 
 
@@ -222,9 +224,9 @@ func _test_xp_from_kills() -> void:
 
 func _test_max_level() -> void:
 	var warrior := _warrior()
-	warrior.set_level(60)
+	warrior.set_level(10)
 	warrior.grant_xp(100000)
-	_check(warrior.level == 60 and warrior.xp == 0, "en el nivel maximo la XP no se acumula")
+	_check(warrior.level == 10 and warrior.xp == 0, "en el nivel maximo la XP no se acumula")
 	_check(warrior.xp_to_next() == 0, "y no hay siguiente nivel")
 
 

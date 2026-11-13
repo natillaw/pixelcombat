@@ -308,7 +308,7 @@
 				"recovery": 0.6
 			},
 			"anim": "slash",
-			"unlock_level": 16,
+			"unlock_level": 5,
 			"world": true
 		},
 		{
@@ -349,7 +349,7 @@
 				"recovery": 0.6
 			},
 			"anim": "slash",
-			"unlock_level": 36,
+			"unlock_level": 8,
 			"world": true
 		}
 	]

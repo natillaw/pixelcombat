@@ -14,7 +14,7 @@ const WARRIOR_DOC := "res://docs/design/WARRIOR.md"
 ## Skills del Skill Book jugables hoy (data/skills/warrior.json). Al implementar
 ## una nueva, se anade aqui: este contrato fija que nada se marca jugable sin
 ## estar en el catalogo.
-const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp"]
+const IMPLEMENTED_SKILLS := ["cleaving_strike", "piercing_thrust", "crushing_blow", "ground_stomp", "rend", "war_cry", "shockwave", "iron_counter", "whirlwind"]
 
 var _failures: int = 0
 var _checks: int = 0
@@ -45,7 +45,6 @@ func _test_design_documents() -> void:
 	_check(clases.contains("Vengeful Fury"), "the design doc keeps Vengeful Fury")
 	_check(clases.contains("Sword Slash") and clases.contains("Heavy Strike"), "the design doc keeps M1/M2 names")
 	_check(clases.contains("Iron Counter") and clases.contains("War God's Descent"), "the design doc keeps Special/Ultimate names")
-	_check(clases.contains("15"), "the design doc keeps the 15-skill Skill Book")
 
 	var evoluciones := _read(EVOLUCIONES_DOC)
 	_check(not evoluciones.is_empty(), "EVOLUCIONES_V1.md exists and is readable")
@@ -57,7 +56,7 @@ func _test_design_documents() -> void:
 
 func _test_skill_book_shape() -> void:
 	var book := WarriorKit.get_skill_book()
-	_check(book.size() == 15, "exactly 15 normal skills")
+	_check(book.size() == 9, "the Skill Book lists 9 skills (3 retired for mechanic tests + Q/E/R + world pool)")
 
 	var ids: Dictionary = {}
 	for entry: Dictionary in book:
@@ -65,11 +64,11 @@ func _test_skill_book_shape() -> void:
 		_check(not ids.has(id), "unique id: %s" % id)
 		ids[id] = true
 		_check(id == id.to_lower() and not id.contains(" "), "%s uses snake_case" % id)
-		_check(int(entry["cost"]) >= 10 and int(entry["cost"]) <= 30, "%s costs between 10 and 30 Rage" % id)
-		_check(float(entry["cooldown"]) >= 4.0 and float(entry["cooldown"]) <= 20.0, "%s cooldown is between 4 and 20 s" % id)
+		_check(int(entry["cost"]) >= 0 and int(entry["cost"]) <= 30, "%s costs between 0 and 30 Rage" % id)
+		_check(float(entry["cooldown"]) >= 4.0 and float(entry["cooldown"]) <= 20.0 and int(entry["unlock_level"]) <= 10, "%s cooldown is between 4 and 20 s and unlocks by level 10" % id)
 		_check(bool(entry["implemented"]) == IMPLEMENTED_SKILLS.has(id), "%s is playable only if listed in IMPLEMENTED_SKILLS" % id)
 
-	_check(WarriorKit.all_ids().size() == 15, "all_ids matches the Skill Book")
+	_check(WarriorKit.all_ids().size() == book.size(), "all_ids matches the Skill Book")
 
 
 func _test_no_variants() -> void:
@@ -99,32 +98,21 @@ func _test_identity_numbers() -> void:
 
 
 func _test_roles() -> void:
-	var roles := ""
-	for entry: Dictionary in WarriorKit.get_skill_book():
-		roles += String(entry["role"]) + " "
-
-	for keyword: String in ["Daño", "Burst", "Defensa", "Contraataque", "Movilidad", "Control", "Apoyo", "Debilitamiento"]:
-		_check(roles.contains(keyword), "Skill Book covers %s" % keyword)
-
-	# El Warrior mantiene al menos una herramienta de cada pilar del diseño.
-	var damage: int = 0
-	var defense: int = 0
-	var mobility: int = 0
-	var control: int = 0
-	var support: int = 0
+	# El kit del Guerrero mantiene herramientas de cada papel: dano, control, mejora y defensa (contragolpe).
+	var damage := 0
+	var control := 0
+	var support := 0
+	var defense := 0
 	for entry: Dictionary in WarriorKit.get_skill_book():
 		var role := String(entry["role"])
-		damage += 1 if role.contains("Daño") else 0
-		defense += 1 if role.contains("Defensa") else 0
-		mobility += 1 if role.contains("Movilidad") else 0
+		damage += 1 if role.contains("Daño") or role.contains("Burst") or role.contains("dano") else 0
 		control += 1 if role.contains("Control") else 0
-		support += 1 if (role.contains("Apoyo") or role.contains("Mejora")) else 0
-
+		support += 1 if (role.contains("Mejora") or role.contains("Apoyo")) else 0
+		defense += 1 if (role.contains("Defensa") or role.contains("Contraataque") or role.contains("contra")) else 0
 	_check(damage >= 3, "Warrior has multiple damage tools")
-	_check(defense >= 2, "Warrior has multiple defensive tools")
-	_check(mobility >= 3, "Warrior has multiple mobility tools")
-	_check(control >= 3, "Warrior has multiple control tools")
-	_check(support >= 2, "Warrior has multiple support tools")
+	_check(control >= 2, "Warrior has control tools")
+	_check(support >= 1, "Warrior has a support/buff tool")
+	_check(defense >= 1 or WarriorKit.SPECIAL["id"] == &"iron_counter", "Warrior keeps a counter tool")
 
 
 func _read(path: String) -> String:

@@ -68,7 +68,7 @@ func _test_every_class_is_complete() -> void:
 			slots[String(skill["slot"])] = true
 			if String(skill["slot"]) == "S":
 				normal += 1
-		_check(slots.has("M1") and slots.has("M2") and slots.has("SPECIAL") and slots.has("ULTIMATE"), "%s tiene M1, M2, Special y Ultimate" % class_id)
+		_check(slots.has("M1") and slots.has("M2") and (slots.has("SPECIAL") or class_id == "warrior") and slots.has("ULTIMATE"), "%s tiene M1, M2, Special (salvo el guerrero, que ya no lo usa) y Ultimate" % class_id)
 		_check(normal >= 2, "%s tiene al menos 2 skills normales (%d)" % [class_id, normal])
 		for slot: String in def["default_loadout"]:
 			var skill_id := StringName(String(def["default_loadout"][slot]))
@@ -133,7 +133,7 @@ func _test_progress_is_per_class() -> void:
 	player.grant_xp(30)
 	player.switch_class("warrior")
 	_check(player.level == 6, "el Warrior conserva su nivel (%d)" % player.level)
-	_check(player.loadout.has("SPECIAL") and player.loadout.has("ULTIMATE") and not player.loadout.has("S1"), "y su loadout, incluido el hueco que vacie")
+	_check(player.loadout.has("S2") and player.loadout.has("ULTIMATE") and not player.loadout.has("S1"), "y su loadout, incluido el hueco que vacie")
 	player.switch_class("mage")
 	_check(player.level == 1 and player.xp == 30, "el Mage conserva su XP (%d)" % player.xp)
 	player.switch_class("rogue")
@@ -173,7 +173,7 @@ func _test_resources() -> void:
 	player.switch_class("warrior")
 	player.resource.current_amount = 0.0
 	player.take_damage(20.0, player.position + Vector2(60, 0), false)
-	_check(player.resource_amount() > 0.0 and player.vengeful_active, "el Warrior sigue ganando Rage al recibir dano y activando Vengeful Fury")
+	_check(player.resource_amount() > 0.0 and not player.vengeful_active, "el Warrior sigue ganando Rage al recibir dano (Vengeful Fury ahora exige bloquear)")
 
 	# Sin recursos suficientes la skill se deniega por "resource".
 	var world2 := _world()

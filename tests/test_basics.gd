@@ -177,7 +177,7 @@ func _test_dodge_cancels_charge() -> void:
 	_step(world, windup_ticks, _input({"m2": true}))
 	_check(world.player.charge_fraction() > 0.0, "charging before the dodge")
 	_step(world, 1, _input({"m2": true, "dodge": true}))
-	_check(world.player.dodging, "the dodge starts while charging")
+	_check(world.player.blocking, "the block starts while charging (the Warrior defends with Space)")
 	_check(is_zero_approx(world.player.hold_time), "cancelling resets the charge")
 	_step(world, 60, _input({}))
 	_check(hits.is_empty(), "a cancelled charge never lands")
@@ -196,6 +196,7 @@ func _test_snapshot() -> void:
 func _make_world(offsets: Array) -> CombatWorld:
 	var world: CombatWorld = CombatWorldScript.new(4)
 	world.setup_arena(Rect2(0, 0, 900, 600))
+	world.player.resource.current_amount = 100.0
 	var origin: Vector2 = world.player.position
 	for offset: Vector2 in offsets:
 		world.add_dummy(origin + offset, false)

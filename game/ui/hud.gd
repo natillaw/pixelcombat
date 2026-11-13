@@ -24,7 +24,8 @@ const GREEN_DONE := Color(0.55, 0.82, 0.45, 1.0)
 const ENERGY := Color(0.95, 0.80, 0.25, 1.0)
 const MANA := Color(0.35, 0.55, 1.0, 1.0)
 
-const SLOT_COUNT := 10
+## Huecos que se dibujan en la barra de habilidades (6, o 7 si la clase aun tiene Especial).
+var _slots_shown: int = 6
 const SLOT_W := 54.0
 const SLOT_H := 38.0
 const SLOT_GAP := 3.0
@@ -217,56 +218,57 @@ func _slot_bar(at: Vector2, width: float, ratio: float, color: Color) -> void:
 		draw_rect(Rect2(fill.position, Vector2(fill.size.x, 2.0)), color.lightened(0.35))
 
 
-## Barra inferior: M1, M2, esquiva, S1-S5, Special y Ultimate (10 huecos).
+## Barra inferior: basico (clic derecho: toque = combo, mantener = golpe cargado), defensa (Espacio), skills
+## Q E R (y el Especial de las clases que aun lo tienen) y ultimate (F).
 func _draw_abilities(warrior: PlayerSim) -> void:
+	_slots_shown = 7 if warrior.class_def.get("default_loadout", {}).has("SPECIAL") else 6
 	_draw_ability(
 		_slot_rect(0),
-		Settings.short_label("attack_m1"), _hud_label(warrior, "M1"), "M1",
+		Settings.short_label("attack_m2"), _hud_label(warrior, "M1"), "M1",
 		warrior.attack_cooldown_left("M1"), warrior.attack_cooldown_total("M1"),
-		false, warrior.state == PlayerSim.AttackState.IDLE
-	)
-	_draw_ability(
-		_slot_rect(1),
-		Settings.short_label("attack_m2"), _hud_label(warrior, "M2"), "M2",
-		warrior.attack_cooldown_left("M2"), warrior.attack_cooldown_total("M2"),
 		warrior.vengeful_active, warrior.state == PlayerSim.AttackState.IDLE
 	)
-	_draw_dodge_slot(_slot_rect(2), warrior)
+	_draw_dodge_slot(_slot_rect(1), warrior)
 	_draw_m1_pips(_slot_rect(0), warrior)
-	_draw_m2_charge(_slot_rect(1), warrior)
-	for i: int in range(5):
-		_draw_skill_slot(_slot_rect(3 + i), Settings.short_label("skill_%d" % (i + 1)) if InputMap.has_action("skill_%d" % (i + 1)) else str(i + 1), "S%d" % (i + 1), warrior)
-	_draw_skill_slot(_slot_rect(8), Settings.short_label("special"), "SPECIAL", warrior)
-	_draw_ultimate_slot(_slot_rect(9), warrior)
+	_draw_m2_charge(_slot_rect(0), warrior)
+	for i: int in range(3):
+		_draw_skill_slot(_slot_rect(2 + i), Settings.short_label("skill_%d" % (i + 1)), "S%d" % (i + 1), warrior)
+	var next := 5
+	if warrior.class_def.get("default_loadout", {}).has("SPECIAL"):
+		_draw_skill_slot(_slot_rect(next), Settings.short_label("special"), "SPECIAL", warrior)
+		next += 1
+	_draw_ultimate_slot(_slot_rect(next), warrior)
 
 
-## Pociones rapidas (vida y energia) a la izquierda de la barra: tecla, cantidad y enfriamiento.
+## Barra de objetos (teclas 1-5) sobre la de habilidades: 1 pocion de vida, 2 elixir de energia y 3-5 para los
+## gadgets que se anadiran mas adelante. Muestra tecla, cantidad y enfriamiento.
 func _draw_quick_items(player: PlayerSim) -> void:
-	var colors := {"health": Color(0.85, 0.25, 0.28), "resource": Color(0.3, 0.55, 0.95)}
-	var index := 0
-	for quick: String in ["health", "resource"]:
-		var total := 0
-		for id: String in ConsumableCatalog.quick_ids(quick):
-			total += player.consumable_count(id)
-		var rect := Rect2(3.0, SLOT_Y + float(index) * 20.0, 31.0, 18.0)
+	var quick_kinds := ["health", "resource"]
+	var cell := 30.0
+	var gap := 3.0
+	var left := (640.0 - (5.0 * cell + 4.0 * gap)) * 0.5
+	for index: int in range(5):
+		var rect := Rect2(left + float(index) * (cell + gap), SLOT_Y - 26.0, cell, 22.0)
 		UiStyle.draw_slot_bg(self, rect)
-		var color: Color = colors[quick]
+		var action := "item_%d" % (index + 1) if index >= 2 else ("quick_" + String(quick_kinds[index]))
+		_draw_text(Settings.short_label(action), rect.position + Vector2(3, 8), 7, MUTED)
+		if index >= 2:
+			continue
+		var quick: String = quick_kinds[index]
+		var total := 0
 		var best := ""
 		for id: String in ConsumableCatalog.quick_ids(quick):
-			if player.consumable_count(id) > 0:
+			total += player.consumable_count(id)
+			if best == "" and player.consumable_count(id) > 0:
 				best = id
-				break
-		var potion_icon := SkillIcons.consumable(best if best != "" else String(ConsumableCatalog.quick_ids(quick)[ConsumableCatalog.quick_ids(quick).size() - 1]))
-		if potion_icon != null:
-			draw_texture_rect(potion_icon, Rect2(rect.position + Vector2(1, 3), Vector2(12, 12)), false, Color(1, 1, 1, 1.0 if total > 0 else 0.35))
-		else:
-			draw_circle(rect.position + Vector2(8, 9), 4.0, color if total > 0 else color.darkened(0.6))
-		_draw_text(Settings.short_label("quick_" + quick), rect.position + Vector2(14, 7), 7, TEXT)
-		_draw_text("x%d" % total, rect.position + Vector2(14, 15), 7, MUTED if total > 0 else Color(0.5, 0.45, 0.38))
+		var ids := ConsumableCatalog.quick_ids(quick)
+		var icon := SkillIcons.consumable(best if best != "" else String(ids[ids.size() - 1]))
+		if icon != null:
+			draw_texture_rect(icon, Rect2(rect.position + Vector2(9, 5), Vector2(12, 12)), false, Color(1, 1, 1, 1.0 if total > 0 else 0.35))
+		_draw_text("x%d" % total, rect.position + Vector2(0, 20), 7, MUTED if total > 0 else Color(0.5, 0.45, 0.38), HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 2.0)
 		if player.potion_cooldown_left > 0.0 and total > 0:
 			var fraction := clampf(player.potion_cooldown_left / ConsumableCatalog.potion_cooldown(), 0.0, 1.0)
 			draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * fraction)), Color(0, 0, 0, 0.55))
-		index += 1
 
 
 ## Comida activa (bien alimentado, fuerza, velocidad): icono y tiempo que queda, apilados sobre las pociones.
@@ -276,7 +278,7 @@ func _draw_active_food(player: PlayerSim) -> void:
 	for status: String in foods:
 		if not player.statuses.has(status):
 			continue
-		var rect := Rect2(3.0, SLOT_Y - 26.0 - float(row) * 25.0, 31.0, 23.0)
+		var rect := Rect2(3.0, SLOT_Y - 4.0 - float(row) * 25.0, 31.0, 23.0)
 		UiStyle.draw_slot_bg(self, rect)
 		var icon := SkillIcons.consumable(String(foods[status]))
 		if icon != null:
@@ -288,7 +290,7 @@ func _draw_active_food(player: PlayerSim) -> void:
 
 
 func _slot_rect(index: int) -> Rect2:
-	var total := float(SLOT_COUNT) * SLOT_W + float(SLOT_COUNT - 1) * SLOT_GAP
+	var total := float(_slots_shown) * SLOT_W + float(_slots_shown - 1) * SLOT_GAP
 	return Rect2((640.0 - total) * 0.5 + float(index) * (SLOT_W + SLOT_GAP), SLOT_Y, SLOT_W, SLOT_H)
 
 

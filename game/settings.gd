@@ -12,9 +12,9 @@ const SFX_BUS := "SFX"
 ## Acciones que se pueden reasignar, con su nombre en pantalla.
 const REMAPPABLE := [
 	["move_up", "Mover arriba"], ["move_down", "Mover abajo"], ["move_left", "Mover izquierda"], ["move_right", "Mover derecha"],
-	["attack_m1", "Ataque basico"], ["attack_m2", "Ataque fuerte"], ["dodge", "Movilidad"],
-	["skill_1", "Skill 1"], ["skill_2", "Skill 2"], ["skill_3", "Skill 3"], ["special", "Especial"], ["ultimate", "Ultimate"],
-	["quick_health", "Pocion de vida"], ["quick_resource", "Elixir de energia"], ["interact", "Interactuar"], ["toggle_inventory", "Inventario"], ["toggle_character", "Personaje"], ["toggle_loadout", "Libro de skills"],
+	["attack_m1", "Interactuar (clic)"], ["attack_m2", "Ataque basico (clic)"], ["dodge", "Defensa / movilidad"],
+	["skill_1", "Skill 1"], ["skill_2", "Skill 2"], ["skill_3", "Skill 3"], ["ultimate", "Ultimate"],
+	["quick_health", "Objeto 1 (pocion)"], ["quick_resource", "Objeto 2 (elixir)"], ["interact", "Interactuar (tecla)"], ["toggle_inventory", "Inventario"], ["toggle_character", "Personaje"], ["toggle_loadout", "Libro de skills"],
 ]
 
 static var master: float = 0.8

@@ -149,7 +149,7 @@ func _test_dodge_cancels_stance() -> void:
 	var world := _make_world([])
 	_open_stance(world)
 	_step(world, 1, _input({"dodge": true}))
-	_check(world.player.dodging, "the dodge can cancel the open stance")
+	_check(world.player.blocking, "the block (Space) can cancel the open stance")
 	_check(not world.player.stance_active(), "and the stance is gone")
 
 

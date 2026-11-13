@@ -148,6 +148,36 @@
 				0.7,
 				1.0
 			]
+		},
+		{
+			"id": "warcry",
+			"name": "War Cry",
+			"kind": "buff",
+			"description": "Mas dano y armadura (strength = fraccion extra de dano; armadura +0,75 x strength).",
+			"max_duration": 12.0,
+			"max_strength": 0.5,
+			"immune_after": 0.0,
+			"color": [
+				1.0,
+				0.55,
+				0.2,
+				1.0
+			]
+		},
+		{
+			"id": "pull",
+			"name": "Pull",
+			"kind": "push",
+			"description": "Atrae hacia el origen del golpe (strength = distancia en px).",
+			"max_duration": 0.3,
+			"max_strength": 160.0,
+			"immune_after": 0.0,
+			"color": [
+				0.8,
+				0.8,
+				1.0,
+				1.0
+			]
 		}
 	]
 }

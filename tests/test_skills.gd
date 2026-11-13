@@ -115,7 +115,7 @@ func _test_cone_misses_behind() -> void:
 
 func _test_set_loadout() -> void:
 	var world := _make_world([])
-	world.player.set_loadout({"M1": &"warrior_m1", "S3": &"piercing_thrust", "S9": &"cleaving_strike", "S4": &"no_existe", "S5": &"whirlwind"})
+	world.player.set_loadout({"M1": &"warrior_m1", "S3": &"piercing_thrust", "S9": &"cleaving_strike", "S4": &"no_existe", "S5": &"parry"})
 	var loadout: Dictionary = world.player.loadout
 	_check(loadout.has("S3") and loadout["S3"]["id"] == &"piercing_thrust", "S3 can hold Piercing Thrust")
 	_check(not loadout.has("S9"), "unknown slots are ignored")

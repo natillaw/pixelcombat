@@ -2219,6 +2219,51 @@
 		"crippling_arrow": {
 			"cast": [],
 			"hit": "ice/snowball-impact"
+		},
+		"rend": {
+			"cast": [
+				{
+					"id": "melee/axe-smear",
+					"scale": 1.0,
+					"ahead": 0.55
+				}
+			],
+			"hit": "impacts/blood-splat"
+		},
+		"war_cry": {
+			"cast": [
+				{
+					"id": "status/power-up-aura",
+					"scale": 1.2,
+					"at": "self",
+					"seconds": 1.2
+				},
+				{
+					"id": "impacts/shockwave-ring",
+					"scale": 0.8,
+					"at": "self"
+				}
+			]
+		},
+		"shockwave": {
+			"cast": [
+				{
+					"id": "impacts/ground-slam",
+					"scale": 1.0,
+					"ahead": 0.5
+				}
+			],
+			"hit": "impacts/rock-shatter"
+		},
+		"whirlwind": {
+			"cast": [
+				{
+					"id": "melee/sword-combo",
+					"scale": 1.6,
+					"at": "self"
+				}
+			],
+			"hit": "impacts/hit-spark"
 		}
 	},
 	"events": {
@@ -2461,6 +2506,39 @@
 				"id": "impacts/hit-spark",
 				"scale": 1.0,
 				"up": 36
+			}
+		],
+		"mobility_block": [
+			{
+				"id": "holy/barrier-block",
+				"scale": 0.9,
+				"up": 14
+			}
+		],
+		"parry": [
+			{
+				"id": "impacts/parry",
+				"scale": 1.0,
+				"up": 14
+			},
+			{
+				"id": "impacts/shockwave-ring",
+				"scale": 0.6,
+				"up": 2
+			}
+		],
+		"status_warcry": [
+			{
+				"id": "status/power-up-aura",
+				"scale": 0.8,
+				"up": 6
+			}
+		],
+		"status_pull": [
+			{
+				"id": "impacts/shockwave-ring",
+				"scale": 0.5,
+				"up": 2
 			}
 		]
 	},

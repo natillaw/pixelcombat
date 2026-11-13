@@ -173,6 +173,8 @@ static func validate(def: Dictionary) -> Array[String]:
 		if _is_number((stats as Dictionary).get("weapon_speed")) and float(stats["weapon_speed"]) <= 0.0:
 			problems.append("stats.weapon_speed debe ser > 0")
 
+	if def.has("passive_level") and (not _is_number(def["passive_level"]) or float(def["passive_level"]) < 1.0):
+		problems.append("passive_level debe ser >= 1")
 	if not (def.get("passive") is String) or not PASSIVES.has(def["passive"]):
 		problems.append("passive debe ser \"\" o \"vengeful_fury\"")
 

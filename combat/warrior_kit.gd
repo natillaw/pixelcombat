@@ -62,23 +62,17 @@ static var SPECIAL: Dictionary = SkillCatalog.skill(&"iron_counter")
 ## limita la carga.
 static var ULTIMATE: Dictionary = SkillCatalog.skill(&"war_gods_descent")
 
-## Skill Book completo (15 habilidades normales). Costes y cooldowns provisionales.
+## Skill Book del Guerrero: las skills de equipo (Q, E, R) y de mundo, mas las retiradas que solo usan los tests de mecanicas. Los datos reales viven en data/skills/warrior.json; aqui se espeja para comprobar que no se desincronizan.
 const SKILL_BOOK := [
 	{"id": &"cleaving_strike", "unlock_level": 4, "name": "Cleaving Strike", "role": "Daño / AoE", "cost": 20, "cooldown": 6.0, "description": "Corte horizontal amplio que daña a todos los enemigos alcanzados.", "implemented": true},
-	{"id": &"crushing_blow", "unlock_level": 10, "name": "Crushing Blow", "role": "Burst / castigo", "cost": 25, "cooldown": 10.0, "description": "Golpe descendente muy pesado; interrumpe habilidades canalizadas si conecta.", "implemented": true},
+	{"id": &"crushing_blow", "unlock_level": 10, "name": "Crushing Blow", "role": "Burst / castigo", "cost": 25, "cooldown": 10.0, "description": "Golpe descendente muy pesado; aturde a los enemigos alcanzados.", "implemented": true},
 	{"id": &"piercing_thrust", "unlock_level": 2, "name": "Piercing Thrust", "role": "Daño preciso", "cost": 15, "cooldown": 5.0, "description": "Estocada rápida y lineal con más alcance que M1.", "implemented": true},
-	{"id": &"whirlwind", "unlock_level": 14, "name": "Whirlwind", "role": "Daño / AoE", "cost": 30, "cooldown": 9.0, "description": "Giro con la espada extendida que golpea alrededor, con límite de impactos.", "implemented": false},
-	{"id": &"parry", "unlock_level": 12, "name": "Parry", "role": "Defensa", "cost": 20, "cooldown": 10.0, "description": "Desvía un ataque frontal en una ventana breve; si acierta, permite contraatacar.", "implemented": false},
-	{"id": &"iron_guard", "unlock_level": 18, "name": "Iron Guard", "role": "Defensa / mitigación", "cost": 15, "cooldown": 8.0, "description": "Postura defensiva temporal que reduce el daño frontal y la velocidad de movimiento.", "implemented": false},
-	{"id": &"retaliation", "unlock_level": 28, "name": "Retaliation", "role": "Contraataque", "cost": 20, "cooldown": 8.0, "description": "Prepara una respuesta potente si recibe un ataque durante la ventana.", "implemented": false},
-	{"id": &"combat_roll", "unlock_level": 16, "name": "Combat Roll", "role": "Movilidad / evasión", "cost": 10, "cooldown": 6.0, "description": "Rodar en una dirección con una ventana breve de evasión.", "implemented": false},
-	{"id": &"heroic_leap", "unlock_level": 20, "name": "Heroic Leap", "role": "Movilidad / iniciación", "cost": 20, "cooldown": 12.0, "description": "Salto a una ubicación seleccionada con golpe al aterrizar; el impacto se muestra antes.", "implemented": false},
-	{"id": &"relentless_pursuit", "unlock_level": 32, "name": "Relentless Pursuit", "role": "Movilidad / persecución", "cost": 15, "cooldown": 9.0, "description": "Carga frontal con daño al impactar y ralentización breve.", "implemented": false},
-	{"id": &"ground_stomp", "unlock_level": 2, "name": "Ground Stomp", "role": "Control / AoE", "cost": 25, "cooldown": 11.0, "description": "Golpea el suelo y ralentiza brevemente a los enemigos cercanos.", "implemented": true},
-	{"id": &"earth_splitter", "unlock_level": 45, "name": "Earth Splitter", "role": "Control de zona", "cost": 30, "cooldown": 12.0, "description": "Fisura frontal que daña y ralentiza a los enemigos alcanzados.", "implemented": false},
-	{"id": &"sundering_strike", "unlock_level": 36, "name": "Sundering Strike", "role": "Debilitamiento", "cost": 20, "cooldown": 10.0, "description": "Golpe que reduce temporalmente la armadura del objetivo; no se acumula.", "implemented": false},
-	{"id": &"battle_cry", "unlock_level": 40, "name": "Battle Cry", "role": "Mejora / ofensiva", "cost": 25, "cooldown": 15.0, "description": "Aumenta temporalmente el Attack Power propio y de aliados cercanos.", "implemented": false},
-	{"id": &"war_banner", "unlock_level": 50, "name": "War Banner", "role": "Apoyo / Control de zona", "cost": 30, "cooldown": 18.0, "description": "Planta un estandarte que reduce el daño recibido por aliados cercanos.", "implemented": false},
+	{"id": &"rend", "unlock_level": 2, "name": "Rend", "role": "Dano / sangrado", "cost": 20, "cooldown": 5.0, "description": "Tajo corto que hace sangrar al enemigo 4 s.", "implemented": true},
+	{"id": &"war_cry", "unlock_level": 4, "name": "War Cry", "role": "Mejora / ofensiva", "cost": 0, "cooldown": 14.0, "description": "Grito de guerra: +20 % de dano y +armadura durante 6 s y 30 de Rage al instante.", "implemented": true},
+	{"id": &"shockwave", "unlock_level": 8, "name": "Shockwave", "role": "Control / empuje", "cost": 25, "cooldown": 10.0, "description": "Onda en linea que empuja a los enemigos y aturde 0,4 s.", "implemented": true},
+	{"id": &"ground_stomp", "unlock_level": 3, "name": "Ground Stomp", "role": "Control / AoE", "cost": 25, "cooldown": 11.0, "description": "Golpea el suelo: ralentiza a los enemigos cercanos y los atrae hacia ti.", "implemented": true},
+	{"id": &"iron_counter", "unlock_level": 6, "name": "Counterstrike", "role": "Contraataque", "cost": 30, "cooldown": 12.0, "description": "Postura de 1 s: si te golpean de frente, anulas el golpe y respondes con un corte que hace sangrar.", "implemented": true},
+	{"id": &"whirlwind", "unlock_level": 9, "name": "Whirlwind", "role": "Dano / area", "cost": 30, "cooldown": 9.0, "description": "Giro de 1,5 s que golpea 5 veces a todos los que te rodean.", "implemented": true},
 ]
 
 

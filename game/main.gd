@@ -206,6 +206,18 @@ func _update_pickup_hover() -> void:
 	_click_consumed = _click_consumed and Input.is_action_pressed("attack_m1")
 	if target != null and world.in_reach(target) and Input.is_action_just_pressed("attack_m1"):
 		_click_consumed = true
+	elif target == null and Input.is_action_just_pressed("attack_m1"):
+		_click_portal()
+
+
+## Clic izquierdo sobre una puerta o un PNJ cercano: lo usa (como la tecla de interactuar).
+func _click_portal() -> void:
+	var portal: Variant = session.nearest_portal()
+	if portal == null:
+		return
+	var reach := float((portal as Dictionary).get("radius", 40.0)) * 1.3
+	if get_global_mouse_position().distance_to((portal as Dictionary)["position"]) <= reach:
+		session.try_interact()
 
 
 func _read_input() -> InputMessage:
@@ -224,8 +236,7 @@ func _read_input() -> InputMessage:
 	message.target_pos = mouse_world
 	message.actions = {
 		"pickup": _click_consumed,
-		"m1": Input.is_action_pressed("attack_m1") and not _click_consumed,
-		"m2": Input.is_action_pressed("attack_m2"),
+		"basic": Input.is_action_pressed("attack_m2"),
 		"dodge": Input.is_action_pressed("dodge"),
 		"s1": Input.is_action_pressed("skill_1"),
 		"s2": Input.is_action_pressed("skill_2"),

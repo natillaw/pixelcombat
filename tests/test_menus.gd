@@ -72,11 +72,11 @@ func _test_settings() -> void:
 	var swap := InputEventKey.new()
 	swap.physical_keycode = KEY_V
 	swap.pressed = true
-	var old_special := Settings.key_label("special")
-	Settings.rebind("special", swap)
-	_check(Settings.key_label("special") == "V" and Settings.key_label("dodge") == old_special, "si otra accion ya usaba esa tecla, las dos se intercambian")
+	var old_special := Settings.key_label("skill_3")
+	Settings.rebind("skill_3", swap)
+	_check(Settings.key_label("skill_3") == "V" and Settings.key_label("dodge") == old_special, "si otra accion ya usaba esa tecla, las dos se intercambian")
 	var move := InputEventMouseMotion.new()
-	_check(not Settings.rebind("special", move), "un movimiento de raton no es una tecla valida")
+	_check(not Settings.rebind("skill_3", move), "un movimiento de raton no es una tecla valida")
 	Settings.set_master(0.3)
 	Settings.set_sfx(0.5)
 	Settings.save()
@@ -86,7 +86,7 @@ func _test_settings() -> void:
 	_check(is_equal_approx(Settings.master, 0.3) and is_equal_approx(Settings.sfx, 0.5) and Settings.bindings.has("dodge"), "los ajustes se guardan y se cargan")
 	_check(AudioServer.get_bus_index(Settings.SFX_BUS) != -1, "existe el bus de efectos")
 	Settings.reset_bindings()
-	_check(Settings.key_label("dodge") == before and Settings.key_label("special") == old_special, "restablecer devuelve las teclas de fabrica")
+	_check(Settings.key_label("dodge") == before and Settings.key_label("skill_3") == old_special, "restablecer devuelve las teclas de fabrica")
 	Settings.set_master(0.8)
 	Settings.set_sfx(1.0)
 
