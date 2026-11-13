@@ -1,5 +1,5 @@
 # Capturas de main
-Commit `8d1520f` — 2026-11-13 00:01 UTC
+Commit `9e98ec3` — 2026-11-13 00:08 UTC
 
 ## 01_arena.png
 ![](01_arena.png)
