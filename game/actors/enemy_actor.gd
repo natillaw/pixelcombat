@@ -17,6 +17,9 @@ const BAR_HEIGHT := 4.0
 const DANGER := Color(1.0, 0.24, 0.16, 1.0)
 
 var sim: EnemySim
+## Distancia (px) al jugador a partir de la cual un enemigo vivo no se dibuja ni se anima.
+const FAR_DISTANCE := 1100.0
+
 var arena: Arena
 var sprite: AnimatedSprite2D
 
@@ -143,6 +146,15 @@ func _process(delta: float) -> void:
 		return
 	position = sim.position + _kick
 	_kick *= exp(-12.0 * delta)
+	# Los enemigos lejos de la pantalla no se dibujan ni animan (un piso tiene 150): aparecen al acercarse.
+	if sim.alive and sim.world != null and sim.world.player != null:
+		var far := position.distance_squared_to(sim.world.player.position) > FAR_DISTANCE * FAR_DISTANCE
+		if far:
+			if visible:
+				visible = false
+			return
+		if not visible:
+			visible = true
 	if _is_lpc:
 		_lpc_animation()
 	elif absf(sim.facing.x) > 0.05:
