@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cf4iemuk3j370"
+
+[deps]
+
+files=["res://docs/duel_matrix_2026-11-13.warrior.translation", "res://docs/duel_matrix_2026-11-13.rogue.translation", "res://docs/duel_matrix_2026-11-13.mage.translation", "res://docs/duel_matrix_2026-11-13.archer.translation", "res://docs/duel_matrix_2026-11-13.media.translation"]
+
+source_file="res://docs/duel_matrix_2026-11-13.csv"
+dest_files=["res://docs/duel_matrix_2026-11-13.warrior.translation", "res://docs/duel_matrix_2026-11-13.rogue.translation", "res://docs/duel_matrix_2026-11-13.mage.translation", "res://docs/duel_matrix_2026-11-13.archer.translation", "res://docs/duel_matrix_2026-11-13.media.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

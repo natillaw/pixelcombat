@@ -21,6 +21,7 @@ var character_sheet: CharacterSheet
 var main_menu: MainMenu
 var pause_menu: PauseMenu
 var music: MusicDirector
+var _latency: InputDelay = InputDelay.new()
 ## Con menu principal: la partida se elige ahi (sin menu en tests y capturas).
 var _use_menu: bool = false
 
@@ -190,7 +191,8 @@ func _physics_process(_delta: float) -> void:
 		_was_dead = true
 
 	_update_pickup_hover()
-	world.submit_input(_read_input())
+	# Latencia simulada (Ajustes): el input llega N ticks tarde, para probar como se siente en red.
+	world.submit_input(_latency.push(_read_input(), InputDelay.ticks_for(Settings.sim_latency_ms)))
 
 
 ## Si el cursor esta sobre algo que se puede coger y el jugador llega, el clic

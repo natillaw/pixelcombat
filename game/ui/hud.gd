@@ -175,6 +175,8 @@ func _draw() -> void:
 		_draw_controls()
 	else:
 		_draw_text("F1  AYUDA", Vector2(520, 354), 7, MUTED)
+	if Settings.sim_latency_ms > 0:
+		_draw_text("LATENCIA SIMULADA: %d MS" % Settings.sim_latency_ms, Vector2(10, 354), 7, RED)
 	_draw_boss_bar()
 	_draw_location()
 	_draw_minimap()
