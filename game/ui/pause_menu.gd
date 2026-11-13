@@ -48,11 +48,11 @@ func _build() -> void:
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_body.add_child(shade)
 	MenuKit.panel(_body, Rect2(235, 80, 170, 200), "PAUSA")
-	MenuKit.button(_body, "Continuar", Rect2(255, 112, 130, 22), close, 10)
-	MenuKit.button(_body, "Ajustes", Rect2(255, 142, 130, 22), func() -> void: settings.open(), 10)
-	MenuKit.button(_body, "Personajes", Rect2(255, 172, 130, 22), func() -> void: main_menu_requested.emit(), 10)
-	MenuKit.button(_body, "Salir del juego", Rect2(255, 202, 130, 22), func() -> void: quit_requested.emit(), 10)
-	MenuKit.label(_body, "Esc: volver al juego", Rect2(235, 250, 170, 10), 8, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+	MenuKit.button(_body, "Continuar", Rect2(250, 110, 140, 28), close, 14)
+	MenuKit.button(_body, "Ajustes", Rect2(250, 144, 140, 28), func() -> void: settings.open(), 10)
+	MenuKit.button(_body, "Personajes", Rect2(250, 178, 140, 28), func() -> void: main_menu_requested.emit(), 10)
+	MenuKit.button(_body, "Salir del juego", Rect2(250, 212, 140, 28), func() -> void: quit_requested.emit(), 10)
+	MenuKit.label(_body, "Esc: volver al juego", Rect2(235, 254, 170, 16), 14, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

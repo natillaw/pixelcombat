@@ -14,6 +14,8 @@ var _field: PackedInt32Array = PackedInt32Array()
 var _last_position: Vector2 = Vector2.ZERO
 var _stuck: int = 0
 var _target: EnemySim = null
+## Enemigos a los que no hay camino desde donde esta el bot (se descartan y se prueba con otro).
+var _ignored: Array = []
 
 
 func decide(world: CombatWorld) -> InputMessage:
@@ -36,6 +38,11 @@ func decide(world: CombatWorld) -> InputMessage:
 	if cell != _goal_cell:
 		_goal_cell = cell
 		_field = world.grid.distance_field(cell, 100000)
+	var here := world.grid.world_to_cell(player.position)
+	if _field[here.y * world.grid.cols + here.x] < 0 and _target != null:
+		_ignored.append(_target)
+		_target = null
+		return message
 	var direction := world.grid.flow_direction(_field, player.position)
 	if direction == Vector2.ZERO:
 		direction = ((goal as EnemySim).position - player.position).normalized()
@@ -74,7 +81,7 @@ func _goal(world: CombatWorld) -> Variant:
 	var best: Variant = null
 	var best_distance := INF
 	for enemy: EnemySim in world.enemies:
-		if not enemy.alive or enemy.summoned or enemy.invulnerable:
+		if not enemy.alive or enemy.summoned or enemy.invulnerable or _ignored.has(enemy):
 			continue
 		var distance := enemy.position.distance_to(world.player.position)
 		if distance < best_distance:

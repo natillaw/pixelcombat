@@ -139,6 +139,8 @@ func load_layout(new_layout: FloorLayout) -> void:
 	gather_node = null
 	pending_input = null
 	setup_arena(new_layout.bounds(), new_layout.obstacles, new_layout.grid)
+	if grid != null:
+		grid.wall_margin = new_layout.wall_margin
 	player.position = new_layout.player_spawn
 	player.reset(new_layout.player_spawn)
 	for spec: Dictionary in new_layout.dummies:

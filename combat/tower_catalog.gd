@@ -93,6 +93,14 @@ static func biome(tier_number: int) -> String:
 	return String(tier(tier_number).get("biome", "forest"))
 
 
+## Holgura de colision contra los muros de arboles de un bioma (data/biomes.json), 0 si no tiene.
+static func biome_wall_margin(biome_id: String) -> float:
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/biomes.json"))
+	if parsed is Dictionary and (parsed as Dictionary).get(biome_id) is Dictionary:
+		return float(((parsed as Dictionary)[biome_id] as Dictionary).get("wall_margin", 0.0))
+	return 0.0
+
+
 static func scaling() -> Dictionary:
 	_ensure_loaded()
 	return (_data.get("scaling", {}) as Dictionary).duplicate()

@@ -830,14 +830,8 @@ class ResourceActor extends Node2D:
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.45))
 		draw_circle(Vector2.ZERO, 17.0, Color(0.0, 0.0, 0.0, 0.3))
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-		var dim := 0.35 if node.depleted else 1.0
-		match node.kind:
-			"ore":
-				_draw_ore(dim)
-			"herb":
-				_draw_herb(dim)
-			_:
-				_draw_tree(dim)
+		if node.depleted != _shown_depleted:
+			_rebuild()
 		if arena != null and arena.hovered_pickable == node:
 			draw_arc(Vector2(0, -12), 20.0, 0.0, TAU, 28, Color(1, 1, 1, 0.9), 1.5)
 		if world != null and world.gather_node == node:
@@ -845,37 +839,41 @@ class ResourceActor extends Node2D:
 			draw_rect(Rect2(-16, -42, 32, 5), Color(0.05, 0.05, 0.08, 0.9))
 			draw_rect(Rect2(-15, -41, 30 * clampf(ratio, 0.0, 1.0), 3), Color(0.95, 0.78, 0.35))
 
-	func _draw_ore(dim: float) -> void:
-		var rock := Color(0.36, 0.37, 0.43, 1.0).darkened(1.0 - dim)
-		var vein := Color(0.85, 0.55, 0.30, 1.0).darkened(1.0 - dim)
-		draw_colored_polygon(PackedVector2Array([Vector2(-16, 0), Vector2(-11, -16), Vector2(0, -22), Vector2(12, -15), Vector2(17, 0)]), rock)
-		draw_colored_polygon(PackedVector2Array([Vector2(-6, -4), Vector2(-3, -14), Vector2(4, -12), Vector2(2, -3)]), vein)
-		if not node.depleted:
-			var glint := 0.5 + 0.5 * sin(_time * 4.0)
-			draw_circle(Vector2(-2, -12), 1.5 + glint, Color(1, 1, 1, 0.5 + 0.4 * glint))
+	## Sprites del nodo (rocas, hierba y arboles de las hojas LPC del terreno); se rehacen al agotarse o reponerse.
+	var _sprites: Array[Sprite2D] = []
+	var _glint: FxSprite = null
+	var _shown_depleted: bool = false
 
-	func _draw_herb(dim: float) -> void:
-		var leaf := Color(0.26, 0.62, 0.34, 1.0).darkened(1.0 - dim)
-		var flower := Color(0.55, 0.75, 1.0, 1.0).darkened(1.0 - dim)
-		for i: int in range(5):
-			var angle := -PI * 0.5 + (float(i) - 2.0) * 0.5
-			draw_line(Vector2(0, 0), Vector2.from_angle(angle) * 16.0, leaf, 3.0)
-		if not node.depleted:
-			draw_circle(Vector2(0, -16), 3.5, flower)
-			draw_circle(Vector2(-7, -13), 2.5, flower)
-			draw_circle(Vector2(7, -13), 2.5, flower)
+	func _ready() -> void:
+		_rebuild()
 
-	func _draw_tree(dim: float) -> void:
-		var trunk := Color(0.38, 0.25, 0.14, 1.0).darkened(1.0 - dim)
-		var crown := Color(0.20, 0.45, 0.24, 1.0).darkened(1.0 - dim)
-		draw_rect(Rect2(-4, -26, 8, 26), trunk)
-		if node.depleted:
-			draw_rect(Rect2(-6, -8, 12, 8), trunk)
-			return
-		draw_circle(Vector2(0, -34), 15.0, crown)
-		draw_circle(Vector2(-10, -27), 10.0, crown.lightened(0.1))
-		draw_circle(Vector2(10, -28), 10.0, crown.darkened(0.1))
-
+	func _rebuild() -> void:
+		for sprite: Sprite2D in _sprites:
+			sprite.queue_free()
+		_sprites = []
+		if _glint != null:
+			_glint.queue_free()
+			_glint = null
+		_shown_depleted = node.depleted
+		var seed_value := absi(int(node.position.x * 7.0 + node.position.y * 13.0))
+		for part: Dictionary in ResourceSprites.parts(node.kind, seed_value, node.depleted):
+			var sprite := Sprite2D.new()
+			sprite.texture = part["texture"]
+			sprite.centered = false
+			sprite.position = part["position"]
+			sprite.scale = Vector2.ONE * float(part["scale"])
+			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			var base := arena.terrain.modulate if arena != null and arena.terrain != null else Color.WHITE
+			sprite.modulate = base * Color(0.55, 0.55, 0.6, 1.0) if node.depleted else base
+			add_child(sprite)
+			_sprites.append(sprite)
+		# Las vetas y los nodos ricos brillan (efecto del pack) mientras se pueden recoger.
+		if not node.depleted and (node.kind == "ore" or node.rich):
+			_glint = FxSprite.new()
+			add_child(_glint)
+			_glint.setup("ui/treasure-glint", 0.6, 0.0, Color(1, 1, 1, 0.9), 0.0)
+			_glint.position = Vector2(0.0, -14.0)
+			_glint.z_index = 1
 
 ## Objeto de mision: altar, baliza, jaula, sello, reliquia, altar de entrega o waypoint.
 class InteractableActor extends Node2D:

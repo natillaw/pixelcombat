@@ -19,6 +19,8 @@ var title: String = ""
 ## Tamaño total del mapa, muros incluidos.
 var size: Vector2 = Vector2(960.0, 640.0)
 var wall: float = 40.0
+## Holgura de colision contra los muros de arboles (px); la fija el generador segun el bioma.
+var wall_margin: float = 0.0
 ## Zona jugable si no es "todo menos los muros" (la ciudad reserva arriba el borde
 ## de los edificios). Rect2() vacio = usar size menos muros.
 var play_area: Rect2 = Rect2()

@@ -35,32 +35,32 @@ func _build() -> void:
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_body.add_child(shade)
 	MenuKit.panel(_body, Rect2(40, 20, 560, 320), "AJUSTES")
-	MenuKit.label(_body, "Volumen general", Rect2(60, 44, 120, 12), 8, MenuKit.MUTED)
-	_slider(Rect2(180, 44, 140, 12), Settings.master, func(value: float) -> void: Settings.set_master(value); Settings.save())
-	MenuKit.label(_body, "Efectos", Rect2(340, 44, 60, 12), 8, MenuKit.MUTED)
-	_slider(Rect2(400, 44, 140, 12), Settings.sfx, func(value: float) -> void: Settings.set_sfx(value); Settings.save())
+	MenuKit.label(_body, "Volumen general", Rect2(60, 42, 150, 16), 14, MenuKit.MUTED)
+	_slider(Rect2(212, 44, 110, 12), Settings.master, func(value: float) -> void: Settings.set_master(value); Settings.save())
+	MenuKit.label(_body, "Efectos", Rect2(340, 42, 70, 16), 14, MenuKit.MUTED)
+	_slider(Rect2(414, 44, 130, 12), Settings.sfx, func(value: float) -> void: Settings.set_sfx(value); Settings.save())
 	var check := CheckBox.new()
 	check.text = "Pantalla completa"
-	check.position = Vector2(60, 62)
+	check.position = Vector2(60, 60)
 	check.button_pressed = Settings.fullscreen
 	check.focus_mode = Control.FOCUS_NONE
 	check.add_theme_font_override("font", MenuKit.FONT)
-	check.add_theme_font_size_override("font_size", 8)
+	check.add_theme_font_size_override("font_size", 14)
 	check.toggled.connect(func(on: bool) -> void: Settings.set_fullscreen(on); Settings.save())
 	_body.add_child(check)
-	MenuKit.label(_body, "TECLAS (clic en una y pulsa la nueva; Esc cancela)", Rect2(60, 86, 480, 12), 8, MenuKit.GOLD)
+	MenuKit.label(_body, "TECLAS: clic y pulsa la nueva (Esc cancela)", Rect2(60, 84, 480, 16), 14, MenuKit.GOLD)
 	var half := int(ceil(float(Settings.REMAPPABLE.size()) / 2.0))
 	for i: int in range(Settings.REMAPPABLE.size()):
 		var pair: Array = Settings.REMAPPABLE[i]
 		var column := i / half
 		var row := i % half
 		var x := 60.0 + float(column) * 270.0
-		var y := 104.0 + float(row) * 22.0
-		MenuKit.label(_body, String(pair[1]), Rect2(x, y + 3.0, 130, 12), 8, MenuKit.TEXT)
+		var y := 102.0 + float(row) * 22.0
+		MenuKit.label(_body, String(pair[1]), Rect2(x, y + 3.0, 150, 16), 14, MenuKit.TEXT)
 		var action := String(pair[0])
-		_buttons[action] = MenuKit.button(_body, Settings.key_label(action), Rect2(x + 134.0, y, 110, 18), func() -> void: _listen(action))
-	MenuKit.button(_body, "Restablecer teclas", Rect2(60, 306, 140, 20), func() -> void: Settings.reset_bindings(); _build())
-	MenuKit.button(_body, "Volver", Rect2(460, 306, 100, 20), _close)
+		_buttons[action] = MenuKit.button(_body, Settings.key_label(action), Rect2(x + 154.0, y, 100, 20), func() -> void: _listen(action))
+	MenuKit.button(_body, "Restablecer teclas", Rect2(60, 312, 170, 22), func() -> void: Settings.reset_bindings(); _build())
+	MenuKit.button(_body, "Volver", Rect2(450, 312, 110, 22), _close)
 
 
 func _slider(rect: Rect2, value: float, on_change: Callable) -> void:

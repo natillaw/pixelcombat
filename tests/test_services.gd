@@ -28,6 +28,7 @@ func _run() -> void:
 	_test_class_sets()
 	_test_tomes()
 	_test_item_icons()
+	_test_resource_sprites()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -330,6 +331,22 @@ func _test_item_icons() -> void:
 	var sword := ItemIcons.texture(ItemGen.roll_item(rng, 1, "common", "", "", "iron_sword"), 28)
 	var bow := ItemIcons.texture(ItemGen.roll_item(rng, 1, "common", "", "", "short_bow"), 28)
 	_check(sword != null and bow != null and sword.get_image().get_data() != bow.get_image().get_data(), "cada arma tiene su propio dibujo")
+
+
+## Los nodos de recoleccion usan sprites de las hojas LPC (rocas, hierba con flores, arboles y tocones), no poligonos.
+func _test_resource_sprites() -> void:
+	for kind: String in ["ore", "herb", "wood"]:
+		var ok := true
+		for seed_value: int in range(0, 12):
+			for depleted: bool in [false, true]:
+				var parts := ResourceSprites.parts(kind, seed_value, depleted)
+				ok = ok and not parts.is_empty()
+				for part: Dictionary in parts:
+					ok = ok and part["texture"] != null and (part["texture"] as Texture2D).get_width() > 2
+		_check(ok, "%s: el nodo se dibuja con sprites del pack (agotado o no)" % kind)
+	var tree := ResourceSprites.parts("wood", 1, false)
+	var stump := ResourceSprites.parts("wood", 1, true)
+	_check(not tree.is_empty() and not stump.is_empty() and (stump[0]["texture"] as Texture2D).get_height() < (tree[0]["texture"] as Texture2D).get_height(), "al agotar un arbol queda su tocon")
 
 
 func _check(condition: bool, label: String) -> void:

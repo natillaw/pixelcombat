@@ -64,6 +64,7 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 		while attempts < 4 and not bool(row["completed"]):
 			attempts += 1
 			auto_equip(world.player)
+			_prepare(world.player)
 			for n: int in range(1, floor_number):
 				session.tower.complete(n)
 			var forced: Array = []
@@ -83,14 +84,22 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 			var bag_before := world.player.bag.size()
 			var elapsed := 0.0
 			while elapsed < MAX_FLOOR_SECONDS and world.player.alive and not session.is_floor_done():
-				world.submit_input(bot.decide(world))
+				var message := bot.decide(world)
+				# Como una persona: pocion de vida con poca vida y elixir con poco recurso.
+				var player := world.player
+				if player.health < player.max_health * 0.4 and player.potion_cooldown_left <= 0.0:
+					message.actions["quick_health"] = true
+				if player.resource.get_current() < player.resource.max_amount * 0.15:
+					message.actions["quick_resource"] = true
+				world.submit_input(message)
 				world.step(DT)
 				elapsed += DT
-				# Recoger todo lo que cae (el bot no hace clic).
+				# Recoger todo lo que cae (el bot no hace clic). Con la mochila llena tira lo peor.
 				if world.loot_drops.size() > 0 and int(elapsed * 60.0) % 30 == 0:
 					for drop: LootDrop in world.loot_drops.duplicate():
-						if world.player.bag_has_room():
-							world.player.add_item(drop.item)
+						if not world.player.bag_has_room():
+							_discard_worst(world.player)
+						if world.player.add_item(drop.item):
 							world.loot_drops.erase(drop)
 							world.loot_removed.emit(drop)
 			world.player.damage_taken.disconnect(callable)
@@ -120,3 +129,30 @@ static func _report_stuck(world: CombatWorld, session: GameSession, bot: FloorBo
 		if enemy.alive:
 			print("   [vivo] %s %s inv=%s req=%s group=%s" % [enemy.def_id, str(enemy.position), str(enemy.invulnerable), str(enemy.required), str(enemy.group)])
 	print("   [objetivo] %s stuck=%d" % [str(bot._target.position) if bot._target != null else "-", bot._stuck])
+
+
+## En la ciudad antes de cada piso: vende lo que sobra, compra pociones con el oro y se come lo que lleve.
+static func _prepare(player: PlayerSim) -> void:
+	player.safe_zone = true
+	for index: int in range(player.bag.size() - 1, -1, -1):
+		player.sell_from_bag(index)
+	while player.consumable_count("health_potion") < 4 and bool(Services.buy_consumable(player, "health_potion")["ok"]):
+		pass
+	while player.consumable_count("resource_potion") < 2 and bool(Services.buy_consumable(player, "resource_potion")["ok"]):
+		pass
+	for food: String in ["herb_bread", "hunters_stew", "silk_tea"]:
+		if player.consumable_count(food) == 0:
+			Services.buy_consumable(player, food)
+		player.use_consumable(food)
+	player.safe_zone = false
+
+
+static func _discard_worst(player: PlayerSim) -> void:
+	var worst := 0
+	var worst_value := 1 << 30
+	for index: int in range(player.bag.size()):
+		var value := ItemCatalog.sell_value(player.bag[index])
+		if value < worst_value:
+			worst_value = value
+			worst = index
+	player.discard_from_bag(worst)

@@ -30,13 +30,27 @@ static func button(parent: Control, text: String, rect: Rect2, callback: Callabl
 	node.size = rect.size
 	node.focus_mode = Control.FOCUS_NONE
 	node.add_theme_font_override("font", FONT)
-	node.add_theme_font_size_override("font_size", size)
+	node.add_theme_font_size_override("font_size", maxi(size, 14))
 	node.add_theme_color_override("font_color", TEXT)
 	node.add_theme_color_override("font_hover_color", GOLD)
 	node.add_theme_color_override("font_disabled_color", Color(0.5, 0.48, 0.42, 1.0))
 	for state: String in ["normal", "hover", "pressed", "disabled"]:
 		node.add_theme_stylebox_override(state, UiStyle.button_style(state))
 	node.pressed.connect(callback)
+	parent.add_child(node)
+	return node
+
+
+## Texto largo con ajuste de linea (para avisos y explicaciones).
+static func note(parent: Control, text: String, width: float, size: int = 14, color: Color = MUTED) -> Label:
+	var node := Label.new()
+	node.text = text
+	node.add_theme_font_override("font", FONT)
+	node.add_theme_font_size_override("font_size", size)
+	node.add_theme_color_override("font_color", color)
+	node.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	node.custom_minimum_size = Vector2(width, 0.0)
+	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(node)
 	return node
 

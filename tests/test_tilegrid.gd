@@ -26,6 +26,7 @@ func _run() -> void:
 	_test_projectiles()
 	_test_enemy_paths_around_walls()
 	_test_gate()
+	_test_tree_wall_margin()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -215,6 +216,35 @@ func _test_gate() -> void:
 			crossed = true
 			break
 	_check(crossed, "al abrir la puerta el campo de flujo se recalcula y el enemigo pasa")
+
+
+## Los muros de arboles tienen holgura extra (la copa sobresale de la casilla): el personaje no se mete bajo ella,
+## pero los pasillos de 3 casillas siguen siendo transitables de punta a punta.
+func _test_tree_wall_margin() -> void:
+	var grid := _walled_room()
+	var near_wall := Vector2(52.0, 5.0 * 32.0)
+	var plain := grid.push_out(near_wall, 14.0)
+	grid.wall_margin = 20.0
+	var padded := grid.push_out(near_wall, 14.0)
+	_check(padded.x > plain.x + 10.0, "con holgura el personaje se queda mas lejos del muro de arboles (%.0f vs %.0f)" % [padded.x, plain.x])
+	_check(TowerCatalog.biome_wall_margin("forest") > 0.0 and TowerCatalog.biome_wall_margin("cave") == 0.0, "el bosque lleva holgura y las cuevas (cliffs) no")
+	var layout := TowerGenerator.generate(3, 20261110, 1)
+	_check(layout.wall_margin > 0.0, "los pisos del bosque llevan la holgura en su layout")
+	# Pasillo transitable: un circulo del jugador cruza todo el piso siguiendo el campo de flujo.
+	var world: CombatWorld = CombatWorldScript.new(5)
+	world.setup_arena(layout.bounds(), layout.obstacles, layout.grid)
+	layout.grid.wall_margin = layout.wall_margin
+	var exit_point: Vector2 = (layout.portals.filter(func(p: Dictionary) -> bool: return String(p["id"]) == "exit")[0] as Dictionary)["position"]
+	var field := layout.grid.distance_field(layout.grid.world_to_cell(exit_point), 100000)
+	world.player.position = layout.player_spawn
+	var arrived := false
+	for step: int in range(60 * 240):
+		var direction := layout.grid.flow_direction(field, world.player.position)
+		if direction == Vector2.ZERO:
+			arrived = world.player.position.distance_to(exit_point) < 96.0
+			break
+		world.player.position = world.resolve_position(world.player.position + direction * 3.0, PlayerSim.RADIUS)
+	_check(arrived, "con la holgura se puede cruzar el piso entero hasta la salida")
 
 
 func _check(condition: bool, label: String) -> void:

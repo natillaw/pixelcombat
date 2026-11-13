@@ -52,7 +52,7 @@ static func draw_panel(canvas: CanvasItem, rect: Rect2, title: String = "") -> v
 		nine(canvas, PANEL_TEX, PANEL_PLAIN, Vector4i(4, 4, 4, 4), rect)
 	else:
 		nine(canvas, PANEL_TEX, PANEL_TITLED, Vector4i(4, 14, 4, 4), rect)
-		canvas.draw_string(FONT, Vector2(rect.position.x, rect.position.y + 10.0), title, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x, 8, Color(0.93, 1.0, 0.9))
+		canvas.draw_string(FONT, Vector2(rect.position.x, rect.position.y + 12.0), title, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x, 14, Color(0.93, 1.0, 0.9))
 
 
 static func draw_diamond(canvas: CanvasItem, center: Vector2, radius: float, color: Color) -> void:
@@ -107,6 +107,6 @@ static func button_style(state: String) -> StyleBoxTexture:
 	style.texture_margin_bottom = 4.0
 	style.content_margin_left = 3.0
 	style.content_margin_right = 3.0
-	style.content_margin_top = 1.0
-	style.content_margin_bottom = 1.0
+	style.content_margin_top = 0.0
+	style.content_margin_bottom = 5.0
 	return style

@@ -13,7 +13,7 @@ const TABS := {
 	"guild": ["Tablon", "Mis encargos", "Instructor"],
 }
 const TITLES := {"tavern": "TABERNA", "merchant": "MERCADER", "bank": "BANCO", "guild": "GREMIO"}
-const ROW_H := 22.0
+const ROW_H := 30.0
 
 var world: CombatWorld
 var session: GameSession
@@ -85,22 +85,22 @@ func _build() -> void:
 	_body.add_child(shade)
 	MenuKit.panel(_body, Rect2(36, 14, 568, 332), String(TITLES[station]))
 	var player := world.player
-	MenuKit.label(_body, "Oro: %d" % player.gold, Rect2(48, 34, 120, 12), 8, MenuKit.GOLD)
+	MenuKit.label(_body, "Oro %d" % player.gold, Rect2(48, 32, 90, 18), 14, MenuKit.GOLD)
 	var tabs: Array = TABS[station]
 	for i: int in range(tabs.size()):
-		var button := MenuKit.button(_body, String(tabs[i]), Rect2(150.0 + float(i) * 104.0, 30, 100, 18), func() -> void: _select(i))
+		var button := MenuKit.button(_body, String(tabs[i]), Rect2(140.0 + float(i) * 122.0, 30, 118, 22), func() -> void: _select(i))
 		button.disabled = i == tab
-	MenuKit.button(_body, "Cerrar", Rect2(540, 30, 56, 18), close)
+	MenuKit.button(_body, "Cerrar", Rect2(520, 30, 76, 22), close)
 	var scroll := ScrollContainer.new()
-	scroll.position = Vector2(46, 56)
-	scroll.size = Vector2(548, 256)
+	scroll.position = Vector2(46, 58)
+	scroll.size = Vector2(548, 250)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_body.add_child(scroll)
 	_list = VBoxContainer.new()
 	_list.custom_minimum_size = Vector2(540, 0)
 	_list.add_theme_constant_override("separation", 2)
 	scroll.add_child(_list)
-	MenuKit.label(_body, _message, Rect2(48, 318, 540, 22), 8, MenuKit.MUTED)
+	MenuKit.note(_body, _message, 540.0, 14, MenuKit.MUTED).position = Vector2(48, 310)
 	match station:
 		"tavern":
 			_fill_tavern()
@@ -144,16 +144,15 @@ func _row(name_text: String, detail: String, action: String, enabled: bool, call
 			holder.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			row.add_child(holder)
 		text_x = 26.0
-	MenuKit.label(row, name_text, Rect2(text_x, 2, 170, 10), 8, color)
-	MenuKit.label(row, detail, Rect2(text_x, 11, 400, 10), 7, MenuKit.MUTED)
+	MenuKit.label(row, name_text, Rect2(text_x, 0, 400, 16), 14, color)
+	MenuKit.label(row, detail, Rect2(text_x, 17, 400, 10), 7, MenuKit.MUTED)
 	if action != "":
-		var button := MenuKit.button(row, action, Rect2(440, 2, 96, ROW_H - 5.0), callback)
+		var button := MenuKit.button(row, action, Rect2(424, 2, 112, ROW_H - 5.0), callback)
 		button.disabled = not enabled
 
 
 func _note(text: String) -> void:
-	var label := MenuKit.label(_list, text, Rect2(0, 0, 540, 14), 8, MenuKit.MUTED)
-	label.custom_minimum_size = Vector2(540, 14)
+	MenuKit.note(_list, text, 530.0, 14, MenuKit.MUTED)
 
 
 # --- Taberna -------------------------------------------------------------------------

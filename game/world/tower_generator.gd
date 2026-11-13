@@ -38,6 +38,7 @@ static func generate(floor_number: int, world_seed: int, visit: int = 1, forced:
 	var size := MapGen.map_size(floor_number, terrain_rng)
 	var analysis := MapGen.build(layout.style, size.x, size.y, terrain_rng)
 	layout.grid = analysis.grid
+	layout.wall_margin = TowerCatalog.biome_wall_margin(layout.biome)
 	layout.size = analysis.grid.pixel_size()
 	layout.wall = 0.0
 	layout.play_area = Rect2(Vector2.ZERO, layout.size)

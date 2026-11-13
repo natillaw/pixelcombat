@@ -1,5 +1,5 @@
 {
-	"_doc": "Aspecto de cada bioma (clave `biome` de data/tower.json). Esquema en game/world/terrain_renderer.gd. Las hojas LPC 4-season se tiñen con `tint` para dar la atmosfera de cada tier.",
+	"_doc": "Aspecto de cada bioma (clave `biome` de data/tower.json). Esquema en game/world/terrain_renderer.gd. Las hojas LPC 4-season se tiñen con `tint` para dar la atmosfera de cada tier. wall_margin: holgura extra (px) de la colision contra los muros de arboles (la copa sobresale de la casilla).",
 	"forest": {
 		"season": "summer",
 		"ground": "grass",
@@ -17,7 +17,8 @@
 			"mushrooms": 0.006,
 			"rocks": 0.008
 		},
-		"water": true
+		"water": true,
+		"wall_margin": 20.0
 	},
 	"cave": {
 		"season": "autumn",
@@ -74,7 +75,8 @@
 			"mushrooms": 0.02,
 			"rocks": 0.004
 		},
-		"water": true
+		"water": true,
+		"wall_margin": 20.0
 	},
 	"desert": {
 		"season": "autumn",
@@ -112,7 +114,8 @@
 			"mushrooms": 0,
 			"rocks": 0.015
 		},
-		"water": true
+		"water": true,
+		"wall_margin": 20.0
 	},
 	"volcano": {
 		"season": "autumn",
@@ -207,6 +210,7 @@
 			"mushrooms": 0,
 			"rocks": 0.004
 		},
-		"water": false
+		"water": false,
+		"wall_margin": 20.0
 	}
 }

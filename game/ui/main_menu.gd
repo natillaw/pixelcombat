@@ -70,35 +70,35 @@ func _rebuild() -> void:
 func _build_main() -> void:
 	var latest := SaveGame.latest_slot()
 	var x := 250.0
-	var continue_button := MenuKit.button(_body, "Continuar", Rect2(x, 130, 140, 24), func() -> void: _choose(latest, false), 10)
+	var continue_button := MenuKit.button(_body, "Continuar", Rect2(x, 124, 140, 28), func() -> void: _choose(latest, false), 10)
 	continue_button.disabled = latest == 0
 	if latest > 0:
 		var info := SaveGame.summary(SaveGame.slot_path(latest))
-		MenuKit.label(_body, "%s - %s nivel %d" % [info["name"], String(info["class_id"]).capitalize(), info["level"]], Rect2(x - 40.0, 156, 220, 10), 8, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
-	MenuKit.button(_body, "Personajes", Rect2(x, 176, 140, 24), func() -> void: _screen = "slots"; _rebuild(), 10)
-	MenuKit.button(_body, "Ajustes", Rect2(x, 206, 140, 24), func() -> void: settings.open(), 10)
-	MenuKit.button(_body, "Salir", Rect2(x, 236, 140, 24), func() -> void: quit_requested.emit(), 10)
+		MenuKit.label(_body, "%s, %s nv %d" % [info["name"], String(info["class_id"]).capitalize(), info["level"]], Rect2(x - 40.0, 156, 220, 16), 14, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+	MenuKit.button(_body, "Personajes", Rect2(x, 178, 140, 28), func() -> void: _screen = "slots"; _rebuild(), 10)
+	MenuKit.button(_body, "Ajustes", Rect2(x, 212, 140, 28), func() -> void: settings.open(), 10)
+	MenuKit.button(_body, "Salir", Rect2(x, 246, 140, 28), func() -> void: quit_requested.emit(), 10)
 	move_child(settings, get_child_count() - 1)
 
 
 func _build_slots() -> void:
-	MenuKit.label(_body, "Elige una ranura: vacia = personaje nuevo", Rect2(0, 100, 640, 12), 8, MenuKit.TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+	MenuKit.label(_body, "Elige una ranura (vacia = personaje nuevo)", Rect2(0, 98, 640, 16), 14, MenuKit.TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 	for index: int in range(1, SaveGame.SLOT_COUNT + 1):
 		var x := 20.0 + float(index - 1) * 204.0
 		var card := Rect2(x, 122, 196, 150)
 		MenuKit.panel(_body, card, "RANURA %d" % index)
 		var info := SaveGame.summary(SaveGame.slot_path(index))
 		if bool(info.get("exists", false)) and bool(info.get("created", false)):
-			MenuKit.label(_body, String(info["name"]), Rect2(x + 8, 146, 180, 14), 12, MenuKit.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
-			MenuKit.label(_body, "%s - nivel %d" % [String(info["class_id"]).capitalize(), info["level"]], Rect2(x + 8, 166, 180, 12), 8, MenuKit.TEXT, HORIZONTAL_ALIGNMENT_CENTER)
-			MenuKit.label(_body, "Torre: piso %d" % info["floor"], Rect2(x + 8, 180, 180, 12), 8, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
-			MenuKit.button(_body, "Jugar", Rect2(x + 28, 206, 140, 20), func() -> void: _choose(index, false))
+			MenuKit.label(_body, String(info["name"]), Rect2(x + 8, 144, 180, 18), 14, MenuKit.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
+			MenuKit.label(_body, "%s, nivel %d" % [String(info["class_id"]).capitalize(), info["level"]], Rect2(x + 8, 164, 180, 16), 14, MenuKit.TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+			MenuKit.label(_body, "Torre: piso %d" % info["floor"], Rect2(x + 8, 182, 180, 16), 14, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+			MenuKit.button(_body, "Jugar", Rect2(x + 20, 204, 156, 26), func() -> void: _choose(index, false))
 			var armed := _confirm_delete == index
-			MenuKit.button(_body, "Seguro? Borrar" if armed else "Borrar", Rect2(x + 28, 232, 140, 18), func() -> void: _delete(index))
+			MenuKit.button(_body, "Seguro? Borrar" if armed else "Borrar", Rect2(x + 20, 236, 156, 26), func() -> void: _delete(index))
 		else:
-			MenuKit.label(_body, "Vacia", Rect2(x + 8, 160, 180, 14), 12, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
-			MenuKit.button(_body, "Nuevo personaje", Rect2(x + 28, 206, 140, 20), func() -> void: _choose(index, true))
-	MenuKit.button(_body, "Volver", Rect2(250, 292, 140, 22), func() -> void: _screen = "main"; _rebuild())
+			MenuKit.label(_body, "Vacia", Rect2(x + 8, 160, 180, 18), 14, MenuKit.MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+			MenuKit.button(_body, "Nuevo personaje", Rect2(x + 14, 204, 168, 26), func() -> void: _choose(index, true))
+	MenuKit.button(_body, "Volver", Rect2(250, 292, 140, 28), func() -> void: _screen = "main"; _rebuild())
 
 
 func _delete(index: int) -> void:
