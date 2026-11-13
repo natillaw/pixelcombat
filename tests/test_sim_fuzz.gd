@@ -22,7 +22,7 @@ func _run() -> void:
 		for floor_number: int in [1, 5, 10]:
 			_fuzz(class_id, floor_number)
 	# Determinismo: el mismo input sobre el mismo piso deja exactamente el mismo estado (base del PvP y de la red).
-	for class_id: String in ["warrior", "mage"]:
+	for class_id: String in ClassCatalog.all_ids():
 		var first := _fuzz(class_id, 5)
 		var second := _fuzz(class_id, 5)
 		_check(first == second, "%s: dos partidas con el mismo input acaban igual (%s)" % [class_id, first])

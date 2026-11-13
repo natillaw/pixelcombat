@@ -284,7 +284,8 @@ func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 			heading = flow
 	if circling:
 		# Espera su turno rodeando al jugador (los demas del campamento ya le estan atacando).
-		var side := 1.0 if int(get_instance_id()) % 2 == 0 else -1.0
+		# Lado de la espera: paridad del indice de spawn (no del id de instancia, que cambia entre partidas y rompia el determinismo).
+		var side := 1.0 if (world.enemies.find(self) if world != null else 0) % 2 == 0 else -1.0
 		heading = (facing.orthogonal() * side + facing * 0.15).normalized()
 		step_length = speed * delta * 0.7
 	var desired := position + heading * step_length

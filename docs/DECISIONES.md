@@ -181,3 +181,6 @@ Barrido sistematico (tests nuevos, campañas reales de las 4 clases con misiones
 - La fuente de la UI pasa de m5x7 a **m6x11** (mas alta y legible) y todo el texto tiene un minimo de `UiStyle.MIN_FONT` = 11 px (antes se dibujaba a 7 px, borroso). El HUD añade sombra de 1 px al texto.
 - Se reajusto el diseño del HUD (placa de datos, barra de jefe, objetivos, misiones, consejos) y del inventario para el nuevo tamaño. Los botones del creador usaban texto oscuro pensado para el verde antiguo: ahora son claros.
 - Si prefieres otra fuente, basta cambiar los `preload` de `FONT` (11 archivos) y `MIN_FONT`; solo hay m5x7 y m6x11 en el repo (no hay red para bajar mas).
+
+## Determinismo: el lado de espera de los enemigos usaba `get_instance_id()`
+- `EnemySim` decidia por que lado rodear al jugador con la paridad de `get_instance_id()`. Ese id crece con cada objeto creado en el proceso, asi que dos partidas con el mismo input podian divergir segun cuantos objetos se hubieran creado antes. Lo detecto `test_sim_fuzz` al añadir enemigos nuevos (cambio el numero de objetos). Ahora usa la paridad del indice de spawn (`world.enemies.find(self)`), estable. Importante para PvP/red/replays. El test de determinismo del fuzz ahora cubre las 4 clases.
