@@ -18,7 +18,7 @@ Solo mecánicas y estructura, nunca arte, nombres ni lore.
 
 | Drakantos | En PixelCombat |
 |---|---|
-| Combate de acción 100 % ratón, sin target; el personaje mira al cursor | Todo es skillshot. El personaje siempre encara el cursor (salvo skills que lo bloquean) |
+| Combate de acción 100 % ratón, sin target; el personaje mira al cursor | Todo es skillshot. El personaje mira hacia donde camina y solo encara el cursor al atacar o lanzar una skill (decisión 13 nov) |
 | Movimiento libre, no por casillas | Ya es así (WASD + colisión) |
 | Ultimate que se carga conectando golpes | Ultimate = Charge 0–100 que sube al golpear (ya diseñado en EVOLUCIONES_V1) |
 | Héroes con kit propio, intercambiables | 4 clases base; cada una con subclases. Cambio de clase/personaje en la ciudad |

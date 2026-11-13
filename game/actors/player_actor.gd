@@ -28,6 +28,9 @@ var sprite: AnimatedSprite2D
 
 const FACING_HYSTERESIS := 1.15
 
+## Velocidad minima (px/s) para que el movimiento decida hacia donde mira.
+const MOVE_FACING_MIN := 14.0
+
 var _facing: String = "down"
 ## Huella del aspecto mostrado (clase + equipo) para recomponer solo si cambia.
 var _look_key: String = ""
@@ -105,12 +108,21 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 
-## Estilo Drakantos: el personaje siempre encara el cursor, se mueva o no
-## (strafe). Durante un ataque la direccion queda fijada por `attack_aim`.
+## Estilo Drakantos: el personaje mira hacia donde camina; solo encara el cursor al
+## atacar o lanzar una skill (`attack_aim`, ver `_on_attack_started`). Quieto
+## conserva la ultima direccion en vez de seguir al raton.
 func _update_facing() -> void:
 	if sim.is_attacking():
 		return
-	_facing = facing_for(sim.aim_dir, _facing)
+	_facing = facing_for_movement(sim.velocity, _facing)
+
+
+## Direccion tras un tick de movimiento: si no se mueve (menos de MOVE_FACING_MIN
+## px/s) no cambia; si se mueve, mira hacia donde va (con histeresis en diagonales).
+static func facing_for_movement(velocity: Vector2, current: String) -> String:
+	if velocity.length() < MOVE_FACING_MIN:
+		return current
+	return facing_for(velocity, current)
 
 
 ## Direccion de 4 vias para un vector de apuntado. Con histeresis: solo cambia

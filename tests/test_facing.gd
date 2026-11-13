@@ -1,4 +1,4 @@
-## Encarar al cursor (Fase 1.1).
+## Orientacion del personaje: camina hacia donde va; el cursor solo manda al atacar.
 ##
 ##   godot --headless --path . --script tests/test_facing.gd
 extends SceneTree
@@ -12,7 +12,7 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-	print("== test_facing (encarar al cursor) ==")
+	print("== test_facing ==")
 	_eq(PlayerActor.facing_for(Vector2.RIGHT, "down"), "right", "cursor a la derecha")
 	_eq(PlayerActor.facing_for(Vector2.LEFT, "down"), "left", "cursor a la izquierda")
 	_eq(PlayerActor.facing_for(Vector2.UP, "right"), "up", "cursor arriba")
@@ -27,6 +27,12 @@ func _run() -> void:
 	_eq(PlayerActor.facing_for(Vector2(1.4, 1.0).normalized(), "down"), "right", "supera la histeresis y cambia a horizontal")
 	# Estado inicial vacio: usa el eje dominante.
 	_eq(PlayerActor.facing_for(Vector2(0.3, -1.0).normalized(), ""), "up", "sin estado previo usa el eje dominante")
+	# Caminar: manda el movimiento, no el cursor (cursor a la izquierda, camina a la derecha).
+	_eq(PlayerActor.facing_for_movement(Vector2(120, 0), "left"), "right", "camina a la derecha mirando a la derecha")
+	_eq(PlayerActor.facing_for_movement(Vector2(-120, 0), "right"), "left", "camina a la izquierda mirando a la izquierda")
+	_eq(PlayerActor.facing_for_movement(Vector2(0, -120), "left"), "up", "camina arriba mirando arriba")
+	_eq(PlayerActor.facing_for_movement(Vector2(3, 2), "left"), "left", "quieto conserva la direccion")
+	_eq(PlayerActor.facing_for_movement(Vector2.ZERO, "up"), "up", "sin velocidad no cambia")
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
