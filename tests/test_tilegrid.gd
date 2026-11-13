@@ -74,6 +74,15 @@ func _test_push_out() -> void:
 	_check(corner.distance_to(Vector2(10 * 32 - 3, 9 * 32 - 3)) > 0.0 and not _circle_overlaps_wall(grid, corner, 13.9), "una esquina tambien lo separa")
 	var squeezed := grid.push_out(Vector2(1 * 32 + 1, 100), 14.0)
 	_check(squeezed.x >= 32.0 + 14.0 - 0.01, "el borde exterior del mapa tambien bloquea")
+	# Regresion (campana, piso 5): un estanque de 5x5 atrapaba al jugador con el centro dentro.
+	var pond := TileGrid.new(14, 14, TileGrid.FLOOR)
+	for r: int in range(4, 9):
+		for c: int in range(4, 9):
+			pond.set_cell(c, r, TileGrid.WATER)
+	for point: Vector2 in [Vector2(6.5, 6.5) * 32.0, Vector2(5.5, 6.5) * 32.0, Vector2(4.5, 4.5) * 32.0]:
+		var out_of_pond := pond.push_out(point, 14.0)
+		var out_cell := pond.world_to_cell(out_of_pond)
+		_check(not pond.blocks_move(out_cell.x, out_cell.y), "centro en el interior de un estanque grande: sale al suelo libre")
 
 
 func _circle_overlaps_wall(grid: TileGrid, position: Vector2, radius: float) -> bool:

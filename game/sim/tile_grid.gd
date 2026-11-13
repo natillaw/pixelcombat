@@ -88,6 +88,11 @@ func push_out(position: Vector2, radius: float) -> Vector2:
 	var base_radius := radius
 	for pass_index: int in range(2):
 		var cell := world_to_cell(pos)
+		if blocks_move(cell.x, cell.y):
+			# Centro dentro de agua o muro de varias casillas de ancho: ningun lado vecino esta
+			# libre y el circulo se quedaba atrapado. Sale por la casilla libre mas cercana.
+			pos = _nearest_free_point(cell, pos)
+			cell = world_to_cell(pos)
 		var span := int(ceil((base_radius + wall_margin * NORTH_MARGIN_FACTOR) / TILE)) + 1
 		for r: int in range(cell.y - span, cell.y + span + 1):
 			for c: int in range(cell.x - span, cell.x + span + 1):
@@ -130,6 +135,24 @@ func push_out(position: Vector2, radius: float) -> Vector2:
 						if blocks_move(c + side_x, r) or blocks_move(c, r + side_y):
 							continue
 					pos = nearest + diff / sqrt(dist_sq) * radius
+	return pos
+
+
+## Punto libre mas cercano a `pos` partiendo de una casilla que bloquea el paso (busqueda por anillos).
+func _nearest_free_point(from_cell: Vector2i, pos: Vector2) -> Vector2:
+	for ring: int in range(1, maxi(cols, rows)):
+		var best := pos
+		var best_distance := INF
+		for r: int in range(from_cell.y - ring, from_cell.y + ring + 1):
+			for c: int in range(from_cell.x - ring, from_cell.x + ring + 1):
+				if maxi(absi(c - from_cell.x), absi(r - from_cell.y)) != ring or not in_bounds(c, r) or blocks_move(c, r):
+					continue
+				var center := cell_center(c, r)
+				if pos.distance_squared_to(center) < best_distance:
+					best_distance = pos.distance_squared_to(center)
+					best = center
+		if best_distance < INF:
+			return best
 	return pos
 
 

@@ -1283,6 +1283,14 @@ func _update_movement(delta: float) -> void:
 		position = world.resolve_position(position, RADIUS)
 
 
+## Descanso en una hoguera: cura `fraction` de la vida maxima (y vuelve el recurso de clase a la mitad).
+func rest(fraction: float) -> void:
+	if not alive:
+		return
+	health = minf(max_health, health + max_health * fraction)
+	health_changed.emit(health, max_health)
+
+
 ## Salto de las skills aim_leap: recorre la distancia hasta attack_point durante
 ## el windup, ignorando el input de movimiento.
 func _move_leap(delta: float) -> void:

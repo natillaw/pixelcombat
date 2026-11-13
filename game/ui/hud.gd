@@ -49,6 +49,10 @@ var _toast_time: float = 0.0
 var _toast_color: Color = Color(0.93, 0.90, 0.83, 1.0)
 var _banner: String = ""
 var _banner_time: float = 0.0
+## Pista del tutorial en pantalla (TutorialHints) y lo que le queda.
+var _tip: String = ""
+var _tip_time: float = 0.0
+var _boss_bar_seen: bool = false
 
 
 func _ready() -> void:
@@ -67,6 +71,8 @@ func bind(p_world: CombatWorld, p_session: GameSession = null) -> void:
 	if session != null:
 		session.message.connect(_on_message)
 		session.floor_completed.connect(_on_floor_completed)
+		session.location_changed.connect(_on_location_tip)
+		_on_location_tip(session.layout)
 	if world != null and world.player != null:
 		world.player.item_gained.connect(_on_item_gained)
 		world.player.bag_full.connect(_on_bag_full)
@@ -74,13 +80,39 @@ func bind(p_world: CombatWorld, p_session: GameSession = null) -> void:
 		world.gather_interrupted.connect(_on_gather_interrupted)
 	if world != null and world.player != null:
 		world.player.damage_taken.connect(_on_damage_taken)
+		world.player.damage_taken.connect(func(_a: float, _p: Vector2, is_dot: bool) -> void:
+			if not is_dot:
+				show_tip("first_damage"))
+		world.player.item_gained.connect(func(_item: Dictionary) -> void: show_tip("first_item"))
 
 
 func _process(delta: float) -> void:
 	_damage_flash = maxf(0.0, _damage_flash - delta * 3.5)
 	_toast_time = maxf(0.0, _toast_time - delta)
 	_banner_time = maxf(0.0, _banner_time - delta)
+	_tip_time = maxf(0.0, _tip_time - delta)
 	queue_redraw()
+
+
+## Muestra la pista de tutorial de `trigger` si aun no se ha visto (se recuerda por personaje).
+func show_tip(trigger: String) -> void:
+	if session == null or session.tower == null:
+		return
+	var tip := TutorialHints.next_tip(trigger, session.tower.flags)
+	if tip.is_empty():
+		return
+	session.tower.set_flag(TutorialHints.flag_for(tip))
+	_tip = TutorialHints.render(String(tip["text"]), func(action: String) -> String: return Settings.short_label(action))
+	_tip_time = float(tip.get("seconds", 8))
+
+
+func _on_location_tip(layout: FloorLayout) -> void:
+	if layout == null:
+		return
+	if layout.kind == FloorLayout.KIND_CITY:
+		show_tip("city")
+	elif layout.kind == FloorLayout.KIND_FLOOR and layout.floor_number == 1:
+		show_tip("floor_1")
 
 
 func _on_message(text: String) -> void:
@@ -509,6 +541,9 @@ func _draw_boss_bar() -> void:
 	for enemy: EnemySim in world.enemies:
 		if not enemy.alive or not enemy.is_boss() or enemy.state == EnemySim.State.IDLE:
 			continue
+		if not _boss_bar_seen:
+			_boss_bar_seen = true
+			show_tip("first_boss_bar")
 		var panel := Rect2(300, 6, 190, 34)
 		_panel(panel)
 		_draw_text(_fit(String(enemy.data["name"]).to_upper(), 7, 110.0), Vector2(306, 18), 7, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 110)
@@ -684,6 +719,11 @@ func _draw_location() -> void:
 			var prompt := session.portal_prompt(portal)
 			_panel(Rect2(190, 290, 260, 16))
 			_draw_text(prompt.to_upper(), Vector2(190, 301), 7, TEXT if session.portal_active(portal) else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 260)
+	if _tip_time > 0.0 and not _tip.is_empty():
+		var tip_size := FONT.get_multiline_string_size(_tip, HORIZONTAL_ALIGNMENT_LEFT, 324.0, 7, 3)
+		var tip_rect := Rect2(150, 276.0 - tip_size.y - 12.0, 340, tip_size.y + 12.0)
+		_panel(tip_rect, "")
+		draw_multiline_string(FONT, tip_rect.position + Vector2(8, 13), _tip, HORIZONTAL_ALIGNMENT_LEFT, tip_rect.size.x - 16.0, 7, 3, TEXT)
 	if _toast_time > 0.0:
 		_draw_text(_toast.to_upper(), Vector2(0, 120), 7, _toast_color, HORIZONTAL_ALIGNMENT_CENTER, 640)
 	if _banner_time > 0.0:
@@ -698,22 +738,22 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _draw_controls() -> void:
 	_panel(Rect2(10, 84, 132, 148), "CONTROLES")
 	var lines := [
-		"%s %s %s %s  MOVE" % [Settings.short_label("move_up"), Settings.short_label("move_left"), Settings.short_label("move_down"), Settings.short_label("move_right")],
-		"MOUSE  AIM",
-		"%s  PRIMARY" % Settings.short_label("attack_m1"),
-		"%s  SECONDARY (HOLD)" % Settings.short_label("attack_m2"),
-		"%s  MOBILITY" % Settings.short_label("dodge"),
-		"%s %s %s  SKILLS" % [Settings.short_label("skill_1"), Settings.short_label("skill_2"), Settings.short_label("skill_3")],
-		"%s  SPECIAL" % Settings.short_label("special"),
+		"%s %s %s %s  MOVER" % [Settings.short_label("move_up"), Settings.short_label("move_left"), Settings.short_label("move_down"), Settings.short_label("move_right")],
+		"RATON  APUNTAR",
+		"%s  PRIMARIO" % Settings.short_label("attack_m1"),
+		"%s  SECUNDARIO (MANTENER)" % Settings.short_label("attack_m2"),
+		"%s  MOVILIDAD" % Settings.short_label("dodge"),
+		"%s %s %s  HABILIDADES" % [Settings.short_label("skill_1"), Settings.short_label("skill_2"), Settings.short_label("skill_3")],
+		"%s  ESPECIAL" % Settings.short_label("special"),
 		"%s  ULTIMATE" % Settings.short_label("ultimate"),
-		"%s  SKILL BOOK" % Settings.short_label("toggle_loadout"),
-		"%s  INVENTORY" % Settings.short_label("toggle_inventory"),
-		"%s  CHARACTER" % Settings.short_label("toggle_character"),
-		"%s  INTERACT" % Settings.short_label("interact"),
-		", .    TOWER FLOOR",
-		"%s  RESTART" % Settings.short_label("restart_training"),
+		"%s  LIBRO DE SKILLS" % Settings.short_label("toggle_loadout"),
+		"%s  MOCHILA" % Settings.short_label("toggle_inventory"),
+		"%s  PERSONAJE" % Settings.short_label("toggle_character"),
+		"%s  INTERACTUAR" % Settings.short_label("interact"),
+		", .    PISO DE LA TORRE",
+		"%s  REINICIAR" % Settings.short_label("restart_training"),
 		"ESC    MENU",
-		"F3     DEBUG",
+		"F3     DEPURACION",
 	]
 	for i: int in range(lines.size()):
 		_draw_text(String(lines[i]), Vector2(16, 100 + i * 9), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 120)
@@ -737,12 +777,12 @@ func _draw_damage_flash() -> void:
 
 func _draw_death() -> void:
 	draw_rect(Rect2(0, 0, 640, 360), Color(0.04, 0.01, 0.02, 0.62))
-	_draw_text("YOU DIED", Vector2(0, 176), 28, RED, HORIZONTAL_ALIGNMENT_CENTER, 640)
+	_draw_text("HAS MUERTO", Vector2(0, 176), 28, RED, HORIZONTAL_ALIGNMENT_CENTER, 640)
 	if session != null and session.layout != null and session.layout.kind == FloorLayout.KIND_FLOOR:
-		_draw_text("RETURNING TO THE CITY...", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
+		_draw_text("VOLVIENDO A LA CIUDAD...", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
 		return
-	_draw_text("THE TRAINING DUMMY WON THIS ROUND", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
-	_draw_text("PRESS  R  TO RISE AGAIN", Vector2(0, 210), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 640)
+	_draw_text("EL MUNECO DE ENTRENAMIENTO GANO ESTA RONDA", Vector2(0, 194), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 640)
+	_draw_text("PULSA  R  PARA LEVANTARTE", Vector2(0, 210), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, 640)
 
 
 # --- Primitivas -------------------------------------------------------------

@@ -26,6 +26,8 @@ const PlayerSimScript := preload("res://game/sim/player_sim.gd")
 const DummySimScript := preload("res://game/sim/dummy_sim.gd")
 
 const DEFAULT_BOUNDS := Rect2(0, 0, 960, 640)
+## Fraccion de la vida maxima que cura una hoguera de descanso (una vez por hoguera).
+const CAMPFIRE_HEAL := 0.5
 
 var tick: int = 0
 var rng: RandomNumberGenerator
@@ -366,6 +368,8 @@ func _step_gather(delta: float) -> void:
 			relics_carried += 1
 		elif object.kind == "relic_altar":
 			relics_carried = maxi(relics_carried - 1, 0)
+		elif object.kind == "campfire":
+			player.rest(CAMPFIRE_HEAL)
 		interacted.emit(object)
 		return
 	var node := finished as ResourceNode

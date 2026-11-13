@@ -52,6 +52,8 @@ $suites = @(
     "tests/test_warrior_data.gd",
     "tests/test_asset_licenses.gd",
     "tests/test_facing.gd",
+    "tests/test_tutorial.gd",
+    "tests/test_campfire.gd",
     "tests/test_dodge.gd",
     "tests/test_kits.gd",
     "tests/test_combat_depth.gd",

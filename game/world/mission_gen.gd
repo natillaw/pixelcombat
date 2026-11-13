@@ -20,6 +20,8 @@ class_name MissionGen
 extends RefCounted
 
 const GUARD_RADIUS := 70.0
+## Segundos que se tarda en descansar en una hoguera (se interrumpe al moverse o recibir dano).
+const CAMPFIRE_CHANNEL := 3.0
 
 
 ## Estado compartido de una generacion.
@@ -315,6 +317,23 @@ static func _place(ctx: Ctx, spec: Dictionary) -> void:
 					_place_relic(ctx, spec)
 
 
+## Hoguera de descanso: un objeto opcional (sin guardia) hacia la mitad del camino que cura una
+## parte de la vida de una vez. El piso 1 (tutorial) no la lleva. El jugador decide si gasta tiempo
+## en ella; no cuenta para ninguna mision.
+static func add_campfire(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumberGenerator, floor_number: int) -> void:
+	if floor_number < 2:
+		return
+	var avoid: Array = []
+	for object: Dictionary in layout.interactables:
+		avoid.append(object["position"])
+	var point: Variant = analysis.pick_spot(rng, 0.35, 0.6, 2, avoid, 260.0)
+	if point == null:
+		point = analysis.pick_spot(rng, 0.2, 0.8, 1, [], 0.0)
+	if point == null:
+		return
+	layout.interactables.append({"kind": "campfire", "position": point, "group": "rest", "channel": CAMPFIRE_CHANNEL, "label": _label("campfire")})
+
+
 ## Mini-jefe elite errante (opcional, no cuenta para completar el piso): un enemigo unico y poderoso
 ## colocado lejos de la entrada.
 static func add_wandering_elite(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumberGenerator) -> void:
@@ -482,6 +501,8 @@ static func _label(kind: String) -> String:
 			return "Altar de entrega"
 		"waypoint":
 			return "Baliza"
+		"campfire":
+			return "Hoguera de descanso"
 	return kind
 
 

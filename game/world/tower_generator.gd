@@ -60,6 +60,7 @@ static func generate(floor_number: int, world_seed: int, visit: int = 1, forced:
 	MissionGen.populate(layout, analysis, content_rng, floor_number, tier_data, spike, forced)
 	if with_elite:
 		MissionGen.add_wandering_elite(layout, analysis, content_rng)
+	MissionGen.add_campfire(layout, analysis, content_rng, floor_number)
 	layout.wall_margin = _safe_margin(layout)
 	return layout
 

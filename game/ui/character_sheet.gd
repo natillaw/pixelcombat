@@ -244,9 +244,13 @@ func _draw_bag(player: PlayerSim, _hovered: String) -> void:
 			continue
 		var piece: Dictionary = player.bag[i]
 		var icon: Texture2D = ItemIcons.texture(piece, 30)
+		# Un objeto de otra clase se ve apagado; asi se distingue de un vistazo lo que puedes equipar.
+		var usable := ItemCatalog.can_equip_base(String(piece["id"]), player.class_id)
 		if icon != null:
-			draw_texture(icon, rect.position + ((rect.size - icon.get_size()) * 0.5).floor())
-		draw_rect(rect, ItemCatalog.rarity_color(String(piece["rarity"])), false, 2.0)
+			draw_texture(icon, rect.position + ((rect.size - icon.get_size()) * 0.5).floor(), Color.WHITE if usable else Color(0.55, 0.55, 0.6, 0.75))
+		var rarity_color := ItemCatalog.rarity_color(String(piece["rarity"]))
+		draw_rect(rect, rarity_color, false, 2.0)
+		_text("T%d" % int(piece.get("tier", 1)), rect.position + Vector2(3, 10), 7, rarity_color.lightened(0.3), HORIZONTAL_ALIGNMENT_LEFT, 20.0)
 		if rect.has_point(get_local_mouse_position()):
 			draw_rect(rect, Color(1, 1, 1, 0.18))
 	if _drag_index >= 0 and _drag_index < player.bag.size():
