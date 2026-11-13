@@ -8,7 +8,7 @@
 	"intro": [
 		{
 			"title": "La Aguja Negra",
-			"text": "Hace trescientos anos el cielo sobre el valle de Valdoria se resquebrajo como un cristal y de la grieta cayo una aguja de piedra negra. Nadie la construyo. La llamaron la Torre de las Cien Puertas, porque cada piso se abre a un mundo distinto: bosques que no existen en ningun mapa, cuevas que respiran, cienagas, desiertos de ceniza... y cada diez pisos, el mundo entero cambia."
+			"text": "Hace trescientos anos, junto a una aldea sin nombre, la tierra se abrio como una herida y de ella resurgio una aguja de piedra negra. Los viejos dicen que no la construyo nadie de ahora: la levantaron los Siete Constructores, mucho antes, y ellos la llamaron la Torre de las Cien Puertas. Cada piso conserva un mundo distinto, con sus propias leyes: bosques que no existen en ningun mapa, cuevas que respiran, cienagas, desiertos de ceniza... y cada diez pisos, el mundo entero cambia."
 		},
 		{
 			"title": "Albor",
@@ -16,11 +16,11 @@
 		},
 		{
 			"title": "Los Despiertos",
-			"text": "Hay quien dice que la Torre nos elige. Cuando alguien cae dentro, no muere: despierta junto a la fuente de Albor, sin heridas y sin recuerdos de su vida anterior, con el nombre que se elija esa manana. Los llaman los Despiertos. La Torre los deja volver porque aun no ha terminado con ellos."
+			"text": "Hay quien dice que la Torre nos elige. Cuando alguien cae dentro, no muere: despierta junto a la fuente de Albor, sin heridas y sin recuerdos de su vida anterior, con el nombre que se elija esa manana. Los llaman los Despiertos. Dicen que el mundo todavia no sabe quienes eran, y que cada piso que completan le devuelve un recuerdo a la Torre."
 		},
 		{
 			"title": "El Cuervo",
-			"text": "Algo se agita en los primeros pisos. Una banda de saqueadores —el Cuervo— lleva anos acampando en el Bosque, con el mando de un antiguo soldado llamado Garrick Mano Negra. Asaltan a los Despiertos, roban lo que la Torre escupe y se visten con el granate de su estandarte. Las bestias del Bosque huyen de ellos o los siguen. El Gremio de Aventureros paga bien a quien los detenga, y el herrero Brann, la alquimista Mira, el carpintero Tomas y la sastre Lena fabricaran lo que haga falta para el que traiga materiales."
+			"text": "Algo se agita en los primeros pisos. Una banda de saqueadores, el Cuervo, lleva anos acampando en el Bosque, con el mando de un antiguo capitan llamado Garrick Mano Negra. Se visten de granate, asaltan a los Despiertos y roban lo que la Torre escupe. Las bestias del Bosque huyen de ellos o los siguen. El Gremio de Aventureros paga bien a quien los detenga, y el herrero Brann, la alquimista Mira, el carpintero Tomas y la sastre Lena fabricaran lo que haga falta para el que traiga materiales."
 		},
 		{
 			"title": "Tu historia",
@@ -48,7 +48,7 @@
 	"tiers": [
 		{
 			"name": "Bosque del Cuervo",
-			"text": "Un bosque oscuro y humedo donde el Cuervo ha montado sus campamentos. Bandidos con espada, arco y hechizo; las bestias del bosque son solo animales: dan cuero, quitina, seda y esencia. Dos tenientes y Garrick guardan el camino."
+			"text": "Un bosque oscuro y humedo donde el Cuervo ha montado sus campamentos. Bandidos con espada, arco y hechizo; las bestias del bosque son solo animales: dan cuero, quitina, seda y esencia. Dos tenientes y Garrick guardan el camino. Algo en el aire huele a olvido."
 		},
 		{
 			"name": "Cuevas Susurrantes",
@@ -88,14 +88,54 @@
 		}
 	],
 	"npcs": {
-		"blacksmith": "Brann: \"Traeme mineral y madera y te hago un arma que no se rompa a la primera. Eso si, la Torre no me debe nada.\"",
-		"alchemist": "Mira: \"Hierba del Bosque, cuarzo y paciencia. No toques lo verde... o no lo toques dos veces.\"",
-		"carpenter": "Tomas: \"Arcos, bastones, cuchillos. Madera que aguanta la Torre es madera que ha visto cosas.\"",
-		"tailor": "Lena: \"Cuero curtido y tela limpia. Que tu ropa sea lo unico sencillo de tu vida, Despierto.\"",
-		"tavern": "Ottis: \"Pasa, siéntate. Comida caliente, pociones y una cama. La Torre te lo cobra todo, yo solo te cobro lo justo.\"",
-		"guild": "Dara: \"El tablon es de todos, Despiertos. Un encargo cobrado es un nombre mas en la pared... y un trago pagado. Y si buscas habilidades nuevas, tengo con que ensenarte.\"",
-		"merchant": "Orla: \"Equipo de segunda mano y de primera necesidad. Lo que la Torre escupe lo vendo yo. Mira, mira.\"",
-		"bank": "Tessin: \"Guardo lo que no cabe en tu mochila. Ni la Torre me roba nada, y mira que lo intenta.\""
+		"blacksmith": [
+			"Brann: \"Traeme mineral y madera y te hago un arma que no se rompa a la primera. Eso si, la Torre no me debe nada.\"",
+			"Brann: \"Dicen que dos tenientes del Cuervo guardan el bosque. Un buen filo ayuda con los tenientes.\"",
+			"Brann: \"He visto el acero granate de los escuderos. No es acero de Albor... es de la Vigia.\"",
+			"Brann: \"Garrick caido. Mi fragua nunca ha tenido tanto trabajo ni tantas preguntas.\""
+		],
+		"alchemist": [
+			"Mira: \"Hierba del Bosque, cuarzo y paciencia. No toques lo verde... o no lo toques dos veces.\"",
+			"Mira: \"Los relicarios huelen distinto: a tinta y a algo que no es olor. Trae uno y lo huelo contigo.\"",
+			"Mira: \"Esa tinta granate no es pintura. Se hace con agalla y ocre, como la de los Siete.\"",
+			"Mira: \"Con Garrick fuera, los relicarios me dan miedo y me dan ganas. Solo voy a olerlos.\""
+		],
+		"carpenter": [
+			"Tomas: \"Arcos, bastones, cuchillos. Madera que aguanta la Torre es madera que ha visto cosas.\"",
+			"Tomas: \"Un leñador me conto que las hachas del sendero llevan el nombre raspado. Mala senal.\"",
+			"Tomas: \"Hice los postes de la Vigia, hace anos. Ahora el Cuervo los usa de empalizada.\"",
+			"Tomas: \"Si el bosque calla, sera por algo bueno. Esta vez creo que si.\""
+		],
+		"tailor": [
+			"Lena: \"Cuero curtido y tela limpia. Que tu ropa sea lo unico sencillo de tu vida, Despierto.\"",
+			"Lena: \"Granate, siempre granate. Yo ese tinte no lo vendo: viene de otro sitio.\"",
+			"Lena: \"El tinte del Cuervo es el mismo de las viejas insignias de la Vigia. No lo he dicho a nadie.\"",
+			"Lena: \"Quitale ese granate a los muertos y vuelve a ser tela. A veces basta eso.\""
+		],
+		"tavern": [
+			"Ottis: \"Pasa, sientate. Comida caliente, pociones y una cama. La Torre te lo cobra todo, yo solo te cobro lo justo.\"",
+			"Ottis: \"Se dice que Rask quema los relicarios y Veyra los lee. No se que me da mas miedo.\"",
+			"Ottis: \"La Vigia anotaba quien despertaba en la fuente. Yo vi mi nombre en su libro. No lo recuerdo.\"",
+			"Ottis: \"Garrick ha caido y mi taberna esta llena. Cada uno pregunta por su nombre. Invita la casa, hoy.\""
+		],
+		"guild": [
+			"Dara: \"El tablon es de todos, Despiertos. Un encargo cobrado es un nombre mas en la pared... y un trago pagado. Y si buscas habilidades nuevas, tengo con que ensenarte.\"",
+			"Dara: \"Has pasado el puesto avanzado. El Gremio ya habla de ti. Hay encargos mas gordos en el tablon.\"",
+			"Dara: \"Casi en la antesala de Garrick. Yo servi en la Vigia antes del Cuervo. Si lo ves, dile que aun lo recuerdo.\"",
+			"Dara: \"Garrick esta muerto. Gracias. Y ahora, si quieres, te cuento lo que callabamos en la Vigia.\""
+		],
+		"merchant": [
+			"Orla: \"Equipo de segunda mano y de primera necesidad. Lo que la Torre escupe lo vendo yo. Mira, mira.\"",
+			"Orla: \"Las cajas con lacre granate no las compro. Ni regaladas. Dentro hay cosas que me hablan.\"",
+			"Orla: \"Alguien del Cuervo me ofrecio un relicario por una barata. Dije que no. Me arrepiento y me alegro.\"",
+			"Orla: \"Cierro cuentas con el Cuervo. Ahora vendo sin miedo a que me hablen las cajas.\""
+		],
+		"bank": [
+			"Tessin: \"Guardo lo que no cabe en tu mochila. Ni la Torre me roba nada, y mira que lo intenta.\"",
+			"Tessin: \"Si guardas algo con lacre granate te lo custodio, pero no lo abro. Lo prometo.\"",
+			"Tessin: \"Llevo la cuenta de lo que entra y sale de la Torre. Faltan recuerdos. Muchos.\"",
+			"Tessin: \"Garrick tenia una cuenta aqui, a nombre de una nina. Tengo que decidir que hacer con ella.\""
+		]
 	},
 	"death": "La Torre te suelta de nuevo en la fuente de Albor. Sin heridas... y con mas ganas de volver.",
 	"tower_door": "La Puerta de la Torre te espera. Cada piso que cruces cambiara cuando vuelvas a entrar.",
@@ -107,6 +147,218 @@
 		"Ottis: Garrick Mano Negra salta sobre quien huye. No corras en linea recta.",
 		"Ottis: en el Gremio se cobran encargos por oro y experiencia. La instructora ensena habilidades que no se encuentran en el camino.",
 		"Ottis: los hechiceros del Cuervo callan a quien se acerca: lleva un buen basico para cuando no puedas usar habilidades.",
-		"Ottis: cada oficio de Albor necesita lo suyo: cuero, quitina, seda, esencia... ningun material sobra."
-	]
+		"Ottis: cada oficio de Albor necesita lo suyo: cuero, quitina, seda, esencia... ningun material sobra.",
+		"Ottis: dicen que los relicarios del Cuervo hablan por la noche. Yo no los guardaria en la taberna.",
+		"Ottis: la Vigia anotaba a quien despertaba junto a la fuente. Nadie sabe donde fue a parar ese libro."
+	],
+	"floors": [
+		{
+			"floor": 1,
+			"name": "La Linde",
+			"tone": "calma",
+			"role": "Primeros pasos: bestias del bosque y algun explorador del Cuervo.",
+			"entry": "Donde el bosque aun recuerda tu nombre.",
+			"clue": "Un trapo granate atado a una rama: alguien marca el camino.",
+			"bandits": [
+				"bandit_swordsman"
+			],
+			"beasts": [
+				"slime",
+				"bat",
+				"spider"
+			]
+		},
+		{
+			"floor": 2,
+			"name": "Sendero de los Lenadores",
+			"tone": "inquietud",
+			"role": "Se descubre que hay gente en el bosque: matones y degolladores.",
+			"entry": "Hachas sin dueno y huellas que no son de bestia.",
+			"clue": "Un hacha con el nombre de su dueno raspado hasta borrarlo.",
+			"bandits": [
+				"bandit_thug",
+				"bandit_cutthroat"
+			],
+			"beasts": [
+				"slime",
+				"hornet"
+			]
+		},
+		{
+			"floor": 3,
+			"name": "El Primer Campamento",
+			"tone": "tension",
+			"role": "Primer campamento serio del Cuervo: se aprende a pelear contra un grupo.",
+			"entry": "Humo, brasas y una bandera granate.",
+			"clue": "Una pagina de cuentas: relicarios entregados, catorce.",
+			"bandits": [
+				"bandit_thug",
+				"bandit_swordsman",
+				"bandit_archer"
+			],
+			"beasts": [
+				"spider",
+				"bat"
+			]
+		},
+		{
+			"floor": 4,
+			"name": "Emboscadas",
+			"tone": "peligro",
+			"role": "Arqueros y degolladores atacan desde la espesura; hay prisioneros.",
+			"entry": "Aqui nadie te ataca de frente.",
+			"clue": "Un prisionero susurra: el Cuervo busca cosas que huelen a recuerdo.",
+			"bandits": [
+				"bandit_archer",
+				"bandit_cutthroat",
+				"bandit_swordsman"
+			],
+			"beasts": [
+				"hornet",
+				"slime"
+			]
+		},
+		{
+			"floor": 5,
+			"name": "El Puesto Avanzado",
+			"tone": "hito",
+			"role": "Dos tenientes guardan la entrada al territorio del Cuervo: Rask y Veyra.",
+			"entry": "Dos tenientes, una sola consigna: que nadie pase.",
+			"clue": "Rask quema relicarios y Veyra los lee; los dos tienen los dedos manchados de tinta granate.",
+			"bandits": [
+				"bandit_thug",
+				"bandit_hexer",
+				"bandit_shieldman"
+			],
+			"beasts": [
+				"beetle",
+				"spider"
+			]
+		},
+		{
+			"floor": 6,
+			"name": "Rutas de Contrabando",
+			"tone": "recelo",
+			"role": "Carga que el Cuervo saca del bosque: reliquias y suministros que recuperar.",
+			"entry": "Lo que sale del bosque no siempre sale entero.",
+			"clue": "Cajas selladas con lacre granate: dentro, objetos que susurran.",
+			"bandits": [
+				"bandit_shieldman",
+				"bandit_hexer",
+				"bandit_cutthroat"
+			],
+			"beasts": [
+				"bat",
+				"wisp"
+			]
+		},
+		{
+			"floor": 7,
+			"name": "La Vigia Perdida",
+			"tone": "melancolia",
+			"role": "Rastros de la antigua Vigia de Albor: mojones, balizas y altares con su emblema.",
+			"entry": "Insignias de una guardia que ya no existe.",
+			"clue": "Una insignia con un cuervo y una frase: anotar a quien despierta.",
+			"bandits": [
+				"bandit_swordsman",
+				"bandit_archer",
+				"bandit_hexer"
+			],
+			"beasts": [
+				"wisp",
+				"slime"
+			]
+		},
+		{
+			"floor": 8,
+			"name": "Territorio del Cuervo",
+			"tone": "opresion",
+			"role": "Campamentos densos con escuderos y hechiceros: el bosque tiene dueno.",
+			"entry": "Aqui el bosque tiene dueno.",
+			"clue": "Una regla clavada en un tronco: tacha el nombre, guarda la cosa.",
+			"bandits": [
+				"bandit_shieldman",
+				"bandit_hexer",
+				"bandit_thug",
+				"bandit_archer"
+			],
+			"beasts": [
+				"beetle",
+				"hornet"
+			]
+		},
+		{
+			"floor": 9,
+			"name": "La Antesala",
+			"tone": "calma tensa",
+			"role": "La calma antes de Garrick; el Desertor puede cruzarse en el camino.",
+			"entry": "El bosque se calla antes de Garrick.",
+			"clue": "Un relicario con un nombre de nina y una nota: no dejes que me lo quiten.",
+			"bandits": [
+				"bandit_cutthroat",
+				"bandit_shieldman",
+				"bandit_swordsman",
+				"bandit_hexer"
+			],
+			"beasts": [
+				"spider",
+				"wisp"
+			]
+		},
+		{
+			"floor": 10,
+			"name": "El Campamento de Garrick",
+			"tone": "confrontacion",
+			"role": "Garrick Mano Negra y su banda; aqui se revela que el Cuervo comercia con recuerdos.",
+			"entry": "Un hombre que no olvida nada te espera.",
+			"clue": "Garrick: la Torre no te quita los recuerdos, te los guarda. Y yo vendo lo que guarda.",
+			"bandits": [
+				"bandit_thug",
+				"bandit_swordsman",
+				"bandit_archer",
+				"bandit_hexer",
+				"bandit_cutthroat",
+				"bandit_shieldman"
+			],
+			"beasts": []
+		}
+	],
+	"dialogue": {
+		"bandit_rask": {
+			"name": "Rask el Tajador",
+			"enter": "Rask: \"Mas Despiertos. Tachare tu nombre antes de que la Torre lo guarde.\"",
+			"phase": "Rask: \"Muchachos, a ellos! El Cuervo no cede un palmo!\"",
+			"death": "Rask: \"Los relicarios... no los quemes... aun no.\""
+		},
+		"bandit_veyra": {
+			"name": "Veyra la Hechicera",
+			"enter": "Veyra: \"Interesante. Tu nombre sabe a recuerdo reciente.\"",
+			"phase": "Veyra: \"Basta de leer. Ahora quemo.\"",
+			"death": "Veyra: \"Lo vi todo en ellos... y no es lo que Garrick dice.\""
+		},
+		"bandit_garrick": {
+			"name": "Garrick Mano Negra",
+			"enter": "Garrick: \"No me mires asi, Despierto. Yo si recuerdo lo que fuiste.\"",
+			"phase": "Garrick: \"La Torre no te quita los recuerdos: te los guarda. Y yo vendo lo que guarda.\"",
+			"death": "Garrick: \"Guardalos tu entonces. Ya veremos cuanto pesan.\""
+		},
+		"bandit_deserter": {
+			"name": "Cornelius el Desertor",
+			"enter": "Cornelius: \"Un paso mas y no volveras a ver Albor. No quiero hacerte dano.\"",
+			"phase": "Cornelius: \"La vieja guardia sigue en pie! A mi!\"",
+			"death": "Cornelius: \"Dile a mi hija... que no tache mi nombre.\""
+		}
+	},
+	"tier_closing": {
+		"1": {
+			"title": "El Bosque del Cuervo",
+			"text": "Garrick cae, pero sus relicarios siguen susurrando. Cada uno guarda un recuerdo que no es tuyo, y alguno lleva tinta de los Siete. La Torre no solo devora: guarda. Y alguien, mas arriba, firma esos relicarios. El Bosque queda en silencio... y el siguiente piso se abre."
+		}
+	},
+	"rumors_after": {
+		"garrick_defeated": [
+			"Ottis: se dice que en el campamento de Garrick quedaron relicarios sin abrir. Alguien los esta buscando.",
+			"Ottis: ahora el Bosque esta mas callado. Los viejos dicen que el olvido avanza cuando el ruido se acaba."
+		]
+	}
 }

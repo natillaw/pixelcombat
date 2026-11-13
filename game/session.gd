@@ -51,6 +51,7 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
 	world.tick_advanced.connect(_on_tick)
 	world.enemy_killed.connect(_on_enemy_killed)
+	world.enemy_spawned.connect(_on_enemy_spawned)
 	world.player.material_gained.connect(_on_material_gained)
 	go_to_city()
 
@@ -114,6 +115,9 @@ func go_to_floor(floor_number: int) -> bool:
 		message.emit("%s: %s" % [blurb["name"], blurb["text"]])
 	_enter(TowerGenerator.generate(floor_number, tower.world_seed, visit, [], tower.elite_floor() == floor_number), false)
 	_floor_done = false
+	var info := Lore.floor_info(floor_number)
+	if not info.is_empty() and visit == 1:
+		message.emit("%s. %s" % [layout.title, String(info["entry"])])
 	if visit > 1:
 		message.emit("Piso %d: los enemigos han vuelto." % floor_number)
 	return true
@@ -181,14 +185,14 @@ func try_interact() -> void:
 			if action.begins_with("building:"):
 				var station := action.substr("building:".length())
 				if SERVICE_STATIONS.has(station):
-					var service_line := Lore.npc_line(station)
+					var service_line := Lore.npc_line(station, tower.story_stage())
 					if not service_line.is_empty():
 						message.emit(service_line)
 					service_opened.emit(station)
 				elif RecipeCatalog.recipes_for(station).is_empty():
 					message.emit("%s: proximamente." % String(portal["label"]))
 				else:
-					var line := Lore.npc_line(station)
+					var line := Lore.npc_line(station, tower.story_stage())
 					if not line.is_empty():
 						message.emit(line)
 					building_opened.emit(station)
@@ -225,7 +229,23 @@ func objective_text() -> String:
 
 
 ## El mini-jefe elite errante cae: no vuelve a aparecer en esta partida.
+const BOSS_FLAGS := {"bandit_rask": "rask_defeated", "bandit_veyra": "veyra_defeated", "bandit_garrick": "garrick_defeated", "bandit_deserter": "cornelius_defeated"}
+
+
+## Los jefes y el elite hablan al despertar, al cambiar de fase y al caer (lineas en data/lore.json).
+func _on_enemy_spawned(enemy: EnemySim) -> void:
+	var id := String(enemy.def_id)
+	if Lore.boss_line(id, "enter").is_empty() or enemy.summoned:
+		return
+	enemy.aggroed.connect(func() -> void: message.emit(Lore.boss_line(id, "enter")))
+	enemy.phase_changed.connect(func(_index: int, _name: String) -> void: message.emit(Lore.boss_line(id, "phase")))
+	enemy.died.connect(func() -> void: message.emit(Lore.boss_line(id, "death")))
+
+
 func _on_enemy_killed(enemy: EnemySim) -> void:
+	var boss_flag := String(BOSS_FLAGS.get(String(enemy.def_id), ""))
+	if boss_flag != "" and not enemy.summoned:
+		tower.set_flag(boss_flag)
 	if not enemy.summoned:
 		_bounty_event("kill", String(enemy.def_id))
 	var config := TowerCatalog.elite_boss()
@@ -333,6 +353,10 @@ func _complete_floor() -> void:
 	var mult := main_mult / float(main_count) if main_count > 0 else 1.0
 	var xp := int(round(float(TowerCatalog.completion_xp(floor_number)) * mult)) if first_time else 0
 	tower.complete(floor_number)
+	if floor_number == 10 and first_time:
+		var closing := Lore.tier_closing(TowerCatalog.tier_of_floor(floor_number))
+		if not closing.is_empty():
+			message.emit("%s: %s" % [closing["title"], closing["text"]])
 	_bounty_event("floor", str(floor_number))
 	if xp > 0:
 		world.player.grant_xp(xp, world.player.position)

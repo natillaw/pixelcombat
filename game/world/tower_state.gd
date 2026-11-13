@@ -12,6 +12,8 @@ var world_seed: int = 20261110
 var floors: Dictionary = {}
 ## Ultimo piso en el que estuvo el jugador (la puerta de la ciudad lo propone).
 var last_floor: int = 1
+## Banderas narrativas persistentes (hitos del mundo): rask_defeated, veyra_defeated, garrick_defeated...
+var flags: Dictionary = {}
 ## El mini-jefe elite errante ya fue derrotado (solo aparece una vez por partida).
 var elite_defeated: bool = false
 
@@ -19,6 +21,25 @@ var elite_defeated: bool = false
 ## Piso en el que toca el elite errante, o 0 si no hay (ya derrotado o no tocaba).
 func elite_floor() -> int:
 	return 0 if elite_defeated else TowerCatalog.elite_floor(world_seed)
+
+
+func set_flag(flag: String) -> void:
+	flags[flag] = true
+
+
+func has_flag(flag: String) -> bool:
+	return bool(flags.get(flag, false))
+
+
+## Etapa narrativa (0 inicio, 1 tras el piso 5, 2 tras el piso 9, 3 tras vencer a Garrick): decide lo que dicen los PNJ.
+func story_stage() -> int:
+	if has_flag("garrick_defeated"):
+		return 3
+	if is_completed(9):
+		return 2
+	if is_completed(5):
+		return 1
+	return 0
 
 
 func is_completed(floor_number: int) -> bool:
@@ -70,7 +91,7 @@ func to_dict() -> Dictionary:
 	var out: Dictionary = {}
 	for key: Variant in floors:
 		out[str(key)] = (floors[key] as Dictionary).duplicate()
-	return {"world_seed": world_seed, "last_floor": last_floor, "floors": out, "elite_defeated": elite_defeated}
+	return {"world_seed": world_seed, "last_floor": last_floor, "floors": out, "elite_defeated": elite_defeated, "flags": flags.duplicate()}
 
 
 static func from_dict(data: Dictionary) -> TowerState:
@@ -78,6 +99,8 @@ static func from_dict(data: Dictionary) -> TowerState:
 	state.world_seed = int(data.get("world_seed", state.world_seed))
 	state.last_floor = int(data.get("last_floor", 1))
 	state.elite_defeated = bool(data.get("elite_defeated", false))
+	for flag: Variant in (data.get("flags", {}) as Dictionary):
+		state.flags[String(flag)] = bool(data["flags"][flag])
 	var saved: Dictionary = data.get("floors", {})
 	for key: Variant in saved:
 		var entry: Dictionary = saved[key]

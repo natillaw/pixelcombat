@@ -1,4 +1,7 @@
-# Mitologia de la Torre - Fase 1 (PROPUESTA, sin canon hasta aprobacion)
+# Mitologia de la Torre - Fase 1
+
+**DECISION DEL DUENO (2026-11-12): Opcion B, "La Herida que Recuerda", aprobada y canon.** Este documento conserva las
+tres propuestas como registro; el canon vigente esta en `02_HISTORICAL_TIMELINE.md` y `CHANGELOG.md`.
 
 Punto de partida del dueno (no canon): hace mucho siete civilizaciones levantaron la Torre para contener
 "El Primer Silencio", una entidad que borra mundos y recuerdos; algo salio mal y la Torre absorbe mundos

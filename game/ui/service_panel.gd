@@ -175,7 +175,7 @@ func _fill_tavern() -> void:
 
 
 func _rest() -> void:
-	var result := Services.rest(world.player, _rumor_index)
+	var result := Services.rest(world.player, _rumor_index, session.tower.flags.keys())
 	if bool(result["ok"]):
 		_rumor_index += 1
 		_say(String(result["rumor"]))

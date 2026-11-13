@@ -57,7 +57,7 @@ static func cook(player: PlayerSim, id: String, tier: int) -> Dictionary:
 
 
 ## Descansar en la taberna: cura vida y recurso y da "bien alimentado" 10 minutos. Devuelve tambien un rumor.
-static func rest(player: PlayerSim, rumor_index: int = 0) -> Dictionary:
+static func rest(player: PlayerSim, rumor_index: int = 0, flags: Array = []) -> Dictionary:
 	if player.gold < REST_COST:
 		return _result(false, "gold")
 	player.spend_gold(REST_COST)
@@ -67,7 +67,7 @@ static func rest(player: PlayerSim, rumor_index: int = 0) -> Dictionary:
 	player.resource_changed.emit(player.resource.get_current(), player.resource.max_amount)
 	player.statuses.apply("fed", 600.0, 0.012)
 	var out := _result(true)
-	out["rumor"] = Lore.rumor(rumor_index)
+	out["rumor"] = Lore.rumor(rumor_index, flags)
 	return out
 
 

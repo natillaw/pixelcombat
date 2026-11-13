@@ -37,6 +37,7 @@ SUITES=(
     "tests/test_kits.gd"
     "tests/test_combat_depth.gd"
     "tests/test_services.gd"
+    "tests/test_narrative.gd"
     "tests/test_skill_catalog.gd"
     "tests/test_skills.gd"
     "tests/test_ultimate.gd"
