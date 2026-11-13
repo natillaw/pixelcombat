@@ -51,17 +51,30 @@ static func latest_slot() -> int:
 	return best
 
 
+## Guarda de forma segura: escribe un archivo temporal, conserva el guardado anterior como `.bak` y solo
+## entonces reemplaza el bueno (un corte a mitad de escritura ya no deja la partida a medias).
 static func write(path: String, player: PlayerSim, tower: TowerState) -> bool:
-	var file := FileAccess.open(path, FileAccess.WRITE)
+	var temp := path + ".tmp"
+	var file := FileAccess.open(temp, FileAccess.WRITE)
 	if file == null:
 		return false
 	var data := {"version": VERSION, "player": player.export_state(), "tower": tower.to_dict()}
 	file.store_string(JSON.stringify(data, "\t"))
-	return true
+	file.close()
+	if FileAccess.file_exists(path):
+		DirAccess.copy_absolute(ProjectSettings.globalize_path(path), ProjectSettings.globalize_path(path + ".bak"))
+	return DirAccess.rename_absolute(ProjectSettings.globalize_path(temp), ProjectSettings.globalize_path(path)) == OK
 
 
-## Devuelve {} si no hay archivo o no se entiende.
+## Devuelve {} si no hay archivo o no se entiende; si el guardado esta roto, prueba con la copia `.bak`.
 static func read(path: String) -> Dictionary:
+	var data := _read_file(path)
+	if data.is_empty() and FileAccess.file_exists(path + ".bak"):
+		data = _read_file(path + ".bak")
+	return data
+
+
+static func _read_file(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {}
 	var json := JSON.new()
@@ -76,5 +89,6 @@ static func read(path: String) -> Dictionary:
 
 
 static func delete(path: String) -> void:
-	if FileAccess.file_exists(path):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+	for candidate: String in [path, path + ".bak", path + ".tmp"]:
+		if FileAccess.file_exists(candidate):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(candidate))

@@ -97,15 +97,29 @@ func to_dict() -> Dictionary:
 
 
 static func from_dict(data: Dictionary) -> TowerState:
+	# Tolerante con guardados raros o a medio escribir: lo que no tiene el tipo esperado se ignora.
 	var state := TowerState.new()
-	state.world_seed = int(data.get("world_seed", state.world_seed))
-	state.last_floor = int(data.get("last_floor", 1))
+	state.world_seed = _int_of(data.get("world_seed"), state.world_seed)
+	state.last_floor = maxi(_int_of(data.get("last_floor"), 1), 1)
 	state.elite_defeated = bool(data.get("elite_defeated", false))
-	for flag: Variant in (data.get("flags", {}) as Dictionary):
-		state.flags[String(flag)] = bool(data["flags"][flag])
-	state.quests = QuestManager.from_dict(data.get("quests", {}), state.flags, state.world_seed)
-	var saved: Dictionary = data.get("floors", {})
-	for key: Variant in saved:
-		var entry: Dictionary = saved[key]
-		state.floors[int(str(key))] = {"completed": bool(entry.get("completed", false)), "visits": int(entry.get("visits", 0))}
+	var saved_flags: Variant = data.get("flags", {})
+	if saved_flags is Dictionary:
+		for flag: Variant in (saved_flags as Dictionary):
+			state.flags[String(flag)] = bool((saved_flags as Dictionary)[flag])
+	var saved_quests: Variant = data.get("quests", {})
+	state.quests = QuestManager.from_dict(saved_quests if saved_quests is Dictionary else {}, state.flags, state.world_seed)
+	var saved: Variant = data.get("floors", {})
+	if saved is Dictionary:
+		for key: Variant in (saved as Dictionary):
+			var entry: Variant = (saved as Dictionary)[key]
+			if entry is Dictionary and str(key).is_valid_int():
+				state.floors[int(str(key))] = {"completed": bool((entry as Dictionary).get("completed", false)), "visits": maxi(_int_of((entry as Dictionary).get("visits"), 0), 0)}
 	return state
+
+
+static func _int_of(value: Variant, fallback: int) -> int:
+	if value is int or value is float:
+		return int(value)
+	if value is String and (value as String).is_valid_int():
+		return int(value)
+	return fallback

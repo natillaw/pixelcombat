@@ -1618,47 +1618,63 @@ func export_state() -> Dictionary:
 
 ## Restaura un estado guardado (sin comprobar si se puede editar el loadout).
 func import_state(data: Dictionary) -> void:
-	var saved: Dictionary = data.get("progress", {})
+	var saved := _as_dict(data.get("progress"))
 	progress = {}
 	for id: String in saved:
-		if ClassCatalog.has_class(id):
+		if ClassCatalog.has_class(id) and saved[id] is Dictionary:
 			progress[id] = (saved[id] as Dictionary).duplicate(true)
-	gold = maxi(int(data.get("gold", 0)), 0)
+	gold = maxi(_as_int(data.get("gold"), 0), 0)
 	consumables = {}
-	var saved_consumables: Dictionary = data.get("consumables", {})
+	var saved_consumables := _as_dict(data.get("consumables"))
 	for id: String in saved_consumables:
-		if ConsumableCatalog.has(id) and int(saved_consumables[id]) > 0:
-			consumables[id] = mini(int(saved_consumables[id]), ConsumableCatalog.max_stack())
+		if ConsumableCatalog.has(id) and _as_int(saved_consumables[id], 0) > 0:
+			consumables[id] = mini(_as_int(saved_consumables[id], 0), ConsumableCatalog.max_stack())
 	bank = []
-	for piece: Variant in data.get("bank", []):
+	for piece: Variant in _as_array(data.get("bank")):
 		if ItemCatalog.is_valid_item(piece) and bank.size() < BANK_SIZE:
 			bank.append(ItemCatalog.normalized(piece))
 	potion_cooldown_left = 0.0
 	bounties = []
-	for entry: Variant in data.get("bounties", []):
+	for entry: Variant in _as_array(data.get("bounties")):
 		if entry is Dictionary and (entry as Dictionary).has("template") and (entry as Dictionary).has("count") and (entry as Dictionary).has("progress"):
 			bounties.append((entry as Dictionary).duplicate(true))
-	bounty_serial = maxi(int(data.get("bounty_serial", 0)), 0)
-	bounties_done = maxi(int(data.get("bounties_done", 0)), 0)
+	bounty_serial = maxi(_as_int(data.get("bounty_serial"), 0), 0)
+	bounties_done = maxi(_as_int(data.get("bounties_done"), 0), 0)
 	learned_skills = []
-	for id: Variant in data.get("learned", []):
+	for id: Variant in _as_array(data.get("learned")):
 		if SkillCatalog.skill(StringName(String(id))).get("world", false) and not learned_skills.has(String(id)):
 			learned_skills.append(String(id))
-	var saved_character: Dictionary = data.get("character", {})
-	character_name = String(saved_character.get("name", "Despierto"))
-	appearance = (saved_character.get("appearance", {}) as Dictionary).duplicate()
+	var saved_character := _as_dict(data.get("character"))
+	character_name = str(saved_character.get("name", "Despierto"))
+	appearance = _as_dict(saved_character.get("appearance")).duplicate()
 	character_created = bool(saved_character.get("created", false))
 	materials = {}
-	var saved_materials: Dictionary = data.get("materials", {})
+	var saved_materials := _as_dict(data.get("materials"))
 	for id: String in saved_materials:
-		if MaterialCatalog.is_valid(id) and int(saved_materials[id]) > 0:
-			materials[id] = int(saved_materials[id])
+		if MaterialCatalog.is_valid(id) and _as_int(saved_materials[id], 0) > 0:
+			materials[id] = _as_int(saved_materials[id], 0)
 	bag = []
-	for piece: Variant in data.get("bag", []):
+	for piece: Variant in _as_array(data.get("bag")):
 		if ItemCatalog.is_valid_item(piece) and bag.size() < ItemCatalog.bag_size():
 			bag.append(ItemCatalog.normalized(piece))
-	var target := String(data.get("class_id", "warrior"))
+	var target := str(data.get("class_id", "warrior"))
 	_activate_class(target if ClassCatalog.has_class(target) else "warrior")
+
+
+static func _as_dict(value: Variant) -> Dictionary:
+	return (value as Dictionary) if value is Dictionary else {}
+
+
+static func _as_array(value: Variant) -> Array:
+	return (value as Array) if value is Array else []
+
+
+static func _as_int(value: Variant, fallback: int) -> int:
+	if value is int or value is float:
+		return int(value)
+	if value is String and (value as String).is_valid_int():
+		return int(value)
+	return fallback
 
 
 func _save_progress() -> void:

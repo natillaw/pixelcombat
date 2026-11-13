@@ -46,6 +46,7 @@ SUITES=(
     "tests/test_input_delay.gd"
     "tests/test_collision_sweep.gd"
     "tests/test_input_conflicts.gd"
+    "tests/test_save_robustness.gd"
     "tests/test_dodge.gd"
     "tests/test_kits.gd"
     "tests/test_combat_depth.gd"
