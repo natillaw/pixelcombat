@@ -26,6 +26,11 @@ func _run() -> void:
 		var first := _fuzz(class_id, 5)
 		var second := _fuzz(class_id, 5)
 		_check(first == second, "%s: dos partidas con el mismo input acaban igual (%s)" % [class_id, first])
+	# Duelos (PvP): los dos jugadores con input aleatorio, todas las parejas de clases.
+	var ids: Array = ClassCatalog.all_ids()
+	for a: String in ids:
+		for b: String in ids:
+			_fuzz_duel(a, b)
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -105,6 +110,57 @@ func _fuzz(class_id: String, floor_number: int) -> String:
 	for enemy: EnemySim in world.enemies:
 		alive += 1 if enemy.alive else 0
 	return "%.3f,%.3f,%.2f,%.2f,%d,%d" % [world.player.position.x, world.player.position.y, world.player.health, world.player.resource.get_current(), alive, world.tick]
+
+
+func _random_message(rng: RandomNumberGenerator, held: Dictionary, tick: int, from: Vector2, toward: Vector2) -> InputMessage:
+	var message := InputMessage.new()
+	message.tick = tick
+	message.peer_id = 1
+	var to_target := (toward - from)
+	var aim := to_target.normalized() if to_target.length() > 1.0 else Vector2.RIGHT
+	if rng.randf() < 0.2:
+		aim = aim.rotated(rng.randf_range(-1.0, 1.0))
+	message.aim_dir = aim
+	message.move_dir = aim if rng.randf() < 0.5 else Vector2.from_angle(rng.randf() * TAU) * float(rng.randi() % 2)
+	message.target_pos = from + aim * 100.0
+	message.actions = {}
+	for action: String in ["m1", "m2", "s1", "s2", "s3", "special", "ultimate", "dodge", "basic"]:
+		if rng.randf() < 0.08:
+			held[action] = not bool(held.get(action, false))
+		message.actions[action] = bool(held.get(action, false))
+	return message
+
+
+func _fuzz_duel(class_a: String, class_b: String) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash("duel%s%s" % [class_a, class_b])
+	var world := CombatWorld.new(rng.seed)
+	world.player.safe_zone = true
+	world.player.switch_class(class_a)
+	world.player.enter_rules("pvp")
+	world.player.safe_zone = false
+	var rival := world.add_opponent(class_b, Vector2(560, 320))
+	world.player.reset(Vector2(360, 320))
+	var held_a: Dictionary = {}
+	var held_b: Dictionary = {}
+	var problems: Array[String] = []
+	for tick: int in range(1500):
+		world.submit_input(_random_message(rng, held_a, tick, world.player.position, rival.position))
+		world.submit_opponent_input(rival, _random_message(rng, held_b, tick, rival.position, world.player.position))
+		world.step(DT)
+		if tick % 30 == 0:
+			for who: PlayerSim in [world.player, rival]:
+				if not is_finite(who.position.x) or not is_finite(who.position.y) or not world.bounds.grow(8.0).has_point(who.position):
+					problems.append("tick %d: posicion fuera de rango" % tick)
+				if who.health < 0.0 or who.health > who.max_health + 0.01 or is_nan(who.health):
+					problems.append("tick %d: vida fuera de rango" % tick)
+		if not world.player.alive:
+			world.player.reset(Vector2(360, 320))
+		if not rival.alive:
+			rival.reset(Vector2(560, 320))
+		if problems.size() >= 3:
+			break
+	_check(problems.is_empty(), "duelo %s contra %s con input aleatorio sin romper invariantes %s" % [class_a, class_b, str(problems.slice(0, 2))])
 
 
 func _check(condition: bool, label: String) -> void:
