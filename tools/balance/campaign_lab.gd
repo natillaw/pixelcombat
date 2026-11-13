@@ -100,14 +100,9 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 						_diagnose(world, bot, message, session)
 						elapsed = MAX_FLOOR_SECONDS
 					probe = player.position
-				# Recoger todo lo que cae (el bot no hace clic). Con la mochila llena tira lo peor.
-				if world.loot_drops.size() > 0 and int(elapsed * 60.0) % 30 == 0:
-					for drop: LootDrop in world.loot_drops.duplicate():
-						if not world.player.bag_has_room():
-							_discard_worst(world.player)
-						if world.player.add_item(drop.item):
-							world.loot_drops.erase(drop)
-							world.loot_removed.emit(drop)
+				# Como una persona: el bot solo recoge lo que ve y lo coge con un clic cerca (FloorBot). Con la mochila llena tira lo peor.
+				if not world.player.bag_has_room() and int(elapsed * 60.0) % 30 == 0:
+					_discard_worst(world.player)
 			world.player.damage_taken.disconnect(callable)
 			if not session.is_floor_done() and world.player.alive:
 				_report_stuck(world, session, bot)

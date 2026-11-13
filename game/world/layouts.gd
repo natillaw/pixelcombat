@@ -203,8 +203,8 @@ static func _dress_city(layout: FloorLayout) -> void:
 	# Plaza: bancos, maceteros en anillo y parterres de flores alrededor.
 	for bench: Vector2 in [Vector2(36.6, 27.8), Vector2(48.4, 27.8), Vector2(36.6, 35.8), Vector2(48.4, 35.8)]:
 		add.call("bench", bench, 0.0)
-		solid.call(bench + Vector2(-0.35, -0.2), 14.0)
-		solid.call(bench + Vector2(0.35, -0.2), 14.0)
+		solid.call(bench + Vector2(-0.55, -0.2), 13.0)
+		solid.call(bench + Vector2(0.55, -0.2), 13.0)
 	for i: int in range(10):
 		var angle := TAU * (float(i) + 0.5) / 10.0
 		var spot := Vector2(42.5, 31.5) + Vector2(cos(angle) * 5.6, sin(angle) * 5.0)
@@ -220,6 +220,10 @@ static func _dress_city(layout: FloorLayout) -> void:
 	add.call("stall", Vector2(52.5, 29.0), 0.0, 1)
 	solid.call(Vector2(51.4, 28.7), 18.0)
 	solid.call(Vector2(53.6, 28.7), 18.0)
+	# Carreta de mercader junto al puesto del este.
+	add.call("wagon", Vector2(57.5, 29.4), 0.0)
+	solid.call(Vector2(56.9, 29.0), 17.0)
+	solid.call(Vector2(58.1, 29.0), 17.0)
 	# Farolas a lo largo de las calles transversales.
 	for lamp: Vector2 in [Vector2(12.0, 29.6), Vector2(26.0, 29.6), Vector2(58.0, 29.6), Vector2(72.0, 29.6), Vector2(12.0, 45.6), Vector2(26.0, 45.6), Vector2(58.0, 45.6), Vector2(72.0, 45.6)]:
 		add.call("lamppost", lamp, 7.0)

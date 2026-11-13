@@ -2,8 +2,8 @@
 	"_doc": "Curva de niveles y crecimiento de stats por clase. Esquema en combat/progression.gd. Numeros provisionales.",
 	"max_level": 10,
 	"xp_curve": {
-		"base": 60,
-		"exponent": 1.4
+		"base": 2400,
+		"exponent": 0.8
 	},
 	"classes": {
 		"warrior": {

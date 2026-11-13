@@ -46,7 +46,7 @@ func _test_curve() -> void:
 		print("   error de carga: %s" % error)
 	_check(Progression.errors().is_empty(), "data/progression.json carga sin errores")
 	_check(Progression.max_level() == 10, "el nivel maximo es 10")
-	_check(Progression.xp_to_next(1) == 60, "subir del nivel 1 al 2 cuesta 60 XP")
+	_check(Progression.xp_to_next(1) == 2400, "subir del nivel 1 al 2 cuesta 2400 XP (curva del 13 nov: un piso limpio da como mucho un nivel)")
 	var increasing := true
 	for level: int in range(1, 9):
 		if Progression.xp_to_next(level + 1) <= Progression.xp_to_next(level):

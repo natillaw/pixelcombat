@@ -39,7 +39,7 @@ func _test_slots() -> void:
 	session.load_slot(SaveGame.slot_path(1), true)
 	_check(session.needs_character(), "una ranura nueva pide crear personaje")
 	session.create_character("Ayla", "mage", {"body": "female"})
-	world.player.grant_xp(200)
+	world.player.grant_xp(Progression.xp_to_next(1) + 10)   # el nivel 2 cuesta lo que diga la curva
 	session.autosave()
 	var other := CombatWorld.new(3)
 	var second := GameSession.new(other, "")

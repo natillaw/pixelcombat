@@ -206,7 +206,7 @@ func portal_prompt(portal: Dictionary) -> String:
 		label = "Torre - piso %d (</> cambian)" % selected_floor
 	if not portal_active(portal):
 		return "%s (completa el piso)" % label
-	return "%s: %s" % [Settings.short_label("interact"), label]
+	return "%s: %s" % [Settings.short_label("attack_m1"), label]
 
 
 func try_interact() -> void:
@@ -294,7 +294,7 @@ func objective_text() -> String:
 				return "Piso completado - sube por la salida"
 			return ""
 		FloorLayout.KIND_CITY:
-			return "Entra a la torre (%s) en el centro" % Settings.short_label("interact")
+			return "Entra a la torre (%s) en el centro" % Settings.short_label("attack_m1")
 		_:
 			return "Practica el combate"
 

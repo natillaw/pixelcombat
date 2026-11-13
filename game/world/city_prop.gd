@@ -15,6 +15,13 @@ const PURPLE_DARK := Color(0.26, 0.14, 0.45)
 const GOLD := Color(0.96, 0.79, 0.32)
 const LEAF := Color(0.24, 0.52, 0.22)
 const LEAF_LIGHT := Color(0.36, 0.68, 0.30)
+## Hojas de pixel art del repo (bosque_tileset.json da los recortes; props_campamento.png trae la carreta).
+const FOREST := preload("res://assets/tiles/bosque/bosque_props.png")
+const CAMP := preload("res://assets/props/campamento/props_campamento.png")
+const REGION_LOG := Rect2(101, 63, 36, 15)
+const REGION_BERRY_BUSH := Rect2(157, 63, 20, 14)
+const REGION_FLOWERS: Array[Rect2] = [Rect2(229, 63, 16, 11), Rect2(0, 85, 16, 11), Rect2(17, 85, 16, 11), Rect2(34, 85, 16, 11)]
+const REGION_WAGON := Rect2(104, 2, 32, 22)
 const ANIMATED: Array[String] = ["banner", "brazier", "lamppost"]
 const FLOWER_COLORS: Array[Color] = [Color(0.95, 0.35, 0.45), Color(0.98, 0.85, 0.35), Color(0.95, 0.95, 0.98), Color(0.7, 0.5, 0.95), Color(0.98, 0.6, 0.3)]
 
@@ -48,9 +55,11 @@ func _draw() -> void:
 		"stall":
 			_draw_stall()
 		"bench":
-			_draw_bench()
+			_sprite(FOREST, REGION_LOG, Vector2(18, 13), 2.0)
 		"planter":
-			_draw_planter()
+			_sprite(FOREST, REGION_BERRY_BUSH, Vector2(10, 13), 2.2)
+		"wagon":
+			_sprite(CAMP, REGION_WAGON, Vector2(16, 21), 2.6)
 		"statue":
 			_draw_statue()
 		"lamppost":
@@ -116,28 +125,6 @@ func _draw_stall() -> void:
 	draw_rect(Rect2(-46, -60, 92, 3), a.darkened(0.25))
 
 
-func _draw_bench() -> void:
-	_shadow(46.0)
-	draw_rect(Rect2(-20, -14, 3, 14), WOOD_DARK)
-	draw_rect(Rect2(17, -14, 3, 14), WOOD_DARK)
-	draw_rect(Rect2(-22, -16, 44, 5), WOOD)
-	draw_rect(Rect2(-22, -16, 44, 2), Color(0.62, 0.43, 0.25))
-	draw_rect(Rect2(-22, -28, 44, 4), WOOD_DARK)
-	draw_rect(Rect2(-22, -24, 3, 9), WOOD_DARK)
-	draw_rect(Rect2(19, -24, 3, 9), WOOD_DARK)
-
-
-func _draw_planter() -> void:
-	_shadow(36.0)
-	draw_rect(Rect2(-15, -16, 30, 16), STONE)
-	draw_rect(Rect2(-15, -16, 30, 4), STONE_LIGHT)
-	draw_rect(Rect2(-15, -3, 30, 3), STONE_DARK)
-	for i: int in range(4):
-		var p := Vector2(-9.0 + float(i) * 6.0, -22.0 - float(i % 2) * 4.0)
-		draw_circle(p, 7.0, LEAF)
-		draw_circle(p + Vector2(-2, -2), 4.0, LEAF_LIGHT)
-	for i: int in range(5):
-		draw_circle(Vector2(-11.0 + float(i) * 5.5, -24.0 - float((i * 3) % 4)), 1.8, FLOWER_COLORS[(i + variant) % FLOWER_COLORS.size()])
 
 
 func _draw_statue() -> void:
@@ -168,10 +155,16 @@ func _draw_lamppost() -> void:
 func _draw_flowerbed() -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = variant * 7919 + 13
-	for i: int in range(22):
-		var offset := Vector2(rng.randf_range(-34.0, 34.0), rng.randf_range(-10.0, 10.0))
-		draw_line(offset + Vector2(0, 3), offset, LEAF, 1.5)
-		draw_circle(offset + Vector2(0, -1), 2.2, FLOWER_COLORS[rng.randi() % FLOWER_COLORS.size()])
+	for i: int in range(8):
+		var region: Rect2 = REGION_FLOWERS[rng.randi() % REGION_FLOWERS.size()]
+		var offset := Vector2(rng.randf_range(-36.0, 36.0), rng.randf_range(-8.0, 10.0))
+		_sprite(FOREST, region, Vector2(8, 10), 2.0, offset)
+
+
+## Dibuja un recorte de una hoja de pixel art con su pie (`origin`, en px de la hoja) en el punto del nodo.
+func _sprite(sheet: Texture2D, region: Rect2, origin: Vector2, scale: float, offset: Vector2 = Vector2.ZERO) -> void:
+	_shadow(region.size.x * scale * 0.8, 8.0)
+	draw_texture_rect_region(sheet, Rect2(offset - origin * scale, region.size * scale), region)
 
 
 func _draw_plaza_ring() -> void:

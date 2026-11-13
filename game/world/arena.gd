@@ -10,6 +10,8 @@ extends Node2D
 const TILE := 32.0
 ## Fuente pixel del juego (los carteles usaban la fuente por defecto de Godot, que desentonaba).
 const PIXEL_FONT := preload("res://assets/fonts/m5x7.ttf")
+## Hoguera animada (pack de campamento).
+const CAMPFIRE := preload("res://assets/props/campamento/prop_fogata_anim.png")
 const BRICK_H := 20.0
 const BRICK_W := 44.0
 
@@ -959,14 +961,12 @@ class InteractableActor extends Node2D:
 		var tone := glow if not done else glow.darkened(0.55)
 		match object.kind:
 			"campfire":
-				# Troncos cruzados y una llama que parpadea; apagada (gastada) queda la ceniza.
-				draw_line(Vector2(-12, -3), Vector2(12, -9), Color(0.32, 0.2, 0.1), 4.0)
-				draw_line(Vector2(-12, -9), Vector2(12, -3), Color(0.4, 0.26, 0.13), 4.0)
+				# Hoguera animada del pack de campamento (4 fotogramas de 16 x 18); gastada, se apaga.
+				var frame := int(_time * 8.0) % 4
+				var tint := Color.WHITE if not done else Color(0.35, 0.35, 0.38)
+				draw_texture_rect_region(CAMPFIRE, Rect2(-24, -48, 48, 54), Rect2(float(frame * 16) if not done else 0.0, 0.0, 16, 18), tint)
 				if not done:
-					var flame := 10.0 + 3.0 * pulse
-					draw_circle(Vector2(0, -12), 26.0 + 6.0 * pulse, Color(tone.r, tone.g, tone.b, 0.1))
-					draw_colored_polygon(PackedVector2Array([Vector2(-7, -8), Vector2(0, -8.0 - flame * 2.0), Vector2(7, -8)]), Color(1.0, 0.45, 0.12))
-					draw_colored_polygon(PackedVector2Array([Vector2(-4, -8), Vector2(0, -8.0 - flame * 1.2), Vector2(4, -8)]), Color(1.0, 0.85, 0.35))
+					draw_circle(Vector2(0, -22), 30.0 + 6.0 * pulse, Color(tone.r, tone.g, tone.b, 0.10))
 			"cage":
 				draw_rect(Rect2(-12, -26, 24, 26), Color(0.25, 0.2, 0.15))
 				for i: int in range(5):
