@@ -9,7 +9,7 @@ extends Node2D
 
 const TILE := 32.0
 ## Fuente pixel del juego (los carteles usaban la fuente por defecto de Godot, que desentonaba).
-const PIXEL_FONT := preload("res://assets/fonts/m5x7.ttf")
+const PIXEL_FONT := preload("res://assets/fonts/m6x11.ttf")
 ## Hoguera animada (pack de campamento).
 const CAMPFIRE := preload("res://assets/props/campamento/prop_fogata_anim.png")
 const BRICK_H := 20.0

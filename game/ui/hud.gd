@@ -7,7 +7,7 @@ class_name GameHud
 extends Control
 
 const DIM_TEXT := Color(0.6, 0.55, 0.5, 1.0)
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 
 const PANEL := Color(0.055, 0.065, 0.095, 0.86)
 const PANEL_EDGE := Color(0.33, 0.37, 0.47, 0.95)
@@ -245,15 +245,15 @@ func _draw_status(warrior: PlayerSim) -> void:
 	_slot_bar(origin + Vector2(31, 19) * scale, 40.0 * scale, xp_ratio, Color(0.35, 0.82, 0.38, 1.0))
 
 	# Texto a la derecha de la placa.
-	var tx := 184.0
-	_panel(Rect2(tx - 4, 8, 112, 58))
-	_draw_text(warrior.character_name.to_upper(), Vector2(tx, 19), 8, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 104)
+	var tx := 191.0
+	_panel(Rect2(tx - 11, 8, 130, 92))
+	_draw_text(warrior.character_name.to_upper(), Vector2(tx, 26), 8, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 110)
 	var where := "%s  -  %s" % [String(warrior.class_def["name"]).to_upper(), _location_title()]
-	if FONT.get_string_size(where, HORIZONTAL_ALIGNMENT_LEFT, -1.0, 7).x > 104.0:
+	if FONT.get_string_size(where, HORIZONTAL_ALIGNMENT_LEFT, -1.0, UiStyle.MIN_FONT).x > 110.0:
 		where = _location_title()                    # largo: solo el lugar, sin la clase
-	_draw_text(_fit(where, 7, 104.0), Vector2(tx, 28), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 104)
-	_draw_text("VIDA  %d / %d" % [ceili(warrior.health), ceili(warrior.max_health)], Vector2(tx, 38), 7, TEXT)
-	_draw_text("%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)], Vector2(tx, 46), 7, TEXT)
+	_draw_text(_fit(where, 7, 110.0), Vector2(tx, 38), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 110)
+	_draw_text("VIDA  %d / %d" % [ceili(warrior.health), ceili(warrior.max_health)], Vector2(tx, 50), 7, TEXT)
+	_draw_text("%s  %d / %d" % [warrior.resource.resource_name.to_upper(), floori(warrior.resource.get_current()), floori(warrior.resource.max_amount)], Vector2(tx, 62), 7, TEXT)
 	var passive := ""
 	var passive_color := MUTED
 	if warrior.vengeful_active:
@@ -264,9 +264,9 @@ func _draw_status(warrior: PlayerSim) -> void:
 		passive_color = Color(0.65, 0.88, 1.0, 1.0)
 	var xp_text := "XP  %d / %d" % [warrior.xp, maxi(to_next, 0)]
 	if warrior.level >= warrior.effective_max_level() and warrior.level < Progression.max_level():
-		xp_text = "NIVEL TOPE: COMPLETA EL PISO %d" % warrior.level   # el tope sube al desbloquear el siguiente piso
-	_draw_text(passive if passive != "" else xp_text, Vector2(tx, 54), 7, passive_color if passive != "" else XP)
-	_draw_text("ORO %d" % warrior.gold, Vector2(tx, 62), 7, GOLD)
+		xp_text = "TOPE: PISO %d" % warrior.level   # el tope sube al desbloquear el siguiente piso
+	_draw_text(passive if passive != "" else xp_text, Vector2(tx, 74), 7, passive_color if passive != "" else XP)
+	_draw_text("ORO %d" % warrior.gold, Vector2(tx, 86), 7, GOLD)
 
 
 ## Barra fina que rellena una ranura de la placa (vida, recurso, XP).
@@ -568,11 +568,11 @@ func _draw_boss_bar() -> void:
 		if not _boss_bar_seen:
 			_boss_bar_seen = true
 			show_tip("first_boss_bar")
-		var panel := Rect2(300, 6, 190, 34)
+		var panel := Rect2(316, 6, 190, 52)
 		_panel(panel)
-		_draw_text(_fit(String(enemy.data["name"]).to_upper(), 7, 110.0), Vector2(306, 18), 7, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 110)
-		_draw_text(enemy.phase_name().to_upper(), Vector2(306, 18), 7, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, 178)
-		var bar := Rect2(306, 24, 178, 9)
+		_draw_text(_fit(String(enemy.data["name"]).to_upper(), 7, 166.0), Vector2(326, 24), 7, GOLD, HORIZONTAL_ALIGNMENT_LEFT, 166)
+		_draw_text(enemy.phase_name().to_upper(), Vector2(326, 53), 7, MUTED, HORIZONTAL_ALIGNMENT_CENTER, 166)
+		var bar := Rect2(326, 29, 166, 9)
 		var ratio := clampf(enemy.health / maxf(enemy.max_health, 1.0), 0.0, 1.0)
 		var roaring := enemy.state == EnemySim.State.PHASE
 		_bar(bar, ratio, Color(1.0, 0.8, 0.3, 1.0) if roaring else RED)
@@ -594,15 +594,15 @@ func _draw_missions() -> void:
 		return
 	# Cada mision pendiente lleva debajo su descripcion (el lore) en dos lineas como maximo.
 	var heights: Array = []
-	var total := 26.0 + (12.0 if session.time_limit > 0.0 else 0.0)
+	var total := 28.0 + (14.0 if session.time_limit > 0.0 else 0.0)
 	for line: Dictionary in lines:
 		var rows := 0 if bool(line["done"]) else _desc_rows(String(line.get("desc", "")))
-		var row_height := 11.0 + float(rows) * 8.0 + (2.0 if rows > 0 else 0.0)
+		var row_height := 13.0 + float(rows) * 10.0 + (2.0 if rows > 0 else 0.0)
 		heights.append(row_height)
 		total += row_height
 	_quest_tracker_y = 92.0 + total + 6.0
 	_panel(Rect2(488, 92, 142, total), "OBJETIVOS")
-	var y := 112.0                                   # bajo la cabecera verde (antes pisaba el titulo)
+	var y := 114.0                                   # bajo la cabecera verde (antes pisaba el titulo)
 	for index: int in range(lines.size()):
 		var line: Dictionary = lines[index]
 		var color := GREEN_DONE if bool(line["done"]) else (MUTED if bool(line["optional"]) else TEXT)
@@ -612,7 +612,7 @@ func _draw_missions() -> void:
 		if not bool(line["done"]):
 			var desc := String(line.get("desc", ""))
 			if not desc.is_empty():
-				draw_multiline_string(FONT, Vector2(494, y + 8.0), desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, 7, 2, MUTED if not bool(line["optional"]) else DIM_TEXT)
+				draw_multiline_string(FONT, Vector2(494, y + 11.0), desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, UiStyle.MIN_FONT, 2, MUTED if not bool(line["optional"]) else DIM_TEXT)
 		y += float(heights[index])
 	if session.time_limit > 0.0:
 		var left := session.time_left
@@ -625,8 +625,8 @@ func _draw_missions() -> void:
 func _desc_rows(desc: String) -> int:
 	if desc.is_empty():
 		return 0
-	var size := FONT.get_multiline_string_size(desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, 7, 2)
-	return clampi(int(round(size.y / 8.0)), 1, 2)
+	var size := FONT.get_multiline_string_size(desc, HORIZONTAL_ALIGNMENT_LEFT, 130.0, UiStyle.MIN_FONT, 2)
+	return clampi(int(round(size.y / 10.0)), 1, 2)
 
 
 ## Seguimiento de las misiones activas del marco de misiones (hasta 3), bajo la lista de objetivos del piso.
@@ -635,9 +635,9 @@ func _draw_quest_tracker() -> void:
 	if active.is_empty():
 		return
 	var shown := mini(active.size(), 3)
-	var height := 26.0 + float(shown) * 20.0
+	var height := 28.0 + float(shown) * 27.0
 	_panel(Rect2(488, _quest_tracker_y, 142, height), "MISIONES")
-	var y := _quest_tracker_y + 20.0
+	var y := _quest_tracker_y + 22.0
 	for i: int in range(shown):
 		var instance: Dictionary = active[i]
 		var objective: Dictionary = {}
@@ -645,10 +645,10 @@ func _draw_quest_tracker() -> void:
 			if not bool(candidate["optional"]) and int(candidate["progress"]) < int(candidate["required"]):
 				objective = candidate
 				break
-		_draw_text(String(instance["title"]).substr(0, 24), Vector2(494, y), 7, TEXT, HORIZONTAL_ALIGNMENT_LEFT, 130)
+		_draw_text(_fit(String(instance["title"]), 7, 130.0), Vector2(494, y), 7, TEXT, HORIZONTAL_ALIGNMENT_LEFT, 130)
 		if not objective.is_empty():
-			_draw_text("%s  %d / %d" % [String(objective["kind"]), int(objective["progress"]), int(objective["required"])], Vector2(494, y + 9.0), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 130)
-		y += 20.0
+			_draw_text("%s  %d / %d" % [String(objective["kind"]), int(objective["progress"]), int(objective["required"])], Vector2(494, y + 11.0), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 130)
+		y += 27.0
 
 
 ## Minimapa de los escenarios con mapa de casillas: terreno (una textura de 1 px por
@@ -749,23 +749,23 @@ func _draw_location() -> void:
 	if session == null or session.layout == null:
 		return
 	if not pickup_prompt.is_empty():
-		_panel(Rect2(170, 268, 300, 16))
-		_draw_text(pickup_prompt.to_upper(), Vector2(170, 279), 7, GOLD, HORIZONTAL_ALIGNMENT_CENTER, 300)
+		_panel(Rect2(170, 262, 300, 22))
+		_draw_text(pickup_prompt.to_upper(), Vector2(170, 277), 7, GOLD, HORIZONTAL_ALIGNMENT_CENTER, 300)
 	var objective := session.objective_text()
 	if not objective.is_empty():
-		_draw_text(objective.to_upper(), Vector2(262, 52), 7, GOLD if session.is_floor_done() else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 230)
+		_draw_text(objective.to_upper(), Vector2(316, 72), 7, GOLD if session.is_floor_done() else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 190)
 	_draw_missions()
 	if world.player.alive:
 		var portal: Variant = session.nearest_portal()
 		if portal != null:
 			var prompt := session.portal_prompt(portal)
-			_panel(Rect2(190, 290, 260, 16))
-			_draw_text(prompt.to_upper(), Vector2(190, 301), 7, TEXT if session.portal_active(portal) else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 260)
+			_panel(Rect2(170, 286, 300, 22))
+			_draw_text(prompt.to_upper(), Vector2(170, 301), 7, TEXT if session.portal_active(portal) else MUTED, HORIZONTAL_ALIGNMENT_CENTER, 300)
 	if _tip_time > 0.0 and not _tip.is_empty():
-		var tip_size := FONT.get_multiline_string_size(_tip, HORIZONTAL_ALIGNMENT_LEFT, 324.0, 7, 3)
-		var tip_rect := Rect2(150, 276.0 - tip_size.y - 12.0, 340, tip_size.y + 12.0)
+		var tip_size := FONT.get_multiline_string_size(_tip, HORIZONTAL_ALIGNMENT_LEFT, 316.0, UiStyle.MIN_FONT, 3)
+		var tip_rect := Rect2(150, 272.0 - tip_size.y - 18.0, 340, tip_size.y + 18.0)
 		_panel(tip_rect, "")
-		draw_multiline_string(FONT, tip_rect.position + Vector2(8, 13), _tip, HORIZONTAL_ALIGNMENT_LEFT, tip_rect.size.x - 16.0, 7, 3, TEXT)
+		draw_multiline_string(FONT, tip_rect.position + Vector2(12, 19), _tip, HORIZONTAL_ALIGNMENT_LEFT, tip_rect.size.x - 24.0, UiStyle.MIN_FONT, 3, TEXT)
 	if _toast_time > 0.0:
 		_draw_text(_toast.to_upper(), Vector2(0, 120), 7, _toast_color, HORIZONTAL_ALIGNMENT_CENTER, 640)
 	if _banner_time > 0.0:
@@ -845,7 +845,8 @@ func _bar(rect: Rect2, ratio: float, color: Color) -> void:
 
 
 ## Recorta el texto con ".." para que quepa en `width` (antes se cortaba a mitad de palabra).
-func _fit(text: String, font_size: int, width: float) -> String:
+func _fit(text: String, size_in: int, width: float) -> String:
+	var font_size := maxi(size_in, UiStyle.MIN_FONT)
 	if FONT.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, font_size).x <= width:
 		return text
 	var cut := text
@@ -855,4 +856,6 @@ func _fit(text: String, font_size: int, width: float) -> String:
 
 
 func _draw_text(text: String, at: Vector2, font_size: int, color: Color, alignment: int = HORIZONTAL_ALIGNMENT_LEFT, width: float = -1.0) -> void:
-	draw_string(FONT, at, text, alignment, width, font_size, color)
+	var px := maxi(font_size, UiStyle.MIN_FONT)
+	draw_string(FONT, at + Vector2(1, 1), text, alignment, width, px, Color(0, 0, 0, 0.75))
+	draw_string(FONT, at, text, alignment, width, px, color)

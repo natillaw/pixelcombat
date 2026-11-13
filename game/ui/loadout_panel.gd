@@ -10,7 +10,7 @@
 class_name LoadoutPanel
 extends Control
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 const BOOK_TEX := preload("res://assets/pixel/book/Open_book.png")
 
 const INK := Color(0.20, 0.13, 0.07, 1.0)
@@ -389,4 +389,4 @@ func _draw_entry_row(index: int, skill: Dictionary, player: PlayerSim) -> void:
 
 
 func _text(text: String, at: Vector2, font_size: int, color: Color, alignment: int = HORIZONTAL_ALIGNMENT_LEFT, width: float = -1.0) -> void:
-	draw_string(FONT, at, text, alignment, width, font_size, color)
+	draw_string(FONT, at, text, alignment, width, maxi(font_size, UiStyle.MIN_FONT), color)

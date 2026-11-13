@@ -8,7 +8,7 @@
 class_name InventoryPanel
 extends Control
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 
 const PANEL := Color(0.055, 0.065, 0.095, 0.96)
 const EDGE := Color(0.33, 0.37, 0.47, 1.0)
@@ -221,7 +221,7 @@ func _draw() -> void:
 			draw_rect(rect, Color(1, 1, 1, 0.16))
 
 	_draw_detail(player)
-	_text(_message, Vector2(48, 318), 7, _message_color)
+	_text(_message, Vector2(48, 314), 7, _message_color)
 
 
 ## Materiales que lleva el jugador, en una linea bajo el titulo y sin pasar del panel.
@@ -231,10 +231,10 @@ func _draw_materials(player: PlayerSim) -> void:
 	ids.sort()
 	for id: String in ids:
 		parts.append("%s x%d" % [MaterialCatalog.display_name(id), int(player.materials[id])])
-	_text("MATERIALES  " + ("-" if parts.is_empty() else "   ".join(parts)), Vector2(EQUIP_X, 330), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 544)
+	_text("MATERIALES  " + ("-" if parts.is_empty() else "   ".join(parts)), Vector2(EQUIP_X, 326), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 544)
 	var rects := _consumable_rects()
 	if rects.is_empty():
-		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource")], Vector2(EQUIP_X, 340), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
+		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource")], Vector2(EQUIP_X, 338), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
 	for entry: Dictionary in rects:
 		var spec := ConsumableCatalog.item(String(entry["id"]))
 		var icon := SkillIcons.consumable(String(spec.get("icon", "")))
@@ -248,11 +248,11 @@ func _draw_detail(player: PlayerSim) -> void:
 	var total_lines: Array = []
 	for stat: String in gear:
 		total_lines.append("%s %s" % [_stat_label(stat), _stat_value(stat, float(gear[stat]))])
-	_text("TOTAL EQUIPO", Vector2(EQUIP_X, 228), 7, MUTED)
-	var y := 238.0
+	_text("TOTAL EQUIPO", Vector2(EQUIP_X, 224), 7, GOLD)
+	var y := 236.0
 	for line: String in total_lines:
 		_text(line, Vector2(EQUIP_X, y), 7, TEXT)
-		y += 9.0
+		y += 11.0
 	if total_lines.is_empty():
 		_text("sin equipo", Vector2(EQUIP_X, y), 7, DIM)
 	if _hover.is_empty():
@@ -316,4 +316,4 @@ static func _stat_value(stat: String, value: float) -> String:
 
 
 func _text(text: String, at: Vector2, font_size: int, color: Color, alignment: int = HORIZONTAL_ALIGNMENT_LEFT, width: float = -1.0) -> void:
-	draw_string(FONT, at, text, alignment, width, font_size, color)
+	draw_string(FONT, at, text, alignment, width, maxi(font_size, UiStyle.MIN_FONT), color)

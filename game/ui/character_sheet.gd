@@ -8,7 +8,7 @@
 class_name CharacterSheet
 extends Control
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 const SHEET := preload("res://assets/pixel/ui/craftpix/Equipment.png")
 
 const INK := Color(0.20, 0.13, 0.07, 1.0)
@@ -349,4 +349,4 @@ func _text(text: String, at: Vector2, font_size: int, color: Color, alignment: i
 	# Sombra de un pixel para que se lea sobre el pergamino y sobre la madera.
 	if color.get_luminance() > 0.6:
 		draw_string(FONT, at + Vector2(1, 1), text, alignment, width, font_size, Color(0, 0, 0, 0.55))
-	draw_string(FONT, at, text, alignment, width, font_size, color)
+	draw_string(FONT, at, text, alignment, width, maxi(font_size, UiStyle.MIN_FONT), color)

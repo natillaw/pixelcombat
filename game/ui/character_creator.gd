@@ -10,7 +10,7 @@ extends Control
 
 signal created(character_name: String, class_id: String, appearance: Dictionary)
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 const GOLD := Color(0.94, 0.74, 0.36, 1.0)
 const TEXT := Color(0.93, 0.90, 0.83, 1.0)
 const MUTED := Color(0.86, 0.80, 0.62, 1.0)
@@ -112,7 +112,7 @@ func _label(text: String, rect: Rect2, size: int, color: Color, align: int = HOR
 	label.position = rect.position
 	label.size = rect.size
 	label.add_theme_font_override("font", FONT)
-	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_font_size_override("font_size", maxi(size, UiStyle.MIN_FONT))
 	label.add_theme_color_override("font_color", color)
 	label.horizontal_alignment = align
 	if wrap:
@@ -132,10 +132,10 @@ func _button(text: String, rect: Rect2, callback: Callable, size: int = 8) -> Bu
 	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	button.custom_minimum_size = Vector2.ZERO
 	button.add_theme_font_override("font", FONT)
-	button.add_theme_font_size_override("font_size", size)
-	button.add_theme_color_override("font_color", Color(0.04, 0.16, 0.09))
-	button.add_theme_color_override("font_hover_color", Color(0.0, 0.1, 0.05))
-	button.add_theme_color_override("font_pressed_color", Color(0.0, 0.1, 0.05))
+	button.add_theme_font_size_override("font_size", maxi(size, UiStyle.MIN_FONT))
+	button.add_theme_color_override("font_color", Color(0.93, 0.90, 0.83))
+	button.add_theme_color_override("font_hover_color", Color(1.0, 0.88, 0.52))
+	button.add_theme_color_override("font_pressed_color", Color(1.0, 0.88, 0.52))
 	for state: String in ["normal", "hover", "pressed", "focus"]:
 		button.add_theme_stylebox_override(state, UiStyle.button_style("normal" if state == "focus" else state))
 	button.pressed.connect(callback)
@@ -196,7 +196,7 @@ func _build_create() -> void:
 	_name_edit.max_length = 16
 	_name_edit.text = NAMES[randi() % NAMES.size()]
 	_name_edit.add_theme_font_override("font", FONT)
-	_name_edit.add_theme_font_size_override("font_size", 8)
+	_name_edit.add_theme_font_size_override("font_size", 14)
 	_root.add_child(_name_edit)
 	_button("?", Rect2(176, 256, 42, 22), _random_name)
 	_label("Sin nombre te llamaran Despierto.", Rect2(22, 282, 196, 20), 8, MUTED, HORIZONTAL_ALIGNMENT_LEFT, true)
@@ -302,7 +302,7 @@ func _select_class(class_id: String) -> void:
 func _refresh_class_buttons() -> void:
 	for class_id: String in _class_buttons:
 		var button: Button = _class_buttons[class_id]
-		button.add_theme_color_override("font_color", Color(0.40, 0.08, 0.0) if class_id == _class_id else Color(0.04, 0.16, 0.09))
+		button.add_theme_color_override("font_color", Color(1.0, 0.82, 0.4) if class_id == _class_id else Color(0.93, 0.90, 0.83))
 	if _blurb != null:
 		_blurb.text = String(Lore.class_blurb(_class_id)["text"])
 

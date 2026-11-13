@@ -7,7 +7,7 @@
 class_name NpcActor
 extends Node2D
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 
 var spec: Dictionary
 var sprite: AnimatedSprite2D

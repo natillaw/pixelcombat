@@ -2,7 +2,7 @@
 class_name DamageNumber
 extends Label
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 
 var _elapsed: float = 0.0
 var _duration: float = 0.72

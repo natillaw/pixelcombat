@@ -176,3 +176,8 @@ Barrido sistematico (tests nuevos, campañas reales de las 4 clases con misiones
 - Botones: placa Dragon Regalia teñida (antes botones verdes CraftPix). Ranuras: `FilledFrame` oscurecido. Marcos de rareza: `ts_kit/ui/rarity_frame_*` (se cargan con `preload`; con `load()` en runtime salian en blanco en xvfb).
 - Inventario: mochila con las 40 ranuras visibles; equipo con marco de rareza; nombres de stats en espanol en el mercader.
 - Pendiente de unificar: hoja de personaje (aun pergamino CraftPix), HUD superior (texto muy pequeno), iconos de recursos/sociales de `ts_kit/icons` sin usar.
+
+## Tipografia de la interfaz
+- La fuente de la UI pasa de m5x7 a **m6x11** (mas alta y legible) y todo el texto tiene un minimo de `UiStyle.MIN_FONT` = 11 px (antes se dibujaba a 7 px, borroso). El HUD añade sombra de 1 px al texto.
+- Se reajusto el diseño del HUD (placa de datos, barra de jefe, objetivos, misiones, consejos) y del inventario para el nuevo tamaño. Los botones del creador usaban texto oscuro pensado para el verde antiguo: ahora son claros.
+- Si prefieres otra fuente, basta cambiar los `preload` de `FONT` (11 archivos) y `MIN_FONT`; solo hay m5x7 y m6x11 en el repo (no hay red para bajar mas).

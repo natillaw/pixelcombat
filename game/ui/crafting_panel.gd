@@ -8,7 +8,7 @@
 class_name CraftingPanel
 extends Control
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 
 const PANEL := Color(0.055, 0.065, 0.095, 0.96)
 const EDGE := Color(0.33, 0.37, 0.47, 1.0)
@@ -235,4 +235,4 @@ func _arrow(rect: Rect2, label: String) -> void:
 
 
 func _text(text: String, at: Vector2, font_size: int, color: Color, alignment: int = HORIZONTAL_ALIGNMENT_LEFT, width: float = -1.0) -> void:
-	draw_string(FONT, at, text, alignment, width, font_size, color)
+	draw_string(FONT, at, text, alignment, width, maxi(font_size, UiStyle.MIN_FONT), color)

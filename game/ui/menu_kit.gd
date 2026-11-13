@@ -2,7 +2,7 @@
 class_name MenuKit
 extends RefCounted
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 const GOLD := Color(0.94, 0.74, 0.36, 1.0)
 const TEXT := Color(0.93, 0.90, 0.83, 1.0)
 const MUTED := Color(0.78, 0.72, 0.56, 1.0)
@@ -14,7 +14,7 @@ static func label(parent: Control, text: String, rect: Rect2, size: int = 8, col
 	node.position = rect.position
 	node.size = rect.size
 	node.add_theme_font_override("font", FONT)
-	node.add_theme_font_size_override("font_size", size)
+	node.add_theme_font_size_override("font_size", maxi(size, UiStyle.MIN_FONT))
 	node.add_theme_color_override("font_color", color)
 	node.horizontal_alignment = align
 	node.clip_text = true

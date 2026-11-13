@@ -6,8 +6,10 @@
 class_name UiStyle
 extends RefCounted
 
-const FONT := preload("res://assets/fonts/m5x7.ttf")
+const FONT := preload("res://assets/fonts/m6x11.ttf")
 
+## Tamano minimo de texto en la interfaz (m6x11 es nitida a 11 px o mas).
+const MIN_FONT := 11
 const NAVY := Color(0.045, 0.058, 0.10, 0.98)
 const NAVY_LIGHT := Color(0.085, 0.10, 0.16, 0.95)
 const GOLD := Color(0.88, 0.68, 0.30, 1.0)
