@@ -518,11 +518,17 @@ func _draw_boss_bar() -> void:
 
 
 ## Lista de misiones del piso (principales y opcionales) y limite de tiempo.
+var _quest_tracker_y: float = 92.0
+
+
 func _draw_missions() -> void:
+	_quest_tracker_y = 92.0
 	var lines := session.mission_lines()
 	if lines.is_empty() and session.time_limit <= 0.0:
+		_draw_quest_tracker()
 		return
 	var height := 22.0 + float(lines.size()) * 11.0 + (12.0 if session.time_limit > 0.0 else 0.0)
+	_quest_tracker_y = 92.0 + height + 6.0
 	_panel(Rect2(488, 92, 142, height), "OBJETIVOS")
 	var y := 107.0
 	for line: Dictionary in lines:
@@ -537,6 +543,29 @@ func _draw_missions() -> void:
 		var left := session.time_left
 		var urgent := left < 60.0
 		_draw_text("TIEMPO  %d:%02d" % [int(left) / 60, int(left) % 60], Vector2(494, y + 1.0), 7, RED if urgent else GOLD)
+	_draw_quest_tracker()
+
+
+## Seguimiento de las misiones activas del marco de misiones (hasta 3), bajo la lista de objetivos del piso.
+func _draw_quest_tracker() -> void:
+	var active: Array = session.tower.quests.active()
+	if active.is_empty():
+		return
+	var shown := mini(active.size(), 3)
+	var height := 22.0 + float(shown) * 20.0
+	_panel(Rect2(488, _quest_tracker_y, 142, height), "MISIONES")
+	var y := _quest_tracker_y + 15.0
+	for i: int in range(shown):
+		var instance: Dictionary = active[i]
+		var objective: Dictionary = {}
+		for candidate: Dictionary in instance["objectives"]:
+			if not bool(candidate["optional"]) and int(candidate["progress"]) < int(candidate["required"]):
+				objective = candidate
+				break
+		_draw_text(String(instance["title"]).substr(0, 24), Vector2(494, y), 7, TEXT, HORIZONTAL_ALIGNMENT_LEFT, 130)
+		if not objective.is_empty():
+			_draw_text("%s  %d / %d" % [String(objective["kind"]), int(objective["progress"]), int(objective["required"])], Vector2(494, y + 9.0), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 130)
+		y += 20.0
 
 
 ## Minimapa de los escenarios con mapa de casillas: terreno (una textura de 1 px por

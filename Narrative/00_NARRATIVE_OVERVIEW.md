@@ -11,7 +11,7 @@ no hay canon nuevo; todo lo marcado PROPUESTA puede cambiar. Lo marcado CANON ya
 - El Cuervo (granate): banda de saqueadores del Bosque, jefe Garrick Mano Negra; tenientes Rask el Tajador
   y Veyra la Hechicera (pisos 5); elite errante Cornelius el Desertor (50 % de aparecer una vez en un
   piso 5-10). Las bestias son animales sin lore que solo dan materiales.
-- Frase actual de la intro: "hace trescientos anos el cielo se resquebrajo y cayo una aguja de piedra negra".
+- Frase de la intro ANTES del cambio de canon (sustituida por la mitologia B): "hace trescientos anos el cielo se resquebrajo y cayo una aguja de piedra negra". Ahora la Aguja *resurge* (ver CHANGELOG).
 
 ## Lo que el generador de pisos garantiza (base para escribir texto de piso)
 Fuente: `tower_generator.gd`, `map_gen.gd`, `mission_gen.gd`, `terrain_renderer.gd`, `data/biomes.json`,

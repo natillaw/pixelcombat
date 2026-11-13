@@ -14,6 +14,8 @@ var floors: Dictionary = {}
 var last_floor: int = 1
 ## Banderas narrativas persistentes (hitos del mundo): rask_defeated, veyra_defeated, garrick_defeated...
 var flags: Dictionary = {}
+## Marco de misiones: ofertas por piso, misiones activas y reclamadas, cadenas y secretos (se guarda con la torre).
+var quests: QuestManager = QuestManager.new(flags, world_seed)
 ## El mini-jefe elite errante ya fue derrotado (solo aparece una vez por partida).
 var elite_defeated: bool = false
 
@@ -91,7 +93,7 @@ func to_dict() -> Dictionary:
 	var out: Dictionary = {}
 	for key: Variant in floors:
 		out[str(key)] = (floors[key] as Dictionary).duplicate()
-	return {"world_seed": world_seed, "last_floor": last_floor, "floors": out, "elite_defeated": elite_defeated, "flags": flags.duplicate()}
+	return {"world_seed": world_seed, "last_floor": last_floor, "floors": out, "elite_defeated": elite_defeated, "flags": flags.duplicate(), "quests": quests.to_dict()}
 
 
 static func from_dict(data: Dictionary) -> TowerState:
@@ -101,6 +103,7 @@ static func from_dict(data: Dictionary) -> TowerState:
 	state.elite_defeated = bool(data.get("elite_defeated", false))
 	for flag: Variant in (data.get("flags", {}) as Dictionary):
 		state.flags[String(flag)] = bool(data["flags"][flag])
+	state.quests = QuestManager.from_dict(data.get("quests", {}), state.flags, state.world_seed)
 	var saved: Dictionary = data.get("floors", {})
 	for key: Variant in saved:
 		var entry: Dictionary = saved[key]

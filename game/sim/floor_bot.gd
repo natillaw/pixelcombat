@@ -14,6 +14,8 @@ var _field: PackedInt32Array = PackedInt32Array()
 var _last_position: Vector2 = Vector2.ZERO
 var _stuck: int = 0
 var _target: EnemySim = null
+var _unstick_direction: Vector2 = Vector2.ZERO
+var _unstick_ticks: int = 0
 ## Enemigos a los que no hay camino desde donde esta el bot (se descartan y se prueba con otro).
 var _ignored: Array = []
 var _field_grid: TileGrid = null
@@ -51,14 +53,16 @@ func decide(world: CombatWorld) -> InputMessage:
 	var direction := world.grid.flow_direction(_field, player.position)
 	if direction == Vector2.ZERO:
 		direction = ((goal as EnemySim).position - player.position).normalized()
-	# Atascado contra un obstaculo (arbol, roca): rodearlo de lado y alternar el lado.
+	# Atascado contra un obstaculo (arbol pegado a un muro, esquina): prueba varias salidas y sigue la que mas avanza.
 	_stuck = _stuck + 1 if player.position.distance_to(_last_position) < 0.8 else 0
 	_last_position = player.position
-	if _stuck > 12:
-		var side := 1.0 if (_stuck / 50) % 2 == 0 else -1.0
-		direction = direction.rotated(side * PI * 0.5)
-		if _stuck > 400:
-			_stuck = 0
+	if _unstick_ticks > 0:
+		_unstick_ticks -= 1
+		direction = _unstick_direction
+	elif _stuck > 10:
+		_unstick_direction = _best_escape(world, player, direction)
+		_unstick_ticks = 40
+		_stuck = 0
 	message.move_dir = direction
 	message.aim_dir = direction
 	return message
@@ -97,3 +101,18 @@ func _goal(world: CombatWorld) -> Variant:
 	return best
 
 
+
+
+## De varias direcciones alternativas, la que mas desplaza al jugador tras resolver las colisiones (la mejor salida
+## de un hueco entre un arbol y un muro).
+func _best_escape(world: CombatWorld, player: PlayerSim, blocked: Vector2) -> Vector2:
+	var best := blocked.rotated(PI * 0.5)
+	var best_gain := -1.0
+	for angle: float in [PI * 0.5, -PI * 0.5, PI * 0.75, -PI * 0.75, PI, PI * 0.25, -PI * 0.25]:
+		var candidate := blocked.rotated(angle)
+		var moved := world.resolve_position(player.position + candidate * 24.0, PlayerSim.RADIUS)
+		var gain := moved.distance_to(player.position)
+		if gain > best_gain:
+			best_gain = gain
+			best = candidate
+	return best

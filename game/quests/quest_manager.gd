@@ -172,7 +172,6 @@ func choose_branch(id: String, branch_id: String) -> bool:
 			for next_id: Variant in branch.get("next", []):
 				if not unlocked.has(String(next_id)):
 					unlocked.append(String(next_id))
-			on_event("condition_met", "choice_relicarios" if String(instance["def"]) == "chain_ledger_03" else "choice", 1)
 			for objective: Dictionary in instance["objectives"]:
 				if String(objective["kind"]) == "condition":
 					objective["progress"] = objective["required"]

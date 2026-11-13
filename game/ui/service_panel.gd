@@ -10,7 +10,7 @@ const TABS := {
 	"tavern": ["Comprar", "Cocinar", "Descansar"],
 	"merchant": ["Equipo", "Pociones", "Vender"],
 	"bank": ["Guardar", "Retirar"],
-	"guild": ["Tablon", "Mis encargos", "Instructor"],
+	"guild": ["Tablon", "Misiones", "Diario", "Maestra"],
 }
 const TITLES := {"tavern": "TABERNA", "merchant": "MERCADER", "bank": "BANCO", "guild": "GREMIO"}
 const ROW_H := 30.0
@@ -88,7 +88,8 @@ func _build() -> void:
 	MenuKit.label(_body, "Oro %d" % player.gold, Rect2(48, 32, 90, 18), 14, MenuKit.GOLD)
 	var tabs: Array = TABS[station]
 	for i: int in range(tabs.size()):
-		var button := MenuKit.button(_body, String(tabs[i]), Rect2(140.0 + float(i) * 122.0, 30, 118, 22), func() -> void: _select(i))
+		var tab_width := minf(118.0, 372.0 / float(tabs.size()) - 4.0)
+		var button := MenuKit.button(_body, String(tabs[i]), Rect2(140.0 + float(i) * (tab_width + 4.0), 30, tab_width, 22), func() -> void: _select(i))
 		button.disabled = i == tab
 	MenuKit.button(_body, "Cerrar", Rect2(520, 30, 76, 22), close)
 	var scroll := ScrollContainer.new()
@@ -269,23 +270,11 @@ func _fill_guild() -> void:
 					session.autosave()
 					_say("Encargo aceptado: %s." % offer["name"]))
 		1:
-			if player.bounties.is_empty():
-				_note("No tienes encargos. Acepta alguno en el tablon.")
-			for index: int in range(player.bounties.size()):
-				var bounty: Dictionary = player.bounties[index]
-				var done := int(bounty["progress"]) >= int(bounty["count"])
-				_row("%s  [%d/%d]" % [bounty["name"], bounty["progress"], bounty["count"]], "%s  Recompensa: %d oro, %d XP" % [bounty["text"], bounty["gold"], bounty["xp"]], "Cobrar" if done else "En curso", done, func() -> void:
-					Bounties.turn_in(player, index)
-					session.autosave()
-					_say("Encargo cobrado. El tablon se ha renovado."), MenuKit.GOLD if done else MenuKit.TEXT)
+			_fill_quest_board(player)
 		2:
-			var offers := Services.trainer_offers(player)
-			_note("Dara ensena habilidades de mundo a tu clase. Se equipan en el libro de skills (Tab).")
-			if offers.is_empty():
-				_note("Ya conoces todo lo que puede ensenarte.")
-			for offer: Dictionary in offers:
-				var skill := SkillCatalog.skill(StringName(String(offer["id"])))
-				_row("%s  (nivel %d)" % [offer["name"], offer["level"]], String(skill.get("description", "")), "%d oro" % int(offer["price"]), player.gold >= int(offer["price"]), func() -> void: _after(Services.learn_skill(player, String(offer["id"])), "Aprendida: %s." % offer["name"]))
+			_fill_journal(player)
+		3:
+			_fill_trainer(player)
 
 
 # --- Utilidades ----------------------------------------------------------------------
@@ -305,3 +294,70 @@ func _stats_text(piece: Dictionary) -> String:
 	for stat: String in piece["stats"]:
 		parts.append("%s %s" % [stat.replace("_bonus", "").replace("_", " "), str(snappedf(float(piece["stats"][stat]), 0.1))])
 	return "T%d  %s" % [int(piece["tier"]), ", ".join(parts)]
+
+
+## Tablon de misiones del piso que vas a subir (marco de misiones): ofertas guardadas, sin rerolls, y la historia desbloqueada.
+func _fill_quest_board(player: PlayerSim) -> void:
+	var floor_number := maxi(session.selected_floor, 1)
+	var info := session.floor_info_for(floor_number)
+	var quests := session.tower.quests
+	_note("Piso %d. Secundarias activas: %d / %d (la historia, las cadenas y los secretos no cuentan)." % [floor_number, quests.active_side_count(), QuestManager.MAX_SIDE])
+	for def: Dictionary in quests.story_available(info):
+		_row("%s  [historia]" % String(def["title"]), String(def["desc"]), "Empezar", true, func() -> void:
+			quests.start_quest(String(def["id"]), info, player.class_id)
+			session.autosave()
+			_say("Mision de historia iniciada: %s." % def["title"]), MenuKit.GOLD)
+	for offer: Dictionary in quests.offers_for(info, player.class_id):
+		var state := String(offer["state"])
+		var reward: Dictionary = offer["rewards"]
+		var detail := "%s  Recompensa: %d oro, %d XP%s" % [offer["desc"], int(reward["gold"]), int(reward["xp"]), ", %d objeto(s)" % (reward["items"] as Array).size() if not (reward["items"] as Array).is_empty() else ""]
+		var label := "%s  (%s, %s)" % [offer["title"], String(offer["category"]), String(offer["rarity"])]
+		_row(label, detail, "Aceptar" if ["available", "abandoned"].has(state) else state.capitalize(), ["available", "abandoned"].has(state), func() -> void:
+			var reason := quests.accept(String(offer["id"]))
+			if reason == "limit":
+				_say("Ya llevas 3 misiones secundarias activas.")
+				return
+			session.autosave()
+			_say("Mision aceptada: %s." % offer["title"]))
+
+
+## Diario: encargos del tablon aceptados y misiones del marco (activas, listas para reclamar).
+func _fill_journal(player: PlayerSim) -> void:
+	var quests := session.tower.quests
+	for instance: Dictionary in quests.with_state("completed"):
+		_row("%s  [lista]" % String(instance["title"]), "Reclama la recompensa.", "Reclamar", true, func() -> void:
+			var result := quests.claim(String(instance["id"]), player)
+			session.autosave()
+			_say("Recompensa recibida." if bool(result["ok"]) else ("La mochila esta llena." if String(result["reason"]) == "bag" else "No se puede reclamar.")), MenuKit.GOLD)
+	for instance: Dictionary in quests.active():
+		var parts: Array = []
+		for objective: Dictionary in instance["objectives"]:
+			parts.append("%s %d/%d%s" % [objective["kind"], objective["progress"], objective["required"], " (opc.)" if bool(objective["optional"]) else ""])
+		_row("%s  [%s]" % [instance["title"], instance["type"]], ", ".join(parts), "Abandonar", true, func() -> void:
+			quests.abandon(String(instance["id"]))
+			session.autosave()
+			_say("Mision abandonada: vuelve al tablon."))
+	for def_id: Variant in quests.history.slice(maxi(quests.history.size() - 0, 0)):
+		pass
+	var finished := 0
+	for id: Variant in quests.done:
+		finished += int(quests.done[id])
+	_note("Misiones del marco reclamadas: %d." % finished)
+	# Encargos del tablon (los de siempre).
+	for index: int in range(player.bounties.size()):
+		var bounty: Dictionary = player.bounties[index]
+		var finished_bounty := int(bounty["progress"]) >= int(bounty["count"])
+		_row("%s  [%d/%d]" % [bounty["name"], bounty["progress"], bounty["count"]], "%s  Recompensa: %d oro, %d XP" % [bounty["text"], bounty["gold"], bounty["xp"]], "Cobrar" if finished_bounty else "En curso", finished_bounty, func() -> void:
+			Bounties.turn_in(player, index)
+			session.autosave()
+			_say("Encargo cobrado. El tablon se ha renovado."), MenuKit.GOLD if finished_bounty else MenuKit.TEXT)
+
+
+func _fill_trainer(player: PlayerSim) -> void:
+	var offers := Services.trainer_offers(player)
+	_note("Dara ensena habilidades de mundo a tu clase. Se equipan en el libro de skills (Tab).")
+	if offers.is_empty():
+		_note("Ya conoces todo lo que puede ensenarte.")
+	for offer: Dictionary in offers:
+		var skill := SkillCatalog.skill(StringName(String(offer["id"])))
+		_row("%s  (nivel %d)" % [offer["name"], offer["level"]], String(skill.get("description", "")), "%d oro" % int(offer["price"]), player.gold >= int(offer["price"]), func() -> void: _after(Services.learn_skill(player, String(offer["id"])), "Aprendida: %s." % offer["name"]))

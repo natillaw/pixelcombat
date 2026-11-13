@@ -51,6 +51,10 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
 	world.tick_advanced.connect(_on_tick)
 	world.enemy_killed.connect(_on_enemy_killed)
+	world.interacted.connect(_on_interacted)
+	world.player.consumable_used.connect(_on_consumable_used)
+	world.player.damage_taken.connect(func(_amount: float, _source: Vector2, _dot: bool) -> void: _quest_event("player_damaged", ""))
+	_hook_quests()
 	world.enemy_spawned.connect(_on_enemy_spawned)
 	world.player.material_gained.connect(_on_material_gained)
 	go_to_city()
@@ -58,6 +62,45 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 
 ## Carga la partida de `path` (o una nueva si no existe o `fresh`) y empieza en la ciudad. Es lo que usa el
 ## menu al elegir una ranura.
+## Avisos del marco de misiones (nueva mision, completada...) como mensajes del juego. Se vuelve a llamar al cambiar de partida.
+func _hook_quests() -> void:
+	if not tower.quests.notice.is_connected(_on_quest_notice):
+		tower.quests.notice.connect(_on_quest_notice)
+
+
+func _on_quest_notice(text: String) -> void:
+	message.emit(text)
+
+
+## Datos del piso para el marco de misiones: bioma, enemigos y objetos que de verdad tiene su layout.
+func floor_info_for(floor_number: int, visit: int = 1) -> Dictionary:
+	var floor_layout := layout if layout != null and layout.floor_number == floor_number else TowerGenerator.generate(floor_number, tower.world_seed, visit)
+	var enemy_ids: Array = []
+	for spec: Dictionary in floor_layout.enemies + floor_layout.deferred_enemies:
+		if not enemy_ids.has(String(spec["id"])):
+			enemy_ids.append(String(spec["id"]))
+	var objects: Dictionary = {}
+	for object: Dictionary in floor_layout.interactables:
+		objects[String(object["kind"])] = int(objects.get(String(object["kind"]), 0)) + 1
+	return {"floor": floor_number, "biome": floor_layout.biome, "enemy_ids": enemy_ids, "objects": objects}
+
+
+func _quest_event(event: String, subject: String, amount: int = 1) -> void:
+	var info := floor_info_for(layout.floor_number) if layout != null and layout.kind == FloorLayout.KIND_FLOOR else {}
+	tower.quests.on_event(event, subject, amount, info)
+
+
+func _on_interacted(object: Interactable) -> void:
+	_quest_event("object_interacted", String(object.kind))
+	if ["waypoint", "beacon"].has(String(object.kind)):
+		_quest_event("location_discovered", String(object.kind))
+
+
+func _on_consumable_used(id: String) -> void:
+	if String(ConsumableCatalog.item(id).get("kind", "")) == "potion":
+		_quest_event("potion_used", id)
+
+
 func load_slot(path: String, fresh: bool = false) -> void:
 	save_path = path
 	if fresh:
@@ -70,6 +113,7 @@ func load_slot(path: String, fresh: bool = false) -> void:
 	else:
 		world.player.import_state(data["player"])
 		tower = TowerState.from_dict(data["tower"])
+	_hook_quests()
 	selected_floor = clampi(tower.last_floor, 1, tower.highest_unlocked())
 	_floor_done = false
 	go_to_city()
@@ -115,6 +159,7 @@ func go_to_floor(floor_number: int) -> bool:
 		message.emit("%s: %s" % [blurb["name"], blurb["text"]])
 	_enter(TowerGenerator.generate(floor_number, tower.world_seed, visit, [], tower.elite_floor() == floor_number), false)
 	_floor_done = false
+	_quest_event("floor_entered", str(floor_number))
 	var info := Lore.floor_info(floor_number)
 	if not info.is_empty() and visit == 1:
 		message.emit("%s. %s" % [layout.title, String(info["entry"])])
@@ -248,6 +293,7 @@ func _on_enemy_killed(enemy: EnemySim) -> void:
 		tower.set_flag(boss_flag)
 	if not enemy.summoned:
 		_bounty_event("kill", String(enemy.def_id))
+		_quest_event("enemy_defeated", String(enemy.def_id))
 	var config := TowerCatalog.elite_boss()
 	if not config.is_empty() and String(enemy.def_id) == String(config["id"]) and not enemy.summoned and not tower.elite_defeated:
 		tower.elite_defeated = true
@@ -263,6 +309,7 @@ func _bounty_event(event: String, subject: String, amount: int = 1) -> void:
 
 func _on_material_gained(id: String, amount: int) -> void:
 	_bounty_event("material", id, amount)
+	_quest_event("item_collected", id, amount)
 
 
 func is_floor_done() -> bool:
@@ -358,6 +405,7 @@ func _complete_floor() -> void:
 		if not closing.is_empty():
 			message.emit("%s: %s" % [closing["title"], closing["text"]])
 	_bounty_event("floor", str(floor_number))
+	_quest_event("floor_completed", str(floor_number))
 	if xp > 0:
 		world.player.grant_xp(xp, world.player.position)
 	floor_completed.emit(floor_number, xp)
