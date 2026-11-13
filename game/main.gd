@@ -20,6 +20,7 @@ var service_panel: ServicePanel
 var character_sheet: CharacterSheet
 var main_menu: MainMenu
 var pause_menu: PauseMenu
+var music: MusicDirector
 ## Con menu principal: la partida se elige ahi (sin menu en tests y capturas).
 var _use_menu: bool = false
 
@@ -120,6 +121,11 @@ func _ready() -> void:
 	pause_menu.quit_requested.connect(func() -> void:
 		session.autosave()
 		get_tree().quit())
+
+	music = MusicDirector.new()
+	music.name = "Music"
+	add_child(music)
+	music.bind(world, session, main_menu)
 
 	TickManager.register(world)
 	_was_dead = false
