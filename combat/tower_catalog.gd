@@ -25,6 +25,17 @@ static func floors() -> int:
 	return int(_data.get("floors", 0))
 
 
+## Pisos jugables en esta version (data/tower.json > playable_floors); el resto de la torre aun no se abre.
+static var playable_override: int = -1  ## solo pruebas: ignora el tope de la beta para ejercitar tiers altos
+
+
+static func playable_floors() -> int:
+	_ensure_loaded()
+	if playable_override > 0:
+		return playable_override
+	return mini(int(_data.get("playable_floors", _data.get("floors", 0))), int(_data.get("floors", 0)))
+
+
 static func tier_size() -> int:
 	_ensure_loaded()
 	return int(_data.get("tier_size", 10))

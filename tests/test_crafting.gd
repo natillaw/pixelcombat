@@ -162,6 +162,8 @@ func _test_tiers_and_session() -> void:
 	_check(session.max_craft_tier() == 1, "al empezar solo se fabrica en el tier 1")
 	for n: int in range(1, 11):
 		session.tower.complete(n)
+	_check(session.max_craft_tier() == 1, "beta: con el piso 10 completo el tier 2 sigue cerrado (no hay piso 11)")
+	TowerCatalog.playable_override = 100
 	_check(session.max_craft_tier() == 2, "abrir el piso 11 desbloquea el tier 2")
 	for n: int in range(11, 101):
 		session.tower.complete(n)
@@ -173,6 +175,7 @@ func _test_tiers_and_session() -> void:
 	for n: int in range(1, 11):
 		s2.tower.complete(n)
 	_check(bool(s2.craft("sew_leather_cap", 2)["ok"]), "al abrir el tier se puede")
+	TowerCatalog.playable_override = -1
 
 
 func _test_buildings() -> void:

@@ -225,10 +225,12 @@ func _test_monster_materials() -> void:
 	floor_session.tower.complete(2)
 	floor_session.go_to_floor(3)
 	_check(floor_session.world.resource_nodes.size() > 0 and (floor_session.world.resource_nodes[0] as ResourceNode).tier == 1, "los pisos 1-10 dan materiales del tier 1")
+	TowerCatalog.playable_override = 100
 	for n: int in range(3, 11):
 		floor_session.tower.complete(n)
 	floor_session.go_to_floor(11)
 	_check((floor_session.world.resource_nodes[0] as ResourceNode).tier == 2, "el piso 11 da materiales del tier 2")
+	TowerCatalog.playable_override = -1
 
 
 func _test_respawn_and_tiers() -> void:

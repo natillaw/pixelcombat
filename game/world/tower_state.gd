@@ -56,7 +56,7 @@ func visits(floor_number: int) -> int:
 ## forma continua desde el 1.
 func highest_unlocked() -> int:
 	var n := 1
-	while n < TowerCatalog.floors() and is_completed(n):
+	while n < TowerCatalog.playable_floors() and is_completed(n):
 		n += 1
 	return n
 
@@ -70,7 +70,7 @@ func completed_count() -> int:
 
 
 func can_enter(floor_number: int) -> bool:
-	return floor_number >= 1 and floor_number <= TowerCatalog.floors() and floor_number <= highest_unlocked()
+	return floor_number >= 1 and floor_number <= TowerCatalog.playable_floors() and floor_number <= highest_unlocked()
 
 
 ## Registra una entrada al piso; devuelve cuantas veces se ha entrado ya (1 = la

@@ -437,6 +437,7 @@ func _complete_floor() -> void:
 		var closing := Lore.tier_closing(TowerCatalog.tier_of_floor(floor_number))
 		if not closing.is_empty():
 			message.emit("%s: %s" % [closing["title"], closing["text"]])
+		message.emit("Has llegado al final de esta version: los pisos 11 en adelante se abriran en proximas versiones.")
 	_bounty_event("floor", str(floor_number))
 	_quest_event("floor_completed", str(floor_number))
 	if xp > 0:

@@ -176,7 +176,7 @@ func _test_tower_state() -> void:
 	var all := TowerState.new()
 	for n: int in range(1, 101):
 		all.complete(n)
-	_check(all.highest_unlocked() == 100 and all.can_enter(100) and not all.can_enter(101), "con todos completados el tope es el piso 100")
+	_check(all.highest_unlocked() == TowerCatalog.playable_floors() and all.can_enter(TowerCatalog.playable_floors()) and not all.can_enter(TowerCatalog.playable_floors() + 1), "con todos completados el tope es el ultimo piso jugable (%d)" % TowerCatalog.playable_floors())
 
 
 func _test_city_and_training_layouts() -> void:

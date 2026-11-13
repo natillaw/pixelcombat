@@ -1,5 +1,5 @@
 {
-	"_doc": "La torre: 100 pisos en 10 tiers de 10. Esquema y validacion en combat/tower_catalog.gd. El tier 1 tiene contenido propio; los tiers 2-10 reutilizan por ahora sus enemigos y jefes con otro tema y mas dificultad (placeholder: true) hasta tener arte y bestiario propios.",
+	"_doc": "La torre: 100 pisos en 10 tiers de 10. Esquema y validacion en combat/tower_catalog.gd. El tier 1 tiene contenido propio; los tiers 2-10 reutilizan por ahora sus enemigos y jefes con otro tema y mas dificultad (placeholder: true) hasta tener arte y bestiario propios. playable_floors: pisos que se pueden jugar en esta version (la beta llega al 10; los tiers 2-10 son placeholder y no se abren).",
 	"floors": 100,
 	"tier_size": 10,
 	"scaling": {
@@ -876,5 +876,6 @@
 			1.0,
 			1.0
 		]
-	}
+	},
+	"playable_floors": 10
 }
