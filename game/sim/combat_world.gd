@@ -19,6 +19,8 @@ signal loot_removed(drop: LootDrop)
 signal gather_started(node: Object)
 signal enemy_killed(enemy: EnemySim)
 signal interacted(object: Interactable)
+## Aviso de texto para el jugador (eventos, notas, cofres); la sesion lo muestra.
+signal notice(text: String)
 signal gather_interrupted(node: Object, reason: String)
 signal resource_gathered(node: ResourceNode, material_id: String, amount: int)
 
@@ -62,6 +64,8 @@ var gather_node: Object = null
 var interactables: Array = []
 ## Reliquias que lleva el jugador (mision de reliquia).
 var relics_carried: int = 0
+## Llaves escondidas del piso (abren la camara con el cofre dorado).
+var keys_carried: int = 0
 var gather_left: float = 0.0
 var _gather_from: Vector2 = Vector2.ZERO
 var _gather_health: float = 0.0
@@ -144,6 +148,7 @@ func load_layout(new_layout: FloorLayout) -> void:
 	resource_nodes.clear()
 	interactables.clear()
 	relics_carried = 0
+	keys_carried = 0
 	gather_node = null
 	pending_input = null
 	setup_arena(new_layout.bounds(), new_layout.obstacles, new_layout.grid)
@@ -163,10 +168,15 @@ func load_layout(new_layout: FloorLayout) -> void:
 		resource.rich = bool(spec.get("rich", false))
 		resource_nodes.append(resource)
 	for spec: Dictionary in new_layout.interactables:
-		interactables.append(Interactable.new(String(spec["kind"]), spec["position"], String(spec.get("group", "")), float(spec.get("channel", 2.0)), String(spec.get("requires", "")), String(spec.get("label", ""))))
+		var object := Interactable.new(String(spec["kind"]), spec["position"], String(spec.get("group", "")), float(spec.get("channel", 2.0)), String(spec.get("requires", "")), String(spec.get("label", "")))
+		object.effects = (spec.get("effects", []) as Array).duplicate(true)
+		object.exclusive = String(spec.get("exclusive", ""))
+		object.text = String(spec.get("text", ""))
+		object.tier = String(spec.get("tier", ""))
+		interactables.append(object)
 	# Altares, jaulas, sellos y las vetas/arboles no se atraviesan.
 	for object: Interactable in interactables:
-		if ["altar", "seal", "cage", "relic_altar"].has(object.kind):
+		if ["altar", "seal", "cage", "relic_altar", "chest", "vault", "event_option"].has(object.kind):
 			obstacles.append({"position": object.position, "radius": 16.0, "hidden": true})
 	for node: ResourceNode in resource_nodes:
 		if node.kind != "herb":
@@ -174,6 +184,70 @@ func load_layout(new_layout: FloorLayout) -> void:
 			obstacles.append({"position": node.position, "radius": 19.0 if node.kind == "ore" else 12.0, "hidden": true})
 	loading_layout = false
 	layout_loaded.emit(new_layout)
+
+
+## Aplica la lista de efectos de un objeto (eventos, cofres, notas...). Devuelve false si no se puede pagar (nada se aplica).
+## Tipos: pay, gold, xp, heal, item, status, ambush, gamble, key, message, note (ver data/events.json).
+func apply_effects(effects: Array, at: Vector2) -> bool:
+	for effect: Dictionary in effects:
+		if String(effect["type"]) == "pay" and player.gold < int(effect["amount"]):
+			notice.emit("No tienes oro suficiente (%d)." % int(effect["amount"]))
+			return false
+	var floor_number := maxi(layout.floor_number, 1) if layout != null else 1
+	for effect: Dictionary in effects:
+		match String(effect["type"]):
+			"pay":
+				player.spend_gold(int(effect["amount"]))
+			"gold":
+				player.add_gold(int(round(float(effect["per_floor"]) * float(floor_number))))
+			"xp":
+				player.grant_xp(int(round(float(effect["per_floor"]) * float(floor_number))), at)
+			"heal":
+				player.rest(float(effect["fraction"]))
+			"item":
+				var tier: int = layout.tier if layout != null and layout.tier > 0 else 1
+				var item := ItemGen.roll_reward(loot_rng, tier, String(effect["key"]))
+				if not item.is_empty():
+					var spot := resolve_position(at + Vector2(0.0, 26.0) + Vector2.from_angle(loot_rng.randf() * TAU) * 10.0, 8.0)
+					var drop := LootDrop.new(item, spot)
+					loot_drops.append(drop)
+					loot_spawned.emit(drop)
+					loot_dropped.emit(item, spot)
+			"status":
+				player.apply_status(String(effect["id"]), float(effect["duration"]), float(effect.get("strength", 0.0)), at)
+			"ambush":
+				_spawn_ambush(at, int(effect["count"]), float(effect.get("elite_chance", 0.0)))
+			"gamble":
+				var branch: Array = effect["win"] if loot_rng.randf() < float(effect["chance"]) else effect["lose"]
+				apply_effects(branch, at)
+			"key":
+				keys_carried += 1
+			"message":
+				notice.emit(String(effect["text"]))
+			"note":
+				var entry := EventCatalog.note(String(effect["id"]))
+				if not entry.is_empty():
+					notice.emit("%s: %s" % [entry["title"], entry["text"]])
+	return true
+
+
+## Una emboscada: `count` enemigos del piso aparecen alrededor de `at` y van a por el jugador.
+func _spawn_ambush(at: Vector2, count: int, elite_chance: float) -> void:
+	var tier_data := TowerCatalog.tier(maxi(layout.tier, 1)) if layout != null else {}
+	if tier_data.is_empty():
+		return
+	var pool: Array = MissionGen.pool_for_floor(tier_data, maxi(layout.floor_number, 1)).filter(func(entry: Dictionary) -> bool: return bool(entry.get("slay", true)))
+	if pool.is_empty():
+		return
+	for i: int in range(count):
+		var entry: Dictionary = pool[loot_rng.randi_range(0, pool.size() - 1)]
+		var point := resolve_position(at + Vector2.from_angle(loot_rng.randf() * TAU) * loot_rng.randf_range(110.0, 190.0), 12.0)
+		var spec := {"id": StringName(String(entry["id"])), "position": point, "required": false, "group": "ambush"}
+		if loot_rng.randf() < elite_chance:
+			spec["elite"] = true
+		var enemy := spawn_from_spec(spec, layout.enemy_scale)
+		enemy.respawns = false
+		enemy.state = EnemySim.State.CHASE
 
 
 ## Efectos al morir un enemigo (barriles): una explosion instantanea y/o una zona que se queda en el suelo.
@@ -369,6 +443,9 @@ func try_click(point: Vector2) -> String:
 		return ""
 	if target is Interactable and (target as Interactable).requires == "relic" and relics_carried <= 0:
 		return "needs"
+	if target is Interactable and (target as Interactable).requires == "key" and keys_carried <= 0:
+		notice.emit("Necesitas una llave: buscala por el piso.")
+		return "needs"
 	if gather_node != null or player.state != PlayerSimScript.AttackState.IDLE or player.dodging:
 		return "busy"
 	var node: Object = target
@@ -406,7 +483,15 @@ func _step_gather(delta: float) -> void:
 	gather_node = null
 	if finished is Interactable:
 		var object := finished as Interactable
+		if not apply_effects(object.effects, object.position):
+			return                              # no se pudo pagar: el objeto sigue disponible
 		object.done = true
+		if not object.exclusive.is_empty():
+			for other: Interactable in interactables:
+				if other != object and other.exclusive == object.exclusive:
+					other.done = true
+		if object.requires == "key":
+			keys_carried = maxi(keys_carried - 1, 0)
 		if object.kind == "relic":
 			relics_carried += 1
 		elif object.kind == "relic_altar":

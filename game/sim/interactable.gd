@@ -20,6 +20,12 @@ var channel_seconds: float = 2.0
 var group: String = ""
 var requires: String = ""
 var done: bool = false
+## Efectos al usarlo (ver CombatWorld.apply_effects), grupo exclusivo (al usar uno se cierran los demas del grupo) y texto.
+var effects: Array = []
+var exclusive: String = ""
+var text: String = ""
+## Cofres: "wood", "iron" o "gold" (camara sellada); solo cambia el aspecto y el botin.
+var tier: String = ""
 
 
 func _init(p_kind: String, p_position: Vector2, p_group: String = "", p_channel: float = 2.0, p_requires: String = "", p_label: String = "") -> void:

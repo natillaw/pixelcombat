@@ -12,6 +12,8 @@ const TILE := 32.0
 const PIXEL_FONT := preload("res://assets/fonts/m6x11.ttf")
 ## Hoguera animada (pack de campamento).
 const CAMPFIRE := preload("res://assets/props/campamento/prop_fogata_anim.png")
+## Iconos del kit de interfaz reutilizados como objetos del suelo (notas = libro de habilidades; ver docs/PLACEHOLDERS_PENDIENTES.md).
+const NOTE_ICON := preload("res://assets/pixel/ui/ts_kit/icons/res_skill_book.png")
 const BRICK_H := 20.0
 const BRICK_W := 44.0
 
@@ -1038,6 +1040,16 @@ class InteractableActor extends Node2D:
 				glow = Color(0.5, 0.9, 1.0)
 			"campfire":
 				glow = Color(1.0, 0.62, 0.2)
+			"chest":
+				glow = Color(0.85, 0.65, 0.35) if object.tier != "iron" else Color(0.7, 0.8, 0.95)
+			"vault":
+				glow = Color(1.0, 0.85, 0.3)
+			"key":
+				glow = Color(1.0, 0.9, 0.4)
+			"note":
+				glow = Color(0.95, 0.9, 0.7)
+			"event_option":
+				glow = Color(0.75, 0.55, 1.0)
 		var tone := glow if not done else glow.darkened(0.55)
 		match object.kind:
 			"campfire":
@@ -1057,6 +1069,39 @@ class InteractableActor extends Node2D:
 				draw_arc(Vector2(0, -2), 16.0 + 3.0 * pulse, 0.0, TAU, 28, Color(tone.r, tone.g, tone.b, 0.8), 2.0)
 				draw_rect(Rect2(-2, -34, 4, 34), tone.darkened(0.3))
 				draw_colored_polygon(PackedVector2Array([Vector2(2, -34), Vector2(16, -29), Vector2(2, -24)]), tone)
+			"chest", "vault":
+				# Cofre dibujado en codigo (placeholder): madera, hierro o dorado segun el tier.
+				var gold_tier: bool = object.kind == "vault"
+				var body := Color(0.45, 0.30, 0.16) if object.tier == "wood" else (Color(0.40, 0.44, 0.52) if object.tier == "iron" else Color(0.55, 0.42, 0.14))
+				var trim := Color(0.80, 0.66, 0.30) if object.tier != "iron" else Color(0.72, 0.78, 0.88)
+				if done:
+					body = body.darkened(0.5)
+					trim = trim.darkened(0.5)
+				var w: float = 22.0 if gold_tier else 17.0
+				draw_rect(Rect2(-w, -18, w * 2.0, 18), body)
+				draw_rect(Rect2(-w, -26 if not done else -22, w * 2.0, 9 if not done else 5), body.lightened(0.12))
+				draw_rect(Rect2(-w, -18, w * 2.0, 3), trim)
+				draw_rect(Rect2(-3, -20, 6, 8), trim)
+				if not done:
+					draw_circle(Vector2(0, -16), 24.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.10))
+			"key":
+				if not done:
+					draw_circle(Vector2(0, -16), 5.0, tone)
+					draw_circle(Vector2(0, -16), 2.0, Color(0.1, 0.08, 0.05))
+					draw_rect(Rect2(-1.5, -12, 3, 14), tone)
+					draw_rect(Rect2(1.5, -2, 5, 3), tone)
+					draw_rect(Rect2(1.5, -7, 4, 3), tone)
+					draw_circle(Vector2(0, -12), 18.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.12))
+			"note":
+				draw_texture_rect(NOTE_ICON, Rect2(-12, -26, 24, 24), false, Color.WHITE if not done else Color(0.4, 0.4, 0.4))
+				if not done:
+					draw_circle(Vector2(0, -14), 16.0 + 3.0 * pulse, Color(tone.r, tone.g, tone.b, 0.10))
+			"event_option":
+				draw_rect(Rect2(-9, -14, 18, 14), base.darkened(0.45))
+				draw_rect(Rect2(-6, -22, 12, 9), base.darkened(0.2))
+				if not done:
+					draw_circle(Vector2(0, -28), 4.0 + 1.5 * pulse, tone)
+					draw_circle(Vector2(0, -28), 15.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.14))
 			"relic":
 				if not done:
 					draw_colored_polygon(PackedVector2Array([Vector2(0, -34), Vector2(9, -22), Vector2(0, -10), Vector2(-9, -22)]), tone)

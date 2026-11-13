@@ -73,6 +73,9 @@ func _test_data_consistency() -> void:
 	for id: StringName in EnemyCatalog.all_ids():
 		var xp := float(EnemyCatalog.enemy(id)["stats"]["xp"])
 		var xp_limit := 500.0 if bool(EnemyCatalog.enemy(id).get("boss", false)) else 100.0
+		if bool(EnemyCatalog.enemy(id).get("inert", false)):
+			_check(xp == 0.0, "%s (objeto del entorno) no da XP" % id)
+			continue
 		_check(xp > 0.0 and xp <= xp_limit, "%s da XP razonable (%d)" % [id, int(xp)])
 
 

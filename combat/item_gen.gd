@@ -78,6 +78,12 @@ static func roll_chest(rng: RandomNumberGenerator, tier: int, spike: String) -> 
 	return roll_item(rng, tier, "", "", "", "", bonus)
 
 
+## Recompensa de cofres y eventos: `key` es una entrada de items.json loot.rarity_bonus (chest_wood, chest_iron...).
+static func roll_reward(rng: RandomNumberGenerator, tier: int, key: String) -> Dictionary:
+	var bonus := float((ItemCatalog.loot()["rarity_bonus"] as Dictionary).get(key, 0.0))
+	return roll_item(rng, tier, "", "", "", "", bonus)
+
+
 static func _round_stat(stat: String, value: float) -> float:
 	if stat == "crit_chance":
 		return snappedf(value, 0.001)

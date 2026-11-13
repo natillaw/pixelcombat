@@ -904,7 +904,11 @@
 			"boss": 3,
 			"floor_chest": 0.5,
 			"floor_chest_mid_boss": 1.5,
-			"floor_chest_boss": 3
+			"floor_chest_boss": 3,
+			"chest_wood": 0.3,
+			"chest_iron": 1.0,
+			"chest_vault": 2.2,
+			"event_reward": 1.2
 		},
 		"gold_per_xp": 0.35,
 		"potion_chance": 0.07,

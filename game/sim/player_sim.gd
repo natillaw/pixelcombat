@@ -1433,7 +1433,7 @@ func take_damage(amount: float, source_position: Vector2 = Vector2.ZERO, is_dot:
 			return 0.0
 		amount = left
 
-	var reduced := statuses.absorb(amount * (1.0 - armor_reduction()))
+	var reduced := statuses.absorb(amount * (1.0 - armor_reduction()) * (1.0 + statuses.strength("curse")))
 	if statuses.has("manashield") and reduced > 0.0 and resource.get_current() > 0.0:
 		# Mana Shield: el mana absorbe parte del dano (1 de mana por 1 de dano).
 		var soaked := minf(reduced * statuses.strength("manashield"), resource.get_current())

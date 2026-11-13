@@ -53,6 +53,7 @@ func _init(p_world: CombatWorld, p_save_path: String = "") -> void:
 	world.tick_advanced.connect(_on_tick)
 	world.enemy_killed.connect(_on_enemy_killed)
 	world.interacted.connect(_on_interacted)
+	world.notice.connect(func(text: String) -> void: message.emit(text))
 	world.player.consumable_used.connect(_on_consumable_used)
 	world.player.damage_taken.connect(func(_amount: float, _source: Vector2, _dot: bool) -> void: _quest_event("player_damaged", ""))
 	_hook_quests()
@@ -98,6 +99,15 @@ func floor_info_for(floor_number: int, visit: int = 1) -> Dictionary:
 	return {"floor": floor_number, "biome": floor_layout.biome, "enemy_ids": enemy_ids, "objects": objects}
 
 
+## Cuantas notas de lore ha encontrado el jugador (se guardan en las banderas de la torre).
+func notes_found() -> int:
+	var count := 0
+	for key: String in tower.flags:
+		if key.begins_with("note_") and bool(tower.flags[key]):
+			count += 1
+	return count
+
+
 func _quest_event(event: String, subject: String, amount: int = 1) -> void:
 	var info := floor_info_for(layout.floor_number) if layout != null and layout.kind == FloorLayout.KIND_FLOOR else {}
 	tower.quests.on_event(event, subject, amount, info)
@@ -105,6 +115,11 @@ func _quest_event(event: String, subject: String, amount: int = 1) -> void:
 
 func _on_interacted(object: Interactable) -> void:
 	_quest_event("object_interacted", String(object.kind))
+	if object.kind == "note":
+		for effect: Dictionary in object.effects:
+			if String(effect.get("type", "")) == "note":
+				tower.flags["note_" + String(effect["id"])] = true
+		message.emit("Notas encontradas: %d / %d" % [notes_found(), EventCatalog.note_count()])
 	if ["waypoint", "beacon"].has(String(object.kind)):
 		_quest_event("location_discovered", String(object.kind))
 

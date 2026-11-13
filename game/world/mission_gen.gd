@@ -615,8 +615,49 @@ static func _add_features(ctx: Ctx) -> void:
 		for i: int in range(int(barrels[id])):
 			var anchor: Vector2 = (camps[frng.randi_range(0, camps.size() - 1)] as Dictionary)["position"] if not camps.is_empty() else _spot(ctx, 0.2, 0.9, 1, 200.0)
 			_add_enemy(ctx, id, _walkable_near(ctx, anchor + Vector2.from_angle(frng.randf() * TAU) * 70.0, 20.0), false, "prop")
+	_add_discoveries(ctx, features, frng)
 	ctx.layout.features = features
 	ctx.rng = saved
+
+
+## Notas de lore, eventos con decision, cofres (madera/hierro) y la camara sellada con su llave.
+static func _add_discoveries(ctx: Ctx, features: Dictionary, frng: RandomNumberGenerator) -> void:
+	var layout := ctx.layout
+	var floor_number := ctx.floor_number
+	# Notas.
+	var notes := EventCatalog.notes_for_floor(floor_number)
+	for i: int in range(mini(int(features.get("notes", 0)), notes.size())):
+		var pick := frng.randi_range(0, notes.size() - 1)
+		var note: Dictionary = notes[pick]
+		notes.remove_at(pick)
+		layout.interactables.append({"kind": "note", "position": _spot(ctx, 0.1, 0.95, 1, 180.0), "group": "", "channel": 0.8, "label": "Nota: %s" % note["title"], "effects": [{"type": "note", "id": note["id"]}], "text": String(note["text"])})
+	# Eventos con decision: las opciones van juntas y al usar una se cierran las otras.
+	var events := EventCatalog.events_for_floor(floor_number)
+	for index: int in range(mini(int(features.get("events", 0)), events.size())):
+		var pick_event := frng.randi_range(0, events.size() - 1)
+		var event: Dictionary = events[pick_event]
+		events.remove_at(pick_event)
+		var center := _spot(ctx, 0.2, 0.9, 2, 240.0)
+		var options: Array = event["options"]
+		for option_index: int in range(options.size()):
+			var option: Dictionary = options[option_index]
+			var offset := Vector2((float(option_index) - (float(options.size()) - 1.0) * 0.5) * 52.0, 0.0)
+			layout.interactables.append({"kind": "event_option", "position": center + offset, "group": "", "channel": 1.0, "label": "%s: %s" % [event["title"], option["label"]], "effects": option["effects"], "exclusive": "event_%d_%d" % [floor_number, index], "text": String(event["title"])})
+	# Cofres.
+	var chests: Dictionary = features.get("chests", {})
+	for i: int in range(int(chests.get("wood", 0))):
+		layout.interactables.append({"kind": "chest", "tier": "wood", "position": _spot(ctx, 0.1, 0.95, 1, 200.0), "group": "", "channel": 1.0, "label": "Cofre de madera", "effects": [{"type": "item", "key": "chest_wood"}, {"type": "gold", "per_floor": 4}]})
+	for i: int in range(int(chests.get("iron", 0))):
+		var spot := _spot(ctx, 0.3, 0.95, 2, 260.0)
+		layout.interactables.append({"kind": "chest", "tier": "iron", "position": spot, "group": "", "channel": 1.2, "label": "Cofre de hierro", "effects": [{"type": "item", "key": "chest_iron"}, {"type": "gold", "per_floor": 8}]})
+		_guard(ctx, spot, 2)
+	# Camara sellada: llave oxidada custodiada por un elite + cofre dorado lejos.
+	if bool(features.get("vault", false)):
+		var key_spot := _spot(ctx, 0.3, 0.8, 2, 260.0)
+		layout.interactables.append({"kind": "key", "position": key_spot, "group": "", "channel": 1.0, "label": "Llave oxidada", "effects": [{"type": "key"}, {"type": "message", "text": "Una llave pesada. Debe abrir una camara sellada de este piso."}]})
+		_add_enemy(ctx, _pick_enemy(ctx), key_spot, false, "key_guard", {"elite": true})
+		_guard(ctx, key_spot, 2)
+		layout.interactables.append({"kind": "vault", "tier": "gold", "position": _spot(ctx, 0.5, 0.95, 2, 260.0), "group": "", "channel": 2.0, "requires": "key", "label": "Camara sellada (necesita llave)", "effects": [{"type": "item", "key": "chest_vault"}, {"type": "item", "key": "chest_iron"}, {"type": "gold", "per_floor": 20}]})
 
 
 static func _add_ambient(ctx: Ctx) -> void:

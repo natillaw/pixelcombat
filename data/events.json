@@ -1,0 +1,303 @@
+{
+	"_doc": "Eventos con decision de los pisos (data/floor_features.json > events). Cada evento son 1-2 opciones: al usar una, las demas se cierran. effects: pay{amount} (falla si no hay oro), gold{per_floor}, xp{per_floor}, heal{fraction}, item{key de items.json loot.rarity_bonus}, status{id,duration,strength}, ambush{count,elite_chance?}, gamble{chance,win[],lose[]}, message{text}.",
+	"events": [
+		{
+			"id": "cursed_altar",
+			"title": "Altar maldito",
+			"min_floor": 2,
+			"max_floor": 9,
+			"options": [
+				{
+					"label": "Tocarlo (maldicion a cambio de botin)",
+					"effects": [
+						{
+							"type": "status",
+							"id": "curse",
+							"duration": 150,
+							"strength": 0.25
+						},
+						{
+							"type": "item",
+							"key": "event_reward"
+						},
+						{
+							"type": "message",
+							"text": "El altar te marca. Recibes mas dano un rato, pero el botin brilla."
+						}
+					]
+				},
+				{
+					"label": "Dejarlo en paz",
+					"effects": [
+						{
+							"type": "message",
+							"text": "Dejas el altar. Algo en el aire se relaja."
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "prisoner",
+			"title": "Prisionero encadenado",
+			"min_floor": 2,
+			"max_floor": 9,
+			"options": [
+				{
+					"label": "Liberarlo (una patrulla vuelve)",
+					"effects": [
+						{
+							"type": "heal",
+							"fraction": 0.6
+						},
+						{
+							"type": "xp",
+							"per_floor": 25
+						},
+						{
+							"type": "gold",
+							"per_floor": 8
+						},
+						{
+							"type": "ambush",
+							"count": 3
+						},
+						{
+							"type": "message",
+							"text": "Te da las gracias y una pista... pero la patrulla del Cuervo lo oyo todo."
+						}
+					]
+				},
+				{
+					"label": "Dejarlo atado",
+					"effects": [
+						{
+							"type": "message",
+							"text": "Sigues adelante. Sus gritos se pierden entre los arboles."
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "fugitive_merchant",
+			"title": "Mercader fugitivo",
+			"min_floor": 3,
+			"max_floor": 9,
+			"options": [
+				{
+					"label": "Comprarle (pagas 40 de oro)",
+					"effects": [
+						{
+							"type": "pay",
+							"amount": 40
+						},
+						{
+							"type": "item",
+							"key": "chest_iron"
+						},
+						{
+							"type": "message",
+							"text": "Cierras el trato sin hacer preguntas."
+						}
+					]
+				},
+				{
+					"label": "Robarle (te persiguen)",
+					"effects": [
+						{
+							"type": "item",
+							"key": "chest_iron"
+						},
+						{
+							"type": "gold",
+							"per_floor": 5
+						},
+						{
+							"type": "ambush",
+							"count": 4,
+							"elite_chance": 0.25
+						},
+						{
+							"type": "message",
+							"text": "Se va gritando. Sus guardaespaldas no tardan."
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "suspicious_chest",
+			"title": "Cofre sospechoso",
+			"min_floor": 2,
+			"max_floor": 9,
+			"options": [
+				{
+					"label": "Abrirlo (puede ser trampa)",
+					"effects": [
+						{
+							"type": "gamble",
+							"chance": 0.5,
+							"win": [
+								{
+									"type": "item",
+									"key": "chest_iron"
+								},
+								{
+									"type": "gold",
+									"per_floor": 10
+								},
+								{
+									"type": "message",
+									"text": "No era trampa. Buen botin."
+								}
+							],
+							"lose": [
+								{
+									"type": "ambush",
+									"count": 5
+								},
+								{
+									"type": "gold",
+									"per_floor": 4
+								},
+								{
+									"type": "message",
+									"text": "Era un cebo del Cuervo. Salen de todas partes."
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "wounded_scout",
+			"title": "Explorador herido",
+			"min_floor": 3,
+			"max_floor": 9,
+			"options": [
+				{
+					"label": "Ayudarle (30 de oro en vendas)",
+					"effects": [
+						{
+							"type": "pay",
+							"amount": 30
+						},
+						{
+							"type": "xp",
+							"per_floor": 30
+						},
+						{
+							"type": "heal",
+							"fraction": 0.4
+						},
+						{
+							"type": "item",
+							"key": "chest_wood"
+						},
+						{
+							"type": "message",
+							"text": "Te entrega su mapa de rutas y se despide."
+						}
+					]
+				},
+				{
+					"label": "Ignorarlo",
+					"effects": [
+						{
+							"type": "message",
+							"text": "Pasas de largo."
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "shrine",
+			"title": "Santuario antiguo",
+			"min_floor": 2,
+			"max_floor": 9,
+			"options": [
+				{
+					"label": "Rezar (poder durante 3 min)",
+					"effects": [
+						{
+							"type": "status",
+							"id": "might",
+							"duration": 180,
+							"strength": 0.2
+						},
+						{
+							"type": "message",
+							"text": "Sientes la fuerza de quienes cayeron aqui."
+						}
+					]
+				},
+				{
+					"label": "Descansar (vida completa)",
+					"effects": [
+						{
+							"type": "heal",
+							"fraction": 1.0
+						},
+						{
+							"type": "message",
+							"text": "Duermes un instante junto a la piedra tibia."
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "gambler",
+			"title": "Apostador del camino",
+			"min_floor": 4,
+			"max_floor": 9,
+			"options": [
+				{
+					"label": "Jugar una mano (40 de oro)",
+					"effects": [
+						{
+							"type": "pay",
+							"amount": 40
+						},
+						{
+							"type": "gamble",
+							"chance": 0.45,
+							"win": [
+								{
+									"type": "item",
+									"key": "chest_iron"
+								},
+								{
+									"type": "gold",
+									"per_floor": 14
+								},
+								{
+									"type": "message",
+									"text": "Ganas la mano. El apostador maldice entre dientes."
+								}
+							],
+							"lose": [
+								{
+									"type": "message",
+									"text": "Pierdes la mano. El apostador sonrie."
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Rechazar",
+					"effects": [
+						{
+							"type": "message",
+							"text": "Declinas y sigues."
+						}
+					]
+				}
+			]
+		}
+	]
+}

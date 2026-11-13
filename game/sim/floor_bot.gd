@@ -238,6 +238,10 @@ func _actionable(world: CombatWorld, object: Interactable) -> bool:
 			return world.relics_carried < 1
 		"campfire":
 			return world.player.health < world.player.max_health * 0.6
+		"vault":
+			return world.keys_carried > 0
+		"event_option":
+			return false                    # las decisiones son del jugador; el bot no las toma
 	return true
 
 

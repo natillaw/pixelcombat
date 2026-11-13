@@ -310,6 +310,21 @@
 				1.0,
 				1.0
 			]
+		},
+		{
+			"id": "curse",
+			"name": "Maldicion",
+			"kind": "control",
+			"description": "Recibes mas dano (strength = fraccion extra).",
+			"max_duration": 600.0,
+			"max_strength": 1.0,
+			"immune_after": 0.0,
+			"color": [
+				0.7,
+				0.25,
+				0.85,
+				1.0
+			]
 		}
 	]
 }
