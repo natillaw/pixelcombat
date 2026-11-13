@@ -1,0 +1,148 @@
+{
+	"_doc": "Contenido extra de cada piso del tier 1 (identidad de los pisos). hazards: {id de data/hazards.json: cantidad}; barrels: {id de enemigo inert: cantidad} (se colocan junto a campamentos); notes: notas de lore; events: eventos con decision (data/events.json); chests: {wood|iron: cantidad}; vault: true = llave escondida + camara con cofre dorado; darkness 0-1: oscuridad del piso (vision reducida); modifier_chance: probabilidad de modificador de piso (data/floor_modifiers.json). El piso 10 NO esta aqui a proposito: el jefe aun no lo ha probado el dueno.",
+	"floors": {
+		"1": {
+			"barrels": {
+				"barrel_explosive": 2
+			},
+			"notes": 1,
+			"chests": {
+				"wood": 1
+			},
+			"modifier_chance": 0.0
+		},
+		"2": {
+			"hazards": {
+				"mud": 3
+			},
+			"barrels": {
+				"barrel_explosive": 3,
+				"barrel_oil": 1
+			},
+			"notes": 1,
+			"chests": {
+				"wood": 1
+			},
+			"modifier_chance": 0.2
+		},
+		"3": {
+			"hazards": {
+				"spikes": 4,
+				"mud": 2
+			},
+			"barrels": {
+				"barrel_explosive": 3,
+				"barrel_oil": 2
+			},
+			"notes": 1,
+			"events": 1,
+			"chests": {
+				"wood": 1,
+				"iron": 1
+			},
+			"modifier_chance": 0.3
+		},
+		"4": {
+			"hazards": {
+				"mud": 4,
+				"spikes": 3
+			},
+			"barrels": {
+				"barrel_explosive": 4,
+				"barrel_oil": 2
+			},
+			"notes": 1,
+			"events": 1,
+			"chests": {
+				"wood": 1,
+				"iron": 1
+			},
+			"modifier_chance": 0.3
+		},
+		"5": {
+			"hazards": {
+				"spikes": 5,
+				"mud": 2
+			},
+			"barrels": {
+				"barrel_explosive": 6,
+				"barrel_oil": 2
+			},
+			"notes": 2,
+			"events": 1,
+			"chests": {
+				"iron": 1
+			},
+			"vault": true,
+			"modifier_chance": 0.3
+		},
+		"6": {
+			"hazards": {
+				"poison_pool": 4,
+				"mud": 3
+			},
+			"barrels": {
+				"barrel_explosive": 3,
+				"barrel_oil": 3
+			},
+			"notes": 1,
+			"events": 1,
+			"chests": {
+				"iron": 2
+			},
+			"darkness": 0.15,
+			"modifier_chance": 0.35
+		},
+		"7": {
+			"hazards": {
+				"spikes": 4,
+				"mud": 3
+			},
+			"barrels": {
+				"barrel_explosive": 4,
+				"barrel_oil": 3
+			},
+			"notes": 2,
+			"events": 2,
+			"chests": {
+				"iron": 1
+			},
+			"vault": true,
+			"darkness": 0.45,
+			"modifier_chance": 0.35
+		},
+		"8": {
+			"hazards": {
+				"poison_pool": 8,
+				"mud": 6
+			},
+			"barrels": {
+				"barrel_explosive": 3,
+				"barrel_oil": 2
+			},
+			"notes": 1,
+			"events": 1,
+			"chests": {
+				"iron": 2
+			},
+			"modifier_chance": 0.4
+		},
+		"9": {
+			"hazards": {
+				"spikes": 6,
+				"poison_pool": 3
+			},
+			"barrels": {
+				"barrel_explosive": 5,
+				"barrel_oil": 3
+			},
+			"notes": 2,
+			"events": 2,
+			"chests": {
+				"iron": 2
+			},
+			"vault": true,
+			"modifier_chance": 0.4
+		}
+	}
+}

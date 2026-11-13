@@ -1,0 +1,55 @@
+{
+	"_doc": "Peligros fijos del suelo de los pisos (zonas del mundo: afectan al jugador y a los enemigos). radius [min,max], tick en s, damage absoluto por tick, status = estados que aplican. visual: mud, spikes, poison (ZoneActor). Se colocan segun data/floor_features.json.",
+	"hazards": {
+		"mud": {
+			"name": "Fango",
+			"radius": [
+				48,
+				78
+			],
+			"tick": 0.25,
+			"damage": 0,
+			"status": [
+				{
+					"id": "slow",
+					"duration": 0.6,
+					"strength": 0.45
+				}
+			],
+			"visual": "mud"
+		},
+		"spikes": {
+			"name": "Pinchos",
+			"radius": [
+				28,
+				40
+			],
+			"tick": 0.8,
+			"damage": 7,
+			"status": [],
+			"visual": "spikes"
+		},
+		"poison_pool": {
+			"name": "Charco venenoso",
+			"radius": [
+				44,
+				66
+			],
+			"tick": 0.6,
+			"damage": 2,
+			"status": [
+				{
+					"id": "poison",
+					"duration": 2.0,
+					"strength": 2.0
+				},
+				{
+					"id": "slow",
+					"duration": 0.6,
+					"strength": 0.25
+				}
+			],
+			"visual": "poison"
+		}
+	}
+}

@@ -921,7 +921,7 @@
 						{
 							"id": "poison",
 							"duration": 3.0,
-							"strength": 0.15
+							"strength": 2.0
 						}
 					],
 					"zone": {
@@ -944,6 +944,103 @@
 				"essence": 0.8
 			},
 			"plural": "Limos ácidos"
+		},
+		{
+			"id": "barrel_explosive",
+			"name": "Barril explosivo",
+			"tier": 1,
+			"role": "Objeto del entorno",
+			"description": "Pólvora. Al romperlo estalla y daña a todo lo que tenga cerca, también a ti: atráelos y golpéalo desde lejos.",
+			"inert": true,
+			"stats": {
+				"health": 18,
+				"speed": 0,
+				"radius": 9,
+				"damage": 1,
+				"armor": 0,
+				"xp": 0
+			},
+			"ai": {
+				"aggro_range": 1,
+				"leash": 1.6
+			},
+			"respawn_seconds": 0,
+			"sprite": {
+				"sheet": "res://assets/pixel/village/barrel.png",
+				"frame": 16,
+				"frames": 1,
+				"fps": 1,
+				"scale": 1.5,
+				"tint": [
+					1.0,
+					0.6,
+					0.5,
+					1.0
+				]
+			},
+			"attacks": [],
+			"materials": {},
+			"plural": "Barril explosivos",
+			"on_death": {
+				"burst": {
+					"radius": 78,
+					"damage": 42
+				}
+			}
+		},
+		{
+			"id": "barrel_oil",
+			"name": "Barril de aceite",
+			"tier": 1,
+			"role": "Objeto del entorno",
+			"description": "Al romperse deja un charco de aceite ardiendo que daña y ralentiza a todos los que lo pisen.",
+			"inert": true,
+			"stats": {
+				"health": 18,
+				"speed": 0,
+				"radius": 9,
+				"damage": 1,
+				"armor": 0,
+				"xp": 0
+			},
+			"ai": {
+				"aggro_range": 1,
+				"leash": 1.6
+			},
+			"respawn_seconds": 0,
+			"sprite": {
+				"sheet": "res://assets/pixel/village/barrel.png",
+				"frame": 16,
+				"frames": 1,
+				"fps": 1,
+				"scale": 1.5,
+				"tint": [
+					0.55,
+					0.55,
+					0.62,
+					1.0
+				]
+			},
+			"attacks": [],
+			"materials": {},
+			"plural": "Barril de aceites",
+			"on_death": {
+				"zone": {
+					"radius": 64,
+					"duration": 6.0,
+					"tick": 0.5,
+					"damage_mult": 6,
+					"visual": "fire",
+					"owner": "world",
+					"status": [
+						{
+							"id": "slow",
+							"duration": 0.8,
+							"strength": 0.3
+						}
+					]
+				}
+			}
 		}
 	]
 }

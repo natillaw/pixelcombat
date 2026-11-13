@@ -64,6 +64,7 @@ static func populate(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumb
 	for spec: Dictionary in specs:
 		_place(ctx, spec)
 	_add_ambient(ctx)
+	_add_features(ctx)
 	if ctx.ambient_required:
 		for spec: Dictionary in specs:
 			if String(spec["kind"]) == "clear":
@@ -593,6 +594,31 @@ static func _place_boss(ctx: Ctx, _spec: Dictionary, shielded: bool, deferred: b
 
 
 ## Campamentos de enemigos y nodos de recoleccion repartidos por todo el mapa.
+## Contenido extra del piso (data/floor_features.json): peligros del suelo y barriles. Usa un RNG propio derivado de la
+## semilla para no alterar el reparto de enemigos y misiones del piso.
+static func _add_features(ctx: Ctx) -> void:
+	var features := FloorFeatures.for_floor(ctx.floor_number)
+	if features.is_empty():
+		return
+	var frng := RandomNumberGenerator.new()
+	frng.seed = hash([int(ctx.rng.seed), ctx.floor_number, "features"])
+	var saved := ctx.rng
+	ctx.rng = frng
+	var hazards: Dictionary = features.get("hazards", {})
+	for kind: String in hazards:
+		for i: int in range(int(hazards[kind])):
+			var at := _spot(ctx, 0.12, 0.95, 2, 200.0)
+			ctx.layout.hazards.append({"kind": kind, "position": at, "radius": HazardCatalog.roll_radius(kind, frng)})
+	var camps: Array = ctx.layout.enemies.filter(func(e: Dictionary) -> bool: return not String(e["id"]).begins_with("barrel_") and not bool(e.get("elite", false)))
+	var barrels: Dictionary = features.get("barrels", {})
+	for id: String in barrels:
+		for i: int in range(int(barrels[id])):
+			var anchor: Vector2 = (camps[frng.randi_range(0, camps.size() - 1)] as Dictionary)["position"] if not camps.is_empty() else _spot(ctx, 0.2, 0.9, 1, 200.0)
+			_add_enemy(ctx, id, _walkable_near(ctx, anchor + Vector2.from_angle(frng.randf() * TAU) * 70.0, 20.0), false, "prop")
+	ctx.layout.features = features
+	ctx.rng = saved
+
+
 static func _add_ambient(ctx: Ctx) -> void:
 	var camps_cfg := MissionCatalog.config("camps")
 	var reach := ctx.analysis.reach.size()

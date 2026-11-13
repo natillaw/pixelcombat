@@ -17,6 +17,7 @@
 ##           tint (opcional, [r, g, b, a])
 ##   resist (opcional): {estado: 0..1} resistencia a estados; 1 = inmune (jefes), 0,5
 ##           = duracion a la mitad
+##   inert (opcional): true = objeto del entorno (barril): sin IA ni ataques, solo se rompe; on_death {burst:{radius,damage}, zone:{...}}
 ##   boss (opcional): true marca un jefe (barra de vida propia)
 ##   phases (opcional, jefes): lista ordenada de {name, hp_below (fraccion de vida
 ##           a partir de la cual entra, la primera es 1.0), speed_mult, attacks
@@ -175,7 +176,13 @@ static func validate(entry: Dictionary) -> Array[String]:
 			problems.append("sprite.tint debe ser [r, g, b, a]")
 
 	var attacks: Variant = entry.get("attacks")
-	if not (attacks is Array) or (attacks as Array).is_empty():
+	if bool(entry.get("inert", false)):
+		# Objetos del entorno (barriles): sin ataques ni IA; solo se rompen.
+		if not (attacks is Array) or not (attacks as Array).is_empty():
+			problems.append("un enemigo inert no lleva ataques")
+		if entry.has("on_death"):
+			problems.append_array(_validate_on_death(entry["on_death"]))
+	elif not (attacks is Array) or (attacks as Array).is_empty():
 		problems.append("necesita al menos un ataque en 'attacks'")
 	else:
 		var seen: Dictionary = {}
@@ -246,6 +253,25 @@ static func _validate_phases(entry: Dictionary) -> Array[String]:
 				for summon: Variant in spec["summons"]:
 					if not (summon is Dictionary) or not _is_text((summon as Dictionary).get("id")) or not _is_number((summon as Dictionary).get("count")) or float(summon["count"]) < 1.0:
 						problems.append("fase %d: cada invocacion necesita id y count >= 1" % i)
+	return problems
+
+
+static func _validate_on_death(spec: Variant) -> Array[String]:
+	var problems: Array[String] = []
+	if not (spec is Dictionary):
+		problems.append("on_death debe ser un objeto")
+		return problems
+	var d := spec as Dictionary
+	if d.has("burst"):
+		var burst: Variant = d["burst"]
+		if not (burst is Dictionary) or not _is_number((burst as Dictionary).get("radius")) or float(burst["radius"]) <= 0.0 or not _is_number((burst as Dictionary).get("damage")) or float(burst["damage"]) < 0.0:
+			problems.append("on_death.burst necesita radius > 0 y damage >= 0")
+	if d.has("zone"):
+		var zone: Variant = d["zone"]
+		if not (zone is Dictionary) or not _is_number((zone as Dictionary).get("radius")) or float(zone["radius"]) <= 0.0 or not _is_number((zone as Dictionary).get("duration")) or float(zone["duration"]) <= 0.0:
+			problems.append("on_death.zone necesita radius y duration > 0")
+	if not d.has("burst") and not d.has("zone"):
+		problems.append("on_death necesita burst o zone")
 	return problems
 
 

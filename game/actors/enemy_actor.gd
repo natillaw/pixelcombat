@@ -328,7 +328,7 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO, sim.radius + 12.0 + 3.0 * pulse, 0.0, TAU, 32, Color(0.45, 0.75, 1.0, 0.9), 3.0)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
-	if sim.alive and not sim.is_boss() and (sim.health < sim.max_health or sim.state != EnemySim.State.IDLE):
+	if sim.alive and not sim.is_boss() and not bool(sim.data.get("inert", false)) and (sim.health < sim.max_health or sim.state != EnemySim.State.IDLE):
 		_draw_health_bar()
 	if sim.alive:
 		_draw_status_icons()

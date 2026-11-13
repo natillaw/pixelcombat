@@ -155,6 +155,8 @@ func load_layout(new_layout: FloorLayout) -> void:
 		add_dummy(spec["position"], bool(spec["auto_attack"]))
 	for spec: Dictionary in new_layout.enemies:
 		spawn_from_spec(spec, new_layout.enemy_scale)
+	for spec: Dictionary in new_layout.hazards:
+		_spawn_hazard(spec)
 	var node_tier := maxi(new_layout.tier, 1)
 	for spec: Dictionary in new_layout.resources:
 		var resource := ResourceNode.new(String(spec["kind"]), node_tier, spec["position"])
@@ -174,6 +176,34 @@ func load_layout(new_layout: FloorLayout) -> void:
 	layout_loaded.emit(new_layout)
 
 
+## Efectos al morir un enemigo (barriles): una explosion instantanea y/o una zona que se queda en el suelo.
+func _apply_on_death(enemy: EnemySim) -> void:
+	var spec: Dictionary = enemy.data["on_death"]
+	if spec.has("burst"):
+		var burst: Dictionary = spec["burst"]
+		explode(enemy.position, float(burst["radius"]), float(burst["damage"]))
+	if spec.has("zone"):
+		spawn_zone(GroundZone.new(spec["zone"], enemy.position, 1.0))
+
+
+## Explosion del mundo: dana al jugador y a los enemigos dentro del radio (los barriles vecinos encadenan).
+func explode(at: Vector2, radius: float, damage: float) -> void:
+	spawn_zone(GroundZone.new({"radius": radius, "duration": 0.9, "tick": 5.0, "damage_mult": 0.0, "visual": "fire", "owner": "world", "delay": 5.0}, at, 1.0))
+	if player.alive and player.position.distance_to(at) <= radius + PlayerSimScript.RADIUS:
+		player.take_damage(damage, at, false)
+	for other: EnemySim in enemies.duplicate():
+		if other.alive and other.position.distance_to(at) <= radius + other.radius:
+			other.take_damage(damage)
+
+
+## Peligros fijos del piso (fango, pinchos, charcos): zonas del mundo que no caducan.
+func _spawn_hazard(spec: Dictionary) -> void:
+	var def := HazardCatalog.hazard(String(spec["kind"]))
+	if def.is_empty():
+		return
+	spawn_zone(GroundZone.new({"radius": float(spec["radius"]), "duration": 1.0e9, "tick": float(def["tick"]), "damage_mult": float(def["damage"]), "visual": String(def["visual"]), "owner": "world", "status": def["status"], "delay": 0.3}, spec["position"], 1.0))
+
+
 ## La experiencia por enemigo cae si vas por encima del nivel que toca al piso (piso + 1): limpiar el piso 1 entero no te
 ## lleva al nivel 6. Fuera de los pisos (ciudad, entrenamiento) no hay recorte.
 func xp_factor() -> float:
@@ -187,6 +217,10 @@ func xp_factor() -> float:
 ## piso si hay uno cargado y, si no, del propio enemigo.
 func _on_enemy_died(enemy: EnemySim) -> void:
 	enemy_killed.emit(enemy)
+	if enemy.data.has("on_death"):
+		_apply_on_death(enemy)
+	if bool(enemy.data.get("inert", false)):
+		return                                  # un barril no suelta botin
 	if enemy.summoned:
 		return
 	var tier: int = layout.tier if layout != null and layout.tier > 0 else int(enemy.data.get("tier", 1))

@@ -185,6 +185,8 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 		state = State.CHASE
 		state_time = 0.0
 
+	if bool(data.get("inert", false)):
+		return                                  # barril: no piensa ni ataca, solo espera a romperse
 	var target_alive: bool = warrior != null and bool(warrior.alive)
 	match state:
 		State.IDLE:

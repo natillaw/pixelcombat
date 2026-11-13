@@ -2173,7 +2173,7 @@
 						{
 							"id": "burn",
 							"duration": 2.5,
-							"strength": 0.15
+							"strength": 3.0
 						}
 					]
 				},

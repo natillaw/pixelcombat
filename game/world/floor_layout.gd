@@ -37,6 +37,10 @@ var portals: Array = []
 ## Fachadas decorativas (ciudad): [{id, rect, label, color}]
 var buildings: Array = []
 var torches: Array = []
+## Peligros fijos del suelo: [{kind: "mud"|"spikes"|"poison_pool", position, radius}] (ver data/hazards.json).
+var hazards: Array = []
+## Contenido extra del piso (data/floor_features.json) tal como se aplico; vacio si no hay.
+var features: Dictionary = {}
 ## Nodos de recoleccion: [{kind: "ore"|"herb"|"wood", position: Vector2}]
 var resources: Array = []
 ## Mapa de casillas (pisos grandes y ciudad); null = escenario plano de siempre.
