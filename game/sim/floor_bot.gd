@@ -293,7 +293,7 @@ func _fight(world: CombatWorld, target: Object) -> InputMessage:
 
 
 ## Solo se pelea con lo que esta cerca, a la vista y que se puede danar.
-func _nearest_target(world: CombatWorld) -> Object:
+func _nearest_target(world: CombatWorld, _player: PlayerSim = null) -> Object:
 	var best: Object = null
 	var best_distance := engage_distance
 	for target: Object in world.get_living_targets():

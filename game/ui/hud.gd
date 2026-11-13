@@ -249,7 +249,10 @@ func _draw_status(warrior: PlayerSim) -> void:
 	if warrior.empower_mult > 1.0:
 		passive = "POTENCIADO x%.1f" % warrior.empower_mult
 		passive_color = Color(0.65, 0.88, 1.0, 1.0)
-	_draw_text(passive if passive != "" else "XP  %d / %d" % [warrior.xp, maxi(to_next, 0)], Vector2(tx, 54), 7, passive_color if passive != "" else XP)
+	var xp_text := "XP  %d / %d" % [warrior.xp, maxi(to_next, 0)]
+	if warrior.level >= warrior.effective_max_level() and warrior.level < Progression.max_level():
+		xp_text = "NIVEL TOPE: COMPLETA EL PISO %d" % warrior.level   # el tope sube al desbloquear el siguiente piso
+	_draw_text(passive if passive != "" else xp_text, Vector2(tx, 54), 7, passive_color if passive != "" else XP)
 	_draw_text("ORO %d" % warrior.gold, Vector2(tx, 62), 7, GOLD)
 
 
