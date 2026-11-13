@@ -40,6 +40,13 @@ func _run() -> void:
 	for floor_number: int in range(1, 10):
 		var share := float(TowerCatalog.completion_xp(floor_number)) / float(Progression.xp_to_next(floor_number))
 		_check(share >= 0.7 and share <= 1.4, "piso %d: la XP de piso es %d %% del coste del nivel" % [floor_number, int(share * 100.0)])
+	# Las recompensas de XP del gremio y los encargos se escalan a la curva actual (antes valian 60-300 XP, ya casi nada).
+	_check(Progression.reward_xp_scale() >= 5.0, "las recompensas de XP de misiones se escalan (x%.0f)" % Progression.reward_xp_scale())
+	var offers := Bounties.offers(20261110, 1, 1)
+	var lowest := 1 << 30
+	for offer: Dictionary in offers:
+		lowest = mini(lowest, int(offer["xp"]))
+	_check(offers.size() > 0 and lowest >= 400, "un encargo del piso 1 da al menos 400 XP (%d), una fraccion de nivel" % lowest)
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)

@@ -44,7 +44,7 @@ static func offers(world_seed: int, serial: int, highest_tier: int) -> Array:
 			"template": String(template["id"]), "kind": String(template["kind"]), "name": String(template["name"]),
 			"text": String(template["text"]).replace("{count}", str(count)), "count": count, "progress": 0,
 			"gold": int(round(float(template["gold"]) * tier_mult * (0.8 + 0.4 * float(count - int(range_count[0])) / span))),
-			"xp": int(round(float(template["xp"]) * tier_mult)),
+			"xp": int(round(float(template["xp"]) * tier_mult * Progression.reward_xp_scale())),
 			"consumable": String(template.get("consumable", "")),
 			"group": String(template.get("group", "")), "enemy": String(template.get("enemy", "")), "material": String(template.get("material", "")),
 		})

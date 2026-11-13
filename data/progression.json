@@ -1,5 +1,5 @@
 {
-	"_doc": "Curva de niveles y crecimiento de stats por clase. Esquema en combat/progression.gd. Numeros provisionales.",
+	"_doc": "Curva de niveles y crecimiento de stats por clase. Esquema en combat/progression.gd. Numeros provisionales. reward_xp_scale: multiplicador de la XP de misiones del gremio y encargos (sus numeros se escribieron cuando un nivel costaba 60 XP; con la curva actual cuestan miles).",
 	"max_level": 10,
 	"xp_curve": {
 		"base": 2400,
@@ -29,5 +29,6 @@
 			"stamina_per_level": 0.8,
 			"armor_per_level": 0.6
 		}
-	}
+	},
+	"reward_xp_scale": 10
 }

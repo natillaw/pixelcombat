@@ -47,7 +47,7 @@ static func _apply(package: Dictionary, entry: Dictionary, context: Dictionary, 
 		"gold":
 			package["gold"] = int(package["gold"]) + _scale(entry, context, rng)
 		"xp":
-			package["xp"] = int(package["xp"]) + _scale(entry, context, rng)
+			package["xp"] = int(package["xp"]) + int(round(float(_scale(entry, context, rng)) * Progression.reward_xp_scale()))
 		"item":
 			var rarity := String(entry.get("rarity", "common"))
 			var item: Dictionary

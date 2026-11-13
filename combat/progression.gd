@@ -31,6 +31,12 @@ static func xp_to_next(level: int) -> int:
 	return maxi(1, int(round(float(curve.get("base", 100.0)) * pow(float(level), float(curve.get("exponent", 1.0))))))
 
 
+## Multiplicador de la XP de recompensas de misiones del gremio y encargos (data/progression.json > reward_xp_scale).
+static func reward_xp_scale() -> float:
+	_ensure_loaded()
+	return maxf(float(_data.get("reward_xp_scale", 1.0)), 0.0)
+
+
 ## XP total acumulada para llegar a `level` desde el nivel 1.
 static func total_xp_for_level(level: int) -> int:
 	var total := 0
