@@ -25,6 +25,9 @@ archivo por archivo del LPC están en `assets/pixel/lpc/CREDITS.csv`.
 | **Universal LPC Spritesheet Character Generator** | `assets/pixel/lpc/` | Cuerpo, cabeza, pelo, barba y equipo del Warrior vía `LpcComposer` / `LpcWardrobe` | CC0 / CC-BY / OGA-BY / CC-BY-SA según archivo (ver `CREDITS.csv`) | En uso |
 | Fuente **m5x7** (Daniel Linssen) | `assets/fonts/m5x7.ttf` | HUD y números de daño | CC0 | En uso |
 | **PixelRPGCursors Lite** (Indigolay) | `assets/pixel/cursors/` | Espada cruzada al pasar sobre enemigos y base del puntero (el Default se dibujó a juego, el pack Lite no trae flecha); el reloj de arena sin usar aun | Gratis uso comercial y modificable; no se puede revender ni redistribuir los archivos sueltos (README.pdf) | En uso - REVISAR antes de publicar el repo |
+| **Animated Magic Book** (CraftPix) | `assets/pixel/book/` | Libro de skills (Tab) | CraftPix free license: uso comercial; no redistribuir el pack (License.txt) | En uso - REVISAR antes de publicar el repo |
+| **Free Basic Pixel Art UI for RPG** (CraftPix): Equipment.png, Inventory.png | `assets/pixel/ui/craftpix/`, `assets/pixel/icons/consumables/` | Ficha del personaje, huecos de equipo, iconos de consumibles y del anillo | CraftPix free license; no redistribuir el pack | En uso - REVISAR antes de publicar el repo |
+| Hojas LPC de terreno (rocas, flores, hierba alta, arboles) | `assets/pixel/lpc_terrain/` | Tambien los nodos de recoleccion (mineral, hierbas, madera) | Ver `assets/pixel/lpc_terrain/CREDITS.txt` | En uso |
 | **Ninja Adventure Asset Pack** (pixel-boy & AAA) | `assets/audio/sfx/ninja/` | Tajos, impactos, alerta del muñeco, muerte | CC0 1.0 | En uso |
 
 ### Capas LPC del Warrior
