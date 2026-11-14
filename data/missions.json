@@ -279,10 +279,53 @@
 				2
 			],
 			"2": [
-				1,
+				2,
 				3
+			],
+			"3": [
+				2,
+				4
+			],
+			"4": [
+				3,
+				4
+			],
+			"5": [
+				3,
+				5
+			],
+			"6": [
+				3,
+				5
+			],
+			"7": [
+				3,
+				5
+			],
+			"8": [
+				3,
+				5
+			],
+			"9": [
+				3,
+				5
 			]
-		}
+		},
+		"count_by_floor": {
+			"1": 9,
+			"2": 9,
+			"3": 10,
+			"4": 11,
+			"5": 11,
+			"6": 12,
+			"7": 12,
+			"8": 12,
+			"9": 13
+		},
+		"patrol_pack_chance": 0.22,
+		"sleep_chance": 0.35,
+		"patrol_chance": 0.3,
+		"_doc": "Campamentos ambientales. count_by_floor: cuantos por piso (sin entrada: mapa/cells_per_camp); size_by_floor: [min,max] de miembros; patrol_pack_chance: fraccion de 'campamentos' que son patrullas errantes (2-3 enemigos sin tienda); sleep_chance / patrol_chance: reparto de comportamientos de los miembros de un campamento (el primero siempre hace guardia, los elites no duermen)."
 	},
 	"nodes": {
 		"cells_per_node": 420,

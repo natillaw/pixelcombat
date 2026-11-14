@@ -67,6 +67,7 @@ SUITES=(
     "tests/test_enemy_roster.gd"
     "tests/test_playtest_log.gd"
     "tests/test_environment.gd"
+    "tests/test_camps.gd"
     "tests/test_discoveries.gd"
     "tests/test_floor_modifiers.gd"
     "tests/test_progression.gd"

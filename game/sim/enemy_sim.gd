@@ -28,6 +28,10 @@ signal phase_changed(index: int, phase_name: String)
 enum State { IDLE, CHASE, TELEGRAPH, ACTIVE, RECOVER, DEAD, PHASE, STUN }
 
 const WARRIOR_RADIUS := 14.0
+## Un enemigo dormido solo nota al jugador a esta fraccion de su rango normal.
+const SLEEP_NOTICE_FACTOR := 0.3
+## Los que patrullan caminan a esta fraccion de su velocidad.
+const PATROL_SPEED_FACTOR := 0.45
 ## Margen para no quedarse pegado al jugador al perseguirlo.
 const CONTACT_GAP := 2.0
 ## Pausa (rugido, invulnerable) al entrar en una fase nueva.
@@ -74,6 +78,13 @@ var elite: bool = false
 var xp_mult: float = 1.0
 ## Multiplicador de velocidad de movimiento (modificadores de piso y afijo "veloz").
 var speed_boost: float = 1.0
+## Comportamiento en reposo: "guard" (quieto), "sleep" (dormido: solo nota al jugador muy cerca, lo despierta el dano o un
+## companero) o "patrol" (recorre su zona). Un dormido despierto pasa a "guard".
+var behavior: String = "guard"
+var patrol_radius: float = 110.0
+var _patrol_target: Vector2 = Vector2.ZERO
+var _patrol_wait: float = 0.0
+var _patrol_stuck: float = 0.0
 ## Afijo de elite ("swift", "shielded", "explosive", "venomous") o "".
 var affix: String = ""
 ## Mientras sea true no recibe dano (jefe protegido por sellos).
@@ -220,8 +231,11 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 	var target_alive: bool = warrior != null and bool(warrior.alive)
 	match state:
 		State.IDLE:
-			if target_alive and position.distance_to(warrior.position) <= _notice_range(warrior) and (world == null or world.line_of_sight(position, warrior.position)):
+			var notice := _notice_range(warrior) * (SLEEP_NOTICE_FACTOR if behavior == "sleep" else 1.0)
+			if target_alive and position.distance_to(warrior.position) <= notice and (world == null or world.line_of_sight(position, warrior.position)):
 				_aggro()
+			elif behavior == "patrol":
+				_step_patrol(delta)
 		State.CHASE:
 			_step_chase(delta, warrior, target_alive)
 		State.TELEGRAPH:
@@ -256,6 +270,8 @@ func _notice_range(warrior: Object) -> float:
 
 
 func _aggro() -> void:
+	if behavior == "sleep":
+		behavior = "guard"                      # ya esta despierto
 	state = State.CHASE
 	state_time = 0.0
 	aggroed.emit()
@@ -264,6 +280,31 @@ func _aggro() -> void:
 		for mate: EnemySim in world.enemies:
 			if mate != self and mate.alive and mate.group == group and mate.state == State.IDLE and mate.position.distance_to(position) <= GROUP_ALERT_RANGE:
 				mate._aggro()
+
+
+## Patrulla: camina hasta puntos al azar alrededor de su sitio (RNG propio, determinista), con pausas.
+func _step_patrol(delta: float) -> void:
+	if world == null:
+		return
+	if _patrol_wait > 0.0:
+		_patrol_wait -= delta
+		return
+	if _patrol_target == Vector2.ZERO or position.distance_to(_patrol_target) < 8.0 or _patrol_stuck > 1.5:
+		var angle := _rng.randf() * TAU
+		var reach := _rng.randf_range(patrol_radius * 0.4, patrol_radius)
+		_patrol_target = world.resolve_position(spawn_position + Vector2.from_angle(angle) * reach, radius)
+		_patrol_wait = _rng.randf_range(0.8, 2.2)
+		_patrol_stuck = 0.0
+		return
+	var heading := (_patrol_target - position).normalized()
+	facing = heading
+	var step_length := float(data["stats"]["speed"]) * speed_boost * PATROL_SPEED_FACTOR * delta
+	var before := position
+	position = world.resolve_position(position + heading * step_length, radius, self)
+	if position.distance_to(before) < step_length * 0.3:
+		_patrol_stuck += delta
+	else:
+		_patrol_stuck = 0.0
 
 
 func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:

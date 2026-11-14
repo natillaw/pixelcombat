@@ -79,3 +79,11 @@ Mientras no lleguen los assets locales del dueño, los 5 enemigos nuevos reutili
 | Etiqueta de afijo de elite | Texto sobre el enemigo | Icono por afijo (rayo, escudo, bomba, gota) |
 | Oscuridad del piso | Shader de viñeta | Luces suaves alrededor de fogatas/antorchas (sprites de brillo) |
 | Sonidos: explosion, cofre, llave, pergamino, pinchos, fango | Ninguno | SFX correspondientes en `assets/audio/sfx/` |
+
+## Campamentos y comportamientos (14 nov 2026)
+| Que | Estado actual | Que asset hace falta |
+|---|---|---|
+| Tiendas, fogata, cajas, barriles, sacos, camastros, armero, estandarte, atalaya de los campamentos | `assets/props/campamento/props_campamento.png` y `prop_fogata_anim.png` (pack del dueño) | Mas variantes (tienda grande de mando, empalizada, mesa de mapas, cocina, granja/huerto, corral) |
+| Produccion de los campamentos (granja, forja, almacen de comida) | No existe aun | Sprites de huerto, forja con yunque, almacen de grano, mesa de cocina |
+| Enemigos durmiendo | Sprite normal de pie + texto "z z" | Pose o animacion de dormido (tumbado en el camastro) y de patrulla (marcha lenta) |
+| Alerta del campamento | Sin efecto visual | Icono "!" y/o cuerno/campana al dar la alarma |

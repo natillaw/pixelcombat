@@ -26,7 +26,7 @@ func _run() -> void:
 	var session := GameSession.new(world, "")
 	world.player.safe_zone = false
 	world.player.set_level(10)
-	session._enter(TowerGenerator.generate(1, 20261110, 1, ["clear"]), false)
+	session._enter(TowerGenerator.generate(2, 20261110, 1, ["clear"]), false)
 	var bot := FloorBot.new()
 	_check(not bot.knows_map, "por defecto el bot no conoce el mapa")
 	var cells := world.grid.cols * world.grid.rows

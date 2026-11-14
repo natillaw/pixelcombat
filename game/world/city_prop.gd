@@ -22,7 +22,19 @@ const REGION_LOG := Rect2(101, 63, 36, 15)
 const REGION_BERRY_BUSH := Rect2(157, 63, 20, 14)
 const REGION_FLOWERS: Array[Rect2] = [Rect2(229, 63, 16, 11), Rect2(0, 85, 16, 11), Rect2(17, 85, 16, 11), Rect2(34, 85, 16, 11)]
 const REGION_WAGON := Rect2(104, 2, 32, 22)
-const ANIMATED: Array[String] = ["banner", "brazier", "lamppost"]
+const ANIMATED: Array[String] = ["banner", "brazier", "lamppost", "camp_fire"]
+## Props de campamento (assets/props/campamento/bandidos.json): rect en props_campamento.png y origen (pie) de cada uno.
+const CAMP_FIRE_SHEET := preload("res://assets/props/campamento/prop_fogata_anim.png")
+const CAMP_PROPS := {
+	"camp_tent": [Rect2(48, 0, 34, 30), Vector2(17, 27), 2.2],
+	"camp_crate": [Rect2(34, 53, 14, 14), Vector2(7, 13), 2.2],
+	"camp_barrel": [Rect2(21, 53, 12, 15), Vector2(6, 14), 2.2],
+	"camp_sack": [Rect2(49, 53, 14, 12), Vector2(7, 11), 2.2],
+	"camp_bedroll": [Rect2(64, 53, 18, 9), Vector2(9, 8), 2.0],
+	"camp_armory": [Rect2(0, 53, 20, 18), Vector2(10, 17), 2.2],
+	"camp_banner": [Rect2(33, 0, 14, 32), Vector2(4, 31), 2.2],
+	"camp_watchtower": [Rect2(0, 0, 32, 52), Vector2(16, 51), 2.2],
+}
 const FLOWER_COLORS: Array[Color] = [Color(0.95, 0.35, 0.45), Color(0.98, 0.85, 0.35), Color(0.95, 0.95, 0.98), Color(0.7, 0.5, 0.95), Color(0.98, 0.6, 0.3)]
 
 var kind: String = ""
@@ -68,6 +80,15 @@ func _draw() -> void:
 			_draw_flowerbed()
 		"plaza_ring":
 			_draw_plaza_ring()
+		"camp_fire":
+			var frame := int(_time * 8.0) % 4
+			_shadow(30.0, 8.0)
+			draw_texture_rect_region(CAMP_FIRE_SHEET, Rect2(-8.0 * 2.4, -16.0 * 2.4, 16.0 * 2.4, 18.0 * 2.4), Rect2(float(frame * 16), 0.0, 16.0, 18.0))
+			draw_circle(Vector2(0, -22), 34.0 + 5.0 * sin(_time * 5.0), Color(1.0, 0.6, 0.2, 0.07))
+		_:
+			if CAMP_PROPS.has(kind):
+				var def: Array = CAMP_PROPS[kind]
+				_sprite(CAMP, def[0] as Rect2, def[1] as Vector2, float(def[2]))
 
 
 func _shadow(width: float, height: float = 7.0) -> void:

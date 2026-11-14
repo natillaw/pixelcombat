@@ -94,21 +94,42 @@ func _test_barrels() -> void:
 
 
 func _test_floor_content() -> void:
+	var hazard_total := 0
+	var hazard_wanted := 0
+	var floors_with_barrels := 0
+	var floors_without_barrels := 0
+	var outside_camp := 0
 	for floor_number: int in range(1, 11):
-		var layout := TowerGenerator.generate(floor_number, 20261110, 1)
-		var barrels := layout.enemies.filter(func(e: Dictionary) -> bool: return String(e["id"]).begins_with("barrel_")).size()
-		if floor_number == 10:
-			_check(layout.hazards.is_empty() and barrels == 0, "el piso 10 no lleva peligros ni barriles")
-			continue
-		var wanted_hazards := 0
-		for kind: String in FloorFeatures.for_floor(floor_number).get("hazards", {}):
-			wanted_hazards += int(FloorFeatures.for_floor(floor_number)["hazards"][kind])
-		_check(layout.hazards.size() == wanted_hazards, "piso %d: %d peligros colocados" % [floor_number, layout.hazards.size()])
-		_check(barrels >= 1, "piso %d: %d barriles" % [floor_number, barrels])
-		var ok := true
-		for hazard: Dictionary in layout.hazards:
-			var at: Vector2 = hazard["position"]
-			ok = ok and layout.grid.is_walkable_point(at)
-		_check(ok, "piso %d: todos los peligros estan en suelo andable" % floor_number)
-		var same := TowerGenerator.generate(floor_number, 20261110, 1)
-		_check(same.hazards.size() == layout.hazards.size() and (same.hazards[0]["position"] if not same.hazards.is_empty() else Vector2.ZERO) == (layout.hazards[0]["position"] if not layout.hazards.is_empty() else Vector2.ZERO), "piso %d: la generacion es determinista" % floor_number)
+		for seed_value: int in [20261110, 7, 99, 4242, 31337, 555]:
+			var layout := TowerGenerator.generate(floor_number, seed_value, 1)
+			var barrels: Array = layout.enemies.filter(func(e: Dictionary) -> bool: return String(e["id"]).begins_with("barrel_"))
+			if floor_number == 10:
+				_check(layout.hazards.is_empty() and barrels.is_empty(), "el piso 10 (seed %d) no lleva peligros ni barriles" % seed_value)
+				continue
+			var wanted := 0
+			for kind: String in FloorFeatures.for_floor(floor_number).get("hazards", {}):
+				wanted += int(FloorFeatures.for_floor(floor_number)["hazards"][kind])
+			hazard_wanted += wanted
+			hazard_total += layout.hazards.size()
+			if barrels.is_empty():
+				floors_without_barrels += 1
+			else:
+				floors_with_barrels += 1
+			for barrel: Dictionary in barrels:
+				var near := false
+				for camp: Dictionary in layout.camps:
+					if String(camp["kind"]) == "camp" and (camp["position"] as Vector2).distance_to(barrel["position"]) <= 140.0:
+						near = true
+				if not near:
+					outside_camp += 1
+			var ok := true
+			for hazard: Dictionary in layout.hazards:
+				ok = ok and layout.grid.is_walkable_point(hazard["position"])
+			if not ok:
+				_check(false, "piso %d seed %d: un peligro cae en suelo no andable" % [floor_number, seed_value])
+	_check(hazard_total > 0 and hazard_total < hazard_wanted, "los peligros son probabilisticos (%d de %d posibles)" % [hazard_total, hazard_wanted])
+	_check(floors_with_barrels > 0 and floors_without_barrels > 0, "hay pisos con barriles (%d) y sin ellos (%d)" % [floors_with_barrels, floors_without_barrels])
+	_check(outside_camp == 0, "los barriles solo salen dentro de campamentos")
+	var a := TowerGenerator.generate(6, 20261110, 1)
+	var b := TowerGenerator.generate(6, 20261110, 1)
+	_check(a.hazards.size() == b.hazards.size() and a.camps.size() == b.camps.size(), "la generacion es determinista")

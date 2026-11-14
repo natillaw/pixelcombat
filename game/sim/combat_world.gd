@@ -344,6 +344,8 @@ func spawn_from_spec(spec: Dictionary, base_scale: float) -> EnemySim:
 		enemy.make_elite()
 	if spec.has("affix"):
 		enemy.apply_affix(String(spec["affix"]))
+	enemy.behavior = String(spec.get("behavior", "guard"))
+	enemy.patrol_radius = float(spec.get("patrol_radius", 110.0))
 	if layout != null and not layout.modifier.is_empty() and not enemy.is_boss() and not bool(enemy.data.get("inert", false)):
 		_apply_modifier(enemy, layout.modifier)
 	if spec.has("boost"):

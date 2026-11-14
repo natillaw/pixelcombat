@@ -610,15 +610,11 @@ static func _add_features(ctx: Ctx) -> void:
 	ctx.rng = frng
 	var hazards: Dictionary = features.get("hazards", {})
 	for kind: String in hazards:
+		if frng.randf() >= float(features.get("hazard_chance", 1.0)):
+			continue                                # este tipo de peligro no sale en este piso
 		for i: int in range(int(hazards[kind])):
 			var at := _spot(ctx, 0.12, 0.95, 2, 200.0)
 			ctx.layout.hazards.append({"kind": kind, "position": at, "radius": HazardCatalog.roll_radius(kind, frng)})
-	var camps: Array = ctx.layout.enemies.filter(func(e: Dictionary) -> bool: return not String(e["id"]).begins_with("barrel_") and not bool(e.get("elite", false)))
-	var barrels: Dictionary = features.get("barrels", {})
-	for id: String in barrels:
-		for i: int in range(int(barrels[id])):
-			var anchor: Vector2 = (camps[frng.randi_range(0, camps.size() - 1)] as Dictionary)["position"] if not camps.is_empty() else _spot(ctx, 0.2, 0.9, 1, 200.0)
-			_add_enemy(ctx, id, _walkable_near(ctx, anchor + Vector2.from_angle(frng.randf() * TAU) * 70.0, 20.0), false, "prop")
 	_add_discoveries(ctx, features, frng)
 	ctx.layout.features = features
 	ctx.rng = saved
@@ -667,16 +663,25 @@ static func _add_discoveries(ctx: Ctx, features: Dictionary, frng: RandomNumberG
 static func _add_ambient(ctx: Ctx) -> void:
 	var camps_cfg := MissionCatalog.config("camps")
 	var reach := ctx.analysis.reach.size()
-	var camps := maxi(3, reach / int(camps_cfg["cells_per_camp"]))
+	var camps := int((camps_cfg.get("count_by_floor", {}) as Dictionary).get(str(ctx.layout.floor_number), maxi(3, reach / int(camps_cfg["cells_per_camp"]))))
 	var size_range: Array = camps_cfg["size"]
 	# Los primeros pisos llevan campamentos mas pequeños (un personaje de nivel 1-2 no debe pelear contra cuatro a la vez).
 	var by_floor: Dictionary = camps_cfg.get("size_by_floor", {})
 	if by_floor.has(str(ctx.layout.floor_number)):
 		size_range = by_floor[str(ctx.layout.floor_number)]
+	var drng := RandomNumberGenerator.new()
+	drng.seed = hash([int(ctx.rng.seed), ctx.layout.floor_number, "camps"])
 	for i: int in range(camps):
 		var spot := _spot(ctx, 0.14, 1.0, 2, float(camps_cfg["spacing"]))
 		var size := ctx.rng.randi_range(int(size_range[0]), int(size_range[1])) + (ctx.tier - 1) / 3
-		_camp(ctx, spot, mini(size, 6), ctx.ambient_required, "camp_%d" % ctx.camp_counter)
+		var group := "camp_%d" % ctx.camp_counter
+		var first := ctx.layout.enemies.size()
+		var is_pack := ctx.layout.floor_number >= 2 and drng.randf() < float(camps_cfg.get("patrol_pack_chance", 0.0))
+		_camp(ctx, spot, mini(2 + drng.randi_range(0, 1), mini(size, 6)) if is_pack else mini(size, 6), ctx.ambient_required, group)
+		if is_pack:
+			_make_patrol_pack(ctx, first, group)
+		else:
+			_build_camp(ctx, first, spot, group, camps_cfg, drng)
 		ctx.camp_counter += 1
 	var nodes_cfg := MissionCatalog.config("nodes")
 	var node_count := clampi(reach / int(nodes_cfg["cells_per_node"]), int(nodes_cfg["min"]), int(nodes_cfg["max"]))
@@ -684,6 +689,88 @@ static func _add_ambient(ctx: Ctx) -> void:
 	for i: int in range(node_count):
 		var spot := _spot(ctx, 0.05, 1.0, 1, 130.0)
 		ctx.layout.resources.append({"kind": String(kinds[ctx.rng.randi_range(0, kinds.size() - 1)]), "position": spot})
+
+
+## Patrulla errante: sus miembros recorren la zona en vez de quedarse quietos.
+static func _make_patrol_pack(ctx: Ctx, first: int, group: String) -> void:
+	var members := 0
+	for index: int in range(first, ctx.layout.enemies.size()):
+		var spec: Dictionary = ctx.layout.enemies[index]
+		spec["behavior"] = "patrol"
+		spec["patrol_radius"] = 190.0
+		members += 1
+	ctx.layout.camps.append({"position": ctx.layout.enemies[first]["position"] if first < ctx.layout.enemies.size() else Vector2.ZERO, "group": group, "kind": "pack", "size": members})
+
+
+## Campamento con estructura: fogata, tiendas, almacen (cajas, barriles, sacos), camastros junto a los que duermen y,
+## segun el piso, estandarte, armero y atalaya. Los miembros se reparten entre dormir, patrullar y guardia (el primero
+## siempre vigila; los elites no duermen). Los barriles explosivos/de aceite solo salen aqui (con probabilidad).
+static func _build_camp(ctx: Ctx, first: int, center: Vector2, group: String, cfg: Dictionary, drng: RandomNumberGenerator) -> void:
+	var layout := ctx.layout
+	var floor_number := layout.floor_number
+	var size := layout.enemies.size() - first
+	layout.props.append({"kind": "camp_fire", "position": center, "variant": 0})
+	var tents := 1 + (1 if size >= 4 else 0)
+	for i: int in range(tents):
+		var at := _free_ring_point(ctx, center, 72.0, 104.0, drng)
+		if at != Vector2.INF:
+			layout.props.append({"kind": "camp_tent", "position": at, "variant": i})
+	var store := _free_ring_point(ctx, center, 62.0, 100.0, drng)
+	if store != Vector2.INF:
+		layout.props.append({"kind": "camp_crate", "position": store, "variant": 0})
+		layout.props.append({"kind": "camp_sack", "position": store + Vector2(22.0, 8.0), "variant": 0})
+		if drng.randf() < 0.6:
+			layout.props.append({"kind": "camp_barrel", "position": store + Vector2(-20.0, 6.0), "variant": 0})
+	if floor_number >= 3 and drng.randf() < 0.4:
+		var banner := _free_ring_point(ctx, center, 80.0, 110.0, drng)
+		if banner != Vector2.INF:
+			layout.props.append({"kind": "camp_banner", "position": banner, "variant": 0})
+	if floor_number >= 5 and drng.randf() < 0.35:
+		var armory := _free_ring_point(ctx, center, 70.0, 100.0, drng)
+		if armory != Vector2.INF:
+			layout.props.append({"kind": "camp_armory", "position": armory, "variant": 0})
+	if floor_number >= 6 and drng.randf() < 0.2:
+		var tower := _free_ring_point(ctx, center, 96.0, 128.0, drng)
+		if tower != Vector2.INF:
+			layout.props.append({"kind": "camp_watchtower", "position": tower, "variant": 0})
+	# Barriles de combate (de verdad rompibles): a veces, y solo en campamentos.
+	var barrels: Dictionary = FloorFeatures.for_floor(floor_number).get("barrels", {})
+	if not barrels.is_empty():
+		var floor_roll := RandomNumberGenerator.new()
+		floor_roll.seed = hash([int(ctx.rng.seed), floor_number, "barrel_floor"])
+		if floor_roll.randf() < float(barrels.get("floor_chance", 0.0)) and drng.randf() < float(barrels.get("camp_chance", 0.0)):
+			var id := "barrel_oil" if drng.randf() < float(barrels.get("oil_share", 0.4)) else "barrel_explosive"
+			for i: int in range(1 + drng.randi_range(0, 1)):
+				var spot := _free_ring_point(ctx, center, 56.0, 96.0, drng)
+				if spot != Vector2.INF:
+					_add_enemy(ctx, id, spot, false, "prop")
+	# Comportamientos.
+	var sleepers := 0
+	for index: int in range(first, layout.enemies.size()):
+		var spec: Dictionary = layout.enemies[index]
+		if index == first or bool(spec.get("elite", false)) or floor_number < 2:
+			continue
+		var roll := drng.randf()
+		if roll < float(cfg.get("sleep_chance", 0.0)) and size >= 3:
+			spec["behavior"] = "sleep"
+			sleepers += 1
+			layout.props.append({"kind": "camp_bedroll", "position": (spec["position"] as Vector2) + Vector2(0.0, 14.0), "variant": 0})
+		elif roll < float(cfg.get("sleep_chance", 0.0)) + float(cfg.get("patrol_chance", 0.0)):
+			spec["behavior"] = "patrol"
+			spec["patrol_radius"] = 120.0
+	layout.camps.append({"position": center, "group": group, "kind": "camp", "size": size, "sleepers": sleepers})
+
+
+## Punto libre (andable, con holgura) en un anillo alrededor de `center`, o Vector2.INF si no hay.
+static func _free_ring_point(ctx: Ctx, center: Vector2, r_min: float, r_max: float, drng: RandomNumberGenerator) -> Vector2:
+	for attempt: int in range(14):
+		var point := center + Vector2.from_angle(drng.randf() * TAU) * drng.randf_range(r_min, r_max)
+		var cell := ctx.analysis.cell_at(point)
+		if not ctx.analysis.grid.in_bounds(cell.x, cell.y):
+			continue
+		if ctx.analysis.dist[cell.y * ctx.analysis.grid.cols + cell.x] >= 0 and ctx.analysis.clearance_at(cell) >= 1:
+			return point
+	return Vector2.INF
 
 
 # --- Verificacion -----------------------------------------------------------------

@@ -39,6 +39,8 @@ var buildings: Array = []
 var torches: Array = []
 ## Peligros fijos del suelo: [{kind: "mud"|"spikes"|"poison_pool", position, radius}] (ver data/hazards.json).
 var hazards: Array = []
+## Campamentos y patrullas del piso: [{position, group, kind: "camp"|"pack", size}] (los props van en `props`).
+var camps: Array = []
 ## Contenido extra del piso (data/floor_features.json) tal como se aplico; vacio si no hay.
 var features: Dictionary = {}
 ## Modificador del piso (data/floor_modifiers.json) o {}.

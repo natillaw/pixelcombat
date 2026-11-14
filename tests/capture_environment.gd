@@ -34,6 +34,11 @@ func _ready() -> void:
 		session.go_to_floor(floor_number)
 		await _wait(0.6)
 		var spots: Array = []
+		var camp_count := 0
+		for camp: Dictionary in session.layout.camps:
+			if String(camp["kind"]) == "camp" and camp_count < 2:
+				camp_count += 1
+				spots.append(["camp_%d" % camp_count, (camp["position"] as Vector2) + Vector2(0, 110)])
 		for hazard: Dictionary in session.layout.hazards:
 			spots.append(["hazard_%s" % hazard["kind"], hazard["position"] as Vector2 + Vector2(0, 50)])
 		for enemy: EnemySim in world.enemies:
