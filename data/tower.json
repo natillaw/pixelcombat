@@ -71,15 +71,18 @@
 				},
 				{
 					"id": "bandit_hexer",
-					"weight": 2
+					"weight": 2,
+					"min_floor": 5
 				},
 				{
 					"id": "bandit_cutthroat",
-					"weight": 2
+					"weight": 2,
+					"min_floor": 2
 				},
 				{
 					"id": "bandit_shieldman",
-					"weight": 1
+					"weight": 1,
+					"min_floor": 5
 				},
 				{
 					"id": "slime",
