@@ -1324,7 +1324,8 @@ func rest(fraction: float) -> void:
 ## el windup, ignorando el input de movimiento.
 func _move_leap(delta: float) -> void:
 	var speed: float = float(current_skill["leap_distance"]) / maxf(float(current_skill["windup"]), 0.001)
-	position = position.move_toward(attack_point, speed * delta)
+	var target := position.move_toward(attack_point, speed * delta)
+	position = world.swept_position(position, target, RADIUS) if world != null else target       # no atraviesa muros ni obstaculos
 	velocity = Vector2.ZERO
 
 
