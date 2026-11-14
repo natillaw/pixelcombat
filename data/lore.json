@@ -162,9 +162,9 @@
 			"floor": 1,
 			"name": "La Linde",
 			"tone": "calma",
-			"role": "Primeros pasos: bestias del bosque y algun explorador del Cuervo.",
+			"role": "Primeros pasos: un arroyo con piedras, un claro con fuente y el camino de tierra que sube hacia el este.",
 			"entry": "Donde el bosque aun recuerda tu nombre.",
-			"clue": "Un trapo granate atado a una rama: alguien marca el camino.",
+			"clue": "Un trapo granate atado a una rama: alguien marca el camino hacia el este.",
 			"bandits": [
 				"bandit_swordsman"
 			],
@@ -185,11 +185,11 @@
 		},
 		{
 			"floor": 2,
-			"name": "Sendero de los Lenadores",
+			"name": "El Vado",
 			"tone": "inquietud",
-			"role": "Se descubre que hay gente en el bosque: matones y degolladores.",
-			"entry": "Hachas sin dueno y huellas que no son de bestia.",
-			"clue": "Un hacha con el nombre de su dueno raspado hasta borrarlo.",
+			"role": "Un rio ancho parte el piso: la aldea esta en la orilla oeste y el Cuervo cobra peaje en la este.",
+			"entry": "El rio suena mas fuerte que tus pasos.",
+			"clue": "Un recibo de peaje mojado: tres monedas por cruzar, una vida por volver.",
 			"bandits": [
 				"bandit_thug",
 				"bandit_cutthroat"
@@ -212,9 +212,9 @@
 			"floor": 3,
 			"name": "El Primer Campamento",
 			"tone": "tension",
-			"role": "Primer campamento serio del Cuervo: se aprende a pelear contra un grupo.",
-			"entry": "Humo, brasas y una bandera granate.",
-			"clue": "Una pagina de cuentas: relicarios entregados, catorce.",
+			"role": "Una colina fortificada con empalizada, dos puertas y torres de arqueros: se aprende a pelear contra un grupo.",
+			"entry": "Humo, brasas y una bandera granate sobre la empalizada.",
+			"clue": "Una pagina de cuentas clavada en la puerta: relicarios entregados, catorce.",
 			"bandits": [
 				"bandit_thug",
 				"bandit_swordsman",
@@ -236,9 +236,9 @@
 		},
 		{
 			"floor": 4,
-			"name": "Emboscadas",
+			"name": "La Hondonada",
 			"tone": "peligro",
-			"role": "Arqueros y degolladores atacan desde la espesura; hay prisioneros.",
+			"role": "Una cuenca con un lago central: la aldea vive en una peninsula y el resto es espesura de emboscadas.",
 			"entry": "Aqui nadie te ataca de frente.",
 			"clue": "Un prisionero susurra: el Cuervo busca cosas que huelen a recuerdo.",
 			"bandits": [
@@ -264,7 +264,7 @@
 			"floor": 5,
 			"name": "El Puesto Avanzado",
 			"tone": "hito",
-			"role": "Dos tenientes guardan la entrada al territorio del Cuervo: Rask y Veyra.",
+			"role": "Un fuerte de piedra con patio y torres corta el camino: dos tenientes, Rask y Veyra.",
 			"entry": "Dos tenientes, una sola consigna: que nadie pase.",
 			"clue": "Rask quema relicarios y Veyra los lee; los dos tienen los dedos manchados de tinta granate.",
 			"bandits": [
@@ -288,11 +288,11 @@
 		},
 		{
 			"floor": 6,
-			"name": "Rutas de Contrabando",
+			"name": "Las Brasas",
 			"tone": "recelo",
-			"role": "Carga que el Cuervo saca del bosque: reliquias y suministros que recuperar.",
+			"role": "Un pantano quemado con islas secas, una fragua en ruinas y el contrabando del Cuervo.",
 			"entry": "Lo que sale del bosque no siempre sale entero.",
-			"clue": "Cajas selladas con lacre granate: dentro, objetos que susurran.",
+			"clue": "Cajas selladas con lacre granate junto a la fragua: dentro, objetos que susurran.",
 			"bandits": [
 				"bandit_shieldman",
 				"bandit_hexer",
@@ -316,7 +316,7 @@
 			"floor": 7,
 			"name": "La Vigia Perdida",
 			"tone": "melancolia",
-			"role": "Rastros de la antigua Vigia de Albor: mojones, balizas y altares con su emblema.",
+			"role": "Ruinas de una torre de vigia en un bosque cerrado y oscuro: mojones, balizas y altares con su emblema.",
 			"entry": "Insignias de una guardia que ya no existe.",
 			"clue": "Una insignia con un cuervo y una frase: anotar a quien despierta.",
 			"bandits": [
@@ -340,11 +340,11 @@
 		},
 		{
 			"floor": 8,
-			"name": "Territorio del Cuervo",
+			"name": "La Isla del Cuervo",
 			"tone": "opresion",
-			"role": "Campamentos densos con escuderos y hechiceros: el bosque tiene dueno.",
-			"entry": "Aqui el bosque tiene dueno.",
-			"clue": "Una regla clavada en un tronco: tacha el nombre, guarda la cosa.",
+			"role": "Una marisma con una isla fortificada unida por puentes de madera: el bosque tiene dueno.",
+			"entry": "Aqui el bosque tiene dueno, y se cruza por sus puentes.",
+			"clue": "Una regla clavada en un tronco del puente: tacha el nombre, guarda la cosa.",
 			"bandits": [
 				"bandit_shieldman",
 				"bandit_hexer",
@@ -369,7 +369,7 @@
 			"floor": 9,
 			"name": "La Antesala",
 			"tone": "calma tensa",
-			"role": "La calma antes de Garrick; el Desertor puede cruzarse en el camino.",
+			"role": "Un castillo en ruinas con foso, puente levadizo y patio de armas: la calma antes de Garrick.",
 			"entry": "El bosque se calla antes de Garrick.",
 			"clue": "Un relicario con un nombre de nina y una nota: no dejes que me lo quiten.",
 			"bandits": [
@@ -396,7 +396,7 @@
 			"floor": 10,
 			"name": "El Campamento de Garrick",
 			"tone": "confrontacion",
-			"role": "Garrick Mano Negra y su banda; aqui se revela que el Cuervo comercia con recuerdos.",
+			"role": "Una arena rodeada de empalizada con un camino-trampa de acceso y un lago detras: Garrick Mano Negra y su banda.",
 			"entry": "Un hombre que no olvida nada te espera.",
 			"clue": "Garrick: la Torre no te quita los recuerdos, te los guarda. Y yo vendo lo que guarda.",
 			"bandits": [

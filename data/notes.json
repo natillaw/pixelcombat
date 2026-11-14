@@ -23,7 +23,7 @@
 			"id": "note_f2_1",
 			"floor": 2,
 			"title": "Pagina rota",
-			"text": "Hay una puerta al norte. Los banderines granates marcan su territorio: donde ves uno, hay arqueros cerca."
+			"text": "Tres pasos para cruzar el rio: un vado de piedras en el centro, un puente roto al norte y una pasarela al sur. Los banderines granates marcan donde cobran peaje."
 		},
 		{
 			"id": "note_f3_0",
@@ -35,7 +35,7 @@
 			"id": "note_f3_1",
 			"floor": 3,
 			"title": "Mapa a mano",
-			"text": "Las cruces marcan emboscadas. Las flechas marcan atajos. Alguien tacho una cruz con rabia."
+			"text": "La colina tiene dos puertas. Las cruces marcan emboscadas en el patio; las flechas, el rodeo por el rio de atras. Alguien tacho una cruz con rabia."
 		},
 		{
 			"id": "note_f4_0",
@@ -47,7 +47,7 @@
 			"id": "note_f4_1",
 			"floor": 4,
 			"title": "Nota del herrero",
-			"text": "Los barriles rojos llevan polvora. Rompelos desde lejos o ve a por quien los puso cerca."
+			"text": "Los barriles rojos llevan polvora, y la peninsula de la aldea es el unico sitio seco donde dormir. Rompelos desde lejos o ve a por quien los puso cerca."
 		},
 		{
 			"id": "note_f5_0",
@@ -71,7 +71,7 @@
 			"id": "note_f6_1",
 			"floor": 6,
 			"title": "Poema inacabado",
-			"text": "Entre los arboles hay un sitio donde el sol no entra. Alli el Cuervo guarda lo que no quiere que se vea."
+			"text": "Entre las islas secas hay una fragua donde el fuego no se apaga. Alli el Cuervo guarda lo que no quiere que se vea."
 		},
 		{
 			"id": "note_f7_0",
@@ -83,7 +83,7 @@
 			"id": "note_f7_1",
 			"floor": 7,
 			"title": "Registro nocturno",
-			"text": "Una luz en la lejania. Un grito. Despues nada. Anoto la hora por si alguien pregunta."
+			"text": "Una luz en lo alto de la vigia, donde ya no hay torre. Un grito. Despues nada. Anoto la hora por si alguien pregunta."
 		},
 		{
 			"id": "note_f8_0",
@@ -95,7 +95,7 @@
 			"id": "note_f8_1",
 			"floor": 8,
 			"title": "Pagina de bitacora",
-			"text": "Garrick sabia que vendrias. Los suyos estan inquietos."
+			"text": "Los puentes de madera son el unico camino a la isla, y Garrick sabia que vendrias. Los suyos estan inquietos."
 		},
 		{
 			"id": "note_f9_0",

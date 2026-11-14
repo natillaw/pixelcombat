@@ -235,9 +235,45 @@ class FloorMap:
             node = prev[node]
         self.notes.append("pasillo abierto hacia %s" % str(target))
 
+    def thin_out(self):
+        """Rellena la hierba que no cabe en un cuadrado de 2x2 (rendijas de 1 casilla entre arboles): el heroe no cabe
+        ni el pathfinding de los bots las usa, y quedaban bolsas sin salida. Se respetan caminos, puentes, entrada, salida y anclas."""
+        keep = {tuple(self.spawn)}
+        if self.exit:
+            keep.add(tuple(self.exit))
+        for pts in self.anchors.values():
+            for (x, y) in pts:
+                for dx in (-1, 0, 1):
+                    for dy in (-1, 0, 1):
+                        keep.add((x + dx, y + dy))
+        def walk(x, y):
+            return self.get(x, y) in WALK
+        fat = set()
+        for y in range(1, self.rows - 1):
+            for x in range(1, self.cols - 1):
+                for ox in (0, -1):
+                    for oy in (0, -1):
+                        if all(walk(x + ox + i, y + oy + j) for i in (0, 1) for j in (0, 1)):
+                            for i in (0, 1):
+                                for j in (0, 1):
+                                    fat.add((x + ox + i, y + oy + j))
+        filled = 0
+        for y in range(1, self.rows - 1):
+            for x in range(1, self.cols - 1):
+                if self.get(x, y) == "." and (x, y) not in fat and (x, y) not in keep:
+                    self.set(x, y, "#")
+                    filled += 1
+        self.notes.append("rendijas rellenadas: %d" % filled)
+
     def finalize(self):
         for key, pts in list(self.anchors.items()):
             self.anchors[key] = [list(self.snap(x, y)) for x, y in pts]
+        if self.exit:
+            self.connect(self.exit)
+        for key, pts in list(self.anchors.items()):
+            for (x, y) in pts:
+                self.connect((x, y))
+        self.thin_out()
         if self.exit:
             self.connect(self.exit)
         for key, pts in list(self.anchors.items()):

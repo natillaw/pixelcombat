@@ -26,6 +26,10 @@ var _hold_until_tick: int = 0
 var _hold_point: Vector2 = Vector2.INF
 var _path: Array[Vector2] = []
 var _replan_ticks: int = 0
+## Bordes de lo desconocido ya alcanzados sin descubrir nada (huecos que no se ven): no se vuelven a buscar.
+var _dead_frontier: Dictionary = {}
+var _path_goal: int = -1
+var _path_goal_frontier: bool = false
 ## Hay que descubrir lo que se ve antes de planificar (piso nuevo).
 var _force_reveal: bool = true
 var _exhausted_ticks: int = 0
@@ -178,6 +182,8 @@ func _ensure_known(grid: TileGrid, world: CombatWorld = null) -> void:
 		_hold_until_tick = 0
 		_hold_point = Vector2.INF
 		_path.clear()
+		_dead_frontier.clear()
+		_path_goal = -1
 		_exhausted = false
 		_exhausted_ticks = 0
 		_replan_ticks = 0
@@ -311,6 +317,10 @@ func _explore_direction(world: CombatWorld, player: PlayerSim) -> Vector2:
 	while not _path.is_empty() and player.position.distance_to(_path[0]) < 20.0:
 		_path.remove_at(0)
 	if _path.is_empty():
+		if _path_goal >= 0 and _path_goal_frontier:
+			_dead_frontier[_path_goal] = true       # llegado al borde y sigue sin verse nada nuevo: es un hueco cerrado
+		_path_goal = -1
+		_replan_ticks = 0
 		return Vector2.ZERO
 	return (_path[0] - player.position).normalized()
 
@@ -349,6 +359,8 @@ func _plan(world: CombatWorld, player: PlayerSim) -> void:
 		if found >= 0:
 			break
 	_path.clear()
+	_path_goal = found
+	_path_goal_frontier = found >= 0 and not goals.has(found)
 	if found < 0:
 		_exhausted = true                       # nada mas que explorar: remata con el metodo antiguo
 		return
@@ -401,6 +413,8 @@ func _search(grid: TileGrid, start: Vector2i, goals: Dictionary, parents: Packed
 
 ## Casilla conocida y abierta con alguna vecina todavia desconocida.
 func _is_frontier(grid: TileGrid, cell: Vector2i, strict: bool = true) -> bool:
+	if _dead_frontier.has(cell.y * grid.cols + cell.x):
+		return false
 	if not (_is_open(grid, cell) if strict else not grid.blocks_move(cell.x, cell.y)):
 		return false
 	for offset: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
