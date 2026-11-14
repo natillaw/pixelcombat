@@ -14,6 +14,7 @@ func _initialize() -> void:
 
 func _run() -> void:
 	print("== test_world_sanity ==")
+	AuthoredFloor.enabled = false                 # esta prueba es del generador procedural (los pisos a mano: test_authored_floors)
 	var bad_spot := 0
 	var disconnected := 0
 	var unreachable := 0

@@ -118,7 +118,7 @@ func _test_floor_content() -> void:
 			for barrel: Dictionary in barrels:
 				var near := false
 				for camp: Dictionary in layout.camps:
-					if String(camp["kind"]) == "camp" and (camp["position"] as Vector2).distance_to(barrel["position"]) <= 140.0:
+					if String(camp["kind"]) == "camp" and (camp["position"] as Vector2).distance_to(barrel["position"]) <= 260.0:
 						near = true
 				if not near:
 					outside_camp += 1

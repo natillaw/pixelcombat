@@ -43,6 +43,8 @@ var hazards: Array = []
 var camps: Array = []
 ## Aldea refugio del piso: {position, radius, name} o {} (ver VillageGen). Dentro: zona segura, los enemigos no entran.
 var village: Dictionary = {}
+## Puntos de diseno de un piso hecho a mano (AuthoredFloor): clave -> [Vector2]. Vacio en los procedurales.
+var authored_anchors: Dictionary = {}
 ## Contenido extra del piso (data/floor_features.json) tal como se aplico; vacio si no hay.
 var features: Dictionary = {}
 ## Modificador del piso (data/floor_modifiers.json) o {}.

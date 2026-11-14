@@ -90,6 +90,7 @@ $suites = @(
     "tests/test_villages.gd",
     "tests/test_heroes.gd",
     "tests/test_skill_spanish.gd",
+    "tests/test_authored_floors.gd",
     "tests/test_discoveries.gd",
     "tests/test_floor_modifiers.gd",
     "tests/test_progression.gd",

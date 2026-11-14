@@ -44,7 +44,11 @@ static func place(layout: FloorLayout, analysis: MapAnalysis, frng: RandomNumber
 	var avoid: Array = [analysis.spawn_position(), analysis.exit_position()]
 	var best := Vector2.INF
 	var best_score := -1.0
-	for clearance: int in [4, 3, 2]:
+	var fixed: Array = layout.authored_anchors.get("village", [])
+	if not fixed.is_empty():
+		best = fixed[0]                          # piso a mano: la aldea esta donde se diseno
+		best_score = SAFE_RADIUS + 40.0
+	for clearance: int in ([] if not fixed.is_empty() else [4, 3, 2]):
 		for attempt: int in range(40):
 			# A mitad de camino (no pegada a la entrada ni a la salida); con interrogatorio, mas adentro: el piso no es un paseo de 5 s.
 			var candidate: Variant = analysis.pick_spot(frng, 0.4 if force else 0.2, 0.75 if force else 0.85, clearance, avoid, 380.0)
@@ -155,7 +159,10 @@ static func _build(layout: FloorLayout, analysis: MapAnalysis, frng: RandomNumbe
 		for i: int in range(options.size()):
 			var option: Dictionary = options[i]
 			var offset := Vector2((float(i) - (float(options.size()) - 1.0) * 0.5) * 56.0, 0.0)
-			layout.interactables.append({"kind": "event_option", "position": scene_center + offset, "group": "", "channel": 1.0, "label": "%s: %s" % [scene["title"], option["label"]],
+			var option_at := scene_center + offset
+			if not _open(analysis, option_at):
+				option_at = _ring_point(analysis, scene_center, float(i) * PI, 24.0, 40.0, frng)
+			layout.interactables.append({"kind": "event_option", "position": option_at, "group": "", "channel": 1.0, "label": "%s: %s" % [scene["title"], option["label"]],
 				"effects": option["effects"], "exclusive": "village_scene_%d" % floor_number, "text": String(scene["title"])})
 	# Aldeanos en corro alrededor de la fogata.
 	var villagers: Array = def["villagers"]

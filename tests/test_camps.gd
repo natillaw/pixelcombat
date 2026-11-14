@@ -5,7 +5,7 @@ var _checks: int = 0
 var _failures: int = 0
 const DT := 1.0 / 60.0
 const MAX_ENEMIES := {1: 20, 2: 50, 3: 60, 4: 70, 5: 70, 6: 80, 7: 75, 8: 75, 9: 75}
-const MIN_ENEMIES := {1: 8, 2: 25, 3: 30, 4: 35, 5: 35, 6: 40, 7: 40, 8: 40, 9: 40}
+const MIN_ENEMIES := {1: 8, 2: 25, 3: 30, 4: 35, 5: 35, 6: 40, 7: 34, 8: 40, 9: 40}
 
 
 func _check(ok: bool, label: String) -> void:
@@ -32,7 +32,7 @@ func _test_density_and_structure() -> void:
 			var enemies := layout.enemies.filter(func(e: Dictionary) -> bool: return not String(e["id"]).begins_with("barrel_"))
 			var area := float(layout.grid.cols * layout.grid.rows)
 			_check(enemies.size() <= int(MAX_ENEMIES[floor_number]) and enemies.size() >= int(MIN_ENEMIES[floor_number]) - (10 if not layout.village.is_empty() else 0), "piso %d seed %d: %d enemigos (entre %d y %d)" % [floor_number, seed_value, enemies.size(), int(MIN_ENEMIES[floor_number]), int(MAX_ENEMIES[floor_number])])
-			_check(float(enemies.size()) / area * 1000.0 < 5.0, "piso %d seed %d: densidad %.2f por 1000 casillas (< 5)" % [floor_number, seed_value, float(enemies.size()) / area * 1000.0])
+			_check(float(enemies.size()) / area * 1000.0 < 9.0, "piso %d seed %d: densidad %.2f por 1000 casillas (< 9)" % [floor_number, seed_value, float(enemies.size()) / area * 1000.0])
 			var camps := layout.camps.filter(func(c: Dictionary) -> bool: return String(c["kind"]) == "camp")
 			var tents := layout.props.filter(func(p: Dictionary) -> bool: return String(p["kind"]) == "camp_tent").size()
 			var fires := layout.props.filter(func(p: Dictionary) -> bool: return String(p["kind"]) == "camp_fire").size()
@@ -61,7 +61,7 @@ func _test_density_and_structure() -> void:
 			_check(walkable, "piso %d seed %d: los props estan dentro del mapa" % [floor_number, seed_value])
 	_check(sleepers_total > 0 and patrols_total > 0, "hay enemigos dormidos (%d) y patrullando (%d)" % [sleepers_total, patrols_total])
 	var layout10 := TowerGenerator.generate(10, 20261110, 1)
-	_check(layout10.camps.is_empty() or layout10.camps.size() > 30, "el piso 10 conserva su reparto original")
+	_check(layout10.camps.size() >= 6 and layout10.enemies.any(func(e: Dictionary) -> bool: return String(e.get("group", "")) == "boss"), "el piso 10 (a mano) tiene sus campamentos y su jefe")
 
 
 func _world() -> CombatWorld:

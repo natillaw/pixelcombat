@@ -130,7 +130,7 @@ func _test_generator_invariants() -> void:
 		if not exit_found:
 			ok = false
 			reason = "piso %d: la salida debe existir, ser alcanzable y exigir piso completado" % floor_number
-		if layout.theme.is_empty() or not (layout.theme["floor"] is Color) or layout.biome.is_empty() or not MapGen.STYLES.has(layout.style):
+		if layout.theme.is_empty() or not (layout.theme["floor"] is Color) or layout.biome.is_empty() or not (MapGen.STYLES.has(layout.style) or layout.style == "authored"):
 			ok = false
 			reason = "piso %d: tema, bioma o estilo incompletos" % floor_number
 	_check(ok, "los pisos de muestra cumplen los invariantes (%s)" % reason)

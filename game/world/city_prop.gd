@@ -34,6 +34,7 @@ const CAMP_PROPS := {
 	"camp_armory": [Rect2(0, 53, 20, 18), Vector2(10, 17), 2.2],
 	"camp_banner": [Rect2(33, 0, 14, 32), Vector2(4, 31), 2.2],
 	"camp_watchtower": [Rect2(0, 0, 32, 52), Vector2(16, 51), 2.2],
+	"camp_palisade": [Rect2(83, 0, 16, 26), Vector2(8, 25), 2.2],
 }
 const FLOWER_COLORS: Array[Color] = [Color(0.95, 0.35, 0.45), Color(0.98, 0.85, 0.35), Color(0.95, 0.95, 0.98), Color(0.7, 0.5, 0.95), Color(0.98, 0.6, 0.3)]
 

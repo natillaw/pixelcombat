@@ -34,6 +34,9 @@ class Ctx extends RefCounted:
 	## Misiones del piso (specs) mientras se genera; las usa la aldea para saber si hay interrogatorio.
 	var specs: Array = []
 	var floor_number: int = 1
+	## Puntos de diseno de un piso a mano (clave -> [Vector2]) y los ya usados (clave -> [indices]).
+	var anchors: Dictionary = {}
+	var anchor_used: Dictionary = {}
 	var placed: Array = []
 	var camp_counter: int = 0
 	## Si es true los enemigos ambientales cuentan para completar el piso (mision "clear").
@@ -55,6 +58,7 @@ static func populate(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumb
 	ctx.rng = rng
 	ctx.tier_data = tier_data
 	ctx.floor_number = floor_number
+	ctx.anchors = layout.authored_anchors
 	ctx.tier = layout.tier
 	ctx.placed = [analysis.spawn_position(), analysis.exit_position()]
 
@@ -363,7 +367,12 @@ static func add_campfire(layout: FloorLayout, analysis: MapAnalysis, rng: Random
 	var avoid: Array = []
 	for object: Dictionary in layout.interactables:
 		avoid.append(object["position"])
-	var point: Variant = analysis.pick_spot(rng, 0.35, 0.6, 2, avoid, 260.0)
+	var point: Variant = null
+	var designed: Array = layout.authored_anchors.get("campfire", [])
+	if not designed.is_empty():
+		point = designed[rng.randi_range(0, designed.size() - 1)]      # piso a mano: hogueras donde se disenaron
+	if point == null:
+		point = analysis.pick_spot(rng, 0.35, 0.6, 2, avoid, 260.0)
 	if point == null:
 		point = analysis.pick_spot(rng, 0.2, 0.8, 1, [], 0.0)
 	if point == null:
@@ -387,11 +396,40 @@ static func add_wandering_elite(layout: FloorLayout, analysis: MapAnalysis, rng:
 	layout.enemies.append(spec)
 
 
-static func _spot(ctx: Ctx, t_min: float, t_max: float, clearance: int, spacing: float) -> Vector2:
+## Siguiente punto de diseno de `key` (piso a mano): entre los candidatos sin usar elige uno (variacion por visita).
+## Vector2.INF si no hay ancla de esa clave o ya se usaron todas.
+static func _anchor(ctx: Ctx, key: String) -> Vector2:
+	if key == "" or not ctx.anchors.has(key):
+		return Vector2.INF
+	var points: Array = ctx.anchors[key]
+	var used: Array = ctx.anchor_used.get(key, [])
+	var free: Array = []
+	for i: int in range(points.size()):
+		if not used.has(i):
+			free.append(i)
+	if free.is_empty():
+		return Vector2.INF
+	var pick: int = int(free[ctx.rng.randi_range(0, free.size() - 1)]) if free.size() > 1 else int(free[0])
+	used.append(pick)
+	ctx.anchor_used[key] = used
+	return points[pick]
+
+
+static func _spot(ctx: Ctx, t_min: float, t_max: float, clearance: int, spacing: float, key: String = "") -> Vector2:
+	var fixed := _anchor(ctx, key)
+	if fixed != Vector2.INF:
+		ctx.placed.append(fixed)
+		return fixed
 	var point: Variant = null
 	var wanted := clearance
 	while point == null and wanted >= 1:
 		point = ctx.analysis.pick_spot(ctx.rng, t_min, t_max, wanted, ctx.placed, spacing)
+		# Piso a mano con aldea: los sorteos no caen cerca de ella (es un refugio).
+		var village: Array = ctx.anchors.get("village", [])
+		var tries := 0
+		while point != null and not village.is_empty() and (point as Vector2).distance_to(village[0]) < VillageGen.SAFE_RADIUS + 80.0 and tries < 12:
+			point = ctx.analysis.pick_spot(ctx.rng, t_min, t_max, wanted, ctx.placed, spacing)
+			tries += 1
 		wanted -= 1
 	if point == null:
 		point = ctx.analysis.spawn_position()
@@ -488,7 +526,7 @@ static func _place_hunt(ctx: Ctx, spec: Dictionary, group: String, with_guards: 
 	var count := int(spec["target"])
 	for i: int in range(count):
 		var t_min := 0.35 + 0.5 * float(i) / float(count)
-		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.4), 2, 420.0)
+		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.4), 2, 420.0, "hunt")
 		# Un elite es un enemigo del pool reforzado.
 		_add_enemy(ctx, _pick_enemy(ctx, String(spec.get("target_prefix", ""))), spot, false, group, {"elite": true})
 		if with_guards:
@@ -499,7 +537,7 @@ static func _place_nests(ctx: Ctx, spec: Dictionary) -> void:
 	var count := int(spec["target"])
 	for i: int in range(count):
 		var t_min := 0.3 + 0.55 * float(i) / float(count)
-		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.4), 3, 380.0)
+		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.4), 3, 380.0, "nest")
 		_add_enemy(ctx, String(spec.get("target_enemy", ctx.tier_data["nest"])), spot, false, "nest")
 		_guard(ctx, spot, 2)
 
@@ -509,14 +547,14 @@ static func _place_slay(ctx: Ctx, spec: Dictionary) -> void:
 	var needed := int(spec["target"]) + 3
 	var packs := int(ceil(float(needed) / 3.0))
 	for i: int in range(packs):
-		var spot := _spot(ctx, 0.15 + 0.8 * float(i) / float(maxi(packs, 1)), 1.0, 2, 220.0)
+		var spot := _spot(ctx, 0.15 + 0.8 * float(i) / float(maxi(packs, 1)), 1.0, 2, 220.0, "slay_pack")
 		_camp(ctx, spot, 3, false, "slay_pack", [enemy_id])
 
 
 static func _place_collect(ctx: Ctx, spec: Dictionary) -> void:
 	var nodes := int(ceil(float(int(spec["target"])) / float(ResourceNode.RICH_YIELD))) + 1
 	for i: int in range(nodes):
-		var spot := _spot(ctx, 0.08, 1.0, 1, 170.0)
+		var spot := _spot(ctx, 0.08, 1.0, 1, 170.0, "resource_rich")
 		ctx.layout.resources.append({"kind": String(spec["material_kind"]), "position": spot, "rich": true})
 	# Cada tres vetas, una patrulla cerca para que no sea un paseo.
 	for i: int in range(maxi(1, nodes / 3)):
@@ -530,7 +568,7 @@ static func _place_interactables(ctx: Ctx, spec: Dictionary, kind: String, t_lo:
 	for i: int in range(count):
 		var t_min := t_lo + (t_hi - t_lo) * float(i) / float(count)
 		var t_max := t_lo + (t_hi - t_lo) * float(i + 1) / float(count)
-		var spot := _spot(ctx, t_min, t_max, 2, 300.0)
+		var spot := _spot(ctx, t_min, t_max, 2, 300.0, kind)
 		var object := {"kind": kind, "position": spot, "group": String(spec["group"]), "channel": float(spec.get("channel", 2.5)), "label": _label(kind)}
 		var clues: Array = spec.get("clues", [])
 		if not clues.is_empty():
@@ -567,12 +605,12 @@ static func _place_waypoints(ctx: Ctx, spec: Dictionary) -> void:
 	var count := int(spec["target"])
 	for i: int in range(count):
 		var t_min := 0.18 + 0.82 * float(i) / float(count)
-		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.82 / float(count)), 2, 380.0)
+		var spot := _spot(ctx, t_min, minf(1.0, t_min + 0.82 / float(count)), 2, 380.0, "waypoint")
 		ctx.layout.interactables.append({"kind": "waypoint", "position": spot, "group": "waypoint", "channel": 0.0, "label": "Baliza"})
 
 
 static func _place_survive(ctx: Ctx, spec: Dictionary) -> void:
-	var spot := _spot(ctx, 0.4, 0.8, 4, 360.0)
+	var spot := _spot(ctx, 0.4, 0.8, 4, 360.0, "beacon")
 	spec["radius"] = 250.0
 	spec["wave_size"] = 3 + ctx.tier / 2 + (1 if int(spec["seconds"]) > 75 else 0)
 	spec["wave_interval"] = 11.0
@@ -583,11 +621,11 @@ static func _place_survive(ctx: Ctx, spec: Dictionary) -> void:
 
 
 static func _place_relic(ctx: Ctx, spec: Dictionary) -> void:
-	var relic_spot := _spot(ctx, 0.6, 0.96, 3, 400.0)
+	var relic_spot := _spot(ctx, 0.6, 0.96, 3, 400.0, "relic")
 	ctx.layout.interactables.append({"kind": "relic", "position": relic_spot, "group": "relic", "channel": 2.0, "label": _label("relic")})
 	_add_enemy(ctx, _pick_enemy(ctx), relic_spot, false, "relic_guard", {"elite": true})
 	_guard(ctx, relic_spot, 3)
-	var altar_spot := _spot(ctx, 0.08, 0.3, 2, 300.0)
+	var altar_spot := _spot(ctx, 0.08, 0.3, 2, 300.0, "relic_altar")
 	ctx.layout.interactables.append({"kind": "relic_altar", "position": altar_spot, "group": "relic_altar", "channel": 2.0, "requires": "relic", "label": _label("relic_altar")})
 
 
@@ -595,7 +633,7 @@ static func _place_relic(ctx: Ctx, spec: Dictionary) -> void:
 static func _place_mini_bosses(ctx: Ctx, _spec: Dictionary) -> void:
 	var ids := [String(ctx.tier_data["mid_boss"]), String(ctx.tier_data["mid_boss_2"])]
 	for i: int in range(2):
-		var spot := _spot(ctx, 0.5 + 0.2 * float(i), 1.0, 4, 650.0)
+		var spot := _spot(ctx, 0.5 + 0.2 * float(i), 1.0, 4, 650.0, "mini_boss")
 		_add_enemy(ctx, ids[i], spot, true, "mini")
 		var adds: Array = ctx.tier_data["adds"]
 		for k: int in range(2):
@@ -605,7 +643,7 @@ static func _place_mini_bosses(ctx: Ctx, _spec: Dictionary) -> void:
 ## El jefe del piso x10: reforzado y, segun la prueba, protegido (escudo) o diferido.
 static func _place_boss(ctx: Ctx, _spec: Dictionary, shielded: bool, deferred: bool) -> void:
 	var boost: Array = MissionCatalog.config("spike_boss")["boss_boost"]
-	var spot := _spot(ctx, 0.82, 1.0, 5, 500.0)
+	var spot := _spot(ctx, 0.82, 1.0, 5, 500.0, "boss")
 	var spec := {"id": StringName(String(ctx.tier_data["boss"])), "position": spot, "required": true, "group": "boss", "boost": [float(boost[0]), float(boost[1])], "invulnerable": shielded}
 	if deferred:
 		ctx.layout.deferred_enemies.append(spec)
@@ -632,10 +670,12 @@ static func _add_features(ctx: Ctx) -> void:
 	ctx.rng = frng
 	var hazards: Dictionary = features.get("hazards", {})
 	for kind: String in hazards:
-		if frng.randf() >= float(features.get("hazard_chance", 1.0)):
+		var designed: bool = ctx.anchors.has("hazard_" + kind)
+		if not designed and frng.randf() >= float(features.get("hazard_chance", 1.0)):
 			continue                                # este tipo de peligro no sale en este piso
-		for i: int in range(int(hazards[kind])):
-			var at := _spot(ctx, 0.12, 0.95, 2, 200.0)
+		# Piso a mano: un peligro en cada ancla (asi el alijo "junto a las trampas" siempre las tiene cerca).
+		for i: int in range((ctx.anchors["hazard_" + kind] as Array).size() if designed else int(hazards[kind])):
+			var at := _spot(ctx, 0.12, 0.95, 2, 200.0, "hazard_" + kind)
 			ctx.layout.hazards.append({"kind": kind, "position": at, "radius": HazardCatalog.roll_radius(kind, frng)})
 	_add_discoveries(ctx, features, frng)
 	var wants_witnesses := false
@@ -656,7 +696,11 @@ static func _place_hero_caches(ctx: Ctx, frng: RandomNumberGenerator) -> void:
 			continue
 		var where := String(entry["hint"]["where"])
 		var layout := ctx.layout
-		var spot := Vector2.INF
+		var spot := _anchor(ctx, "cache_" + String(entry["id"]))      # piso a mano: sitio disenado
+		if spot != Vector2.INF:
+			layout.interactables.append({"kind": "cache", "position": spot, "group": "", "channel": 1.5, "label": String((entry["cache"] as Dictionary)["label"]), "hero": String(entry["id"]), "where": where,
+				"effects": [{"type": "item", "key": "chest_iron"}, {"type": "gold", "per_floor": 10}, {"type": "flag", "id": String(entry["found_flag"])}, {"type": "message", "text": String((entry["cache"] as Dictionary)["note"])}]})
+			continue
 		if where == "camp":
 			var camps: Array = layout.camps.filter(func(c: Dictionary) -> bool: return String(c["kind"]) == "camp")
 			if not camps.is_empty():
@@ -684,34 +728,35 @@ static func _add_discoveries(ctx: Ctx, features: Dictionary, frng: RandomNumberG
 		var pick := frng.randi_range(0, notes.size() - 1)
 		var note: Dictionary = notes[pick]
 		notes.remove_at(pick)
-		layout.interactables.append({"kind": "note", "position": _spot(ctx, 0.1, 0.95, 1, 180.0), "group": "", "channel": 0.8, "label": "Nota: %s" % note["title"], "effects": [{"type": "note", "id": note["id"]}], "text": String(note["text"])})
+		layout.interactables.append({"kind": "note", "position": _spot(ctx, 0.1, 0.95, 1, 180.0, "note"), "group": "", "channel": 0.8, "label": "Nota: %s" % note["title"], "effects": [{"type": "note", "id": note["id"]}], "text": String(note["text"])})
 	# Eventos con decision: las opciones van juntas y al usar una se cierran las otras.
 	var events := EventCatalog.events_for_floor(floor_number)
 	for index: int in range(mini(int(features.get("events", 0)), events.size())):
 		var pick_event := frng.randi_range(0, events.size() - 1)
 		var event: Dictionary = events[pick_event]
 		events.remove_at(pick_event)
-		var center := _spot(ctx, 0.2, 0.9, 2, 240.0)
+		var center := _spot(ctx, 0.2, 0.9, 2, 240.0, "event")
 		var options: Array = event["options"]
 		for option_index: int in range(options.size()):
 			var option: Dictionary = options[option_index]
 			var offset := Vector2((float(option_index) - (float(options.size()) - 1.0) * 0.5) * 52.0, 0.0)
-			layout.interactables.append({"kind": "event_option", "position": center + offset, "group": "", "channel": 1.0, "label": "%s: %s" % [event["title"], option["label"]], "effects": option["effects"], "exclusive": "event_%d_%d" % [floor_number, index], "text": String(event["title"])})
+			var option_at := _open_or_near(ctx, center + offset, center, frng)
+			layout.interactables.append({"kind": "event_option", "position": option_at, "group": "", "channel": 1.0, "label": "%s: %s" % [event["title"], option["label"]], "effects": option["effects"], "exclusive": "event_%d_%d" % [floor_number, index], "text": String(event["title"])})
 	# Cofres.
 	var chests: Dictionary = features.get("chests", {})
 	for i: int in range(int(chests.get("wood", 0))):
-		layout.interactables.append({"kind": "chest", "tier": "wood", "position": _spot(ctx, 0.1, 0.95, 1, 200.0), "group": "", "channel": 1.0, "label": "Cofre de madera", "effects": [{"type": "item", "key": "chest_wood"}, {"type": "gold", "per_floor": 4}]})
+		layout.interactables.append({"kind": "chest", "tier": "wood", "position": _spot(ctx, 0.1, 0.95, 1, 200.0, "chest_wood"), "group": "", "channel": 1.0, "label": "Cofre de madera", "effects": [{"type": "item", "key": "chest_wood"}, {"type": "gold", "per_floor": 4}]})
 	for i: int in range(int(chests.get("iron", 0))):
-		var spot := _spot(ctx, 0.3, 0.95, 2, 260.0)
+		var spot := _spot(ctx, 0.3, 0.95, 2, 260.0, "chest_iron")
 		layout.interactables.append({"kind": "chest", "tier": "iron", "position": spot, "group": "", "channel": 1.2, "label": "Cofre de hierro", "effects": [{"type": "item", "key": "chest_iron"}, {"type": "gold", "per_floor": 8}]})
 		_guard(ctx, spot, 2)
 	# Camara sellada: llave oxidada custodiada por un elite + cofre dorado lejos.
 	if bool(features.get("vault", false)):
-		var key_spot := _spot(ctx, 0.3, 0.8, 2, 260.0)
+		var key_spot := _spot(ctx, 0.3, 0.8, 2, 260.0, "key")
 		layout.interactables.append({"kind": "key", "position": key_spot, "group": "", "channel": 1.0, "label": "Llave oxidada", "effects": [{"type": "key"}, {"type": "message", "text": "Una llave pesada. Debe abrir una camara sellada de este piso."}]})
 		_add_enemy(ctx, _pick_enemy(ctx), key_spot, false, "key_guard", {"elite": true})
 		_guard(ctx, key_spot, 2)
-		layout.interactables.append({"kind": "vault", "tier": "gold", "position": _spot(ctx, 0.5, 0.95, 2, 260.0), "group": "", "channel": 2.0, "requires": "key", "label": "Camara sellada (necesita llave)", "effects": [{"type": "item", "key": "chest_vault"}, {"type": "item", "key": "chest_iron"}, {"type": "gold", "per_floor": 20}]})
+		layout.interactables.append({"kind": "vault", "tier": "gold", "position": _spot(ctx, 0.5, 0.95, 2, 260.0, "vault"), "group": "", "channel": 2.0, "requires": "key", "label": "Camara sellada (necesita llave)", "effects": [{"type": "item", "key": "chest_vault"}, {"type": "item", "key": "chest_iron"}, {"type": "gold", "per_floor": 20}]})
 
 
 static func _add_ambient(ctx: Ctx) -> void:
@@ -725,12 +770,18 @@ static func _add_ambient(ctx: Ctx) -> void:
 		size_range = by_floor[str(ctx.layout.floor_number)]
 	var drng := RandomNumberGenerator.new()
 	drng.seed = hash([int(ctx.rng.seed), ctx.layout.floor_number, "camps"])
+	# Piso a mano: los campamentos y patrullas salen de las anclas "camp" y "pack".
+	var authored := ctx.anchors.has("camp") or ctx.anchors.has("pack")
+	var camp_anchors := (ctx.anchors.get("camp", []) as Array).size()
+	if authored:
+		camps = camp_anchors + (ctx.anchors.get("pack", []) as Array).size()
 	for i: int in range(camps):
-		var spot := _spot(ctx, 0.14, 1.0, 2, float(camps_cfg["spacing"]))
+		var pack_slot := authored and i >= camp_anchors
+		var spot := _spot(ctx, 0.14, 1.0, 2, float(camps_cfg["spacing"]), ("pack" if pack_slot else "camp") if authored else "")
 		var size := ctx.rng.randi_range(int(size_range[0]), int(size_range[1])) + (ctx.tier - 1) / 3
 		var group := "camp_%d" % ctx.camp_counter
 		var first := ctx.layout.enemies.size()
-		var is_pack := ctx.layout.floor_number >= 2 and drng.randf() < float(camps_cfg.get("patrol_pack_chance", 0.0))
+		var is_pack := pack_slot if authored else (ctx.layout.floor_number >= 2 and drng.randf() < float(camps_cfg.get("patrol_pack_chance", 0.0)))
 		_camp(ctx, spot, mini(2 + drng.randi_range(0, 1), mini(size, 6)) if is_pack else mini(size, 6), ctx.ambient_required, group)
 		if is_pack:
 			_make_patrol_pack(ctx, first, group)
@@ -741,7 +792,7 @@ static func _add_ambient(ctx: Ctx) -> void:
 	var node_count := clampi(reach / int(nodes_cfg["cells_per_node"]), int(nodes_cfg["min"]), int(nodes_cfg["max"]))
 	var kinds := MaterialCatalog.gatherable_kinds()
 	for i: int in range(node_count):
-		var spot := _spot(ctx, 0.05, 1.0, 1, 130.0)
+		var spot := _spot(ctx, 0.05, 1.0, 1, 130.0, "resource")
 		ctx.layout.resources.append({"kind": String(kinds[ctx.rng.randi_range(0, kinds.size() - 1)]), "position": spot})
 
 
@@ -797,7 +848,9 @@ static func _build_camp(ctx: Ctx, first: int, center: Vector2, group: String, cf
 			for i: int in range(1 + drng.randi_range(0, 1)):
 				var spot := _free_ring_point(ctx, center, 56.0, 96.0, drng)
 				if spot != Vector2.INF:
-					_add_enemy(ctx, id, spot, false, "prop")
+					var barrel := _add_enemy(ctx, id, spot, false, "prop")
+					if (barrel["position"] as Vector2).distance_to(center) > 200.0:
+						layout.enemies.erase(barrel)           # el hueco libre quedaba lejos del campamento: sin barril
 	# Comportamientos.
 	var sleepers := 0
 	for index: int in range(first, layout.enemies.size()):
@@ -813,6 +866,15 @@ static func _build_camp(ctx: Ctx, first: int, center: Vector2, group: String, cf
 			spec["behavior"] = "patrol"
 			spec["patrol_radius"] = 120.0
 	layout.camps.append({"position": center, "group": group, "kind": "camp", "size": size, "sleepers": sleepers})
+
+
+## `point` si es andable; si no, un punto libre cerca de `center` (las opciones de un evento no pueden caer en un muro).
+static func _open_or_near(ctx: Ctx, point: Vector2, center: Vector2, frng: RandomNumberGenerator) -> Vector2:
+	var cell := ctx.analysis.cell_at(point)
+	if ctx.analysis.grid.in_bounds(cell.x, cell.y) and ctx.analysis.dist[cell.y * ctx.analysis.grid.cols + cell.x] >= 0 and ctx.analysis.clearance_at(cell) >= 1:
+		return point
+	var near := _free_ring_point(ctx, center, 24.0, 60.0, frng)
+	return near if near != Vector2.INF else center
 
 
 ## Punto libre (andable, con holgura) en un anillo alrededor de `center`, o Vector2.INF si no hay.

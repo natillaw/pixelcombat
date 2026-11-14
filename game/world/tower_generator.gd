@@ -34,9 +34,17 @@ static func generate(floor_number: int, world_seed: int, visit: int = 1, forced:
 	layout.biome = TowerCatalog.biome(tier_number)
 	layout.enemy_scale = TowerCatalog.enemy_scale(floor_number)
 
-	layout.style = _pick_style(terrain_rng, TowerCatalog.styles(tier_number))
-	var size := MapGen.map_size(floor_number, terrain_rng)
-	var analysis := MapGen.build(layout.style, size.x, size.y, terrain_rng)
+	var analysis: MapAnalysis
+	if AuthoredFloor.has(floor_number):
+		# Piso hecho a mano: el terreno y los puntos de diseno salen de data/floors/.
+		layout.style = "authored"
+		analysis = AuthoredFloor.build(floor_number)
+		layout.authored_anchors = AuthoredFloor.anchors(floor_number, analysis.grid)
+		layout.props.append_array(AuthoredFloor.props(floor_number, analysis.grid))
+	else:
+		layout.style = _pick_style(terrain_rng, TowerCatalog.styles(tier_number))
+		var size := MapGen.map_size(floor_number, terrain_rng)
+		analysis = MapGen.build(layout.style, size.x, size.y, terrain_rng)
 	layout.grid = analysis.grid
 	layout.wall_margin = TowerCatalog.biome_wall_margin(layout.biome)
 	layout.size = analysis.grid.pixel_size()

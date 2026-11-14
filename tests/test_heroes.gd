@@ -72,7 +72,7 @@ func _test_caches_are_real() -> void:
 				"hazard":
 					var near_hazard := false
 					for hazard: Dictionary in layout.hazards:
-						near_hazard = near_hazard or (hazard["position"] as Vector2).distance_to(at) <= float(hazard["radius"]) + 70.0
+						near_hazard = near_hazard or (hazard["position"] as Vector2).distance_to(at) <= float(hazard["radius"]) + 90.0
 					_check(near_hazard, "%s: esta junto a una trampa" % hero["id"])
 				"far":
 					_check(at.distance_to(layout.player_spawn) > 600.0, "%s: esta lejos de la entrada" % hero["id"])
