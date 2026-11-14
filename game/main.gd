@@ -257,6 +257,7 @@ func _read_input() -> InputMessage:
 		"special": Input.is_action_pressed("special"),
 		"quick_health": Input.is_action_pressed("quick_health"),
 		"quick_resource": Input.is_action_pressed("quick_resource"),
+		"quick_food": Input.is_action_pressed("quick_food"),
 		"debug_level_up": Input.is_action_pressed("debug_level_up"),
 		"debug_level_reset": Input.is_action_pressed("debug_level_reset"),
 		"debug_class_next": Input.is_action_pressed("debug_class_next"),

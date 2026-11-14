@@ -47,7 +47,7 @@ La primera vez, o tras cambiar muchos assets, importa:
 | Q / E / R | Skills 1-3 (se desbloquean por nivel; el resto de skills se aprenden con libros) |
 | X | Special (postura o mejora de la clase) |
 | F | Ultimate (necesita la barra al 100 %) |
-| 1 / 2 | Poción de vida / elixir de recurso |
+| 1 / 2 / 3 | Poción de vida / elixir de recurso / comida (la mejor que lleves) |
 | G | Interactuar con el teclado (lo mismo que el clic izquierdo cerca de un objeto) |
 | I / C / Tab | Inventario / ficha de personaje / libro de skills |
 | , / . | En la ciudad, elegir el piso de la torre (hasta el más alto desbloqueado) |

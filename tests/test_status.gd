@@ -43,7 +43,7 @@ func _run() -> void:
 func _test_catalog() -> void:
 	for error: String in StatusCatalog.errors():
 		print("   error de carga: %s" % error)
-	_check(StatusCatalog.errors().is_empty() and StatusCatalog.all_ids() == ["stun", "slow", "poison", "bleed", "silence", "shield", "knockback", "fed", "might", "haste", "warcry", "pull", "stealth", "vanish", "concealed", "backstab", "disarm", "stagger", "burn", "surge", "manashield"], "data/statuses.json carga con los veintiun estados")
+	_check(StatusCatalog.errors().is_empty() and StatusCatalog.all_ids() == ["stun", "slow", "poison", "bleed", "silence", "shield", "knockback", "fed", "might", "haste", "warcry", "pull", "stealth", "vanish", "concealed", "backstab", "disarm", "stagger", "burn", "surge", "manashield", "curse", "mend"], "data/statuses.json carga con los veintitres estados")
 	_check(StatusCatalog.validate_on_hit([{"id": "stun", "duration": 0.5}]).is_empty(), "un stun solo necesita duracion")
 	_check(not StatusCatalog.validate_on_hit([{"id": "slow", "duration": 2.0}]).is_empty(), "un slow sin strength se rechaza")
 	_check(not StatusCatalog.validate_on_hit([{"id": "poison", "duration": 2.0}]).is_empty(), "un veneno sin strength se rechaza")

@@ -309,16 +309,16 @@ func _draw_abilities(warrior: PlayerSim) -> void:
 ## Barra de objetos (teclas 1-5) sobre la de habilidades: 1 pocion de vida, 2 elixir de energia y 3-5 para los
 ## gadgets que se anadiran mas adelante. Muestra tecla, cantidad y enfriamiento.
 func _draw_quick_items(player: PlayerSim) -> void:
-	var quick_kinds := ["health", "resource"]
+	var quick_kinds := ["health", "resource", "food"]
 	var cell := 30.0
 	var gap := 3.0
 	var left := (640.0 - (5.0 * cell + 4.0 * gap)) * 0.5
 	for index: int in range(5):
 		var rect := Rect2(left + float(index) * (cell + gap), SLOT_Y - 26.0, cell, 22.0)
 		UiStyle.draw_slot_bg(self, rect)
-		var action := "item_%d" % (index + 1) if index >= 2 else ("quick_" + String(quick_kinds[index]))
+		var action := "item_%d" % (index + 1) if index >= 3 else ("quick_" + String(quick_kinds[index]))
 		_draw_text(Settings.short_label(action), rect.position + Vector2(3, 8), 7, MUTED)
-		if index >= 2:
+		if index >= 3:
 			continue
 		var quick: String = quick_kinds[index]
 		var total := 0

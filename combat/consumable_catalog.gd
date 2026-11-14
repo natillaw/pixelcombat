@@ -5,13 +5,13 @@
 ## taberna: {cost: {tipo de material: n}, gold}).
 ##   effect de pocion: heal_pct (fraccion de la vida maxima) y/o resource_pct (del recurso)
 ##   effect de comida: {status, duration, strength} (fed, might o haste; ver data/statuses.json)
-##   quick (opcional): "health" | "resource" -> la tecla rapida de ese tipo la usa
+##   quick (opcional): "health" | "resource" | "food" -> la tecla rapida de ese tipo la usa
 class_name ConsumableCatalog
 extends RefCounted
 
 const PATH := "res://data/consumables.json"
 const KINDS := ["potion", "food", "book"]
-const FOOD_STATUSES := ["fed", "might", "haste"]
+const FOOD_STATUSES := ["fed", "might", "haste", "mend"]
 
 static var _data: Dictionary = {}
 static var _errors: Array[String] = []

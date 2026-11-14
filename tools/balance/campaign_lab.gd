@@ -124,7 +124,7 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 			on_row.call(row)
 		if not bool(row["completed"]):
 			break
-	PlayerSim.regen_per_second = 0.015
+	PlayerSim.regen_per_second = 0.0
 	return rows
 
 

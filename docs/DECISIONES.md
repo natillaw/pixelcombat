@@ -197,3 +197,8 @@ Todo es de datos (`data/floor_features.json` dice que lleva cada piso; el **piso
 - **Afijos de elite** (Veloz, Escudado, Explosivo, Venenoso): el ~70 % de los elites de los pisos 2-9, elegidos por posicion (sin RNG); etiqueta sobre el enemigo.
 - **Oscuridad** (`darkness` por piso: 6 = 0,15; 7 = 0,45): vineta mas cerrada via shader. El bot de pruebas no toma las decisiones de los eventos.
 - Pruebas: `test_environment`, `test_discoveries`, `test_floor_modifiers`. Captura: `tests/capture_environment.tscn`.
+
+## Sin regeneracion natural de vida (14 nov 2026)
+- `PlayerSim.regen_per_second` pasa de 0,015 a **0**: la vida no se recupera sola. Se recupera **descansando** (aldea y taberna, vida completa), **comiendo** (comida de la taberna que se lleva en el inventario y se come dentro del piso, tecla **3**), con **pociones** (tecla 1) o con **fogatas** de los pisos (35 % una vez).
+- Comida nueva de combate: **Racion de viaje** (30 % en 10 s) y **Asado del camino** (40 % en 8 s), estado `mend` (cura tambien peleando). El **Pan de hierbas** (`fed`) sigue curando 1,2 %/s fuera de combate durante 10 min.
+- Impacto en balance: el bot de campaña ya jugaba con regen 0, asi que sus mediciones no cambian; para el jugador humano los pisos son mas duros (hay que gestionar recursos). Revisar con el playtest.

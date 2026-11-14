@@ -15,7 +15,7 @@ const REMAPPABLE := [
 	["move_up", "Mover arriba"], ["move_down", "Mover abajo"], ["move_left", "Mover izquierda"], ["move_right", "Mover derecha"],
 	["attack_m1", "Interactuar (clic)"], ["attack_m2", "Ataque basico (clic)"], ["dodge", "Defensa / movilidad"],
 	["skill_1", "Skill 1"], ["skill_2", "Skill 2"], ["skill_3", "Skill 3"], ["special", "Special"], ["ultimate", "Ultimate"],
-	["quick_health", "Objeto 1 (pocion)"], ["quick_resource", "Objeto 2 (elixir)"], ["interact", "Interactuar (tecla)"], ["toggle_inventory", "Inventario"], ["toggle_character", "Personaje"], ["toggle_loadout", "Libro de skills"],
+	["quick_health", "Objeto 1 (pocion)"], ["quick_resource", "Objeto 2 (elixir)"], ["quick_food", "Objeto 3 (comida)"], ["interact", "Interactuar (tecla)"], ["toggle_inventory", "Inventario"], ["toggle_character", "Personaje"], ["toggle_loadout", "Libro de skills"],
 ]
 
 static var master: float = 0.8

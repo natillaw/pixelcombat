@@ -122,7 +122,21 @@ func _test_food_effects() -> void:
 	player.health = player.max_health * 0.5
 	var before := player.health
 	_step(world, 60 * 12)
-	_check(player.health > before + player.max_health * 0.15, "el pan acelera la regeneracion fuera de combate (%.0f -> %.0f)" % [before, player.health])
+	_check(player.health > before + player.max_health * 0.07, "el pan regenera vida fuera de combate (%.0f -> %.0f)" % [before, player.health])
+	# Sin comida la vida no se recupera sola.
+	var lazy: CombatWorld = CombatWorldScript.new(31)
+	lazy.player.health = lazy.player.max_health * 0.5
+	var lazy_before: float = lazy.player.health
+	_step(lazy, 60 * 20)
+	_check(lazy.player.health == lazy_before, "sin comida la vida no se regenera sola")
+	# Comida de combate: la racion cura tambien peleando.
+	var fed: CombatWorld = CombatWorldScript.new(32)
+	fed.player.add_consumable("travel_ration", 1)
+	fed.player.health = fed.player.max_health * 0.4
+	var fed_before: float = fed.player.health
+	_check(fed.player.use_quick("food") == "" and fed.player.statuses.has("mend"), "la tecla de comida come la racion")
+	_step(fed, 60 * 10)
+	_check(fed.player.health > fed_before + fed.player.max_health * 0.25, "la racion cura ~30 %% en 10 s (%.0f -> %.0f)" % [fed_before, fed.player.health])
 	player.reset()
 	_check(player.statuses.has("might") and player.statuses.has("haste") and player.statuses.has("fed"), "la comida dura aunque cambies de piso")
 	player.statuses.clear()

@@ -29,7 +29,7 @@ const DummySimScript := preload("res://game/sim/dummy_sim.gd")
 
 const DEFAULT_BOUNDS := Rect2(0, 0, 960, 640)
 ## Fraccion de la vida maxima que cura una hoguera de descanso (una vez por hoguera).
-const CAMPFIRE_HEAL := 0.5
+const CAMPFIRE_HEAL := 0.35
 
 var tick: int = 0
 var rng: RandomNumberGenerator

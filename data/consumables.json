@@ -66,7 +66,7 @@
 			"id": "herb_bread",
 			"name": "Pan de hierbas",
 			"kind": "food",
-			"description": "Regenera vida mas rapido durante 10 minutos (+1,2 % de vida por segundo fuera de combate).",
+			"description": "Regenera vida durante 10 minutos (+1,2 % de vida por segundo, fuera de combate). La vida no se recupera sola: come, bebe o descansa.",
 			"effect": {
 				"status": "fed",
 				"duration": 600,
@@ -81,6 +81,49 @@
 				"gold": 4
 			},
 			"icon": "herb_bread"
+		},
+		{
+			"id": "travel_ration",
+			"name": "Racion de viaje",
+			"kind": "food",
+			"description": "Cura el 30 % de la vida en 10 segundos, tambien en combate. Se come con la tecla 3.",
+			"effect": {
+				"status": "mend",
+				"duration": 10,
+				"strength": 0.03
+			},
+			"price": 22,
+			"value": 8,
+			"cook": {
+				"cost": {
+					"herb": 1
+				},
+				"gold": 3
+			},
+			"quick": "food",
+			"icon": "herb_bread"
+		},
+		{
+			"id": "roast_meal",
+			"name": "Asado del camino",
+			"kind": "food",
+			"description": "Cura el 40 % de la vida en 8 segundos, tambien en combate. Se come con la tecla 3.",
+			"effect": {
+				"status": "mend",
+				"duration": 8,
+				"strength": 0.05
+			},
+			"price": 40,
+			"value": 14,
+			"cook": {
+				"cost": {
+					"hide": 2,
+					"herb": 1
+				},
+				"gold": 10
+			},
+			"quick": "food",
+			"icon": "hunters_stew"
 		},
 		{
 			"id": "hunters_stew",

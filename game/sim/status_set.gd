@@ -128,7 +128,7 @@ func active_ids() -> Array[String]:
 	return ids
 
 
-const FOOD_IDS := ["fed", "might", "haste"]
+const FOOD_IDS := ["fed", "might", "haste", "mend"]
 
 
 ## Quita todos los estados; con `keep_food` conserva la comida (fed, might, haste), que dura

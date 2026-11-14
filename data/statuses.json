@@ -325,6 +325,21 @@
 				0.85,
 				1.0
 			]
+		},
+		{
+			"id": "mend",
+			"name": "Recuperacion",
+			"kind": "buff",
+			"description": "Cura la vida poco a poco, tambien en combate (strength = fraccion de vida maxima por segundo).",
+			"max_duration": 60.0,
+			"max_strength": 0.12,
+			"immune_after": 0.0,
+			"color": [
+				0.45,
+				0.95,
+				0.55,
+				1.0
+			]
 		}
 	]
 }

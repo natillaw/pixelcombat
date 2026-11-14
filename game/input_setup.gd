@@ -33,7 +33,7 @@ const ACTIONS := {
 	"floor_next": [KEY_PERIOD],
 	"quick_health": [KEY_1],
 	"quick_resource": [KEY_2],
-	"item_3": [KEY_3],
+	"quick_food": [KEY_3],
 	"item_4": [KEY_4],
 	"item_5": [KEY_5],
 	"quit_game": [KEY_ESCAPE],

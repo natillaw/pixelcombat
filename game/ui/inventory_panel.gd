@@ -234,7 +234,7 @@ func _draw_materials(player: PlayerSim) -> void:
 	_text("MATERIALES  " + ("-" if parts.is_empty() else "   ".join(parts)), Vector2(EQUIP_X, 326), 7, MUTED, HORIZONTAL_ALIGNMENT_LEFT, 544)
 	var rects := _consumable_rects()
 	if rects.is_empty():
-		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource")], Vector2(EQUIP_X, 338), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
+		_text("Sin consumibles (taberna, mercader y botin). Teclas rapidas: %s vida, %s energia, %s comida" % [Settings.short_label("quick_health"), Settings.short_label("quick_resource"), Settings.short_label("quick_food")], Vector2(EQUIP_X, 338), 7, DIM, HORIZONTAL_ALIGNMENT_LEFT, 544)
 	for entry: Dictionary in rects:
 		var spec := ConsumableCatalog.item(String(entry["id"]))
 		var icon := SkillIcons.consumable(String(spec.get("icon", "")))

@@ -61,7 +61,9 @@ const FRICTION := 1900.0
 const BASE_HEALTH := 100.0
 ## Regeneracion de vida fuera de combate (fraccion de la vida maxima por segundo). 0 = sin
 ## regeneracion; la fija el laboratorio de campana para medir el efecto.
-static var regen_per_second: float = 0.015
+## Regeneracion natural de vida: 0 a proposito. La vida solo se recupera descansando en la aldea/taberna, con comida (estado fed/mend),
+## pociones o fogatas.
+static var regen_per_second: float = 0.0
 ## Segundos sin recibir dano para empezar a regenerar.
 const REGEN_DELAY := 5.0
 const HEALTH_PER_STAMINA := 10.0
@@ -640,7 +642,13 @@ func step(tick_number: int, delta: float, input: Object) -> void:
 
 
 func _update_regen(delta: float) -> void:
-	if (regen_per_second <= 0.0 and not statuses.has("fed")) or not alive or health >= max_health:
+	if not alive or health >= max_health:
+		return
+	var mend := statuses.strength("mend")
+	if mend > 0.0:
+		# Comida de combate (racion, asado): cura tambien peleando.
+		health = minf(max_health, health + max_health * mend * delta)
+	if regen_per_second <= 0.0 and not statuses.has("fed"):
 		return
 	if tick - last_combat_tick < int(REGEN_DELAY * 60.0):
 		return
@@ -683,7 +691,7 @@ func _read_input(input: Object, delta: float = 1.0 / 60.0) -> void:
 			buffered_slot = slot
 			buffer_timer = BUFFER_SECONDS
 		_slot_prev[slot] = pressed
-	for quick: String in ["quick_health", "quick_resource"]:
+	for quick: String in ["quick_health", "quick_resource", "quick_food"]:
 		var held := bool(_actions.get(quick, false))
 		if held and not bool(_slot_prev.get(quick, false)):
 			use_quick(quick.trim_prefix("quick_"))
