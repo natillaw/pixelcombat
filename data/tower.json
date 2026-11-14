@@ -127,6 +127,48 @@
 					"min_floor": 5,
 					"max_floor": 9,
 					"slay": false
+				},
+				{
+					"id": "web_spider",
+					"weight": 1,
+					"min_floor": 3,
+					"max_floor": 9,
+					"slay": false
+				},
+				{
+					"id": "bandit_sniper",
+					"weight": 3,
+					"min_floor": 4,
+					"max_floor": 9,
+					"slay": false
+				},
+				{
+					"id": "bandit_torchbearer",
+					"weight": 3,
+					"min_floor": 4,
+					"max_floor": 9,
+					"slay": false
+				},
+				{
+					"id": "ember_bat",
+					"weight": 1,
+					"min_floor": 5,
+					"max_floor": 9,
+					"slay": false
+				},
+				{
+					"id": "bandit_berserker",
+					"weight": 3,
+					"min_floor": 5,
+					"max_floor": 9,
+					"slay": false
+				},
+				{
+					"id": "stone_beetle",
+					"weight": 1,
+					"min_floor": 6,
+					"max_floor": 9,
+					"slay": false
 				}
 			],
 			"adds": [

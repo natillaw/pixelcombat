@@ -1041,6 +1041,192 @@
 					]
 				}
 			}
+		},
+		{
+			"id": "ember_bat",
+			"name": "Murcielago de brasas",
+			"tier": 1,
+			"role": "Picado incendiario",
+			"description": "Como el murcielago, pero deja brasas: su picado prende fuego. Sal de la linea que marca.",
+			"stats": {
+				"health": 60,
+				"speed": 104,
+				"radius": 9,
+				"damage": 14,
+				"armor": 0,
+				"xp": 22
+			},
+			"ai": {
+				"aggro_range": 250,
+				"leash": 1.6
+			},
+			"respawn_seconds": 8,
+			"sprite": {
+				"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/bat-32px_strip8.png",
+				"frame": 32,
+				"frames": 8,
+				"fps": 14,
+				"scale": 1.35,
+				"tint": [
+					1.0,
+					0.55,
+					0.3,
+					1.0
+				]
+			},
+			"attacks": [
+				{
+					"id": "ember_dive",
+					"shape": "line",
+					"range": 130,
+					"width": 24,
+					"windup": 0.55,
+					"active": 0.2,
+					"recovery": 0.8,
+					"cooldown": 2.2,
+					"damage_mult": 1.0,
+					"trigger_range": 120,
+					"dash_distance": 130,
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "burn",
+							"duration": 2.5,
+							"strength": 3.0
+						}
+					]
+				}
+			],
+			"materials": {
+				"hide": 0.7
+			},
+			"plural": "Murcielagos de brasas"
+		},
+		{
+			"id": "stone_beetle",
+			"name": "Escarabajo de piedra",
+			"tier": 1,
+			"role": "Tanque blindado",
+			"description": "Lento y casi invulnerable a los golpes flojos (mucha armadura). Aguanta, rodealo y castiga cuando falla su aplastamiento.",
+			"stats": {
+				"health": 210,
+				"speed": 40,
+				"radius": 13,
+				"damage": 20,
+				"armor": 45,
+				"xp": 40
+			},
+			"ai": {
+				"aggro_range": 190,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/beetle-32px_strip8.png",
+				"frame": 32,
+				"frames": 8,
+				"fps": 7,
+				"scale": 1.8,
+				"tint": [
+					0.65,
+					0.68,
+					0.75,
+					1.0
+				]
+			},
+			"attacks": [
+				{
+					"id": "stone_crush",
+					"shape": "cone",
+					"range": 50,
+					"arc": 100,
+					"windup": 1.0,
+					"active": 0.12,
+					"recovery": 0.9,
+					"cooldown": 2.8,
+					"damage_mult": 1.2,
+					"trigger_range": 44,
+					"weight": 1,
+					"on_hit": [
+						{
+							"id": "stun",
+							"duration": 0.4
+						}
+					]
+				}
+			],
+			"materials": {
+				"chitin": 0.0,
+				"hide": 0.4
+			},
+			"plural": "Escarabajos de piedra"
+		},
+		{
+			"id": "web_spider",
+			"name": "Arana tejedora",
+			"tier": 1,
+			"role": "Control a distancia",
+			"description": "Se mantiene lejos y lanza telarana que ralentiza. Cierra la distancia en zigzag.",
+			"stats": {
+				"health": 85,
+				"speed": 66,
+				"radius": 11,
+				"damage": 12,
+				"armor": 0,
+				"xp": 32
+			},
+			"ai": {
+				"aggro_range": 260,
+				"leash": 1.6,
+				"keep_distance": 130
+			},
+			"respawn_seconds": 8,
+			"sprite": {
+				"sheet": "res://assets/pixel/enemies/spritepilot_creatures/32px/spider-32px_strip12.png",
+				"frame": 32,
+				"frames": 12,
+				"fps": 10,
+				"scale": 1.5,
+				"tint": [
+					0.75,
+					0.55,
+					1.0,
+					1.0
+				]
+			},
+			"attacks": [
+				{
+					"id": "web_shot",
+					"shape": "projectile",
+					"windup": 0.8,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 3.0,
+					"damage_mult": 0.8,
+					"trigger_range": 250,
+					"weight": 1,
+					"projectile": {
+						"speed": 200,
+						"range": 290,
+						"radius": 8,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "wisp"
+					},
+					"on_hit": [
+						{
+							"id": "slow",
+							"duration": 2.5,
+							"strength": 0.45
+						}
+					]
+				}
+			],
+			"materials": {
+				"silk": 0.5
+			},
+			"plural": "Aranas tejedoras"
 		}
 	]
 }

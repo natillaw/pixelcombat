@@ -2373,6 +2373,364 @@
 					}
 				]
 			}
+		},
+		{
+			"id": "bandit_sniper",
+			"name": "Francotirador del Cuervo",
+			"tier": 1,
+			"role": "Tirador de largo alcance",
+			"description": "Se queda muy lejos y dispara un tiro certero cuyo carril marca con tiempo. Rompe su linea de vision o acercate en zigzag.",
+			"stats": {
+				"health": 70,
+				"speed": 50,
+				"radius": 11,
+				"damage": 22,
+				"armor": 0,
+				"xp": 46
+			},
+			"ai": {
+				"aggro_range": 330,
+				"leash": 1.5,
+				"keep_distance": 230
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "light",
+						"eyes": "gray",
+						"head": "head_human_male",
+						"hair": "hair_plain",
+						"hair_color": "black",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_longsleeve",
+							"tan"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"hood",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_bow",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "aimed_shot",
+					"shape": "projectile",
+					"windup": 1.15,
+					"active": 0.1,
+					"recovery": 0.8,
+					"cooldown": 3.6,
+					"damage_mult": 1.5,
+					"trigger_range": 330,
+					"weight": 1,
+					"anim": "shoot",
+					"projectile": {
+						"speed": 430,
+						"range": 460,
+						"radius": 6,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "arrow"
+					}
+				}
+			],
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"weapon",
+					"head",
+					"feet"
+				],
+				"items": [
+					{
+						"id": "hunter_crossbow",
+						"chance": 0.08
+					},
+					{
+						"id": "crow_hood",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.08
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.2
+			},
+			"plural": "Francotiradores del Cuervo"
+		},
+		{
+			"id": "bandit_berserker",
+			"name": "Frenetico del Cuervo",
+			"tier": 1,
+			"role": "Asaltante veloz",
+			"description": "Rapido y poco aguantador: golpea muy deprisa y se lanza sobre ti. Esquiva su carga y castiga cuando falla.",
+			"stats": {
+				"health": 125,
+				"speed": 82,
+				"radius": 12,
+				"damage": 15,
+				"armor": 0,
+				"xp": 42
+			},
+			"ai": {
+				"aggro_range": 230,
+				"leash": 1.6
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "male",
+						"skin": "olive",
+						"eyes": "brown",
+						"head": "head_human_male",
+						"hair": "hair_buzzcut",
+						"hair_color": "black",
+						"beard": "beard_trimmed"
+					},
+					"equipment": {
+						"chest": [
+							"shirt_sleeveless",
+							"charcoal"
+						],
+						"legs": [
+							"pants",
+							"brown"
+						],
+						"feet": [
+							"boots_basic",
+							"black"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_arming",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "frenzy",
+					"shape": "cone",
+					"range": 46,
+					"arc": 120,
+					"windup": 0.5,
+					"active": 0.1,
+					"recovery": 0.45,
+					"cooldown": 1.1,
+					"damage_mult": 0.7,
+					"trigger_range": 40,
+					"weight": 2,
+					"anim": "slash"
+				},
+				{
+					"id": "berserk_rush",
+					"shape": "line",
+					"range": 150,
+					"width": 26,
+					"windup": 0.55,
+					"active": 0.28,
+					"recovery": 0.8,
+					"cooldown": 4.5,
+					"damage_mult": 1.1,
+					"trigger_range": 140,
+					"dash_distance": 140,
+					"weight": 1,
+					"anim": "thrust"
+				}
+			],
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"weapon",
+					"chest"
+				],
+				"items": [
+					{
+						"id": "militia_mace",
+						"chance": 0.08
+					},
+					{
+						"id": "crow_vest",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_boots",
+						"chance": 0.06
+					}
+				]
+			},
+			"materials": {
+				"hide": 0.2
+			},
+			"plural": "Freneticos del Cuervo"
+		},
+		{
+			"id": "bandit_torchbearer",
+			"name": "Incendiario del Cuervo",
+			"tier": 1,
+			"role": "Fuego y zona",
+			"description": "Lanza antorchas que prenden el suelo y deja charcos de fuego. Rodea el fuego y ve a por el.",
+			"stats": {
+				"health": 95,
+				"speed": 60,
+				"radius": 11,
+				"damage": 14,
+				"armor": 0,
+				"xp": 44
+			},
+			"ai": {
+				"aggro_range": 250,
+				"leash": 1.6,
+				"keep_distance": 120
+			},
+			"respawn_seconds": 10,
+			"sprite": {
+				"lpc": {
+					"look": {
+						"body": "female",
+						"skin": "taupe",
+						"eyes": "brown",
+						"head": "head_human_female",
+						"hair": "hair_bob",
+						"hair_color": "ginger",
+						"beard": ""
+					},
+					"equipment": {
+						"chest": [
+							"shirt_sleeveless",
+							"charcoal"
+						],
+						"legs": [
+							"pants",
+							"charcoal"
+						],
+						"feet": [
+							"boots_basic",
+							"leather"
+						],
+						"head": [
+							"bandana",
+							"maroon"
+						],
+						"main_hand": [
+							"weapon_dagger",
+							"default"
+						]
+					}
+				},
+				"scale": 1.0
+			},
+			"attacks": [
+				{
+					"id": "torch_throw",
+					"shape": "projectile",
+					"windup": 0.85,
+					"active": 0.1,
+					"recovery": 0.6,
+					"cooldown": 3.0,
+					"damage_mult": 1.0,
+					"trigger_range": 230,
+					"weight": 2,
+					"anim": "thrust",
+					"projectile": {
+						"speed": 220,
+						"range": 270,
+						"radius": 8,
+						"count": 1,
+						"spread": 0,
+						"pierce": 0,
+						"visual": "fire"
+					},
+					"on_hit": [
+						{
+							"id": "burn",
+							"duration": 3.0,
+							"strength": 3.0
+						}
+					]
+				},
+				{
+					"id": "fire_patch",
+					"shape": "circle",
+					"range": 58,
+					"windup": 0.8,
+					"active": 0.12,
+					"recovery": 0.7,
+					"cooldown": 8.0,
+					"damage_mult": 0.5,
+					"trigger_range": 80,
+					"weight": 1,
+					"anim": "thrust",
+					"zone": {
+						"radius": 66,
+						"duration": 5.0,
+						"tick": 0.6,
+						"damage_mult": 0.2,
+						"visual": "fire",
+						"status": [
+							{
+								"id": "slow",
+								"duration": 1.0,
+								"strength": 0.3
+							}
+						]
+					}
+				}
+			],
+			"loot": {
+				"chance": 0.3,
+				"slots": [
+					"head",
+					"ring",
+					"chest"
+				],
+				"items": [
+					{
+						"id": "crow_bandana",
+						"chance": 0.1
+					},
+					{
+						"id": "crow_signet",
+						"chance": 0.06
+					},
+					{
+						"id": "plain_tunic",
+						"chance": 0.08
+					}
+				]
+			},
+			"materials": {
+				"herb": 0.2
+			},
+			"plural": "Incendiarios del Cuervo"
 		}
 	]
 }
