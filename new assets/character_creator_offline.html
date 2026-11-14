@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LPC Character Creator - Offline Mode</title>
+    <style>
+        :root {
+            --bg: #f5f0e8;
+            --fg: #2c2c2c;
+            --muted: #6b6b6b;
+            --accent: #8b5a2b;
+            --accent-fg: #f0e6dc;
+            --card: #ffffff;
+            --border: #d0c0b0;
+            --radius: 8px;
+            --spacing: 16px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: var(--spacing);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title { font-size: 1.5rem; font-weight: 600; color: var(--accent); }
+        .subtitle { color: var(--muted); font-size: 0.875rem; }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            padding: var(--spacing);
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: var(--spacing);
+        }
+
+        .tab {
+            flex: 1;
+            padding: var(--spacing) 0;
+            border: none;
+            background: none;
+            color: var(--muted);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .tab:hover { color: var(--fg); }
+        .tab.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
+
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: var(--spacing);
+        }
+
+        .asset-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: var(--spacing);
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .asset-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .asset-item.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+
+        .asset-item.png-mode {
+            position: relative;
+        }
+
+        .asset-item.png-mode .asset-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: var(--accent-fg);
+            font-size: 0.65rem;
+            padding: 2px 0;
+        }
+
+        .asset-item.png-mode img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            background: var(--bg);
+        }
+
+        .asset-item.zip-mode {
+            color: var(--muted);
+        }
+
+        .asset-item.zip-mode .asset-name {
+            font-size: 0.75rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .asset-item.zip-mode::before { content: "📦"; display: block; margin-bottom: 4px; font-size: 1.2rem; }
+
+        .selection-panel {
+            margin-top: var(--spacing);
+            padding-top: var(--spacing);
+            border-top: 1px solid var(--border);
+        }
+
+        .selected-info {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: var(--spacing);
+            margin-bottom: var(--spacing);
+        }
+
+        .selected-info h3 { margin: 0 0 var(--spacing); font-size: 1rem; color: var(--accent); }
+
+        .selected-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: var(--spacing);
+        }
+
+        .selected-item {
+            background: var(--card);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius);
+            padding: var(--spacing);
+            text-align: center;
+        }
+
+        .selected-item.png-mode img {
+            width: 48px; height: 48px; object-fit: contain; background: var(--bg);
+        }
+
+        .8dir-toggle {
+            display: flex; gap: var(--spacing); margin: var(--spacing) 0;
+        }
+
+        .8dir-btn {
+            padding: var(--spacing) var(--spacing*2);
+            background: none; border: 1px solid var(--border);
+            border-radius: var(--radius); color: var(--muted);
+            cursor: pointer; font-size: 0.875rem; transition: all 0.2s;
+        }
+
+        .8dir-btn.active {
+            border-color: var(--accent); color: var(--accent);
+            background: rgba(139,90,43,0.1);
+        }
+
+        .8dir-btn:hover:not(.active) { border-color: var(--muted); }
+
+        .instructions {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: var(--spacing);
+            margin-top: var(--spacing); font-size: 0.8rem; color: var(--muted);
+        }
+
+        .asset-count { color: var(--muted); font-size: 0.875rem; margin-top: 8px; }
+        .no-assets { padding: 40px; color: var(--muted); text-align: center; }
+
+        @media (max-width: 600px) { .asset-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div>
+                <div class="title">LPC Character Creator</div>
+                <div class="subtitle">Offline Mode - All assets included</div>
+            </div>
+            <div>
+                <span id="file-count" class="asset-count">Loading 242 assets...</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tab active" data-tab="characters">Characters</button>
+            <button class="tab" data-tab="tilesets">Tilesets</button>
+            <button class="tab" data-tab="items">Items</button>
+            <button class="tab" data-tab="ui">UI/Icons</button>
+            <button class="tab" data-tab="fx">FX/Effects</button>
+        </div>
+
+        <!-- Characters Panel -->
+        <div id="panel-characters" class="panel active">
+            <div class="instructions">
+                <strong>Instructions:</strong> Click assets to select/deselect. 
+                Hold Shift for multi-select. Double-click for details.
+            </div>
+            <p class="asset-count" id="char-count">Loading...</p>
+            <div class="asset-grid" id="characters-grid">
+                <!-- Assets loaded by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tilesets Panel -->
+        <div id="panel-tilesets" class="panel">
+            <p class="asset-count" id="tile-count">Loading...</p>
+            <div class="asset-grid" id="tilesets-grid">
+                <!-- Assets loaded by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Items Panel -->
+        <div id="panel-items" class="panel">
+            <p class="asset-count" id="item-count">Loading...</p>
+            <div class="asset-grid" id="items-grid">
+                <!-- Assets loaded by JavaScript -->
+            </div>
+        </div>
+
+        <!-- UI/Icons Panel -->
+        <div id="panel-ui" class="panel">
+            <p class="asset-count" id="ui-count">Loading...</p>
+            <div class="asset-grid" id="ui-grid">
+                <!-- Assets loaded by JavaScript -->
+            </div>
+        </div>
+
+        <!-- FX/Effects Panel -->
+        <div id="panel-fx" class="panel">
+            <p class="asset-count" id="fx-count">Loading...</p>
+            <div class="asset-grid" id="fx-grid">
+                <!-- Assets loaded by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <div class="8dir-toggle" id="8dir-toggle" style="display: none;">
+        <button class="8dir-btn active" data-dir="4">4 Directions</button>
+        <button class="8dir-btn" data-dir="8">8 Directions</button>
+    </div>
+
+    <script>
+        // ALL ASSETS DATA - embedded directly for offline use
+        // Format: { name, type, png_path, has_png, has_zip, zip_name, description }
+        // In a real deployment, these would be loaded from the server API
+        const ALL_ASSETS = {
+            'characters': [
+                { name: 'lpcfemalechainmail.png', has_png: true, has_zip: false, png_path: 'organized_assets/characters/creatures/lpcfemalechainmail.png', description: 'LPC female chainmail sprite' },
+                { name: 'BODY_FEMALE_ORC.png', has_png: true, has_zip: false, png_path: 'organized_assets/archives/other/BODY_FEMALE_ORC.png', description: 'Female orc body sprite' },
+                { name: 'BODY_male_Epic_armors_Golden.png', has_png: true, has_zip: false, png_path: 'organized_assets/archives/other/BODY_male_Epic_armors_Golden.png', description: 'Male epic armor body' },
+                { name: 'crusader_female.png', has_png: true, has_zip: false, png_path: 'organized_assets/archives/other/crusader_female.png', description: 'Crusader female' },
+                { name: 'crusader_male.png', has_png: true, has_zip: false, png_path: 'organized_assets/archives/other/crusader_male.png', description: 'Crusader male' },
+                { name: 'Centaur.png', has_png: true, has_zip: false, png_path: 'organized_assets/archives/other/Centaur.png', description: 'Centaur sprite' },
+                { name: 'lpc_animals_2022_v1.1.zip', has_png: false, has_zip: true, zip_name: 'lpc_animals_2022_v1.1.zip', description: 'LPC animals pack' },
+                { name: 'lpc_centipede.zip', has_png: false, has_zip: true, zip_name: 'lpc_centipede.zip', description: 'LPC centipede pack' },
+                { name: 'lpc_dcss_swords.zip', has_png: false, has_zip: true, zip_name: 'lpc_dcss_swords.zip', description: 'LPC DCSS swords' },
+                { name: 'lpc_entry.zip', has_png: false, has_zip: true, zip_name: 'lpc_entry.zip', description: 'LPC entry pack' },
+                { name: 'lpc_helm_pack.zip', has_png: false, has_zip: true, zip_name: 'lpc_helm_pack.zip', description: 'LPC helm pack' },
+                { name: 'lpc_lamp_posts_rework-1.0.zip', has_png: false, has_zip: true, zip_name: 'lpc_lamp_posts_rework-1.0.zip', description: 'LPC lamp posts' },
+                { name: 'LPC_magicstaff.zip', has_png: false, has_zip: true, zip_name: 'LPC_magicstaff.zip', description: 'LPC magic staff' },
+                { name: 'lpc_magic_headband.zip', has_png: false, has_zip: true, zip_name: 'lpc_magic_headband.zip', description: 'LPC magic headband' },
+                { name: 'lpc_medieval_weapons.zip', has_png: false, has_zip: true, zip_name: 'lpc_medieval_weapons.zip', description: 'LPC medieval weapons' },
+                { name: 'lpc_revised_character_basics.zip', has_png: false, has_zip: true, zip_name: 'lpc_revised_character_basics.zip', description: 'LPC revised basics' },
+                { name: 'LPC_ride_0.9.0.zip', has_png: false, has_zip: true, zip_name: 'LPC_ride_0.9.0.zip', description: 'LPC ride pack' },
+                { name: 'LPC_Sara.zip', has_png: false, has_zip: true, zip_name: 'LPC_Sara.zip', description: 'LPC Sara' },
+                { name: 'LPC_shield_pack.zip', has_png: false, has_zip: true, zip_name: 'LPC_shield_pack.zip', description: 'LPC shield pack' },
+                { name: 'lpc_smash_weapons.zip', has_png: false, has_zip: true, zip_name: 'lpc_smash_weapons.zip', description: 'LPC smash weapons' },
+                { name: 'LPC_Spiders.zip', has_png: false, has_zip: true, zip_name: 'LPC_Spiders.zip', description: 'LPC spiders' },
+                { name: 'LPC_starhat.zip', has_png: false, has_zip: true, zip_name: 'LPC_starhat.zip', description: 'LPC star hat' },
+            ],
+            'tilesets': [
+                { name: '4-season_terrain.zip', has_png: false, has_zip: true, zip_name: '4-season_terrain.zip', description: '4 season terrain set' },
+                { name: 'desert tileset.zip', has_png: false, has_zip: true, zip_name: 'desert tileset.zip', description: 'Desert tileset' },
+                { name: 'dungeon.zip', has_png: false, has_zip: true, zip_name: 'dungeon.zip', description: 'Dungeon tileset' },
+                { name: 'lpc-mine (1).zip', has_png: false, has_zip: true, zip_name: 'lpc-mine (1).zip', description: 'LPC mine' },
+                { name: 'lpc-mine.zip', has_png: false, has_zip: true, zip_name: 'lpc-mine.zip', description: 'LPC mine' },
+                { name: 'minotaur-1.3.zip', has_png: false, has_zip: true, zip_name: 'minotaur-1.3.zip', description: 'Minotaur pack' },
+                { name: 'modvalues.zip', has_png: false, has_zip: true, zip_name: 'modvalues.zip', description: 'Modvalues pack' },
+                { name: 'Pixel Art Top Down - Basic v1.2.3.zip', has_png: false, has_zip: true, zip_name: 'Pixel Art Top Down - Basic v1.2.3.zip', description: 'Top down pixel art' },
+            ],
+            'items': [
+                { name: '32x32_PixelWeapons_Free.png', has_png: true, has_zip: false, png_path: 'organized_assets/items/equipment/32x32_PixelWeapons_Free.png', description: 'Free pixel weapons' },
+                { name: 'artillery_collection.zip', has_png: false, has_zip: true, zip_name: 'artillery_collection.zip', description: 'Artillery collection' },
+                { name: 'Bandages.zip', has_png: false, has_zip: true, zip_name: 'Bandages.zip', description: 'Bandages pack' },
+                { name: 'barrels_20230219.zip', has_png: false, has_zip: true, zip_name: 'barrels_20230219.zip', description: 'Barrels pack' },
+                { name: 'food-7soul1_20201212.zip', has_png: false, has_zip: true, zip_name: 'food-7soul1_20201212.zip', description: 'Food pack 7soul1' },
+                { name: 'food-arlantr_20201229.zip', has_png: false, has_zip: true, zip_name: 'food-arlantr_20201229.zip', description: 'Food pack arlantr' },
+                { name: 'food-bluecarrot16_20201221.zip', has_png: false, has_zip: true, zip_name: 'food-bluecarrot16_20201221.zip', description: 'Blue carrot food' },
+                { name: 'food-dcss_20201222.zip', has_png: false, has_zip: true, zip_name: 'food-dcss_20201222.zip', description: 'Food pack dcss' },
+                { name: 'food-fleurman.zip', has_png: false, has_zip: true, zip_name: 'food-fleurman.zip', description: 'Food pack fleurman' },
+                { name: 'food-glitch-scalable.zip', has_png: false, has_zip: true, zip_name: 'food-glitch-scalable.zip', description: 'Glitch scalable food' },
+                { name: 'food-glitch.zip', has_png: false, has_zip: true, zip_name: 'food-glitch.zip', description: 'Glitch food' },
+                { name: 'food-homohikka.zip', has_png: false, has_zip: true, zip_name: 'food-homohikka.zip', description: 'Food pack homohikka' },
+                { name: 'food-jetrel_20201222.zip', has_png: false, has_zip: true, zip_name: 'food-jetrel_20201222.zip', description: 'Food pack jetrel' },
+                { name: 'food-melle.zip', has_png: false, has_zip: true, zip_name: 'food-melle.zip', description: 'Food pack melle' },
+                { name: 'food-ocal-scalable.zip', has_png: false, has_zip: true, zip_name: 'food-ocal-scalable.zip', description: 'Food pack ocal scalable' },
+                { name: 'food-ocal.zip', has_png: false, has_zip: true, zip_name: 'food-ocal.zip', description: 'Food pack ocal' },
+                { name: 'food-other_20230225.zip', has_png: false, has_zip: true, zip_name: 'food-other_20230225.zip', description: 'Food pack other' },
+                { name: 'food-thekingphoenix.zip', has_png: false, has_zip: true, zip_name: 'food-thekingphoenix.zip', description: 'Food pack the king phoenix' },
+                { name: 'food-wikimedia_20230225.zip', has_png: false, has_zip: true, zip_name: 'food-wikimedia_20230225.zip', description: 'Food pack wikimedia' },
+                { name: 'foremansfairywings_pack1.zip', has_png: false, has_zip: true, zip_name: 'foremansfairywings_pack1.zip', description: 'Fairy wings pack' },
+            ],
+            'ui': [
+                { name: 'Icons 48x48.zip', has_png: false, has_zip: true, zip_name: 'Icons 48x48.zip', description: '48x48 icon pack' },
+                { name: 'Icons 512x512.zip', has_png: false, has_zip: true, zip_name: 'Icons 512x512.zip', description: '512x512 icon pack' },
+            ],
+            'fx': [
+                { name: 'Aura38.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/Aura38.png', description: 'Aura effect' },
+                { name: 'Effect47.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/Effect47.png', description: 'Effect 47' },
+                { name: 'Effect95.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/Effect95.png', description: 'Effect 95' },
+                { name: 'Explosion03.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/Explosion03.png', description: 'Explosion 03' },
+                { name: 'Explosion21.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/Explosion21.png', description: 'Explosion 21' },
+                { name: 'fireplace.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/fireplace.png', description: 'Fireplace effect' },
+                { name: 'Free Pixel Effects Pack.zip', has_png: false, has_zip: true, zip_name: 'Free Pixel Effects Pack.zip', description: 'Free pixel effects pack' },
+                { name: 'lpc-tileset-terrain-autumn.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/lpc-tileset-terrain-autumn.png', description: 'Autumn terrain' },
+                { name: 'lpc-tileset-terrain-spring.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/lpc-tileset-terrain-spring.png', description: 'Spring terrain' },
+                { name: 'lpc-tileset-terrain-summer.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/lpc-tileset-terrain-summer.png', description: 'Summer terrain' },
+                { name: 'lpc-tileset-terrain-winter.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/lpc-tileset-terrain-winter.png', description: 'Winter terrain' },
+                { name: 'particles_20101102.zip', has_png: false, has_zip: true, zip_name: 'particles_20101102.zip', description: 'Particles pack' },
+                { name: 'rain.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/rain.png', description: 'Rain effect' },
+                { name: 'WaterAndFire.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/WaterAndFire.png', description: 'Water and fire' },
+                { name: 'WaterFountain.png', has_png: true, has_zip: false, png_path: 'organized_assets/fx/vfx/WaterFountain.png', description: 'Water fountain' },
+            ]
+        };
+
+        let allAssets = { ...ALL_ASSETS };
+        let selectedAssets = {};
+        let currentDir = '4';
+
+        // Count total assets
+        let totalAssets = 0;
+        for (const category of Object.keys(allAssets)) {
+            totalAssets += allAssets[category].length;
+        }
+        document.getElementById('file-count').textContent = `Total assets: ${totalAssets} • Click items to select • Shift+click for multi-select`;
+
+        // Path mapping
+        const assetPaths = {
+            'characters': 'C:/Users/natha/Downloads/new assets/organized_assets/characters/creatures',
+            'tilesets': 'C:/Users/natha/Downloads/new assets/organized_assets/tilesets/environment',
+            'items': 'C:/Users/natha/Downloads/new assets/organized_assets/items/equipment',
+            'ui': 'C:/Users/natha/Downloads/new assets/organized_assets/ui/icons',
+            'fx': 'C:/Users/natha/Downloads/new assets/organized_assets/fx/vfx'
+        };
+
+        // Render assets
+        function renderAssets(category, assets) {
+            const grid = document.getElementById(`${category}-grid`);
+            grid.innerHTML = '';
+
+            if (assets.length === 0) {
+                grid.innerHTML = `<div class="no-assets"><strong>No assets found</strong></div>`;
+                return;
+            }
+
+            assets.forEach(asset => {
+                const item = document.createElement('div');
+                item.className = 'asset-item';
+                item.dataset.name = asset.name;
+                item.hasPng = asset.has_png;
+                item.hasZip = asset.has_zip;
+                item.pngPath = asset.png_path;
+                item.zipName = asset.zip_name;
+
+                if (asset.has_png) {
+                    const img = document.createElement('img');
+                    const pngUrl = asset.png_path.replace('C:/Users/natha/Downloads/new assets', '.');
+                    img.src = pngUrl;
+                    img.alt = asset.name;
+                    img.loading = 'lazy';
+                    img.className = 'asset-thumb';
+                    img.style.width = '100%';
+                    img.style.height = '80px';
+                    img.style.objectFit = 'contain';
+                    img.style.background = 'var(--bg)';
+                    img.onerror = () => { img.style.display = 'none'; item.classList.add('zip-mode'); item.innerHTML = `<div class="asset-name" title="${asset.zip_name}">${asset.zipName}</div>`; };
+
+                    item.appendChild(img);
+                    const nameDiv = document.createElement('div');
+                    nameDiv.className = 'asset-name';
+                    nameDiv.textContent = itemName(asset.name);
+                    item.appendChild(nameDiv);
+                } else if (asset.has_zip) {
+                    item.className = 'asset-item zip-mode';
+                    item.innerHTML = `<div class="asset-name" title="${asset.zip_name}">${asset.zipName}</div>`;
+                }
+
+                item.addEventListener('click', (e) => {
+                    if (e.shiftKey) {
+                        if (selectedAssets[item.dataset.name]) {
+                            delete selectedAssets[item.dataset.name];
+                            item.classList.remove('selected');
+                        } else {
+                            selectedAssets[item.dataset.name] = item;
+                            item.classList.add('selected');
+                        }
+                    } else {
+                        Object.keys(selectedAssets).forEach(key => {
+                            const oldItem = document.querySelector(`[data-name="${key}"]`);
+                            if (oldItem) oldItem.classList.remove('selected');
+                        });
+                        selectedAssets = {};
+                        selectedAssets[item.dataset.name] = item;
+                        item.classList.add('selected');
+                        document.querySelectorAll('.asset-item.selected').forEach(el => {
+                            if (el !== item) el.classList.remove('selected');
+                        });
+                    }
+                    updateSelectionDisplay();
+                });
+
+                item.addEventListener('dblclick', (e) => {
+                    e.preventDefault();
+                    viewAssetDetails(asset);
+                });
+
+                grid.appendChild(item);
+            });
+        }
+
+        function itemName(name, maxLen = 30) {
+            if (name.length <= maxLen) return name;
+            return name.substring(0, maxLen - 3) + '...';
+        }
+
+        function toggleSelection(item, multi) {
+            const name = item.dataset.name;
+            if (multi) {
+                if (selectedAssets[name]) {
+                    delete selectedAssets[name];
+                    item.classList.remove('selected');
+                } else {
+                    selectedAssets[name] = item;
+                    item.classList.add('selected');
+                }
+            } else {
+                Object.keys(selectedAssets).forEach(key => {
+                    const oldItem = document.querySelector(`[data-name="${key}"]`);
+                    if (oldItem) oldItem.classList.remove('selected');
+                });
+                selectedAssets = {};
+                selectedAssets[name] = item;
+                item.classList.add('selected');
+                document.querySelectorAll('.asset-item.selected').forEach(el => {
+                    if (el !== item) el.classList.remove('selected');
+                });
+            }
+            updateSelectionDisplay();
+        }
+
+        function updateSelectionDisplay() {
+            const selectedCount = Object.keys(selectedAssets).length;
+            const selInfo = document.getElementById('selection-display');
+            if (selectedCount > 0) {
+                const names = Object.keys(selectedAssets).map(k => itemName(k)).join(', ');
+                selInfo.innerHTML = `<strong>Selected: ${selectedCount}</strong> ${names}`;
+            } else {
+                selInfo.innerHTML = '<em>No assets selected</em>';
+            }
+        }
+
+        function viewAssetDetails(asset) {
+            if (!asset) return;
+            const existing = document.querySelector('.asset-modal');
+            if (existing) existing.remove();
+
+            const modal = document.createElement('div');
+            modal.className = 'asset-modal';
+            const pngImg = asset.has_png 
+                ? `<img src="${asset.png_path.replace('C:/Users/natha/Downloads/new assets', '.')}" alt="${asset.name}" style="max-width: 100%; max-height: 500px; margin: 20px 0;">` 
+                : '';
+            const zipHtml = asset.has_zip ? `<p><strong>Zip:</strong> ${asset.zipName}</p>` : '';
+
+            modal.innerHTML = `
+                <div class="asset-modal-content">
+                    <span class="asset-modal-close">&times;</span>
+                    <h3>${asset.name || 'Asset Details'}</h3>
+                    ${pngImg}
+                    ${zipHtml}
+                    <p><strong>Type:</strong> ${getDescription(asset.name)}</p>
+                    <p>${asset.description || 'No additional description.'}</p>
+                    <button class="btn-secondary" onclick="closeAssetModal()">Close</button>
+                </div>
+            `;
+            modal.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; display: flex; align-items: center; justify-content: center; font-family: sans-serif;`;
+            document.body.appendChild(modal);
+
+            const closeBtn = modal.querySelector('.asset-modal-close');
+            closeBtn.addEventListener('click', closeAssetModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeAssetModal(); });
+        }
+
+        function closeAssetModal() { const modal = document.querySelector('.asset-modal'); if (modal) modal.remove(); }
+
+        function getDescription(name) {
+            const descs = { characters: 'LPC character piece', tilesets: 'Terrain set', items: 'Game item', ui: 'Interface icon', fx: 'Visual effect' };
+            return descs['characters'] || '';
+        }
+
+        // 8-direction toggle
+        document.querySelectorAll('.8dir-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.8dir-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentDir = btn.dataset.dir;
+            });
+        });
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(`panel-${tab.dataset.tab}`).classList.add('active');
+                renderAssets(tab.dataset.tab, ALL_ASSETS[tab.dataset.tab]);
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial counts
+            document.querySelectorAll('.asset-count').forEach((el, i) => {
+                const cat = Object.keys(ALL_ASSETS)[i];
+                el.textContent = `Total: ${ALL_ASSETS[cat].length} assets`;
+            });
+            
+            // Load first panel
+            renderAssets('characters', ALL_ASSETS.characters);
+        });
+    </script>
+
+    <style>
+        .asset-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; display: flex; align-items: center; justify-content: center; font-family: sans-serif; }
+        .asset-modal-content { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--spacing); max-width: 90%; max-height: 90%; text-align: center; position: relative; }
+        .asset-modal-close { position: absolute; top: 10px; right: 15px; color: var(--muted); font-size: 1.5rem; font-weight: bold; cursor: picker; width: 24px; height: 24px; line-height: 24px; text-align: center; }
+        .asset-modal-close:hover { color: var(--accent); }
+        .asset-modal-images { margin: var(--spacing); }
+        .asset-modal-images img { max-width: 100%; max-height: 500px; border: 1px solid var(--border); border-radius: var(--radius); }
+        .btn-secondary { padding: var(--spacing) var(--spacing*2); background: none; border: 1px solid var(--border); border-radius: var(--radius); color: var(--muted); cursor: pointer; font-size: 0.875rem; margin-top: var(--spacing); }
+    </style>
+</body>
+</html>

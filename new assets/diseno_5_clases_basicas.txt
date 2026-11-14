@@ -1,0 +1,587 @@
+DISEÑO DE LAS CINCO CLASES BÁSICAS Documento de diseño — versión de
+trabajo Fecha: 5 de noviembre de 2026
+
+============================================================ 1.
+ESTRUCTURA GENERAL DEL SISTEMA DE CLASES
+============================================================
+
+Las cinco clases básicas son: - Warrior - Rogue - Ranger - Cleric - Mage
+
+Cada clase tiene: - Un arma característica fija. - Un estilo de combate
+propio. - Ataques básicos M1 y M2. - Un Skill Book con más habilidades
+de las que puede equipar. - Cinco espacios para habilidades normales. -
+Un espacio de Special. - Un espacio de Ultimate. - Atributos principales
+y secundarios. - Posibilidad de evolucionar a una especialización
+permanente.
+
+Las armas características no se intercambian libremente entre clases. El
+equipo puede mejorar estadísticas, rareza, propiedades y apariencia,
+pero no cambia el tipo de arma de la clase. Las evoluciones pueden
+conservar el arma original o adoptar una nueva según su identidad.
+
+ESTRUCTURA DE CONTROLES - M1: ataque básico principal. - M2: ataque
+básico secundario. - S1–S5: cinco habilidades normales seleccionadas del
+Skill Book. - SP: habilidad Special. - Ultimate: habilidad definitiva.
+
+REGLAS DEL SKILL BOOK - El catálogo debe ser mayor que los cinco
+espacios equipables. - Propuesta inicial: 15 habilidades normales por
+clase. - Las habilidades desbloqueadas permanecen disponibles. - El
+jugador puede cambiar su loadout en la ciudad, zonas seguras y antes de
+entrar a una actividad. - No se permite cambiar libremente durante un
+combate PvP. - Las habilidades pueden desbloquearse por progresión,
+desafíos, jefes, misiones y secretos. - Las evoluciones tendrán
+habilidades propias y podrán heredar, restringir o transformar parte del
+catálogo de la clase base. - Las habilidades no deben ser simples copias
+con otro nombre o color: cada una debe aportar una decisión táctica
+distinta.
+
+ENERGÍA Sistema global propuesto: - La energía se genera al acertar
+ataques y habilidades. - No hay regeneración pasiva de energía. -
+Special cuesta inicialmente 30 Energy. - Ultimate cuesta inicialmente
+100 Energy. - Los valores de generación y costes son provisionales y
+requieren pruebas. - Deben existir límites por lanzamiento para evitar
+que los ataques multiobjetivo generen energía excesiva. - Spirit no
+regenera esta energía global; es un atributo separado.
+
+============================================================ 2.
+ATRIBUTOS Y ALGORITMOS
+============================================================
+
+Referencia: World of Warcraft Classic (Vanilla), no Retail.
+
+Atributos primarios: - Strength: Attack Power físico y daño de armas
+físicas. - Agility: crítico físico, armadura y evasión; su contribución
+concreta depende de la clase. - Stamina: vida máxima. - Intellect: poder
+mágico y, si se implementa, reserva de maná/aprendizaje. - Spirit:
+recuperación natural de vida y recursos mágicos compatibles.
+
+Estadísticas derivadas: - Attack Power. - Spell Power. - Critical
+Strike. - Armor. - Defense. - Dodge. - Parry. - Block (cuando el equipo
+o clase lo permita). - Hit, con cuidado de no provocar fallos
+arbitrarios en PvP. - Weapon Damage. - Weapon Speed. - Healing Power, si
+finalmente se separa de Spell Power.
+
+FÓRMULAS DE REFERENCIA — PLACEHOLDERS, NO BALANCE FINAL
+
+Attack Power físico: AP = AP_base + 2 * Strength + AP_gear
+
+Daño físico: D = WeaponDamage + (AP / 14) * WeaponSpeed
+
+Daño de habilidad física: D_skill = (WeaponDamage + (AP / 14) *
+WeaponSpeed) * M + B
+
+Donde: - WeaponDamage: daño base del arma. - AP: Attack Power total. -
+WeaponSpeed: velocidad del arma en segundos. - M: multiplicador de la
+habilidad. - B: daño adicional fijo o escalado.
+
+Vida: HP = BaseHP + (Stamina * C_HP) + HP_gear
+
+Reducción de daño físico, modelo inicial: DR = Armor / (Armor + K)
+DamageReceived = IncomingDamage * (1 - DR)
+
+Crítico: Crit = Crit_base + (Agility * C_crit) + Crit_gear
+
+Daño mágico: D_magic = (SpellBaseDamage + SpellPower * C) * M
+
+Curación: Healing = (BaseHealing + HealingPower * C_h) * M_h
+
+Los coeficientes C, C_HP, C_crit, K y multiplicadores deben definirse
+con el nivel máximo, escala de estadísticas, armas y ritmo de combate.
+No deben considerarse fórmulas definitivas.
+
+FILOSOFÍA DE PvP - La precisión de una habilidad debe depender
+principalmente de la puntería, el posicionamiento y el timing. - Un
+ataque que visualmente conecta no debería fallar por una tirada
+invisible de Hit. - Dodge debe ser principalmente movimiento o una
+acción contextual, no evasión automática por azar. - Parry y Block deben
+tener condiciones o ventanas reconocibles. - Puede existir normalización
+parcial de estadísticas en PvP para que el equipo importe sin sustituir
+la habilidad del jugador. - PvE puede permitir una influencia más
+marcada de atributos y equipo.
+
+============================================================ 3. WARRIOR
+============================================================
+
+ROL: Bruiser / Frontliner ARMA: Longsword a dos manos ATRIBUTO
+PRINCIPAL: Strength SECUNDARIOS: Stamina, Agility DIFICULTAD: Media
+ALCANCE: Cuerpo a cuerpo IDENTIDAD: Presión, resistencia, interrupción y
+castigo.
+
+FILOSOFÍA El Warrior domina los intercambios físicos. No tiene la
+movilidad del Rogue ni el alcance del Ranger, pero puede mantener
+presión, resistir y castigar errores.
+
+ATAQUES BÁSICOS M1 — Sword Combo: Combo de tres golpes: dos cortes
+horizontales y una estocada final. El tercer golpe puede generar energía
+adicional. Si pasa demasiado tiempo entre ataques, el combo se reinicia.
+
+M2 — Heavy Strike: Golpe vertical lento y potente, con recuperación
+mayor. Sirve para castigar enemigos comprometidos.
+
+Pasiva propuesta — Martial Rhythm: Completar el combo de M1 otorga
+cargas de Rhythm. Al llegar a tres, el siguiente Heavy Strike recibe un
+pequeño aumento de daño y genera energía adicional. Las cargas expiran
+tras un breve periodo sin atacar.
+
+SKILL BOOK — 15 HABILIDADES NORMALES
+
+1.  Cleaving Strike — Daño/AoE Corte horizontal amplio que daña a todos
+    los enemigos alcanzados.
+
+2.  Crushing Blow — Burst/Castigo Golpe descendente muy pesado. Puede
+    interrumpir habilidades canalizadas si conecta.
+
+3.  Piercing Thrust — Daño preciso Estocada rápida y lineal, con alcance
+    superior al M1.
+
+4.  Whirlwind — Daño/AoE Giro con la espada extendida que golpea
+    alrededor del Warrior. Tiene límite de impactos.
+
+5.  Parry — Defensa Desvía un ataque frontal durante una ventana breve.
+    Si tiene éxito, permite un contraataque rápido. Si falla, deja al
+    Warrior expuesto.
+
+6.  Iron Guard — Defensa/Mitigación Postura defensiva temporal que
+    reduce el daño frontal, pero reduce la velocidad de movimiento.
+
+7.  Retaliation — Contraataque Prepara una respuesta potente si el
+    Warrior recibe un ataque durante la ventana activa. No evita
+    necesariamente todo el daño.
+
+8.  Combat Roll — Movilidad/Evasión Rodar en una dirección con una
+    ventana breve de evasión.
+
+9.  Heroic Leap — Movilidad/Iniciación Salto hacia una ubicación
+    seleccionada y golpe al aterrizar. El punto de impacto se muestra
+    previamente.
+
+10. Relentless Pursuit — Movilidad/Persecución Carga frontal con daño al
+    impactar y ralentización breve. Es predecible una vez iniciada.
+
+11. Ground Stomp — Control/AoE Golpea el suelo y genera una onda que
+    ralentiza brevemente a los enemigos cercanos.
+
+12. Earth Splitter — Control de zona Crea una fisura frontal que daña y
+    ralentiza a los enemigos alcanzados.
+
+13. Sundering Strike — Debilitamiento Golpe que reduce temporalmente la
+    armadura del objetivo. No acumula repetidamente consigo mismo.
+
+14. Battle Cry — Mejora/Ofensiva Aumenta temporalmente Attack Power del
+    Warrior y aliados cercanos, además de mejorar resistencia a
+    interrupciones leves.
+
+15. War Banner — Apoyo/Control de zona Planta un estandarte que
+    proporciona reducción de daño a aliados cercanos. Puede ser
+    destruido y no puede haber varios activos simultáneamente.
+
+SPECIAL Iron Counter — coste propuesto: 30 Energy. El Warrior adopta una
+postura de contraataque. Si recibe un ataque frontal bloqueable durante
+la ventana, lo desvía y responde con un corte potente. Premia leer al
+adversario.
+
+ULTIMATE War God’s Descent — coste propuesto: 100 Energy. Salta hacia
+una zona marcada y cae con un golpe devastador. Hace más daño en el
+centro que en el borde, interrumpe brevemente y tiene una preparación
+visible para permitir esquivarlo.
+
+BUILDS DE EJEMPLO - Vanguard: Cleaving Strike, Parry, Iron Guard, Ground
+Stomp, War Banner. - Executioner: Crushing Blow, Piercing Thrust,
+Relentless Pursuit, Sundering Strike, Heroic Leap. - Duelist: Piercing
+Thrust, Parry, Retaliation, Combat Roll, Crushing Blow. - Battlefield
+Controller: Whirlwind, Ground Stomp, Earth Splitter, Battle Cry, War
+Banner.
+
+============================================================ 4. ROGUE
+============================================================
+
+ROL: Assassin / Skirmisher ARMA: Dual Daggers ATRIBUTO PRINCIPAL:
+Agility SECUNDARIOS: Strength, Stamina DIFICULTAD: Alta ALCANCE: Cuerpo
+a cuerpo IDENTIDAD: Movilidad, precisión, engaño y burst.
+
+FILOSOFÍA El Rogue entra, ejecuta una combinación de ataques, aprovecha
+una oportunidad y se retira. Tiene poca resistencia directa y depende de
+la movilidad y el timing.
+
+ATAQUES BÁSICOS M1 — Twin Fang: Combo de cuatro golpes alternando ambas
+dagas. Los últimos golpes son más rápidos.
+
+M2 — Cross Cut: Ataque rápido cruzando ambas dagas. Puede causar daño
+adicional moderado al golpear por detrás o durante una ventana de
+vulnerabilidad.
+
+SKILL BOOK — 15 HABILIDADES NORMALES
+
+1.  Shadowstep — Movilidad Desplazamiento/teletransporte corto hacia una
+    dirección o posición válida.
+
+2.  Backstab — Burst Ataque potenciado desde detrás del objetivo.
+
+3.  Blade Flurry — Daño/AoE Serie de cortes rápidos alrededor del Rogue.
+
+4.  Poisoned Blades — Debilitamiento Aplica veneno con acumulaciones
+    limitadas.
+
+5.  Mark for Death — Preparación Marca a un objetivo para potenciar el
+    siguiente ataque o habilidad ofensiva.
+
+6.  Smoke Bomb — Escape Crea una nube que dificulta la visión y permite
+    reposicionarse.
+
+7.  Vanish — Sigilo/Escape Desaparece brevemente y rompe el objetivo
+    enemigo, sujeto a reglas de detección y daño recibido.
+
+8.  Evasive Roll — Evasión Esquiva rápida con ventana limitada de
+    evasión.
+
+9.  Shadow Clone — Engaño Crea un señuelo que confunde ataques
+    dirigidos.
+
+10. Fan of Knives — Área Lanza dagas en abanico.
+
+11. Crippling Strike — Control Corte que ralentiza al enemigo.
+
+12. Ambush — Iniciación Desplazamiento corto seguido de un ataque
+    sorpresa.
+
+13. Hemorrhage — Daño progresivo Aplica sangrado durante un periodo.
+
+14. Feint — Defensa Reduce el daño de un ataque próximo si se ejecuta
+    correctamente.
+
+15. Executioner’s Cut — Ejecución Golpe adicional contra objetivos con
+    poca vida, con límite de daño para evitar ejecuciones injustas.
+
+SPECIAL Perfect Evasion — coste propuesto: 30 Energy. Evasión con
+ventana muy corta. Si evita un ataque, habilita una oportunidad de
+contraataque que potencia la siguiente habilidad ofensiva.
+
+ULTIMATE Death Sentence — coste propuesto: 100 Energy. Marca un enemigo
+y ejecuta una secuencia de desplazamientos y cortes rápidos. Requiere
+mantener al objetivo en alcance, puede ser interrumpida y termina con un
+golpe de daño elevado.
+
+BUILDS DE EJEMPLO - Assassin: Backstab, Shadowstep, Mark for Death,
+Ambush, Executioner’s Cut. - Shadow Dancer: Smoke Bomb, Vanish, Shadow
+Clone, Evasive Roll, Crippling Strike. - Poison Rogue: Poisoned Blades,
+Hemorrhage, Fan of Knives, Blade Flurry, Feint.
+
+============================================================ 5. RANGER
+============================================================
+
+ROL: Ranged DPS / Marksman ARMA: Bow ATRIBUTO PRINCIPAL: Agility
+SECUNDARIOS: Strength, Stamina DIFICULTAD: Media-alta ALCANCE: Largo
+IDENTIDAD: Precisión, distancia, trampas y persecución.
+
+FILOSOFÍA El Ranger controla la distancia, anticipa movimientos y
+castiga errores de posicionamiento. Su daño proviene principalmente de
+proyectiles, precisión y herramientas físicas, no de magia.
+
+ATAQUES BÁSICOS M1 — Quick Shot: Dispara flechas consecutivas con
+cadencia estable.
+
+M2 — Charged Shot: Carga el arco y dispara una flecha más potente, de
+mayor alcance y penetración. La carga reduce temporalmente la movilidad.
+
+SKILL BOOK — 15 HABILIDADES NORMALES
+
+1.  Piercing Arrow — Daño lineal Flecha que atraviesa enemigos
+    alineados.
+
+2.  Multishot — Daño/AoE Dispara varias flechas en abanico.
+
+3.  Explosive Arrow — Área Flecha que explota al impactar.
+
+4.  Rapid Fire — Presión Secuencia de disparos rápidos.
+
+5.  Crippling Arrow — Control Flecha que ralentiza al objetivo.
+
+6.  Marked Target — Preparación Marca al enemigo y mejora los siguientes
+    ataques contra él.
+
+7.  Backstep Shot — Movilidad Retrocede mientras dispara.
+
+8.  Evasive Leap — Evasión Salto hacia atrás o lateral.
+
+9.  Bear Trap — Trampa Coloca una trampa que inmoviliza brevemente.
+
+10. Frost Trap — Control de zona Crea una zona que ralentiza.
+
+11. Volley — Área Lluvia de flechas sobre una zona marcada.
+
+12. Camouflage — Escape Oculta temporalmente al Ranger bajo condiciones
+    específicas.
+
+13. Wind Arrow — Daño/Empuje Flecha de impacto que desplaza ligeramente
+    al objetivo.
+
+14. Predator’s Instinct — Mejora Aumenta temporalmente crítico y
+    velocidad de disparo.
+
+15. Hunter’s Focus — Preparación Mejora el siguiente Charged Shot y
+    reduce su tiempo de carga.
+
+SPECIAL Deadeye — coste propuesto: 30 Energy. El Ranger entra en
+concentración. Su siguiente disparo gana velocidad de proyectil,
+precisión mejorada y capacidad de atravesar objetivos. El jugador
+todavía debe apuntar correctamente.
+
+ULTIMATE Rain of Arrows — coste propuesto: 100 Energy. Dispara una
+lluvia de flechas sobre un área marcada. Tiene cobertura amplia y
+múltiples impactos, pero el área se muestra previamente y el Ranger
+puede ser interrumpido durante la preparación.
+
+BUILDS DE EJEMPLO - Marksman: Marked Target, Hunter’s Focus, Predator’s
+Instinct y habilidades de disparo preciso. - Trapper: Bear Trap, Frost
+Trap, Volley, Crippling Arrow, Backstep Shot. - Rapid Hunter: Rapid
+Fire, Multishot, Evasive Leap, Wind Arrow, Explosive Arrow.
+
+============================================================ 6. CLERIC
+============================================================
+
+ROL: Support / Battle Healer ARMA: Mace ATRIBUTO PRINCIPAL: Intellect
+SECUNDARIOS: Stamina, Strength DIFICULTAD: Media-alta ALCANCE:
+Corto-medio IDENTIDAD: Curación, protección, apoyo y daño sagrado.
+
+FILOSOFÍA El Cleric no debe limitarse a curar. Puede luchar, defenderse
+y castigar enemigos mientras administra sus herramientas de apoyo. No
+debe ser obligatorio en todos los equipos, aunque cambia la estrategia
+grupal.
+
+ATAQUES BÁSICOS M1 — Consecrated Strike: Combo de tres golpes con la
+maza. El último genera una pequeña onda sagrada.
+
+M2 — Holy Smite: Golpe pesado que libera una descarga sagrada de corto
+alcance.
+
+SKILL BOOK — 15 HABILIDADES NORMALES
+
+1.  Holy Light — Curación Curación directa a un aliado o al propio
+    Cleric.
+
+2.  Radiant Burst — Daño/AoE Explosión sagrada alrededor del Cleric.
+
+3.  Divine Shield — Defensa Escudo temporal sobre un aliado.
+
+4.  Healing Wave — Curación Proyectil curativo dirigido.
+
+5.  Purify — Limpieza Elimina determinados efectos negativos.
+
+6.  Consecration — Zona Crea un área sagrada que daña enemigos.
+
+7.  Smite — Daño Proyectil sagrado de impacto directo.
+
+8.  Guardian Angel — Protección Reduce el daño recibido por un aliado
+    durante un instante.
+
+9.  Sacred Ground — Curación/Zona Zona que cura gradualmente a aliados.
+
+10. Hammer of Justice — Control Golpe que interrumpe y ralentiza
+    brevemente.
+
+11. Redemption — Recuperación Recuperación de vida para un aliado
+    después de recibir daño, con condiciones y límite.
+
+12. Blessing of Might — Buff Aumenta Attack Power de un aliado.
+
+13. Blessing of Fortitude — Buff Aumenta temporalmente la vida máxima.
+
+14. Divine Step — Movilidad Desplazamiento corto acompañado de energía
+    sagrada.
+
+15. Judgment — Debilitamiento Marca a un enemigo y aumenta el daño
+    sagrado que recibe.
+
+SPECIAL Divine Intervention — coste propuesto: 30 Energy. Crea una
+barrera protectora alrededor del Cleric o un aliado. Absorbe una
+cantidad limitada de daño. Si se destruye, libera una pequeña onda que
+empuja enemigos cercanos. No concede inmunidad completa.
+
+ULTIMATE Divine Salvation — coste propuesto: 100 Energy. Invoca un área
+sagrada que cura considerablemente a aliados, elimina algunos efectos
+negativos y daña ligeramente a enemigos. Tiene preparación y área
+visible. No restaura automáticamente toda la vida del equipo.
+
+BUILDS DE EJEMPLO - Holy Healer: Holy Light, Healing Wave, Sacred
+Ground, Purify, Redemption. - Battle Cleric: Smite, Consecration,
+Radiant Burst, Judgment, Hammer of Justice. - Guardian: Divine Shield,
+Guardian Angel, Blessing of Fortitude, Divine Step, Purify.
+
+============================================================ 7. MAGE
+============================================================
+
+ROL: Ranged DPS / Controller ARMA: Staff ATRIBUTO PRINCIPAL: Intellect
+SECUNDARIOS: Agility, Stamina DIFICULTAD: Alta ALCANCE: Largo IDENTIDAD:
+Magia, burst, control y manipulación elemental.
+
+FILOSOFÍA El Mage domina el campo de batalla mediante hechizos. Tiene
+alto potencial ofensivo y control, pero poca resistencia cuando un
+enemigo logra acercarse. Sus hechizos deben obligar al rival a moverse y
+tomar decisiones.
+
+ATAQUES BÁSICOS M1 — Arcane Bolt: Proyectil mágico rápido de daño
+moderado.
+
+M2 — Charged Arcane Blast: Acumula energía y dispara un proyectil más
+lento, potente y de mayor tamaño.
+
+SKILL BOOK — 15 HABILIDADES NORMALES
+
+1.  Fireball — Daño Proyectil de fuego explosivo.
+
+2.  Frost Nova — Control Congela brevemente a enemigos cercanos.
+
+3.  Lightning Chain — Daño Rayo que rebota entre enemigos.
+
+4.  Arcane Missiles — Daño Serie de proyectiles dirigidos.
+
+5.  Flame Wave — Área Onda de fuego frontal.
+
+6.  Ice Lance — Daño preciso Proyectil de hielo rápido.
+
+7.  Meteor — Burst/Área Meteorito sobre una zona marcada.
+
+8.  Blink — Movilidad Teletransporte corto.
+
+9.  Ice Barrier — Defensa Escudo mágico temporal.
+
+10. Frost Wall — Control de zona Levanta una pared de hielo.
+
+11. Arcane Explosion — Área Explosión mágica alrededor del Mage.
+
+12. Mana Drain — Debilitamiento Drena energía de un objetivo o reduce
+    temporalmente su generación de recursos. Debe evitarse que anule por
+    completo el sistema global de Energy.
+
+13. Spell Echo — Mejora Repite una versión reducida del siguiente
+    hechizo.
+
+14. Polymorph — Control Transforma temporalmente a un enemigo e
+    interrumpe su acción. Debe tener duración limitada y contrajuego,
+    especialmente en PvP.
+
+15. Elemental Surge — Mejora Potencia el siguiente hechizo elemental
+    según el elemento elegido.
+
+SPECIAL Arcane Overload — coste propuesto: 30 Energy. Concentra energía
+arcana y potencia el siguiente hechizo. Puede aumentar daño, alcance o
+tamaño según el hechizo. Reduce brevemente la movilidad durante la
+canalización y no se acumula con potenciadores equivalentes.
+
+ULTIMATE Cataclysm — coste propuesto: 100 Energy. Canaliza una explosión
+elemental sobre una zona seleccionada. Tiene gran daño de área,
+preparación visible y posibilidad de interrupción. Los enemigos pueden
+escapar.
+
+BUILDS DE EJEMPLO - Pyromancer: Fireball, Flame Wave, Meteor, Arcane
+Overload, Elemental Surge. - Cryomancer: Frost Nova, Ice Lance, Frost
+Wall, Ice Barrier, Blink. - Arcanist: Arcane Missiles, Lightning Chain,
+Arcane Explosion, Spell Echo, Mana Drain.
+
+============================================================ 8.
+COMPARACIÓN DE IDENTIDADES
+============================================================
+
+Clase | Daño físico | Daño mágico | Resistencia | Movilidad | Alcance |
+Burst | Control | Apoyo
+
+Warrior: - Daño físico: Alto. - Daño mágico: Bajo. - Resistencia:
+Alta. - Movilidad: Media. - Alcance: Corto. - Burst: Medio-alto. -
+Control: Medio. - Apoyo: Medio.
+
+Rogue: - Daño físico: Alto. - Daño mágico: Bajo. - Resistencia: Baja. -
+Movilidad: Muy alta. - Alcance: Corto. - Burst: Muy alto. - Control:
+Medio. - Apoyo: Bajo.
+
+Ranger: - Daño físico: Alto. - Daño mágico: Bajo. - Resistencia:
+Media. - Movilidad: Alta. - Alcance: Largo. - Burst: Alto. - Control:
+Alto. - Apoyo: Bajo.
+
+Cleric: - Daño físico: Medio. - Daño mágico: Medio-alto. - Resistencia:
+Media-alta. - Movilidad: Media. - Alcance: Corto-medio. - Burst:
+Medio. - Control: Alto. - Apoyo: Muy alto.
+
+Mage: - Daño físico: Bajo. - Daño mágico: Muy alto. - Resistencia:
+Baja. - Movilidad: Alta. - Alcance: Largo. - Burst: Muy alto. - Control:
+Muy alto. - Apoyo: Medio.
+
+Estos valores son identidades relativas y no cifras definitivas de
+balance.
+
+============================================================ 9. ESCALADO
+POR CLASE ============================================================
+
+Afinidades propuestas:
+
+-   Warrior: Strength principal; Stamina secundaria.
+-   Rogue: Agility principal; Strength secundaria.
+-   Ranger: Agility principal; Strength secundaria.
+-   Cleric: Intellect principal; Stamina secundaria.
+-   Mage: Intellect principal; Agility secundaria.
+
+Las habilidades físicas escalan principalmente con Weapon Damage y
+Attack Power. Las habilidades mágicas escalan con Spell Power. Las
+curaciones escalan con Healing Power o con Spell Power si se decide
+mantener una estadística mágica compartida. La vida escala con Stamina.
+
+Decisión pendiente: Definir si Spell Power y Healing Power serán
+estadísticas separadas o una sola estadística de Spell Power con
+coeficientes diferentes. Recomendación inicial: una sola estadística de
+Spell Power.
+
+============================================================ 10.
+PRINCIPIOS DE BALANCE Y DISEÑO
+============================================================
+
+1.  Las cinco clases deben ser viables en PvE y PvP.
+2.  Ninguna clase debe ser obligatoria para formar un equipo.
+3.  Las habilidades deben tener anticipación, impacto, recuperación y
+    contrajuego legibles.
+4.  Los controles fuertes deben tener límites, inmunidades temporales o
+    rendimientos decrecientes.
+5.  Los ataques de área deben tener límites de impactos y generación de
+    energía.
+6.  Las habilidades definitivas deben ser poderosas, pero anunciadas y
+    esquivables.
+7.  Las builds deben ofrecer estilos distintos, no una única combinación
+    óptima.
+8.  El equipo debe importar sin hacer irrelevante la habilidad mecánica.
+9.  Las clases evolucionadas pueden conservar, restringir o transformar
+    habilidades de su clase base.
+10. El catálogo puede crecer mediante habilidades avanzadas y secretas.
+
+============================================================ 11.
+DECISIONES PENDIENTES DE CONFIRMAR
+============================================================
+
+A. CURACIÓN Opciones: - Híbrida: curaciones directas, escudos y
+regeneración limitada. - Limitada: poca curación durante el combate,
+priorizando esquivas y defensa. - Tradicional: sanadores con mucha
+capacidad de curación y protección.
+
+B. RECURSOS Opciones: - Un único sistema global de Energy para todas las
+clases. - Energy global más recursos particulares de algunas clases. -
+Cada clase tiene su propio recurso.
+
+C. CAMBIO DE HABILIDADES Opciones: - Cambiar libremente en ciudad y
+zonas seguras. - Cambiar pagando oro o recursos. - Cambiar solamente
+antes de iniciar una expedición o arena.
+
+Recomendación general: Mantener Energy como recurso universal al
+principio, permitir cambios de loadout en zonas seguras y diseñar la
+curación de forma híbrida. Estas son recomendaciones, no decisiones
+confirmadas.
+
+============================================================ 12. ALCANCE
+DEL CONTENIDO
+============================================================
+
+Con 15 habilidades normales por clase: - 5 clases x 15 = 75 habilidades
+normales. - 5 Specials. - 5 Ultimates. - Total: 85 habilidades únicas,
+sin contar M1/M2, variantes ni habilidades secretas.
+
+No es necesario implementar todas en la primera demo. Conviene
+desarrollar primero un subconjunto representativo de cada clase, validar
+el combate y luego ampliar el Skill Book.
+
+FIN DEL DOCUMENTO
