@@ -103,3 +103,14 @@ Mientras no lleguen los assets locales del dueño, los 5 enemigos nuevos reutili
 | 7 heroes de otros mundos (Kaito, Lysa, Tob, Sunna, Grix, Nadir, Veyd) | LPC recompuesto con los trajes de los residentes (cazador, vidente, explorador, bardo, vendedor, herido, guardia) | Retratos/sprites propios que sugieran su mundo de origen (marinero, doctora de vapor, cartografo, domadora de cielo, ingeniero minero, ladrona de cristal, caballero de ceniza) |
 | Alijos (macuto, botiquin, cuaderno, fardo, caja de herramientas, botin, escudo) | Un unico sprite de saco del pack de campamento con brillo azul | Un sprite por alijo (7) |
 | Cartel de "Despierto" / retratos en el dialogo | No existe (solo burbuja y texto) | Marcos de retrato por heroe |
+
+## Pisos hechos a mano: lo que se dibuja con arte provisional (14 nov 2026)
+| Que | Estado actual | Que asset hace falta |
+|---|---|---|
+| Muralla de fuertes y castillo (pisos 3, 5, 7, 9, 10) | `#` se dibuja como el bosque denso del bioma; torres con `camp_watchtower` | Tiles de muralla de piedra/madera (esquinas, puertas, almenas) y de castillo en ruinas |
+| Rios, lagos y marismas | Agua del bioma | Orillas con transicion, vegetacion acuatica, nenufares |
+| Puentes y pasarelas (`=` sobre agua) | Se dibujan como camino de tierra | Puente de madera (tableros, barandillas) y puente levadizo |
+| Vado de piedras | Casillas de suelo en medio del rio | Piedras de cruce en el agua |
+| Empalizadas | `camp_palisade` (pack del campamento) en el fuerte del piso 3 | Mas empalizada (esquinas, puertas) |
+| Arena del piso 10 | Claro circular con anillo de muro y pilares como muros | Suelo de arena/piedra, estrado, banderas, braseros y ambientacion epica |
+| Mapas completos | Hechos con `tools/floors/build_floors.py` (primitivas) | Pintar/pulir cada mapa con los assets de mapa buenos del dueño y retocar el .txt |
