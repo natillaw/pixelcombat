@@ -1046,7 +1046,7 @@ class InteractableActor extends Node2D:
 				glow = Color(1.0, 0.85, 0.3)
 			"key":
 				glow = Color(1.0, 0.9, 0.4)
-			"note":
+			"note", "clue":
 				glow = Color(0.95, 0.9, 0.7)
 			"event_option":
 				glow = Color(0.75, 0.55, 1.0)
@@ -1092,7 +1092,7 @@ class InteractableActor extends Node2D:
 					draw_rect(Rect2(1.5, -2, 5, 3), tone)
 					draw_rect(Rect2(1.5, -7, 4, 3), tone)
 					draw_circle(Vector2(0, -12), 18.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.12))
-			"note":
+			"note", "clue":
 				draw_texture_rect(NOTE_ICON, Rect2(-12, -26, 24, 24), false, Color.WHITE if not done else Color(0.4, 0.4, 0.4))
 				if not done:
 					draw_circle(Vector2(0, -14), 16.0 + 3.0 * pulse, Color(tone.r, tone.g, tone.b, 0.10))

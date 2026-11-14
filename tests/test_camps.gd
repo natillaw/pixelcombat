@@ -31,12 +31,13 @@ func _test_density_and_structure() -> void:
 			var layout := TowerGenerator.generate(floor_number, seed_value, 1)
 			var enemies := layout.enemies.filter(func(e: Dictionary) -> bool: return not String(e["id"]).begins_with("barrel_"))
 			var area := float(layout.grid.cols * layout.grid.rows)
-			_check(enemies.size() <= int(MAX_ENEMIES[floor_number]) and enemies.size() >= int(MIN_ENEMIES[floor_number]), "piso %d seed %d: %d enemigos (entre %d y %d)" % [floor_number, seed_value, enemies.size(), int(MIN_ENEMIES[floor_number]), int(MAX_ENEMIES[floor_number])])
+			_check(enemies.size() <= int(MAX_ENEMIES[floor_number]) and enemies.size() >= int(MIN_ENEMIES[floor_number]) - (10 if not layout.village.is_empty() else 0), "piso %d seed %d: %d enemigos (entre %d y %d)" % [floor_number, seed_value, enemies.size(), int(MIN_ENEMIES[floor_number]), int(MAX_ENEMIES[floor_number])])
 			_check(float(enemies.size()) / area * 1000.0 < 5.0, "piso %d seed %d: densidad %.2f por 1000 casillas (< 5)" % [floor_number, seed_value, float(enemies.size()) / area * 1000.0])
 			var camps := layout.camps.filter(func(c: Dictionary) -> bool: return String(c["kind"]) == "camp")
 			var tents := layout.props.filter(func(p: Dictionary) -> bool: return String(p["kind"]) == "camp_tent").size()
 			var fires := layout.props.filter(func(p: Dictionary) -> bool: return String(p["kind"]) == "camp_fire").size()
-			_check(camps.size() > 0 and fires == camps.size() and tents >= camps.size(), "piso %d seed %d: %d campamentos con fogata (%d) y tiendas (%d)" % [floor_number, seed_value, camps.size(), fires, tents])
+			var extra_fire := 1 if not layout.village.is_empty() else 0
+			_check(camps.size() > 0 and fires == camps.size() + extra_fire and tents >= camps.size(), "piso %d seed %d: %d campamentos con fogata (%d) y tiendas (%d)" % [floor_number, seed_value, camps.size(), fires, tents])
 			var near_spawn := enemies.filter(func(e: Dictionary) -> bool: return (e["position"] as Vector2).distance_to(layout.player_spawn) < 420.0).size()
 			_check(near_spawn <= 4, "piso %d seed %d: %d enemigos a menos de 420 px de la entrada (max 4)" % [floor_number, seed_value, near_spawn])
 			var apart := true

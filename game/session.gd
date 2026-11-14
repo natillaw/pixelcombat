@@ -292,11 +292,19 @@ var _talk_visits: Dictionary = {}
 ## Un residente de la ciudad dice su frase de la etapa actual de la historia.
 func _talk_to(resident_id: String) -> void:
 	var entry := Residents.find(resident_id)
+	var villager := false
+	if entry.is_empty():
+		entry = VillageGen.find_villager(resident_id)
+		villager = true
 	if entry.is_empty():
 		return
 	var visit := int(_talk_visits.get(resident_id, 0))
 	_talk_visits[resident_id] = visit + 1
 	var line := Residents.line_for(entry, tower.story_stage(), visit)
+	if villager:
+		if not String(entry.get("clue", "")).is_empty():
+			line = String(entry["clue"])            # la primera vez cuenta lo que sabe
+		world.npc_talked.emit("vil_" + resident_id)
 	if not line.is_empty():
 		message.emit("%s: %s" % [String(entry["name"]).get_slice(",", 0), line])
 

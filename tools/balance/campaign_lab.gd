@@ -96,6 +96,9 @@ static func run(class_id: String, max_floor: int, regen: float = 0.0, rest_below
 				if player.resource.get_current() < player.resource.max_amount * 0.15:
 					message.actions["quick_resource"] = true
 				world.submit_input(message)
+				if bot.pending_talk != "":
+					session._talk_to(bot.pending_talk)       # el bot pulsa "interactuar" junto al testigo
+					bot.pending_talk = ""
 				world.step(DT)
 				elapsed += DT
 				if int(elapsed * 60.0) % 7200 == 0 and elapsed > 1.0:

@@ -21,6 +21,8 @@ signal enemy_killed(enemy: EnemySim)
 signal interacted(object: Interactable)
 ## Aviso de texto para el jugador (eventos, notas, cofres); la sesion lo muestra.
 signal notice(text: String)
+## Se ha hablado con un PNJ de una aldea (id del PNJ del layout); lo usa la mision de interrogar.
+signal npc_talked(npc_id: String)
 signal gather_interrupted(node: Object, reason: String)
 signal resource_gathered(node: ResourceNode, material_id: String, amount: int)
 
@@ -361,12 +363,21 @@ func _apply_modifier(enemy: EnemySim, modifier: Dictionary) -> void:
 	enemy.xp_mult *= float(modifier.get("xp_mult", 1.0))
 
 
+## Si `point` esta dentro de la zona segura de la aldea del piso.
+func in_village(point: Vector2) -> bool:
+	if layout == null or layout.village.is_empty():
+		return false
+	return point.distance_to(layout.village["position"]) <= float(layout.village["radius"])
+
+
 func submit_input(input: InputMessage) -> void:
 	pending_input = input
 
 
 func step(delta: float, tick_number: int = -1) -> void:
 	step_delta = delta
+	if layout != null and layout.kind == FloorLayout.KIND_FLOOR and not layout.village.is_empty():
+		player.safe_zone = in_village(player.position)       # la aldea es un refugio
 	if tick_number >= 0:
 		tick = tick_number
 	else:

@@ -232,7 +232,9 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 	match state:
 		State.IDLE:
 			var notice := _notice_range(warrior) * (SLEEP_NOTICE_FACTOR if behavior == "sleep" else 1.0)
-			if target_alive and position.distance_to(warrior.position) <= notice and (world == null or world.line_of_sight(position, warrior.position)):
+			if target_alive and world != null and world.in_village(warrior.position) and not is_boss():
+				pass                            # el jugador esta a salvo en la aldea
+			elif target_alive and position.distance_to(warrior.position) <= notice and (world == null or world.line_of_sight(position, warrior.position)):
 				_aggro()
 			elif behavior == "patrol":
 				_step_patrol(delta)
@@ -310,6 +312,9 @@ func _step_patrol(delta: float) -> void:
 func _step_chase(delta: float, warrior: Object, target_alive: bool) -> void:
 	if not target_alive:
 		state = State.IDLE
+		return
+	if world != null and world.in_village(warrior.position) and not is_boss():
+		state = State.IDLE                      # no entran en la aldea: pierden al jugador
 		return
 	var to_target: Vector2 = warrior.position - position
 	var distance := to_target.length()

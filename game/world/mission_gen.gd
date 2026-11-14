@@ -31,6 +31,8 @@ class Ctx extends RefCounted:
 	var rng: RandomNumberGenerator
 	var tier_data: Dictionary
 	var tier: int
+	## Misiones del piso (specs) mientras se genera; las usa la aldea para saber si hay interrogatorio.
+	var specs: Array = []
 	var floor_number: int = 1
 	var placed: Array = []
 	var camp_counter: int = 0
@@ -58,6 +60,7 @@ static func populate(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumb
 
 	var plan := _choose_plan(ctx, floor_number, spike)
 	var specs: Array = plan["missions"]
+	ctx.specs = specs
 	for spec: Dictionary in specs:
 		if String(spec["kind"]) == "clear" and not bool(spec["optional"]):
 			ctx.ambient_required = true
@@ -65,6 +68,10 @@ static func populate(layout: FloorLayout, analysis: MapAnalysis, rng: RandomNumb
 		_place(ctx, spec)
 	_add_ambient(ctx)
 	_add_features(ctx)
+	for spec: Dictionary in specs:
+		if String(spec["kind"]) == "interrogate":
+			spec["group"] = "witness"
+			spec["target"] = maxi(layout.npcs.filter(func(n: Dictionary) -> bool: return String(n.get("group", "")) == "witness").size(), 1)
 	if ctx.ambient_required:
 		for spec: Dictionary in specs:
 			if String(spec["kind"]) == "clear":
@@ -235,8 +242,14 @@ static func _from_template(ctx: Ctx, template: Dictionary, optional: bool) -> Di
 			spec["material_kind"] = String(kinds[ctx.rng.randi_range(0, kinds.size() - 1)])
 		"activate":
 			spec["target"] = _count(ctx, template, optional)
-			spec["group"] = "altar"
+			spec["group"] = String(template.get("group", "altar"))
 			spec["channel"] = float(template["channel"])
+			spec["object_kind"] = String(template.get("object", "altar"))
+			spec["guards"] = int(template.get("guards", 3))
+			spec["clues"] = template.get("clues", [])
+		"interrogate":
+			spec["target"] = 3
+			spec["group"] = "witness"
 		"rescue":
 			spec["target"] = _count(ctx, template, optional)
 			spec["group"] = "cage"
@@ -328,7 +341,9 @@ static func _place(ctx: Ctx, spec: Dictionary) -> void:
 				"collect":
 					_place_collect(ctx, spec)
 				"activate":
-					_place_interactables(ctx, spec, "altar", 0.22, 1.0, 3, 1.0)
+					_place_interactables(ctx, spec, String(spec.get("object_kind", "altar")), 0.22, 1.0, int(spec.get("guards", 3)), 1.0)
+				"interrogate":
+					pass                    # los testigos son los aldeanos de la aldea del piso (VillageGen)
 				"rescue":
 					_place_interactables(ctx, spec, "cage", 0.25, 1.0, 4, 1.0)
 				"explore":
@@ -516,8 +531,13 @@ static func _place_interactables(ctx: Ctx, spec: Dictionary, kind: String, t_lo:
 		var t_min := t_lo + (t_hi - t_lo) * float(i) / float(count)
 		var t_max := t_lo + (t_hi - t_lo) * float(i + 1) / float(count)
 		var spot := _spot(ctx, t_min, t_max, 2, 300.0)
-		ctx.layout.interactables.append({"kind": kind, "position": spot, "group": String(spec["group"]), "channel": float(spec.get("channel", 2.5)), "label": _label(kind)})
-		_guard(ctx, spot, guard_size)
+		var object := {"kind": kind, "position": spot, "group": String(spec["group"]), "channel": float(spec.get("channel", 2.5)), "label": _label(kind)}
+		var clues: Array = spec.get("clues", [])
+		if not clues.is_empty():
+			object["effects"] = [{"type": "message", "text": String(clues[i % clues.size()])}]
+		ctx.layout.interactables.append(object)
+		if guard_size > 0:
+			_guard(ctx, spot, guard_size)
 
 
 static func _label(kind: String) -> String:
@@ -536,6 +556,8 @@ static func _label(kind: String) -> String:
 			return "Altar de entrega"
 		"waypoint":
 			return "Baliza"
+		"clue":
+			return "Pista"
 		"campfire":
 			return "Hoguera de descanso"
 	return kind
@@ -616,6 +638,10 @@ static func _add_features(ctx: Ctx) -> void:
 			var at := _spot(ctx, 0.12, 0.95, 2, 200.0)
 			ctx.layout.hazards.append({"kind": kind, "position": at, "radius": HazardCatalog.roll_radius(kind, frng)})
 	_add_discoveries(ctx, features, frng)
+	var wants_witnesses := false
+	for spec: Dictionary in ctx.specs:
+		wants_witnesses = wants_witnesses or String(spec["kind"]) == "interrogate"
+	VillageGen.place(ctx.layout, ctx.analysis, frng, ctx.floor_number, wants_witnesses)
 	ctx.layout.features = features
 	ctx.rng = saved
 
@@ -833,6 +859,10 @@ static func check(layout: FloorLayout) -> Array[String]:
 					var need := target if groups.size() == 1 else 1
 					if have < need:
 						problems.append("%s: hay %d objetos %s y pide %d" % [id, have, group, need])
+			"interrogate":
+				var witnesses := layout.npcs.filter(func(n: Dictionary) -> bool: return String(n.get("group", "")) == "witness").size()
+				if witnesses < target:
+					problems.append("%s: hay %d testigos y pide %d" % [id, witnesses, target])
 			"survive":
 				var beacons := layout.interactables.filter(func(o: Dictionary) -> bool: return String(o["kind"]) == "beacon").size()
 				if beacons < 1:

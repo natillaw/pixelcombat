@@ -1,0 +1,211 @@
+{
+	"_doc": "Aldeas refugio de los pisos 2, 4, 6 y 8 (VillageGen). Sin enemigos a menos de 300 px; zona segura de 190 px (se puede cambiar de equipo, los enemigos no entran); posada (taberna: comprar, cocinar, descansar) y mercader. Los aldeanos reutilizan el formato de data/residents.json (outfit, seed, lines por etapa); witness=true los hace testigos para la mision 'interrogate' (clue = lo que cuentan).",
+	"villages": {
+		"2": {
+			"name": "El Vado",
+			"inn_label": "Posada del Vado",
+			"merchant_label": "Mercader del Vado",
+			"villagers": [
+				{
+					"id": "vado_hilda",
+					"name": "Hilda, la granjera",
+					"outfit": "vendor",
+					"seed": 201,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Aqui no entran los del Cuervo. Descansa en la posada, que arriba no hay camas.",
+							"Si vas a subir, lleva comida: la vida no se recupera sola."
+						]
+					}
+				},
+				{
+					"id": "vado_toma",
+					"name": "Toma, el pastor",
+					"outfit": "elder",
+					"seed": 202,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Los cuervos de verdad ya no cantan por aqui. Los otros si.",
+							"Cada piso es mas largo que el anterior. Cuenta tus pociones."
+						]
+					}
+				},
+				{
+					"id": "vado_nia",
+					"name": "Nia",
+					"outfit": "kid",
+					"seed": 203,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"¿Es verdad que has matado a un capitan? ¡Cuentamelo!",
+							"Mi hermano subio hace un mes. No ha vuelto."
+						]
+					}
+				}
+			]
+		},
+		"4": {
+			"name": "Hondonada",
+			"inn_label": "Posada de la Hondonada",
+			"merchant_label": "Mercader de la Hondonada",
+			"villagers": [
+				{
+					"id": "hond_marta",
+					"name": "Marta, la herbolaria",
+					"outfit": "seer",
+					"seed": 401,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Si necesitas curarte, la posada tiene camas y el mercader, pociones."
+						]
+					},
+					"witness": true,
+					"clue": "Los del Cuervo llegaron por el camino del este con carros cubiertos. No traian comida: traian cadenas."
+				},
+				{
+					"id": "hond_ruben",
+					"name": "Ruben, el cazador",
+					"outfit": "hunter",
+					"seed": 402,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"No salgas del camino de noche. Los dormidos se despiertan con un grito."
+						]
+					},
+					"witness": true,
+					"clue": "Su capitan no esta aqui: lo vi marchar al puesto avanzado del piso 5 con la mitad de la banda."
+				},
+				{
+					"id": "hond_ines",
+					"name": "Ines, la tabernera",
+					"outfit": "guard_f",
+					"seed": 403,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Toma algo caliente. Las raciones de viaje se aguantan en la mochila."
+						]
+					},
+					"witness": true,
+					"clue": "Pagaban con monedas del Cuervo y preguntaban por alguien que sube sin parar. Pregunta en el puesto avanzado: ahi hay un capitan que habla."
+				},
+				{
+					"id": "hond_pau",
+					"name": "Pau, el sacristan",
+					"outfit": "elder",
+					"seed": 404,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"El piso esta tranquilo si respetas la aldea. Fuera, cada campamento tiene su guardia."
+						]
+					}
+				}
+			]
+		},
+		"6": {
+			"name": "Las Brasas",
+			"inn_label": "Posada de las Brasas",
+			"merchant_label": "Mercader de las Brasas",
+			"villagers": [
+				{
+					"id": "bras_lia",
+					"name": "Lia, la curandera",
+					"outfit": "seer",
+					"seed": 601,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Duerme aqui y bajara la fiebre. Con el veneno de los charcos no se juega."
+						]
+					}
+				},
+				{
+					"id": "bras_oto",
+					"name": "Oto, el herrero",
+					"outfit": "vendor",
+					"seed": 602,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Un buen filo vale mas que dos pociones. Mira los afijos de lo que sueltan los elites."
+						]
+					}
+				},
+				{
+					"id": "bras_cor",
+					"name": "Cora, la vigia",
+					"outfit": "scout",
+					"seed": 603,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Los zapadores siembran abrojos. Rodea el fuego y ve a por quien lo puso."
+						]
+					}
+				}
+			]
+		},
+		"8": {
+			"name": "El Ultimo Refugio",
+			"inn_label": "Posada del Ultimo Refugio",
+			"merchant_label": "Mercader del Ultimo Refugio",
+			"villagers": [
+				{
+					"id": "ref_bruno",
+					"name": "Bruno, el veterano",
+					"outfit": "guard",
+					"seed": 801,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Garrick espera en el piso 10. Llega con la vida llena y comida en la mochila."
+						]
+					}
+				},
+				{
+					"id": "ref_alma",
+					"name": "Alma, la bardo",
+					"outfit": "bard",
+					"seed": 802,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"Cantan que alguien sube sin parar. Que sigas subiendo es lo unico que importa."
+						]
+					}
+				},
+				{
+					"id": "ref_ima",
+					"name": "Ima, la cocinera",
+					"outfit": "vendor",
+					"seed": 803,
+					"face": "down",
+					"bubble": true,
+					"lines": {
+						"0": [
+							"El asado del camino cura mientras peleas. Llevate un par antes de subir."
+						]
+					}
+				}
+			]
+		}
+	}
+}

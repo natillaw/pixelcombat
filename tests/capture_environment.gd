@@ -34,6 +34,8 @@ func _ready() -> void:
 		session.go_to_floor(floor_number)
 		await _wait(0.6)
 		var spots: Array = []
+		if not session.layout.village.is_empty():
+			spots.append(["village", (session.layout.village["position"] as Vector2) + Vector2(0, 30)])
 		var camp_count := 0
 		for camp: Dictionary in session.layout.camps:
 			if String(camp["kind"]) == "camp" and camp_count < 2:

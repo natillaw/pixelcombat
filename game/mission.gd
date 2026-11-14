@@ -27,6 +27,8 @@ var _next_wave: float = 0.0
 var _beacon: Vector2 = Vector2.ZERO
 var _wave_rng: RandomNumberGenerator
 var _outside_warned: bool = false
+## Interrogatorio: ids de los PNJ testigos con los que ya se ha hablado.
+var _talked: Dictionary = {}
 
 
 func _init(p_spec: Dictionary) -> void:
@@ -49,6 +51,7 @@ func bind(world: CombatWorld, layout: FloorLayout) -> void:
 	world.enemy_killed.connect(_on_enemy_killed)
 	world.resource_gathered.connect(_on_gathered)
 	world.interacted.connect(_on_interacted)
+	world.npc_talked.connect(_on_npc_talked)
 
 
 func unbind() -> void:
@@ -60,6 +63,8 @@ func unbind() -> void:
 		_world.resource_gathered.disconnect(_on_gathered)
 	if _world.interacted.is_connected(_on_interacted):
 		_world.interacted.disconnect(_on_interacted)
+	if _world.npc_talked.is_connected(_on_npc_talked):
+		_world.npc_talked.disconnect(_on_npc_talked)
 
 
 ## Para pruebas y trucos de depuracion: da la mision por cumplida.
@@ -172,6 +177,18 @@ func _on_enemy_killed(enemy: EnemySim) -> void:
 				progress += 1
 				if progress >= target:
 					_finish()
+
+
+func _on_npc_talked(npc_id: String) -> void:
+	if done or _kind != "interrogate" or _talked.has(npc_id):
+		return
+	for npc: Dictionary in _layout.npcs:
+		if String(npc["id"]) == npc_id and String(npc.get("group", "")) == _group:
+			_talked[npc_id] = true
+			progress = _talked.size()
+			if progress >= target:
+				_finish()
+			return
 
 
 func _on_gathered(node: ResourceNode, _material_id: String, amount: int) -> void:

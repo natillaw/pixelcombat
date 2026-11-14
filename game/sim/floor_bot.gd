@@ -30,6 +30,10 @@ var _replan_ticks: int = 0
 var _force_reveal: bool = true
 var _exhausted_ticks: int = 0
 var _tick_count: int = 0
+## Interrogatorio: el bot habla con los testigos que ve (como una persona que pulsa interactuar). El banco de pruebas
+## lee `pending_talk` (id del aldeano) y llama a la sesion; el bot no conoce el mapa: solo va a los que tiene a la vista.
+var pending_talk: String = ""
+var _talked: Dictionary = {}
 ## Se acabo lo que explorar sin completar el piso: recurre al metodo antiguo para rematar (enemigos escondidos).
 var _exhausted: bool = false
 var _field: PackedInt32Array = PackedInt32Array()
@@ -89,7 +93,11 @@ func decide(world: CombatWorld) -> InputMessage:
 		var hold := _hold_direction(world, player)
 		if hold == Vector2.INF:
 			return message                       # junto a la baliza, esperando a que lleguen las oleadas
-		direction = hold if hold != Vector2.ZERO else _explore_direction(world, player)
+		var talk_direction := _witness_direction(world, player)
+		if talk_direction != Vector2.ZERO:
+			direction = talk_direction
+		else:
+			direction = hold if hold != Vector2.ZERO else _explore_direction(world, player)
 		if direction == Vector2.ZERO:
 			return message
 	# Atascado contra un obstaculo (arbol pegado a un muro, esquina): prueba varias salidas y sigue la que mas avanza.
@@ -105,6 +113,28 @@ func decide(world: CombatWorld) -> InputMessage:
 	message.move_dir = direction
 	message.aim_dir = direction
 	return message
+
+
+## Hacia el testigo (aldeano de la mision de interrogar) mas cercano que tenga a la vista; al llegar pide hablarle.
+func _witness_direction(world: CombatWorld, player: PlayerSim) -> Vector2:
+	if world.layout == null:
+		return Vector2.ZERO
+	var best: Dictionary = {}
+	var best_distance := 520.0
+	for npc: Dictionary in world.layout.npcs:
+		if String(npc.get("group", "")) != "witness" or _talked.has(String(npc["id"])):
+			continue
+		var distance := player.position.distance_to(npc["position"])
+		if distance < best_distance:
+			best_distance = distance
+			best = npc
+	if best.is_empty():
+		return Vector2.ZERO
+	if best_distance < 56.0:
+		pending_talk = String(best["id"]).trim_prefix("vil_")
+		_talked[String(best["id"])] = true
+		return Vector2.ZERO
+	return (((best["position"] as Vector2) - player.position)).normalized()
 
 
 func _known_map_direction(world: CombatWorld, player: PlayerSim) -> Vector2:

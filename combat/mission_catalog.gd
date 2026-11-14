@@ -15,7 +15,7 @@ class_name MissionCatalog
 extends RefCounted
 
 const PATH := "res://data/missions.json"
-const KINDS := ["clear", "hunt", "slay", "collect", "activate", "explore", "rescue", "destroy", "survive", "relic"]
+const KINDS := ["clear", "hunt", "slay", "collect", "activate", "explore", "rescue", "destroy", "survive", "relic", "interrogate"]
 const BOSS_VARIANTS := ["seals", "gauntlet", "elites"]
 
 static var _data: Dictionary = {}
@@ -60,6 +60,8 @@ static func eligible(tier: int, pool: Array = []) -> Array:
 			continue
 		if not pool.is_empty() and not pool.has(String(entry["id"])):
 			continue
+		if bool(entry.get("story_only", false)):
+			continue                # solo salen como mision de historia de un piso concreto
 		out.append(entry)
 	return out
 

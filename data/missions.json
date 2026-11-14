@@ -209,6 +209,40 @@
 			"tier_min": 1,
 			"xp_mult": 1.5,
 			"target_prefix": "bandit_"
+		},
+		{
+			"id": "interrogate",
+			"kind": "interrogate",
+			"name": "Interrogar a los aldeanos",
+			"desc": "Habla con los {count} testigos de la aldea y reconstruye lo que paso. Nadie te pide matar.",
+			"weight": 1.0,
+			"tier_min": 1,
+			"xp_mult": 1.8,
+			"story_only": true
+		},
+		{
+			"id": "clues",
+			"kind": "activate",
+			"name": "Seguir las pistas",
+			"desc": "Examina {count} pistas que dejo el Cuervo. No hace falta combatir.",
+			"count": [
+				3,
+				4
+			],
+			"channel": 1.8,
+			"weight": 1.0,
+			"tier_min": 1,
+			"xp_mult": 1.8,
+			"story_only": true,
+			"object": "clue",
+			"guards": 0,
+			"group": "clue",
+			"clues": [
+				"Huellas de botas con suela de hierro: el Cuervo paso de noche y con prisa.",
+				"Un trapo granate atado a una rama marca un campamento cercano.",
+				"Restos de una hoguera apagada a patadas: se fueron antes del amanecer.",
+				"Una nota rota: 'Quien sube no debe llegar al piso 10'."
+			]
 		}
 	],
 	"optional": {
@@ -361,17 +395,7 @@
 			]
 		},
 		"4": {
-			"template": "rescue",
-			"flavor": 0,
-			"extra": [
-				{
-					"template": "slay",
-					"enemy_id": "bandit_cutthroat",
-					"target": 6,
-					"title": "Los degolladores de la emboscada",
-					"desc": "Derrota a {count} {enemy}: aqui nadie te ataca de frente"
-				}
-			]
+			"template": "interrogate"
 		},
 		"5": {
 			"template": "captain"
@@ -389,15 +413,7 @@
 			]
 		},
 		"7": {
-			"template": "altars",
-			"flavor": 0,
-			"extra": [
-				{
-					"template": "waypoints",
-					"title": "Las balizas de la Vigia",
-					"desc": "Alcanza {count} balizas de la Vigia de Albor: cada una guarda una nota que nadie recogio"
-				}
-			]
+			"template": "clues"
 		},
 		"8": {
 			"template": "survive",

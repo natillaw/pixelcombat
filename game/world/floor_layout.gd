@@ -41,6 +41,8 @@ var torches: Array = []
 var hazards: Array = []
 ## Campamentos y patrullas del piso: [{position, group, kind: "camp"|"pack", size}] (los props van en `props`).
 var camps: Array = []
+## Aldea refugio del piso: {position, radius, name} o {} (ver VillageGen). Dentro: zona segura, los enemigos no entran.
+var village: Dictionary = {}
 ## Contenido extra del piso (data/floor_features.json) tal como se aplico; vacio si no hay.
 var features: Dictionary = {}
 ## Modificador del piso (data/floor_modifiers.json) o {}.
