@@ -118,15 +118,6 @@
 			"description": "Crea una zona que ralentiza."
 		},
 		{
-			"id": "volley",
-			"name": "Volley",
-			"role": "Área",
-			"unlock_level": 32,
-			"cost": 30,
-			"cooldown": 14,
-			"description": "Lluvia de flechas sobre una zona marcada."
-		},
-		{
 			"id": "camouflage",
 			"name": "Camouflage",
 			"role": "Escape",
