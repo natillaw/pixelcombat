@@ -19,6 +19,7 @@ func _init() -> void:
 	_test_refuge()
 	_test_interrogate()
 	_test_clues()
+	_test_distance()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -133,3 +134,11 @@ func _test_clues() -> void:
 	for i: int in range(5):
 		session.world.step(DT)
 	_check(clues.done and session.is_floor_done(), "examinar todas las pistas completa el piso")
+
+
+## El piso del interrogatorio no puede ser un paseo: la aldea esta a una distancia razonable de la entrada.
+func _test_distance() -> void:
+	for seed_value: int in [20261110, 7, 99, 4242, 31337]:
+		var layout := TowerGenerator.generate(4, seed_value, 1)
+		var distance := layout.player_spawn.distance_to(layout.village["position"])
+		_check(distance >= 900.0, "piso 4 seed %d: la aldea esta a %.0f px de la entrada (>= 900)" % [seed_value, distance])

@@ -196,6 +196,8 @@ func _draw() -> void:
 		_draw_text("LATENCIA SIMULADA: %d MS" % Settings.sim_latency_ms, Vector2(10, 354), 7, RED)
 	_draw_boss_bar()
 	_draw_location()
+	if world.in_village(world.player.position):
+		_draw_text("ZONA SEGURA: %s" % String(world.layout.village["name"]).to_upper(), Vector2(316, 96), 7, GREEN_DONE, HORIZONTAL_ALIGNMENT_CENTER, 190)
 	_draw_minimap()
 
 	if warrior.vengeful_active and warrior.alive:

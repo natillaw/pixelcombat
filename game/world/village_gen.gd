@@ -44,7 +44,8 @@ static func place(layout: FloorLayout, analysis: MapAnalysis, frng: RandomNumber
 	var best_score := -1.0
 	for clearance: int in [4, 3, 2]:
 		for attempt: int in range(40):
-			var candidate: Variant = analysis.pick_spot(frng, 0.05, 0.95, clearance, avoid, 380.0)
+			# A mitad de camino (no pegada a la entrada ni a la salida); con interrogatorio, mas adentro: el piso no es un paseo de 5 s.
+			var candidate: Variant = analysis.pick_spot(frng, 0.4 if force else 0.2, 0.75 if force else 0.85, clearance, avoid, 380.0)
 			if candidate == null:
 				continue
 			var score := _site_score(layout, candidate as Vector2)
