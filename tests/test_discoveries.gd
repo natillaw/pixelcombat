@@ -72,7 +72,7 @@ func _test_placement() -> void:
 		var events_placed := 0
 		var groups := {}
 		for spec: Dictionary in layout.interactables:
-			if String(spec["kind"]) == "event_option":
+			if String(spec["kind"]) == "event_option" and String(spec["exclusive"]).begins_with("event_"):
 				groups[String(spec["exclusive"])] = true
 		events_placed = groups.size()
 		_check(events_placed == int(features.get("events", 0)), "piso %d: %d eventos" % [floor_number, events_placed])

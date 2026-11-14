@@ -119,6 +119,9 @@ func _quest_event(event: String, subject: String, amount: int = 1) -> void:
 
 func _on_interacted(object: Interactable) -> void:
 	_quest_event("object_interacted", String(object.kind))
+	for effect: Dictionary in object.effects:
+		if String(effect.get("type", "")) == "flag":
+			tower.set_flag(String(effect["id"]))
 	if object.kind == "note":
 		for effect: Dictionary in object.effects:
 			if String(effect.get("type", "")) == "note":
@@ -300,7 +303,7 @@ func _talk_to(resident_id: String) -> void:
 		return
 	var visit := int(_talk_visits.get(resident_id, 0))
 	_talk_visits[resident_id] = visit + 1
-	var line := Residents.line_for(entry, tower.story_stage(), visit)
+	var line := Residents.line_for(entry, tower.story_stage(), visit, tower.flags)
 	if villager:
 		if not String(entry.get("clue", "")).is_empty():
 			line = String(entry["clue"])            # la primera vez cuenta lo que sabe

@@ -96,3 +96,10 @@ Mientras no lleguen los assets locales del dueño, los 5 enemigos nuevos reutili
 | Cultivos, corrales y huertos de las aldeas | No existen (solo fogata, bancos, macetas y farola) | Sprites de huerto, gallinero/corral, pozo, tendedero, leña apilada |
 | Cartel o indicador de zona segura de la aldea | Texto en el HUD (pendiente) y portales | Arco de entrada o cartel de madera "Aldea" |
 | Pistas del piso 7 (huellas, trapo granate, hoguera apagada, nota rota) | Icono de nota (`ts_kit/icons/res_skill_book.png`) | 4 sprites: huellas, trapo, brasas, papel roto |
+
+## Heroes invocados (14 nov 2026)
+| Que | Estado actual | Que asset hace falta |
+|---|---|---|
+| 7 heroes de otros mundos (Kaito, Lysa, Tob, Sunna, Grix, Nadir, Veyd) | LPC recompuesto con los trajes de los residentes (cazador, vidente, explorador, bardo, vendedor, herido, guardia) | Retratos/sprites propios que sugieran su mundo de origen (marinero, doctora de vapor, cartografo, domadora de cielo, ingeniero minero, ladrona de cristal, caballero de ceniza) |
+| Alijos (macuto, botiquin, cuaderno, fardo, caja de herramientas, botin, escudo) | Un unico sprite de saco del pack de campamento con brillo azul | Un sprite por alijo (7) |
+| Cartel de "Despierto" / retratos en el dialogo | No existe (solo burbuja y texto) | Marcos de retrato por heroe |

@@ -11,13 +11,13 @@
 			"id": "note_f1_1",
 			"floor": 1,
 			"title": "Nota clavada",
-			"text": "Si lees esto, no bebas del arroyo del este. Los limos de ahi no son lo que parecen."
+			"text": "Si lees esto eres un Despierto, como yo. No bebas del arroyo del este: los limos de ahi no son lo que parecen. Vengo de un mundo sin limos y me lo he aprendido a golpes."
 		},
 		{
 			"id": "note_f2_0",
 			"floor": 2,
 			"title": "Carta sin enviar",
-			"text": "Madre: el trabajo de guardia paga bien, pero los cuervos de esta region no son aves normales. Vuelven al amanecer."
+			"text": "Madre: aqui nos llaman Despiertos, pero yo solo se que me trajeron de casa por mi punteria. El Cuervo es peor que cualquier bandido del puerto. Vuelven al amanecer."
 		},
 		{
 			"id": "note_f2_1",
@@ -59,7 +59,7 @@
 			"id": "note_f5_1",
 			"floor": 5,
 			"title": "Carta del capitan",
-			"text": "El puesto avanzado aguanta mientras los tenientes aguanten. Rask y Veyra se odian: usa eso."
+			"text": "El puesto avanzado aguanta mientras los tenientes aguanten. Rask y Veyra se odian: usa eso. Lo anoto por si algun otro Despierto sube despues de mi."
 		},
 		{
 			"id": "note_f6_0",
@@ -107,7 +107,7 @@
 			"id": "note_f9_1",
 			"floor": 9,
 			"title": "Ultima nota",
-			"text": "Cuando llegues a su campamento, no lo mires a los ojos. Garrick tiene una sola regla: nadie sube mas alla."
+			"text": "Cuando llegues a su campamento, no lo mires a los ojos. Garrick tiene una sola regla: nadie sube mas alla. Yo vine de lejos para subir y aqui me quede."
 		}
 	]
 }

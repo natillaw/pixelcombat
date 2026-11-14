@@ -13,6 +13,7 @@ const PIXEL_FONT := preload("res://assets/fonts/m6x11.ttf")
 ## Hoguera animada (pack de campamento).
 const CAMPFIRE := preload("res://assets/props/campamento/prop_fogata_anim.png")
 ## Iconos del kit de interfaz reutilizados como objetos del suelo (notas = libro de habilidades; ver docs/PLACEHOLDERS_PENDIENTES.md).
+const CAMP_SHEET := preload("res://assets/props/campamento/props_campamento.png")
 const NOTE_ICON := preload("res://assets/pixel/ui/ts_kit/icons/res_skill_book.png")
 const BRICK_H := 20.0
 const BRICK_W := 44.0
@@ -1048,6 +1049,8 @@ class InteractableActor extends Node2D:
 				glow = Color(1.0, 0.9, 0.4)
 			"note", "clue":
 				glow = Color(0.95, 0.9, 0.7)
+			"cache":
+				glow = Color(0.6, 0.85, 1.0)
 			"event_option":
 				glow = Color(0.75, 0.55, 1.0)
 		var tone := glow if not done else glow.darkened(0.55)
@@ -1084,6 +1087,11 @@ class InteractableActor extends Node2D:
 				draw_rect(Rect2(-3, -20, 6, 8), trim)
 				if not done:
 					draw_circle(Vector2(0, -16), 24.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.10))
+			"cache":
+				# Macuto/fardo de un heroe invocado (saco del pack de campamento) con un brillo azul.
+				draw_texture_rect_region(CAMP_SHEET, Rect2(-17.0, -26.0, 34.0, 28.0), Rect2(49, 53, 14, 12), Color.WHITE if not done else Color(0.4, 0.4, 0.45))
+				if not done:
+					draw_circle(Vector2(0, -14), 20.0 + 4.0 * pulse, Color(tone.r, tone.g, tone.b, 0.13))
 			"key":
 				if not done:
 					draw_circle(Vector2(0, -16), 5.0, tone)

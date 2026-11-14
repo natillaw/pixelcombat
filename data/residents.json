@@ -1,58 +1,506 @@
 {
-	"_doc": "Residentes de la ciudad con los que se puede hablar (E o clic cerca). cell = casilla (columna, fila) donde se quedan; outfit = vestuario de Residents.OUTFITS; seed = semilla del aspecto LPC; lines = frases por etapa de la historia (TowerState.story_stage 0-3; si falta una etapa se usa la anterior); bubble = muestra el globo '...' que avisa de que tienen algo que contar. Esquema validado en game/residents.gd y tests/test_city_life.gd.",
+	"_doc": "Residentes de la ciudad con los que se puede hablar (E o clic cerca). cell = casilla (columna, fila) donde se quedan; outfit = vestuario de Residents.OUTFITS; seed = semilla del aspecto LPC; lines = frases por etapa de la historia (TowerState.story_stage 0-3; si falta una etapa se usa la anterior); bubble = muestra el globo '...' que avisa de que tienen algo que contar. Esquema validado en game/residents.gd y tests/test_city_life.gd. Los 'heroes invocados' (con origin, hint {floor, where: camp|far|hazard}, found_flag, lines_found y cache) dejan un alijo real en el piso que mencionan (MissionGen._place_hero_caches); al encontrarlo cambian sus frases.",
 	"residents": [
-		{"id": "gate_guard_a", "name": "Bram, guardia de la Torre", "cell": [40, 17], "outfit": "guard", "seed": 11, "face": "down", "bubble": true,
+		{
+			"id": "gate_guard_a",
+			"name": "Bram, guardia de la Torre",
+			"cell": [
+				40,
+				17
+			],
+			"outfit": "guard",
+			"seed": 11,
+			"face": "down",
+			"bubble": true,
 			"lines": {
-				"0": ["Nadie sabe cuantos pisos tiene la Torre. Yo solo vigilo la puerta.", "Empieza por el piso 1: es corto y los bandidos de ahi no muerden tanto."],
-				"1": ["Dicen que el Puesto Avanzado cayo. Si tu lo hiciste, la guardia te debe una cerveza."],
-				"2": ["El Barón Carmesí espera arriba. Lleva buen equipo y no te apresures."],
-				"3": ["Garrick ha caido... y aun asi la Torre sigue subiendo. Esto no ha terminado."]
-			}},
-		{"id": "gate_guard_b", "name": "Hilda, guardia de la Torre", "cell": [45, 17], "outfit": "guard_f", "seed": 12, "face": "down", "bubble": false,
+				"0": [
+					"Nadie sabe cuantos pisos tiene la Torre. Yo solo vigilo la puerta.",
+					"Empieza por el piso 1: es corto y los bandidos de ahi no muerden tanto."
+				],
+				"1": [
+					"Dicen que el Puesto Avanzado cayo. Si tu lo hiciste, la guardia te debe una cerveza."
+				],
+				"2": [
+					"El Barón Carmesí espera arriba. Lleva buen equipo y no te apresures."
+				],
+				"3": [
+					"Garrick ha caido... y aun asi la Torre sigue subiendo. Esto no ha terminado."
+				]
+			}
+		},
+		{
+			"id": "gate_guard_b",
+			"name": "Hilda, guardia de la Torre",
+			"cell": [
+				45,
+				17
+			],
+			"outfit": "guard_f",
+			"seed": 12,
+			"face": "down",
+			"bubble": false,
 			"lines": {
-				"0": ["Si te hieren, busca hogueras de descanso en los pisos: curan la mitad de la vida.", "Las zonas rojas del suelo son ataques. Sal de ellas."],
-				"2": ["Cuantos mas pisos pasas, mas hogueras valoraras."]
-			}},
-		{"id": "bard", "name": "Fenn, el bardo", "cell": [47, 28], "outfit": "bard", "seed": 21, "face": "down", "bubble": true,
+				"0": [
+					"Si te hieren, busca hogueras de descanso en los pisos: curan la mitad de la vida.",
+					"Las zonas rojas del suelo son ataques. Sal de ellas."
+				],
+				"2": [
+					"Cuantos mas pisos pasas, mas hogueras valoraras."
+				]
+			}
+		},
+		{
+			"id": "bard",
+			"name": "Fenn, el bardo",
+			"cell": [
+				47,
+				28
+			],
+			"outfit": "bard",
+			"seed": 21,
+			"face": "down",
+			"bubble": true,
 			"lines": {
-				"0": ["Cien puertas, cien pisos, cien canciones. Aun voy por la primera.", "Se dice que un cuervo vio nacer a la Aguja hace trescientos años."],
-				"1": ["Ya canto sobre ti, forastero. La rima con 'capitan' me cuesta, eso si."],
-				"3": ["Garrick Blackhand, caido ante un recien llegado. Que balada."]
-			}},
-		{"id": "old_man", "name": "Perrin, el abuelo", "cell": [36, 35], "outfit": "elder", "seed": 31, "face": "right", "bubble": true,
+				"0": [
+					"Cien puertas, cien pisos, cien canciones. Aun voy por la primera.",
+					"Se dice que un cuervo vio nacer a la Aguja hace trescientos años."
+				],
+				"1": [
+					"Ya canto sobre ti, forastero. La rima con 'capitan' me cuesta, eso si."
+				],
+				"3": [
+					"Garrick Blackhand, caido ante un recien llegado. Que balada."
+				]
+			}
+		},
+		{
+			"id": "old_man",
+			"name": "Perrin, el abuelo",
+			"cell": [
+				36,
+				35
+			],
+			"outfit": "elder",
+			"seed": 31,
+			"face": "right",
+			"bubble": true,
 			"lines": {
-				"0": ["Cuando era joven el bosque tenia nombre propio y cantaba. Ahora solo grita.", "Las bestias del bosque son animales, no monstruos. Dejan buen cuero."],
-				"1": ["Ese Capitan era un buen hombre antes. La Torre cambia a la gente."],
-				"2": ["Si ves un cuervo en lo alto, no lo ignores."]
-			}},
-		{"id": "child", "name": "Pip", "cell": [48, 35], "outfit": "kid", "seed": 41, "face": "left", "bubble": true,
+				"0": [
+					"Cuando era joven el bosque tenia nombre propio y cantaba. Ahora solo grita.",
+					"Las bestias del bosque son animales, no monstruos. Dejan buen cuero."
+				],
+				"1": [
+					"Ese Capitan era un buen hombre antes. La Torre cambia a la gente."
+				],
+				"2": [
+					"Si ves un cuervo en lo alto, no lo ignores."
+				]
+			}
+		},
+		{
+			"id": "child",
+			"name": "Pip",
+			"cell": [
+				48,
+				35
+			],
+			"outfit": "kid",
+			"seed": 41,
+			"face": "left",
+			"bubble": true,
 			"lines": {
-				"0": ["¿Eres un aventurero? ¡Enseñame tu espada!", "La fuente brilla cuando alguien vuelve vivo de la Torre."],
-				"2": ["Yo tambien quiero subir cuando sea grande. Mama dice que no."]
-			}},
-		{"id": "fruit_seller", "name": "Maren, la frutera", "cell": [33, 28], "outfit": "vendor", "seed": 51, "face": "down", "bubble": true,
+				"0": [
+					"¿Eres un aventurero? ¡Enseñame tu espada!",
+					"La fuente brilla cuando alguien vuelve vivo de la Torre."
+				],
+				"2": [
+					"Yo tambien quiero subir cuando sea grande. Mama dice que no."
+				]
+			}
+		},
+		{
+			"id": "fruit_seller",
+			"name": "Maren, la frutera",
+			"cell": [
+				33,
+				28
+			],
+			"outfit": "vendor",
+			"seed": 51,
+			"face": "down",
+			"bubble": true,
 			"lines": {
-				"0": ["Manzanas del bosque, ¡frescas! Hoy no vendo, pero la taberna de Ottis te cocina algo.", "Recoge hierbas en los pisos: Mira las usa para pociones."],
-				"1": ["Los bandidos ya no asaltan mis carros. ¡Gracias!"]
-			}},
-		{"id": "hunter", "name": "Jorik, el cazador", "cell": [52, 28], "outfit": "hunter", "seed": 61, "face": "down", "bubble": false,
+				"0": [
+					"Manzanas del bosque, ¡frescas! Hoy no vendo, pero la taberna de Ottis te cocina algo.",
+					"Recoge hierbas en los pisos: Mira las usa para pociones."
+				],
+				"1": [
+					"Los bandidos ya no asaltan mis carros. ¡Gracias!"
+				]
+			}
+		},
+		{
+			"id": "hunter",
+			"name": "Jorik, el cazador",
+			"cell": [
+				52,
+				28
+			],
+			"outfit": "hunter",
+			"seed": 61,
+			"face": "down",
+			"bubble": false,
 			"lines": {
-				"0": ["Arañas, escarabajos, abejas gigantes: todo deja materiales. Cuero, quitina, seda.", "La Reina Avispa del piso 5 pica fuerte. Esquiva su abanico."],
-				"2": ["El Barón protege su escudo con luz. Busca de donde viene."]
-			}},
-		{"id": "wounded", "name": "Sorel, aventurero", "cell": [50, 57], "outfit": "wounded", "seed": 71, "face": "left", "bubble": true,
+				"0": [
+					"Arañas, escarabajos, abejas gigantes: todo deja materiales. Cuero, quitina, seda.",
+					"La Reina Avispa del piso 5 pica fuerte. Esquiva su abanico."
+				],
+				"2": [
+					"El Barón protege su escudo con luz. Busca de donde viene."
+				]
+			}
+		},
+		{
+			"id": "wounded",
+			"name": "Sorel, aventurero",
+			"cell": [
+				50,
+				57
+			],
+			"outfit": "wounded",
+			"seed": 71,
+			"face": "left",
+			"bubble": true,
 			"lines": {
-				"0": ["Me falto un bloqueo. Con Espacio el guerrero para casi todo si lo haces a tiempo.", "Mi consejo: pociones en 1 y 2, y no pelees sin vida."],
-				"1": ["Cornelius el Desertor me dejo asi. Vive en algun piso del 5 al 10."]
-			}},
-		{"id": "seer", "name": "Ysolde, la vidente", "cell": [31, 44], "outfit": "seer", "seed": 81, "face": "right", "bubble": true,
+				"0": [
+					"Me falto un bloqueo. Con Espacio el guerrero para casi todo si lo haces a tiempo.",
+					"Mi consejo: pociones en 1 y 2, y no pelees sin vida."
+				],
+				"1": [
+					"Cornelius el Desertor me dejo asi. Vive en algun piso del 5 al 10."
+				]
+			}
+		},
+		{
+			"id": "seer",
+			"name": "Ysolde, la vidente",
+			"cell": [
+				31,
+				44
+			],
+			"outfit": "seer",
+			"seed": 81,
+			"face": "right",
+			"bubble": true,
 			"lines": {
-				"0": ["Veo caminos que se bifurcan: uno sube, otro vuelve. Elige con cuidado.", "Hay quien oye la Torre respirar de noche."],
-				"2": ["Un baron rojo, un escudo de luz... y tu sombra mas larga que la suya."]
-			}},
-		{"id": "lookout", "name": "Kael, el vigia", "cell": [75, 34], "outfit": "scout", "seed": 91, "face": "left", "bubble": false,
+				"0": [
+					"Veo caminos que se bifurcan: uno sube, otro vuelve. Elige con cuidado.",
+					"Hay quien oye la Torre respirar de noche."
+				],
+				"2": [
+					"Un baron rojo, un escudo de luz... y tu sombra mas larga que la suya."
+				]
+			}
+		},
+		{
+			"id": "lookout",
+			"name": "Kael, el vigia",
+			"cell": [
+				75,
+				34
+			],
+			"outfit": "scout",
+			"seed": 91,
+			"face": "left",
+			"bubble": false,
 			"lines": {
-				"0": ["Ahi esta el patio de entrenamiento. Los munecos no devuelven los golpes... casi.", "Prueba tu kit alli antes de subir."]
-			}}
+				"0": [
+					"Ahi esta el patio de entrenamiento. Los munecos no devuelven los golpes... casi.",
+					"Prueba tu kit alli antes de subir."
+				]
+			}
+		},
+		{
+			"id": "kaito",
+			"name": "Kaito, arquero de las mareas",
+			"cell": [
+				41,
+				26
+			],
+			"outfit": "hunter",
+			"seed": 301,
+			"face": "down",
+			"bubble": true,
+			"origin": "Un archipielago donde el mar es el unico camino",
+			"hint": {
+				"floor": 2,
+				"where": "camp"
+			},
+			"found_flag": "hero_kaito_found",
+			"lines": {
+				"0": [
+					"Yo vengo de un mundo de islas. Aqui no hay mar, pero hay un bosque que huele casi igual.",
+					"Cuando subi al piso 2 dejamos un macuto junto a un campamento, bajo la tienda mas cercana al camino. Con prisa, ya sabes."
+				],
+				"1": [
+					"Los del Cuervo tienen mala punteria pero buena memoria. Si ves un campamento con tienda y cajas, mira alrededor: algo mio quedo por ahi."
+				],
+				"2": [
+					"Subiste del 5, asi que ya sabes lo que cuesta. Mi macuto sigue en el piso 2, junto a un campamento, si nadie lo ha cogido."
+				],
+				"3": [
+					"Garrick cayo. Yo lo vi en el piso 2 por primera vez, hace mil dias... Y mi macuto, ¿seguira ahi?"
+				]
+			},
+			"lines_found": [
+				"¡Lo encontraste! Sabia que seguia ahi. Quedate con lo que lleve: yo ya no lo voy a necesitar... ni mi punteria de recuerdo."
+			],
+			"cache": {
+				"label": "Macuto de Kaito",
+				"note": "Dentro, una nota con letra apretada: 'Si lo has encontrado, sigue subiendo. Nadie de mi isla ha llegado tan lejos. -K.'"
+			}
+		},
+		{
+			"id": "lysa",
+			"name": "Lysa, cirujana de campo",
+			"cell": [
+				35,
+				30
+			],
+			"outfit": "seer",
+			"seed": 302,
+			"face": "down",
+			"bubble": true,
+			"origin": "Un mundo de ciudades de vapor y hospitales de metal",
+			"hint": {
+				"floor": 3,
+				"where": "far"
+			},
+			"found_flag": "hero_lysa_found",
+			"lines": {
+				"0": [
+					"Me trajeron por mis manos, no por mi espada. Aqui curo lo que puedo, pero con mucha menos tecnica que en mi mundo.",
+					"En el piso 3 hay un rincon al fondo del mapa, lo mas lejos de la entrada, donde escondi mi botiquin. Ya sabes: lo que no se ve, no se roba."
+				],
+				"1": [
+					"Los dormidos de un campamento despiertan con un grito. Acercate callado o no te acerques.",
+					"Mi botiquin sigue en el piso 3, al fondo, donde nadie mira."
+				],
+				"2": [
+					"Ya pasaste el puesto avanzado. Si vuelves al 3 por tu botiquin, ve preparado."
+				],
+				"3": [
+					"Garrick ha caido; alguien debe curar a quienes sigan subiendo."
+				]
+			},
+			"lines_found": [
+				"¡Mi botiquin! Gracias por traerlo de vuelta... o por guardarlo. Hoy me hace mas falta que a ti."
+			],
+			"cache": {
+				"label": "Botiquin de Lysa",
+				"note": "Vendas, un frasco medio vacio y una nota: 'Cura primero a quien sube, luego al que baja. -Lysa'"
+			}
+		},
+		{
+			"id": "tob",
+			"name": "Tob, cartografo de un mundo sin norte",
+			"cell": [
+				45,
+				32
+			],
+			"outfit": "scout",
+			"seed": 303,
+			"face": "down",
+			"bubble": true,
+			"origin": "Un mundo plano que cambia de lugar cada manana",
+			"hint": {
+				"floor": 4,
+				"where": "hazard"
+			},
+			"found_flag": "hero_tob_found",
+			"lines": {
+				"0": [
+					"En mi mundo los mapas duran un dia. Aqui tambien, pero al menos la Torre repite sus trampas.",
+					"En el piso 4 enterre mi cuaderno junto a las trampas del sendero: entre pinchos o charcos, no recuerdo cual. Se me hizo tarde y cave deprisa."
+				],
+				"1": [
+					"El piso 4 tiene una aldea, la Hondonada. Pregunta a los que viven alli: vieron pasar al Cuervo.",
+					"Mi cuaderno sigue entre las trampas del piso 4."
+				],
+				"2": [
+					"Si pasas por el piso 4 de nuevo, mira donde hay pinchos o charcos: mi cuaderno esta cerca."
+				],
+				"3": [
+					"El Cuervo ha perdido a su jefe y mi cuaderno sigue entre trampas. Todo cambia, todo se queda."
+				]
+			},
+			"lines_found": [
+				"¡Mi cuaderno! Tiene trazos de mapas de mundos que ya no existen. Quedate con lo que haya dentro."
+			],
+			"cache": {
+				"label": "Cuaderno de Tob",
+				"note": "Un cuaderno de mapas que ya no sirven y una nota: 'Quien lo lea, dibuje un camino mejor. -Tob'"
+			}
+		},
+		{
+			"id": "sunna",
+			"name": "Sunna, domadora de tormentas",
+			"cell": [
+				39,
+				34
+			],
+			"outfit": "bard",
+			"seed": 304,
+			"face": "down",
+			"bubble": true,
+			"origin": "Un cielo de islas flotantes y vientos que obedecen",
+			"hint": {
+				"floor": 5,
+				"where": "camp"
+			},
+			"found_flag": "hero_sunna_found",
+			"lines": {
+				"0": [
+					"Se cantar a los vientos. Aqui el cielo es un techo de piedra y el viento es un rumor.",
+					"En el piso 5 hay un puesto avanzado con tiendas. Deje un fardo cerca de uno de sus campamentos, junto a las cajas."
+				],
+				"1": [
+					"Los tenientes del puesto avanzado se odian: usa eso. Y mi fardo sigue por ahi, junto a un campamento."
+				],
+				"2": [
+					"Veyra y Rask cayeron, ¿verdad? Pues mi fardo debe seguir en el piso 5, cerca de un campamento."
+				],
+				"3": [
+					"Garrick cayo y yo sigo sin cielo. Mi fardo, en cambio, sigue en el piso 5."
+				]
+			},
+			"lines_found": [
+				"¡Mi fardo! Contenia mi pandero de tormenta. Ya no tengo viento que llamar, pero tu quizas lo necesites."
+			],
+			"cache": {
+				"label": "Fardo de Sunna",
+				"note": "Un pandero roto y una nota: 'El viento solo obedece a quien se atreve a subir. -S.'"
+			}
+		},
+		{
+			"id": "grix",
+			"name": "Grix, ingeniero de las galerias",
+			"cell": [
+				48,
+				44
+			],
+			"outfit": "vendor",
+			"seed": 305,
+			"face": "down",
+			"bubble": true,
+			"origin": "Un mundo bajo tierra, de tuneles y maquinas",
+			"hint": {
+				"floor": 6,
+				"where": "far"
+			},
+			"found_flag": "hero_grix_found",
+			"lines": {
+				"0": [
+					"Yo construia tuneles. Aqui construyen torres, que es lo mismo pero al reves.",
+					"Esconde una caja de herramientas en el piso 6, al fondo del piso, lejos de la entrada. Mejor lejos que cerca."
+				],
+				"1": [
+					"Los zapadores del Cuervo siembran abrojos: aprendi a esquivar sus trampas con un truco: no pisar donde brilla el fuego."
+				],
+				"2": [
+					"Mi caja de herramientas sigue en el piso 6, al fondo. Los charcos verdes son veneno de verdad: rodealos."
+				],
+				"3": [
+					"Veo que Garrick ha caido. Mi caja sigue en el piso 6, que no se la lleve la Torre."
+				]
+			},
+			"lines_found": [
+				"¡Mi caja! Hay mas ingenio ahi que en toda Albor. Usala bien."
+			],
+			"cache": {
+				"label": "Caja de herramientas de Grix",
+				"note": "Llaves, tornillos y una nota: 'Todo puede arreglarse con paciencia y un buen golpe. -Grix'"
+			}
+		},
+		{
+			"id": "nadir",
+			"name": "Nadir, ladrona de espejos",
+			"cell": [
+				39,
+				46
+			],
+			"outfit": "wounded",
+			"seed": 306,
+			"face": "down",
+			"bubble": true,
+			"origin": "Una ciudad de cristal donde cada esquina refleja otra",
+			"hint": {
+				"floor": 8,
+				"where": "hazard"
+			},
+			"found_flag": "hero_nadir_found",
+			"lines": {
+				"0": [
+					"Robaba espejos en un mundo que se miraba demasiado. Aqui me miro poco.",
+					"En el piso 8 escondi mi botin junto a las pozas verdes y el fango del pantano: ahi nadie mira, huele mal."
+				],
+				"1": [
+					"Me hirieron cuatro veces antes del piso 8. La quinta fue por un charco venenoso."
+				],
+				"2": [
+					"Mi botin sigue en el piso 8, cerca de los charcos. Si lo encuentras, es tuyo... mas o menos."
+				],
+				"3": [
+					"Con Garrick caido ya no tengo que esconderme. Aun asi mi botin sigue en el piso 8."
+				]
+			},
+			"lines_found": [
+				"¡Mi botin! Lo escondi tan bien que ni yo lo encontre. Quedate con el, ya me hizo bastante."
+			],
+			"cache": {
+				"label": "Botin de Nadir",
+				"note": "Un espejo agrietado y una nota: 'Quien se ve en el espejo, sube con ganas. -Nadir'"
+			}
+		},
+		{
+			"id": "veyd",
+			"name": "Veyd, caballero de un reino sin nombre",
+			"cell": [
+				43,
+				50
+			],
+			"outfit": "guard",
+			"seed": 307,
+			"face": "down",
+			"bubble": true,
+			"origin": "Un reino de ceniza donde ya nadie recuerda al rey",
+			"hint": {
+				"floor": 9,
+				"where": "camp"
+			},
+			"found_flag": "hero_veyd_found",
+			"lines": {
+				"0": [
+					"Servi a un rey que ya no existe. Aqui sirvo a la Torre, que al menos sigue en pie.",
+					"En el piso 9 deje mi escudo junto a un campamento del Cuervo: no pude cargarlo mas. Esta bajo una de sus tiendas."
+				],
+				"1": [
+					"Los capitanes del Cuervo no pelean: interrogan. En el piso 5 conoci a uno que hablo mas de la cuenta."
+				],
+				"2": [
+					"Veyra y Rask cayeron. Mi escudo sigue en el piso 9, junto a un campamento."
+				],
+				"3": [
+					"Garrick cayo. Si subes al 9 de nuevo, mi escudo esta junto a un campamento, bajo la tienda mas lejana."
+				]
+			},
+			"lines_found": [
+				"¡Mi escudo! Viejo amigo. Llevalo con honor, o lo que quede de el."
+			],
+			"cache": {
+				"label": "Escudo de Veyd",
+				"note": "Un escudo abollado y una nota: 'Un reino se pierde, una promesa no. -Veyd'"
+			}
+		}
 	]
 }

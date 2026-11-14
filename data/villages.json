@@ -43,8 +43,8 @@
 					"bubble": true,
 					"lines": {
 						"0": [
-							"¿Es verdad que has matado a un capitan? ¡Cuentamelo!",
-							"Mi hermano subio hace un mes. No ha vuelto."
+							"Mi hermano era un Despierto, como tu. Subio hace un mes y no ha vuelto.",
+							"¿Es verdad que has matado a un capitan? ¡Cuentamelo!"
 						]
 					}
 				}
@@ -424,7 +424,7 @@
 					"bubble": true,
 					"lines": {
 						"0": [
-							"Garrick espera en el piso 10. Llega con la vida llena y comida en la mochila."
+							"Fui soldado en un mundo en guerra y la Torre me llamo cuando mas lo necesitaba. Garrick espera en el piso 10: llega con la vida llena y comida en la mochila."
 						]
 					}
 				},
@@ -437,7 +437,7 @@
 					"bubble": true,
 					"lines": {
 						"0": [
-							"Cantan que alguien sube sin parar. Que sigas subiendo es lo unico que importa."
+							"En mi mundo no habia musica; aqui la invento. Cantan que alguien sube sin parar: que sigas subiendo es lo unico que importa."
 						]
 					}
 				},

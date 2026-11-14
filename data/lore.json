@@ -12,11 +12,11 @@
 		},
 		{
 			"title": "Albor",
-			"text": "A sus pies crecio Albor, una ciudad de herreros, alquimistas y valientes. Los habitantes viven de lo que la Torre escupe: metales que no se funden dos veces igual, hierbas que solo florecen entre sus muros, cuero y quitina de las criaturas que la habitan. La Torre cambia cada vez que se cruza una puerta: ningun piso se repite, y por eso nadie ha llegado a la cima."
+			"text": "A sus pies crecio Albor, una ciudad de herreros, alquimistas y valientes. Los habitantes viven de lo que la Torre escupe: metales que no se funden dos veces igual, hierbas que solo florecen entre sus muros, cuero y quitina de las criaturas que la habitan. La Torre cambia cada vez que se cruza una puerta: ningun piso se repite, y por eso nadie ha llegado a la cima. En sus calles y en la taberna veras a otros Despiertos: gente llegada de mundos que no se parecen al tuyo, con oficios y dones que aqui nadie conocia. Preguntales: cada uno ha visto algo de la Torre."
 		},
 		{
 			"title": "Los Despiertos",
-			"text": "Hay quien dice que la Torre nos elige. Cuando alguien cae dentro, no muere: despierta junto a la fuente de Albor, sin heridas y sin recuerdos de su vida anterior, con el nombre que se elija esa manana. Los llaman los Despiertos. Dicen que el mundo todavia no sabe quienes eran, y que cada piso que completan le devuelve un recuerdo a la Torre."
+			"text": "Cuando la Torre abre una puerta, llama. No a quien vive junto a ella: llama lejos, a otros mundos, y trae a quien sabe hacer algo bien: un espadachin, una ladrona, una maga, un arquero. Los llaman Despiertos porque aparecen junto a la fuente de Albor como quien despierta: sin heridas, con su don intacto y los recuerdos de su mundo borrosos, como un sueno que se va disolviendo. No eres el unico: han invocado a muchos, de muchos mundos, y todos tienen el mismo encargo: subir. Dicen que cada piso que completan le devuelve un recuerdo a la Torre."
 		},
 		{
 			"title": "El Cuervo",
@@ -24,7 +24,7 @@
 		},
 		{
 			"title": "Tu historia",
-			"text": "Despiertas. Hueles a hierba mojada y a humo. Tienes ropa sencilla, un arma vieja y un nombre que aun no has dicho en voz alta. Los pisos del 5 y el 10 guardan guardianes que nadie ha vencido; mas alla, la Torre promete respuestas. Elige quien eres: la Torre ya te esta esperando."
+			"text": "Despiertas. Hueles a hierba mojada y a humo, y la luz no es la de tu mundo. Tienes ropa sencilla, un arma vieja, tu don y un nombre que aun no has dicho en voz alta: a ti tambien te han llamado, como a tantos otros, para subir. Los pisos del 5 y el 10 guardan guardianes que nadie ha vencido; mas alla, la Torre promete respuestas. Elige quien eres: la Torre ya te esta esperando, y en Albor hay quien ya subio y puede contarte lo que vio."
 		}
 	],
 	"classes": {
@@ -149,7 +149,13 @@
 		"Ottis: los hechiceros del Cuervo callan a quien se acerca: lleva un buen basico para cuando no puedas usar habilidades.",
 		"Ottis: cada oficio de Albor necesita lo suyo: cuero, quitina, seda, esencia... ningun material sobra.",
 		"Ottis: dicen que los relicarios del Cuervo hablan por la noche. Yo no los guardaria en la taberna.",
-		"Ottis: la Vigia anotaba a quien despertaba junto a la fuente. Nadie sabe donde fue a parar ese libro."
+		"Ottis: la Vigia anotaba a quien despertaba junto a la fuente. Nadie sabe donde fue a parar ese libro.",
+		"Ottis: en Albor hay Despiertos de muchos mundos. Hablales: casi todos dejaron algo en algun piso y hay quien pagaria por saber donde.",
+		"Ottis: Kaito, el arquero de las islas, jura que dejo un macuto junto a un campamento del piso 2. Yo no lo he visto, pero el hombre no miente.",
+		"Ottis: Lysa, la cirujana, escondio su botiquin en el piso 3, al fondo, lejos de la entrada. Dice que nadie mira donde no hay camino.",
+		"Ottis: Tob, el cartografo, enterro un cuaderno entre las trampas del piso 4. Los mapas de su mundo duran un dia; los de aqui, nada.",
+		"Ottis: Sunna dejo un fardo cerca de un campamento del piso 5, y Veyd un escudo en el piso 9. Los dos subieron mas de lo que cuentan.",
+		"Ottis: Grix escondio su caja de herramientas al fondo del piso 6 y Nadir su botin junto a las pozas del piso 8. Si los traes, te lo agradecen."
 	],
 	"floors": [
 		{
@@ -448,7 +454,8 @@
 	"rumors_after": {
 		"garrick_defeated": [
 			"Ottis: se dice que en el campamento de Garrick quedaron relicarios sin abrir. Alguien los esta buscando.",
-			"Ottis: ahora el Bosque esta mas callado. Los viejos dicen que el olvido avanza cuando el ruido se acaba."
+			"Ottis: ahora el Bosque esta mas callado. Los viejos dicen que el olvido avanza cuando el ruido se acaba.",
+			"Ottis: los Despiertos que subieron antes que tu ya no vuelven: o se quedaron atras o llegaron a algun sitio. Nadie sabe cual."
 		]
 	}
 }

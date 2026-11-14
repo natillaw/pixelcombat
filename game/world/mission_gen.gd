@@ -642,8 +642,36 @@ static func _add_features(ctx: Ctx) -> void:
 	for spec: Dictionary in ctx.specs:
 		wants_witnesses = wants_witnesses or String(spec["kind"]) == "interrogate"
 	VillageGen.place(ctx.layout, ctx.analysis, frng, ctx.floor_number, wants_witnesses)
+	_place_hero_caches(ctx, frng)
 	ctx.layout.features = features
 	ctx.rng = saved
+
+
+## Alijos de los heroes invocados (data/residents.json): cada heroe que dice haber dejado algo en un piso lo dejo de verdad,
+## y donde dijo: junto a un campamento (`camp`), al fondo del piso (`far`) o entre las trampas (`hazard`).
+static func _place_hero_caches(ctx: Ctx, frng: RandomNumberGenerator) -> void:
+	for entry_value: Variant in Residents.all():
+		var entry: Dictionary = entry_value
+		if not entry.has("hint") or int((entry["hint"] as Dictionary)["floor"]) != ctx.floor_number:
+			continue
+		var where := String(entry["hint"]["where"])
+		var layout := ctx.layout
+		var spot := Vector2.INF
+		if where == "camp":
+			var camps: Array = layout.camps.filter(func(c: Dictionary) -> bool: return String(c["kind"]) == "camp")
+			if not camps.is_empty():
+				var camp: Dictionary = camps[frng.randi_range(0, camps.size() - 1)]
+				spot = _free_ring_point(ctx, camp["position"], 60.0, 104.0, frng)
+		elif where == "hazard":
+			if not layout.hazards.is_empty():
+				var hazard: Dictionary = layout.hazards[frng.randi_range(0, layout.hazards.size() - 1)]
+				spot = _free_ring_point(ctx, hazard["position"], float(hazard["radius"]) + 18.0, float(hazard["radius"]) + 56.0, frng)
+		if spot == Vector2.INF:
+			spot = _spot(ctx, 0.78, 1.0, 2, 220.0)          # "far" (o sin campamentos/trampas que usar): al fondo del piso
+			where = "far"
+		var cache: Dictionary = entry["cache"]
+		layout.interactables.append({"kind": "cache", "position": spot, "group": "", "channel": 1.5, "label": String(cache["label"]), "hero": String(entry["id"]), "where": where,
+			"effects": [{"type": "item", "key": "chest_iron"}, {"type": "gold", "per_floor": 10}, {"type": "flag", "id": String(entry["found_flag"])}, {"type": "message", "text": String(cache["note"])}]})
 
 
 ## Notas de lore, eventos con decision, cofres (madera/hierro) y la camara sellada con su llave.

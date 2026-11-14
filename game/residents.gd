@@ -63,7 +63,13 @@ static func look_of(entry: Dictionary) -> Dictionary:
 
 
 ## Frase de `entry` para la etapa `stage` (la mas reciente hasta ella), rotando con `visit`.
-static func line_for(entry: Dictionary, stage: int, visit: int = 0) -> String:
+static func line_for(entry: Dictionary, stage: int, visit: int = 0, flags: Dictionary = {}) -> String:
+	# Un heroe cuyo alijo ya has encontrado habla de ello.
+	var found_flag := String(entry.get("found_flag", ""))
+	if found_flag != "" and bool(flags.get(found_flag, false)):
+		var found: Array = entry.get("lines_found", [])
+		if not found.is_empty():
+			return String(found[visit % found.size()])
 	var lines: Dictionary = entry.get("lines", {})
 	for s: int in range(stage, -1, -1):
 		var options: Variant = lines.get(str(s), [])
@@ -99,4 +105,12 @@ static func validate() -> Array[String]:
 			cells[key] = true
 		if line_for(entry, 0).is_empty():
 			errors.append("%s: sin frases para la etapa 0" % id)
+		if entry.has("hint"):
+			var hint: Dictionary = entry["hint"]
+			if int(hint.get("floor", 0)) < 1 or int(hint.get("floor", 0)) > 9 or not ["camp", "far", "hazard"].has(String(hint.get("where", ""))):
+				errors.append("%s: pista invalida (piso 1-9, camp|far|hazard)" % id)
+			if not entry.has("cache") or String(entry.get("found_flag", "")).is_empty() or (entry.get("lines_found", []) as Array).is_empty():
+				errors.append("%s: una pista necesita cache, found_flag y lines_found" % id)
+			elif not String(entry["lines"]["0"][1]).contains("piso %d" % int(hint["floor"])):
+				errors.append("%s: la pista de la etapa 0 debe nombrar el piso %d" % [id, int(hint["floor"])])
 	return errors
