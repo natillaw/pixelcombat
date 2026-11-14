@@ -4,7 +4,7 @@ class_name TutorialHints
 extends RefCounted
 
 const PATH := "res://data/tutorial.json"
-const TRIGGERS: Array[String] = ["city", "floor_1", "first_damage", "first_item", "first_boss_bar"]
+const TRIGGERS: Array[String] = ["city", "floor_1", "floor_2", "first_damage", "first_item", "first_boss_bar", "low_health", "village", "first_food", "floor_modifier"]
 
 static var _cache: Array = []
 

@@ -1,10 +1,65 @@
 {
 	"_doc": "Pistas del tutorial: salen una sola vez por personaje (bandera tut_<id> en TowerState.flags). when: city (al llegar a la ciudad), floor_1 (al entrar al piso 1), first_damage, first_item, first_boss_bar. En el texto, {accion} se cambia por la tecla actual de esa accion (Settings.short_label). Esquema validado en game/ui/tutorial_hints.gd y tests/test_tutorial.gd.",
 	"tips": [
-		{"id": "move", "when": "city", "seconds": 9, "text": "{move_up}{move_left}{move_down}{move_right} para moverte. Camina hasta la Torre del norte y haz clic ({attack_m1}) en su puerta; con el mismo clic hablas con los vecinos."},
-		{"id": "attack", "when": "floor_1", "seconds": 10, "text": "Apunta con el raton. {attack_m2}: golpe basico (mantenlo para el golpe fuerte). {skill_1} {skill_2} {skill_3}: skills."},
-		{"id": "dodge", "when": "first_damage", "seconds": 9, "text": "Las zonas rojas del suelo son ataques enemigos: sal de ellas o usa {dodge} (movilidad). Cada clase tiene la suya."},
-		{"id": "loot", "when": "first_item", "seconds": 9, "text": "Has recibido un objeto. Abre la mochila con {toggle_inventory} y la ficha con {toggle_character} para equiparlo."},
-		{"id": "boss", "when": "first_boss_bar", "seconds": 9, "text": "Un jefe cambia de fase al perder vida. Vigila las marcas de la barra y los avisos rojos antes de cada golpe."}
+		{
+			"id": "move",
+			"when": "city",
+			"seconds": 9,
+			"text": "{move_up}{move_left}{move_down}{move_right} para moverte. Camina hasta la Torre del norte y haz clic ({attack_m1}) en su puerta; con el mismo clic hablas con los vecinos."
+		},
+		{
+			"id": "attack",
+			"when": "floor_1",
+			"seconds": 10,
+			"text": "Apunta con el raton. {attack_m2}: golpe basico (mantenlo para el golpe fuerte). {skill_1} {skill_2} {skill_3}: skills."
+		},
+		{
+			"id": "dodge",
+			"when": "first_damage",
+			"seconds": 9,
+			"text": "Las zonas rojas del suelo son ataques enemigos: sal de ellas o usa {dodge} (movilidad). Cada clase tiene la suya."
+		},
+		{
+			"id": "loot",
+			"when": "first_item",
+			"seconds": 9,
+			"text": "Has recibido un objeto. Abre la mochila con {toggle_inventory} y la ficha con {toggle_character} para equiparlo."
+		},
+		{
+			"id": "boss",
+			"when": "first_boss_bar",
+			"seconds": 9,
+			"text": "Un jefe cambia de fase al perder vida. Vigila las marcas de la barra y los avisos rojos antes de cada golpe."
+		},
+		{
+			"id": "no_regen",
+			"when": "floor_2",
+			"seconds": 12,
+			"text": "Desde aqui tu vida no se recupera sola: lleva comida ({quick_food}) y pociones ({quick_health}), y busca aldeas para descansar. Los barriles rojos explotan y los pinchos y charcos danan a todos."
+		},
+		{
+			"id": "low_health",
+			"when": "low_health",
+			"seconds": 10,
+			"text": "Poca vida. No se regenera sola: usa una pocion ({quick_health}), come ({quick_food}) o descansa en la posada de una aldea."
+		},
+		{
+			"id": "village",
+			"when": "village",
+			"seconds": 12,
+			"text": "Zona segura: aqui los enemigos no entran. Descansa y compra comida en la posada, vende en el mercader y habla con los vecinos."
+		},
+		{
+			"id": "food",
+			"when": "first_food",
+			"seconds": 10,
+			"text": "Tienes comida. Comela con {quick_food} para curarte, tambien en combate. La compras o cocinas en la taberna."
+		},
+		{
+			"id": "modifier",
+			"when": "floor_modifier",
+			"seconds": 10,
+			"text": "Este piso lleva un modificador: lee el aviso. Los enemigos son mas duros, pero das mas XP o botin."
+		}
 	]
 }

@@ -91,6 +91,10 @@ func bind(p_world: CombatWorld, p_session: GameSession = null) -> void:
 			if not is_dot:
 				show_tip("first_damage"))
 		world.player.item_gained.connect(func(_item: Dictionary) -> void: show_tip("first_item"))
+		world.player.inventory_changed.connect(func() -> void:
+			for id: String in ConsumableCatalog.quick_ids("food"):
+				if world.player.consumable_count(id) > 0:
+					show_tip("first_food"))
 
 
 func _process(delta: float) -> void:
@@ -98,6 +102,10 @@ func _process(delta: float) -> void:
 	_toast_time = maxf(0.0, _toast_time - delta)
 	_banner_time = maxf(0.0, _banner_time - delta)
 	_tip_time = maxf(0.0, _tip_time - delta)
+	if world != null and world.player != null and world.player.alive and world.in_village(world.player.position):
+		show_tip("village")
+	if world != null and world.player != null and world.player.alive and world.player.health < world.player.max_health * 0.4 and world.layout != null and world.layout.kind == FloorLayout.KIND_FLOOR:
+		show_tip("low_health")
 	if world != null and world.player != null and not world.player.alive:
 		_death_time += delta / maxf(Engine.time_scale, 0.05)
 	else:
@@ -124,6 +132,10 @@ func _on_location_tip(layout: FloorLayout) -> void:
 		show_tip("city")
 	elif layout.kind == FloorLayout.KIND_FLOOR and layout.floor_number == 1:
 		show_tip("floor_1")
+	elif layout.kind == FloorLayout.KIND_FLOOR and layout.floor_number == 2:
+		show_tip("floor_2")
+	if layout.kind == FloorLayout.KIND_FLOOR and not layout.modifier.is_empty():
+		show_tip("floor_modifier")
 
 
 ## Primera vez que ganas XP con el nivel al tope del piso: aviso de por que no subes.

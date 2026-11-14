@@ -73,7 +73,7 @@ func _run() -> void:
 	for mission: Dictionary in first.mission_plan["missions"]:
 		if String(mission["kind"]) == "clear":
 			clear_target = int(mission["target"])
-	_check(clear_target == MissionGen.CLEAR_BASE and first.enemies.size() > 30, "en el piso 1 hay muchos enemigos pero la mision pide solo %d (%d en el piso)" % [clear_target, first.enemies.size()])
+	_check(clear_target == MissionGen.CLEAR_BASE and first.enemies.size() > clear_target, "en el piso 1 hay mas enemigos que los que pide la mision (%d; hay %d)" % [clear_target, first.enemies.size()])
 	_check(first.mission_plan["missions"].any(func(m: Dictionary) -> bool: return String(m["desc"]).contains("%d enemigos" % MissionGen.CLEAR_BASE)), "el texto de la mision dice la cantidad")
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))

@@ -231,7 +231,9 @@ func step(_tick_number: int, delta: float, warrior: Object) -> void:
 	var target_alive: bool = warrior != null and bool(warrior.alive)
 	match state:
 		State.IDLE:
-			var notice := _notice_range(warrior) * (SLEEP_NOTICE_FACTOR if behavior == "sleep" else 1.0)
+			var notice := 0.0
+			if target_alive:
+				notice = _notice_range(warrior) * (SLEEP_NOTICE_FACTOR if behavior == "sleep" else 1.0)
 			if target_alive and world != null and world.in_village(warrior.position) and not is_boss():
 				pass                            # el jugador esta a salvo en la aldea
 			elif target_alive and position.distance_to(warrior.position) <= notice and (world == null or world.line_of_sight(position, warrior.position)):

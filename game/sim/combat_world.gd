@@ -222,6 +222,8 @@ func apply_effects(effects: Array, at: Vector2) -> bool:
 			"gamble":
 				var branch: Array = effect["win"] if loot_rng.randf() < float(effect["chance"]) else effect["lose"]
 				apply_effects(branch, at)
+			"consumable":
+				player.add_consumable(String(effect["id"]), int(effect.get("count", 1)))
 			"key":
 				keys_carried += 1
 			"message":

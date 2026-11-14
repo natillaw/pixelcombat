@@ -25,6 +25,10 @@ func _run() -> void:
 	for entry: Variant in TutorialHints.tips():
 		var rendered := TutorialHints.render(String((entry as Dictionary)["text"]), func(action: String) -> String: return Settings.short_label(action))
 		_check(not rendered.contains("{"), "%s: todas las acciones existen" % String((entry as Dictionary)["id"]))
+	for trigger: String in TutorialHints.TRIGGERS:
+		_check(not TutorialHints.next_tip(trigger, {}).is_empty(), "el disparador '%s' tiene pista" % trigger)
+	var food_tip := TutorialHints.render(String(TutorialHints.next_tip("low_health", {})["text"]), func(action: String) -> String: return Settings.short_label(action))
+	_check(food_tip.contains(Settings.short_label("quick_food")) and food_tip.contains(Settings.short_label("quick_health")), "la pista de poca vida nombra las teclas de comida y pocion")
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)

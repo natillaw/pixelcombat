@@ -20,6 +20,7 @@ func _init() -> void:
 	_test_interrogate()
 	_test_clues()
 	_test_distance()
+	_test_scenes()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
 	quit(0 if _failures == 0 else 1)
@@ -142,3 +143,48 @@ func _test_distance() -> void:
 		var layout := TowerGenerator.generate(4, seed_value, 1)
 		var distance := layout.player_spawn.distance_to(layout.village["position"])
 		_check(distance >= 900.0, "piso 4 seed %d: la aldea esta a %.0f px de la entrada (>= 900)" % [seed_value, distance])
+
+
+## Cada aldea tiene su escena propia (2 opciones exclusivas) y su decorado.
+func _test_scenes() -> void:
+	for floor_number: int in VILLAGE_FLOORS:
+		var layout := TowerGenerator.generate(floor_number, 20261110, 1)
+		var options := layout.interactables.filter(func(o: Dictionary) -> bool: return String(o.get("exclusive", "")) == "village_scene_%d" % floor_number)
+		_check(options.size() == 2, "aldea del piso %d: escena propia con 2 opciones" % floor_number)
+		var center: Vector2 = layout.village["position"]
+		var near := true
+		for option: Dictionary in options:
+			near = near and center.distance_to(option["position"]) <= VillageGen.REFUGE_RADIUS
+		_check(near, "aldea del piso %d: la escena esta dentro del refugio" % floor_number)
+		var decor := layout.props.filter(func(p: Dictionary) -> bool: return center.distance_to(p["position"]) <= 200.0).size()
+		_check(decor >= 8, "aldea del piso %d: %d props en la aldea" % [floor_number, decor])
+	# Efectos de las escenas: ración gratis del piso 8 y pago del piso 2.
+	var world := CombatWorld.new(14)
+	world.load_layout(TowerGenerator.generate(8, 20261110, 1))
+	var free: Dictionary = {}
+	for object: Interactable in world.interactables:
+		if object.exclusive == "village_scene_8" and not object.effects.is_empty() and String(object.effects[0]["type"]) == "consumable":
+			free = {"object": object}
+	_check(not free.is_empty(), "el piso 8 ofrece el menu del veterano")
+	var object8: Interactable = free["object"]
+	world.player.position = object8.position + Vector2(10, 0)
+	world.gather_node = object8
+	world.gather_left = 0.0
+	world._gather_from = world.player.position
+	world._gather_health = world.player.health
+	world._step_gather(DT)
+	_check(world.player.consumable_count("roast_meal") == 2 and world.player.consumable_count("travel_ration") == 2, "el menu del veterano da 2 asados y 2 raciones")
+	var world2 := CombatWorld.new(15)
+	world2.load_layout(TowerGenerator.generate(2, 20261110, 1))
+	var pay: Interactable = null
+	for object: Interactable in world2.interactables:
+		if object.exclusive == "village_scene_2" and String(object.effects[0]["type"]) == "pay":
+			pay = object
+	world2.player.spend_gold(world2.player.gold)
+	world2.player.position = pay.position + Vector2(10, 0)
+	world2.gather_node = pay
+	world2.gather_left = 0.0
+	world2._gather_from = world2.player.position
+	world2._gather_health = world2.player.health
+	world2._step_gather(DT)
+	_check(not pay.done and world2.player.consumable_count("travel_ration") == 0, "sin oro la donacion no se consume")

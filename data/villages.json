@@ -1,5 +1,5 @@
 {
-	"_doc": "Aldeas refugio de los pisos 2, 4, 6 y 8 (VillageGen). Sin enemigos a menos de 300 px; zona segura de 190 px (se puede cambiar de equipo, los enemigos no entran); posada (taberna: comprar, cocinar, descansar) y mercader. Los aldeanos reutilizan el formato de data/residents.json (outfit, seed, lines por etapa); witness=true los hace testigos para la mision 'interrogate' (clue = lo que cuentan).",
+	"_doc": "Aldeas refugio de los pisos 2, 4, 6 y 8 (VillageGen). Sin enemigos a menos de 300 px; zona segura de 190 px (se puede cambiar de equipo, los enemigos no entran); posada (taberna: comprar, cocinar, descansar) y mercader. Los aldeanos reutilizan el formato de data/residents.json (outfit, seed, lines por etapa); witness=true los hace testigos para la mision 'interrogate' (clue = lo que cuentan). scene: una escena propia de cada aldea (2 opciones con efectos de data/events.json + consumable{id,count}; se colocan al sur de la fogata); decor: props extra por aldea (angle en radianes desde la fogata, r=[min,max] px).",
 	"villages": {
 		"2": {
 			"name": "El Vado",
@@ -47,6 +47,93 @@
 							"Mi hermano subio hace un mes. No ha vuelto."
 						]
 					}
+				}
+			],
+			"scene": {
+				"title": "El hermano de Nia",
+				"angle": 1.57,
+				"options": [
+					{
+						"label": "Darle 20 de oro para su familia",
+						"effects": [
+							{
+								"type": "pay",
+								"amount": 20
+							},
+							{
+								"type": "consumable",
+								"id": "travel_ration",
+								"count": 2
+							},
+							{
+								"type": "message",
+								"text": "Los granjeros te llenan la mochila de raciones. 'Que vuelva sano', dice Hilda."
+							}
+						]
+					},
+					{
+						"label": "Prometerle que buscaras a su hermano",
+						"effects": [
+							{
+								"type": "xp",
+								"per_floor": 20
+							},
+							{
+								"type": "message",
+								"text": "Nia sonrie por primera vez en semanas. Ahora tienes una razon mas para subir."
+							}
+						]
+					}
+				]
+			},
+			"decor": [
+				{
+					"kind": "camp_crate",
+					"angle": 3.6,
+					"r": [
+						120,
+						150
+					]
+				},
+				{
+					"kind": "camp_barrel",
+					"angle": 3.9,
+					"r": [
+						120,
+						150
+					]
+				},
+				{
+					"kind": "camp_sack",
+					"angle": 3.3,
+					"r": [
+						125,
+						150
+					]
+				},
+				{
+					"kind": "wagon",
+					"angle": 5.2,
+					"r": [
+						130,
+						160
+					]
+				},
+				{
+					"kind": "planter",
+					"angle": 4.4,
+					"r": [
+						110,
+						140
+					]
+				},
+				{
+					"kind": "flowerbed",
+					"angle": 0.3,
+					"r": [
+						110,
+						140
+					]
 				}
 			]
 		},
@@ -113,6 +200,84 @@
 						]
 					}
 				}
+			],
+			"scene": {
+				"title": "La botica de Marta",
+				"angle": 1.57,
+				"options": [
+					{
+						"label": "Comprar un remedio (30 de oro): vida completa",
+						"effects": [
+							{
+								"type": "pay",
+								"amount": 30
+							},
+							{
+								"type": "heal",
+								"fraction": 1.0
+							},
+							{
+								"type": "message",
+								"text": "El remedio sabe a corteza y miel. Te sientes como nuevo."
+							}
+						]
+					},
+					{
+						"label": "Pedir una cataplasma (gratis): 35 % de vida",
+						"effects": [
+							{
+								"type": "heal",
+								"fraction": 0.35
+							},
+							{
+								"type": "message",
+								"text": "Marta te venda sin cobrarte. 'Ya me lo pagaras subiendo', dice."
+							}
+						]
+					}
+				]
+			},
+			"decor": [
+				{
+					"kind": "camp_bedroll",
+					"angle": 3.5,
+					"r": [
+						115,
+						135
+					]
+				},
+				{
+					"kind": "camp_bedroll",
+					"angle": 3.8,
+					"r": [
+						115,
+						135
+					]
+				},
+				{
+					"kind": "camp_tent",
+					"angle": 4.2,
+					"r": [
+						130,
+						160
+					]
+				},
+				{
+					"kind": "planter",
+					"angle": 0.4,
+					"r": [
+						110,
+						140
+					]
+				},
+				{
+					"kind": "flowerbed",
+					"angle": 5.4,
+					"r": [
+						110,
+						140
+					]
+				}
 			]
 		},
 		"6": {
@@ -159,6 +324,90 @@
 						]
 					}
 				}
+			],
+			"scene": {
+				"title": "La fragua de Oto",
+				"angle": 1.57,
+				"options": [
+					{
+						"label": "Afilar tu arma (60 de oro): +15 % de dano 5 min",
+						"effects": [
+							{
+								"type": "pay",
+								"amount": 60
+							},
+							{
+								"type": "status",
+								"id": "might",
+								"duration": 300,
+								"strength": 0.15
+							},
+							{
+								"type": "message",
+								"text": "Oto devuelve tu arma con un filo que canta. Se nota."
+							}
+						]
+					},
+					{
+						"label": "Rebuscar entre la chatarra (30 de oro)",
+						"effects": [
+							{
+								"type": "pay",
+								"amount": 30
+							},
+							{
+								"type": "item",
+								"key": "chest_wood"
+							},
+							{
+								"type": "message",
+								"text": "Entre hierros viejos aparece algo aprovechable."
+							}
+						]
+					}
+				]
+			},
+			"decor": [
+				{
+					"kind": "camp_armory",
+					"angle": 3.7,
+					"r": [
+						125,
+						150
+					]
+				},
+				{
+					"kind": "camp_barrel",
+					"angle": 3.4,
+					"r": [
+						120,
+						145
+					]
+				},
+				{
+					"kind": "camp_crate",
+					"angle": 4.0,
+					"r": [
+						120,
+						145
+					]
+				},
+				{
+					"kind": "camp_banner",
+					"angle": 5.0,
+					"r": [
+						125,
+						150
+					]
+				},
+				{
+					"kind": "lamppost",
+					"angle": 0.2,
+					"r": [
+						110,
+						130
+					]
+				}
 			]
 		},
 		"8": {
@@ -204,6 +453,92 @@
 							"El asado del camino cura mientras peleas. Llevate un par antes de subir."
 						]
 					}
+				}
+			],
+			"scene": {
+				"title": "La cocina de Ima",
+				"angle": 1.57,
+				"options": [
+					{
+						"label": "Pedir el menu del veterano (gratis, una vez)",
+						"effects": [
+							{
+								"type": "consumable",
+								"id": "roast_meal",
+								"count": 2
+							},
+							{
+								"type": "consumable",
+								"id": "travel_ration",
+								"count": 2
+							},
+							{
+								"type": "message",
+								"text": "Ima te llena la mochila: 'Antes del 10 se come bien'."
+							}
+						]
+					},
+					{
+						"label": "Brindar con Bruno: +10 % de dano 4 min",
+						"effects": [
+							{
+								"type": "status",
+								"id": "might",
+								"duration": 240,
+								"strength": 0.1
+							},
+							{
+								"type": "xp",
+								"per_floor": 15
+							},
+							{
+								"type": "message",
+								"text": "Chocais las jarras. Bruno te mira como a un igual."
+							}
+						]
+					}
+				]
+			},
+			"decor": [
+				{
+					"kind": "camp_tent",
+					"angle": 3.6,
+					"r": [
+						130,
+						160
+					]
+				},
+				{
+					"kind": "camp_tent",
+					"angle": 4.1,
+					"r": [
+						130,
+						160
+					]
+				},
+				{
+					"kind": "camp_banner",
+					"angle": 5.1,
+					"r": [
+						125,
+						150
+					]
+				},
+				{
+					"kind": "camp_watchtower",
+					"angle": 2.4,
+					"r": [
+						150,
+						175
+					]
+				},
+				{
+					"kind": "camp_sack",
+					"angle": 3.2,
+					"r": [
+						120,
+						145
+					]
 				}
 			]
 		}

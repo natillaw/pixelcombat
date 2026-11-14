@@ -94,7 +94,7 @@ func _test_session() -> void:
 
 ## Cada piso 1-9 tiene su mision principal con sabor del Cuervo y es posible de cumplir (el 10 es la prueba de Garrick).
 func _test_story_missions() -> void:
-	var expected := {1: "clear", 2: "slay", 3: "banner", 4: "rescue", 5: "captain", 6: "cargo", 7: "altars", 8: "survive", 9: "waypoints"}
+	var expected := {1: "clear", 2: "slay", 3: "banner", 4: "interrogate", 5: "captain", 6: "cargo", 7: "clues", 8: "survive", 9: "waypoints"}
 	var all_ok := true
 	var feasible := true
 	for floor_number: int in expected:

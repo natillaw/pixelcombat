@@ -10,6 +10,8 @@ const PATH := "res://data/villages.json"
 const SAFE_RADIUS := 300.0
 ## Radio de la zona segura (refugio).
 const REFUGE_RADIUS := 190.0
+## Los campamentos ambientales (con sus tiendas, que se extienden ~130 px) se retiran dentro de este radio.
+const CLEAR_RADIUS := 430.0
 
 static var _data: Dictionary = {}
 static var _loaded: bool = false
@@ -56,8 +58,6 @@ static func place(layout: FloorLayout, analysis: MapAnalysis, frng: RandomNumber
 			break
 	if best == Vector2.INF:
 		return false
-	if best_score < SAFE_RADIUS and not force and best_score < 160.0:
-		return false
 	_clear_site(layout, best, force)
 	_build(layout, analysis, frng, def, best, floor_number)
 	return true
@@ -79,19 +79,19 @@ static func _site_score(layout: FloorLayout, point: Vector2) -> float:
 ## Enemigos ambientales (campamentos, patrullas, barriles) que se pueden retirar sin romper misiones.
 static func _removable(spec: Dictionary) -> bool:
 	var group := String(spec.get("group", ""))
-	return (group.begins_with("camp_") or group == "prop") and not bool(spec.get("required", false))
+	return (group.begins_with("camp_") or ["prop", "guard", "key_guard", "ambush"].has(group)) and not bool(spec.get("required", false))
 
 
 static func _clear_site(layout: FloorLayout, center: Vector2, force: bool) -> void:
 	layout.enemies = layout.enemies.filter(func(spec: Dictionary) -> bool:
-		var close: bool = (spec["position"] as Vector2).distance_to(center) < SAFE_RADIUS
-		return not (close and (_removable(spec) or (force and not bool(spec.get("required", false))))))
+		var close: bool = (spec["position"] as Vector2).distance_to(center) < CLEAR_RADIUS
+		return not (close and _removable(spec)))
 	layout.props = layout.props.filter(func(prop: Dictionary) -> bool:
-		return not (String(prop["kind"]).begins_with("camp_") and (prop["position"] as Vector2).distance_to(center) < SAFE_RADIUS + 20.0))
+		return not (String(prop["kind"]).begins_with("camp_") and (prop["position"] as Vector2).distance_to(center) < CLEAR_RADIUS))
 	layout.hazards = layout.hazards.filter(func(h: Dictionary) -> bool: return (h["position"] as Vector2).distance_to(center) > REFUGE_RADIUS + float(h["radius"]) + 30.0)
 	layout.interactables = layout.interactables.filter(func(o: Dictionary) -> bool:
 		return String(o.get("group", "")) != "" or (o["position"] as Vector2).distance_to(center) > REFUGE_RADIUS)
-	layout.camps = layout.camps.filter(func(c: Dictionary) -> bool: return (c["position"] as Vector2).distance_to(center) >= SAFE_RADIUS)
+	layout.camps = layout.camps.filter(func(c: Dictionary) -> bool: return (c["position"] as Vector2).distance_to(center) >= CLEAR_RADIUS)
 
 
 static func _open(analysis: MapAnalysis, point: Vector2) -> bool:
@@ -106,7 +106,22 @@ static func _ring_point(analysis: MapAnalysis, center: Vector2, angle: float, r_
 		var point := center + Vector2.from_angle(angle + frng.randf_range(-0.25, 0.25)) * frng.randf_range(r_min, r_max)
 		if _open(analysis, point):
 			return point
-	return center + Vector2.from_angle(angle) * r_min
+	# Sin hueco en esa direccion: se prueban otras y radios menores; como ultimo recurso, junto a la fogata.
+	for step: int in range(1, 16):
+		for sign: float in [1.0, -1.0]:
+			var around := center + Vector2.from_angle(angle + sign * 0.4 * float(step)) * maxf(r_min * 0.8, 40.0)
+			if _open(analysis, around):
+				return around
+	return center + Vector2(24.0, 24.0)
+
+
+## Punto de un edificio: su base y su puerta deben estar en suelo libre; si no, se acerca a la fogata.
+static func _building_foot(analysis: MapAnalysis, center: Vector2, offset: Vector2) -> Vector2:
+	for t: float in [1.0, 0.85, 0.7, 0.55, 0.4]:
+		var foot := center + offset * t
+		if _open(analysis, foot) and _open(analysis, foot + Vector2(0.0, 30.0)) and _open(analysis, foot + Vector2(-32.0, 0.0)) and _open(analysis, foot + Vector2(32.0, 0.0)):
+			return foot
+	return center + offset * 0.3
 
 
 static func _build(layout: FloorLayout, analysis: MapAnalysis, frng: RandomNumberGenerator, def: Dictionary, center: Vector2, floor_number: int) -> void:
@@ -120,13 +135,28 @@ static func _build(layout: FloorLayout, analysis: MapAnalysis, frng: RandomNumbe
 		{"sprite": "merchant_house", "offset": Vector2(118.0, -62.0), "station": "merchant", "label": String(def["merchant_label"]), "id": "village_merchant"},
 	]
 	for spec: Dictionary in specs:
-		var foot: Vector2 = center + (spec["offset"] as Vector2)
+		var foot: Vector2 = _building_foot(analysis, center, spec["offset"] as Vector2)
 		var scale := 1.3
 		layout.buildings.append({"id": String(spec["id"]), "sprite": "res://assets/pixel/village/%s.png" % String(spec["sprite"]), "foot": foot, "scale": scale, "label": String(spec["label"]),
 			"rect": Rect2(foot.x - 40.0 * scale, foot.y - 73.0 * scale, 80.0 * scale, 73.0 * scale), "color": Color(0.5, 0.35, 0.25)})
 		for dx: float in [-32.0, 0.0, 32.0]:
 			layout.obstacles.append({"position": foot + Vector2(dx, -8.0), "radius": 24.0, "hidden": true})
 		layout.portals.append({"id": "door_" + String(spec["id"]), "position": foot + Vector2(0.0, 30.0), "radius": 40.0, "label": String(spec["label"]), "action": "building:" + String(spec["station"]), "requires_complete": false})
+	# Props propios de cada aldea (huerto, botica, fragua, campamento de veteranos...).
+	for decor: Dictionary in def.get("decor", []):
+		var r_range: Array = decor["r"]
+		var at := _ring_point(analysis, center, float(decor["angle"]), float(r_range[0]), float(r_range[1]), frng)
+		layout.props.append({"kind": String(decor["kind"]), "position": at, "variant": frng.randi_range(0, 3)})
+	# Escena propia de la aldea: 2 opciones junto a su vecino (se elige una, la otra se cierra).
+	var scene: Dictionary = def.get("scene", {})
+	if not scene.is_empty():
+		var scene_center := _ring_point(analysis, center, float(scene.get("angle", 1.57)), 96.0, 118.0, frng)
+		var options: Array = scene["options"]
+		for i: int in range(options.size()):
+			var option: Dictionary = options[i]
+			var offset := Vector2((float(i) - (float(options.size()) - 1.0) * 0.5) * 56.0, 0.0)
+			layout.interactables.append({"kind": "event_option", "position": scene_center + offset, "group": "", "channel": 1.0, "label": "%s: %s" % [scene["title"], option["label"]],
+				"effects": option["effects"], "exclusive": "village_scene_%d" % floor_number, "text": String(scene["title"])})
 	# Aldeanos en corro alrededor de la fogata.
 	var villagers: Array = def["villagers"]
 	for i: int in range(villagers.size()):
