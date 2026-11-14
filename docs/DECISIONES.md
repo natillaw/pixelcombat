@@ -209,3 +209,10 @@ Todo es de datos (`data/floor_features.json` dice que lleva cada piso; el **piso
 - **Comportamientos** (`EnemySim.behavior`): `sleep` (solo nota al jugador a 30 % de su rango; despierta por dano o porque un companero del grupo da la alarma; muestra "z z"), `patrol` (recorre su zona a 45 % de velocidad con RNG propio, determinista) y `guard`. Reparto por campamento: 35 % duermen, 30 % patrullan; el primero siempre vigila y los elites no duermen (pisos 2-9).
 - **Barriles y peligros con probabilidad:** los barriles explosivos/de aceite solo salen **dentro de campamentos** y solo en algunos pisos (`floor_features.barrels.floor_chance`/`camp_chance`); cada tipo de peligro del suelo sale con `hazard_chance` (0,8).
 - `test_floor_bot` usa el piso 2 (el 1 ahora tiene pocos enemigos para su premisa).
+
+## Aldeas refugio y misiones sin combate (14 nov 2026)
+- **Aldeas** en los pisos 2, 4, 6 y 8 (`data/villages.json`, `VillageGen`): fogata, posada (abre la **taberna**: comprar comida, cocinar, descansar), mercader, bancos/macetas/farola y 3-4 aldeanos con frases (reutilizan el formato de `residents.json`). Se colocan DESPUES de todo lo demas en el sitio mas despejado y se retiran los campamentos ambientales cercanos: **ningun enemigo a menos de 300 px** (comprobado por test); no se tocan misiones ni jefes.
+- **Refugio:** dentro de 190 px el jugador esta en `safe_zone` (puede cambiar de equipo, vender, editar el libro de skills) y los enemigos **pierden al jugador y no entran** (excepto jefes). Se vuelve peligroso al salir.
+- **Misiones sin combate** (obligatorias, sin alternativa de combate, solo 2 de los 9 pisos): **piso 4 "Interrogar a los aldeanos"** (hablar con los 3 testigos de la aldea; cada uno cuenta una pista; nuevo tipo `interrogate`) y **piso 7 "Seguir las pistas"** (examinar 3-4 pistas del Cuervo por el piso oscuro, sin guardias; plantilla `clues`). Recompensa x1,8 de XP. Los pisos 4 y 7 ya no llevan misiones de matar.
+- Plantillas `story_only` no salen como misiones aleatorias de otros pisos.
+- El bot de pruebas (`FloorBot`) habla con los testigos que ve (`pending_talk`) y examina pistas; no conoce el mapa.

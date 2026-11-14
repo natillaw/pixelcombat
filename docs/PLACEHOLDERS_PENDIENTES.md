@@ -87,3 +87,12 @@ Mientras no lleguen los assets locales del dueño, los 5 enemigos nuevos reutili
 | Produccion de los campamentos (granja, forja, almacen de comida) | No existe aun | Sprites de huerto, forja con yunque, almacen de grano, mesa de cocina |
 | Enemigos durmiendo | Sprite normal de pie + texto "z z" | Pose o animacion de dormido (tumbado en el camastro) y de patrulla (marcha lenta) |
 | Alerta del campamento | Sin efecto visual | Icono "!" y/o cuerno/campana al dar la alarma |
+
+## Aldeas y misiones sin combate (14 nov 2026)
+| Que | Estado actual | Que asset hace falta |
+|---|---|---|
+| Posada y casa del mercader de las aldeas | Edificios del pack del pueblo (`assets/pixel/village/tavern.png`, `merchant_house.png`) a escala 1,3 | Edificios propios mas pequeños (cabaña, posada rural, puesto de mercader) en estilo coherente |
+| Aldeanos (granjera, pastor, niña, herbolaria, cazador, tabernera, sacristan, curandera, herrero, vigia, veterano, bardo, cocinera) | LPC recompuesto con los trajes de los residentes de la ciudad | Retratos/sprites propios (campesinos con ropa de trabajo) |
+| Cultivos, corrales y huertos de las aldeas | No existen (solo fogata, bancos, macetas y farola) | Sprites de huerto, gallinero/corral, pozo, tendedero, leña apilada |
+| Cartel o indicador de zona segura de la aldea | Texto en el HUD (pendiente) y portales | Arco de entrada o cartel de madera "Aldea" |
+| Pistas del piso 7 (huellas, trapo granate, hoguera apagada, nota rota) | Icono de nota (`ts_kit/icons/res_skill_book.png`) | 4 sprites: huellas, trapo, brasas, papel roto |
