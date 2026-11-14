@@ -57,7 +57,9 @@
 						"strength": 40
 					}
 				]
-			}
+			},
+			"display_name": "Combo de espada",
+			"hud_label_es": "COMBO"
 		},
 		{
 			"id": "warrior_m2",
@@ -102,7 +104,9 @@
 			},
 			"unlock_level": 1,
 			"class": "warrior",
-			"damage_type": "physical"
+			"damage_type": "physical",
+			"display_name": "Golpe pesado",
+			"hud_label_es": "PESADO"
 		},
 		{
 			"id": "cleaving_strike",
@@ -137,7 +141,9 @@
 			"class": "warrior",
 			"damage_type": "physical",
 			"world": true,
-			"retired": true
+			"retired": true,
+			"display_name": "Tajo amplio",
+			"hud_label_es": "TAJO"
 		},
 		{
 			"id": "piercing_thrust",
@@ -172,7 +178,9 @@
 			"class": "warrior",
 			"damage_type": "physical",
 			"world": true,
-			"retired": true
+			"retired": true,
+			"display_name": "Estocada",
+			"hud_label_es": "ESTOCADA"
 		},
 		{
 			"id": "iron_counter",
@@ -219,7 +227,9 @@
 				}
 			],
 			"legacy_special": true,
-			"source": "book"
+			"source": "book",
+			"display_name": "Contragolpe de hierro",
+			"hud_label_es": "CONTRA"
 		},
 		{
 			"id": "war_gods_descent",
@@ -272,7 +282,9 @@
 						"strength": 0.3
 					}
 				]
-			}
+			},
+			"display_name": "Descenso del dios de la guerra",
+			"hud_label_es": "DESCENSO"
 		},
 		{
 			"kind": "skill",
@@ -313,7 +325,9 @@
 			"anim": "thrust",
 			"unlock_level": 10,
 			"world": true,
-			"retired": true
+			"retired": true,
+			"display_name": "Golpe demoledor",
+			"hud_label_es": "DEMOLER"
 		},
 		{
 			"kind": "skill",
@@ -360,7 +374,9 @@
 			"anim": "slash",
 			"unlock_level": 3,
 			"world": true,
-			"source": "book"
+			"source": "book",
+			"display_name": "Pisoton",
+			"hud_label_es": "PISOTON"
 		},
 		{
 			"id": "rend",
@@ -402,7 +418,9 @@
 				}
 			],
 			"world": true,
-			"source": "book"
+			"source": "book",
+			"display_name": "Desgarro",
+			"hud_label_es": "DESGARRO"
 		},
 		{
 			"id": "charge",
@@ -444,7 +462,9 @@
 					"id": "stun",
 					"duration": 2.0
 				}
-			]
+			],
+			"display_name": "Carga",
+			"hud_label_es": "CARGA"
 		},
 		{
 			"id": "war_cry",
@@ -481,7 +501,9 @@
 				"duration": 6.0,
 				"strength": 0.2
 			},
-			"resource_burst": 30
+			"resource_burst": 30,
+			"display_name": "Grito de guerra",
+			"hud_label_es": "GRITO"
 		},
 		{
 			"id": "shockwave",
@@ -525,7 +547,9 @@
 					"id": "stun",
 					"duration": 0.4
 				}
-			]
+			],
+			"display_name": "Onda de choque",
+			"hud_label_es": "ONDA"
 		},
 		{
 			"id": "whirlwind",
@@ -564,7 +588,9 @@
 				"interval": 0.3,
 				"final_mult": 1.4
 			},
-			"source": "book"
+			"source": "book",
+			"display_name": "Torbellino",
+			"hud_label_es": "TORBELL"
 		},
 		{
 			"id": "throwing_axe",
@@ -613,7 +639,9 @@
 					"duration": 4,
 					"strength": 5
 				}
-			]
+			],
+			"display_name": "Hacha arrojadiza",
+			"hud_label_es": "HACHA"
 		},
 		{
 			"id": "execute",
@@ -652,7 +680,9 @@
 			"execute": {
 				"below": 0.3,
 				"mult": 2.0
-			}
+			},
+			"display_name": "Remate",
+			"hud_label_es": "REMATE"
 		},
 		{
 			"id": "second_wind",
@@ -686,7 +716,9 @@
 			"damage_type": "physical",
 			"world": true,
 			"source": "book",
-			"self_heal_pct": 0.25
+			"self_heal_pct": 0.25,
+			"display_name": "Segundo aliento",
+			"hud_label_es": "ALIENTO"
 		}
 	]
 }

@@ -52,7 +52,9 @@
 					0,
 					20
 				]
-			}
+			},
+			"display_name": "Colmillo gemelo",
+			"hud_label_es": "COLMILLO"
 		},
 		{
 			"kind": "basic",
@@ -99,7 +101,9 @@
 						"strength": 4
 					}
 				]
-			}
+			},
+			"display_name": "Corte cruzado",
+			"hud_label_es": "CRUZADO"
 		},
 		{
 			"kind": "skill",
@@ -136,7 +140,9 @@
 			"anim": "thrust",
 			"unlock_level": 2,
 			"world": true,
-			"retired": true
+			"retired": true,
+			"display_name": "Emboscada",
+			"hud_label_es": "EMBOSC"
 		},
 		{
 			"kind": "skill",
@@ -176,7 +182,9 @@
 			"anim": "slash",
 			"unlock_level": 7,
 			"world": true,
-			"source": "book"
+			"source": "book",
+			"display_name": "Rafaga de cuchillas",
+			"hud_label_es": "RAFAGA"
 		},
 		{
 			"kind": "special",
@@ -219,7 +227,9 @@
 			"unlock_level": 4,
 			"retired": true,
 			"world": true,
-			"legacy_special": true
+			"legacy_special": true,
+			"display_name": "Evasion perfecta",
+			"hud_label_es": "EVASION"
 		},
 		{
 			"kind": "ultimate",
@@ -266,7 +276,9 @@
 				"below": 0.3,
 				"mult": 1.0,
 				"kill": true
-			}
+			},
+			"display_name": "Sentencia de muerte",
+			"hud_label_es": "SENTENCIA"
 		},
 		{
 			"kind": "skill",
@@ -313,7 +325,9 @@
 					"duration": 3,
 					"strength": 4
 				}
-			]
+			],
+			"display_name": "Abanico de cuchillos",
+			"hud_label_es": "ABANICO"
 		},
 		{
 			"kind": "skill",
@@ -347,7 +361,9 @@
 			"unlock_level": 6,
 			"world": true,
 			"source": "book",
-			"grant_venom_hits": 4
+			"grant_venom_hits": 4,
+			"display_name": "Hojas envenenadas",
+			"hud_label_es": "VENENO"
 		},
 		{
 			"kind": "skill",
@@ -389,7 +405,9 @@
 			"anim": "slash",
 			"unlock_level": 8,
 			"world": true,
-			"retired": true
+			"retired": true,
+			"display_name": "Golpe lisiador",
+			"hud_label_es": "LISIAR"
 		},
 		{
 			"id": "shadow_step",
@@ -428,7 +446,9 @@
 					"duration": 3.0,
 					"strength": 0.5
 				}
-			}
+			},
+			"display_name": "Paso de sombra",
+			"hud_label_es": "SOMBRA"
 		},
 		{
 			"id": "stealth",
@@ -465,7 +485,9 @@
 				"duration": 20.0,
 				"strength": 0.25
 			},
-			"stealth_toggle": true
+			"stealth_toggle": true,
+			"display_name": "Sigilo",
+			"hud_label_es": "SIGILO"
 		},
 		{
 			"id": "smoke_bomb",
@@ -517,7 +539,9 @@
 						"strength": 0.4
 					}
 				]
-			}
+			},
+			"display_name": "Bomba de humo",
+			"hud_label_es": "HUMO"
 		},
 		{
 			"id": "caltrops",
@@ -570,7 +594,9 @@
 						"strength": 0.35
 					}
 				]
-			}
+			},
+			"display_name": "Abrojos",
+			"hud_label_es": "ABROJOS"
 		},
 		{
 			"id": "vanish",
@@ -610,7 +636,9 @@
 				"strength": 0.3
 			},
 			"stealth_toggle": true,
-			"vanish": true
+			"vanish": true,
+			"display_name": "Desvanecerse",
+			"hud_label_es": "DESVANEC"
 		},
 		{
 			"id": "disarm",
@@ -651,7 +679,9 @@
 					"id": "disarm",
 					"duration": 2.5
 				}
-			]
+			],
+			"display_name": "Desarmar",
+			"hud_label_es": "DESARMAR"
 		}
 	]
 }

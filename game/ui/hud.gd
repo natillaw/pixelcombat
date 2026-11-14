@@ -489,7 +489,7 @@ func _draw_skill_slot(rect: Rect2, key: String, slot: String, warrior: PlayerSim
 	else:
 		draw_circle(c, 8.0, Color(icon_color.r, icon_color.g, icon_color.b, 0.22))
 		draw_arc(c, 8.0, 0.0, TAU, 20, icon_color, 1.5)
-	_draw_text(String(skill.get("hud_label", "")), Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
+	_draw_text(SkillCatalog.hud_label(skill), Vector2(rect.position.x, rect.position.y + rect.size.y - 2), 7, TEXT, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x)
 	if left > 0.05:
 		var ratio := clampf(left / maxf(total, 0.001), 0.0, 1.0)
 		draw_rect(Rect2(rect.position, Vector2(rect.size.x, rect.size.y * ratio)), Color(0.02, 0.02, 0.04, 0.62))
@@ -526,7 +526,7 @@ func _draw_dodge_slot(rect: Rect2, warrior: PlayerSim) -> void:
 
 
 func _hud_label(warrior: PlayerSim, slot: String) -> String:
-	return String((warrior.loadout.get(slot, {}) as Dictionary).get("hud_label", slot))
+	return SkillCatalog.hud_label(warrior.loadout.get(slot, {}) as Dictionary, slot)
 
 
 func _resource_color(warrior: PlayerSim) -> Color:

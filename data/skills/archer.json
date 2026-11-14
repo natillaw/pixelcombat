@@ -43,7 +43,9 @@
 				"recovery": 0.6
 			},
 			"anim": "shoot",
-			"unlock_level": 1
+			"unlock_level": 1,
+			"display_name": "Disparo rapido",
+			"hud_label_es": "RAPIDO"
 		},
 		{
 			"kind": "basic",
@@ -88,7 +90,9 @@
 				"recovery": 0.4
 			},
 			"anim": "shoot",
-			"unlock_level": 1
+			"unlock_level": 1,
+			"display_name": "Disparo cargado",
+			"hud_label_es": "CARGADO"
 		},
 		{
 			"kind": "skill",
@@ -129,7 +133,9 @@
 			},
 			"anim": "shoot",
 			"unlock_level": 2,
-			"world": true
+			"world": true,
+			"display_name": "Disparo multiple",
+			"hud_label_es": "MULTI"
 		},
 		{
 			"kind": "skill",
@@ -174,7 +180,9 @@
 			},
 			"anim": "shoot",
 			"unlock_level": 4,
-			"world": true
+			"world": true,
+			"display_name": "Flecha explosiva",
+			"hud_label_es": "EXPLOSIVA"
 		},
 		{
 			"kind": "special",
@@ -209,7 +217,9 @@
 				"recovery": 0.4
 			},
 			"anim": "shoot",
-			"unlock_level": 4
+			"unlock_level": 4,
+			"display_name": "Ojo certero",
+			"hud_label_es": "OJO"
 		},
 		{
 			"kind": "ultimate",
@@ -251,7 +261,9 @@
 				"recovery": 0.4
 			},
 			"anim": "shoot",
-			"unlock_level": 6
+			"unlock_level": 6,
+			"display_name": "Lluvia de flechas",
+			"hud_label_es": "LLUVIA"
 		},
 		{
 			"kind": "skill",
@@ -292,7 +304,9 @@
 			},
 			"anim": "shoot",
 			"unlock_level": 10,
-			"world": true
+			"world": true,
+			"display_name": "Flecha perforante",
+			"hud_label_es": "PERFORA"
 		},
 		{
 			"kind": "skill",
@@ -339,7 +353,291 @@
 				"recovery": 0.5
 			},
 			"anim": "shoot",
-			"unlock_level": 2
+			"unlock_level": 2,
+			"display_name": "Flecha lisiadora",
+			"hud_label_es": "LISIAR"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "VENENO",
+			"shape": "projectile",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "poison_arrow",
+			"name": "Poison Arrow",
+			"role": "Dano / veneno",
+			"description": "Flecha untada que envenena 4 s (4 de dano por segundo).",
+			"slot": "S",
+			"cost": 20,
+			"cooldown": 7,
+			"damage_mult": 0.9,
+			"unlock_level": 3,
+			"windup": 0.2,
+			"recovery": 0.25,
+			"projectile": {
+				"speed": 500,
+				"range": 340,
+				"radius": 5,
+				"count": 1,
+				"spread": 0,
+				"pierce": 0,
+				"visual": "wisp"
+			},
+			"on_hit": [
+				{
+					"id": "poison",
+					"duration": 4.0,
+					"strength": 4.0
+				}
+			],
+			"anim": "shoot",
+			"damage_type": "physical",
+			"class": "archer",
+			"display_name": "Flecha venenosa",
+			"hud_label_es": "VENENO"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "TRAMPA",
+			"shape": "circle",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "snare_trap",
+			"name": "Snare Trap",
+			"role": "Control de zona",
+			"description": "Dejas una trampa a distancia: los enemigos que pisen la zona van mucho mas lentos durante 6 s.",
+			"slot": "S",
+			"cost": 25,
+			"cooldown": 14,
+			"damage_mult": 0.4,
+			"unlock_level": 5,
+			"windup": 0.3,
+			"recovery": 0.3,
+			"range": 58,
+			"anchor": "aim_point",
+			"point_distance": 210,
+			"telegraph": true,
+			"zone": {
+				"radius": 58,
+				"duration": 6.0,
+				"tick": 0.5,
+				"damage_mult": 0.25,
+				"visual": "frost",
+				"status": [
+					{
+						"id": "slow",
+						"duration": 1.2,
+						"strength": 0.55
+					}
+				]
+			},
+			"anim": "shoot",
+			"damage_type": "physical",
+			"class": "archer",
+			"display_name": "Trampa de lazo",
+			"hud_label_es": "TRAMPA"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "SALVA",
+			"shape": "projectile",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "volley",
+			"name": "Volley",
+			"role": "Dano en abanico",
+			"description": "Siete flechas en abanico: castiga a los que vienen en grupo.",
+			"slot": "S",
+			"cost": 30,
+			"cooldown": 10,
+			"damage_mult": 0.7,
+			"unlock_level": 6,
+			"windup": 0.3,
+			"recovery": 0.35,
+			"projectile": {
+				"speed": 470,
+				"range": 300,
+				"radius": 5,
+				"count": 7,
+				"spread": 40,
+				"pierce": 0,
+				"visual": "fire"
+			},
+			"anim": "shoot",
+			"damage_type": "physical",
+			"class": "archer",
+			"display_name": "Salva",
+			"hud_label_es": "SALVA"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "MARCA",
+			"shape": "self",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "marked_prey",
+			"name": "Marked Prey",
+			"role": "Preparacion",
+			"description": "Marcas tu siguiente disparo: +120 % de dano. Hay que apuntar bien.",
+			"slot": "S",
+			"cost": 20,
+			"cooldown": 12,
+			"damage_mult": 0,
+			"unlock_level": 8,
+			"windup": 0.25,
+			"recovery": 0.2,
+			"buff": {
+				"next_damage_mult": 2.2,
+				"duration": 6
+			},
+			"anim": "shoot",
+			"damage_type": "physical",
+			"class": "archer",
+			"display_name": "Presa marcada",
+			"hud_label_es": "MARCA"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "ATURDIR",
+			"shape": "projectile",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "stunning_arrow",
+			"name": "Stunning Arrow",
+			"role": "Control",
+			"description": "Flecha que aturde 1 s al objetivo. Los jefes no se aturden.",
+			"slot": "S",
+			"cost": 25,
+			"cooldown": 13,
+			"damage_mult": 0.9,
+			"unlock_level": 9,
+			"windup": 0.25,
+			"recovery": 0.3,
+			"projectile": {
+				"speed": 520,
+				"range": 330,
+				"radius": 5,
+				"count": 1,
+				"spread": 0,
+				"pierce": 0,
+				"visual": "ice"
+			},
+			"on_hit": [
+				{
+					"id": "stun",
+					"duration": 1.0
+				}
+			],
+			"anim": "shoot",
+			"damage_type": "physical",
+			"class": "archer",
+			"display_name": "Flecha aturdidora",
+			"hud_label_es": "ATURDIR"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "INCENDIO",
+			"shape": "projectile",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "blazing_arrow",
+			"name": "Blazing Arrow",
+			"role": "Dano / quemadura",
+			"description": "Flecha en llamas: quema 4 s (6 de dano por segundo).",
+			"slot": "S",
+			"cost": 30,
+			"cooldown": 9,
+			"damage_mult": 1.1,
+			"unlock_level": 10,
+			"windup": 0.25,
+			"recovery": 0.3,
+			"projectile": {
+				"speed": 480,
+				"range": 340,
+				"radius": 5,
+				"count": 1,
+				"spread": 0,
+				"pierce": 0,
+				"visual": "fire"
+			},
+			"on_hit": [
+				{
+					"id": "burn",
+					"duration": 4.0,
+					"strength": 6.0
+				}
+			],
+			"anim": "shoot",
+			"damage_type": "physical",
+			"class": "archer",
+			"display_name": "Flecha incendiaria",
+			"hud_label_es": "INCENDIO"
 		}
 	]
 }

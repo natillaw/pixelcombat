@@ -189,24 +189,24 @@ func _click_skill(entry: Dictionary) -> void:
 	var id := StringName(String(skill["id"]))
 	var player := world.player
 	if bool(skill.get("world", false)) and not player.learned_skills.has(String(id)):
-		_say(("%s esta en un libro: buscalo en el mundo (jefes, elite, misiones secretas)." if String(skill.get("source", "trainer")) == "book" else "%s se aprende con Dara, en el Gremio de Albor.") % skill["name"], RED)
+		_say(("%s esta en un libro: buscalo en el mundo (jefes, elite, misiones secretas)." if String(skill.get("source", "trainer")) == "book" else "%s se aprende con Dara, en el Gremio de Albor.") % SkillCatalog.display_name(skill), RED)
 		return
 	if int(skill["unlock_level"]) > player.level:
-		_say("%s se desbloquea en el nivel %d." % [skill["name"], int(skill["unlock_level"])], RED)
+		_say("%s se desbloquea en el nivel %d." % [SkillCatalog.display_name(skill), int(skill["unlock_level"])], RED)
 		return
 	var equipped_slot := _slot_of(id)
 	if not equipped_slot.is_empty():
 		if player.unequip(equipped_slot):
-			_say("%s retirada de %s." % [skill["name"], SLOT_NAMES[equipped_slot]], INK_SOFT)
+			_say("%s retirada de %s." % [SkillCatalog.display_name(skill), SLOT_NAMES[equipped_slot]], INK_SOFT)
 		_entries = _build_entries()
 		return
 	var target := _target_slot_for(skill)
 	if target.is_empty():
-		_say("No hay hueco donde quepa %s." % skill["name"], RED)
+		_say("No hay hueco donde quepa %s." % SkillCatalog.display_name(skill), RED)
 		return
 	var result := player.equip(target, id)
 	if result.is_empty():
-		_say("%s equipada en %s." % [skill["name"], SLOT_NAMES[target]], GREEN)
+		_say("%s equipada en %s." % [SkillCatalog.display_name(skill), SLOT_NAMES[target]], GREEN)
 		_selected_slot = ""
 	else:
 		_say("No se pudo equipar: %s." % result, RED)
@@ -311,7 +311,7 @@ func _draw_left_page(player: PlayerSim) -> void:
 	var info_y := page.position.y + 38.0
 	for slot: String in ["M1", "M2"]:
 		if player.loadout.has(slot):
-			_text("%s  %s" % [slot, String((player.loadout[slot] as Dictionary)["name"])], Vector2(page.position.x + 2.0, info_y), 7, INK)
+			_text("%s  %s" % [slot, SkillCatalog.display_name(player.loadout[slot] as Dictionary)], Vector2(page.position.x + 2.0, info_y), 7, INK)
 		info_y += 12.0
 	var mobility := player.mobility()
 	_text("MOV  %s (%.0f s)" % [String(mobility.get("name", "Esquiva")), float(mobility["cooldown"])], Vector2(page.position.x + 2.0, info_y), 7, GREEN)
@@ -332,7 +332,7 @@ func _draw_slot_row(index: int, slot: String, player: PlayerSim) -> void:
 		var icon := SkillIcons.texture(String(skill["id"]))
 		if icon != null:
 			draw_texture_rect(icon, Rect2(rect.position + Vector2(20, 3), Vector2(22, 22)), false)
-		_text(String(skill["name"]), rect.position + Vector2(46, 12), 7, INK, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 48.0)
+		_text(String(SkillCatalog.display_name(skill)), rect.position + Vector2(46, 12), 7, INK, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 48.0)
 		var cost := "%d" % int(skill.get("cost", 0.0)) if float(skill.get("cost", 0.0)) > 0.0 else "libre"
 		_text(cost, rect.position + Vector2(46, 24), 7, GOLD)
 	else:
@@ -380,7 +380,7 @@ func _draw_entry_row(index: int, skill: Dictionary, player: PlayerSim) -> void:
 	var icon := SkillIcons.texture(String(skill["id"]))
 	if icon != null:
 		draw_texture_rect(icon, Rect2(rect.position + Vector2(1, 0), Vector2(13, 13)), false, Color(1, 1, 1, 0.45 if dim else 1.0))
-	_text(String(skill["name"]), rect.position + Vector2(17, 10), 7, color, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 17.0 - (30.0 if tag != "" else 0.0))
+	_text(String(SkillCatalog.display_name(skill)), rect.position + Vector2(17, 10), 7, color, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 17.0 - (30.0 if tag != "" else 0.0))
 	_text(tag, rect.position + Vector2(0, 10), 7, color, HORIZONTAL_ALIGNMENT_RIGHT, rect.size.x - 1.0)
 
 

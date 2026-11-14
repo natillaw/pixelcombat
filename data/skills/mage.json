@@ -40,7 +40,9 @@
 			},
 			"anim": "spellcast",
 			"unlock_level": 1,
-			"spark_mult": 0.25
+			"spark_mult": 0.25,
+			"display_name": "Rayo arcano",
+			"hud_label_es": "RAYO"
 		},
 		{
 			"kind": "basic",
@@ -93,7 +95,9 @@
 			},
 			"anim": "spellcast",
 			"unlock_level": 1,
-			"spark_mult": 0.25
+			"spark_mult": 0.25,
+			"display_name": "Explosion arcana cargada",
+			"hud_label_es": "ESTALLIDO"
 		},
 		{
 			"kind": "skill",
@@ -144,7 +148,9 @@
 					"duration": 3.0,
 					"strength": 5.0
 				}
-			]
+			],
+			"display_name": "Bola de fuego",
+			"hud_label_es": "FUEGO"
 		},
 		{
 			"kind": "skill",
@@ -179,7 +185,9 @@
 			"anim": "spellcast",
 			"unlock_level": 5,
 			"world": true,
-			"source": "book"
+			"source": "book",
+			"display_name": "Explosion arcana",
+			"hud_label_es": "EXPLOSION"
 		},
 		{
 			"kind": "special",
@@ -217,7 +225,9 @@
 			"unlock_level": 4,
 			"retired": true,
 			"world": true,
-			"legacy_special": true
+			"legacy_special": true,
+			"display_name": "Sobrecarga arcana",
+			"hud_label_es": "SOBRECARGA"
 		},
 		{
 			"kind": "ultimate",
@@ -256,7 +266,9 @@
 				"recovery": 0.3
 			},
 			"anim": "spellcast",
-			"unlock_level": 6
+			"unlock_level": 6,
+			"display_name": "Cataclismo",
+			"hud_label_es": "CATACLISMO"
 		},
 		{
 			"kind": "skill",
@@ -302,7 +314,9 @@
 			"bonus_vs": {
 				"status": "slow",
 				"mult": 2.0
-			}
+			},
+			"display_name": "Lanza de hielo",
+			"hud_label_es": "LANZA"
 		},
 		{
 			"kind": "skill",
@@ -342,7 +356,9 @@
 				"recovery": 0.4
 			},
 			"anim": "spellcast",
-			"unlock_level": 4
+			"unlock_level": 4,
+			"display_name": "Nova de escarcha",
+			"hud_label_es": "NOVA"
 		},
 		{
 			"id": "arcane_orb",
@@ -389,7 +405,9 @@
 					"duration": 2.0,
 					"strength": 0.3
 				}
-			]
+			],
+			"display_name": "Orbe arcano",
+			"hud_label_es": "ORBE"
 		},
 		{
 			"id": "meteor",
@@ -433,7 +451,9 @@
 					"duration": 3.0,
 					"strength": 6.0
 				}
-			]
+			],
+			"display_name": "Meteoro",
+			"hud_label_es": "METEORO"
 		},
 		{
 			"id": "mana_shield",
@@ -471,7 +491,148 @@
 				"id": "manashield",
 				"duration": 6.0,
 				"strength": 0.6
-			}
+			},
+			"display_name": "Escudo de mana",
+			"hud_label_es": "ESCUDO"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "MISILES",
+			"shape": "projectile",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "arcane_missiles",
+			"name": "Arcane Missiles",
+			"role": "Dano multiple",
+			"description": "Tres proyectiles arcanos en abanico estrecho.",
+			"slot": "S",
+			"cost": 28,
+			"cooldown": 8,
+			"damage_mult": 0.9,
+			"unlock_level": 6,
+			"windup": 0.3,
+			"recovery": 0.3,
+			"projectile": {
+				"speed": 380,
+				"range": 330,
+				"radius": 6,
+				"count": 3,
+				"spread": 12,
+				"pierce": 0,
+				"visual": "orb"
+			},
+			"anim": "spellcast",
+			"damage_type": "magic",
+			"class": "mage",
+			"display_name": "Proyectiles arcanos",
+			"hud_label_es": "MISILES"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "OLA",
+			"shape": "cone",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "flame_wave",
+			"name": "Flame Wave",
+			"role": "Dano / area",
+			"description": "Abanico de llamas frente a ti: dana y quema 3 s a todo lo que alcance.",
+			"slot": "S",
+			"cost": 30,
+			"cooldown": 9,
+			"damage_mult": 1.3,
+			"unlock_level": 5,
+			"windup": 0.3,
+			"recovery": 0.35,
+			"range": 110,
+			"arc": 110,
+			"telegraph": true,
+			"on_hit": [
+				{
+					"id": "burn",
+					"duration": 3.0,
+					"strength": 5.0
+				}
+			],
+			"anim": "spellcast",
+			"damage_type": "magic",
+			"class": "mage",
+			"display_name": "Ola de fuego",
+			"hud_label_es": "OLA"
+		},
+		{
+			"kind": "skill",
+			"max_targets": 0,
+			"resource_gain": 0,
+			"resource_cap": 0,
+			"ult_gain": 3,
+			"ult_cap": 9,
+			"implemented": true,
+			"world": true,
+			"hud_label": "POZO",
+			"shape": "circle",
+			"active": 0.05,
+			"move": {
+				"windup": 0.4,
+				"active": 0.3,
+				"recovery": 0.5
+			},
+			"id": "gravity_well",
+			"name": "Gravity Well",
+			"role": "Control de zona",
+			"description": "Un pozo a distancia que frena y hiere a los enemigos durante 5 s.",
+			"slot": "S",
+			"cost": 32,
+			"cooldown": 15,
+			"damage_mult": 0.4,
+			"unlock_level": 9,
+			"windup": 0.35,
+			"recovery": 0.3,
+			"range": 64,
+			"anchor": "aim_point",
+			"point_distance": 220,
+			"telegraph": true,
+			"zone": {
+				"radius": 64,
+				"duration": 5.0,
+				"tick": 0.5,
+				"damage_mult": 0.3,
+				"visual": "dark",
+				"status": [
+					{
+						"id": "slow",
+						"duration": 1.2,
+						"strength": 0.5
+					}
+				]
+			},
+			"anim": "spellcast",
+			"damage_type": "magic",
+			"class": "mage",
+			"display_name": "Pozo de gravedad",
+			"hud_label_es": "POZO"
 		}
 	]
 }

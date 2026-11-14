@@ -71,6 +71,16 @@ static var _loaded: bool = false
 
 
 ## Copia profunda de una skill, o {} si no existe.
+## Nombre para mostrar (espanol); `name` en ingles se conserva porque lo usan datos y pruebas.
+static func display_name(skill: Dictionary) -> String:
+	return String(skill.get("display_name", skill.get("name", "")))
+
+
+## Etiqueta corta del HUD (espanol si la hay).
+static func hud_label(skill: Dictionary, fallback: String = "") -> String:
+	return String(skill.get("hud_label_es", skill.get("hud_label", fallback)))
+
+
 static func skill(id: StringName) -> Dictionary:
 	_ensure_loaded()
 	if not _skills.has(id):
