@@ -29,6 +29,8 @@ var _replan_ticks: int = 0
 ## Bordes de lo desconocido ya alcanzados sin descubrir nada (huecos que no se ven): no se vuelven a buscar.
 var _dead_frontier: Dictionary = {}
 var _path_goal: int = -1
+var _bad_escapes: Array[Vector2] = []
+var _escape_origin: Vector2 = Vector2.INF
 var _path_goal_frontier: bool = false
 ## Hay que descubrir lo que se ve antes de planificar (piso nuevo).
 var _force_reveal: bool = true
@@ -314,7 +316,7 @@ func _explore_direction(world: CombatWorld, player: PlayerSim) -> Vector2:
 	if _path.is_empty() or _replan_ticks <= 0:
 		_plan(world, player)
 		_replan_ticks = 20
-	while not _path.is_empty() and player.position.distance_to(_path[0]) < 20.0:
+	while not _path.is_empty() and (player.position.distance_to(_path[0]) < 20.0 or _waypoint_covered(world, player, _path[0])):
 		_path.remove_at(0)
 	if _path.is_empty():
 		if _path_goal >= 0 and _path_goal_frontier:
@@ -323,6 +325,18 @@ func _explore_direction(world: CombatWorld, player: PlayerSim) -> Vector2:
 		_replan_ticks = 0
 		return Vector2.ZERO
 	return (_path[0] - player.position).normalized()
+
+
+## El punto de paso queda dentro de un obstaculo (un cofre abierto, una hoguera) y el cuerpo ya esta pegado a el: no hay
+## forma de llegar a menos de 20 px, asi que se da por alcanzado y se sigue con el siguiente.
+func _waypoint_covered(world: CombatWorld, player: PlayerSim, point: Vector2) -> bool:
+	if player.position.distance_to(point) > 48.0:
+		return false
+	for obstacle: Dictionary in world.obstacles:
+		var center: Vector2 = obstacle["position"]
+		if center.distance_to(point) < float(obstacle["radius"]) + PlayerSim.RADIUS:
+			return true
+	return false
 
 
 ## BFS desde el jugador por casillas conocidas hasta lo mas cercano de: botin visto, enemigo visto o borde de lo desconocido.
@@ -481,15 +495,29 @@ func _goal(world: CombatWorld) -> Variant:
 ## De varias direcciones alternativas, la que mas desplaza al jugador tras resolver las colisiones (la mejor salida
 ## de un hueco entre un arbol y un muro).
 func _best_escape(world: CombatWorld, player: PlayerSim, blocked: Vector2) -> Vector2:
+	# Las salidas que ya se probaron desde este mismo sitio y no movieron al cuerpo no se repiten (la sonda de colision
+	# a veces da por buena una direccion empotrada entre un muro y un obstaculo).
+	if player.position.distance_to(_escape_origin) > 40.0:
+		_bad_escapes.clear()
+		_escape_origin = player.position
 	var best := blocked.rotated(PI * 0.5)
-	var best_gain := -1.0
-	for angle: float in [PI * 0.5, -PI * 0.5, PI * 0.75, -PI * 0.75, PI, PI * 0.25, -PI * 0.25]:
+	var best_gain := -INF
+	for angle: float in [PI * 0.5, -PI * 0.5, PI * 0.75, -PI * 0.75, PI, PI * 0.25, -PI * 0.25, 0.0]:
 		var candidate := blocked.rotated(angle)
-		var moved := world.resolve_position(player.position + candidate * 24.0, PlayerSim.RADIUS)
-		var gain := moved.distance_to(player.position)
+		var repeated := false
+		for bad: Vector2 in _bad_escapes:
+			if bad.dot(candidate) > 0.9:
+				repeated = true
+		if repeated:
+			continue
+		var moved := world.swept_position(player.position, player.position + candidate * 24.0, PlayerSim.RADIUS)
+		var gain := (moved - player.position).dot(candidate)
 		if gain > best_gain:
 			best_gain = gain
 			best = candidate
+	_bad_escapes.append(best)
+	if _bad_escapes.size() > 7:
+		_bad_escapes.clear()
 	return best
 
 
