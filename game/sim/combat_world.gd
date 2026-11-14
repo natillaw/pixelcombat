@@ -643,6 +643,23 @@ func submit_opponent_input(opponent: Object, message: Object) -> void:
 
 ## Empuja `desired` fuera de limites, obstaculos, muñecos y enemigos vivos.
 ## `ignore` es quien se mueve (para no chocar consigo mismo).
+## Desplazamiento instantaneo (empuje) sin atravesar muros finos: avanza en pasos cortos y se detiene donde el
+## obstaculo lo frena (antes un empuje largo podia dejar al personaje al otro lado de una fila de arboles, en una bolsa cerrada).
+func swept_position(from: Vector2, desired: Vector2, radius: float, ignore: Object = null) -> Vector2:
+	var total := from.distance_to(desired)
+	if total <= 8.0:
+		return resolve_position(desired, radius, ignore)
+	var steps := int(ceil(total / 8.0))
+	var current := from
+	for index: int in range(1, steps + 1):
+		var target := from.lerp(desired, float(index) / float(steps))
+		var resolved := resolve_position(target, radius, ignore)
+		if resolved.distance_to(target) > 3.0:
+			return resolved if resolved.distance_to(current) < 12.0 else current
+		current = resolved
+	return current
+
+
 func resolve_position(desired: Vector2, radius: float, ignore: Object = null) -> Vector2:
 	var pos := desired
 	pos.x = clampf(pos.x, bounds.position.x + radius, bounds.end.x - radius)

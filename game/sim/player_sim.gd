@@ -740,7 +740,7 @@ func push_from(source: Vector2, distance: float) -> void:
 	if distance < 0.0:
 		# Atraer: sin pasar de largo del origen.
 		distance = -minf(-distance, maxf(away.length() - RADIUS - 8.0, 0.0))
-	position = world.resolve_position(position + away.normalized() * distance, RADIUS) if world != null else position + away.normalized() * distance
+	position = world.swept_position(position, position + away.normalized() * distance, RADIUS) if world != null else position + away.normalized() * distance
 	velocity = Vector2.ZERO
 
 

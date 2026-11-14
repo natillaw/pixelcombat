@@ -17,6 +17,7 @@ func _init() -> void:
 	_test_files_and_maps()
 	_test_content()
 	_test_variation()
+	_test_push_does_not_tunnel()
 	_test_procedural_still_available()
 	print("== %d checks, %d failed ==" % [_checks, _failures])
 	print("RESULT: %s" % ("PASS" if _failures == 0 else "FAIL"))
@@ -103,6 +104,21 @@ func _test_variation() -> void:
 	for visit: int in range(1, 5):
 		same_terrain = same_terrain and TowerGenerator.generate(5, 20261110, visit).grid.cols == TowerGenerator.generate(5, 99, 1).grid.cols
 	_check(same_terrain, "el terreno es el mismo con cualquier semilla (piso a mano)")
+
+
+func _test_push_does_not_tunnel() -> void:
+	# Un empuje largo no debe dejar al personaje al otro lado de una fila fina de muros (quedaba en una bolsa cerrada).
+	var world := CombatWorld.new(1)
+	var cols := 20
+	var rows := 9
+	var grid := TileGrid.new(cols, rows, TileGrid.FLOOR)
+	for r: int in range(rows):
+		grid.set_cell(10, r, TileGrid.WALL)
+	world.grid = grid
+	world.bounds = Rect2(0, 0, cols * TileGrid.TILE, rows * TileGrid.TILE)
+	var from := grid.cell_center(7, 4)
+	var landed := world.swept_position(from, from + Vector2(260.0, 0.0), 14.0)
+	_check(landed.x < 10.0 * TileGrid.TILE, "un empuje de 260 px no atraviesa un muro de una casilla (x=%.0f)" % landed.x)
 
 
 func _test_procedural_still_available() -> void:

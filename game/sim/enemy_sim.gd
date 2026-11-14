@@ -564,7 +564,7 @@ func push_from(source: Vector2, distance: float) -> void:
 	if away.length_squared() < 0.0001:
 		away = -facing
 	var desired := position + away.normalized() * distance
-	position = world.resolve_position(desired, radius, self) if world != null else desired
+	position = world.swept_position(position, desired, radius, self) if world != null else desired
 
 
 ## Dano continuo (veneno): si mata, la XP es del jugador.
